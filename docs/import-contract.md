@@ -2,6 +2,32 @@
 
 Authority: approved Phase 0 **Database & Import Specification v1.0**, including its reviewed Questions.xlsx mapping. The workbook itself was not supplied for this milestone; the source reports one worksheet, 100 data rows, 22 named columns, and an unnamed trailing column. The list below expands grouped headers from that source; it does not assert a verified physical column order.
 
+## Active contract: Milestone 2.3B
+
+Language clarification: when row and batch language are both absent, the importer
+infers en/bn from question/options Unicode scripts, displays a preview warning,
+and records the result in audit. Ambiguous or unsupported text still needs an
+explicit supported language. See the current import guide for precedence.
+
+The latest unified-import request supersedes earlier single-paper and duplicate
+scope rules below. Only question_number, question_text, and option_a/b/c/d headers
+are required; all other supported headers are optional. Missing subject/language/
+answer may be corrected in preview, but confirmation still requires a resolved
+Subject, en/bn and A/B/C/D. Row Subject/Topic override explicitly selected batch
+defaults. No answer/language/classification is invented.
+
+Previous Year mode uses one selected Exam, required Year and optional Stage,
+creating/reusing a draft paper with default name Previous Year Paper. Its source
+exam_categories and previous_year_tags are metadata only. General mode requires
+multiple-capable Exam selection, has no paper/year/stage, and explicitly chooses
+selected exams or row categories with selected fallback. Row categories resolve
+unambiguously against existing Exams. Numbers are batch-local in General mode;
+Previous Year also checks existing paper numbers. File duplicates are scoped to
+canonical import context, not globally. See [current import guide](import-guide.md)
+and D21 in [decisions](decisions.md) for the authoritative operational rules. The
+Phase 0 workflow/gap sections retained below are historical context when they
+conflict with this section.
+
 ## Canonical 22 named columns
 
 | # | Header | Model mapping / handling |
@@ -23,7 +49,7 @@ Authority: approved Phase 0 **Database & Import Specification v1.0**, including 
 | 15 | `source_document` | QuestionSource.source_document / source association |
 | 16 | `review_status` | Preserve as source metadata; numeric values are not review states |
 | 17 | `source_page` | QuestionSourceReference.source_page |
-| 18 | `verification_notes` | Recognized `pending_review`/`reviewed` values map to Question.review_status |
+| 18 | `verification_notes` | Source review metadata only; Milestone 2.3 supersedes the earlier status mapping; never auto-approves |
 | 19 | `comments` | Import review metadata |
 | 20 | `created_date` | Source metadata, never the system created_at timestamp |
 | 21 | `updated_date` | Source metadata, never the system updated_at timestamp |
@@ -56,5 +82,7 @@ ImportBatch tracks uploader, filename, file_sha256, mapping_version, status, row
 Use file hashes and source-scoped identifiers to prevent accidental repeat imports. External IDs are unique within their defined source scope, not globally. Detect repeated rows and possible duplicate content; do not silently merge similar questions. The exact source scope, content fingerprint rules, repeated-file behavior, and row action semantics require approval before implementation.
 
 ## Missing contract details
+
+Milestone 2.3 resolves the first-release behavior in [import guide](import-guide.md) and D20 in [decisions](decisions.md). Selected Exam/Paper is authoritative, source-scoped identity remains deferred, and verification_notes never changes editorial review state. The original Phase 0 gap list below is historical context; operational rules now specified in the guide take precedence.
 
 The approved review does not define header/order normalization, multi-value delimiters, alias catalogue, maximum file/row sizes, exact required-cell/blank-option rules, unknown verification_notes handling, source_name derivation, source-ID ingestion, date parsing, paper order derivation, or metadata size limits/storage schema. The workbook is needed to independently verify physical header order and sample values. These gaps must be settled before implementing their respective parser/confirmation behavior; no new rules are assumed here.

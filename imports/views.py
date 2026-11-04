@@ -9,7 +9,8 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.cache import never_cache
 from django.views.decorators.http import require_http_methods, require_POST
 
-from exams.models import Subject, Topic
+from exams.models import Exam, ExamStage, Subject, Topic
+from previous_year.models import PreviousYearPaper
 from . import staging
 from .forms import UploadForm
 from .models import ImportBatch
@@ -17,6 +18,7 @@ from .parsing import COLUMNS, MAX_CELL, parse_upload
 from .permissions import require_import_permission
 from .services import confirm_import
 from .validation import map_key, normalized, validate
+from .context import mode
 
 
 def importer(view):
@@ -40,6 +42,7 @@ def upload(request):
     if request.method == "POST" and form.is_valid():
         try:
             parsed = parse_upload(form.cleaned_data["file"], form.cleaned_data["worksheet"].strip())
+            require_import_permission(request.user, form.cleaned_data["import_type"])
             for row in parsed["rows"]:
                 row["original_values"] = dict(row["values"])
             data = staging.create(request.user, {**parsed, "selection": form.selection(), "subject_map": {}, "topic_map": {}})
@@ -47,13 +50,20 @@ def upload(request):
             form.add_error(None, "; ".join(error.messages))
         else:
             return redirect("imports:preview", token=data["token"])
-    return render(request, "imports/upload.html", {"form": form})
+    catalogue = {
+        "exams": list(Exam.objects.values("id", "authority_id")),
+        "stages": list(ExamStage.objects.values("id", "exam_id")),
+        "papers": list(PreviousYearPaper.objects.filter(is_published=False).values("id", "exam_id")),
+        "topics": list(Topic.objects.values("id", "subject_id")),
+    }
+    return render(request, "imports/upload.html", {"form": form, "catalogue": catalogue})
 
 
 def edit_page(request, data):
     # Only the explicit server-selected page is editable; browser-supplied row
     # IDs cannot move/create rows or change source-row identity.
     page = Paginator(data["rows"], 25).get_page(request.POST.get("page", "1"))
+    data["selection"]["acknowledge_existing"] = request.POST.get("acknowledge_existing") == "on"
     start = page.start_index() - 1
     for index in range(start, start + len(page.object_list)):
         values = data["rows"][index]["values"]
@@ -73,7 +83,10 @@ def edit_page(request, data):
         values = row["values"]
         for kind, value in (("subject", values["subject"]), ("topic", values["subject"] + " / " + values["topic"])):
             posted = request.POST.get(f"{kind}map_{map_key(value)}")
-            if posted:
+            if posted is not None:
+                if not posted:
+                    data[f"{kind}_map"].pop(normalized(value), None)
+                    continue
                 if not posted.isdigit():
                     raise ValidationError("Invalid taxonomy mapping.")
                 data[f"{kind}_map"][normalized(value)] = int(posted)
@@ -95,6 +108,7 @@ def preview(request, token):
             staging.save(data)
     else:
         data = staging.load(token, request.user)
+    require_import_permission(request.user, mode(data))
     result = validate(data)
     rows = result["rows"]
     query = request.GET.get("q", "").strip().casefold()

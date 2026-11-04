@@ -1,18 +1,32 @@
 <div class="module-grid">
   <article class="module-card featured-card">
-    <div class="card-top"><span class="module-icon" aria-hidden="true">▤</span><span class="badge badge-live">Available now</span></div>
+    <div class="card-top"><span class="module-icon"
+                                aria-hidden="true">▤</span><span class="badge badge-live">Available now</span></div>
     <h3>Previous Year Questions &amp; Solutions</h3>
     <p>Get to know your exam. Explore original papers, clear answers, and explanations at your own pace.</p>
-    {% if exam %}<a class="button button-primary" href="{% url 'previous_year:paper_list' exam.authority.slug exam.slug %}">Explore Papers <span aria-hidden="true">→</span></a>{% else %}<a class="button button-primary" href="{% url 'previous_year:index' %}">Explore Papers <span aria-hidden="true">→</span></a>{% endif %}
+    {% if exam %}<a class="button button-primary"
+                    href="{% url 'previous_year:paper_list' exam.authority.slug exam.slug %}">Explore Papers <span aria-hidden="true">→</span></a>{% else %}<a class="button button-primary" href="{% url 'previous_year:index' %}">Explore Papers <span aria-hidden="true">→</span></a>{% endif %}
   </article>
   <article class="module-card">
-    <div class="card-top"><span class="module-icon" aria-hidden="true">◷</span><span class="badge">Coming Soon</span></div>
-    <h3>Mock Tests</h3><p>A place to put your preparation into practice with timed tests. This module is in preparation.</p>
+    <div class="card-top"><span class="module-icon"
+                                aria-hidden="true">▤</span><span class="badge badge-live">Available now(ADMIN)</span></div>
+    <h3>General Questions &amp; Solutions</h3>
+    <p>Browse published question collections by exam, subject, topic, and language.</p>
+    <a class="text-link"
+       href="{% url 'general_questions:index' %}{% if exam %}?exam={{ exam.pk }}{% endif %}">Explore General Questions →</a>
+  </article>
+  <article class="module-card">
+    <div class="card-top"><span class="module-icon"
+                                aria-hidden="true">◷</span><span class="badge">Coming Soon</span></div>
+    <h3>Mock Tests</h3>
+    <p>A place to put your preparation into practice with timed tests. This module is in preparation.</p>
     <a class="text-link" href="{% url 'mock_tests:index' %}">About Mock Tests <span aria-hidden="true">→</span></a>
   </article>
   <article class="module-card">
-    <div class="card-top"><span class="module-icon" aria-hidden="true">✎</span><span class="badge">Coming Soon</span></div>
-    <h3>Practice Sets</h3><p>Build understanding one subject at a time. Focused practice sets are coming in a future release.</p>
+    <div class="card-top"><span class="module-icon"
+                                aria-hidden="true">✎</span><span class="badge">Coming Soon</span></div>
+    <h3>Practice Sets</h3>
+    <p>Build understanding one subject at a time. Focused practice sets are coming in a future release.</p>
     <a class="text-link" href="{% url 'practice:index' %}">About Practice Sets <span aria-hidden="true">→</span></a>
   </article>
 </div>

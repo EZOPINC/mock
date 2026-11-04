@@ -1,1 +1,21 @@
-<footer class="site-footer"><div class="footer-grid"><div><a class="footer-brand" href="{% url 'home' %}">Mock Exam Platform<span class="accent">.</span></a><p>A focused place for competitive exam preparation.<br>Explore, understand, and keep moving forward.</p></div><div><h2>Explore</h2><a href="{% url 'exams:authorities' %}">Exam Authorities</a><a href="{% url 'previous_year:index' %}">Previous Year Papers</a></div><div><h2>Your preparation</h2><a href="{% url 'mock_tests:index' %}">Mock Tests &middot; Coming Soon</a><a href="{% url 'practice:index' %}">Practice Sets &middot; Coming Soon</a></div><div><h2>Get in touch</h2><p>Contact details will be available here.</p></div></div><div class="footer-bottom"><span>&copy; {% now "Y" %} Mock Exam Platform</span><span>Built for thoughtful preparation.</span></div></footer>
+<footer class="site-footer">
+    <div class="footer-grid">
+        <div><a class="footer-brand" href="{% url 'home' %}">Mock Exam Platform<span class="accent">.</span></a>
+            <p>A focused place for competitive exam preparation.<br>Explore, understand, and keep moving forward.</p>
+        </div>
+        <div>
+            <h2>Explore</h2><a href="{% url 'exams:authorities' %}">Exam Authorities</a><a
+                href="{% url 'previous_year:index' %}">Previous Year Papers</a>
+        </div>
+        <div>
+            <h2>Your preparation</h2><a href="{% url 'mock_tests:index' %}">Mock Tests &middot; Coming Soon</a><a
+                href="{% url 'practice:index' %}">Practice Sets &middot; Coming Soon</a>
+        </div>
+        <div>
+            <h2>Get in touch</h2>
+            <p>Contact details will be available here.</p>
+        </div>
+    </div>
+    <div class="footer-bottom"><span>&copy; {% now "Y" %} Mock Exam Platform</span><span>Built for thoughtful
+            preparation.</span></div>
+</footer>

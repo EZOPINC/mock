@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block title %}Manage General Questions | Mock Exam Platform{% endblock %}
+{% block content %}
+{% include "components/page_heading.html" with eyebrow="STAFF ADMINISTRATION" heading="Manage General Question imports" description="Import a whole workbook, inspect the collection, then review and publish the batch without selecting individual questions." %}
+<div class="button-row"><a class="button button-primary" href="{% url 'imports:upload' %}">Import CSV/XLSX questions</a><a class="button button-secondary" href="{% url 'general_questions:index' %}">Public General Questions</a></div>
+<div class="discovery-grid">{% for batch in page %}<article class="discovery-card"><h2>Batch #{{ batch.pk }}</h2><p>{{ batch.filename }}</p><p>{{ batch.question_count }} questions · {{ batch.confirmed_at|date:"F j, Y" }}</p><a href="{% url 'general_questions:manage_batch' batch.pk %}">Inspect, review &amp; publish batch →</a></article>{% empty %}<p>No completed General Question Bank imports yet. Use the import link and choose General Question Bank.</p>{% endfor %}</div>
+{% include "general_question/pagination.html" %}
+{% endblock %}

@@ -1,5 +1,9 @@
 # Mock Exam Platform — Milestone 1.2
 
+The unified Previous Year / General Question Bank CSV/XLSX import workflow is available at `/admin/question-import/`.
+See [import guide](docs/import-guide.md) for permissions, the 22-column contract,
+preview corrections, confirmation, cleanup, and explicit review/publication steps.
+
 Modular Django monolith using Django 5.2 LTS, PostgreSQL, Django Templates,
 HTML and CSS. Python 3.12+ and PostgreSQL 14+ are required. No domain models
 are implemented beyond `accounts.User` (extends `AbstractUser`).

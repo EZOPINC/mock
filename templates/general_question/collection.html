@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}General Collection {{ batch.pk }} | Mock Exam Platform{% endblock %}
+{% block content %}
+<nav class="breadcrumbs" aria-label="Breadcrumb"><a href="{% url 'home' %}">Home</a><span>/</span><a href="{% url 'general_questions:index' %}">General Questions</a><span>/</span><span aria-current="page">Collection #{{ batch.pk }}</span></nav>
+<h1>General Questions — Collection #{{ batch.pk }}</h1>
+{% include "general_question/filters.html" %}
+<p class="muted">{{ page.paginator.count }} published question{{ page.paginator.count|pluralize }} match your filters.</p>
+{% for question in page %}{% include "general_question/solution.html" with revision=question.published_revision %}{% empty %}<p>No published questions match these filters.</p>{% endfor %}
+{% include "general_question/pagination.html" %}
+<p><a href="{% url 'general_questions:index' %}">← Back to General Questions</a></p>
+{% endblock %}

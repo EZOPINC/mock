@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Manage General Batch {{ batch.pk }} | Mock Exam Platform{% endblock %}
+{% block content %}
+<p><a href="{% url 'general_questions:manage' %}">← All General imports</a></p>
+<h1>General Batch #{{ batch.pk }}</h1><p>{{ batch.filename }} · {{ total }} questions</p>
+<p class="message">Inspect all pages before marking this batch reviewed. Publishing is a separate action and requires every current revision to be reviewed. Each action applies to the entire batch and rolls back if any question fails validation.</p>
+<form method="post">{% csrf_token %}<input type="hidden" name="snapshot" value="{{ snapshot }}"><div class="button-row"><button type="submit" name="action" value="review">Mark all {{ total }} questions reviewed</button><button type="submit" name="action" value="publish">Publish all {{ total }} reviewed questions</button></div></form>
+{% for question in page %}<p><a href="{% url 'admin:questions_question_change' question.pk %}">Question {{ question.pk }} in Admin</a> · {{ question.review_status }} · {{ question.publication_status }} · Working revision {{ question.current_revision.revision_number }}</p>{% if question.current_revision %}{% include "general_question/solution.html" with revision=question.current_revision %}{% else %}<p class="form-errors">No working revision. Publication will be rejected.</p>{% endif %}{% endfor %}
+{% include "general_question/pagination.html" %}
+{% endblock %}

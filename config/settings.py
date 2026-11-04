@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "questions.apps.QuestionsConfig",
     "imports.apps.ImportsConfig",
     "previous_year.apps.PreviousYearConfig",
+    "general_question.apps.GeneralQuestionConfig",
     "mock_tests.apps.MockTestsConfig",
     "practice.apps.PracticeConfig",
 ]

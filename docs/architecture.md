@@ -17,7 +17,7 @@ A modular Django monolith uses the Django ORM and one PostgreSQL UTF-8 database 
 | `mock_tests` | Versioned patterns and sections, timed attempts, saved answers and scoring |
 | `practice` | Filtered sessions, saved responses, immediate feedback and progress |
 
-`config` holds project configuration and entry points; it is not a ninth domain app.
+`config` holds project configuration and entry points; it is not a domain app.
 
 ## Navigation and access
 
@@ -50,6 +50,8 @@ Implemented in Milestone 2.2: `current_revision` is the working pointer; the add
 
 ## Milestone 1.1 implementation inspected
 
+Milestone 2.3 supersedes the import deferral for the single-paper administrative CSV/XLSX workflow. It adds private expiring preview staging, explicit alias/taxonomy resolution, transactional draft import, and batch/row audit models. A narrow internal draft-paper association option is used only during import; review, question publication, paper publication, and public visibility remain separate and validated. Source-scoped deduplication remains deferred. See [import guide](import-guide.md) and D20 in [decisions](decisions.md).
+
 Later implementation status: Milestone 3.1 adds paper administration, transactional publication/unpublication, and public year-grouped paper lists and solutions. Paper associations preserve historical published revisions; new associations require the approved live revision and matching exam membership. Published papers must be unpublished before editing. Exam detail now links to its scoped paper list. Imports and source-scoped deduplication are deferred until the core application is usable (D19); see [decisions](decisions.md) for paper identity and duplicate-question enforcement (D18). The original Milestone 1.1 snapshot below remains historical context.
 
 All eight apps are installed. Only `accounts.User` and its initial migration are implemented as application models; six domain apps remain skeletons. `core` supplies home and health views. Django Admin, authentication/session/CSRF middleware, shared templates, static CSS, ASGI/WSGI entry points, password validators, environment configuration, and timezone-aware timestamps are configured. Timezone defaults to UTC; debug defaults to false; session and CSRF cookies require HTTPS when debug is false.
@@ -57,3 +59,34 @@ All eight apps are installed. Only `accounts.User` and its initial migration are
 Existing nine tests cover PostgreSQL, home/health, health failure, the custom user, password hashing, admin login/session/access, and CSRF. The target domain workflows above are not yet implemented. No functionality is added by Milestone 1.1A.
 
 See [database design](database-design.md) and [decisions](decisions.md). Approved boundaries exclude OCR/PDF extraction, difficulty functionality, payments/subscriptions, advanced analytics, translation grouping, React, DRF, Redis, Celery, Docker, and microservices.
+
+
+## Unified import (Milestone 2.3B)
+
+User-approved General Questions module: `general_question.views` provides public
+General import collections/solutions and staff-only whole-batch review/publication.
+It reuses ImportBatch and existing Question services. The dedicated
+`general_question` app now owns this module, with an admin-only batch proxy. Published-only browsing supports exam/subject/topic/language filters.
+Signed snapshots, CSRF, permissions and atomic row-locked services protect the
+separate whole-batch Review and Publish actions. See [import guide](import-guide.md).
+
+The administrative import interface now requires Previous Year Questions or
+General Question Bank mode. It shares bounded parsing, private expiring staging,
+editable preview and transactional confirmation. Previous Year imports use one
+exam/year and optional stage with draft-paper creation/reuse. General imports use
+selected exams or explicitly resolved row exams, without paper records. Batch
+taxonomy/language defaults fill missing row values only. Incomplete subject,
+language or answer blocks confirmation; publication/immutability services remain
+unchanged. D21 supersedes earlier single-paper/global-file-hash import rules; see
+[import guide](import-guide.md).
+
+
+## Dedicated General Questions app (2026-11-04)
+
+At the user's explicit request, general_question is a ninth domain app alongside
+previous_year. It owns General collection browsing, filters, templates, tests and
+whole-batch review/publication services. The GeneralQuestionBatch proxy over
+ImportBatch provides a distinct Django Admin module without copying records or
+creating a new data table. Its migration adds proxy-model metadata/permissions
+only. Existing URLs and the general_questions namespace remain unchanged;
+Question and QuestionRevision remain solely in the central questions app.

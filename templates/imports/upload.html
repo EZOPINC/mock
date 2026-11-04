@@ -1,8 +1,14 @@
-{% extends "base.html" %}
+{% extends "imports/base.html" %}
+{% load static %}
 {% block title %}Question Bank Import | Mock Exam Platform{% endblock %}
 {% block content %}
 <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="{% url 'admin:index' %}">Administration</a><span>/</span><span aria-current="page">Question Bank Import</span></nav>
 {% include "components/page_heading.html" with eyebrow="ADMINISTRATION · STEP 1 OF 3" heading="Import questions, with confidence." description="Upload, map, and preview before saving. Questions and papers remain drafts until you explicitly review and publish them." %}
-<div class="message">CSV must be UTF-8. XLSX: select a worksheet when there is more than one. Limits: 5 MB, 2000 rows. No formulas or macros. An existing paper must be unpublished.</div>
-<form class="import-upload" method="post" enctype="multipart/form-data">{% csrf_token %}{% include "components/form_fields.html" %}<div class="button-row"><button type="submit">Validate &amp; Preview →</button><a class="button button-secondary" href="{% url 'admin:questions_question_changelist' %}">Back to Question Bank</a></div></form>
+<div class="message">Choose an Import Type first. Previous Year requires one Exam and Year. General Question Bank requires one or more Exams and never creates a paper. All imports remain draft and pending review. Limits: 5 MB, 2000 rows; UTF-8 CSV or plain-value XLSX.</div>
+<form class="import-upload" method="post" enctype="multipart/form-data">{% csrf_token %}
+{% if form.non_field_errors %}<div class="form-errors" role="alert">{{ form.non_field_errors }}</div>{% endif %}
+{% for field in form %}<div class="form-field" data-import-field="{{ field.name }}">{{ field.label_tag }}{% if field.field.required %}<span class="field-requirement">Required</span>{% else %}<span class="field-requirement" data-requirement="{{ field.name }}">Optional unless required for selected type</span>{% endif %}{{ field }}{% if field.help_text %}<div class="help-text" id="{{ field.auto_id }}_helptext">{{ field.help_text }}</div>{% endif %}{% if field.errors %}<div id="{{ field.auto_id }}_error" class="form-errors" role="alert">{{ field.errors }}</div>{% endif %}</div>{% endfor %}
+<div class="button-row"><button type="submit">Validate &amp; Preview →</button><a class="button button-secondary" href="{% url 'admin:questions_question_changelist' %}">Back to Question Bank</a></div></form>
+{{ catalogue|json_script:"import-catalogue" }}
+<script src="{% static 'js/import-upload.js' %}" defer></script>
 {% endblock %}

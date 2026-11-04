@@ -27,8 +27,8 @@ Notation: `PK` primary key; `FK` foreign key; `?` explicitly nullable/optional. 
 | `mock_tests.MockAttemptQuestion` | id PK, attempt FK → MockAttempt, section FK → ExamPatternSection, question_revision FK → QuestionRevision, display_order, selected_answer?, positive_marks, negative_marks, awarded_marks, answered_at? | (attempt, display_order); no repeated Question identity per attempt |
 | `practice.PracticeSession` | id PK, user FK → User, exam FK → Exam, subject? FK → Subject, topic? FK → Topic, started_at, completed_at, status | Not specified |
 | `practice.PracticeResponse` | id PK, session FK → PracticeSession, question_revision FK → QuestionRevision, display_order, selected_answer, is_correct, answered_at | No repeated Question identity per session; exact constraint not specified |
-| `imports.ImportBatch` | id PK, uploaded_by FK → User, filename, file_sha256, mapping_version, status, row_count, error_count, created_at, confirmed_at | Repeat-import prevention required; exact hash uniqueness scope not specified |
-| `imports.ImportedQuestion` | id PK, batch FK → ImportBatch, source_row_number, question FK → Question, action | Not specified |
+| `imports.ImportBatch` | id PK, uploaded_by FK → User, filename, file_sha256, context_sha256, staging_token UUID, mapping_version, status, row_count, error_count, paper? FK → PreviousYearPaper, mapping_metadata JSON, created_at, confirmed_at | (file_sha256, context_sha256); staging_token (Milestone 2.3B / D21) |
+| `imports.ImportedQuestion` | id PK, batch FK → ImportBatch, source_row_number, question FK → Question, action, source_metadata JSON (original/corrected values) | (batch, source_row_number) |
 
 ExamStage references are always optional. A Topic must match its Question's Subject, and a stage must belong to the selected exam. The source does not specify every field type, length, default, or nullability; absence of `?` here does not settle lifecycle nullability (for example submitted_at before submission).
 
@@ -116,3 +116,16 @@ erDiagram
 ## Details requiring approval before relevant implementation
 
 Source-ID scope/key and its link to source associations; exact source-metadata audit field, bounds, and schema; status/action enums for imports and practice; field types/lengths/decimal precision/defaults/nullability not given above; paper nullable-field normalization and enforcement; pattern version uniqueness and concurrent activation enforcement; exact duplicate-identity enforcement across revision rows; unspecified deletion policies. These are open implementation details, not additional approved models or constraints.
+
+
+Milestone 2.3B/D21: ImportBatch.paper is nullable for General Question Bank imports.
+Migration 0002 backfills historical context hashes and scopes file uniqueness by
+(file_sha256, context_sha256). Staging UUID remains globally unique. No Question
+Bank or Previous Year model integrity constraint is weakened; missing answer,
+subject or language blocks confirmation until explicitly resolved.
+
+
+GeneralQuestionBatch (general_question, D22) is an admin proxy for completed
+General ImportBatch records, not a separate table. Its inherited PK/fields and
+ImportedQuestion relationships point to the existing import audit records.
+Question identity/content and immutable revisions remain in questions.

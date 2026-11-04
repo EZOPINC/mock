@@ -43,6 +43,12 @@ Published paper composition/metadata is edited only after explicit unpublication
 
 ## Future changes
 
+### D20 — Import release (2026-11-04)
+
+Approved by the explicit Milestone 2.3 request, which supersedes D19's deferral for CSV/XLSX import only; source-scoped identity remains deferred. Batch-selected Exam/Paper is authoritative. Legacy review_status and verification_notes are retained as audit metadata; **neither marks a Question reviewed** (this supersedes the earlier verification_notes mapping). Preview writes no domain/audit rows; expiring private JSON staging is uploader-owned. ImportBatch/ImportedQuestion are the two new audit models; batch adds paper FK, unique staging UUID, and mapping_metadata, and row audit adds source_metadata containing bounded original/corrected values. Completed file hashes are unique globally, conservatively blocking repeat uploads without merging content. Errors block the entire transaction; content matches are warnings.
+
+Smallest integration change: PaperQuestion.save accepts an internal `_import_draft=True` option solely to associate an unpublished paper with the current pending-review revision of a new draft Question and matching QuestionExam. Normal manual association validation remains unchanged; paper publication always uses strict reviewed/published checks without this option. Public queries still exclude drafts. No previous_year schema change or revision mutation is required. Questions are later reviewed/published using existing services, followed by explicit paper publication. The operational limits, normalization rules, alias conventions, permission set, and cleanup procedure are documented in [import guide](import-guide.md).
+
 Architecture changes require explicit review and approval. Record each approved change with:
 
 | Field | Required content |
@@ -54,3 +60,77 @@ Architecture changes require explicit review and approval. Record each approved 
 | Impact | Affected apps/models/import contracts, historical integrity, compatibility, and migration needs |
 
 Unspecified details are clarification items, not implied decisions. Milestone 1.1A introduced documentation only; D17 records the later Milestone 2.2 clarification.
+
+
+## D21 - Unified import release (2026-11-04)
+
+### Later approved General Questions module (2026-11-04)
+
+The user requested a Previous Year-like module for General imported questions and
+whole-batch administration. Reuse completed General ImportBatch collections and
+existing Question Bank records; keep the eight-app monolith with no new models or
+migration. Public guest browsing at /general-questions/ shows only approved live
+revisions associated with active exams/authorities, with exam/subject/topic/language
+filters and paginated solutions. General imports remain draft by default.
+
+Permission-protected management lists all General import batches for staff with
+View import batch + Change question. Review entire batch and Publish entire batch
+are separate explicit POST operations, using existing review/publication services
+in an atomic transaction. Signed revision-state snapshots reject stale submissions;
+ordered question locks serialize transitions. Any question validation failure
+rolls back the entire batch action. Public pages omit source filenames/uploader
+and audit metadata. Previous Year publication and future test engines are unchanged.
+
+Later user-approved subject clarification (2026-11-04): a blank subject with no
+explicit mapping/batch default resolves to UnIdentified. Preview is read-only;
+confirmation creates or reuses the fallback transactionally, checking Add subject
+permission for creation. Code/slug collisions and ambiguous existing fallback
+records require resolution. Nonblank unknown labels still require mapping, and
+topic/subject validation remains strict. No schema migration is required.
+
+Later user-approved language clarification (2026-11-04): absent row/batch language
+may be inferred from question/options Unicode scripts: Bengali letters → bn,
+otherwise Latin text → en (including Greek mathematical notation). Explicit
+values take precedence; ambiguous/unsupported text still requires correction.
+Preview warns about inferred values; original empty values remain in audit and
+resolved language is recorded separately. UTF-8 encoding alone is not a language
+detector. This supersedes D21's earlier explicit-default-only language rule.
+
+Approved by the Milestone 2.3B request, superseding conflicting D20 import rules.
+Use one mandatory two-mode interface with shared parsing, preview and atomic
+confirmation. Six headers are mandatory; subject/language/answer become optional
+file columns but remain mandatory resolved values at confirmation because the
+existing Question Bank requires them. Explicit batch Subject/Topic/Language
+defaults fill only missing row values; no automatic English, answer or taxonomy.
+
+Previous Year requires one Exam/Year, optional Stage, and creates/reuses a matching
+draft paper using the default name Previous Year Paper when omitted. General
+requires one or more Exams, optionally resolves explicit row categories against
+existing taxonomy, and creates no paper records. Source tags never override
+Previous Year selections. All questions remain draft/pending_review; publication
+and revision services remain unchanged.
+
+Necessary audit schema change: nullable ImportBatch.paper for General mode,
+context_sha256 plus unique(file_sha256, context_sha256) instead of global file
+hash uniqueness. Migration 0002 backfills historical paper contexts, preserving
+completed-file guards and old audit links without rewriting migration 0001.
+Context is mode, sorted selected exams, exam strategy and normalized paper identity
+where applicable; excludes row edits, uploader and classification defaults.
+Staging-token uniqueness/idempotency is unchanged. Resolved row associations are
+also retained in source_metadata. See [import guide](import-guide.md).
+
+
+## D22 - Dedicated general_question application (2026-11-04)
+
+Approved by the user's explicit request for a general_question app analogous to
+previous_year, superseding the earlier eight-app/module-only implementation.
+Move General views/forms/URLs/templates/tests out of questions and batch
+publication services out of imports into general_question. Preserve the public
+URL prefix and general_questions namespace, import ownership and publication
+services. Add GeneralQuestionBatch as a filtered proxy over ImportBatch so Django
+Admin has a dedicated General Questions section, showing only completed General
+uploads with review/publication counts and links to signed whole-batch controls.
+The initial proxy migration records model metadata/permissions and creates no
+new storage table. Existing import/question permission checks remain effective;
+questions/revisions are not duplicated or moved. Existing imports automatically
+appear; no data migration, reimport, or new importer is necessary.

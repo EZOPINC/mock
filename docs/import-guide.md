@@ -1,0 +1,167 @@
+# Unified administrative question import (Milestone 2.3B)
+
+The latest unified import requirements supersede the earlier single-paper-only
+contract. Start at `/admin/question-import/` or Question Bank Admin's **Import
+CSV/XLSX** link. One interface shares parsing, preview, correction, validation,
+staging and transactional confirmation. No questions are reviewed or published
+by importing.
+
+## Choose a mandatory Import Type
+
+- **Previous Year Questions:** select exactly one Exam and a mandatory Year;
+  Stage is optional. Optionally select an existing unpublished paper matching
+  Exam/Year/Stage. Otherwise a matching draft identity is reused or a new paper
+  created, with default name **Previous Year Paper** unless supplied. Optional
+  Part/Session distinguish identities. Every row receives QuestionExam and
+  PaperQuestion associations. Form-selected Exam/Paper is authoritative;
+  exam_categories/previous_year_tags are source metadata, not repeated required
+  input. Paper display order follows file order after existing rows.
+- **General Question Bank:** select at least one Exam. Year/Stage/Paper fields
+  are not applicable and ignored. Choose **selected exams for every row**, or
+  explicitly choose **row exam_categories**, with selected exams as fallback for
+  blank categories. Row mappings resolve against all existing Exams by exact
+  normalized name, code, `Authority name / Exam name`, or `Authority code / Exam
+  code`. Separate multiple labels with `;` or `|`. Unknown or ambiguous labels
+  block confirmation; correct them in preview. No paper or paper rows are created.
+  question_number is a batch-local reference, not a global Question ID.
+
+General mode needs active staff and the add permissions in
+`imports/permissions.py` for imports/Question Bank/source creation. Previous Year
+also requires add_previousyearpaper and add_paperquestion. Superusers qualify.
+Permissions and ownership are checked again on confirmation.
+
+## Six required headers; all other supported columns optional
+
+Required: `question_number`, `question_text`, `option_a`, `option_b`, `option_c`,
+`option_d`.
+
+Optional: `correct_answer`, `explanation`, `subject`, `topic`, `language`,
+`exam_categories`, `previous_year_tags`, `source_document`, `source_page`,
+`difficulty_level`, `review_status`, `verification_notes`, `comments`,
+`created_date`, `updated_date`, `updated_by`.
+
+Headers ignore case/surrounding whitespace. Duplicate/unknown named headers are
+rejected; completely empty unnamed trailing columns are ignored. UTF-8 CSV and
+XLSX also accept `review_flag` as a legacy alias for source `review_status` metadata;
+its original header mapping is recorded in the batch audit. Include only one of
+these headers. Neither header approves or publishes questions. UTF-8 CSV and
+plain-value XLSX preserve Bengali Unicode and multiline content. Choose the exact
+worksheet name when a workbook has multiple sheets. Formulas, errors, macros and
+external-link workbooks are rejected. No new workbook columns are needed. Store
+question numbers as text if leading zeros matter.
+
+## Resolution, preview and confirmation
+
+1. Upload and choose mode-specific selections. Optional Subject, Topic, and
+   Language defaults apply only to missing row values; row values take precedence.
+   If neither the row nor batch specifies language, Unicode-script detection of
+   question/options text infers `bn` when Bengali letters occur, otherwise `en`
+   for Latin-script text (Greek mathematical letters are tolerated). Inference is
+   shown as a preview warning; explicit row language, then batch language, take
+   precedence. Numbers/symbols alone or unsupported scripts require correction.
+   UTF-8 itself does not identify a language. When subject is blank and neither
+   an explicit mapping nor batch default resolves it, use `UnIdentified`. Preview
+   shows a warning without creating records; confirmation reuses the subject or
+   creates it transactionally (code `UNIDENTIFIED`, slug `unidentified`). Creation
+   requires Add subject permission. Nonblank unknown subjects still need mapping;
+   topics must still belong to the resolved subject.
+2. Review all preview pages (25 rows/page), including resolved Subject/Topic,
+   Language, Answer, Exams and Paper. Search/status filters cover the entire file;
+   clear filters to edit. Map unknown or missing subject labels to existing
+   records, or edit row names. Topics must belong to the resolved Subject.
+3. **Save page & Revalidate** before paging or confirming. Language not resolved
+   by an explicit value or inference must be corrected. Blank correct_answer is
+   parseable but blocks confirmation: existing QuestionRevision requires A/B/C/D.
+   Database integrity is retained; no incomplete Question Bank rows are inserted.
+4. Confirm only after all blocking errors are resolved. Entire-batch server
+   revalidation and `transaction.atomic()` create Questions/initial revisions,
+   exam associations, optional source references, mode-specific paper associations,
+   and audit rows together. Any failure rolls back everything, including new papers.
+5. Follow completion links to review then explicitly publish questions with the
+   existing Question Bank actions. In Previous Year mode, preview and publish the
+   paper last. General publication creates no student-facing paper/test engine.
+
+Original and corrected values remain in row audit JSON alongside resolved IDs,
+language, answer and associations. Source review_status/verification_notes never
+approve content; source dates never replace system timestamps, and updated_by
+is not a User FK. Unsupported feature values are metadata only. source_document
+and source_page also create source references; source_name defaults to the
+bounded document label. No source_question_id/global/source-scoped identity is
+introduced. Question text/options/explanations remain unaltered; answer/language
+case and surrounding whitespace are normalized.
+
+## Duplicate scope and staging
+
+- Numbers must be unique within every uploaded batch. Previous Year additionally
+  rejects conflicts with existing PaperQuestion numbers. Existing imported paper
+  rows require explicit append acknowledgment, which never overrides conflicts.
+- Completed-file duplicate protection uses **file hash + canonical import
+  context**: mode, sorted selected Exam IDs, explicit exam-mapping strategy and,
+  for Previous Year, normalized paper identity (Exam/Stage/Year/Name/Part/Session).
+  Context excludes corrections, aliases, uploader, and taxonomy/language defaults
+  so changing them cannot evade the same-context guard. Different modes, exam
+  contexts or papers may intentionally reuse a file. Similar text is warning-only;
+  questions are never merged automatically. Staging UUID remains unique globally.
+- Private JSON staging is outside static/media/sessions, uploader-owned, limited
+  to two hours, and removed on cancel/completion. Expired data is cleaned during
+  uploads and with `python manage.py cleanup_import_staging`; run the command
+  periodically when there are no new uploads. Version digests/filesystem locks
+  reject stale edits; ordered exam/paper locks and database uniqueness protect
+  concurrent confirmation.
+- Limits remain 5 MB upload, 2000 rows, 32 spreadsheet columns, 32,000 characters
+  per cell, 128 KB each original/corrected row, 20 MB staging. XLSX archives are
+  bounded to 1000 entries/30 MB expanded. Numeric source pages must be positive;
+  printable Roman/range labels are supported within 50 characters.
+
+## General Questions module and whole-batch publication
+
+Open **General Questions** in the header or homepage to browse published General
+import collections at `/general-questions/`. Guests can filter by Exam, Subject,
+Topic, and Language, then read paginated approved questions and solutions. Draft
+collections/questions and inactive-exam questions are hidden; filenames, uploaders
+and source audit metadata are not public. New working drafts never replace the
+approved live content automatically.
+
+Staff can choose **Manage imports & batch publication** at
+`/general-questions/manage/`. This requires View import batch and Change question
+permissions. Each completed General import has an inspection page at
+`/general-questions/manage/<batch_id>/` with two explicit actions:
+
+1. Inspect the working revisions across all pages, then **Mark all questions
+   reviewed**. This reviews the entire batch without selecting individual records.
+2. **Publish all reviewed questions**. Every working revision must pass the
+   existing publication service. A failure rolls back the whole batch action.
+
+The existing CSV/XLSX importer is linked from this module, and its completion
+page links directly to the batch controls. The dedicated `general_question` Django app owns this module; its batch proxy
+reuses the existing import table. No duplicate importer or question storage is introduced. POST/CSRF, signed expiring revision snapshots,
+permission checks and ordered row locks protect actions. Reload and inspect again
+if the batch changes; no automatic review/publication occurs during import.
+
+## Schema and compatibility (import audit)
+
+`imports.0002_unified_import` makes ImportBatch.paper nullable, adds
+context_sha256, backfills existing batches using their actual historical paper,
+and replaces global file-hash uniqueness with (file_sha256, context_sha256).
+Existing batches and paper links remain intact. Question/revision/paper models,
+immutability, strict manual paper associations and publication rules are unchanged.
+The narrow internal draft-paper association path is still used only by Previous
+Year imports. No source-scoped identity redesign or new parser dependency.
+
+The actual Questions.xlsx file has not been attached in this session; its data
+and the complete browser flow remain for manual owner review.
+
+
+### Dedicated Django Admin entry
+
+Open **Admin > General Questions > General question batches**. All completed
+General Question Bank uploads appear automatically, with reviewed and live-content
+counts. Select batch checkboxes and use **Mark all questions in selected batches
+as reviewed**, then **Publish all reviewed questions in selected batches**, clicking
+Go after each action. Each batch transition is atomic; errors are displayed per
+batch and no unreviewed revisions are published. Alternatively click a batch to
+inspect it, then use **Mark all questions reviewed** and
+**Publish all reviewed questions** as separate actions. Existing View import batch
+and Change question permissions still authorize management; direct add/delete or
+editing of audit batches is disabled. The proxy model's migration creates no new
+question table. Students continue using `/general-questions/`.

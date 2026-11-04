@@ -7,6 +7,7 @@ urlpatterns = [
     path("accounts/", include("accounts.urls")),
     path("exam-authorities/", include("exams.urls")),
     path("previous-year/", include("previous_year.urls")),
+    path("general-questions/", include("general_question.urls")),
     path("mock-tests/", include("mock_tests.urls")),
     path("practice/", include("practice.urls")),
     path("", include("core.urls")),
