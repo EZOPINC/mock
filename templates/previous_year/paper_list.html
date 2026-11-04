@@ -1,0 +1,4 @@
+{% extends "base.html" %}{% block title %}{{ exam.name }} previous-year papers | Mock Exam Platform{% endblock %}{% block content %}
+<nav class="breadcrumbs" aria-label="Breadcrumb"><a href="{% url 'home' %}">Home</a><span>/</span><a href="{% url 'exams:exam_list' exam.authority.slug %}">{{ exam.authority.name }}</a><span>/</span><a href="{% url 'exams:exam_detail' exam.authority.slug exam.slug %}">{{ exam.name }}</a><span>/</span><span aria-current="page">Previous Year Papers</span></nav>
+{% include "components/page_heading.html" with eyebrow=exam.authority.name heading=exam.name description="Previous-year papers, questions, and solutions. Choose a paper and start exploring." %}
+{% include "previous_year/paper_cards.html" %}<p class="back-link"><a href="{% url 'exams:exam_detail' exam.authority.slug exam.slug %}">&larr; Back to exam</a></p>{% endblock %}

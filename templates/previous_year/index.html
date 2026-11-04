@@ -1,0 +1,5 @@
+{% extends "base.html" %}{% block title %}Previous Year Papers & Solutions | Mock Exam Platform{% endblock %}{% block content %}
+<nav class="breadcrumbs" aria-label="Breadcrumb"><a href="{% url 'home' %}">Home</a><span>/</span><span aria-current="page">Previous Year Papers</span></nav>
+{% include "components/page_heading.html" with eyebrow="PAST PAPERS. FRESH UNDERSTANDING." heading="Previous Year Questions & Solutions" description="Explore published papers, understand the answers, and learn at your own pace. Open to everyone." %}
+<div class="listing-toolbar"><p>Browse papers by year, newest first.</p><a class="button button-secondary button-small" href="{% url 'exams:authorities' %}">Browse by exam &rarr;</a></div>
+{% include "previous_year/paper_cards.html" %}{% endblock %}

@@ -1,0 +1,14 @@
+{% with area=request.resolver_match.app_name current=request.resolver_match.url_name %}
+<header class="site-header"><div class="header-inner">
+  <a class="brand" href="{% url 'home' %}" aria-label="Mock Exam Platform home"><span class="brand-mark" aria-hidden="true">m<span>.</span></span><span>Mock Exam<span class="brand-subtitle">PREPARE WITH PURPOSE</span></span></a>
+  <button class="menu-toggle" type="button" aria-controls="primary-navigation" aria-expanded="true" hidden><span aria-hidden="true">&#9776;</span> Menu</button>
+  <nav id="primary-navigation" aria-label="Main navigation"><ul class="nav-links">
+    <li><a href="{% url 'home' %}" {% if current == 'home' %}aria-current="page"{% endif %}>Home</a></li>
+    <li><a href="{% url 'exams:authorities' %}" {% if area == 'exams' %}aria-current="{% if current == 'authorities' %}page{% else %}true{% endif %}"{% endif %}>Exams</a></li>
+    <li><a href="{% url 'previous_year:index' %}" {% if area == 'previous_year' %}aria-current="{% if current == 'index' %}page{% else %}true{% endif %}"{% endif %}>Previous Year Papers</a></li>
+    <li><a href="{% url 'mock_tests:index' %}" {% if area == 'mock_tests' %}aria-current="page"{% endif %}>Mock Tests</a></li>
+    <li><a href="{% url 'practice:index' %}" {% if area == 'practice' %}aria-current="page"{% endif %}>Practice Sets</a></li>
+    {% if user.is_authenticated %}<li class="account-nav"><details class="profile-menu"><summary {% if area == 'accounts' %}class="active"{% endif %}>My account <span aria-hidden="true">&#8964;</span></summary><div class="profile-dropdown"><a href="{% url 'accounts:profile' %}">Profile</a><form action="{% url 'accounts:logout' %}" method="post">{% csrf_token %}<button class="nav-button" type="submit">Logout</button></form></div></details></li>
+    {% else %}<li class="account-nav"><a href="{% url 'accounts:login' %}" {% if current == 'login' %}aria-current="page"{% endif %}>Login</a></li><li><a class="button button-primary button-small" href="{% url 'accounts:register' %}">Register <span aria-hidden="true">&#8599;</span></a></li>{% endif %}
+  </ul></nav>
+</div></header>{% endwith %}

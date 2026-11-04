@@ -1,0 +1,13 @@
+<div class="discovery-grid">
+  {% for authority in authorities %}
+    <article class="discovery-card">
+      <span class="eyebrow">Exam authority</span><h3>{{ authority.name }}</h3>
+      <ul class="exam-links">
+        {% for available_exam in authority.available_exams %}<li><a href="{% url 'exams:exam_detail' authority.slug available_exam.slug %}">{{ available_exam.name }} <span aria-hidden="true">↗</span></a></li>{% empty %}<li class="muted">No exams are available for this authority yet.</li>{% endfor %}
+      </ul>
+      <a class="text-link" href="{% url 'exams:exam_list' authority.slug %}">Explore exams <span aria-hidden="true">→</span></a>
+    </article>
+  {% empty %}
+    {% include "components/empty_state.html" with empty_title="No exam authorities are available yet." empty_description="Published exam information will appear here when it is ready." %}
+  {% endfor %}
+</div>

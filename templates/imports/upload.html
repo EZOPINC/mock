@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block title %}Question Bank Import | Mock Exam Platform{% endblock %}
+{% block content %}
+<nav class="breadcrumbs" aria-label="Breadcrumb"><a href="{% url 'admin:index' %}">Administration</a><span>/</span><span aria-current="page">Question Bank Import</span></nav>
+{% include "components/page_heading.html" with eyebrow="ADMINISTRATION · STEP 1 OF 3" heading="Import questions, with confidence." description="Upload, map, and preview before saving. Questions and papers remain drafts until you explicitly review and publish them." %}
+<div class="message">CSV must be UTF-8. XLSX: select a worksheet when there is more than one. Limits: 5 MB, 2000 rows. No formulas or macros. An existing paper must be unpublished.</div>
+<form class="import-upload" method="post" enctype="multipart/form-data">{% csrf_token %}{% include "components/form_fields.html" %}<div class="button-row"><button type="submit">Validate &amp; Preview →</button><a class="button button-secondary" href="{% url 'admin:questions_question_changelist' %}">Back to Question Bank</a></div></form>
+{% endblock %}

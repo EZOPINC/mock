@@ -1,0 +1,4 @@
+{% extends "base.html" %}{% block title %}Exam Authorities | Mock Exam Platform{% endblock %}{% block content %}
+<nav class="breadcrumbs" aria-label="Breadcrumb"><a href="{% url 'home' %}">Home</a><span aria-hidden="true">/</span><span aria-current="page">Exam Authorities</span></nav>
+{% include "components/page_heading.html" with eyebrow="FIND YOUR FOCUS" heading="Your exam. Your starting point." description="Choose an exam authority to discover its exams and available learning resources." %}
+{% include "components/authority_cards.html" %}{% endblock %}

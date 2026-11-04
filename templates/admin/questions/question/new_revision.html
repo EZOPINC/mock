@@ -1,0 +1,10 @@
+{% extends "admin/base_site.html" %}
+{% block content %}
+  <p>This creates a pending-review draft. Published content stays unchanged until explicit review and publication.</p>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Create draft revision">
+  </form>
+  <p><a href="{% url 'admin:questions_question_change' original.pk %}">Back to question</a></p>
+{% endblock %}
