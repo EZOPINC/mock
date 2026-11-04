@@ -1,5 +1,5 @@
 {% extends "base.html" %}{% block title %}Previous Year Papers & Solutions | Mock Exam Platform{% endblock %}{% block content %}
-<nav class="breadcrumbs" aria-label="Breadcrumb"><a href="{% url 'home' %}">Home</a><span>/</span><span aria-current="page">Previous Year Papers</span></nav>
+{% include "previous_year/breadcrumbs.html" %}
 {% include "components/page_heading.html" with eyebrow="PAST PAPERS. FRESH UNDERSTANDING." heading="Previous Year Questions & Solutions" description="Explore published papers, understand the answers, and learn at your own pace. Open to everyone." %}
-<div class="listing-toolbar"><p>Browse papers by year, newest first.</p><a class="button button-secondary button-small" href="{% url 'exams:authorities' %}">Browse by exam &rarr;</a></div>
-{% include "previous_year/paper_cards.html" %}{% endblock %}
+<div class="listing-toolbar"><p>Choose an exam, then a year to view questions.</p><a class="button button-secondary button-small" href="{% url 'exams:authorities' %}">Browse by exam &rarr;</a></div>
+<div class="discovery-grid">{% for exam in exams %}<article class="discovery-card"><span class="eyebrow">{{ exam.authority.name }}</span><h2>{{ exam.name }}</h2><p>{{ exam.paper_count }} published paper{{ exam.paper_count|pluralize }}</p><a class="text-link" href="{% url 'previous_year:paper_list' exam.authority.slug exam.slug %}">Choose year &rarr;</a></article>{% empty %}{% include "components/empty_state.html" with empty_title="No published papers are available yet." %}{% endfor %}</div>{% endblock %}

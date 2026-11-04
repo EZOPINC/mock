@@ -1,5 +1,31 @@
 # Import contract
 
+## Wide extraction format extension (2026-11-04)
+
+The current importer also accepts explicit `question_text_en`, `option_a_en`
+through `option_d_en`, their `_bn` equivalents and optional per-language
+`explanation_en` / `explanation_bn`. A wide source row maps to one master with
+only available translations; `language=en,bn` is allowed. Generic content must
+agree with an available version; incomplete/conflicting blocks require correction.
+Separate long rows retain explicit pairing approval and shared-attribute checks.
+`handwritten_mark_unverified` and `needs_review` are audit metadata and preview
+warnings only. Verified A/B/C/D answers remain mandatory before confirmation;
+no mark becomes an answer automatically. No schema or publication policy changes.
+See [import guide](import-guide.md) for header requirements and the reviewed
+100-row WBP SI 2019 extraction example.
+
+
+## Milestone 2.3C override
+
+QuestionTranslation now stores the available per-language text/options/explanation
+under a shared Question and immutable revision. The primary-language legacy
+QuestionRevision fields remain for compatibility. Difficulty is optional bounded
+shared Question/revision text as well as preserved source audit metadata. Repeated
+question numbers with distinct languages in one selected paper/import may become
+one master only after explicit preview pairing approval and matching shared
+attributes; no automatic legacy/cross-paper merge. Same-language duplicates and
+existing paper number conflicts remain errors. See [multilingual design](multilingual-questions.md).
+
 Authority: approved Phase 0 **Database & Import Specification v1.0**, including its reviewed Questions.xlsx mapping. The workbook itself was not supplied for this milestone; the source reports one worksheet, 100 data rows, 22 named columns, and an unnamed trailing column. The list below expands grouped headers from that source; it does not assert a verified physical column order.
 
 ## Active contract: Milestone 2.3B

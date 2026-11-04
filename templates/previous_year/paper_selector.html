@@ -1,0 +1,6 @@
+{% if paper_form %}
+<form method="get" action="{% url 'previous_year:paper_year' exam.authority.slug exam.slug year %}" class="stage-panel general-filters">
+  {{ paper_form.paper.label_tag }}{{ paper_form.paper }}{{ paper_form.paper.errors }}
+  <button type="submit">View Questions</button>
+</form>
+{% endif %}

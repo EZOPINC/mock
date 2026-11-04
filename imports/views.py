@@ -14,7 +14,7 @@ from previous_year.models import PreviousYearPaper
 from . import staging
 from .forms import UploadForm
 from .models import ImportBatch
-from .parsing import COLUMNS, MAX_CELL, parse_upload
+from .parsing import MAX_CELL, columns_for, preview_page_size, parse_upload
 from .permissions import require_import_permission
 from .services import confirm_import
 from .validation import map_key, normalized, validate
@@ -62,12 +62,12 @@ def upload(request):
 def edit_page(request, data):
     # Only the explicit server-selected page is editable; browser-supplied row
     # IDs cannot move/create rows or change source-row identity.
-    page = Paginator(data["rows"], 25).get_page(request.POST.get("page", "1"))
+    page = Paginator(data["rows"], preview_page_size(data)).get_page(request.POST.get("page", "1"))
     data["selection"]["acknowledge_existing"] = request.POST.get("acknowledge_existing") == "on"
     start = page.start_index() - 1
     for index in range(start, start + len(page.object_list)):
         values = data["rows"][index]["values"]
-        for column in COLUMNS:
+        for column in columns_for(data):
             key = f"row_{index}_{column}"
             if key in request.POST:
                 value = request.POST[key]
@@ -90,6 +90,13 @@ def edit_page(request, data):
                 if not posted.isdigit():
                     raise ValidationError("Invalid taxonomy mapping.")
                 data[f"{kind}_map"][normalized(value)] = int(posted)
+    proposals = validate(data)["groups"]
+    for group in proposals:
+        if group["requires_pairing"] and any(start <= row["index"] < start + len(page.object_list) for row in group["rows"]):
+            if request.POST.get(f"pair_{group['key']}") == "on":
+                data.setdefault("pairings", {})[group["number"]] = group["signature"]
+            else:
+                data.setdefault("pairings", {}).pop(group["number"], None)
     return data
 
 
@@ -114,11 +121,13 @@ def preview(request, token):
     query = request.GET.get("q", "").strip().casefold()
     status = request.GET.get("status", "")
     filtered = [row for row in rows if (not query or query in " ".join(row["values"].values()).casefold()) and (status != "errors" or row["errors"]) and (status != "warnings" or row["warnings"])]
-    page = Paginator(filtered, 25).get_page(request.GET.get("page", request.POST.get("page", "1")))
+    page = Paginator(filtered, preview_page_size(data)).get_page(request.GET.get("page", request.POST.get("page", "1")))
     # Filtered pages are read-only to keep server page indexes unambiguous.
     editable = not query and not status
+    visible_indices = {row["index"] for row in page}
+    pairing_groups = [group for group in result["groups"] if group["requires_pairing"] and any(row["index"] in visible_indices for row in group["rows"])]
     for row in page:
-        row["cells"] = [{"name": column, "value": row["values"][column]} for column in COLUMNS]
+        row["cells"] = [{"name": column, "value": row["values"][column]} for column in columns_for(data)]
     subject_mappings, topic_mappings = {}, {}
     for row in page:
         values = row["values"]
@@ -128,10 +137,11 @@ def preview(request, token):
             value = values["subject"] + " / " + values["topic"]
             topic_mappings[normalized(value)] = {"value": value, "key": map_key(value), "selected": data["topic_map"].get(normalized(value))}
     return render(request, "imports/preview.html", {
-        "data": data, "result": result, "page": page, "columns": COLUMNS, "version": staging.digest(data),
+        "data": data, "result": result, "page": page, "columns": columns_for(data), "version": staging.digest(data),
         "subject_mappings": subject_mappings.values(), "topic_mappings": topic_mappings.values(),
         "subjects": Subject.objects.all(), "topics": Topic.objects.select_related("subject"),
         "editable": editable, "query": query, "status": status,
+        "pairing_groups": pairing_groups,
     })
 
 

@@ -1,0 +1,18 @@
+<div class="translation-grid">
+{% for translation in revision.translations.all %}
+  <section class="question-content translation-panel" lang="{{ translation.language }}" aria-label="{{ translation.get_language_display }} version">
+    <h3 class="translation-heading">{{ translation.get_language_display }}</h3>
+    <div class="question-text">{{ translation.question_text|linebreaksbr }}</div>
+    <ol class="question-options" type="A">
+      <li {% if show_solutions and not hide_answers and revision.correct_answer == 'A' %}{% if not verified_only or revision.published_at %}class="correct-option"{% endif %}{% endif %}>{{ translation.option_a|linebreaksbr }}</li>
+      <li {% if show_solutions and not hide_answers and revision.correct_answer == 'B' %}{% if not verified_only or revision.published_at %}class="correct-option"{% endif %}{% endif %}>{{ translation.option_b|linebreaksbr }}</li>
+      <li {% if show_solutions and not hide_answers and revision.correct_answer == 'C' %}{% if not verified_only or revision.published_at %}class="correct-option"{% endif %}{% endif %}>{{ translation.option_c|linebreaksbr }}</li>
+      <li {% if show_solutions and not hide_answers and revision.correct_answer == 'D' %}{% if not verified_only or revision.published_at %}class="correct-option"{% endif %}{% endif %}>{{ translation.option_d|linebreaksbr }}</li>
+    </ol>
+    {% if show_solutions %}{% if not verified_only or revision.published_at %}
+      {% if hide_answers %}<details class="solution answer-disclosure"><summary>Show Answer/Explanation</summary><div><p class="correct-answer"><strong>Correct answer: {{ revision.correct_answer }}</strong></p>{% if translation.explanation.strip %}{{ translation.explanation|linebreaksbr }}{% else %}Explanation unavailable.{% endif %}</div></details>
+      {% else %}<p class="correct-answer"><strong>Correct answer: {{ revision.correct_answer }}</strong></p><details class="solution" open><summary>Explanation &amp; solution</summary><div>{% if translation.explanation.strip %}{{ translation.explanation|linebreaksbr }}{% else %}Explanation unavailable.{% endif %}</div></details>{% endif %}
+    {% else %}<p class="muted">Verified solution unavailable.</p>{% endif %}{% endif %}
+  </section>
+{% empty %}<p class="form-errors">No translation content is available.</p>{% endfor %}
+</div>

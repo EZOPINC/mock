@@ -81,6 +81,7 @@ DATABASES = {"default": {
     },
 }}
 AUTH_USER_MODEL = "accounts.User"
+QUESTION_LANGUAGES = [("en", "English"), ("bn", "Bengali")]
 LOGIN_URL = "accounts:login"
 LOGIN_REDIRECT_URL = "accounts:profile"
 LOGOUT_REDIRECT_URL = "home"

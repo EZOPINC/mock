@@ -1,7 +1,11 @@
 from django.core.exceptions import ValidationError
 from django.db import models, transaction
 from django.db.models import Q
+from django.conf import settings
+from django.core.validators import RegexValidator
 from django.db.models.deletion import ProtectedError
+
+TRANSLATED_FIELDS = ("question_text", "option_a", "option_b", "option_c", "option_d", "explanation")
 
 
 class RevisionWorkflowQuerySet(models.QuerySet):
@@ -44,6 +48,8 @@ class Question(models.Model):
         max_length=12, choices=PublicationStatus, default=PublicationStatus.DRAFT)
     review_status = models.CharField(
         max_length=14, choices=ReviewStatus, default=ReviewStatus.PENDING)
+    correct_answer = models.CharField(max_length=1, choices=((key, key) for key in "ABCD"), blank=True, default="")
+    difficulty_level = models.CharField(max_length=100, blank=True, default="")
     current_revision = models.ForeignKey(
         "QuestionRevision", on_delete=models.PROTECT, related_name="working_for", blank=True, null=True, editable=False)
     published_revision = models.ForeignKey(
@@ -66,6 +72,7 @@ class Question(models.Model):
                                    "draft", "published"]), name="questions_publication_valid"),
             models.CheckConstraint(condition=Q(review_status__in=[
                                    "pending_review", "reviewed"]), name="questions_review_valid"),
+            models.CheckConstraint(condition=Q(correct_answer__in=["", "A", "B", "C", "D"]), name="questions_master_answer_valid"),
             models.CheckConstraint(condition=Q(publication_status="draft", published_revision__isnull=True) | Q(
                 publication_status="published", published_revision__isnull=False), name="questions_public_pointer_valid"),
         ]
@@ -88,13 +95,15 @@ class Question(models.Model):
         if self.published_revision_id and not self.published_revision.published_at:
             raise ValidationError(
                 "The published pointer must reference a published revision.")
+        if self.current_revision_id and (self.correct_answer != self.current_revision.correct_answer or self.difficulty_level != self.current_revision.difficulty_level):
+            raise ValidationError("Shared answer and difficulty must match the working revision snapshot.")
 
     def save(self, *args, _workflow=False, **kwargs):
         with transaction.atomic():
             previous = type(self).objects.select_for_update().filter(
                 pk=self.pk).first() if self.pk else None
             managed = ("current_revision_id", "published_revision_id",
-                       "review_status", "publication_status")
+                       "review_status", "publication_status", "correct_answer", "difficulty_level")
             if not _workflow:
                 if previous and any(getattr(self, f) != getattr(previous, f) for f in managed):
                     raise ValidationError(
@@ -120,13 +129,14 @@ class QuestionRevision(models.Model):
     question = models.ForeignKey(
         Question, on_delete=models.PROTECT, related_name="revisions", db_index=False)
     revision_number = models.PositiveIntegerField()
-    language = models.CharField(max_length=2, choices=Language)
+    language = models.CharField(max_length=35, choices=settings.QUESTION_LANGUAGES, validators=[RegexValidator(r"^[a-z]{2,3}(?:-[a-z0-9]{2,8})*$")])
     question_text = models.TextField()
     option_a = models.TextField()
     option_b = models.TextField()
     option_c = models.TextField()
     option_d = models.TextField()
     correct_answer = models.CharField(max_length=1, choices=Answer)
+    difficulty_level = models.CharField(max_length=100, blank=True, default="")
     explanation = models.TextField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     published_at = models.DateTimeField(null=True, blank=True, editable=False)
@@ -140,8 +150,7 @@ class QuestionRevision(models.Model):
                 fields=("question", "revision_number"), name="questions_revision_number_uniq"),
             models.CheckConstraint(condition=Q(
                 revision_number__gt=0), name="questions_revision_positive"),
-            models.CheckConstraint(condition=Q(
-                language__in=["en", "bn"]), name="questions_language_valid"),
+            models.CheckConstraint(condition=Q(language__regex=r"^[a-z]{2,3}(?:-[a-z0-9]{2,8})*$"), name="questions_language_code_valid"),
             models.CheckConstraint(condition=Q(correct_answer__in=[
                                    "A", "B", "C", "D"]), name="questions_answer_valid"),
             models.CheckConstraint(condition=~Q(question_text="") & ~Q(option_a="") & ~Q(
@@ -179,10 +188,66 @@ class QuestionRevision(models.Model):
                 raise ValidationError(
                     "New revisions cannot be published directly.")
             self.full_clean()
-            return super().save(*args, **kwargs)
+            result = super().save(*args, **kwargs)
+            if previous is None:
+                QuestionTranslation(
+                    question_id=self.question_id, revision=self, language=self.language,
+                    **{field: getattr(self, field) for field in TRANSLATED_FIELDS},
+                ).save(_assembly=True)
+            return result
 
     def delete(self, *args, **kwargs):
         raise ProtectedError("Question revisions must be retained.", [self])
+
+
+class QuestionTranslation(models.Model):
+    """Immutable language content within a master Question revision snapshot."""
+    question = models.ForeignKey(Question, on_delete=models.PROTECT, related_name="translations")
+    revision = models.ForeignKey(QuestionRevision, on_delete=models.PROTECT, related_name="translations", db_index=False)
+    language = models.CharField(max_length=35, choices=settings.QUESTION_LANGUAGES, validators=[RegexValidator(r"^[a-z]{2,3}(?:-[a-z0-9]{2,8})*$")])
+    question_text = models.TextField()
+    option_a = models.TextField()
+    option_b = models.TextField()
+    option_c = models.TextField()
+    option_d = models.TextField()
+    explanation = models.TextField(blank=True)
+    objects = RevisionQuerySet.as_manager()
+
+    class Meta:
+        ordering = ("language", "pk")
+        constraints = [
+            models.UniqueConstraint(fields=("revision", "language"), name="questions_translation_language_uniq"),
+            models.CheckConstraint(condition=Q(language__regex=r"^[a-z]{2,3}(?:-[a-z0-9]{2,8})*$"), name="questions_translation_code_valid"),
+            models.CheckConstraint(condition=~Q(question_text="") & ~Q(option_a="") & ~Q(option_b="") & ~Q(option_c="") & ~Q(option_d=""), name="questions_translation_content"),
+        ]
+
+    def __str__(self):
+        return f"Question {self.question_id}, revision {self.revision_id}, {self.language}"
+
+    @property
+    def correct_answer(self):
+        return self.revision.correct_answer
+
+    def clean(self):
+        if self.revision_id and self.question_id != self.revision.question_id:
+            raise ValidationError("Translation must belong to the revision's master Question.")
+        for field in TRANSLATED_FIELDS[:-1]:
+            if not getattr(self, field, "").strip():
+                raise ValidationError({field: "This field cannot be blank."})
+        if self.revision_id and self.language == self.revision.language:
+            if any(getattr(self, field) != getattr(self.revision, field) for field in TRANSLATED_FIELDS):
+                raise ValidationError("Primary translation must match the backward-compatible revision snapshot.")
+
+    def save(self, *args, _assembly=False, **kwargs):
+        with transaction.atomic():
+            question = Question.objects.select_for_update().get(pk=self.question_id)
+            if not _assembly or self.pk or self.revision.published_at or question.current_revision_id == self.revision_id:
+                raise ValidationError("Use the translation revision service; translation snapshots are immutable.")
+            self.full_clean()
+            return super().save(*args, **kwargs)
+
+    def delete(self, *args, **kwargs):
+        raise ProtectedError("Translation history must be retained.", [self])
 
 
 class QuestionExam(models.Model):

@@ -1,14 +1,4 @@
 <article class="paper-question" aria-labelledby="question-{{ question.pk }}">
   <div class="question-card-header"><h2 id="question-{{ question.pk }}">Question {{ question.pk }}</h2><span class="badge">{{ question.subject.name }} · {{ revision.get_language_display }}</span></div>
-  <div class="question-content" lang="{{ revision.language }}">
-    <div class="question-text">{{ revision.question_text|linebreaksbr }}</div>
-    <ol class="question-options" type="A">
-      <li {% if revision.correct_answer == 'A' %}class="correct-option"{% endif %}>{{ revision.option_a|linebreaksbr }}</li>
-      <li {% if revision.correct_answer == 'B' %}class="correct-option"{% endif %}>{{ revision.option_b|linebreaksbr }}</li>
-      <li {% if revision.correct_answer == 'C' %}class="correct-option"{% endif %}>{{ revision.option_c|linebreaksbr }}</li>
-      <li {% if revision.correct_answer == 'D' %}class="correct-option"{% endif %}>{{ revision.option_d|linebreaksbr }}</li>
-    </ol>
-    <p class="correct-answer"><strong>Correct answer: {{ revision.correct_answer }}</strong></p>
-    <details class="solution" open><summary>Explanation &amp; solution</summary><div>{% if revision.explanation.strip %}{{ revision.explanation|linebreaksbr }}{% else %}Explanation unavailable.{% endif %}</div></details>
-  </div>
+  {% include "questions/translations.html" with show_solutions=True %}
 </article>

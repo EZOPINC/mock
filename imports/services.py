@@ -41,35 +41,42 @@ def confirm_import(data, user):
                 staging_token=data["token"], paper=paper, row_count=result["total"],
                 mapping_metadata={"selection": data["selection"], "worksheet": data["worksheet"],
                                   "header_aliases": data.get("header_aliases", {}),
+                                  "source_headers": data.get("source_headers", []), "input_format": data.get("input_format", "long"),
+                                  "master_question_count": len(result["groups"]), "pairings": data.get("pairings", {}),
                                   "resolved_exams": [{"id": exam.pk, "label": str(exam)} for exam in {exam.pk: exam for row in result["rows"] for exam in row["exams"]}.values()],
                                   "subject_map": data.get("subject_map", {}), "topic_map": data.get("topic_map", {})},
             )
             next_order = (paper.paper_questions.aggregate(value=Max("display_order"))["value"] or 0) + 1 if paper else None
             sources = {}
             fallback_subject = None
-            for offset, row in enumerate(result["rows"]):
-                if row["subject"].pk is None:
+            for offset, group in enumerate(result["groups"]):
+                primary = group["rows"][0]
+                if primary["subject"].pk is None:
                     if fallback_subject is None:
                         fallback_subject = persist_unidentified(user)
-                    row["subject"] = fallback_subject
-                question = create_question(subject=row["subject"], topic=row["topic"], revision=row["revision"])
-                for exam in row["exams"]:
+                    primary["subject"] = fallback_subject
+                translations = [translation for row in group["rows"] for translation in row["translations"]]
+                question = create_question(subject=primary["subject"], topic=primary["topic"], revision=primary["revision"],
+                    translations=translations, difficulty_level=primary["values"]["difficulty_level"].strip())
+                for exam in primary["exams"]:
                     QuestionExam.objects.create(question=question, exam=exam)
-                values = row["values"]
-                document = values["source_document"].strip()
-                if document:
-                    if document not in sources:
-                        sources[document] = QuestionSource.objects.filter(source_document=document).order_by("pk").first() or QuestionSource.objects.create(source_name=document[:200], source_document=document)
-                    QuestionSourceReference.objects.create(question=question, source=sources[document], source_page=values["source_page"].strip() or None)
                 if paper is not None:
                     association = PaperQuestion(paper=paper, question_revision=question.current_revision,
-                                                question_number=values["question_number"].strip(), display_order=next_order + offset)
+                        question_number=group["number"], display_order=next_order + offset)
                     association.save(_import_draft=True)
-                ImportedQuestion.objects.create(batch=batch, source_row_number=row["source_row"], question=question,
-                    source_metadata={"original": data["rows"][row["index"]].get("original_values", values), "corrected": values,
-                        "resolved": {"subject_id": row["subject"].pk, "topic_id": row["topic"].pk if row["topic"] else None,
-                                     "language": row["revision"]["language"], "correct_answer": row["revision"]["correct_answer"],
-                                     "exam_ids": [exam.pk for exam in row["exams"]], "paper_id": paper.pk if paper else None}})
+                for row in group["rows"]:
+                    values = row["values"]
+                    document = values["source_document"].strip()
+                    if document:
+                        if document not in sources:
+                            sources[document] = QuestionSource.objects.filter(source_document=document).order_by("pk").first() or QuestionSource.objects.create(source_name=document[:200], source_document=document)
+                        QuestionSourceReference.objects.get_or_create(question=question, source=sources[document], source_page=values["source_page"].strip() or None)
+                    ImportedQuestion.objects.create(batch=batch, source_row_number=row["source_row"], question=question,
+                        source_metadata={"original": data["rows"][row["index"]].get("original_values", values), "corrected": values,
+                            "resolved": {"subject_id": question.subject_id, "topic_id": question.topic_id,
+                                         "language": row["revision"]["language"], "languages": row["translation_languages"], "correct_answer": question.correct_answer,
+                                         "exam_ids": [exam.pk for exam in row["exams"]], "paper_id": paper.pk if paper else None,
+                                         "translation_pairing": group["signature"] if group["requires_pairing"] else None}})
             return batch
     except IntegrityError as error:
         existing = ImportBatch.objects.filter(staging_token=data["token"], uploaded_by=user).first()

@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}{{ exam.name }} — {{ year }} papers | Mock Exam Platform{% endblock %}
+{% block content %}
+{% include "previous_year/breadcrumbs.html" %}
+<h1>{{ exam.name }} — {{ year }}</h1>
+<p>Choose a paper, stage, part, or shift/session to view its original questions.</p>
+{% include "previous_year/paper_selector.html" %}
+{% include "previous_year/paper_cards.html" %}
+{% endblock %}

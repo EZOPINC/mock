@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}Mock question preview | Mock Exam Platform{% endblock %}
+{% block content %}
+<h1>Mock-test question preview</h1>
+<p class="message">Preview only: available language versions. No attempt, timer, scoring or saved answers are created. Answer keys are not shown.</p>
+{% if question %}<article class="paper-question"><h2>Question {{ question.pk }}</h2>{% include "questions/translations.html" with revision=question.published_revision show_solutions=False %}</article>
+{% else %}<ul>{% for available in questions %}<li><a href="{% url 'mock_tests:question_preview' available.pk %}">Preview Question {{ available.pk }}</a></li>{% empty %}<li>No published questions available.</li>{% endfor %}</ul>{% endif %}
+<p><a href="{% url 'mock_tests:index' %}">Back to Mock Tests</a></p>
+{% endblock %}

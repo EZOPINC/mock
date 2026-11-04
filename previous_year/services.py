@@ -2,7 +2,7 @@ from django.core.exceptions import ValidationError
 from django.db import transaction
 from django.db.models import Exists, F, OuterRef, Q
 
-from questions.models import Question, QuestionExam
+from questions.models import Question, QuestionExam, QuestionTranslation
 from .models import PaperQuestion, PreviousYearPaper
 
 
@@ -13,6 +13,7 @@ def publish_paper(paper):
     rows = list(paper.paper_questions.select_related("question_revision__question"))
     if not rows:
         raise ValidationError("An empty paper cannot be published.")
+    paper.validate_question_count(actual_count=len(rows), complete=True)
     # Lock all referenced question identities in a stable order.
     list(Question.objects.select_for_update().filter(pk__in=[row.question_id for row in rows]).order_by("pk"))
     for row in rows:
@@ -35,12 +36,16 @@ def unpublish_paper(paper):
 def published_papers():
     """Fail closed if a paper becomes invalid after publication; retain its history."""
     exam_match = QuestionExam.objects.filter(question_id=OuterRef("question_id"), exam_id=OuterRef("paper__exam_id"))
+    translations = QuestionTranslation.objects.filter(revision_id=OuterRef("question_revision_id"), question_id=OuterRef("question_id"))
     rows = PaperQuestion.objects.filter(paper_id=OuterRef("pk"))
-    invalid = rows.annotate(_exam_match=Exists(exam_match)).filter(
+    invalid = rows.annotate(_exam_match=Exists(exam_match), _has_translation=Exists(translations)).filter(
         Q(question_revision__published_at__isnull=True)
         | ~Q(question_revision__question_id=F("question_id"))
         | ~Q(question__publication_status="published")
         | Q(_exam_match=False)
+        | Q(_has_translation=False)
+        | ~Q(question_revision__correct_answer__in=["A", "B", "C", "D"])
+        | (Q(paper__subject__isnull=False) & ~Q(question__subject_id=F("paper__subject_id")))
     )
     return PreviousYearPaper.objects.filter(
         is_published=True, exam__is_active=True, exam__authority__is_active=True,

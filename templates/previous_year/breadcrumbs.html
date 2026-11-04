@@ -1,0 +1,13 @@
+<nav class="breadcrumbs" aria-label="Breadcrumb">
+  <a href="{% url 'home' %}">Home</a><span aria-hidden="true">/</span>
+  {% if exam %}<a href="{% url 'previous_year:index' %}">Previous Year Papers</a>{% else %}<span aria-current="page">Previous Year Papers</span>{% endif %}
+  {% if exam %}
+    <span aria-hidden="true">/</span>
+    {% if year %}<a href="{% url 'previous_year:paper_list' exam.authority.slug exam.slug %}">{{ exam.name }}</a>{% else %}<span aria-current="page">{{ exam.name }}</span>{% endif %}
+  {% endif %}
+  {% if year %}
+    <span aria-hidden="true">/</span>
+    {% if paper %}<a href="{% url 'previous_year:paper_year' exam.authority.slug exam.slug year %}">{{ year }}</a>{% else %}<span aria-current="page">{{ year }}</span>{% endif %}
+  {% endif %}
+  {% if paper %}<span aria-hidden="true">/</span><span aria-current="page">{{ paper.paper_name }}</span>{% endif %}
+</nav>

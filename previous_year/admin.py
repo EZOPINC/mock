@@ -1,6 +1,6 @@
 from django.contrib import admin, messages
 from django.core.exceptions import PermissionDenied, ValidationError
-from django.db.models import F, Q
+from django.db.models import Count, F, Q
 from django.forms.models import BaseInlineFormSet
 from django.http import Http404
 from django.shortcuts import render
@@ -30,6 +30,8 @@ class PaperQuestionFormSet(BaseInlineFormSet):
             if identity in identities:
                 raise ValidationError("A question cannot appear more than once in a paper.")
             identities.add(identity)
+        if self.instance.expected_question_count is not None and len(identities) > self.instance.expected_question_count:
+            raise ValidationError(f"The paper declares {self.instance.expected_question_count} questions but the inline contains {len(identities)}.")
 
 
 class PaperQuestionInline(admin.TabularInline):
@@ -61,19 +63,37 @@ class PaperQuestionInline(admin.TabularInline):
 
 @admin.register(PreviousYearPaper)
 class PreviousYearPaperAdmin(admin.ModelAdmin):
-    list_display = ("paper_name", "exam", "stage", "year", "part", "session", "is_published")
-    list_filter = ("exam__authority", "exam", "stage", "year", "is_published")
+    list_display = ("paper_name", "exam", "stage", "year", "subject", "question_count_status", "is_published")
+    list_filter = ("exam__authority", "exam", "stage", "year", "subject", "is_published")
     search_fields = ("paper_name", "exam__name", "exam__code", "part", "session")
-    list_select_related = ("exam__authority", "stage")
+    list_select_related = ("exam__authority", "stage", "subject")
     ordering = ("-year", "paper_name")
-    readonly_fields = ("is_published", "created_at")
+    readonly_fields = ("is_published", "created_at", "question_count_status")
     inlines = (PaperQuestionInline,)
     actions = ("publish_selected", "unpublish_selected")
     change_form_template = "admin/previous_year/previousyearpaper/change_form.html"
+    fieldsets = (
+        ("Paper identity", {"fields": ("exam", "stage", "year", "paper_name", "part", "session")}),
+        ("Optional paper configuration", {"fields": ("subject", "duration_minutes", "total_marks", "instructions", "expected_question_count", "question_count_status")}),
+        ("Publication", {"fields": ("is_published", "created_at")}),
+    )
 
     def get_readonly_fields(self, request, obj=None):
         fields = super().get_readonly_fields(request, obj)
-        return fields + ("exam", "stage", "year", "paper_name", "part", "session") if obj and obj.is_published else fields
+        return fields + ("exam", "stage", "year", "paper_name", "part", "session", "duration_minutes", "total_marks", "instructions", "subject", "expected_question_count") if obj and obj.is_published else fields
+
+    def get_queryset(self, request):
+        return super().get_queryset(request).annotate(linked_question_count=Count("paper_questions", distinct=True))
+
+    @admin.display(description="Questions (actual / expected)")
+    def question_count_status(self, obj):
+        if not obj or not obj.pk:
+            return "0 / not specified"
+        actual = getattr(obj, "linked_question_count", None)
+        if actual is None:
+            actual = obj.paper_questions.count()
+        expected = obj.expected_question_count
+        return f"{actual} / {expected if expected is not None else 'not specified'}" + (" (incomplete)" if expected is not None and actual != expected else "")
 
     def has_delete_permission(self, request, obj=None):
         return not (obj and obj.is_published) and super().has_delete_permission(request, obj)

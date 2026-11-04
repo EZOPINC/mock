@@ -5,8 +5,8 @@ from django.shortcuts import redirect, render
 from django.urls import path, reverse
 
 from . import services
-from .forms import CONTENT_FIELDS, NewQuestionAdminForm, QuestionAdminForm, RevisionForm
-from .models import Question, QuestionExam, QuestionRevision, QuestionSource, QuestionSourceReference
+from .forms import CONTENT_FIELDS, NewQuestionAdminForm, QuestionAdminForm, RevisionForm, TranslationForm
+from .models import Question, QuestionExam, QuestionRevision, QuestionSource, QuestionSourceReference, QuestionTranslation
 
 
 class QuestionExamInline(admin.TabularInline):
@@ -43,8 +43,8 @@ class QuestionAdmin(admin.ModelAdmin):
     change_form_template = "admin/questions/question/change_form.html"
     change_list_template = "admin/questions/question/change_list.html"
     list_display = ("id", "subject", "topic", "language", "publication_status", "review_status", "revision_number")
-    list_filter = ("subject", "current_revision__language", "review_status", "publication_status", "exam_associations__exam")
-    search_fields = ("current_revision__question_text", "published_revision__question_text", "source_question_id", "source_references__source__source_name", "source_references__source__source_document", "source_references__source_question_number")
+    list_filter = ("subject", "current_revision__translations__language", "review_status", "publication_status", "exam_associations__exam")
+    search_fields = ("current_revision__translations__question_text", "published_revision__translations__question_text", "source_question_id", "source_references__source__source_name", "source_references__source__source_document", "source_references__source_question_number")
     readonly_fields = ("publication_status", "review_status", "current_revision", "published_revision", "created_at", "updated_at")
     list_select_related = ("subject", "topic", "current_revision")
     inlines = (RevisionInline, QuestionExamInline, QuestionSourceReferenceInline)
@@ -52,7 +52,10 @@ class QuestionAdmin(admin.ModelAdmin):
 
     @admin.display(description="Language")
     def language(self, obj):
-        return obj.current_revision.get_language_display() if obj.current_revision_id else "—"
+        return ", ".join(item.get_language_display() for item in obj.current_revision.translations.all()) if obj.current_revision_id else "—"
+
+    def get_queryset(self, request):
+        return super().get_queryset(request).prefetch_related("current_revision__translations")
 
     @admin.display(description="Working revision")
     def revision_number(self, obj):
@@ -62,6 +65,10 @@ class QuestionAdmin(admin.ModelAdmin):
         kwargs["form"] = QuestionAdminForm if obj else NewQuestionAdminForm
         return super().get_form(request, obj, **kwargs)
 
+    def get_readonly_fields(self, request, obj=None):
+        fields = super().get_readonly_fields(request, obj)
+        return fields + ("correct_answer", "difficulty_level") if obj else fields
+
     def save_model(self, request, obj, form, change):
         if change:
             super().save_model(request, obj, form, change)
@@ -69,6 +76,7 @@ class QuestionAdmin(admin.ModelAdmin):
             question = services.create_question(
                 subject=obj.subject, topic=obj.topic, source_question_id=obj.source_question_id,
                 revision={field: form.cleaned_data[field] for field in CONTENT_FIELDS},
+                difficulty_level=form.cleaned_data.get("difficulty_level", ""),
             )
             obj.__dict__.update(question.__dict__)
 
@@ -95,7 +103,28 @@ class QuestionAdmin(admin.ModelAdmin):
                 self.message_user(request, f"{question}: {label}.", messages.SUCCESS)
 
     def get_urls(self):
-        return [path("<int:object_id>/new-revision/", self.admin_site.admin_view(self.new_revision), name="questions_question_new_revision")] + super().get_urls()
+        return [path("<int:object_id>/new-revision/", self.admin_site.admin_view(self.new_revision), name="questions_question_new_revision"),
+                path("<int:object_id>/translation/", self.admin_site.admin_view(self.new_translation), name="questions_question_translation")] + super().get_urls()
+
+    def new_translation(self, request, object_id):
+        obj = self.get_object(request, str(object_id))
+        if obj is None:
+            raise Http404
+        if not self.has_change_permission(request, obj):
+            raise PermissionDenied
+        form = TranslationForm(request.POST if request.method == "POST" else None)
+        if request.method == "POST" and form.is_valid():
+            try:
+                services.add_translation(obj, **form.cleaned_data)
+            except ValidationError as error:
+                form.add_error(None, "; ".join(error.messages))
+            else:
+                self.message_user(request, "Translation added in a new pending-review revision. Existing live content is unchanged.")
+                return redirect("admin:questions_question_change", object_id=obj.pk)
+        return render(request, "admin/questions/question/new_revision.html", {
+            **self.admin_site.each_context(request), "title": f"Add/update translation for {obj}",
+            "opts": self.model._meta, "original": obj, "form": form,
+        })
 
     def new_revision(self, request, object_id):
         obj = self.get_object(request, str(object_id))
@@ -104,6 +133,8 @@ class QuestionAdmin(admin.ModelAdmin):
         if not self.has_change_permission(request, obj):
             raise PermissionDenied
         initial = {field: getattr(obj.current_revision, field) for field in CONTENT_FIELDS} if obj.current_revision_id else {}
+        if obj.current_revision_id:
+            initial["difficulty_level"] = obj.current_revision.difficulty_level
         form = RevisionForm(request.POST if request.method == "POST" else None, initial=initial)
         if request.method == "POST" and form.is_valid():
             try:
@@ -120,12 +151,28 @@ class QuestionAdmin(admin.ModelAdmin):
         return render(request, "admin/questions/question/new_revision.html", context)
 
 
+class TranslationInline(admin.TabularInline):
+    model = QuestionTranslation
+    fk_name = "revision"
+    fields = ("language", "question_text", "option_a", "option_b", "option_c", "option_d", "explanation")
+    readonly_fields = fields
+    extra = 0
+    can_delete = False
+
+    def has_add_permission(self, request, obj=None):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        return False
+
+
 @admin.register(QuestionRevision)
 class QuestionRevisionAdmin(admin.ModelAdmin):
     list_display = ("question", "revision_number", "language", "published_at")
     list_filter = ("language",)
     search_fields = ("question_text",)
     readonly_fields = tuple(field.name for field in QuestionRevision._meta.fields)
+    inlines = (TranslationInline,)
 
     def has_add_permission(self, request):
         return False

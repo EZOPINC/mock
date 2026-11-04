@@ -1,5 +1,18 @@
 # Unified administrative question import (Milestone 2.3B)
 
+## Multilingual enhancement (Milestone 2.3C)
+
+English-only, Bengali-only and bilingual imports now share one master identity
+with revision-bound QuestionTranslation rows. For bilingual rows, use the same
+question_number within the same selected paper/import context, one row per
+language. Inspect and explicitly approve each proposed pairing in preview, then
+save/revalidate. Shared answer, difficulty, subject, topic and exams must agree;
+same-language duplicates and conflicting pairs remain errors. Every original row
+is audited, but one master and (in Previous Year mode) one paper row are created.
+This supersedes the unconditional duplicate-number rule below for explicitly
+approved translation pairs only. Existing paper number conflicts still block.
+See [multilingual design and workflow](multilingual-questions.md).
+
 The latest unified import requirements supersede the earlier single-paper-only
 contract. Start at `/admin/question-import/` or Question Bank Admin's **Import
 CSV/XLSX** link. One interface shares parsing, preview, correction, validation,
@@ -30,7 +43,7 @@ General mode needs active staff and the add permissions in
 also requires add_previousyearpaper and add_paperquestion. Superusers qualify.
 Permissions and ownership are checked again on confirmation.
 
-## Six required headers; all other supported columns optional
+## Required content and supported headers
 
 Required: `question_number`, `question_text`, `option_a`, `option_b`, `option_c`,
 `option_d`.
@@ -47,8 +60,37 @@ its original header mapping is recorded in the batch audit. Include only one of
 these headers. Neither header approves or publishes questions. UTF-8 CSV and
 plain-value XLSX preserve Bengali Unicode and multiline content. Choose the exact
 worksheet name when a workbook has multiple sheets. Formulas, errors, macros and
-external-link workbooks are rejected. No new workbook columns are needed. Store
+external-link workbooks are rejected. Store
 question numbers as text if leading zeros matter.
+
+## Wide bilingual PDF-extraction files
+
+CSV/XLSX may instead provide `question_text_en`, `option_a_en` through
+`option_d_en`, and the corresponding `_bn` columns. Optional `explanation_en`
+and `explanation_bn` preserve language-specific solutions. Headers must include
+`question_number` and either the five generic content headers or a complete
+five-column language block. Only available languages are stored.
+
+Each physical wide row represents one master question with its available
+translations; `language=en,bn` is supported. Unlike separate long-format rows,
+explicit language blocks need no additional pairing checkbox. Generic content,
+when also supplied, must match an available version. Partial translation blocks
+or conflicting generic content block confirmation; correct them in preview.
+A wholly absent language is not synthesized. Long-format imports remain supported.
+
+`handwritten_mark_unverified` and `needs_review` are supported source metadata,
+shown as preview warnings and retained in original/corrected audit values.
+They never supply an answer or change editorial state. **A verified A/B/C/D
+correct_answer remains mandatory before import**, including when a handwritten
+mark exists. Preview exposes language columns and these metadata fields for
+correction; wider files use smaller pages to remain within form-field limits.
+
+The supplied `wbp_si_2019_questions.csv` has 100 rows with English/Bengali blocks
+and 100 blank answer keys. Supply verified answers in the file or preview, select
+Previous Year mode with the existing Exam and Year 2019, and resolve remaining
+validation errors before confirming. Import remains atomic and draft by default.
+Source question numbers and file order become paper numbering and ordering;
+similar text never causes an automatic identity merge.
 
 ## Resolution, preview and confirmation
 
@@ -65,7 +107,7 @@ question numbers as text if leading zeros matter.
    creates it transactionally (code `UNIDENTIFIED`, slug `unidentified`). Creation
    requires Add subject permission. Nonblank unknown subjects still need mapping;
    topics must still belong to the resolved subject.
-2. Review all preview pages (25 rows/page), including resolved Subject/Topic,
+2. Review all preview pages (up to 25 rows/page; fewer for wide files), including resolved Subject/Topic,
    Language, Answer, Exams and Paper. Search/status filters cover the entire file;
    clear filters to edit. Map unknown or missing subject labels to existing
    records, or edit row names. Topics must belong to the resolved Subject.
@@ -108,7 +150,7 @@ case and surrounding whitespace are normalized.
   periodically when there are no new uploads. Version digests/filesystem locks
   reject stale edits; ordered exam/paper locks and database uniqueness protect
   concurrent confirmation.
-- Limits remain 5 MB upload, 2000 rows, 32 spreadsheet columns, 32,000 characters
+- Limits remain 5 MB upload, 2000 rows, 64 spreadsheet columns, 32,000 characters
   per cell, 128 KB each original/corrected row, 20 MB staging. XLSX archives are
   bounded to 1000 entries/30 MB expanded. Numeric source pages must be positive;
   printable Roman/range labels are supported within 50 characters.

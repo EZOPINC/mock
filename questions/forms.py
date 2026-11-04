@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Question, QuestionRevision
+from .models import Question, QuestionRevision, QuestionTranslation, TRANSLATED_FIELDS
 
 
 CONTENT_FIELDS = ("language", "question_text", "option_a", "option_b", "option_c", "option_d", "correct_answer", "explanation")
@@ -9,7 +9,13 @@ CONTENT_FIELDS = ("language", "question_text", "option_a", "option_b", "option_c
 class RevisionForm(forms.ModelForm):
     class Meta:
         model = QuestionRevision
-        fields = CONTENT_FIELDS
+        fields = CONTENT_FIELDS + ("difficulty_level",)
+
+
+class TranslationForm(forms.ModelForm):
+    class Meta:
+        model = QuestionTranslation
+        fields = ("language",) + TRANSLATED_FIELDS
 
 
 class QuestionAdminForm(forms.ModelForm):
@@ -28,3 +34,4 @@ class NewQuestionAdminForm(QuestionAdminForm):
     option_d = forms.CharField(widget=forms.Textarea)
     correct_answer = QuestionRevision._meta.get_field("correct_answer").formfield()
     explanation = forms.CharField(widget=forms.Textarea, required=False)
+    difficulty_level = forms.CharField(max_length=100, required=False)

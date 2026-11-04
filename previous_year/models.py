@@ -35,6 +35,13 @@ class PreviousYearPaper(models.Model):
     paper_name = models.CharField(max_length=200)
     part = models.CharField(max_length=100, null=True, blank=True)
     session = models.CharField(max_length=100, null=True, blank=True)
+    duration_minutes = models.PositiveIntegerField(null=True, blank=True)
+    total_marks = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    instructions = models.TextField(blank=True, default="")
+    subject = models.ForeignKey("exams.Subject", on_delete=models.PROTECT, related_name="previous_year_papers", null=True, blank=True,
+                               help_text="Optional. Leave blank for mixed-subject papers; otherwise all associated questions must match.")
+    expected_question_count = models.PositiveIntegerField(null=True, blank=True,
+        help_text="Optional number of master questions, not language versions. Must match before publication.")
     is_published = models.BooleanField(default=False, editable=False)
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -45,6 +52,9 @@ class PreviousYearPaper(models.Model):
         indexes = [models.Index(fields=("exam", "-year"), name="previous_paper_exam_year_idx")]
         constraints = [
             models.CheckConstraint(condition=Q(year__gt=0), name="previous_paper_year_positive"),
+            models.CheckConstraint(condition=Q(duration_minutes__isnull=True) | Q(duration_minutes__gt=0), name="previous_duration_positive"),
+            models.CheckConstraint(condition=Q(total_marks__isnull=True) | Q(total_marks__gte=0), name="previous_marks_nonnegative"),
+            models.CheckConstraint(condition=Q(expected_question_count__isnull=True) | Q(expected_question_count__gt=0), name="previous_expected_positive"),
             models.CheckConstraint(condition=~Q(paper_name=""), name="previous_paper_name_required"),
             models.UniqueConstraint(
                 F("exam"), Coalesce("stage", Value(0), output_field=models.BigIntegerField()),
@@ -67,6 +77,10 @@ class PreviousYearPaper(models.Model):
             raise ValidationError({"paper_name": "Paper name is required."})
         if self.stage_id and self.exam_id and self.stage.exam_id != self.exam_id:
             raise ValidationError({"stage": "Stage must belong to the selected exam."})
+        if self.pk:
+            self.validate_question_count()
+            if self.subject_id and self.paper_questions.exclude(question__subject_id=self.subject_id).exists():
+                raise ValidationError({"subject": "Existing questions do not all belong to this subject. Leave subject blank for a mixed-subject paper."})
         if self.pk and self.exam_id:
             original_exam = type(self).objects.filter(pk=self.pk).values_list("exam_id", flat=True).first()
             if original_exam and original_exam != self.exam_id:
@@ -82,11 +96,18 @@ class PreviousYearPaper(models.Model):
             previous = type(self).objects.select_for_update().filter(pk=self.pk).first() if self.pk else None
             if not _publication and self.is_published != (previous.is_published if previous else False):
                 raise ValidationError("Use the paper publication services.")
-            metadata = ("exam_id", "stage_id", "year", "paper_name", "part", "session")
+            metadata = ("exam_id", "stage_id", "year", "paper_name", "part", "session", "duration_minutes", "total_marks", "instructions", "subject_id", "expected_question_count")
             if previous and previous.is_published and not _publication and any(getattr(self, field) != getattr(previous, field) for field in metadata):
                 raise ValidationError("Unpublish this paper before editing it.")
             self.full_clean()
             return super().save(*args, **kwargs)
+
+    def validate_question_count(self, actual_count=None, *, complete=False):
+        if self.expected_question_count is None:
+            return
+        actual = actual_count if actual_count is not None else (self.paper_questions.count() if self.pk else 0)
+        if actual > self.expected_question_count or (complete and actual != self.expected_question_count):
+            raise ValidationError({"expected_question_count": f"Expected {self.expected_question_count} questions; the paper has {actual}."})
 
     def delete(self, *args, **kwargs):
         with transaction.atomic():
@@ -122,6 +143,8 @@ class PaperQuestion(models.Model):
     def validate_association(self, *, require_current, allow_import_draft=False):
         revision = self.question_revision
         question = revision.question
+        if self.paper.subject_id and question.subject_id != self.paper.subject_id:
+            raise ValidationError({"question_revision": "Question subject must match the paper subject."})
         if allow_import_draft and not self.paper.is_published and question.publication_status == Question.PublicationStatus.DRAFT and question.review_status == Question.ReviewStatus.PENDING and question.current_revision_id == revision.pk and revision.published_at is None:
             if not QuestionExam.objects.filter(question_id=question.pk, exam_id=self.paper.exam_id).exists():
                 raise ValidationError({"question_revision": "Question must be associated with this paper's exam."})
@@ -145,6 +168,9 @@ class PaperQuestion(models.Model):
             self.validate_association(require_current=changed, allow_import_draft=getattr(self, "_allow_import_draft", False))
             if type(self).objects.filter(paper_id=self.paper_id, question_id=self.question_id).exclude(pk=self.pk).exists():
                 raise ValidationError("This question is already associated with the paper.")
+            if self.paper.expected_question_count is not None:
+                actual = type(self).objects.filter(paper_id=self.paper_id).exclude(pk=self.pk).count() + 1
+                self.paper.validate_question_count(actual_count=actual)
 
     def save(self, *args, _import_draft=False, **kwargs):
         self._allow_import_draft = _import_draft

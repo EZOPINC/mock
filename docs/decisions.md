@@ -1,5 +1,38 @@
 # Architecture decisions
 
+Milestone 3.2 public Previous Year finalization (2026-11-04): reuse the completed
+viewer and canonical slug-scoped routes. Standardize breadcrumbs/titles and fail
+closed for papers whose revision translation set is missing, approval is absent,
+or configured subject no longer matches. Verified-only solution components show
+an unavailable state without revealing option highlights. No model/migration,
+import-workflow or mock-test changes. See previous-year-viewer.md.
+
+## D24 — Original-roadmap Milestone 3.1 administrative completion (2026-11-04)
+
+Reuse the existing PreviousYearPaper/PaperQuestion models and multilingual revision
+relationships. Add optional duration_minutes, total_marks, instructions, subject
+and expected_question_count; actual count remains derived. Duration/count are
+positive when set, marks are nonnegative, and a specified paper Subject restricts
+question associations. Mixed-subject papers leave Subject blank. Draft assembly
+may be incomplete but not over capacity; publication requires an exact declared
+count. Count refers to master questions, not translations. The additive migration
+preserves existing records with blank configuration. Admin groups these fields,
+shows actual/expected count and retains explicit publication and readonly published
+content. Import preview honors paper subject/capacity. Existing public navigation
+and mock preview are preserved with no new UI functionality. See
+[administration guide](previous-year-administration.md).
+
+Milestone 2.3D (2026-11-04): the user approved exam/year/paper navigation and a
+responsive Previous Year viewer over existing paper/revision/translation models.
+Add a scoped year selection route, preserve old viewer URLs and pinned revisions,
+apply English-before-Bengali ordering only in viewer prefetching, and provide
+native collapsed verified-answer disclosures. Reuse stage/part/session as paper
+labels; no duplicate paper models, migrations or test engine. See
+[viewer design](previous-year-viewer.md).
+
+**Current override:** Milestone 2.3C / D23 below supersedes earlier independent-
+language/translation-grouping exclusions. Historical entries remain as a record.
+
 Authority: approved Phase 0 **Mock Exam Platform — Database & Import Specification v1.0** supplied for Milestone 1.1A. Original approval date was not provided. The entries below were recorded on **2026-11-03**; that is the documentation date, not an invented approval date. All entries have status **Approved in Phase 0**.
 
 | ID | Decision | Reason / resulting impact in the approved design |
@@ -134,3 +167,35 @@ The initial proxy migration records model metadata/permissions and creates no
 new storage table. Existing import/question permission checks remain effective;
 questions/revisions are not duplicated or moved. Existing imports automatically
 appear; no data migration, reimport, or new importer is necessary.
+
+
+## D23 - Multilingual master questions (2026-11-04)
+
+Approved by the Milestone 2.3C request, explicitly superseding D07 and prior
+translation-grouping exclusions. One master Question owns shared answer,
+difficulty, subject/topic and exam associations; available QuestionTranslation
+rows hold language content within immutable QuestionRevision snapshots. Preserve
+existing primary revision fields as compatibility content, and shared revision
+answer/difficulty as historical snapshots. New translations create pending-review
+revisions; live and paper snapshots never auto-change. Backfill all existing
+revisions without merging identities or rewriting earlier migrations.
+
+Bilingual import matching is source-context-local by question number, requires
+explicit preview confirmation and agreement of shared attributes, and never
+merges ambiguous records. Preserve row audits and exam/year associations.
+Language-code validation/configuration supports future locales; infer only en/bn.
+Display available translations side-by-side responsively with prefetched queries.
+The user's clarification authorizes an authenticated mock question preview only,
+without answer keys, attempts, timing or a test engine. See multilingual-questions.md.
+
+## D24 - Wide bilingual extraction imports (2026-11-04)
+
+Reason: the supplied previous-year PDF extraction places English/Bengali content
+in explicit per-language columns on the same row. Reuse the existing master,
+immutable translations and transactional importer; create no parallel storage.
+Impact: accept wide CSV/XLSX alongside existing long rows, preserve extraction
+flags in audit, and require corrections for incomplete/conflicting blocks.
+Explicit wide columns establish one source-row identity; separate long rows still
+require pairing approval. The user explicitly requires verified answer correction
+before import. Handwritten marks never populate keys or approve/publish content.
+No existing records, associations or migrations change.

@@ -30,7 +30,7 @@ def filtered(request):
             if form.cleaned_data[field]:
                 questions = questions.filter(**{"exams" if field == "exam" else field: form.cleaned_data[field]})
         if form.cleaned_data["language"]:
-            questions = questions.filter(published_revision__language=form.cleaned_data["language"])
+            questions = questions.filter(published_revision__translations__language=form.cleaned_data["language"]).distinct()
     else:
         questions = questions.none()
     parameters = request.GET.copy()
@@ -85,7 +85,7 @@ def manage_batch(request, batch_id):
         else:
             messages.success(request, f"{count} questions {'marked reviewed' if request.POST['action'] == 'review' else 'published'}.")
         return redirect("general_questions:manage_batch", batch_id=batch_id)
-    questions = list(batch_questions(batch).select_related("current_revision", "subject", "topic"))
+    questions = list(batch_questions(batch).select_related("current_revision", "subject", "topic").prefetch_related("current_revision__translations"))
     snapshot = signing.dumps({"batch_id": batch_id, "fingerprint": fingerprint(questions)}, salt=SALT)
     return render(request, "general_question/manage_batch.html", {"batch": batch, "snapshot": snapshot,
         "total": len(questions), "page": Paginator(questions, 20).get_page(request.GET.get("page"))})

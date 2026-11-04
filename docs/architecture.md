@@ -1,5 +1,22 @@
 # Architecture
 
+Original-roadmap Milestone 3.1 administrative completion reuses existing paper
+models, adding optional configuration and declared master-question counts only.
+Public routes and mock preview are unchanged. See
+[paper administration](previous-year-administration.md) and D24 in decisions.
+
+Milestone 2.3D enhances Previous Year browsing to Exam → Year → Paper selection →
+Questions using the existing public paper relationships and translation snapshots.
+See [viewer navigation and constraints](previous-year-viewer.md); no new data
+models or publication changes are introduced.
+
+Milestone 2.3C supersedes the independent-language Question rule below: one master
+Question can now have available language versions in revision-bound
+QuestionTranslation snapshots. Shared answer/difficulty are versioned for historical
+integrity. Existing masters and all historical references remain unchanged; imports
+pair only explicitly reviewed source-local language rows. See
+[multilingual architecture](multilingual-questions.md) and D23 in decisions.
+
 Authority: **Mock Exam Platform — Database & Import Specification v1.0**, supplied as the approved Phase 0 specification. This document describes the approved target; the implementation status below distinguishes existing functionality. Changes require explicit review and approval.
 
 ## Structure

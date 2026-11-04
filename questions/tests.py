@@ -110,7 +110,7 @@ class QuestionModelTests(QuestionFixture):
 
     def test_database_checks_for_revision_content_and_enums(self):
         question = self.make_question()
-        for overrides in ({"revision_number": 0}, {"language": "fr"}, {"correct_answer": "E"}, {"option_d": ""}, {"question_text": ""}):
+        for overrides in ({"revision_number": 0}, {"language": "INVALID"}, {"correct_answer": "E"}, {"option_d": ""}, {"question_text": ""}):
             data = {"revision_number": 2, **content(), **overrides}
             with self.subTest(data=overrides), patch.object(QuestionRevision, "full_clean"), self.assertRaises(IntegrityError), transaction.atomic():
                 QuestionRevision.objects.create(question=question, **data)

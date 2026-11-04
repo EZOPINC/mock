@@ -1,5 +1,25 @@
 # Database design
 
+Milestone 3.1 administrative completion / D24 adds optional PreviousYearPaper
+duration_minutes, total_marks (decimal), instructions, subject FK PROTECT and
+expected_question_count. Database checks enforce positive optional duration/count
+and nonnegative marks. Actual count is derived from PaperQuestion; transactional
+publication verifies the declared count and subject consistency. No master or
+translation records are duplicated. See [paper administration](previous-year-administration.md).
+
+## Milestone 2.3C additions (supersede older language-only descriptions)
+
+Question adds shared working `correct_answer` (A/B/C/D; blank only before an
+initial revision) and optional `difficulty_level`. QuestionRevision snapshots
+shared answer/difficulty; existing primary-language content remains compatible.
+QuestionTranslation: id PK, question FK PROTECT → Question, revision FK PROTECT →
+QuestionRevision, language, question_text, option_a/b/c/d, explanation optional.
+Unique (revision, language); language-code and required-content check constraints.
+The derived language rows are immutable and must belong to their master/revision.
+Use the new-revision/translation services rather than direct/bulk mutation.
+Migration 0003 backfills each existing revision without merging Question IDs or
+changing paper references. See [detailed design](multilingual-questions.md).
+
 Authority: approved Phase 0 **Database & Import Specification v1.0**, with clarifications D17–D19 in [decisions](decisions.md). User, exam taxonomy, Question Bank, and Previous Year Paper models are implemented through Milestone 3.1; other domain models remain target design. PostgreSQL UTF-8 is mandatory for development and tests.
 
 Notation: `PK` primary key; `FK` foreign key; `?` explicitly nullable/optional. Implemented models use surrogate BigAutoField PKs, including QuestionExam, QuestionSourceReference, and PaperQuestion. Existing User inherits AbstractUser fields, groups, and permissions.

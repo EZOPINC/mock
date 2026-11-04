@@ -9,12 +9,13 @@ from django.db.models.functions import Coalesce, Lower, Trim
 
 from exams.models import Exam, Subject, Topic
 from previous_year.models import PreviousYearPaper
-from questions.models import QuestionRevision
+from questions.models import QuestionRevision, QuestionTranslation
 from .models import ImportBatch, ImportedQuestion
 from .parsing import COLUMNS, MAX_CELL, REQUIRED
 from .context import context_hash, exam_ids, mode
-from .language import infer_language
+from .translation_input import normalize_translations
 from .taxonomy import unidentified_subject
+from .pairing import groups_for
 
 CONTENT = ("language", "question_text", "option_a", "option_b", "option_c", "option_d", "correct_answer", "explanation")
 
@@ -127,10 +128,11 @@ def validate(data, *, locked=False):
     if existing_imports and not data["selection"].get("acknowledge_existing"):
         errors.append("This paper already contains imported questions. Inspect its existing rows, resolve conflicts, and explicitly acknowledge appending before proceeding.")
     # Possible content duplication is advisory and never merges records.
-    candidate_texts = {normalized(row["values"]["question_text"]) for row in data["rows"]}
+    normalized_inputs = [normalize_translations(row["values"], data["selection"]) for row in data["rows"]]
+    candidate_texts = {normalized(item[0]["question_text"]) for item in normalized_inputs}
     existing_texts = set()
     if candidate_texts:
-        raw_keys = {row["values"]["question_text"].strip().lower() for row in data["rows"]}
+        raw_keys = {item[0]["question_text"].strip().lower() for item in normalized_inputs}
         for value in QuestionRevision.objects.annotate(_content_key=Lower(Trim("question_text"))).filter(_content_key__in=raw_keys).values_list("question_text", flat=True).iterator(chunk_size=500):
             key = normalized(value)
             if key in candidate_texts:
@@ -140,17 +142,15 @@ def validate(data, *, locked=False):
     fallback_subject = None
     for index, row in enumerate(data["rows"]):
         values = row["values"]
-        row_errors, warnings = [], []
-        for field in REQUIRED:
-            if not values[field].strip():
-                row_errors.append(f"{field}: a value is required.")
+        revision, translations, translation_errors, translation_warnings = normalized_inputs[index]
+        row_errors, warnings = list(translation_errors), list(translation_warnings)
+        if not values["question_number"].strip():
+            row_errors.append("question_number: a value is required.")
         if any(not isinstance(value, str) or len(value) > MAX_CELL for value in values.values()):
             row_errors.append("All cell values must be bounded text.")
         number = values["question_number"].strip()
         if len(number) > 100:
             row_errors.append("question_number must not exceed 100 characters.")
-        if numbers[number] > 1:
-            row_errors.append("Duplicate question number in this file.")
         if number in existing_numbers:
             row_errors.append("Question number already exists in the selected paper. Resolve the conflict; nothing will be overwritten.")
         selected = data["selection"]
@@ -168,6 +168,8 @@ def validate(data, *, locked=False):
                     row_errors.extend(error.messages)
         if subject is None:
             row_errors.append("Subject is unresolved or ambiguous. Select an existing subject mapping.")
+        elif paper is not None and paper.subject_id and subject.pk != paper.subject_id:
+            row_errors.append("Resolved subject must match the selected paper's subject.")
         topic = None
         if values["topic"].strip() and subject:
             scoped = [topic for topic in topics if topic.subject_id == subject.pk]
@@ -195,34 +197,39 @@ def validate(data, *, locked=False):
             row_errors.append("source_page requires source_document.")
         if len(values["source_document"].strip()) > 500:
             row_errors.append("source_document must not exceed 500 characters.")
+        if len(values["difficulty_level"].strip()) > 100:
+            row_errors.append("difficulty_level must not exceed 100 characters.")
         if len(json.dumps(values, ensure_ascii=False).encode()) > 128 * 1024:
             row_errors.append("Row metadata exceeds 128 KB.")
         if len(json.dumps(row.get("original_values", values), ensure_ascii=False).encode()) > 128 * 1024:
             row_errors.append("Original row metadata exceeds 128 KB; replace the file with a smaller source row.")
-        revision = {field: values[field] for field in CONTENT}
-        revision["language"] = (revision["language"].strip() or selected.get("language", "")).lower()
-        if not revision["language"]:
-            revision["language"] = infer_language(values)
-            if revision["language"]:
-                warnings.append(f"Language inferred as {revision['language']} from question/options text. Check the resolved language or enter an explicit value to override.")
-        if not revision["language"]:
-            row_errors.append("Language could not be inferred. Set en/bn in the row or select a batch default.")
-        if not revision["correct_answer"].strip():
-            row_errors.append("Correct answer is missing. The Question Bank requires A/B/C/D; correct this row before confirming.")
-        revision["correct_answer"] = revision["correct_answer"].strip().upper()
+        if not revision["correct_answer"]:
+            row_errors.append("Correct answer is missing. The Question Bank requires A/B/C/D; correct this row before confirming. Handwritten marks are unverified metadata only.")
         try:
             QuestionRevision(**revision).full_clean(exclude=["question", "revision_number"])
         except ValidationError as error:
             row_errors.extend(error.messages)
-        key = normalized(values["question_text"])
+        for translated in translations:
+            if translated["language"] != revision["language"]:
+                try:
+                    QuestionTranslation(**translated).full_clean(exclude=["question", "revision"])
+                except ValidationError as error:
+                    row_errors.extend(error.messages)
+        key = normalized(revision["question_text"])
         if key in existing_texts or key in seen:
             warnings.append("Possible duplicate question text. This row will create a separate question; no merge is performed.")
         seen.add(key)
         if values["review_status"].strip() or values["verification_notes"].strip():
             warnings.append("Legacy review/verification values are audit metadata only. The question will be pending review.")
         result.append({"index": index, "source_row": row["source_row"], "values": values,
-                       "errors": row_errors, "warnings": warnings, "subject": subject, "topic": topic, "revision": revision, "exams": resolved_exams})
-    return {"rows": result, "errors": errors, "exam": exams[0] if len(exams) == 1 else None, "exams": exams, "import_type": mode(data), "paper": paper, "existing_count": len(existing_numbers), "existing_imports": existing_imports,
+                       "errors": row_errors, "warnings": warnings, "subject": subject, "topic": topic, "revision": revision, "translations": translations, "translation_languages": [item["language"] for item in translations], "exams": resolved_exams})
+    groups = groups_for(result, data.get("pairings", {}))
+    if paper is not None and paper.expected_question_count is not None:
+        try:
+            paper.validate_question_count(actual_count=len(existing_numbers) + len(groups))
+        except ValidationError as error:
+            errors.extend(error.messages)
+    return {"rows": result, "groups": groups, "master_count": len(groups), "errors": errors, "exam": exams[0] if len(exams) == 1 else None, "exams": exams, "import_type": mode(data), "paper": paper, "existing_count": len(existing_numbers), "existing_imports": existing_imports,
             "total": len(result), "valid": sum(not row["errors"] for row in result),
             "error_count": sum(len(row["errors"]) for row in result) + len(errors),
             "warning_count": sum(len(row["warnings"]) for row in result)}
