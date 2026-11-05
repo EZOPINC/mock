@@ -9,5 +9,6 @@
     "[django-html]": {
         "editor.defaultFormatter": "monosans.djlint",
         "editor.formatOnSave": true
-    }
+    },
+    "python.terminal.useEnvFile": true
 }

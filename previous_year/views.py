@@ -4,6 +4,8 @@ from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.http import require_safe
 
+from urllib.parse import urlencode
+
 from exams.models import Exam
 from .models import PaperQuestion
 from .services import published_papers
@@ -24,33 +26,57 @@ def active_exam(authority_slug, exam_slug):
                              authority__slug=authority_slug, authority__is_active=True, slug=exam_slug, is_active=True)
 
 
+def stage_scope(request, papers):
+    choices = list(papers.order_by("stage__display_order", "stage_id").values_list("stage_id", "stage__name").distinct())
+    value = request.GET.get("stage")
+    if value is not None:
+        matching = [item for item in choices if str(item[0] or "none") == value]
+        if not matching:
+            raise Http404
+        papers = papers.filter(stage_id=matching[0][0])
+    elif len(choices) == 1:
+        value = str(choices[0][0] or "none")
+    return papers, choices, value
+
+
 @require_safe
 def paper_list(request, authority_slug, exam_slug):
     exam = active_exam(authority_slug, exam_slug)
+    papers, stages, stage = stage_scope(request, published_papers().filter(exam=exam))
     groups = {}
-    for paper in published_papers().filter(exam=exam):
-        groups.setdefault(paper.year, []).append(paper)
+    if stage is not None:
+        for paper in papers:
+            groups.setdefault(paper.year, []).append(paper)
     return render(request, "previous_year/paper_list.html", {"exam": exam,
-        "year_groups": [{"year": year, "papers": papers} for year, papers in groups.items()]})
+        "stage_choices": stages if len(stages) > 1 else [], "selected_stage": stage,
+        "stage_query": urlencode({"stage": stage}) if len(stages) > 1 and stage else "",
+        "year_groups": [{"year": year, "papers": rows} for year, rows in groups.items()]})
 
 
 @require_safe
 def paper_year(request, authority_slug, exam_slug, year):
     exam = active_exam(authority_slug, exam_slug)
-    papers = published_papers().filter(exam=exam, year=year)
-    count = papers.count()
-    if not count:
+    papers, stages, stage = stage_scope(request, published_papers().filter(exam=exam, year=year))
+    if not papers.exists():
         raise Http404
+    sessions = list(papers.order_by("session").values_list("session", flat=True).distinct())
+    session = request.GET.get("session")
+    if session is not None:
+        if session not in [item or "" for item in sessions]:
+            raise Http404
+        papers = papers.filter(session=session) if session else papers.filter(session__isnull=True)
+    context = {"exam": exam, "year": year, "papers": papers, "selected_stage": stage, "selected_session": session,
+               "session_choices": [{"value": item or "", "label": item or "No session specified"} for item in sessions] if len(sessions) > 1 and session is None else []}
     form = PaperSelectionForm(request.GET if "paper" in request.GET else None, papers=papers)
     if form.is_bound:
         if form.is_valid():
             selected = form.cleaned_data["paper"]
         else:
-            return render(request, "previous_year/paper_year.html", {"exam": exam, "year": year, "papers": papers, "paper_form": form}, status=400)
-    elif count == 1:
+            return render(request, "previous_year/paper_year.html", context | {"paper_form": form}, status=400)
+    elif papers.count() == 1:
         selected = papers.first()
     else:
-        return render(request, "previous_year/paper_year.html", {"exam": exam, "year": year, "papers": papers, "paper_form": form})
+        return render(request, "previous_year/paper_year.html", context | {"paper_form": form})
     return redirect("previous_year:paper_detail", authority_slug=authority_slug, exam_slug=exam_slug, year=year, paper_id=selected.pk)
 
 
@@ -64,8 +90,19 @@ def paper_detail(request, authority_slug, exam_slug, year, paper_id):
     )).order_by("_viewer_order", "language", "pk")
     paper = get_object_or_404(published_papers().filter(exam=exam, year=year).select_for_update(of=("self",)).prefetch_related(
         Prefetch("paper_questions", queryset=PaperQuestion.objects.select_related(
-            "question_revision").prefetch_related(Prefetch("question_revision__translations", queryset=translations))),
+            "question_revision", "question__subject").prefetch_related(Prefetch("question_revision__translations", queryset=translations))),
     ), pk=paper_id)
     siblings = published_papers().filter(exam=exam, year=year)
     selector = PaperSelectionForm(papers=siblings, initial={"paper": paper.pk}) if siblings.count() > 1 else None
-    return render(request, "previous_year/paper_detail.html", {"paper": paper, "exam": exam, "paper_form": selector})
+    counts = {}
+    rows = list(paper.paper_questions.all())
+    for row in rows:
+        subject = row.question.subject
+        counts.setdefault(subject.pk, {"id": subject.pk, "name": subject.name, "count": 0})["count"] += 1
+    selected_subject = request.GET.get("subject", "")
+    if selected_subject and selected_subject not in {str(pk) for pk in counts}:
+        raise Http404
+    viewer_rows = [row for row in rows if not selected_subject or str(row.question.subject_id) == selected_subject]
+    return render(request, "previous_year/paper_detail.html", {"paper": paper, "exam": exam, "paper_form": selector,
+        "question_count": len(rows), "subject_counts": sorted(counts.values(), key=lambda item: item["name"]),
+        "selected_subject": selected_subject, "viewer_rows": viewer_rows})

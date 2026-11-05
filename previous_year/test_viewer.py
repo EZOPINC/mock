@@ -7,6 +7,77 @@ from .tests import PaperFixture
 
 
 class PaperViewerTests(PaperFixture):
+    def test_subject_filter_preserves_numbering_order_and_full_summary(self):
+        from exams.models import Subject
+        other_subject = Subject.objects.create(name="Science", code="SCI", slug="science")
+        first = self.question(question_text="First English question")
+        self.row(question=first)
+        other = self.question(question_text="Hidden science question")
+        other.subject = other_subject
+        other.save()
+        PaperQuestion.objects.create(paper=self.paper, question_revision=other.published_revision, question_number="20", display_order=2)
+        last = self.question(question_text="Last English question")
+        PaperQuestion.objects.create(paper=self.paper, question_revision=last.published_revision, question_number="40", display_order=3)
+        publish_paper(self.paper)
+        response = self.client.get(self.detail_url(), {"subject": self.subject.pk})
+        self.assertContains(response, "Showing 2 of 3 questions.")
+        self.assertContains(response, "Total questions: 3")
+        self.assertContains(response, "Question 40")
+        self.assertContains(response, "Science: 1")
+        self.assertNotContains(response, "Hidden science question")
+        self.assertLess(response.content.index(b"First English question"), response.content.index(b"Last English question"))
+        self.assertContains(response, "Clear filter")
+        self.assertContains(self.client.get(self.detail_url(), {"subject": ""}), "Hidden science question")
+        for invalid in ("invalid", "999999"):
+            self.assertEqual(self.client.get(self.detail_url(), {"subject": invalid}).status_code, 404)
+
+    def test_stage_and_session_selection_scopes_years_and_papers(self):
+        self.row()
+        publish_paper(self.paper)
+        second = PreviousYearPaper.objects.create(exam=self.exam, stage=self.stage, year=2024, paper_name="Morning", session="Morning")
+        third = PreviousYearPaper.objects.create(exam=self.exam, stage=self.stage, year=2024, paper_name="Evening", session="Evening")
+        for paper in (second, third):
+            self.row(paper=paper)
+            publish_paper(paper)
+        url = reverse("previous_year:paper_list", args=[self.authority.slug, self.exam.slug])
+        response = self.client.get(url)
+        self.assertContains(response, "Choose stage")
+        response = self.client.get(url, {"stage": self.stage.pk})
+        self.assertContains(response, "2024")
+        self.assertNotContains(response, "2023")
+        response = self.client.get(self.year_url(2024), {"stage": self.stage.pk})
+        self.assertContains(response, "Choose session")
+        self.assertRedirects(self.client.get(self.year_url(2024), {"stage": self.stage.pk, "session": "Evening"}), self.detail_url(paper=third))
+        for params in ({"stage": "999999"}, {"stage": self.stage.pk, "session": "Invalid"}):
+            self.assertEqual(self.client.get(self.year_url(2024), params).status_code, 404)
+        self.assertEqual(self.client.get(self.year_url(2024), {"stage": self.stage.pk, "session": "Evening", "paper": second.pk}).status_code, 400)
+
+    def test_summary_counts_master_questions_not_translations(self):
+        question = self.question()
+        add_translation(question, language="bn", question_text="Bengali version", option_a="A", option_b="B", option_c="C", option_d="D")
+        question = publish_question(mark_reviewed(question))
+        self.row(question=question)
+        from exams.models import Subject
+        other_subject = Subject.objects.create(name="Mathematics", code="MATH", slug="mathematics")
+        other = self.question()
+        other.subject = other_subject
+        other.save()
+        PaperQuestion.objects.create(paper=self.paper, question_revision=other.published_revision, question_number="40", display_order=2)
+        self.paper.duration_minutes = 90
+        self.paper.expected_question_count = 2
+        self.paper.save()
+        publish_paper(self.paper)
+        response = self.client.get(self.detail_url())
+        self.assertContains(response, "Total questions: 2")
+        self.assertContains(response, "90 minutes")
+        self.assertContains(response, "English: 1")
+        self.assertContains(response, "Mathematics: 1")
+
+    def test_missing_duration_is_explicit(self):
+        self.row()
+        publish_paper(self.paper)
+        self.assertContains(self.client.get(self.detail_url()), "Duration: Not specified")
+
     def year_url(self, year=None):
         return reverse("previous_year:paper_year", args=[self.authority.slug, self.exam.slug, year or self.paper.year])
 

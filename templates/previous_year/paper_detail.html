@@ -2,8 +2,25 @@
 {% if is_preview %}<p class="message">Admin preview — this page may contain an unpublished paper.</p>{% endif %}
 {% include "previous_year/breadcrumbs.html" with year=paper.year %}
 <div class="reader-heading"><div><p class="eyebrow">{{ exam.authority.name }} · {{ exam.name }}</p><h1>{{ paper.paper_name }}</h1><div class="badge-row"><span class="badge badge-live">{{ paper.year }}</span>{% if paper.stage %}<span class="badge badge-outline">{{ paper.stage.name }}</span>{% endif %}{% if paper.part %}<span class="badge badge-outline">{{ paper.part }}</span>{% endif %}{% if paper.session %}<span class="badge badge-outline">{{ paper.session }}</span>{% endif %}<span class="badge badge-outline">{{ paper.paper_questions.all|length }} question{{ paper.paper_questions.all|length|pluralize }}</span></div></div><a class="button button-secondary button-small" href="{% url 'previous_year:paper_list' exam.authority.slug exam.slug %}">← All papers</a></div>
+<section class="stage-panel" aria-labelledby="paper-summary"><h2 id="paper-summary">Paper summary</h2>
+<p>Total questions: {{ paper.paper_questions.all|length }}</p>
+<p>Duration: {% if paper.duration_minutes %}{{ paper.duration_minutes }} minutes{% else %}Not specified{% endif %}</p>
+{% if paper.expected_question_count %}<p>Expected questions: {{ paper.expected_question_count }}</p>{% endif %}
+{% if subject_counts %}<h3>Questions by subject</h3><ul>{% for subject in subject_counts %}<li>{{ subject.name }}: {{ subject.count }}</li>{% endfor %}</ul>{% endif %}</section>
 {% include "previous_year/paper_selector.html" with year=paper.year %}
-{% with rows=paper.paper_questions.all %}
+{% if not is_preview %}
+<form method="get" class="stage-panel general-filters">
+  <label for="paper-subject">Filter questions by subject</label>
+  <select id="paper-subject" name="subject">
+    <option value="">All subjects</option>
+    {% for subject in subject_counts %}<option value="{{ subject.id }}"{% if selected_subject == subject.id|stringformat:"s" %} selected{% endif %}>{{ subject.name }} ({{ subject.count }})</option>{% endfor %}
+  </select>
+  <button type="submit">Apply filter</button>
+  {% if selected_subject %}<a href="{% url 'previous_year:paper_detail' exam.authority.slug exam.slug paper.year paper.pk %}">Clear filter</a>{% endif %}
+</form>
+<p role="status">Showing {{ viewer_rows|length }} of {{ question_count }} questions.</p>
+{% endif %}
+{% with rows=viewer_rows|default:paper.paper_questions.all %}
 <div class="reading-layout"><aside class="question-navigator" aria-label="Question navigator"><p class="eyebrow">IN THIS PAPER</p><h2>Find a question</h2><div class="question-jumps">{% for row in rows %}<a href="#question-{{ row.pk }}" data-question-link="question-{{ row.pk }}" aria-label="Go to question {{ row.question_number }}">{{ row.question_number }}</a>{% endfor %}</div><p class="muted reader-progress" role="status" aria-live="polite">{{ rows|length }} question{{ rows|length|pluralize }} · Read at your pace</p><p class="navigator-note">Answers and explanations follow each question. Take your time.</p></aside>
 <div class="question-list">{% for row in rows %}{% with revision=row.question_revision %}
 <article class="paper-question paper-viewer" id="question-{{ row.pk }}" data-question-index="{{ forloop.counter }}" aria-labelledby="question-heading-{{ row.pk }}" tabindex="-1"><div class="question-card-header"><h2 id="question-heading-{{ row.pk }}">Question {{ row.question_number }}</h2><span class="badge badge-outline">Available translations</span></div>{% if is_preview %}{% include "questions/translations.html" with show_solutions=True hide_answers=True verified_only=False %}{% else %}{% include "questions/translations.html" with show_solutions=True hide_answers=True verified_only=True %}{% endif %}
