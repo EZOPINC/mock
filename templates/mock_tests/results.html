@@ -1,0 +1,8 @@
+{% extends "base.html" %}{% block title %}{{ attempt.configuration.name }} results | Mock Exam Platform{% endblock %}{% block content %}
+<nav aria-label="Breadcrumb"><a href="{% url 'mock_tests:index' %}">Mock Tests</a> / Results</nav>
+<h1>{{ attempt.configuration.name }} results</h1><p>{{ attempt.configuration.exam_name }} &middot; {{ attempt.get_status_display }}</p>
+<p>Score: <strong>{{ attempt.total_score }} / {{ attempt.maximum_score }}</strong> &middot; {{ attempt.percentage }}%</p>
+<ul><li>Attempted: {{ attempted_count }}</li><li>Correct: {{ attempt.correct_count }}</li><li>Incorrect: {{ attempt.incorrect_count }}</li><li>Unanswered: {{ attempt.unanswered_count }}</li></ul>
+<p>Finalized: {{ attempt.finalized_at }}</p><h2>Section performance</h2><ul>{% for id, section in attempt.section_results.items %}<li><strong>{{ section.name }}</strong>: {{ section.score }} / {{ section.maximum }} marks; {{ section.correct }} correct, {{ section.incorrect }} incorrect, {{ section.unanswered }} unanswered.</li>{% endfor %}</ul>
+<h2>Question review</h2><div class="question-list">{% for row in rows %}<article class="paper-question"><div class="question-card-header"><h3>Question {{ row.display_order }} &middot; {{ row.section_snapshot.name }}</h3></div><p>Your answer: {{ row.selected_answer|default:"Unanswered" }} &middot; Awarded marks: {{ row.awarded_marks }}</p>
+{% include "questions/translations.html" with revision=row.question_revision show_solutions=True hide_answers=False verified_only=True %}</article>{% endfor %}</div>{% endblock %}

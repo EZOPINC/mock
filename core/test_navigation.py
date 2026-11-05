@@ -1,6 +1,19 @@
+from html.parser import HTMLParser
+
 from django.contrib.auth import get_user_model
 from django.test import TestCase
 from django.urls import reverse
+from django.utils.html import strip_tags
+
+
+class FormParser(HTMLParser):
+    def __init__(self):
+        super().__init__()
+        self.forms = []
+
+    def handle_starttag(self, tag, attrs):
+        if tag == "form":
+            self.forms.append(dict(attrs))
 
 
 class NavigationTests(TestCase):
@@ -9,8 +22,9 @@ class NavigationTests(TestCase):
             with self.subTest(route=route):
                 response = self.client.get(reverse(route))
                 self.assertEqual(response.status_code, 200)
-                for label in ("Home", "Exam Authorities", "Previous Year Questions", "Mock Tests", "Practice Sets", "Login", "Register"):
-                    self.assertContains(response, label)
+                visible_text = " ".join(strip_tags(response.content.decode()).split())
+                for label in ("Home", "Exam Authorities", "Previous Year Papers", "Mock Tests", "Practice Sets", "Login", "Register"):
+                    self.assertIn(label, visible_text)
                 self.assertNotContains(response, '>Logout<')
                 self.assertNotContains(response, '>Profile<')
 
@@ -34,7 +48,9 @@ class NavigationTests(TestCase):
                 self.assertNotContains(response, '>Register<')
                 if route != "accounts:profile":
                     self.assertNotContains(response, user.email)
-                self.assertContains(response, f'action="{reverse("accounts:logout")}" method="post"')
+                markup = FormParser()
+                markup.feed(response.content.decode())
+                self.assertTrue(any(form.get("action") == reverse("accounts:logout") and form.get("method", "get").lower() == "post" for form in markup.forms))
                 self.assertContains(response, 'name="csrfmiddlewaretoken"')
 
     def test_home_cards_and_accessible_navigation_markup(self):

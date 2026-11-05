@@ -1,0 +1,6 @@
+{% extends "base.html" %}{% block title %}Start {{ pattern.name }} | Mock Exam Platform{% endblock %}{% block content %}
+<h1>{{ pattern.name }}</h1><p>{{ pattern.exam }}{% if pattern.stage %} &middot; {{ pattern.stage.name }}{% endif %}</p><p>{{ pattern.total_questions }} questions &middot; {{ pattern.duration_minutes }} minutes &middot; {{ pattern.total_marks }} marks</p>
+<h2>Sections</h2><ul>{% for section in pattern.sections.all %}<li>{{ section.name }}: {{ section.question_count }} questions</li>{% endfor %}</ul>
+<p>Starting fixes your question set. You can reopen this attempt from Mock Tests. The timer continues when you leave. Answers saved before the deadline are scored when you submit or time expires.</p>
+{% if error %}<p class="form-errors" role="alert">{{ error }}</p>{% else %}<form method="post">{% csrf_token %}<button type="submit">Start Test</button></form>{% endif %}
+<p><a href="{% url 'mock_tests:patterns' pattern.exam.authority.slug pattern.exam.slug %}">Back to available tests</a></p>{% endblock %}

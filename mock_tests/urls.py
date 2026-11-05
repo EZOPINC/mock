@@ -1,13 +1,17 @@
 from django.urls import path
-from django.views.generic import TemplateView
-from django.contrib.auth.decorators import login_required
 from . import views
 
 app_name = 'mock_tests'
-urlpatterns = [path("", login_required(TemplateView.as_view(
-    template_name="core/placeholder.html",
-    extra_context={"title": 'Mock Tests', "description": 'Timed mock tests will be available here in a future milestone.'},
-)), name='index'),
+urlpatterns = [
+    path("", views.index, name="index"),
     path("preview/", views.preview, name="preview"),
     path("preview/<int:question_id>/", views.preview, name="question_preview"),
+    path("tests/<int:pattern_id>/start/", views.test_start, name="start"),
+    path("attempts/<int:attempt_id>/", views.attempt_detail, name="attempt_detail"),
+    path("attempts/<int:attempt_id>/save/", views.save_answer, name="save_answer"),
+    path("attempts/<int:attempt_id>/status/", views.attempt_status, name="attempt_status"),
+    path("attempts/<int:attempt_id>/submit/", views.confirm_submit, name="submit"),
+    path("attempts/<int:attempt_id>/results/", views.results, name="results"),
+    path("<slug:authority_slug>/", views.exam_list, name="exams"),
+    path("<slug:authority_slug>/<slug:exam_slug>/", views.pattern_list, name="patterns"),
 ]

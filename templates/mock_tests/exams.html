@@ -1,0 +1,3 @@
+{% extends "base.html" %}{% block title %}{{ authority.name }} mock tests | Mock Exam Platform{% endblock %}{% block content %}
+<nav aria-label="Breadcrumb"><a href="{% url 'mock_tests:index' %}">Mock Tests</a> / {{ authority.name }}</nav><h1>{{ authority.name }} exams</h1>
+<ul>{% for exam in exams %}<li><a href="{% url 'mock_tests:patterns' authority.slug exam.slug %}">{{ exam.name }}</a></li>{% empty %}<li>No available mock tests.</li>{% endfor %}</ul>{% endblock %}

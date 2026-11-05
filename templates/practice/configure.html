@@ -1,0 +1,6 @@
+{% extends "base.html" %}{% block title %}Configure {{ subject.name }} practice | Mock Exam Platform{% endblock %}{% block content %}
+<nav aria-label="Breadcrumb"><a href="{% url 'practice:index' %}">Practice</a> / <a href="{% url 'practice:subjects' exam.authority.slug exam.slug %}">{{ exam.name }}</a> / {{ subject.name }}</nav>
+<h1>{{ subject.name }} practice</h1><p>{{ available_count }} eligible questions across this subject. Leave Topic blank to use all topics.</p>
+<ul>{% for item in topics %}<li>{{ item.topic.name }}: {{ item.count }} available</li>{% empty %}<li>No topic classification is available for these questions.</li>{% endfor %}</ul>
+<p>Practice is untimed. Each submitted answer locks and reveals feedback. Question counts are checked against your selected topic when starting.</p>
+<form method="post">{% csrf_token %}{{ form.non_field_errors }}{{ form.token }}{{ form.token.errors }}<div class="form-field">{{ form.topic.as_field_group }}</div><div class="form-field">{{ form.count.as_field_group }}</div><button type="submit">Start practice</button></form>{% endblock %}

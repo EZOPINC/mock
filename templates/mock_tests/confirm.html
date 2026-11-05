@@ -1,0 +1,8 @@
+{% extends "base.html" %}{% block title %}Confirm submission | Mock Exam Platform{% endblock %}
+{% block extra_head %}<meta http-equiv="refresh" content="{{ deadline_seconds }};url={% url 'mock_tests:results' attempt.pk %}">{% endblock %}{% block content %}
+<h1>Submit {{ attempt.configuration.name }}?</h1>
+{% if error %}<p class="form-errors" role="alert">{{ error }}</p>{% endif %}
+<ul><li>Answered: {{ counts.answered }}</li><li>Unanswered: {{ counts.unanswered }}</li><li>Marked for review: {{ counts.review }}</li></ul>
+<p>Marked answers are scored normally. Submission is final. The server deadline continues on this page.</p>
+<form method="post">{% csrf_token %}<input type="hidden" name="version" value="{{ attempt.save_version }}"><button type="submit">Confirm submission</button></form>
+<p><a href="{% url 'mock_tests:attempt_detail' attempt.pk %}">Return to questions</a></p>{% endblock %}

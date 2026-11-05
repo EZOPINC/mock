@@ -149,3 +149,97 @@ GeneralQuestionBatch (general_question, D22) is an admin proxy for completed
 General ImportBatch records, not a separate table. Its inherited PK/fields and
 ImportedQuestion relationships point to the existing import audit records.
 Question identity/content and immutable revisions remain in questions.
+
+## Milestone 4.1 implementation (2026-11-05)
+
+`mock_tests.ExamPattern` now stores Exam, optional Stage, name, descriptive
+version (default 1), duration_minutes, total_questions, total_marks,
+default_positive_marks, default_negative_marks, status (draft/active/inactive),
+and created_at. Status replaces the proposed stored is_active flag; is_active
+is a derived Python property. Version uniqueness remains unspecified.
+
+`ExamPatternSection` stores pattern, name, unique per-pattern display_order,
+question_count, optional Subject/Topic, language_mode (en/bn/mixed), and nullable
+positive_marks/negative_marks overrides. Topic must match Subject when both are
+specified. All foreign keys use PROTECT. Counts, duration, version and positive
+marks must be positive; negative marks are nonnegative deduction amounts.
+Unanswered questions will score zero. Maximum section marks must sum to total_marks.
+
+Explicit transactional services activate/deactivate patterns, locking the Exam
+and pattern. Partial PostgreSQL uniqueness constraints allow one active pattern
+per Exam/Stage, including a separate no-stage scope. Active configuration and
+sections are read-only; deactivate before edits. Availability uses each master
+Question's approved published revision and valid available translations, matching
+Exam/Subject/Topic/language. A newer working draft does not replace approved content.
+Overlapping section pools must support sufficient distinct master questions;
+capacity validation does not generate tests or select questions. Availability is
+checked at activation, not reserved; the future generation service must revalidate.
+No attempts, timers, responses, scoring or results are implemented in 4.1.
+
+## Milestone 4.2 implementation (2026-11-05)
+
+`MockAttempt` stores user and pattern (PROTECT), created_at, started_at, status
+(created/in_progress/submitted/expired), and immutable configuration JSON. The
+snapshot contains pattern/version, exam/authority/stage labels, duration, totals,
+section IDs/names/order/filters/language and effective marks as decimal strings.
+There are no answer keys in configuration JSON. Start atomically assembles a
+Created attempt and question rows, then marks it In Progress with started_at.
+Submitted/Expired state values are reserved; no submission/expiry service exists
+yet. Timer enforcement and scoring remain Milestone 4.3.
+
+`AttemptQuestion` implements the planned MockAttemptQuestion relationship without
+a second model/table: attempt, section, master Question and QuestionRevision
+(PROTECT), display_order, positive_marks and negative_marks. Database uniqueness
+covers (attempt, display_order) and (attempt, question); order/positive marks are
+positive and deductions nonnegative. Revision ownership and section/pattern
+consistency are validated. Revision/translation content is reused, never copied
+into mutable question records. Attempt/question snapshots reject edits/deletes.
+
+Starting locks the user, pattern/sections and candidate master questions in
+consistent order. Eligibility is rechecked against locked masters before random
+selection. The section-capacity flow also allocates distinct master questions
+across overlapping pools. Any failure rolls back the full attempt and rows.
+An open-attempt uniqueness constraint covers (user, pattern) for Created and
+In Progress, supplementing user-row locking for repeated/concurrent requests.
+Repeated starts resume that attempt without generation, including after pattern
+deactivation. Once used, pattern configuration and sections remain frozen; status
+can still change. Create a new pattern version for revised configuration.
+
+All mock navigation requires authentication. Only valid active patterns under
+active exams/authorities appear. Attempt retrieval is scoped to the current user
+and uses pinned revisions, English-first prefetched translations, and snapshot
+labels. Active attempt HTML contains neither correct answers nor explanations.
+Start is POST/CSRF protected; GET only displays confirmation or resumes. No answer
+entry/autosave, timers, scoring, results or client language selector is added.
+
+## Milestone 4.3 execution fields (2026-11-05)
+
+Existing MockAttempt/AttemptQuestion are extended, not replaced. Attempts add
+expires_at (backfilled from frozen duration), finalized_at, last_position,
+save_version/token, Decimal total/maximum scores, correct/incorrect/unanswered
+counts and section_results JSON. Rows add A-D/blank selected_answer, review flag,
+answered_at and awarded_marks. Constraints validate options, deadline/position and
+finalization fields. Score fields allow negative totals; deductions stay nonnegative.
+Parent-row locking serializes autosave and idempotent finalization. Global
+optimistic versions reject stale requests; UUID tokens make retries idempotent.
+Immutable configuration/revision/order/marking snapshots remain unchanged.
+See [execution workflow and idle-expiry behavior](mock-test-execution.md).
+
+## Milestone 5.1 practice implementation (2026-11-05)
+
+The planned PracticeResponse is implemented as PracticeQuestion, with no second
+response model. PracticeSession has owner, exam, required subject, optional topic,
+start_token, immutable configuration JSON, status (in_progress/completed/abandoned),
+started_at and completed_at. Subject is required by this milestone's navigation.
+PracticeQuestion has session, master question, pinned revision, positive display_order,
+frozen classification JSON, selected_answer, nullable is_correct and answered_at.
+Unique constraints: (user, start_token), (session, question), (session, display_order).
+Checks enforce coherent session/answer states. Foreign keys use PROTECT.
+
+Creation and feedback are transactional/idempotent. User/candidate locks protect
+creation; parent-session locks serialize answers and abandonment. Submitted answers
+are immutable. Completion occurs automatically after the last response; pause retains
+in_progress. Question correctness comes from pinned immutable revisions. Classification
+snapshots keep historical topic/subject breakdowns consistent after taxonomy edits.
+Shared Question Bank eligibility is reused by mocks and practice without changing
+mock section allocation. See [practice workflow](practice-sessions.md).

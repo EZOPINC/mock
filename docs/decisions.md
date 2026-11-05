@@ -199,3 +199,57 @@ Explicit wide columns establish one source-row identity; separate long rows stil
 require pairing approval. The user explicitly requires verified answer correction
 before import. Handwritten marks never populate keys or approve/publish content.
 No existing records, associations or migrations change.
+
+## D25 - Mock pattern configuration (2026-11-05)
+
+Reason: Milestone 4.1 introduces configurable mock patterns using the approved
+Question Bank. Impact: explicit draft/active/inactive status, pattern default
+marks with nullable section overrides, optional subject/topic filters, and
+transactional activation with one active pattern per exam/stage. Preserve the
+approved en/bn/mixed section language rule and one logical multilingual question.
+Active configuration requires deactivation before editing. Activation checks
+section totals, maximum marks and distinct-question capacity across overlapping
+sections. Availability is not a reservation; generation must recheck later.
+Version is retained as descriptive metadata with no invented uniqueness key.
+No attempt or test generation functionality is added.
+
+## D26 - Fixed mock attempts and repeat-start safety (2026-11-05)
+
+Reason: Milestone 4.2 requires persistent authenticated mock attempts with a fixed
+question set. Impact: MockAttempt and AttemptQuestion pin immutable revisions,
+master identities, section/order and effective marks; configuration/labels are
+snapshotted. Patterns/sections used by attempts cannot be reconfigured; create a
+new version. Start uses a transaction, user/pattern/question locks and a partial
+unique open-attempt constraint. Repeat starts resume the same open user/pattern
+attempt; insufficient pools leave no partial attempt. Capacity-based selection
+handles overlapping filters without repeating a multilingual master. Views are
+owner-only and omit solutions. Reserved Submitted/Expired states do not implement
+submission or expiry; those, timers, answer saving and scoring remain 4.3.
+
+## D27 - Server-authoritative mock execution (2026-11-05)
+
+Reason: Milestone 4.3 adds timer, answer persistence, submission and scoring.
+Impact: extend existing attempts/rows with deadlines, versioned response state
+and final results. Parent-attempt locks serialize saves/finalization; global
+optimistic versions reject stale writes and latest-request tokens allow retries.
+Submission confirmation checks its displayed version. Score with frozen revision
+keys and marks, using Decimal; multilingual questions count once and review flags
+do not alter scoring. Finalized responses/results cannot change. Active views/API
+omit keys/solutions; finalized owner-only review reveals them. Expire on server
+access and through the idle-expiry management command; no scheduler is introduced.
+Backfill historical deadlines from stored configuration rather than current patterns.
+No further engine or Milestone 5.1 work is included.
+
+## D28 - Untimed practice sessions and locked feedback (2026-11-05)
+
+Reason: Milestone 5.1 requires persistent practice and immediate feedback separate
+from official mocks. Impact: PracticeSession and PracticeQuestion reuse published
+revision/translation snapshots and shared Question Bank eligibility. PracticeQuestion
+implements the planned PracticeResponse, with no duplicate storage. Required subject,
+optional topic and supported question counts define one unique-master selection pool.
+Token-scoped start retries resume their original session. First answer submission locks
+the response; same-answer retries are idempotent and conflicting changes fail. Reveal
+solutions only after that individual answer. Pause retains In Progress; all answered
+completes the session, or the user explicitly abandons it. Parent locks serialize
+concurrent responses and abandonment. Freeze classification labels for summaries.
+No timing, mock-score integration or Milestone 6.1 functionality is added.

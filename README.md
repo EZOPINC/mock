@@ -79,7 +79,7 @@ in. Logout uses a CSRF-protected POST from the shared navigation.
 
 Home, `/exam-authorities/`, and `/previous-year/` are public. `/mock-tests/`
 and `/practice/` require login and preserve a safe `next` destination through
-login or registration. Module pages are placeholders with no exam records.
+login or registration. Previous-year papers and mock tests use configured domain data. Practice supports persistent untimed sessions with immediate feedback.
 The responsive menu supports touch, native button keyboard activation, and
 Escape to close and return focus. Links remain visible without JavaScript.
 
@@ -88,3 +88,25 @@ permission, redirect, CSRF, and navigation tests, all using PostgreSQL.
 No new models or migrations are required for Milestone 1.2.
 
 This milestone does not include domain functionality or deployment setup.
+
+## Mock test execution (Milestone 4.3)
+
+Authenticated students can start configured active patterns at `/mock-tests/`,
+resume fixed attempts, save/change/clear answers, mark questions for review, and
+submit for scored results with bilingual review. Deadlines and scoring use the
+frozen attempt configuration; no browser-provided marks or answer keys are trusted.
+See [execution behavior and expiry](docs/mock-test-execution.md).
+
+Run scoped checks with `python manage.py test mock_tests --noinput`,
+`python manage.py check`, and `python manage.py makemigrations --check --dry-run`.
+
+## Practice sessions (Milestone 5.1)
+
+Open `/practice/` after login, choose an exam category, exam, subject and optional
+Topic, then select 10/20/30/50 questions or the available count. Each submitted
+answer locks and reveals feedback. Skip freely, pause by leaving, and resume
+without a timer. Answering every question completes the session; unfinished
+sessions can be explicitly abandoned. Practice history is separate from mock scores.
+See [practice workflow and integrity](docs/practice-sessions.md).
+
+Run `python manage.py test practice --noinput` for scoped PostgreSQL tests.

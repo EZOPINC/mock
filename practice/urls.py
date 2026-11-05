@@ -1,9 +1,14 @@
 from django.urls import path
-from django.views.generic import TemplateView
-from django.contrib.auth.decorators import login_required
+from . import views
 
-app_name = 'practice'
-urlpatterns = [path("", login_required(TemplateView.as_view(
-    template_name="core/placeholder.html",
-    extra_context={"title": 'Practice Sets', "description": 'Practice by exam, subject, and topic will be available here in a future milestone.'},
-)), name='index')]
+app_name = "practice"
+urlpatterns = [
+    path("", views.index, name="index"),
+    path("sessions/<int:session_id>/", views.session_view, name="session"),
+    path("sessions/<int:session_id>/questions/<int:question_id>/answer/", views.answer, name="answer"),
+    path("sessions/<int:session_id>/summary/", views.summary, name="summary"),
+    path("sessions/<int:session_id>/abandon/", views.abandon, name="abandon"),
+    path("<slug:authority_slug>/", views.exams, name="exams"),
+    path("<slug:authority_slug>/<slug:exam_slug>/", views.subjects, name="subjects"),
+    path("<slug:authority_slug>/<slug:exam_slug>/<slug:subject_slug>/", views.configure, name="configure"),
+]

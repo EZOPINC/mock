@@ -1,0 +1,23 @@
+{% extends "base.html" %}{% load static %}
+{% block title %}{{ attempt.configuration.name }} attempt | Mock Exam Platform{% endblock %}
+{% block extra_head %}<link rel="stylesheet" href="{% static 'css/mock-test.css' %}"><script src="{% static 'js/mock-test.js' %}" defer></script>{% endblock %}
+{% block content %}
+<nav aria-label="Breadcrumb"><a href="{% url 'mock_tests:index' %}">Mock Tests</a> / Your attempt</nav>
+<h1>{{ attempt.configuration.name }}</h1><p>{{ attempt.configuration.exam_name }} &middot; {{ attempt.configuration.total_questions }} questions &middot; {{ attempt.configuration.total_marks }} marks</p>
+<div class="mock-execution" data-save-url="{% url 'mock_tests:save_answer' attempt.pk %}" data-status-url="{% url 'mock_tests:attempt_status' attempt.pk %}" data-confirm-url="{% url 'mock_tests:submit' attempt.pk %}">
+{% csrf_token %}{{ clock|json_script:"attempt-clock" }}
+<noscript><p class="form-errors">Enable JavaScript to save answers and use the countdown. Your deadline continues while this page is closed.</p></noscript>
+<div class="mock-toolbar"><p>Time remaining: <strong id="mock-timer" role="timer" aria-label="Time remaining">Loading...</strong></p><p id="mock-save-status" role="status" aria-live="polite">Saved answers restored.</p><button type="button" id="mock-retry" hidden>Retry saving</button></div>
+<p id="mock-clock-status" role="status"></p><p><a href="">Reload saved state</a></p>
+<nav class="mock-palette" aria-label="Question palette">{% for row in rows %}<button type="button" data-goto="{{ row.display_order }}">{{ row.display_order }}</button>{% endfor %}</nav>
+<p class="muted">Blue: answered. Gold border: marked for review. Outline: unanswered. Current question has a dark border.</p>
+<p>All questions are shown below in test order. Use the palette or Previous/Next to jump between questions.</p>
+<div class="question-list">{% for row in rows %}<article class="paper-question mock-question" id="question-{{ row.display_order }}" data-order="{{ row.display_order }}" data-row-id="{{ row.pk }}" tabindex="-1">
+<div class="question-card-header"><h2>Question {{ row.display_order }}</h2><span>{{ row.section_snapshot.name }}</span></div>
+{% include "questions/translations.html" with revision=row.question_revision show_solutions=False hide_answers=True %}
+<fieldset class="mock-answer"><legend>Your answer for question {{ row.display_order }}</legend>{% for option in options %}<label><input type="radio" name="answer-{{ row.pk }}" value="{{ option }}"{% if row.selected_answer == option %} checked{% endif %}> {{ option }}</label>{% endfor %}
+<label class="mock-review"><input type="checkbox" data-review{% if row.marked_for_review %} checked{% endif %}> Mark for review</label><button type="button" data-clear>Clear answer</button></fieldset>
+<nav class="mock-question-nav" aria-label="Question {{ row.display_order }} navigation">{% if not forloop.first %}<button type="button" data-goto="{{ row.display_order|add:'-1' }}">Previous</button>{% endif %}{% if not forloop.last %}<button type="button" data-goto="{{ row.display_order|add:'1' }}">Next</button>{% endif %}</nav>
+</article>{% endfor %}</div>
+<p><a class="button" id="mock-finish" href="{% url 'mock_tests:submit' attempt.pk %}">Review and submit</a></p>
+</div>{% endblock %}

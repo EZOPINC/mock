@@ -1,0 +1,15 @@
+{% extends "base.html" %}{% load static %}{% block title %}Practice question {{ row.display_order }} | Mock Exam Platform{% endblock %}{% block extra_head %}<link rel="stylesheet" href="{% static 'css/practice.css' %}">{% endblock %}{% block content %}
+<nav aria-label="Breadcrumb"><a href="{% url 'practice:index' %}">Practice</a> / {{ session.configuration.exam_name }} / {{ session.configuration.subject_name }}</nav>
+<h1>{{ session.configuration.subject_name }} practice</h1><p>{{ session.configuration.topic_name }} &middot; {{ session.get_status_display }} &middot; Untimed</p>
+{% include "practice/progress.html" %}
+<nav class="question-jumps practice-palette" aria-label="Practice question palette">{% for item in rows %}<a href="?question={{ item.display_order }}"{% if item.selected_answer %} class="practice-answered"{% endif %}{% if item.pk == row.pk %} aria-current="step"{% endif %} aria-label="Question {{ item.display_order }}, {% if item.selected_answer %}answered{% else %}unanswered{% endif %}">{{ item.display_order }}{% if item.selected_answer %} &#10003;{% endif %}</a>{% endfor %}</nav>
+{% if error %}<p class="form-errors" role="alert">{{ error }}</p>{% endif %}
+<article class="paper-question"><div class="question-card-header"><h2>Question {{ row.display_order }} of {{ progress.total }}</h2></div>
+{% if row.selected_answer %}<p role="status"><strong>{% if row.is_correct %}Correct{% else %}Incorrect{% endif %}.</strong> Your answer: {{ row.selected_answer }}. This answer is locked.</p>{% endif %}
+{% include "questions/translations.html" with revision=row.question_revision show_solutions=row.selected_answer hide_answers=False verified_only=True %}
+{% if not row.selected_answer %}{% if session.status == 'in_progress' %}
+<form method="post" action="{% url 'practice:answer' session.pk row.pk %}" class="stage-panel practice-answer">{% csrf_token %}<fieldset><legend>Your answer for question {{ row.display_order }}</legend>{% for option in options %}<label><input type="radio" name="answer" value="{{ option }}" required> {{ option }}</label> {% endfor %}</fieldset><button type="submit">Submit answer and show feedback</button></form>
+{% else %}<p>This session is closed. No answer was submitted for this question.</p>{% endif %}{% endif %}</article>
+<nav class="question-pagination" aria-label="Practice question navigation">{% if row.display_order > 1 %}<a href="?question={{ row.display_order|add:'-1' }}">Previous</a>{% endif %}{% if row.display_order < progress.total %}<a href="?question={{ row.display_order|add:'1' }}">Next / skip</a>{% endif %}</nav>
+<p><a href="{% url 'practice:summary' session.pk %}">Session summary and review</a></p>
+{% if session.status == 'in_progress' %}<p><a href="{% url 'practice:index' %}">Pause and return to Practice</a> &middot; <a href="{% url 'practice:abandon' session.pk %}">Abandon session</a></p>{% else %}<p><a href="{% url 'practice:index' %}">Back to Practice</a></p>{% endif %}{% endblock %}
