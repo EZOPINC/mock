@@ -1,5 +1,8 @@
 .venv/
 .env
+.env.*
+!.env.example
+!.env.production.example
 __pycache__/
 *.py[cod]
 staticfiles/
@@ -8,3 +11,12 @@ staticfiles/
 
 # Local standalone CSS compiler cache (compiled CSS remains a static asset).
 .tools/
+
+# Server-local runtime files and private keys (never ignore migrations or source assets).
+logs/
+*.log
+*.pid
+*.sock
+*.pem
+*.key
+secrets/

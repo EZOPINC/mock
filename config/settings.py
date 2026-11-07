@@ -1,4 +1,4 @@
-"""Shared foundation settings. All database access uses PostgreSQL."""
+"""Environment-driven dev/prod settings. Database access always uses PostgreSQL."""
 import os
 from pathlib import Path
 
@@ -23,11 +23,25 @@ def boolean(name, default="False"):
     return value == "true"
 
 
+DJANGO_ENV = os.environ.get("DJANGO_ENV", "dev").strip().lower()
+if DJANGO_ENV not in {"dev", "prod"}:
+    raise ImproperlyConfigured("DJANGO_ENV must be dev or prod.")
+IS_PRODUCTION = DJANGO_ENV == "prod"
 SECRET_KEY = required("DJANGO_SECRET_KEY")
 DEBUG = boolean("DJANGO_DEBUG")
+if IS_PRODUCTION and DEBUG:
+    raise ImproperlyConfigured("DJANGO_DEBUG must be False in prod.")
+if IS_PRODUCTION:
+    required("DJANGO_ALLOWED_HOSTS")
 ALLOWED_HOSTS = [
     host.strip() for host in os.environ.get("DJANGO_ALLOWED_HOSTS", "localhost,127.0.0.1,[::1]").split(",")
     if host.strip()
+]
+if IS_PRODUCTION and (not ALLOWED_HOSTS or "*" in ALLOWED_HOSTS):
+    raise ImproperlyConfigured("Set explicit DJANGO_ALLOWED_HOSTS in prod; wildcard * is not allowed.")
+CSRF_TRUSTED_ORIGINS = [
+    origin.strip() for origin in os.environ.get("DJANGO_CSRF_TRUSTED_ORIGINS", "").split(",")
+    if origin.strip()
 ]
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -97,13 +111,26 @@ USE_I18N = True
 USE_TZ = True
 STATIC_URL = "static/"
 STATICFILES_DIRS = [BASE_DIR / "static"]
-STATIC_ROOT = BASE_DIR / "staticfiles"
+STATIC_ROOT = Path(os.environ.get("DJANGO_STATIC_ROOT", str(BASE_DIR / "staticfiles")))
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 SESSION_COOKIE_HTTPONLY = True
 SESSION_COOKIE_SECURE = not DEBUG
 CSRF_COOKIE_SECURE = not DEBUG
+SECURE_SSL_REDIRECT = boolean("DJANGO_SECURE_SSL_REDIRECT", "True" if IS_PRODUCTION else "False")
+if IS_PRODUCTION and not SECURE_SSL_REDIRECT:
+    raise ImproperlyConfigured("DJANGO_SECURE_SSL_REDIRECT must be True in prod.")
+# Enable only behind a proxy that strips client-supplied forwarded-proto headers.
+SECURE_PROXY_SSL_HEADER = (
+    ("HTTP_X_FORWARDED_PROTO", "https") if boolean("DJANGO_TRUST_PROXY_HTTPS") else None
+)
+try:
+    SECURE_HSTS_SECONDS = int(os.environ.get("DJANGO_SECURE_HSTS_SECONDS", "0"))
+except ValueError as exc:
+    raise ImproperlyConfigured("DJANGO_SECURE_HSTS_SECONDS must be a non-negative integer.") from exc
+if SECURE_HSTS_SECONDS < 0:
+    raise ImproperlyConfigured("DJANGO_SECURE_HSTS_SECONDS must be a non-negative integer.")
 X_FRAME_OPTIONS = "DENY"
-IMPORT_STAGING_ROOT = BASE_DIR / ".import-staging"
+IMPORT_STAGING_ROOT = Path(os.environ.get("IMPORT_STAGING_ROOT", str(BASE_DIR / ".import-staging")))
 IMPORT_MAX_UPLOAD_BYTES = 5 * 1024 * 1024
 IMPORT_MAX_ROWS = 2000
 IMPORT_STAGE_SECONDS = 2 * 60 * 60

@@ -22,6 +22,10 @@ Put the generated key in `DJANGO_SECRET_KEY` in `.env`. Set the database
 variables to your own PostgreSQL database and login. Never commit `.env`.
 Process environment variables take precedence over `.env`.
 
+For dev/prod switching, see [environment configuration](docs/environment-configuration.md).
+Production uses its own `.env` copied from `.env.production.example`; normal
+migrations do not require edits to `config/settings.py`.
+
 Using a PostgreSQL administrator, create a dedicated local development role
 and database (the password prompt avoids embedding a password in SQL):
 
