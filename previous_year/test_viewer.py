@@ -45,9 +45,9 @@ class PaperViewerTests(PaperFixture):
         response = self.client.get(url, {"stage": self.stage.pk})
         self.assertContains(response, "2024")
         self.assertNotContains(response, "2023")
-        response = self.client.get(self.year_url(2024), {"stage": self.stage.pk})
+        response = self.client.get(self.year_url(2024), {"stage": self.stage.pk, "mode": "practice"})
         self.assertContains(response, "Choose session")
-        self.assertRedirects(self.client.get(self.year_url(2024), {"stage": self.stage.pk, "session": "Evening"}), self.detail_url(paper=third))
+        self.assertRedirects(self.client.get(self.year_url(2024), {"stage": self.stage.pk, "session": "Evening", "mode": "practice"}), self.detail_url(paper=third) + "?mode=practice")
         for params in ({"stage": "999999"}, {"stage": self.stage.pk, "session": "Invalid"}):
             self.assertEqual(self.client.get(self.year_url(2024), params).status_code, 404)
         self.assertEqual(self.client.get(self.year_url(2024), {"stage": self.stage.pk, "session": "Evening", "paper": second.pk}).status_code, 400)
@@ -90,7 +90,9 @@ class PaperViewerTests(PaperFixture):
         self.assertNotContains(response, self.other_exam.name)
         response = self.client.get(reverse("previous_year:paper_list", args=[self.authority.slug, self.exam.slug]))
         self.assertContains(response, self.year_url())
-        self.assertRedirects(self.client.get(self.year_url()), self.detail_url())
+        self.assertContains(self.client.get(self.year_url()), "Direct Answers")
+        self.assertContains(self.client.get(self.year_url()), "Practice Paper")
+        self.assertRedirects(self.client.get(self.year_url(), {"mode": "direct"}), self.detail_url() + "?mode=direct")
 
     def test_multiple_papers_offer_scoped_selector_and_stage_session_labels(self):
         question = self.question()
@@ -99,11 +101,11 @@ class PaperViewerTests(PaperFixture):
         second = PreviousYearPaper.objects.create(exam=self.exam, stage=self.stage, year=2023, paper_name="Second paper", session="Shift II")
         self.row(question=question, paper=second)
         publish_paper(second)
-        response = self.client.get(self.year_url())
+        response = self.client.get(self.year_url(), {"mode": "practice"})
         self.assertEqual(response.status_code, 200)
         for label in ("Second paper", "Preliminary", "Shift II", 'name="paper"'):
             self.assertContains(response, label)
-        self.assertRedirects(self.client.get(self.year_url(), {"paper": second.pk}), self.detail_url(paper=second))
+        self.assertRedirects(self.client.get(self.year_url(), {"paper": second.pk, "mode": "practice"}), self.detail_url(paper=second) + "?mode=practice")
         self.assertContains(self.client.get(self.detail_url()), 'name="paper"')
 
     def test_invalid_year_or_foreign_paper_is_not_exposed(self):
@@ -141,14 +143,13 @@ class PaperViewerTests(PaperFixture):
         self.assertContains(response, 'lang="en"')
         self.assertContains(response, 'lang="bn"')
 
-    def test_monolingual_available_version_and_collapsed_answer_control(self):
+    def test_monolingual_direct_answers_are_highlighted_and_open(self):
         self.row(question=self.question(language="bn", question_text="শুধু বাংলা", explanation=""))
         publish_paper(self.paper)
         response = self.client.get(self.detail_url())
         self.assertEqual(response.content.count(b'class="question-content translation-panel"'), 1)
-        self.assertContains(response, "Show Answer/Explanation")
-        self.assertContains(response, '<details class="solution answer-disclosure">')
-        self.assertNotContains(response, 'class="correct-option"')
+        self.assertContains(response, '<details class="solution" open>')
+        self.assertContains(response, 'class="correct-option"')
         self.assertContains(response, "Explanation unavailable.")
 
     def test_pinned_revision_unchanged_when_new_translation_published(self):

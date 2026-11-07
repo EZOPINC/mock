@@ -1,23 +1,34 @@
 {% extends "base.html" %}{% load static %}
 {% block title %}{{ attempt.configuration.name }} attempt | Mock Exam Platform{% endblock %}
+{% block body_class %} ui-exam-page{% endblock %}{% block site_header %}{% endblock %}{% block site_footer %}{% endblock %}
 {% block extra_head %}<link rel="stylesheet" href="{% static 'css/mock-test.css' %}"><script src="{% static 'js/mock-test.js' %}" defer></script>{% endblock %}
 {% block content %}
-<nav aria-label="Breadcrumb"><a href="{% url 'mock_tests:index' %}">Mock Tests</a> / Your attempt</nav>
-<h1>{{ attempt.configuration.name }}</h1><p>{{ attempt.configuration.exam_name }} &middot; {{ attempt.configuration.total_questions }} questions &middot; {{ attempt.configuration.total_marks }} marks</p>
-<div class="mock-execution" data-save-url="{% url 'mock_tests:save_answer' attempt.pk %}" data-status-url="{% url 'mock_tests:attempt_status' attempt.pk %}" data-confirm-url="{% url 'mock_tests:submit' attempt.pk %}">
+<div class="mock-execution ui-mock-exam" data-save-url="{% url 'mock_tests:save_answer' attempt.pk %}" data-status-url="{% url 'mock_tests:attempt_status' attempt.pk %}" data-confirm-url="{% url 'mock_tests:submit' attempt.pk %}">
 {% csrf_token %}{{ clock|json_script:"attempt-clock" }}
+<header class="mock-exam-heading"><div><p class="eyebrow">{% include "components/icon.html" with name="clock" %} MOCK EXAM</p><h1>{{ attempt.configuration.name }}</h1><p>{{ attempt.configuration.exam_name }} &middot; {{ attempt.configuration.total_questions }} questions &middot; {{ attempt.configuration.total_marks }} marks</p></div><a class="text-link" href="{% url 'mock_tests:index' %}">Exit to Mock Tests {% include "components/icon.html" with name="arrow" %}</a></header>
 <noscript><p class="form-errors">Enable JavaScript to save answers and use the countdown. Your deadline continues while this page is closed.</p></noscript>
-<div class="mock-toolbar"><p>Time remaining: <strong id="mock-timer" role="timer" aria-label="Time remaining">Loading...</strong></p><p id="mock-save-status" role="status" aria-live="polite">Saved answers restored.</p><button type="button" id="mock-retry" hidden>Retry saving</button></div>
-<p id="mock-clock-status" role="status"></p><p><a href="">Reload saved state</a></p>
-<nav class="mock-palette" aria-label="Question palette">{% for row in rows %}<button type="button" data-goto="{{ row.display_order }}">{{ row.display_order }}</button>{% endfor %}</nav>
-<p class="muted">Blue: answered. Gold border: marked for review. Outline: unanswered. Current question has a dark border.</p>
-<p>All questions are shown below in test order. Use the palette or Previous/Next to jump between questions.</p>
-<div class="question-list">{% for row in rows %}<article class="paper-question mock-question" id="question-{{ row.display_order }}" data-order="{{ row.display_order }}" data-row-id="{{ row.pk }}" tabindex="-1">
-<div class="question-card-header"><h2>Question {{ row.display_order }}</h2><span>{{ row.section_snapshot.name }}</span></div>
-{% include "questions/translations.html" with revision=row.question_revision show_solutions=False hide_answers=True %}
-<fieldset class="mock-answer"><legend>Your answer for question {{ row.display_order }}</legend>{% for option in options %}<label><input type="radio" name="answer-{{ row.pk }}" value="{{ option }}"{% if row.selected_answer == option %} checked{% endif %}> {{ option }}</label>{% endfor %}
-<label class="mock-review"><input type="checkbox" data-review{% if row.marked_for_review %} checked{% endif %}> Mark for review</label><button type="button" data-clear>Clear answer</button></fieldset>
-<nav class="mock-question-nav" aria-label="Question {{ row.display_order }} navigation">{% if not forloop.first %}<button type="button" data-goto="{{ row.display_order|add:'-1' }}">Previous</button>{% endif %}{% if not forloop.last %}<button type="button" data-goto="{{ row.display_order|add:'1' }}">Next</button>{% endif %}</nav>
+<section class="mock-toolbar" aria-label="Test status">
+  <div class="mock-time-block"><span class="mock-status-label">{% include "components/icon.html" with name="clock" %} Time remaining</span><strong id="mock-timer" role="timer" aria-label="Time remaining">Loading...</strong></div>
+  <div class="mock-progress-block"><p id="mock-question-counter">Question {{ attempt.last_position }} of {{ rows|length }}</p><label for="mock-progress"><span id="mock-answered-count">0</span> of {{ rows|length }} answered</label><progress id="mock-progress" max="{{ rows|length }}" value="0">0 answered</progress></div>
+  <div class="mock-save-block"><p id="mock-save-status" role="status" aria-live="polite">Saved answers restored.</p><p id="mock-clock-status" role="status"></p><div class="mock-status-actions"><button type="button" id="mock-retry" hidden>Retry saving</button><a href="">Reload saved state</a><button type="button" data-palette-toggle aria-controls="mock-palette-panel" aria-expanded="true">Question palette</button></div></div>
+</section>
+<div class="mock-workspace">
+<aside class="mock-sidebar" aria-label="Test navigation">
+<details class="mock-palette-panel" id="mock-palette-panel" open><summary>Question palette <span id="mock-palette-total">{{ rows|length }}</span></summary>
+<div class="mock-palette-body">
+<label class="mock-section-label" for="mock-section">Jump to section</label><select id="mock-section">{% for section in attempt.configuration.sections %}<option value="{{ section.id }}">{{ section.name }} ({{ section.question_count }})</option>{% endfor %}</select>
+<p class="mock-current-section" id="mock-current-section"></p>
+<ul class="mock-palette-legend" aria-label="Palette legend"><li><span class="mock-state-sample is-answered" aria-hidden="true">&#10003;</span> Answered</li><li><span class="mock-state-sample" aria-hidden="true">&mdash;</span> Unanswered</li><li><span class="mock-state-sample is-review" aria-hidden="true">!</span> Marked for review</li><li><span class="mock-state-sample is-current" aria-hidden="true">&bull;</span> Current question</li></ul>
+<p class="mock-palette-counts"><span id="mock-remaining-count">{{ rows|length }}</span> unanswered &middot; <span id="mock-review-count">0</span> for review</p>
+<nav class="mock-palette" aria-label="Question palette">{% regroup rows by section_snapshot.id as palette_sections %}{% for section_group in palette_sections %}<div class="mock-palette-group" role="group" aria-label="{{ section_group.list.0.section_snapshot.name }}"><h2>{{ section_group.list.0.section_snapshot.name }}</h2><div class="mock-palette-grid">{% for row in section_group.list %}<button type="button" data-goto="{{ row.display_order }}"><span>{{ row.display_order }}</span><small class="mock-palette-state" aria-hidden="true">&mdash;</small></button>{% endfor %}</div></div>{% endfor %}</nav>
+<p class="mock-palette-note">All questions stay visible. Jump to any question without changing its answer. Review marks do not affect scoring.</p>
+</div></details></aside>
+<div class="question-list">{% for row in rows %}<article class="paper-question mock-question" id="question-{{ row.display_order }}" data-order="{{ row.display_order }}" data-row-id="{{ row.pk }}" data-section-id="{{ row.section_snapshot.id }}" tabindex="-1" aria-labelledby="mock-heading-{{ row.pk }}">
+<div class="question-card-header"><h2 id="mock-heading-{{ row.pk }}">Question {{ row.display_order }}</h2><span class="mock-section-badge">{{ row.section_snapshot.name }}</span></div>
+{% include "questions/translations.html" with revision=row.question_revision show_solutions=False hide_answers=True selectable=True mock_selection=True %}
+<fieldset class="mock-answer"><legend class="visually-hidden">Answer tools for question {{ row.display_order }}</legend><div class="mock-answer-tools"><label class="mock-review"><input type="checkbox" data-review{% if row.marked_for_review %} checked{% endif %}> Mark for review</label><button type="button" data-clear>Clear answer</button></div></fieldset>
+<nav class="mock-question-nav" aria-label="Question {{ row.display_order }} navigation">{% if not forloop.first %}<button type="button" data-goto="{{ row.display_order|add:'-1' }}">{% include "components/icon.html" with name="arrow" icon_class="ui-back-icon" %} Previous</button>{% endif %}{% if not forloop.last %}<button type="button" data-goto="{{ row.display_order|add:'1' }}">Next {% include "components/icon.html" with name="arrow" %}</button>{% endif %}</nav>
 </article>{% endfor %}</div>
-<p><a class="button" id="mock-finish" href="{% url 'mock_tests:submit' attempt.pk %}">Review and submit</a></p>
+</div>
+<nav class="mock-action-bar" aria-label="Test actions"><div class="mock-step-actions"><button type="button" data-current-prev>{% include "components/icon.html" with name="arrow" icon_class="ui-back-icon" %} Previous</button><button type="button" data-current-next>Next {% include "components/icon.html" with name="arrow" %}</button></div><a class="button button-primary" id="mock-finish" href="{% url 'mock_tests:submit' attempt.pk %}">Review and submit {% include "components/icon.html" with name="check" %}</a></nav>
 </div>{% endblock %}

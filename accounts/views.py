@@ -8,6 +8,7 @@ from django.views.decorators.cache import never_cache
 from django.views.decorators.debug import sensitive_post_parameters
 from django.views.generic import FormView, TemplateView
 from .forms import RegistrationForm
+from .dashboard import dashboard_context
 
 
 @method_decorator(never_cache, name="dispatch")
@@ -35,3 +36,6 @@ class RegisterView(RedirectURLMixin, FormView):
 @method_decorator(never_cache, name="dispatch")
 class ProfileView(LoginRequiredMixin, TemplateView):
     template_name = "accounts/profile.html"
+
+    def get_context_data(self, **kwargs):
+        return super().get_context_data(**kwargs) | dashboard_context(self.request.user)

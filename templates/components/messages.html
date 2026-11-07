@@ -1,5 +1,5 @@
 {% if messages %}
-<div class="messages" role="status" aria-live="polite">
-  {% for message in messages %}<p class="message {{ message.tags }}">{{ message }}</p>{% endfor %}
+<div class="messages ui-messages" role="status" aria-live="polite">
+  {% for message in messages %}<p class="message {{ message.tags }}"{% if message.level >= 40 %} role="alert"{% endif %}><span class="message-icon">{% if message.level >= 30 %}{% include "components/icon.html" with name="alert" %}{% elif message.level == 25 %}{% include "components/icon.html" with name="check" %}{% else %}{% include "components/icon.html" with name="info" %}{% endif %}</span><span>{{ message }}</span></p>{% endfor %}
 </div>
 {% endif %}

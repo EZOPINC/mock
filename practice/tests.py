@@ -246,6 +246,26 @@ class PracticeServiceTests(PracticeFixture):
 
 
 class PracticeViewTests(PracticeFixture):
+    def test_embedded_bilingual_options_submit_and_lock(self):
+        question = self.question()
+        add_translation(question, language="bn", question_text="Bengali version", option_a="BN first", option_b="BN second", option_c="BN third", option_d="BN fourth", explanation="BN feedback")
+        publish_question(mark_reviewed(question))
+        session = self.session()
+        self.client.force_login(self.user)
+        response = self.client.get(self.session_url(session))
+        self.assertContains(response, 'class="embedded-option"', count=8)
+        self.assertContains(response, 'name="answer"', count=8)
+        self.assertContains(response, 'class="embedded-option-text"')
+        self.assertNotContains(response, 'Your answer for question')
+        self.assertNotContains(response, 'BN feedback')
+        row = session.questions.get()
+        self.client.post(reverse("practice:answer", args=[session.pk, row.pk]), {"answer": "B"})
+        row.refresh_from_db()
+        self.assertEqual(row.selected_answer, "B")
+        locked = self.client.get(self.session_url(session))
+        self.assertNotContains(locked, 'class="embedded-option"')
+        self.assertContains(locked, 'BN feedback')
+
     def test_bengali_only_feedback_and_single_translation_layout(self):
         self.question(language="bn", question_text="শুধু বাংলা প্রশ্ন", option_a="এক", option_b="দুই", option_c="তিন", option_d="চার", correct_answer="B")
         session = self.session()

@@ -7,17 +7,18 @@
   <meta name="description" content="Explore competitive exam papers, questions and solutions in English and Bengali. Prepare at your own pace with Mock Exam Platform.">
   <title>{% block title %}Mock Exam Platform{% endblock %}</title>
   <link rel="stylesheet" href="{% static 'css/site.css' %}">
+  <link rel="stylesheet" href="{% static 'css/tailwind.css' %}">
   {% block extra_head %}{% endblock %}
   <script src="{% static 'js/navigation.js' %}" defer></script>
   <script src="{% static 'js/student.js' %}" defer></script>
 </head>
-<body>
+<body class="ui-shell tw:min-h-screen{% block body_class %}{% endblock %}">
   <a class="skip-link" href="#main-content">Skip to content</a>
-  {% include "components/header.html" %}
-  <main id="main-content" tabindex="-1">
+  {% block site_header %}{% include "components/header.html" %}{% endblock %}
+  <main id="main-content" class="ui-main" tabindex="-1">
     {% include "components/messages.html" %}
     {% block content %}{% endblock %}
   </main>
-  {% include "components/footer.html" %}
+  {% block site_footer %}{% include "components/footer.html" %}{% endblock %}
 </body>
 </html>

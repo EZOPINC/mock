@@ -1,9 +1,9 @@
-{% extends "base.html" %}
+{% extends "base.html" %}{% load static %}
 {% block title %}{{ exam.name }} — {{ year }} papers | Mock Exam Platform{% endblock %}
-{% block content %}
+{% block extra_head %}<script src="{% static 'js/discovery-filter.js' %}" defer></script>{% endblock %}{% block content %}<div class="ui-discovery">
 {% include "previous_year/breadcrumbs.html" %}
 <h1>{{ exam.name }} — {{ year }}</h1>
-<p>Choose a paper, stage, part, or shift/session to view its original questions.</p>
-{% if session_choices %}<nav aria-label="Paper sessions"><h2>Choose session</h2><ul>{% for session in session_choices %}<li><a href="?session={{ session.value|urlencode }}{% if selected_stage %}&amp;stage={{ selected_stage|urlencode }}{% endif %}">{{ session.label }}</a></li>{% endfor %}</ul></nav>{% endif %}{% include "previous_year/paper_selector.html" %}
+<p>{% if viewer_mode == 'practice' %}Practice Paper{% else %}Direct Answers{% endif %}: choose a paper, stage, part, or shift/session.</p>
+{% if session_choices %}<nav class="ui-selection-panel" aria-label="Paper sessions"><h2>Choose session</h2><ul>{% for session in session_choices %}<li><a class="ui-filter-chip" href="?mode={{ viewer_mode }}&amp;session={{ session.value|urlencode }}{% if selected_stage %}&amp;stage={{ selected_stage|urlencode }}{% endif %}">{{ session.label }}</a></li>{% endfor %}</ul></nav>{% endif %}{% include "previous_year/paper_selector.html" %}
 {% include "previous_year/paper_cards.html" %}
-{% endblock %}
+</div>{% endblock %}

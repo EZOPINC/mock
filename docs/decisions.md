@@ -253,3 +253,14 @@ solutions only after that individual answer. Pause retains In Progress; all answ
 completes the session, or the user explicitly abandons it. Parent locks serialize
 concurrent responses and abandonment. Freeze classification labels for summaries.
 No timing, mock-score integration or Milestone 6.1 functionality is added.
+
+## D29 - Public previous-year viewing modes (2026-11-07)
+
+Reason: the user requests a year-level choice between Direct Answers and Practice
+Paper. Impact: mode-aware paper/session navigation, direct highlighted/open solutions,
+and per-question selection feedback in the public full-paper practice viewer. Reuse
+published paper relationships and pinned multilingual revisions. Do not add session
+models or require login: this paper practice is temporary and resets on reload,
+while persistent Practice and mock scores remain separate. Server-side POST feedback
+validates choices, publication, ownership of the row by its paper and CSRF. No schema
+or publication policy changes.

@@ -3,6 +3,7 @@ from . import views
 
 app_name = "previous_year"
 urlpatterns = [
+    path("<slug:authority_slug>/<slug:exam_slug>/<int:year>/<int:paper_id>/questions/<int:row_id>/answer/", views.paper_answer, name="paper_answer"),
     path("", views.index, name="index"),
     path("<slug:authority_slug>/<slug:exam_slug>/",
          views.paper_list, name="paper_list"),

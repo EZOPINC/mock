@@ -2,7 +2,9 @@ from django.db import transaction
 from django.db.models import Case, Count, IntegerField, Prefetch, Value, When
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render
-from django.views.decorators.http import require_safe
+from django.views.decorators.http import require_safe, require_POST
+from django.views.decorators.cache import never_cache
+from django.urls import reverse
 
 from urllib.parse import urlencode
 
@@ -53,9 +55,17 @@ def paper_list(request, authority_slug, exam_slug):
         "year_groups": [{"year": year, "papers": rows} for year, rows in groups.items()]})
 
 
+def viewer_mode(request, default=None):
+    mode = request.GET.get("mode", default)
+    if mode is not None and mode not in {"direct", "practice"}:
+        raise Http404
+    return mode
+
+
 @require_safe
 def paper_year(request, authority_slug, exam_slug, year):
     exam = active_exam(authority_slug, exam_slug)
+    mode = viewer_mode(request)
     papers, stages, stage = stage_scope(request, published_papers().filter(exam=exam, year=year))
     if not papers.exists():
         raise Http404
@@ -65,7 +75,7 @@ def paper_year(request, authority_slug, exam_slug, year):
         if session not in [item or "" for item in sessions]:
             raise Http404
         papers = papers.filter(session=session) if session else papers.filter(session__isnull=True)
-    context = {"exam": exam, "year": year, "papers": papers, "selected_stage": stage, "selected_session": session,
+    context = {"exam": exam, "year": year, "papers": papers, "selected_stage": stage, "selected_session": session, "viewer_mode": mode,
                "session_choices": [{"value": item or "", "label": item or "No session specified"} for item in sessions] if len(sessions) > 1 and session is None else []}
     form = PaperSelectionForm(request.GET if "paper" in request.GET else None, papers=papers)
     if form.is_bound:
@@ -73,16 +83,28 @@ def paper_year(request, authority_slug, exam_slug, year):
             selected = form.cleaned_data["paper"]
         else:
             return render(request, "previous_year/paper_year.html", context | {"paper_form": form}, status=400)
-    elif papers.count() == 1:
-        selected = papers.first()
     else:
+        selected = papers.first() if papers.count() == 1 else None
+    if mode is None:
+        filters = {key: request.GET[key] for key in ("stage", "session", "paper") if key in request.GET}
+        return render(request, "previous_year/modes.html", context | {
+            "direct_query": urlencode(filters | {"mode": "direct"}),
+            "practice_query": urlencode(filters | {"mode": "practice"}),
+        })
+    if selected is None:
         return render(request, "previous_year/paper_year.html", context | {"paper_form": form})
-    return redirect("previous_year:paper_detail", authority_slug=authority_slug, exam_slug=exam_slug, year=year, paper_id=selected.pk)
+    return redirect(reverse("previous_year:paper_detail", args=[authority_slug, exam_slug, year, selected.pk]) + "?" + urlencode({"mode": mode}))
 
 
 @require_safe
 @transaction.atomic
 def paper_detail(request, authority_slug, exam_slug, year, paper_id):
+    context = paper_context(request, authority_slug, exam_slug, year, paper_id)
+    return render(request, "previous_year/paper_detail.html", context)
+
+
+def paper_context(request, authority_slug, exam_slug, year, paper_id):
+    mode = viewer_mode(request, "direct")
     exam = active_exam(authority_slug, exam_slug)
     # Keep unpublication/editing from changing rows during the public render.
     translations = QuestionTranslation.objects.annotate(_viewer_order=Case(
@@ -103,6 +125,30 @@ def paper_detail(request, authority_slug, exam_slug, year, paper_id):
     if selected_subject and selected_subject not in {str(pk) for pk in counts}:
         raise Http404
     viewer_rows = [row for row in rows if not selected_subject or str(row.question.subject_id) == selected_subject]
-    return render(request, "previous_year/paper_detail.html", {"paper": paper, "exam": exam, "paper_form": selector,
+    return {"paper": paper, "exam": exam, "paper_form": selector, "viewer_mode": mode,
         "question_count": len(rows), "subject_counts": sorted(counts.values(), key=lambda item: item["name"]),
-        "selected_subject": selected_subject, "viewer_rows": viewer_rows})
+        "selected_subject": selected_subject, "viewer_rows": viewer_rows, "answer_options": "ABCD"}
+
+
+@never_cache
+@require_POST
+@transaction.atomic
+def paper_answer(request, authority_slug, exam_slug, year, paper_id, row_id):
+    if viewer_mode(request, "practice") != "practice":
+        raise Http404
+    context = paper_context(request, authority_slug, exam_slug, year, paper_id)
+    context["viewer_mode"] = "practice"
+    row = next((item for item in context["viewer_rows"] if item.pk == row_id), None)
+    if row is None:
+        raise Http404
+    answer = request.POST.get("answer")
+    valid_answer = answer in ("A", "B", "C", "D")
+    status = 200 if valid_answer else 400
+    if not valid_answer:
+        row.practice_error = "Choose A, B, C or D."
+    else:
+        row.practice_answer = answer
+    if request.headers.get("X-Requested-With") == "XMLHttpRequest":
+        return render(request, "previous_year/practice_question.html", context | {"row": row, "revision": row.question_revision}, status=status)
+    return render(request, "previous_year/paper_detail.html", context, status=status)
+

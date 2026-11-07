@@ -1,11 +1,11 @@
-<div class="discovery-grid">
+<div class="discovery-grid ui-authorities"{% if filter_list_id %} id="{{ filter_list_id }}"{% endif %}>
   {% for authority in authorities %}
-    <article class="discovery-card">
-      <span class="eyebrow">Exam authority</span><h3>{{ authority.name }}</h3>
+    <article class="discovery-card ui-authority-card" data-discovery-item>
+      <div class="ui-category-label"><span class="ui-category-icon">{% include "components/icon.html" with name="grid" %}</span><span class="eyebrow">Exam category</span></div><h3>{{ authority.name }}</h3>
       <ul class="exam-links">
-        {% for available_exam in authority.available_exams %}<li><a href="{% url 'exams:exam_detail' authority.slug available_exam.slug %}">{{ available_exam.name }} <span aria-hidden="true">↗</span></a></li>{% empty %}<li class="muted">No exams are available for this authority yet.</li>{% endfor %}
+        {% for available_exam in authority.available_exams %}<li><a href="{% url 'exams:exam_detail' authority.slug available_exam.slug %}">{{ available_exam.name }} {% include "components/icon.html" with name="chevron" %}</a></li>{% empty %}<li class="muted">No exams are available for this authority yet.</li>{% endfor %}
       </ul>
-      <a class="text-link" href="{% url 'exams:exam_list' authority.slug %}">Explore exams <span aria-hidden="true">→</span></a>
+      <a class="text-link" href="{% url 'exams:exam_list' authority.slug %}">Explore exams {% include "components/icon.html" with name="arrow" %}</a>
     </article>
   {% empty %}
     {% include "components/empty_state.html" with empty_title="No exam authorities are available yet." empty_description="Published exam information will appear here when it is ready." %}

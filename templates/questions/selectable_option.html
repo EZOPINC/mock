@@ -1,0 +1,4 @@
+<label class="embedded-option" data-option="{{ letter }}">
+  <input type="radio" name="{% if mock_selection %}answer-{{ row.pk }}{% else %}answer{% endif %}" value="{{ letter }}"{% if mock_selection %}{% if forloop.first and row.selected_answer == letter %} checked{% endif %}{% else %} required{% endif %}>
+  <span class="embedded-option-letter" aria-hidden="true">{{ letter }}</span><span class="embedded-option-text"><span class="visually-hidden">Option {{ letter }}: </span>{{ text|linebreaksbr }}</span>
+</label>

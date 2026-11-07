@@ -1,21 +1,9 @@
-<footer class="site-footer">
-    <div class="footer-grid">
-        <div><a class="footer-brand" href="{% url 'home' %}">Mock Exam Platform<span class="accent">.</span></a>
-            <p>A focused place for competitive exam preparation.<br>Explore, understand, and keep moving forward.</p>
-        </div>
-        <div>
-            <h2>Explore</h2><a href="{% url 'exams:authorities' %}">Exam Authorities</a><a
-                href="{% url 'previous_year:index' %}">Previous Year Papers</a>
-        </div>
-        <div>
-            <h2>Your preparation</h2><a href="{% url 'mock_tests:index' %}">Mock Tests</a><a
-                href="{% url 'practice:index' %}">Practice Sets</a>
-        </div>
-        <div>
-            <h2>Get in touch</h2>
-            <p>Contact details will be available here.</p>
-        </div>
-    </div>
-    <div class="footer-bottom"><span>&copy; {% now "Y" %} Mock Exam Platform</span><span>Built for thoughtful
-            preparation.</span></div>
+<footer class="site-footer ui-footer">
+  <div class="footer-grid">
+    <div class="ui-footer-intro"><a class="footer-brand" href="{% url 'home' %}"><span class="ui-footer-icon">{% include "components/icon.html" with name="book" %}</span> Mock Exam Platform</a><p>Small steps. Stronger understanding.<br>Prepare for your next exam in English and Bengali.</p><span class="ui-footer-note">A clearer way to prepare.</span></div>
+    <div><h2>Explore</h2><a href="{% url 'exams:authorities' %}">Exam Authorities</a><a href="{% url 'previous_year:index' %}">Previous Year Papers</a><a href="{% url 'general_questions:index' %}">General Questions</a></div>
+    <div><h2>Your preparation</h2><a href="{% url 'mock_tests:index' %}">Mock Tests</a><a href="{% url 'practice:index' %}">Practice Sets</a></div>
+    <div><h2>Your account</h2>{% if user.is_authenticated %}<a href="{% url 'accounts:profile' %}">Profile</a><p>Your progress, ready when you return.</p>{% else %}<a href="{% url 'accounts:login' %}">Login</a><a href="{% url 'accounts:register' %}">Register</a><p>Save your practice and mock-test progress.</p>{% endif %}</div>
+  </div>
+  <div class="footer-bottom"><span>&copy; {% now "Y" %} Mock Exam Platform</span><a href="#main-content">Back to top {% include "components/icon.html" with name="arrow" %}</a></div>
 </footer>

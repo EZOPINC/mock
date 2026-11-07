@@ -5,3 +5,6 @@ __pycache__/
 staticfiles/
 .coverage
 .import-staging/
+
+# Local standalone CSS compiler cache (compiled CSS remains a static asset).
+.tools/

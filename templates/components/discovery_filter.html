@@ -1,0 +1,6 @@
+<div class="ui-discovery-filter" data-discovery-filter data-target="{{ target }}" hidden>
+  <label for="{{ target }}-search">{{ filter_label|default:"Filter this list" }}</label>
+  <div class="ui-search-control">{% include "components/icon.html" with name="search" %}<input id="{{ target }}-search" type="search" placeholder="{{ filter_placeholder|default:'Type to narrow this list' }}" autocomplete="off" aria-controls="{{ target }}" aria-describedby="{{ target }}-status"><button type="button" data-clear-filter>Clear</button></div>
+  <p id="{{ target }}-status" role="status" aria-live="polite" data-filter-status></p>
+  <p data-filter-empty hidden>No matching items. Clear the filter to see the full list.</p>
+</div>

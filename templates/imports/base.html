@@ -1,3 +1,4 @@
-{% extends "base.html" %}
-{% load static %}
+{% extends "base.html" %}{% load static %}
+{% block body_class %} ui-admin-page{% endblock %}
 {% block extra_head %}<link rel="stylesheet" href="{% static 'css/imports.css' %}">{% endblock %}
+{% block content %}<div class="ui-admin">{% block import_content %}{% endblock %}</div>{% endblock %}

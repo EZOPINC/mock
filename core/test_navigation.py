@@ -4,19 +4,37 @@ from django.contrib.auth import get_user_model
 from django.test import TestCase
 from django.urls import reverse
 from django.utils.html import strip_tags
+from exams.models import Exam, ExamAuthority
 
 
 class FormParser(HTMLParser):
     def __init__(self):
         super().__init__()
         self.forms = []
+        self.module_cards = []
 
     def handle_starttag(self, tag, attrs):
         if tag == "form":
             self.forms.append(dict(attrs))
+        if tag == "article" and "module-card" in dict(attrs).get("class", "").split():
+            self.module_cards.append(dict(attrs))
 
 
 class NavigationTests(TestCase):
+    def test_home_keeps_dynamic_categories_and_active_exam_links(self):
+        authority = ExamAuthority.objects.create(name="Public Commission", code="PC", slug="public-commission")
+        exam = Exam.objects.create(authority=authority, name="Clerkship", code="CL", slug="clerkship")
+        Exam.objects.create(authority=authority, name="Hidden Exam", code="H", slug="hidden", is_active=False)
+        ExamAuthority.objects.create(name="Hidden Authority", code="HA", slug="hidden-authority", is_active=False)
+        response = self.client.get(reverse("home"))
+        self.assertContains(response, authority.name)
+        self.assertContains(response, exam.name)
+        self.assertContains(response, reverse("exams:exam_detail", args=[authority.slug, exam.slug]))
+        self.assertNotContains(response, "Hidden Exam")
+        self.assertNotContains(response, "Hidden Authority")
+        self.assertContains(response, '<h1 id="home-heading">')
+        self.assertContains(response, 'aria-labelledby="discovery-heading"')
+
     def test_public_pages_and_guest_navigation(self):
         for route in ("home", "exams:authorities", "previous_year:index", "accounts:login", "accounts:register"):
             with self.subTest(route=route):
@@ -55,7 +73,11 @@ class NavigationTests(TestCase):
 
     def test_home_cards_and_accessible_navigation_markup(self):
         response = self.client.get(reverse("home"))
-        self.assertEqual(response.content.count(b'<article class="module-card">'), 3)
+        markup = FormParser()
+        markup.feed(response.content.decode())
+        self.assertEqual(len(markup.module_cards), 4)
+        html = response.content.decode()
+        self.assertLess(html.index('href="/static/css/site.css"'), html.index('href="/static/css/tailwind.css"'))
         self.assertContains(response, 'href="#main-content"')
         self.assertContains(response, 'aria-controls="primary-navigation"')
         self.assertContains(response, 'aria-label="Main navigation"')

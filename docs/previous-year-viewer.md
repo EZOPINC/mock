@@ -57,3 +57,30 @@ required associations/configuration; no additional Milestone 3.1 dependencies
 were missing. Test coverage includes navigation, selector scoping, draft exclusion,
 English-first order, monolingual markup, original numbering/order, disclosures and
 historical revision stability. Manual browser layout/keyboard review remains useful.
+
+## Direct Answers and Practice Paper (2026-11-07)
+
+After choosing a year, guests choose Direct Answers or Practice Paper. The chosen
+mode is carried through stage/session/paper selection; direct paper links default
+to Direct Answers. The two viewers reuse the same published paper, original
+PaperQuestion numbering/order, subject filter, and immutable pinned revisions.
+
+- `?mode=direct`: all questions, correct options highlighted in each available
+  translation, answers and explanations already open.
+- `?mode=practice`: all questions stay visible, with radio choices and no answer
+  keys/explanations in initial HTML. Selecting a choice submits that question by
+  CSRF-protected POST; vanilla JavaScript replaces only its content with server-
+  generated correct/incorrect feedback, highlighted answer and open explanation.
+  Without JavaScript, Check answer returns the full paper with that one feedback.
+
+The feedback route is the paper URL plus `questions/<paper_question_id>/answer/`.
+It validates A-D, mode, paper/exam/year, subject scope and current publication;
+foreign rows and inactive/draft papers return 404. Feedback always uses the paper's
+pinned revision even if a newer revision is published. Responses are not cached.
+English/Bengali layouts and explicit unavailable-explanation text remain shared.
+
+This public paper practice is untimed and temporary: selections reset on reload,
+mode/filter changes or navigation to another paper. It creates no PracticeSession,
+mock attempt, score or duplicate question. Persistent authenticated Practice Mode
+remains a separate module. Admin previews retain their existing disclosure view.
+No model changes, migrations, imports or deployment work are involved.
