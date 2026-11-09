@@ -14,6 +14,7 @@
          value="{{ query }}"
          placeholder="Question text, subject, source…"><label for="preview-status">Show</label><select id="preview-status" name="status"><option value="">All rows</option><option value="errors" {% if status == 'errors' %}selected{% endif %}>Rows with errors</option><option value="warnings" {% if status == 'warnings' %}selected{% endif %}>Rows with warnings</option></select><button type="submit">Filter</button><a href="{% url 'imports:preview' data.token %}">Clear filters / edit</a></form>
     {% if not editable %}<p class="message" role="note">Filtered results are read-only. Clear filters to edit page values.</p>{% endif %}
+    {% include "imports/taxonomy_forms.html" %}
     <form method="post" id="preview-edit-form">
         {% csrf_token %}
         {% if editable %}{% for group in pairing_groups %}
@@ -35,7 +36,7 @@
          name="subjectmap_{{ mapping.key }}"><option value="">Match normalized name</option>{% for subject in subjects %}<option value="{{ subject.pk }}"
          {% if mapping.selected == subject.pk %}selected{% endif %}>{{ subject.name }} ({{ subject.code }})</option>{% endfor %}</select>{% endfor %}
         {% for mapping in topic_mappings %}<label for="topic-map-{{ mapping.key }}">Topic “{{ mapping.value }}” → existing record</label><select id="topic-map-{{ mapping.key }}" name="topicmap_{{ mapping.key }}"><option value="">Match name within subject</option>{% for topic in topics %}<option value="{{ topic.pk }}"
-         {% if mapping.selected == topic.pk %}selected{% endif %}>{{ topic.subject.name }} / {{ topic.name }}</option>{% endfor %}</select>{% endfor %}<p class="muted">Unresolved labels need explicit taxonomy mappings. Create missing records in <a href="{% url 'admin:exams_subject_changelist' %}">Taxonomy Admin</a> if needed, then revalidate.</p></details>{% endif %}
+         {% if mapping.selected == topic.pk %}selected{% endif %}>{{ topic.subject.name }} / {{ topic.name }}</option>{% endfor %}</select>{% endfor %}<p class="muted">Subjects match without case sensitivity. Previous Year topics use exact names, then a unique first-four-character match within the subject. Unmatched topics under existing subjects are created only on confirmation with Add topic permission. Multiple prefix matches create the exact uploaded topic instead. Check preview warnings; duplicate exact-name matches need a manual mapping. Create missing subjects in <a href="{% url 'admin:exams_subject_changelist' %}">Taxonomy Admin</a>, then revalidate.</p></details>{% endif %}
 <p class="import-table-note" id="import-table-help">Scroll the table horizontally to see every language and source column. Focus the table region to scroll with the keyboard. Save this page before navigating.</p>
 <div class="preview-table-wrap"
      role="region"

@@ -7,6 +7,36 @@ from previous_year.models import PreviousYearPaper
 DEFAULT_PAPER_NAME = "Previous Year Paper"
 
 
+class ImportSubjectForm(forms.ModelForm):
+    class Meta:
+        model = Subject
+        fields = ("name", "code", "slug")
+
+    def clean_name(self):
+        name = " ".join(self.cleaned_data["name"].split())
+        if any(" ".join(value.split()).casefold() == name.casefold()
+               for value in Subject.objects.values_list("name", flat=True)):
+            raise ValidationError("A subject with this name already exists. Use its mapping instead.")
+        return name
+
+
+class ImportTopicForm(forms.ModelForm):
+    class Meta:
+        model = Topic
+        fields = ("subject", "name", "slug")
+
+    def clean(self):
+        cleaned = super().clean()
+        subject, name = cleaned.get("subject"), cleaned.get("name")
+        if subject and name:
+            name = " ".join(name.split())
+            cleaned["name"] = name
+            if any(" ".join(value.split()).casefold() == name.casefold()
+                   for value in Topic.objects.filter(subject=subject).values_list("name", flat=True)):
+                self.add_error("name", "A topic with this name already exists under this subject. Use its mapping instead.")
+        return cleaned
+
+
 class UploadForm(forms.Form):
     import_type = forms.ChoiceField(choices=(("", "Choose import type"), ("previous_year", "Previous Year Questions"), ("general", "General Question Bank")))
     file = forms.FileField(label="CSV or XLSX file", widget=forms.FileInput(attrs={"accept": ".csv,.xlsx"}))

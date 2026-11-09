@@ -2,7 +2,8 @@ from functools import wraps
 
 from django.contrib import messages
 from django.contrib.admin.views.decorators import staff_member_required
-from django.core.exceptions import ValidationError
+from django.core.exceptions import PermissionDenied, ValidationError
+from django.db import IntegrityError, transaction
 from django.core.paginator import Paginator
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render
@@ -12,7 +13,7 @@ from django.views.decorators.http import require_http_methods, require_POST
 from exams.models import Exam, ExamStage, Subject, Topic
 from previous_year.models import PreviousYearPaper
 from . import staging
-from .forms import UploadForm
+from .forms import UploadForm, ImportSubjectForm, ImportTopicForm
 from .models import ImportBatch
 from .parsing import MAX_CELL, columns_for, preview_page_size, parse_upload
 from .permissions import require_import_permission
@@ -44,7 +45,7 @@ def upload(request):
             parsed = parse_upload(form.cleaned_data["file"], form.cleaned_data["worksheet"].strip())
             require_import_permission(request.user, form.cleaned_data["import_type"])
             for row in parsed["rows"]:
-                row["original_values"] = dict(row["values"])
+                row.setdefault("original_values", dict(row["values"]))
             data = staging.create(request.user, {**parsed, "selection": form.selection(), "subject_map": {}, "topic_map": {}})
         except ValidationError as error:
             form.add_error(None, "; ".join(error.messages))
@@ -106,13 +107,39 @@ def preview(request, token):
     completed = ImportBatch.objects.filter(staging_token=token, uploaded_by=request.user).first()
     if completed:
         return redirect("imports:complete", batch_id=completed.pk)
+    subject_form = ImportSubjectForm(prefix="new_subject")
+    topic_form = ImportTopicForm(prefix="new_topic")
     if request.method == "POST":
         with staging.locked(token):
             data = staging.load(token, request.user)
             if request.POST.get("version") != staging.digest(data):
                 raise ValidationError("This preview changed in another tab. Reload and revalidate your edits.")
-            data = edit_page(request, data)
-            staging.save(data)
+            require_import_permission(request.user, mode(data))
+            action = request.POST.get("action", "edit")
+            if action in {"add_subject", "add_topic"}:
+                permission = "exams.add_subject" if action == "add_subject" else "exams.add_topic"
+                if not request.user.has_perm(permission):
+                    raise PermissionDenied
+                if action == "add_subject":
+                    subject_form = ImportSubjectForm(request.POST, prefix="new_subject")
+                    taxonomy_form = subject_form
+                else:
+                    topic_form = ImportTopicForm(request.POST, prefix="new_topic")
+                    taxonomy_form = topic_form
+                if taxonomy_form.is_valid():
+                    try:
+                        with transaction.atomic():
+                            taxonomy_form.save()
+                    except IntegrityError:
+                        taxonomy_form.add_error(None, "This code or slug was just used by another record. Correct it and try again.")
+                    else:
+                        messages.success(request, "Taxonomy record added. Preview revalidated; check the resolved mappings before confirming.")
+                        return redirect("imports:preview", token=token)
+            elif action == "edit":
+                data = edit_page(request, data)
+                staging.save(data)
+            else:
+                raise ValidationError("Unsupported preview action.")
     else:
         data = staging.load(token, request.user)
     require_import_permission(request.user, mode(data))
@@ -142,6 +169,7 @@ def preview(request, token):
         "subjects": Subject.objects.all(), "topics": Topic.objects.select_related("subject"),
         "editable": editable, "query": query, "status": status,
         "pairing_groups": pairing_groups,
+        "subject_form": subject_form, "topic_form": topic_form,
     })
 
 

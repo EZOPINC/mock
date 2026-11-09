@@ -1,0 +1,31 @@
+{% if perms.exams.add_subject or perms.exams.add_topic %}
+<section class="import-mappings" aria-labelledby="inline-taxonomy-heading">
+  <h2 id="inline-taxonomy-heading">Add missing subject or topic</h2>
+  <p>Save any row edits with Save page &amp; Revalidate first. These actions create taxonomy records immediately, then refresh the preview. Questions remain unimported. Use the exact source name, or select the new record in the mapping controls afterward.</p>
+  <p data-taxonomy-status role="status" aria-live="polite"></p>
+  <div class="mapping-grid">
+    {% if perms.exams.add_subject %}
+    <details{% if subject_form.errors %} open{% endif %}>
+      <summary>Add subject</summary>
+      <form method="post" class="inline-taxonomy-form">
+        {% csrf_token %}<input type="hidden" name="version" value="{{ version }}"><input type="hidden" name="action" value="add_subject">
+        {% include "components/form_fields.html" with form=subject_form %}
+        <p class="help-text">Code and slug must be unique. Use letters, numbers, hyphens or underscores for the slug.</p>
+        <button type="submit">Add subject and revalidate</button>
+      </form>
+    </details>
+    {% endif %}
+    {% if perms.exams.add_topic %}
+    <details{% if topic_form.errors %} open{% endif %}>
+      <summary>Add topic</summary>
+      <form method="post" class="inline-taxonomy-form">
+        {% csrf_token %}<input type="hidden" name="version" value="{{ version }}"><input type="hidden" name="action" value="add_topic">
+        {% include "components/form_fields.html" with form=topic_form %}
+        <p class="help-text">Choose its existing subject. The slug must be unique within that subject.</p>
+        <button type="submit">Add topic and revalidate</button>
+      </form>
+    </details>
+    {% endif %}
+  </div>
+</section>
+{% endif %}

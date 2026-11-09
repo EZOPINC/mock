@@ -2,6 +2,7 @@
 from collections import defaultdict
 from hashlib import sha256
 import json
+from .taxonomy import topic_identity
 
 
 def groups_for(rows, approvals):
@@ -12,7 +13,7 @@ def groups_for(rows, approvals):
     for number, members in grouped.items():
         state = [{"source_row": row["source_row"], "values": row["values"],
                   "subject": row["subject"].code if row["subject"] else None,
-                  "topic": row["topic"].pk if row["topic"] else None,
+                  "topic": topic_identity(row["topic"]),
                   "revision": row["revision"], "translations": row.get("translations", []), "exams": sorted(exam.pk for exam in row["exams"])} for row in members]
         signature = sha256(json.dumps(state, sort_keys=True, ensure_ascii=False).encode()).hexdigest()
         group = {"number": number, "rows": members, "signature": signature,
@@ -22,7 +23,7 @@ def groups_for(rows, approvals):
             languages = [item["language"] for row in members for item in row.get("translations", [row["revision"]])]
             shared = {(row["revision"]["correct_answer"], row["values"]["difficulty_level"].strip(),
                        row["subject"].code if row["subject"] else None,
-                       row["topic"].pk if row["topic"] else None,
+                       json.dumps(topic_identity(row["topic"])),
                        tuple(sorted(exam.pk for exam in row["exams"]))) for row in members}
             if len(set(languages)) != len(languages) or not all(languages):
                 message = "Duplicate question number in the same language (or unresolved language). Correct the rows; they cannot be paired."

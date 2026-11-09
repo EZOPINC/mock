@@ -11,7 +11,7 @@ from .models import ImportBatch, ImportedQuestion
 from .permissions import require_import_permission
 from .validation import validate
 from .context import context_hash, exam_ids, mode
-from .taxonomy import persist_unidentified
+from .taxonomy import persist_unidentified, persist_topic
 
 
 def confirm_import(data, user):
@@ -56,6 +56,8 @@ def confirm_import(data, user):
                         fallback_subject = persist_unidentified(user)
                     primary["subject"] = fallback_subject
                 translations = [translation for row in group["rows"] for translation in row["translations"]]
+                if primary["topic"] is not None and primary["topic"].pk is None:
+                    primary["topic"] = persist_topic(primary["topic"], user)
                 question = create_question(subject=primary["subject"], topic=primary["topic"], revision=primary["revision"],
                     translations=translations, difficulty_level=primary["values"]["difficulty_level"].strip())
                 for exam in primary["exams"]:

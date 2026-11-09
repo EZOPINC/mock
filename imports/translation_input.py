@@ -3,7 +3,7 @@ import re
 
 from django.conf import settings
 
-from .language import infer_language
+from .language import infer_language, normalize_language
 
 TEXT_FIELDS = ("question_text", "option_a", "option_b", "option_c", "option_d", "explanation")
 REQUIRED_TEXT = TEXT_FIELDS[:-1]
@@ -21,7 +21,7 @@ def normalize_translations(values, selected):
                     errors.append(f"{field}_{code}: complete this language version or clear its entire block.")
             versions.append({"language": code, **translated})
     if versions:
-        declared = {part.strip().lower() for part in re.split(r"[,;|]", values.get("language", "")) if part.strip()}
+        declared = {part.strip() for part in re.split(r"[,;|]", normalize_language(values.get("language", ""))) if part.strip()}
         available = {version["language"] for version in versions}
         if all(values.get(field, "").strip() for field in REQUIRED_TEXT):
             generic_language = next(iter(declared)) if len(declared) == 1 else infer_language(values)
@@ -47,7 +47,7 @@ def normalize_translations(values, selected):
             errors.append("Generic and primary-language explanations differ. Resolve the difference explicitly.")
         warnings.append("Explicit language columns represent one master question; available versions are kept together.")
     else:
-        language = (values.get("language", "").strip() or selected.get("language", "")).lower()
+        language = normalize_language(values.get("language", "").strip() or selected.get("language", ""))
         if not language:
             language = infer_language(values)
             if language:

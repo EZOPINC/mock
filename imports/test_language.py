@@ -49,3 +49,22 @@ class LanguageInferenceTests(ImportFixture):
         self.assertGreater(validate(data)["error_count"], 0)
         with self.assertRaises(ValidationError):
             confirm_import(data, self.user)
+
+
+class LanguageLabelTests(ImportFixture):
+    def test_csv_and_xlsx_normalize_labels_preserving_source(self):
+        from .parsing import parse_upload
+        from .tests import csv_file, xlsx_file
+        for factory in (csv_file, xlsx_file):
+            for label, expected in (("English", "en"), (" BENGALI ", "bn"), ("en", "en"), ("BN", "bn"), ("", ""), ("French", "french"), ("English | Bengali", "en|bn")):
+                with self.subTest(format=factory.__name__, label=label):
+                    row = parse_upload(factory([values(language=label)]))["rows"][0]
+                    self.assertEqual(row["values"]["language"], expected)
+                    self.assertEqual(row["original_values"]["language"], label)
+
+    def test_preview_corrections_accept_labels_and_unknown_names_stay_invalid(self):
+        for label, code in (("English", "en"), ("Bengali", "bn")):
+            result = validate(self.data([values(language=label)]))
+            self.assertEqual(result["error_count"], 0)
+            self.assertEqual(result["rows"][0]["revision"]["language"], code)
+        self.assertGreater(validate(self.data([values(language="French")]))["error_count"], 0)

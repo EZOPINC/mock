@@ -1,5 +1,14 @@
 """Conservative script-based fallback for the two supported languages."""
 import unicodedata
+import re
+
+
+def normalize_language(value):
+    """Accept display names as well as tags, including wide-row declarations."""
+    aliases = {"english": "en", "bengali": "bn"}
+    return "".join(part if part in {",", ";", "|"} else
+                   aliases.get(part.strip().casefold(), part.strip().lower())
+                   for part in re.split(r"([,;|])", value))
 
 
 def infer_language(values):

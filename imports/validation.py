@@ -118,7 +118,11 @@ def validate(data, *, locked=False):
     except ValidationError as error:
         errors.extend(error.messages)
         exams, paper = [], None
-    subjects = list(Subject.objects.all())
+    subject_queryset = Subject.objects.all()
+    if locked and mode(data) == "previous_year":
+        # Serialize topic creation even for imports targeting different exams.
+        subject_queryset = subject_queryset.select_for_update().order_by("pk")
+    subjects = list(subject_queryset)
     exam_catalogue = list(Exam.objects.select_related("authority").all()) if mode(data) == "general" and data["selection"].get("exam_mapping") == "rows" else []
     topics = list(Topic.objects.select_related("subject"))
     subject_map, topic_map = data.get("subject_map", {}), data.get("topic_map", {})
@@ -175,6 +179,22 @@ def validate(data, *, locked=False):
             scoped = [topic for topic in topics if topic.subject_id == subject.pk]
             aliases = {normalized(values["topic"]): topic_map.get(normalized(values["subject"] + " / " + values["topic"]))} if normalized(values["subject"] + " / " + values["topic"]) in topic_map else {}
             topic = resolve_taxonomy(values["topic"], scoped, aliases)
+            if topic is None and mode(data) == "previous_year" and not aliases:
+                key = normalized(values["topic"])
+                exact = [item for item in scoped if normalized(item.name) == key]
+                prefix = [item for item in scoped if normalized(item.name)[:4] == key[:4]] if len(key) >= 4 else []
+                if len(exact) > 1:
+                    row_errors.append("Topic match is ambiguous. Select an existing topic mapping.")
+                elif len(prefix) == 1:
+                    topic = prefix[0]
+                    warnings.append(f"Topic matched by first four characters: {topic.name}. Verify this mapping before confirming.")
+                elif subject.pk is not None:
+                    from .taxonomy import proposed_topic
+                    try:
+                        topic = proposed_topic(subject, values["topic"])
+                        warnings.append(f"New topic '{topic.name}' will be created under {subject.name} only on confirmation (Add topic permission required).")
+                    except ValidationError as error:
+                        row_errors.extend(error.messages)
             if topic is None:
                 row_errors.append("Topic is unresolved or does not belong to the selected subject.")
         if not values["topic"].strip() and selected.get("topic_id"):

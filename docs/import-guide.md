@@ -106,7 +106,22 @@ similar text never causes an automatic identity merge.
    shows a warning without creating records; confirmation reuses the subject or
    creates it transactionally (code `UNIDENTIFIED`, slug `unidentified`). Creation
    requires Add subject permission. Nonblank unknown subjects still need mapping;
-   topics must still belong to the resolved subject.
+   topics must still belong to the resolved subject. Subject names match without
+   case sensitivity (`history`, `History`, `HISTORY`); duplicate matching names
+   still require an explicit mapping.
+   For **Previous Year** imports, topics first match by case-insensitive exact
+   name within that subject, then by a unique case-insensitive first-four-character
+   prefix (only for labels at least four characters long). Preview warns about
+   prefix matches: inspect them before confirming. If multiple prefix candidates
+   exist but no exact name matches, the importer proposes the exact uploaded name
+   as a new topic instead of choosing an arbitrary candidate. Multiple exact-name
+   matches still need a manual mapping.
+   If nothing matches and the subject already exists, preview proposes a new
+   topic. Confirmation creates it transactionally under that subject, requiring
+   **Add topic** permission. Repeated case variants reuse the same new topic.
+   Preview never writes taxonomy records. Unknown subjects still block import;
+   a proposed, not-yet-created UnIdentified subject cannot receive a new topic.
+   General Question imports retain their existing explicit topic-mapping behavior.
 2. Review all preview pages (up to 25 rows/page; fewer for wide files), including resolved Subject/Topic,
    Language, Answer, Exams and Paper. Search/status filters cover the entire file;
    clear filters to edit. Map unknown or missing subject labels to existing
@@ -115,6 +130,15 @@ similar text never causes an automatic identity merge.
    by an explicit value or inference must be corrected. Blank correct_answer is
    parseable but blocks confirmation: existing QuestionRevision requires A/B/C/D.
    Database integrity is retained; no incomplete Question Bank rows are inserted.
+
+   Missing taxonomy can also be added directly in preview using **Add subject**
+   or **Add topic**. Save row edits first. Subjects require name, unique code and
+   slug; topics require an existing subject, name and a slug unique within that
+   subject. These explicit POST actions create taxonomy immediately and refresh
+   validation; they do not import questions. The corresponding Django Add subject
+   or Add topic permission is required, in addition to import permissions.
+   Duplicate names ignoring case are rejected. Use the exact source name for
+   automatic resolution, or select the new record in the mapping controls.
 4. Confirm only after all blocking errors are resolved. Entire-batch server
    revalidation and `transaction.atomic()` create Questions/initial revisions,
    exam associations, optional source references, mode-specific paper associations,

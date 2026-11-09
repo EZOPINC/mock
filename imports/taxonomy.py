@@ -1,6 +1,39 @@
 from django.core.exceptions import ValidationError
 
-from exams.models import Subject
+from hashlib import sha256
+
+from django.utils.text import slugify
+
+from exams.models import Subject, Topic
+
+
+def topic_identity(topic):
+    if topic is None:
+        return None
+    return topic.pk if topic.pk is not None else ["new", topic.subject_id, " ".join(topic.name.split()).casefold()]
+
+
+def proposed_topic(subject, value):
+    name = " ".join(value.split())
+    key = name.casefold()
+    suffix = sha256(key.encode("utf-8")).hexdigest()[:16]
+    topic = Topic(subject=subject, name=name, slug=f"{slugify(name)[:175] or 'topic'}-{suffix}")
+    topic.full_clean()
+    return topic
+
+
+def persist_topic(topic, user):
+    # Caller holds the subject lock within the import transaction.
+    matches = [item for item in Topic.objects.filter(subject_id=topic.subject_id)
+               if " ".join(item.name.split()).casefold() == " ".join(topic.name.split()).casefold()]
+    if len(matches) > 1:
+        raise ValidationError("Topic match is ambiguous. Revalidate the import.")
+    if matches:
+        return matches[0]
+    if not user.has_perm("exams.add_topic"):
+        raise ValidationError("Creating a new topic requires the Add topic permission. Map to an existing topic or ask an administrator.")
+    topic.save()
+    return topic
 
 UNIDENTIFIED_NAME = "UnIdentified"
 UNIDENTIFIED_CODE = "UNIDENTIFIED"

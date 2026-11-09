@@ -1,5 +1,6 @@
 """Bounded, data-only ingestion. No formulas, macros, or external links evaluated."""
 import csv
+from .language import normalize_language
 from datetime import date, datetime
 from hashlib import sha256
 from io import BytesIO, StringIO
@@ -135,7 +136,9 @@ def parse_upload(upload, worksheet=""):
                     f"Row {number}: unnamed columns must be empty.")
             if headers[index]:
                 row[headers[index]] = value
-        rows.append({"source_row": number, "values": row})
+        original_values = dict(row)
+        row["language"] = normalize_language(row["language"])
+        rows.append({"source_row": number, "values": row, "original_values": original_values})
     if not rows:
         raise ValidationError("No data rows were found.")
     return {"filename": filename[:255], "file_sha256": sha256(data).hexdigest(), "worksheet": selected, "rows": rows,
