@@ -1,8 +1,36 @@
-{% extends "base.html" %}{% block title %}{{ attempt.configuration.name }} results | Mock Exam Platform{% endblock %}{% block content %}
-<nav aria-label="Breadcrumb"><a href="{% url 'mock_tests:index' %}">Mock Tests</a> / Results</nav>
-<h1>{{ attempt.configuration.name }} results</h1><p>{{ attempt.configuration.exam_name }} &middot; {{ attempt.get_status_display }}</p>
-<p>Score: <strong>{{ attempt.total_score }} / {{ attempt.maximum_score }}</strong> &middot; {{ attempt.percentage }}%</p>
-<ul><li>Attempted: {{ attempted_count }}</li><li>Correct: {{ attempt.correct_count }}</li><li>Incorrect: {{ attempt.incorrect_count }}</li><li>Unanswered: {{ attempt.unanswered_count }}</li></ul>
-<p>Finalized: {{ attempt.finalized_at }}</p><h2>Section performance</h2><ul>{% for id, section in attempt.section_results.items %}<li><strong>{{ section.name }}</strong>: {{ section.score }} / {{ section.maximum }} marks; {{ section.correct }} correct, {{ section.incorrect }} incorrect, {{ section.unanswered }} unanswered.</li>{% endfor %}</ul>
-<h2>Question review</h2><div class="question-list">{% for row in rows %}<article class="paper-question"><div class="question-card-header"><h3>Question {{ row.display_order }} &middot; {{ row.section_snapshot.name }}</h3></div><p>Your answer: {{ row.selected_answer|default:"Unanswered" }} &middot; Awarded marks: {{ row.awarded_marks }}</p>
-{% include "questions/translations.html" with revision=row.question_revision show_solutions=True hide_answers=False verified_only=True %}</article>{% endfor %}</div>{% endblock %}
+{% extends "base.html" %}
+{% block title %}{{ attempt.configuration.name }} results | Mock Exam Platform{% endblock %}
+{% block content %}
+<div class="mock-hub mock-results">
+  <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="{% url 'home' %}">Home</a>{% include "components/icon.html" with name="chevron" %}<a href="{% url 'mock_tests:index' %}">Mock Tests</a>{% include "components/icon.html" with name="chevron" %}<span aria-current="page">Results</span></nav>
+  <header class="mock-hub-heading"><div><p class="eyebrow">REFLECT. LEARN. MOVE FORWARD.</p><h1>{{ attempt.configuration.name }} results</h1><p>{{ attempt.configuration.exam_name }} <span aria-hidden="true">&middot;</span> {{ attempt.get_status_display }}</p></div><span class="mock-hub-heading-icon" aria-hidden="true">{% include "components/icon.html" with name="check" %}</span></header>
+
+  <section class="mock-results-overview" aria-label="Your results overview">
+    <div class="mock-results-score"><span class="mock-results-score-label">Your score</span><p><strong>{{ attempt.total_score }}</strong><span>/ {{ attempt.maximum_score }} marks</span></p><span class="mock-results-percentage">{{ attempt.percentage }}%</span><small>Based on this attempt's saved marking rules.</small></div>
+    <div class="mock-results-counts">
+      <div class="mock-results-count"><span class="ui-card-icon">{% include "components/icon.html" with name="pencil" %}</span><p>Attempted: {{ attempted_count }}</p><small>of {{ attempt.configuration.total_questions }} questions</small></div>
+      <div class="mock-results-count is-correct"><span class="ui-card-icon">{% include "components/icon.html" with name="check" %}</span><p>Correct: {{ attempt.correct_count }}</p><small>Keep building on what you know.</small></div>
+      <div class="mock-results-count is-incorrect"><span class="ui-card-icon">{% include "components/icon.html" with name="alert" %}</span><p>Incorrect: {{ attempt.incorrect_count }}</p><small>Review these explanations below.</small></div>
+      <div class="mock-results-count"><span class="ui-card-icon">{% include "components/icon.html" with name="book" %}</span><p>Unanswered: {{ attempt.unanswered_count }}</p><small>Questions left without an answer.</small></div>
+    </div>
+  </section>
+  <div class="mock-results-meta"><p>Finalized: <time datetime="{{ attempt.finalized_at|date:'c' }}">{{ attempt.finalized_at|date:"M j, Y H:i" }}</time></p><a class="text-link" href="#results-question-review">Review your answers {% include "components/icon.html" with name="arrow" %}</a></div>
+
+  <section class="mock-hub-section" aria-labelledby="results-sections-heading">
+    <div class="mock-hub-section-heading"><div><p class="eyebrow">SEE THE BREAKDOWN</p><h2 id="results-sections-heading">Section performance</h2></div></div>
+    <div class="mock-hub-attempts">{% for id, section in attempt.section_results.items %}<article class="mock-hub-card"><h3>{{ section.name }}</h3><p class="mock-hub-score"><strong>{{ section.score }}</strong><span>/ {{ section.maximum }} marks</span></p><dl class="mock-results-section-counts"><div><dt>Correct</dt><dd>{{ section.correct }}</dd></div><div><dt>Incorrect</dt><dd>{{ section.incorrect }}</dd></div><div><dt>Unanswered</dt><dd>{{ section.unanswered }}</dd></div></dl></article>{% empty %}<div class="mock-hub-empty"><p>No section breakdown is available for this attempt.</p></div>{% endfor %}</div>
+  </section>
+
+  <section class="mock-hub-section" id="results-question-review" aria-labelledby="results-review-heading">
+    <div class="mock-hub-section-heading"><div><p class="eyebrow">TURN ANSWERS INTO UNDERSTANDING</p><h2 id="results-review-heading">Question review</h2></div><span class="mock-hub-section-note">Your saved answers and verified solutions.</span></div>
+    <div class="question-list">{% for row in rows %}
+      <article class="paper-question mock-results-question" data-selected-answer="{{ row.selected_answer }}"{% if row.selected_answer and row.selected_answer != row.question_revision.correct_answer %} data-incorrect="true"{% endif %} aria-labelledby="result-question-{{ row.pk }}">
+        <div class="question-card-header"><h3 id="result-question-{{ row.pk }}">Question {{ row.display_order }}</h3><span class="badge badge-outline">{{ row.question.subject.name }}</span><span class="mock-results-outcome {% if not row.selected_answer %}is-unanswered{% elif row.selected_answer == row.question_revision.correct_answer %}is-correct{% else %}is-incorrect{% endif %}">{% if not row.selected_answer %}Unanswered{% elif row.selected_answer == row.question_revision.correct_answer %}{% include "components/icon.html" with name="check" %} Correct{% else %}{% include "components/icon.html" with name="alert" %} Incorrect{% endif %}</span></div>
+        <div class="mock-results-answer"><span>Your answer: <strong>{{ row.selected_answer|default:"Unanswered" }}</strong></span><span>Awarded marks: <strong>{{ row.awarded_marks }}</strong></span></div>
+        {% include "questions/translations.html" with revision=row.question_revision show_solutions=True hide_answers=False verified_only=True %}
+      </article>
+    {% endfor %}</div>
+  </section>
+  <nav class="button-row mock-results-actions" aria-label="Continue learning"><a class="button button-primary" href="{% url 'mock_tests:index' %}">Explore Mock Tests {% include "components/icon.html" with name="arrow" %}</a><a class="button button-secondary" href="{% url 'accounts:learning_space' %}">Back to Learning Space</a></nav>
+</div>
+{% endblock %}

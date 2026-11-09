@@ -20,7 +20,7 @@
           <li><a href="{% url 'practice:index' %}"{% if area == 'practice' %} aria-current="page"{% endif %}>Practice Sets</a></li>
           {% if user.is_staff %}<li><a href="{% url 'admin:index' %}">Admin</a></li>{% endif %}
           {% if user.is_authenticated %}
-            <li class="account-nav"><details class="profile-menu"><summary{% if area == 'accounts' %} class="active"{% endif %}>My account <span class="ui-account-chevron">{% include "components/icon.html" with name="chevron" %}</span></summary><div class="profile-dropdown"><a href="{% url 'accounts:profile' %}">Profile</a><form action="{% url 'accounts:logout' %}" method="post">{% csrf_token %}<button class="nav-button" type="submit">Logout</button></form></div></details></li>
+            <li class="account-nav"><details class="profile-menu"><summary{% if area == 'accounts' %} class="active"{% endif %}>My account <span class="ui-account-chevron">{% include "components/icon.html" with name="chevron" %}</span></summary><div class="profile-dropdown"><a href="{% url 'accounts:profile' %}">Profile</a><a href="{% url 'accounts:learning_space' %}">Learning Space</a><form action="{% url 'accounts:logout' %}" method="post">{% csrf_token %}<button class="nav-button" type="submit">Logout</button></form></div></details></li>
 {% else %}<li class="account-nav"><a href="{% url 'accounts:login' %}"{% if current == 'login' %} aria-current="page"{% endif %}>Login</a></li><li><a class="button button-primary button-small"
                                                                                                                                                       href="{% url 'accounts:register' %}">Register</a></li>{% endif %}
   </ul>

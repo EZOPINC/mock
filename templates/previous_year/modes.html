@@ -4,4 +4,4 @@
 <div class="discovery-grid ui-mode-grid"><article class="paper-card ui-paper-card"><span class="ui-card-icon">{% include "components/icon.html" with name="book" %}</span><h2>Direct Answers</h2><p>Read all questions with correct options highlighted and explanations already open.</p><a class="button button-primary" href="?{{ direct_query }}">Direct Answers</a></article>
 <article class="paper-card ui-paper-card"><span class="ui-card-icon">{% include "components/icon.html" with name="pencil" %}</span><h2>Practice Paper</h2><p>Read the full paper and choose an answer to reveal feedback and explanations for that question.</p><a class="button button-primary" href="?{{ practice_query }}">Practice Paper</a></article></div>
 <p>Where a year has multiple papers or sessions, choose the exact paper next.</p>
-<p><a href="{% url 'previous_year:paper_list' exam.authority.slug exam.slug %}">Back to years</a></p></div>{% endblock %}
+<div class="button-row tw:justify-center"><a class="button button-primary" href="{% url 'previous_year:paper_list' exam.authority.slug exam.slug %}">Back to years</a></div></div>{% endblock %}

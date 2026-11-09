@@ -1,4 +1,35 @@
-{% extends "base.html" %}{% block title %}Practice | Mock Exam Platform{% endblock %}{% block content %}
-<h1>Practice</h1><p>Choose an exam category for untimed practice with immediate feedback.</p><ul>{% for authority in authorities %}<li><a href="{% url 'practice:exams' authority.slug %}">{{ authority.name }}</a></li>{% empty %}<li>No eligible practice questions are available.</li>{% endfor %}</ul>
-<h2>Resume practice</h2><ul>{% for session in open_sessions %}<li><a href="{% url 'practice:session' session.pk %}">{{ session.configuration.exam_name }} / {{ session.configuration.subject_name }}</a> &middot; {{ session.started_at }}</li>{% empty %}<li>No open practice sessions.</li>{% endfor %}</ul>
-<h2>Recent practice history</h2><ul>{% for session in closed_sessions %}<li><a href="{% url 'practice:summary' session.pk %}">{{ session.configuration.exam_name }} / {{ session.configuration.subject_name }}</a> &middot; {{ session.get_status_display }}</li>{% empty %}<li>No completed or abandoned sessions.</li>{% endfor %}</ul>{% endblock %}
+{% extends "base.html" %}
+{% block title %}Practice Sets | Mock Exam Platform{% endblock %}
+{% block content %}
+<div class="mock-hub practice-hub">
+  <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="{% url 'home' %}">Home</a>{% include "components/icon.html" with name="chevron" %}<span aria-current="page">Practice Sets</span></nav>
+  <header class="mock-hub-heading"><div><p class="eyebrow">PRACTICE. LEARN. IMPROVE.</p><h1>Practice Sets</h1><p>Choose an exam category for untimed practice with immediate feedback. Return to a saved session whenever you are ready.</p></div><span class="mock-hub-heading-icon" aria-hidden="true">{% include "components/icon.html" with name="pencil" %}</span></header>
+
+  <section class="mock-hub-section" aria-labelledby="practice-categories-heading">
+    <div class="mock-hub-section-heading"><div><p class="eyebrow">FIND YOUR NEXT CHALLENGE</p><h2 id="practice-categories-heading">Choose an exam category</h2></div></div>
+    <div class="mock-hub-categories">
+      {% for authority in authorities %}
+      <a class="mock-hub-category" href="{% url 'practice:exams' authority.slug %}"><span class="ui-card-icon">{% include "components/icon.html" with name="grid" %}</span><div><h3>{{ authority.name }}</h3><span>Explore available exams</span></div>{% include "components/icon.html" with name="arrow" %}</a>
+      {% empty %}<div class="mock-hub-empty"><span class="ui-card-icon">{% include "components/icon.html" with name="book" %}</span><p>No eligible practice questions are available.</p><small>Available exam categories will appear here.</small></div>{% endfor %}
+    </div>
+  </section>
+
+  <section class="mock-hub-section" aria-labelledby="practice-open-heading">
+    <div class="mock-hub-section-heading"><div><p class="eyebrow">CONTINUE YOUR PREPARATION</p><h2 id="practice-open-heading">Resume practice</h2></div><span class="mock-hub-section-note">Untimed sessions. Your progress stays saved.</span></div>
+    <div class="mock-hub-attempts">
+      {% for session in open_sessions %}
+      <article class="mock-hub-card"><div class="mock-hub-card-top"><span class="ui-card-icon">{% include "components/icon.html" with name="pencil" %}</span><span class="badge badge-live">{{ session.get_status_display }}</span></div><h3>{{ session.configuration.subject_name }}</h3><p class="mock-hub-exam">{{ session.configuration.exam_name }} / {{ session.configuration.topic_name }}</p><div class="mock-hub-metadata"><span>{{ session.configuration.total_questions }} questions</span><span>Untimed</span></div><p class="mock-hub-date">Started <time datetime="{{ session.started_at|date:'c' }}">{{ session.started_at|date:"M j, Y H:i" }}</time></p><a class="button button-primary" href="{% url 'practice:session' session.pk %}">Resume practice {% include "components/icon.html" with name="arrow" %}</a></article>
+      {% empty %}<div class="mock-hub-empty"><span class="ui-card-icon">{% include "components/icon.html" with name="book" %}</span><p>No open practice sessions.</p><small>Choose a category above to begin a new practice session.</small></div>{% endfor %}
+    </div>
+  </section>
+
+  <section class="mock-hub-section" aria-labelledby="practice-history-heading">
+    <div class="mock-hub-section-heading"><div><p class="eyebrow">REFLECT AND MOVE FORWARD</p><h2 id="practice-history-heading">Recent practice history</h2></div><a class="text-link" href="{% url 'accounts:learning_space' %}">Learning Space {% include "components/icon.html" with name="arrow" %}</a></div>
+    <div class="mock-hub-attempts">
+      {% for session in closed_sessions %}
+      <article class="mock-hub-card mock-hub-result"><div class="mock-hub-card-top"><span class="ui-card-icon">{% include "components/icon.html" with name="book" %}</span><span class="badge badge-outline">{{ session.get_status_display }}</span></div><h3>{{ session.configuration.subject_name }}</h3><p class="mock-hub-exam">{{ session.configuration.exam_name }} / {{ session.configuration.topic_name }}</p><div class="mock-hub-metadata"><span>{{ session.configuration.total_questions }} questions</span><span>Untimed</span></div><p class="mock-hub-date">Closed <time datetime="{{ session.completed_at|date:'c' }}">{{ session.completed_at|date:"M j, Y H:i" }}</time></p><a class="button button-primary" href="{% url 'practice:summary' session.pk %}">Review summary {% include "components/icon.html" with name="arrow" %}</a></article>
+      {% empty %}<div class="mock-hub-empty"><span class="ui-card-icon">{% include "components/icon.html" with name="check" %}</span><p>No completed or abandoned sessions.</p><small>Your practice summaries will appear here when a session is closed.</small></div>{% endfor %}
+    </div>
+  </section>
+</div>
+{% endblock %}

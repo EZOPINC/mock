@@ -157,3 +157,8 @@ UI Phase 1.7 completes custom import and review styling and the shared UI cleanu
 See [UI migration summary](docs/ui-migration-summary.md) for phases 1.1-1.7,
 asset build instructions and final targeted verification.
 
+My Account has separate Profile (`/accounts/profile/`) and Learning Space
+(`/accounts/learning-space/`) pages. Profile contains account details; Learning
+Space contains the existing mock/practice dashboard and resume/result links.
+Both require login, and the existing login destination remains Profile.
+

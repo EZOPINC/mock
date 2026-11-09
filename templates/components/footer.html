@@ -1,9 +1,22 @@
 <footer class="site-footer ui-footer">
   <div class="footer-grid">
-    <div class="ui-footer-intro"><a class="footer-brand" href="{% url 'home' %}"><span class="ui-footer-icon">{% include "components/icon.html" with name="book" %}</span> Mock Exam Platform</a><p>Small steps. Stronger understanding.<br>Prepare for your next exam in English and Bengali.</p><span class="ui-footer-note">A clearer way to prepare.</span></div>
+    <div class="ui-footer-intro"><a class="footer-brand" href="{% url 'home' %}"><span class="ui-footer-icon">{% include "components/icon.html" with name="book" %}</span> Mock Exam Platform</a><p>Small steps. Stronger understanding.<br>Prepare for your next exam in English and Bengali.</p><span class="ui-footer-note">A clearer way to prepare.</span>
+      {# Replace each placeholder href, then remove aria-disabled and tabindex. #}
+      <nav class="footer-social" aria-label="Social media (coming soon)">
+        <a href="#" aria-disabled="true" tabindex="-1" aria-label="Facebook (coming soon)" title="Facebook — coming soon">{% include "components/icon.html" with name="facebook" %}</a>
+        <a href="#" aria-disabled="true" tabindex="-1" aria-label="Instagram (coming soon)" title="Instagram — coming soon">{% include "components/icon.html" with name="instagram" %}</a>
+        <a href="#" aria-disabled="true" tabindex="-1" aria-label="YouTube (coming soon)" title="YouTube — coming soon">{% include "components/icon.html" with name="youtube" %}</a>
+      </nav>
+    </div>
     <div><h2>Explore</h2><a href="{% url 'exams:authorities' %}">Exam Authorities</a><a href="{% url 'previous_year:index' %}">Previous Year Papers</a><a href="{% url 'general_questions:index' %}">General Questions</a></div>
     <div><h2>Your preparation</h2><a href="{% url 'mock_tests:index' %}">Mock Tests</a><a href="{% url 'practice:index' %}">Practice Sets</a></div>
     <div><h2>Your account</h2>{% if user.is_authenticated %}<a href="{% url 'accounts:profile' %}">Profile</a><p>Your progress, ready when you return.</p>{% else %}<a href="{% url 'accounts:login' %}">Login</a><a href="{% url 'accounts:register' %}">Register</a><p>Save your practice and mock-test progress.</p>{% endif %}</div>
   </div>
-  <div class="footer-bottom"><span>&copy; {% now "Y" %} Mock Exam Platform</span><a href="#main-content">Back to top {% include "components/icon.html" with name="arrow" %}</a></div>
+  <nav class="footer-help" aria-label="Help and policies">
+    {# Replace placeholder URLs when these pages are ready; remove disabled attributes. #}
+    <a href="#" aria-disabled="true" tabindex="-1">Contact Us <span>(coming soon)</span></a>
+    <a href="#" aria-disabled="true" tabindex="-1">Support <span>(coming soon)</span></a>
+    <a href="#" aria-disabled="true" tabindex="-1">Privacy Policy <span>(coming soon)</span></a>
+  </nav>
+  <div class="footer-bottom"><span>&copy; {% now "Y" %} Mock Exam Platform. All rights reserved.<br>All content is protected by the copyright of its respective owners.</span><a href="#main-content">Back to top {% include "components/icon.html" with name="arrow" %}</a></div>
 </footer>

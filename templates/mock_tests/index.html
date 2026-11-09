@@ -1,4 +1,35 @@
-{% extends "base.html" %}{% block title %}Mock Tests | Mock Exam Platform{% endblock %}{% block content %}
-<h1>Mock Tests</h1><p>Choose an exam category.</p>
-<div class="discovery-grid">{% for authority in authorities %}<article class="paper-card"><h2><a href="{% url 'mock_tests:exams' authority.slug %}">{{ authority.name }}</a></h2></article>{% empty %}<p>No mock tests are currently available.</p>{% endfor %}</div>
-<h2>Your open attempts</h2><ul>{% for attempt in attempts %}<li><a href="{% url 'mock_tests:attempt_detail' attempt.pk %}">Resume {{ attempt.configuration.name }}</a> &middot; {{ attempt.created_at }}</li>{% empty %}<li>You have no open attempts.</li>{% endfor %}</ul><h2>Recent results</h2><ul>{% for attempt in completed_attempts %}<li><a href="{% url 'mock_tests:results' attempt.pk %}">{{ attempt.configuration.name }}: {{ attempt.total_score }} / {{ attempt.maximum_score }}</a></li>{% empty %}<li>No completed attempts yet.</li>{% endfor %}</ul>{% endblock %}
+{% extends "base.html" %}
+{% block title %}Mock Tests | Mock Exam Platform{% endblock %}
+{% block content %}
+<div class="mock-hub">
+  <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="{% url 'home' %}">Home</a>{% include "components/icon.html" with name="chevron" %}<span aria-current="page">Mock Tests</span></nav>
+  <header class="mock-hub-heading"><div><p class="eyebrow">PREPARE. ATTEMPT. IMPROVE.</p><h1>Mock Tests</h1><p>Choose your exam, pick up where you left off, or look back at your progress.</p></div><span class="mock-hub-heading-icon" aria-hidden="true">{% include "components/icon.html" with name="clock" %}</span></header>
+
+  <section class="mock-hub-section" aria-labelledby="mock-categories-heading">
+    <div class="mock-hub-section-heading"><div><p class="eyebrow">FIND YOUR NEXT CHALLENGE</p><h2 id="mock-categories-heading">Choose an exam category</h2></div></div>
+    <div class="mock-hub-categories">
+      {% for authority in authorities %}
+      <a class="mock-hub-category" href="{% url 'mock_tests:exams' authority.slug %}"><span class="ui-card-icon">{% include "components/icon.html" with name="grid" %}</span><div><h3>{{ authority.name }}</h3><span>Explore available exams</span></div>{% include "components/icon.html" with name="arrow" %}</a>
+      {% empty %}<div class="mock-hub-empty"><span class="ui-card-icon">{% include "components/icon.html" with name="calendar" %}</span><p>No mock tests are currently available.</p><small>Available exam categories will appear here.</small></div>{% endfor %}
+    </div>
+  </section>
+
+  <section class="mock-hub-section" aria-labelledby="mock-open-heading">
+    <div class="mock-hub-section-heading"><div><p class="eyebrow">CONTINUE YOUR PREPARATION</p><h2 id="mock-open-heading">Your open attempts</h2></div><span class="mock-hub-section-note">Your question set stays the same.</span></div>
+    <div class="mock-hub-attempts">
+      {% for attempt in attempts %}
+      <article class="mock-hub-card"><div class="mock-hub-card-top"><span class="ui-card-icon">{% include "components/icon.html" with name="clock" %}</span><span class="badge badge-live">{{ attempt.get_status_display }}</span></div><h3>{{ attempt.configuration.name }}</h3><p class="mock-hub-exam">{{ attempt.configuration.exam_name }}</p><div class="mock-hub-metadata"><span>{{ attempt.configuration.total_questions }} questions</span><span>{{ attempt.configuration.duration_minutes }} minutes</span></div><p class="mock-hub-date">Created <time datetime="{{ attempt.created_at|date:'c' }}">{{ attempt.created_at|date:"M j, Y · H:i" }}</time></p><a class="button button-primary" href="{% url 'mock_tests:attempt_detail' attempt.pk %}">Resume {{ attempt.configuration.name }} {% include "components/icon.html" with name="arrow" %}</a></article>
+      {% empty %}<div class="mock-hub-empty"><span class="ui-card-icon">{% include "components/icon.html" with name="book" %}</span><p>You have no open attempts.</p><small>Choose a category above to start your next mock test.</small></div>{% endfor %}
+    </div>
+  </section>
+
+  <section class="mock-hub-section" aria-labelledby="mock-results-heading">
+    <div class="mock-hub-section-heading"><div><p class="eyebrow">REFLECT AND MOVE FORWARD</p><h2 id="mock-results-heading">Recent results</h2></div><a class="text-link" href="{% url 'accounts:learning_space' %}">Learning Space {% include "components/icon.html" with name="arrow" %}</a></div>
+    <div class="mock-hub-attempts">
+      {% for attempt in completed_attempts %}
+      <article class="mock-hub-card mock-hub-result"><div class="mock-hub-card-top"><span class="ui-card-icon">{% include "components/icon.html" with name="check" %}</span><span class="badge badge-outline">{{ attempt.get_status_display }}</span></div><h3>{{ attempt.configuration.name }}</h3><p class="mock-hub-exam">{{ attempt.configuration.exam_name }}</p><p class="mock-hub-score"><strong>{{ attempt.total_score }}</strong><span>/ {{ attempt.maximum_score }} marks</span></p><p class="mock-hub-date">Finalized <time datetime="{{ attempt.finalized_at|date:'c' }}">{{ attempt.finalized_at|date:"M j, Y · H:i" }}</time></p><a class="button button-primary" href="{% url 'mock_tests:results' attempt.pk %}">Review results {% include "components/icon.html" with name="arrow" %}</a></article>
+      {% empty %}<div class="mock-hub-empty"><span class="ui-card-icon">{% include "components/icon.html" with name="check" %}</span><p>No completed attempts yet.</p><small>Your scores and answer reviews will appear here after a test is finalized.</small></div>{% endfor %}
+    </div>
+  </section>
+</div>
+{% endblock %}

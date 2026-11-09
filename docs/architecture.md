@@ -1,5 +1,8 @@
 # Architecture
 
+UI Phase 1.8 assesses future mobile adapters without adding endpoints, tokens or
+schema changes. See [mobile readiness and proposed API](mobile-readiness.md).
+
 Original-roadmap Milestone 3.1 administrative completion reuses existing paper
 models, adding optional configuration and declared master-question counts only.
 Public routes and mock preview are unchanged. See

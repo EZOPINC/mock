@@ -1,6 +1,23 @@
-{% extends "base.html" %}{% block title %}Start {{ pattern.name }} | Mock Exam Platform{% endblock %}{% block content %}
-<h1>{{ pattern.name }}</h1><p>{{ pattern.exam }}{% if pattern.stage %} &middot; {{ pattern.stage.name }}{% endif %}</p><p>{{ pattern.total_questions }} questions &middot; {{ pattern.duration_minutes }} minutes &middot; {{ pattern.total_marks }} marks</p>
-<h2>Sections</h2><ul>{% for section in pattern.sections.all %}<li>{{ section.name }}: {{ section.question_count }} questions</li>{% endfor %}</ul>
-<p>Starting fixes your question set. You can reopen this attempt from Mock Tests. The timer continues when you leave. Answers saved before the deadline are scored when you submit or time expires.</p>
-{% if error %}<p class="form-errors" role="alert">{{ error }}</p>{% else %}<form method="post">{% csrf_token %}<button type="submit">Start Test</button></form>{% endif %}
-<p><a href="{% url 'mock_tests:patterns' pattern.exam.authority.slug pattern.exam.slug %}">Back to available tests</a></p>{% endblock %}
+{% extends "base.html" %}
+{% block title %}Start {{ pattern.name }} | Mock Exam Platform{% endblock %}
+{% block content %}
+<div class="mock-hub mock-start">
+  <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="{% url 'mock_tests:index' %}">Mock Tests</a>{% include "components/icon.html" with name="chevron" %}<a href="{% url 'mock_tests:patterns' pattern.exam.authority.slug pattern.exam.slug %}">{{ pattern.exam.name }}</a>{% include "components/icon.html" with name="chevron" %}<span aria-current="page">{{ pattern.name }}</span></nav>
+  <header class="mock-hub-heading"><div><p class="eyebrow">YOUR NEXT CHALLENGE</p><h1>{{ pattern.name }}</h1><p>{{ pattern.exam }}{% if pattern.stage %} &middot; {{ pattern.stage.name }}{% endif %}</p></div><span class="mock-hub-heading-icon" aria-hidden="true">{% include "components/icon.html" with name="clock" %}</span></header>
+  <dl class="mock-start-stats" aria-label="Test overview">
+    <div><dt>{% include "components/icon.html" with name="book" %} Questions</dt><dd>{{ pattern.total_questions }}</dd></div>
+    <div><dt>{% include "components/icon.html" with name="clock" %} Duration</dt><dd>{{ pattern.duration_minutes }} <span>minutes</span></dd></div>
+    <div><dt>{% include "components/icon.html" with name="check" %} Total marks</dt><dd>{{ pattern.total_marks }}</dd></div>
+  </dl>
+  <section class="mock-hub-section" aria-labelledby="start-sections-heading">
+    <div class="mock-hub-section-heading"><div><p class="eyebrow">KNOW YOUR PAPER</p><h2 id="start-sections-heading">Sections</h2></div></div>
+    <div class="mock-hub-categories">{% for section in pattern.sections.all %}<article class="mock-hub-category"><span class="ui-card-icon">{% include "components/icon.html" with name="grid" %}</span><div><h3>{{ section.name }}</h3><span>{{ section.question_count }} questions &middot; {{ section.get_language_mode_display }}</span></div></article>{% endfor %}</div>
+  </section>
+  <section class="mock-start-guidance" aria-labelledby="start-guidance-heading"><span class="ui-card-icon">{% include "components/icon.html" with name="info" %}</span><div><h2 id="start-guidance-heading">Before you begin</h2><p>Starting fixes your question set. You can reopen this attempt from Mock Tests. The timer continues when you leave. Answers saved before the deadline are scored when you submit or time expires.</p></div></section>
+  {% if error %}<p class="form-errors" role="alert">{{ error }}</p>{% endif %}
+  <div class="mock-start-actions">
+    {% if not error %}<form method="post">{% csrf_token %}<button type="submit" class="button button-primary">Start Test {% include "components/icon.html" with name="arrow" %}</button></form>{% endif %}
+    <a class="button button-secondary" href="{% url 'mock_tests:patterns' pattern.exam.authority.slug pattern.exam.slug %}">Back to available tests</a>
+  </div>
+</div>
+{% endblock %}

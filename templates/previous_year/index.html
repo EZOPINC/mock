@@ -1,5 +1,54 @@
-{% extends "base.html" %}{% load static %}{% block title %}Previous Year Papers & Solutions | Mock Exam Platform{% endblock %}{% block extra_head %}<script src="{% static 'js/discovery-filter.js' %}" defer></script>{% endblock %}{% block content %}<div class="ui-discovery">
-{% include "previous_year/breadcrumbs.html" %}
-{% include "components/page_heading.html" with eyebrow="PAST PAPERS. FRESH UNDERSTANDING." heading="Previous Year Questions & Solutions" description="Explore published papers, understand the answers, and learn at your own pace. Open to everyone." %}
-<div class="listing-toolbar"><p>Choose an exam, then a year to view questions.</p><a class="button button-secondary button-small" href="{% url 'exams:authorities' %}">Browse by exam &rarr;</a></div>
-{% include "components/discovery_filter.html" with target="paper-exam-results" filter_label="Filter available exams" filter_placeholder="Search exam or authority names" %}<div class="discovery-grid ui-discovery-grid" id="paper-exam-results">{% for exam in exams %}<article class="discovery-card ui-authority-card" data-discovery-item><span class="eyebrow">{{ exam.authority.name }}</span><h2>{{ exam.name }}</h2><p>{{ exam.paper_count }} published paper{{ exam.paper_count|pluralize }}</p><a class="text-link" href="{% url 'previous_year:paper_list' exam.authority.slug exam.slug %}">Choose year &rarr;</a></article>{% empty %}{% include "components/empty_state.html" with empty_title="No published papers are available yet." %}{% endfor %}</div></div>{% endblock %}
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Previous Year Papers & Solutions{% endblock %}
+{% block extra_head %}
+    <script src="{% static 'js/discovery-filter.js' %}" defer></script>
+{% endblock %}
+{% block content %}
+    <div class="ui-discovery">
+        <section class="ui-paper-intro" aria-label="Explore previous-year papers">
+            {% include "previous_year/breadcrumbs.html" %}
+            <div class="ui-paper-intro-heading">
+                <div>
+                    <span class="ui-paper-access">{% include "components/icon.html" with name="book" %} Free access · No login required</span>
+                    {% include "components/page_heading.html" with eyebrow="PAST PAPERS. FRESH UNDERSTANDING." heading="Previous Year Questions & Solutions" description="Learn from the papers that came before. Choose your exam to explore original questions, verified answers and clear explanations." %}
+                </div>
+                <span class="ui-paper-intro-icon" aria-hidden="true">{% include "components/icon.html" with name="book" %}</span>
+            </div>
+            <ol class="ui-paper-browse-steps" aria-label="How to browse papers">
+                <li><span>1</span> Choose your exam</li>
+                <li><span>2</span> Select year &amp; paper</li>
+                <li><span>3</span> Learn &amp; practice</li>
+            </ol>
+            <div class="ui-paper-intro-search">
+                {% include "components/discovery_filter.html" with target="paper-exam-results" filter_label="Find your exam" filter_placeholder="Search by exam or authority name…" %}
+            </div>
+        </section>
+        <div class="discovery-grid ui-discovery-grid" id="paper-exam-results">
+            {% for exam in exams %}
+                <article class="discovery-card ui-authority-card" data-discovery-item>
+                    <span class="eyebrow">{{ exam.authority.name }}</span>
+                    <h2>{{ exam.name }}</h2>
+                    <p>{{ exam.paper_count }} published paper{{ exam.paper_count|pluralize }}</p>
+                    <a class="text-link"
+                       href="{% url 'previous_year:paper_list' exam.authority.slug exam.slug %}">Choose Year</a>
+                </article>{% empty %}
+                {% include "components/empty_state.html" with empty_title="No published papers are available yet." %}
+            {% endfor %}
+        </div>
+        <section class="ui-paper-next" aria-label="Mock tests and practice sets">
+            <div class="ui-paper-next-links">
+                <a class="ui-paper-next-card" href="{% url 'mock_tests:index' %}">
+                    <span class="ui-card-icon">{% include "components/icon.html" with name="clock" %}</span>
+                    <h3>Mock Tests</h3>
+                    {% include "components/icon.html" with name="arrow" %}
+                </a>
+                <a class="ui-paper-next-card" href="{% url 'practice:index' %}">
+                    <span class="ui-card-icon">{% include "components/icon.html" with name="pencil" %}</span>
+                    <h3>Practice Sets</h3>
+                    {% include "components/icon.html" with name="arrow" %}
+                </a>
+            </div>
+        </section>
+    </div>
+{% endblock %}

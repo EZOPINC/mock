@@ -10,21 +10,21 @@
     <div class="card-top"><span class="module-icon" aria-hidden="true">{% include "components/icon.html" with name="grid" %}</span><span class="badge badge-live">Available now</span></div>
     <h3>General Questions &amp; Solutions</h3>
     <p>Browse published question collections by exam, subject, topic, and language.</p>
-    <a class="text-link"
+    <a class="button button-primary"
        href="{% url 'general_questions:index' %}{% if exam %}?exam={{ exam.pk }}{% endif %}">Explore General Questions {% include "components/icon.html" with name="arrow" %}</a>
   </article>
   <article class="module-card ui-card">
     <div class="card-top"><span class="module-icon" aria-hidden="true">{% include "components/icon.html" with name="clock" %}</span><span class="badge badge-live">Available now</span></div>
     <h3>Mock Tests</h3>
     <p>Open a configured mock test with a fixed question set and return to your attempt at any time.</p>
-    <a class="text-link"
+    <a class="button button-primary"
        href="{% if exam %}{% url 'mock_tests:patterns' exam.authority.slug exam.slug %}{% else %}{% url 'mock_tests:index' %}{% endif %}">Explore Mock Tests {% include "components/icon.html" with name="arrow" %}</a>
   </article>
   <article class="module-card ui-card">
     <div class="card-top"><span class="module-icon" aria-hidden="true">{% include "components/icon.html" with name="pencil" %}</span><span class="badge badge-live">Available now</span></div>
     <h3>Practice Sets</h3>
     <p>Practice by subject and topic at your own pace, with immediate feedback after each answer.</p>
-    <a class="text-link"
+    <a class="button button-primary"
        href="{% if exam %}{% url 'practice:subjects' exam.authority.slug exam.slug %}{% else %}{% url 'practice:index' %}{% endif %}">Explore Practice Sets {% include "components/icon.html" with name="arrow" %}</a>
   </article>
 </div>

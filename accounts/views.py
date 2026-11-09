@@ -37,5 +37,10 @@ class RegisterView(RedirectURLMixin, FormView):
 class ProfileView(LoginRequiredMixin, TemplateView):
     template_name = "accounts/profile.html"
 
+
+@method_decorator(never_cache, name="dispatch")
+class LearningSpaceView(LoginRequiredMixin, TemplateView):
+    template_name = "accounts/learning_space.html"
+
     def get_context_data(self, **kwargs):
         return super().get_context_data(**kwargs) | dashboard_context(self.request.user)

@@ -1,5 +1,9 @@
 # UI migration summary — Phases 1.1–1.7
 
+Phase 1.8 adds a [mobile-readiness assessment and proposed API plan](mobile-readiness.md)
+and reusable active exam selectors. It does not add mobile apps, APIs, token
+authentication, schema changes or alter the completed Tailwind interface.
+
 The Django server-rendered interface now uses the shared Tailwind design system.
 Existing routes, permissions, publication rules, question ordering and learning
 workflows remain in place. Django's built-in Admin retains its standard interface.

@@ -95,7 +95,7 @@ def attempt_context(request, attempt_id):
         When(language="en", then=Value(0)), When(language="bn", then=Value(1)), default=Value(2), output_field=IntegerField(),
     )).order_by("_language_order", "language", "pk")
     attempt = get_object_or_404(MockAttempt.objects.prefetch_related(Prefetch("questions",
-        queryset=AttemptQuestion.objects.select_related("question_revision").prefetch_related(
+        queryset=AttemptQuestion.objects.select_related("question_revision", "question__subject").prefetch_related(
             Prefetch("question_revision__translations", queryset=translations)))), pk=attempt_id, user=request.user)
     sections = {item["id"]: item for item in attempt.configuration["sections"]}
     rows = list(attempt.questions.all())

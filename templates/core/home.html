@@ -1,18 +1,27 @@
 {% extends "base.html" %}
 {% block title %}Mock Exam Platform | Papers, Practice &amp; Mock Tests{% endblock %}
 {% block content %}
-  <div class="ui-home">
+  <div class="ui-home home-modern">
+    <figure class="home-academic-quote" lang="bn" aria-label="শিক্ষার অনুপ্রেরণা">
+      <span class="home-quote-icon" aria-hidden="true">{% include "components/icon.html" with name="book" %}</span>
+      <div>
+        <blockquote cite="https://bn.wikisource.org/wiki/সঞ্চয়িতা/প্রার্থনা">
+          <p>“চিত্ত যেথা ভয়শূন্য, উচ্চ যেথা শির, জ্ঞান যেথা মুক্ত…”</p>
+        </blockquote>
+        <figcaption>— রবীন্দ্রনাথ ঠাকুর <span>· <cite>প্রার্থনা</cite>, সঞ্চয়িতা</span></figcaption>
+      </div>
+    </figure>
     <section class="section-block"
              aria-labelledby="discovery-heading"
              id="exam-categories">
-      <div class="section-heading"><div><p class="eyebrow">FIND YOUR FOCUS</p><h2 id="discovery-heading">Start with your exam.</h2><p class="muted">Browse exam categories and find your next step.</p></div><a class="text-link" href="{% url 'exams:authorities' %}">All exam authorities {% include "components/icon.html" with name="arrow" %}</a></div>
+      <div class="section-heading"><div><p class="eyebrow">FIND YOUR FOCUS</p><h2 id="discovery-heading">Your ambition. Your exam.</h2><p class="muted">Choose an exam category and take the next step toward your goal.</p></div><a class="text-link" href="{% url 'exams:authorities' %}">All exam authorities {% include "components/icon.html" with name="arrow" %}</a></div>
       {% include "components/authority_cards.html" %}
     </section>
     <section class="section-block" aria-labelledby="modules-heading">
       <div class="section-heading">
         <div>
           <p class="eyebrow">YOUR LEARNING TOOLKIT</p>
-          <h2 id="modules-heading">Different ways to move forward.</h2>
+          <h2 id="modules-heading">Everything you need to keep learning.</h2>
         </div>
         <p class="muted">
           From your first question to your next mock test,
@@ -22,6 +31,6 @@
       </div>
       {% include "components/module_cards.html" %}
     </section>
-    <section class="ui-home-cta" aria-labelledby="next-step-heading"><div><p class="eyebrow">READY WHEN YOU ARE</p><h2 id="next-step-heading">Make room for a little progress.</h2><p>Pick a subject, work through a few questions, and learn something new today.</p></div><a class="button button-primary" href="{% url 'practice:index' %}">Start practicing {% include "components/icon.html" with name="arrow" %}</a></section>
+    <section class="ui-home-cta" aria-labelledby="next-step-heading"><div><p class="eyebrow">READY WHEN YOU ARE</p><h2 id="next-step-heading">Small steps. Meaningful progress.</h2><p>Make time for your next learning session. Your preparation moves forward with you.</p></div><a class="button button-primary" href="{% url 'practice:index' %}">Start practicing {% include "components/icon.html" with name="arrow" %}</a></section>
   </div>
 {% endblock %}

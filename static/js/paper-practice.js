@@ -22,9 +22,10 @@
       if (!response.ok) throw new Error('Unable to check answer');
       form.closest('.paper-practice-question').innerHTML = await response.text();
     } catch (_) {
-      status.textContent = 'Unable to check your answer. Please try Check answer again, or reload the paper if it is no longer available.';
+      status.textContent = 'Unable to check your answer. Select an option to try again, or reload the paper if it is no longer available.';
       controls.forEach(control => { control.disabled = false; });
       delete form.dataset.saving;
+      form.querySelectorAll('input[type=radio]').forEach(input => { input.checked = false; });
     } finally { clearTimeout(timeout); }
   });
 })();

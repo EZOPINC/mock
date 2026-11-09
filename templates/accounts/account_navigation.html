@@ -1,0 +1,4 @@
+<nav class="button-row" aria-label="My account sections">
+  <a class="button {% if account_section == 'profile' %}button-primary{% else %}button-secondary{% endif %}" href="{% url 'accounts:profile' %}"{% if account_section == 'profile' %} aria-current="page"{% endif %}>Profile</a>
+  <a class="button {% if account_section == 'learning' %}button-primary{% else %}button-secondary{% endif %}" href="{% url 'accounts:learning_space' %}"{% if account_section == 'learning' %} aria-current="page"{% endif %}>Learning Space</a>
+</nav>
