@@ -8,16 +8,16 @@ from django.db import transaction
 from django.shortcuts import get_object_or_404
 from django.utils import timezone
 
-from questions.eligibility import eligible_question_ids
 from questions.models import Question
 from .models import PracticeQuestion, PracticeSession
+from .discovery import PracticeTaxonomy, configuration_matches
 
 
 COUNTS = ("10", "20", "30", "50", "available")
 
 
 @transaction.atomic
-def start_session(user, *, exam, subject, topic=None, count="available", token):
+def start_session(user, *, exam, subject, topic=None, part=None, module=None, chapter=None, count="available", token):
     if not user.is_authenticated or not user.is_active:
         raise ValidationError("An active authenticated account is required.")
     count = str(count)
@@ -28,16 +28,18 @@ def start_session(user, *, exam, subject, topic=None, count="available", token):
     except (ValueError, TypeError, AttributeError):
         raise ValidationError("A valid start token is required.")
     get_user_model().objects.select_for_update().get(pk=user.pk)
+    filters = {"part": part, "module": module, "chapter": chapter, "topic": topic}
     existing = PracticeSession.objects.filter(user=user, start_token=token).first()
     if existing:
-        if (existing.exam_id, existing.subject_id, existing.topic_id, existing.configuration["requested_count"]) != (exam.pk, subject.pk, topic.pk if topic else None, count):
+        if not configuration_matches(existing, exam_id=exam.pk, subject_id=subject.pk, count=count, filters=filters):
             raise ValidationError("This start token belongs to another configuration. Reload the start page.")
         return existing
-    if topic and topic.subject_id != subject.pk:
-        raise ValidationError("Topic must belong to the selected subject.")
-    ids = eligible_question_ids(exam.pk, subject_id=subject.pk, topic_id=topic.pk if topic else None)
+    scope = PracticeTaxonomy(exam, subject)
+    ids = scope.selected_ids(filters)
     list(Question.objects.select_for_update().filter(pk__in=ids).order_by("pk").values_list("pk", flat=True))
-    ids &= eligible_question_ids(exam.pk, subject_id=subject.pk, topic_id=topic.pk if topic else None)
+    # Retagging locks Question in D3; re-read tags and eligibility after acquiring masters.
+    scope = PracticeTaxonomy(exam, subject)
+    ids &= scope.selected_ids(filters)
     required = len(ids) if count == "available" else int(count)
     if not required or required > len(ids):
         raise ValidationError("Insufficient eligible questions. Change the count or topic and try again; no session was created.")
@@ -46,7 +48,7 @@ def start_session(user, *, exam, subject, topic=None, count="available", token):
     session = PracticeSession(user=user, exam=exam, subject=subject, topic=topic, start_token=token,
         configuration={"exam_name": exam.name, "authority_name": exam.authority.name,
             "subject_name": subject.name, "topic_name": topic.name if topic else "All topics",
-            "requested_count": count, "total_questions": required})
+            "requested_count": count, "total_questions": required, "taxonomy_filters": scope.snapshot(filters)})
     session.save(_assembly=True)
     for order, pk in enumerate(selected, 1):
         question = questions[pk]

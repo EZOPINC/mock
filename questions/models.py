@@ -44,6 +44,7 @@ class Question(models.Model):
         "exams.Subject", on_delete=models.PROTECT, related_name="questions")
     topic = models.ForeignKey("exams.Topic", on_delete=models.PROTECT,
                               related_name="questions", blank=True, null=True)
+    topics = models.ManyToManyField("exams.Topic", through="QuestionTopic", related_name="tagged_questions")
     publication_status = models.CharField(
         max_length=12, choices=PublicationStatus, default=PublicationStatus.DRAFT)
     review_status = models.CharField(
@@ -85,6 +86,8 @@ class Question(models.Model):
         if self.topic_id and self.subject_id and self.topic.subject_id != self.subject_id:
             raise ValidationError(
                 {"topic": "Topic must belong to the selected subject."})
+        if self.pk and self.subject_id and self.topic_associations.exclude(topic__subject_id=self.subject_id).exists():
+            raise ValidationError({"subject": "Remove existing topic tags before changing the question's subject."})
         for field in ("current_revision", "published_revision"):
             revision = getattr(self, field) if getattr(
                 self, field + "_id") else None
@@ -113,6 +116,45 @@ class Question(models.Model):
                         "New questions must start as pending-review drafts.")
             self.full_clean()
             return super().save(*args, **kwargs)
+
+
+class QuestionTopicQuerySet(RevisionWorkflowQuerySet):
+    def delete(self):
+        raise ValidationError("Use the question topic tagging services.")
+
+
+class QuestionTopic(models.Model):
+    question = models.ForeignKey(Question, on_delete=models.PROTECT, related_name="topic_associations", db_index=False)
+    topic = models.ForeignKey("exams.Topic", on_delete=models.PROTECT, related_name="question_associations")
+    is_primary = models.BooleanField(default=False)
+    objects = QuestionTopicQuerySet.as_manager()
+
+    class Meta:
+        ordering = ("question_id", "-is_primary", "topic_id")
+        constraints = [
+            models.UniqueConstraint(fields=("question", "topic"), name="questions_topic_pair_unique"),
+            models.UniqueConstraint(fields=("question",), condition=Q(is_primary=True), name="questions_one_primary_topic"),
+        ]
+
+    def clean(self):
+        super().clean()
+        if self.question_id and self.topic_id and self.topic.subject_id != self.question.subject_id:
+            raise ValidationError({"topic": "Topic must belong to the question's subject."})
+        if self.pk:
+            old = type(self).objects.filter(pk=self.pk).values("question_id", "topic_id").first()
+            if old and (old["question_id"], old["topic_id"]) != (self.question_id, self.topic_id):
+                raise ValidationError("Existing topic associations cannot be moved; replace the tag instead.")
+
+    def save(self, *args, **kwargs):
+        from .tagging import save_tag
+        return save_tag(self, *args, **kwargs)
+
+    def delete(self, *args, **kwargs):
+        from .tagging import delete_tag
+        return delete_tag(self, *args, **kwargs)
+
+    def __str__(self):
+        return f"{self.question} / {self.topic}" + (" (primary)" if self.is_primary else "")
 
 
 class QuestionRevision(models.Model):

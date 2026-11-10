@@ -324,7 +324,7 @@ class PracticeViewTests(PracticeFixture):
         self.assertEqual(self.client.get(url).status_code, 405)
         self.assertEqual(self.client.post(url, {"answer": "B"}).status_code, 302)
         feedback = self.client.get(self.session_url(session), {"question": 1})
-        self.assertContains(feedback, "Incorrect.")
+        self.assertContains(feedback, 'data-feedback-correct="false"')
         self.assertContains(feedback, "Correct answer: A")
         self.assertContains(feedback, "VERIFIED SOLUTION")
         self.assertNotContains(feedback, 'type="radio"')

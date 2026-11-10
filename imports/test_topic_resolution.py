@@ -11,6 +11,37 @@ from .validation import normalized, validate
 
 
 class TopicResolutionTests(ImportFixture):
+    def test_import_reuses_classified_topic_without_changing_its_hierarchy(self):
+        from exams.models import Part, Module, Chapter
+        part = Part.objects.create(subject=self.subject, name="India", slug="india")
+        module = Module.objects.create(part=part, name="Language", slug="language")
+        chapter = Chapter.objects.create(module=module, name="Grammar", slug="grammar")
+        self.topic.chapter = chapter
+        self.topic.save()
+        data = self.data([values(topic="grammar")])
+        result = validate(data)
+        self.assertEqual(result["error_count"], 0)
+        self.assertEqual(result["rows"][0]["topic"].pk, self.topic.pk)
+        confirm_import(data, self.user)
+        self.assertEqual(Question.objects.get().topic_id, self.topic.pk)
+        self.topic.refresh_from_db()
+        self.assertEqual(self.topic.chapter_id, chapter.pk)
+
+    def test_same_topic_name_in_different_chapters_requires_explicit_mapping(self):
+        from exams.models import Part, Module, Chapter
+        part = Part.objects.create(subject=self.subject, name="India", slug="india")
+        module = Module.objects.create(part=part, name="Language", slug="language")
+        for slug in ("first", "second"):
+            chapter = Chapter.objects.create(module=module, name=slug, slug=slug)
+            Topic.objects.create(subject=self.subject, chapter=chapter, name="Shared topic", slug=slug)
+        data = self.data([values(topic="Shared topic")])
+        self.assertGreater(validate(data)["error_count"], 0)
+        selected = Topic.objects.get(slug="second")
+        data["topic_map"] = {normalized("English / Shared topic"): selected.pk}
+        self.assertEqual(validate(data)["error_count"], 0)
+        confirm_import(data, self.user)
+        self.assertEqual(Question.objects.get().topic_id, selected.pk)
+
     def test_subject_and_exact_topic_ignore_case(self):
         for name in ("english", "ENGLISH", " English "):
             with self.subTest(name=name):
@@ -19,42 +50,32 @@ class TopicResolutionTests(ImportFixture):
                 self.assertEqual(result["rows"][0]["subject"], self.subject)
                 self.assertEqual(result["rows"][0]["topic"], self.topic)
 
-    def test_unique_prefix_within_subject_and_exact_match_priority(self):
-        other = Subject.objects.create(name="Other", code="OTHER", slug="other")
-        Topic.objects.create(subject=other, name="Grammar elsewhere", slug="grammar")
-        data = self.data([values(topic="GRAMmatical rules")])
-        result = validate(data)
-        self.assertEqual(result["error_count"], 0)
-        self.assertEqual(result["rows"][0]["topic"], self.topic)
-        self.assertTrue(any("four characters" in warning for warning in result["rows"][0]["warnings"]))
+    def test_prefix_is_rejected_and_exact_match_has_priority(self):
+        self.assertGreater(validate(self.data([values(topic="GRAMmatical rules")]))["error_count"], 0)
         Topic.objects.create(subject=self.subject, name="Grammar advanced", slug="advanced")
         result = validate(self.data([values(topic="grammar")]))
+        self.assertEqual(result["error_count"], 0)
         self.assertEqual(result["rows"][0]["topic"], self.topic)
 
-    def test_ambiguous_prefix_proposes_exact_new_topic_or_accepts_manual_mapping(self):
+    def test_unknown_topic_requires_existing_mapping(self):
         Topic.objects.create(subject=self.subject, name="Grammar advanced", slug="advanced")
         data = self.data([values(topic="Grammatical rules")])
-        result = validate(data)
-        self.assertEqual(result["error_count"], 0)
-        self.assertEqual(result["rows"][0]["topic"].name, "Grammatical rules")
-        self.assertIsNone(result["rows"][0]["topic"].pk)
+        self.assertGreater(validate(data)["error_count"], 0)
         self.assertFalse(Topic.objects.filter(name="Grammatical rules").exists())
         data["topic_map"] = {normalized("English / Grammatical rules"): self.topic.pk}
         self.assertEqual(validate(data)["error_count"], 0)
         self.assertEqual(validate(data)["rows"][0]["topic"], self.topic)
 
-    def test_preview_does_not_write_confirmation_reuses_new_topic(self):
+    def test_explicit_topic_creation_then_revalidation_reuses_record(self):
         data = self.data([values(topic="Literature"), values(question_number="2", topic="LITERATURE")])
         before = Topic.objects.count()
-        result = validate(data)
-        self.assertEqual(result["error_count"], 0)
-        self.assertIsNone(result["rows"][0]["topic"].pk)
+        self.assertGreater(validate(data)["error_count"], 0)
         self.assertEqual(Topic.objects.count(), before)
+        topic = Topic.objects.create(subject=self.subject, name="Literature", slug="literature")
+        self.assertEqual(validate(data)["error_count"], 0)
         batch = confirm_import(data, self.user)
-        questions = Question.objects.all()
         self.assertEqual(Topic.objects.count(), before + 1)
-        self.assertEqual(questions.values("topic_id").distinct().count(), 1)
-        self.assertEqual(questions.first().topic.subject_id, self.subject.pk)
+        self.assertEqual(set(Question.objects.values_list("topic_id", flat=True)), {topic.pk})
         self.assertEqual(confirm_import(data, self.user), batch)
 
     def test_missing_subject_or_invalid_alias_never_creates_topic(self):
@@ -77,34 +98,38 @@ class TopicResolutionTests(ImportFixture):
     def test_topic_creation_requires_permission(self):
         data = self.data([values(topic="Literature")])
         with patch("django.contrib.auth.models.PermissionsMixin.has_perm", side_effect=lambda perm, obj=None: perm != "exams.add_topic"):
-            with self.assertRaisesMessage(ValidationError, "Add topic permission"):
+            with self.assertRaises(ValidationError):
                 confirm_import(data, self.user)
         self.assertFalse(Topic.objects.filter(name="Literature").exists())
         self.assertFalse(ImportBatch.objects.exists())
 
-    def test_long_names_are_invalid_and_bengali_names_get_valid_slug(self):
+    def test_unknown_names_are_invalid_and_existing_bengali_names_resolve(self):
         self.assertGreater(validate(self.data([values(topic="X" * 201)]))["error_count"], 0)
-        data = self.data([values(topic="\u09ac\u09be\u0982\u09b2\u09be")])
+        topic = Topic.objects.create(subject=self.subject, name="\u09ac\u09be\u0982\u09b2\u09be", slug="bangla")
+        data = self.data([values(topic=topic.name)])
         self.assertEqual(validate(data)["error_count"], 0)
         confirm_import(data, self.user)
-        Topic.objects.get(name="\u09ac\u09be\u0982\u09b2\u09be").full_clean()
+        self.assertEqual(Question.objects.get().topic_id, topic.pk)
 
     def test_general_import_retains_explicit_mapping_rule(self):
         data = self.data([values(topic="Literature")])
         data["selection"] = {"import_type": "general", "exam_ids": [self.exam.pk]}
         self.assertGreater(validate(data)["error_count"], 0)
 
-    def test_bilingual_pairing_preserves_proposed_topic_identity(self):
+    def test_bilingual_pairing_preserves_existing_topic_identity(self):
+        topic = Topic.objects.create(subject=self.subject, name="Literature", slug="literature")
         data = self.data([values(topic="Literature"), values(language="bn", topic="LITERATURE")])
         group = validate(data)["groups"][0]
         data["pairings"] = {"1(a)": group["signature"]}
         self.assertEqual(validate(data)["error_count"], 0)
         confirm_import(data, self.user)
         self.assertEqual(Question.objects.count(), 1)
-        self.assertEqual(Topic.objects.filter(name="Literature").count(), 1)
+        self.assertEqual(Question.objects.get().topic_id, topic.pk)
         self.assertEqual(Question.objects.get().current_revision.translations.count(), 2)
 
-    def test_bilingual_rows_with_different_new_topics_cannot_be_paired(self):
+    def test_bilingual_rows_with_different_topics_cannot_be_paired(self):
+        Topic.objects.create(subject=self.subject, name="Literature", slug="literature")
+        Topic.objects.create(subject=self.subject, name="Poetry", slug="poetry")
         data = self.data([values(topic="Literature"), values(language="bn", topic="Poetry")])
         group = validate(data)["groups"][0]
         data["pairings"] = {"1(a)": group["signature"]}
@@ -112,16 +137,18 @@ class TopicResolutionTests(ImportFixture):
         self.assertGreater(result["error_count"], 0)
         self.assertTrue(any("Ambiguous translation match" in error for row in result["rows"] for error in row["errors"]))
 
-    def test_ambiguous_prefix_creates_exact_topic_on_confirmation(self):
+    def test_ambiguous_prefix_never_creates_topic_on_confirmation(self):
         Topic.objects.create(subject=self.subject, name="Grammar advanced", slug="advanced")
         data = self.data([values(topic="Grammatical rules")])
-        confirm_import(data, self.user)
-        question = Question.objects.get()
-        self.assertEqual(question.topic.name, "Grammatical rules")
-        self.assertEqual(question.topic.subject_id, self.subject.pk)
+        with self.assertRaises(ValidationError):
+            confirm_import(data, self.user)
+        self.assertFalse(Topic.objects.filter(name="Grammatical rules").exists())
+        self.assertFalse(Question.objects.exists())
 
     def test_duplicate_exact_names_still_require_explicit_mapping(self):
-        Topic.objects.create(subject=self.subject, name="GRAMMAR", slug="grammar-duplicate")
+        from exams.models import Module
+        module = Module.objects.create(subject=self.subject, name="Another branch", slug="another-branch")
+        Topic.objects.create(subject=self.subject, module=module, name="GRAMMAR", slug="grammar-duplicate")
         data = self.data([values(topic="grammar")])
         result = validate(data)
         self.assertGreater(result["error_count"], 0)

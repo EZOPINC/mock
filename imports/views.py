@@ -154,7 +154,7 @@ def preview(request, token):
     visible_indices = {row["index"] for row in page}
     pairing_groups = [group for group in result["groups"] if group["requires_pairing"] and any(row["index"] in visible_indices for row in group["rows"])]
     for row in page:
-        row["cells"] = [{"name": column, "value": row["values"][column]} for column in columns_for(data)]
+        row["cells"] = [{"name": column, "value": row["values"].get(column, "")} for column in columns_for(data)]
     subject_mappings, topic_mappings = {}, {}
     for row in page:
         values = row["values"]

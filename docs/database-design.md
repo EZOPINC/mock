@@ -1,5 +1,13 @@
 # Database design
 
+Phase D3 adds QuestionTopic and the read-through Question.topics relationship.
+Question.topic remains the synchronized primary pointer. See
+[multi-topic constraints, writes and backfill](multi-topic-questions.md).
+
+Phase D2 retains these taxonomy models while adding optional immediate parents,
+Subject ancestry anchors and stable codes. The earlier mandatory chain is
+superseded by [flexible taxonomy and migration 0004](flexible-taxonomy.md).
+
 The optional shared question hierarchy adds Part (Subject FK), Module (Part FK),
 Chapter (Module FK) and Topic.chapter (nullable FK). Existing Topic.subject and
 Question links remain. See [hierarchy constraints and ERD](question-taxonomy.md).

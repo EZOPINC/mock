@@ -9,6 +9,7 @@ from django.utils import timezone
 class AttemptDeadlineMigrationTests(TransactionTestCase):
     def test_existing_attempt_keeps_identity_and_snapshot_duration(self):
         executor = MigrationExecutor(connection)
+        restore = executor.loader.graph.leaf_nodes()
         old = [("mock_tests", "0002_mockattempt_attemptquestion_and_more")]
         latest = [("mock_tests", "0005_mockattempt_mock_attempt_deadline_valid_and_more")]
         executor.migrate(old)
@@ -35,4 +36,4 @@ class AttemptDeadlineMigrationTests(TransactionTestCase):
             self.assertEqual(restored.status, "in_progress")
             self.assertEqual(restored.save_version, 0)
         finally:
-            MigrationExecutor(connection).migrate(latest)
+            MigrationExecutor(connection).migrate(restore)

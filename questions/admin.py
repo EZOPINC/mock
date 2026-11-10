@@ -5,6 +5,7 @@ from django.shortcuts import redirect, render
 from django.urls import path, reverse
 
 from . import services
+from .tagging import set_question_topics
 from .forms import CONTENT_FIELDS, NewQuestionAdminForm, QuestionAdminForm, RevisionForm, TranslationForm
 from .models import Question, QuestionExam, QuestionRevision, QuestionSource, QuestionSourceReference, QuestionTranslation
 
@@ -43,12 +44,23 @@ class QuestionAdmin(admin.ModelAdmin):
     change_form_template = "admin/questions/question/change_form.html"
     change_list_template = "admin/questions/question/change_list.html"
     list_display = ("id", "subject", "topic", "language", "publication_status", "review_status", "revision_number")
-    list_filter = ("subject", "topic__chapter__module__part", "topic__chapter__module", "topic__chapter", "topic", "current_revision__translations__language", "review_status", "publication_status", "exam_associations__exam")
+    list_filter = ("subject", "topic__chapter__module__part", "topic__chapter__module", "topic__chapter", "topic", ("topic_associations__topic", admin.RelatedOnlyFieldListFilter), "current_revision__translations__language", "review_status", "publication_status", "exam_associations__exam")
     search_fields = ("current_revision__translations__question_text", "published_revision__translations__question_text", "source_question_id", "source_references__source__source_name", "source_references__source__source_document", "source_references__source_question_number")
     readonly_fields = ("publication_status", "review_status", "current_revision", "published_revision", "created_at", "updated_at")
     list_select_related = ("subject", "topic__chapter__module__part__subject", "current_revision")
     inlines = (RevisionInline, QuestionExamInline, QuestionSourceReferenceInline)
     actions = ("review_questions", "publish_questions")
+
+    class Media:
+        js = ("js/admin-question-topics.js",)
+
+    def save_related(self, request, form, formsets, change):
+        super().save_related(request, form, formsets, change)
+        primary = form.cleaned_data.get("topic")
+        topics = [topic.pk for topic in form.cleaned_data.get("additional_topics", [])]
+        if primary:
+            topics.append(primary.pk)
+        set_question_topics(form.instance, topics, primary_topic_id=primary.pk if primary else None)
 
     @admin.display(description="Language")
     def language(self, obj):

@@ -82,7 +82,8 @@ class UnifiedImportTests(ImportFixture):
         self.assertEqual(batch.imported_questions.get().question.current_revision.correct_answer, "D")
         self.assertEqual(batch.imported_questions.get().source_metadata["resolved"]["language"], "bn")
 
-    def test_language_inferred_and_blank_subject_defaults_to_unidentified(self):
+    def test_language_inferred_and_blank_subject_reuses_existing_unidentified(self):
+        Subject.objects.create(name="UnIdentified", code="UNIDENTIFIED", slug="unidentified")
         data = self.general([values(subject="", language="")])
         result = validate(data)
         self.assertEqual(result["error_count"], 0)

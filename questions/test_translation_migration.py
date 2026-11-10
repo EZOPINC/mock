@@ -6,6 +6,7 @@ from django.test import TransactionTestCase
 class TranslationMigrationTests(TransactionTestCase):
     def test_existing_published_question_and_revision_are_preserved(self):
         executor = MigrationExecutor(connection)
+        restore = executor.loader.graph.leaf_nodes()
         old = ("questions", "0001_initial")
         latest = ("questions", "0003_backfill_translations")
         executor.migrate([old])
@@ -39,4 +40,4 @@ class TranslationMigrationTests(TransactionTestCase):
             from previous_year.models import PaperQuestion
             self.assertEqual(PaperQuestion.objects.get(pk=association.pk).question_revision_id, revision.pk)
         finally:
-            MigrationExecutor(connection).migrate([latest])
+            MigrationExecutor(connection).migrate(restore)

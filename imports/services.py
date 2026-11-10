@@ -11,7 +11,7 @@ from .models import ImportBatch, ImportedQuestion
 from .permissions import require_import_permission
 from .validation import validate
 from .context import context_hash, exam_ids, mode
-from .taxonomy import persist_unidentified, persist_topic
+from questions.tagging import set_question_topics
 
 
 def confirm_import(data, user):
@@ -48,18 +48,13 @@ def confirm_import(data, user):
             )
             next_order = (paper.paper_questions.aggregate(value=Max("display_order"))["value"] or 0) + 1 if paper else None
             sources = {}
-            fallback_subject = None
             for offset, group in enumerate(result["groups"]):
                 primary = group["rows"][0]
-                if primary["subject"].pk is None:
-                    if fallback_subject is None:
-                        fallback_subject = persist_unidentified(user)
-                    primary["subject"] = fallback_subject
                 translations = [translation for row in group["rows"] for translation in row["translations"]]
-                if primary["topic"] is not None and primary["topic"].pk is None:
-                    primary["topic"] = persist_topic(primary["topic"], user)
                 question = create_question(subject=primary["subject"], topic=primary["topic"], revision=primary["revision"],
                     translations=translations, difficulty_level=primary["values"]["difficulty_level"].strip())
+                topics = ([primary["topic"]] if primary["topic"] else []) + primary["secondary_topics"]
+                set_question_topics(question, [topic.pk for topic in topics], primary_topic_id=question.topic_id)
                 for exam in primary["exams"]:
                     QuestionExam.objects.create(question=question, exam=exam)
                 if paper is not None:
@@ -76,7 +71,8 @@ def confirm_import(data, user):
                     ImportedQuestion.objects.create(batch=batch, source_row_number=row["source_row"], question=question,
                         source_metadata={"original": data["rows"][row["index"]].get("original_values", values), "corrected": values,
                             "resolved": {"subject_id": question.subject_id, "topic_id": question.topic_id,
-                                         "language": row["revision"]["language"], "languages": row["translation_languages"], "correct_answer": question.correct_answer,
+                                         "topic_ids": [topic.pk for topic in topics], "taxonomy_path": row["taxonomy_path"],
+                                         "secondary_paths": row["secondary_paths"], "language": row["revision"]["language"], "languages": row["translation_languages"], "correct_answer": question.correct_answer,
                                          "exam_ids": [exam.pk for exam in row["exams"]], "paper_id": paper.pk if paper else None,
                                          "translation_pairing": group["signature"] if group["requires_pairing"] else None}})
             return batch

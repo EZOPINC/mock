@@ -11,6 +11,7 @@ from django.views.decorators.http import require_http_methods, require_safe
 from general_question.services import batch_questions, fingerprint, general_batches, require_batch_permission, transition_batch
 from .forms import GeneralQuestionFilters
 from questions.services import published_questions
+from questions.selectors import questions_by_topics
 
 SALT = "general-question-batch-publication"
 
@@ -26,9 +27,11 @@ def filtered(request):
     form = GeneralQuestionFilters(request.GET)
     questions = public_questions()
     if form.is_valid():
-        for field in ("exam", "subject", "topic"):
+        for field in ("exam", "subject"):
             if form.cleaned_data[field]:
                 questions = questions.filter(**{"exams" if field == "exam" else field: form.cleaned_data[field]})
+        if form.cleaned_data["topic"]:
+            questions = questions_by_topics([form.cleaned_data["topic"].pk], queryset=questions)
         if form.cleaned_data["language"]:
             questions = questions.filter(published_revision__translations__language=form.cleaned_data["language"]).distinct()
     else:

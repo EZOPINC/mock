@@ -14,6 +14,8 @@ def groups_for(rows, approvals):
         state = [{"source_row": row["source_row"], "values": row["values"],
                   "subject": row["subject"].code if row["subject"] else None,
                   "topic": topic_identity(row["topic"]),
+                  "secondary_topics": sorted(topic.pk for topic in row.get("secondary_topics", [])),
+                  "taxonomy_path": row.get("taxonomy_path", ""),
                   "revision": row["revision"], "translations": row.get("translations", []), "exams": sorted(exam.pk for exam in row["exams"])} for row in members]
         signature = sha256(json.dumps(state, sort_keys=True, ensure_ascii=False).encode()).hexdigest()
         group = {"number": number, "rows": members, "signature": signature,
@@ -24,6 +26,7 @@ def groups_for(rows, approvals):
             shared = {(row["revision"]["correct_answer"], row["values"]["difficulty_level"].strip(),
                        row["subject"].code if row["subject"] else None,
                        json.dumps(topic_identity(row["topic"])),
+                       tuple(sorted(topic.pk for topic in row.get("secondary_topics", []))),
                        tuple(sorted(exam.pk for exam in row["exams"]))) for row in members}
             if len(set(languages)) != len(languages) or not all(languages):
                 message = "Duplicate question number in the same language (or unresolved language). Correct the rows; they cannot be paired."

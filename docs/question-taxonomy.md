@@ -1,5 +1,8 @@
 # Shared question taxonomy — 2026-11-10
 
+Phase D2 supersedes the mandatory-chain details below with optional immediate
+parents and stable taxonomy codes. See [flexible taxonomy](flexible-taxonomy.md).
+
 Approved choices: reuse the hierarchy across exams; keep new levels optional for
 existing records until administrators classify them.
 

@@ -1,5 +1,23 @@
 # Architecture decisions
 
+## Phase D3 — multiple topics, one legacy primary — 2026-11-10
+
+Reason: approved multi-topic classification without replacing masters or history.
+Impact: QuestionTopic, transactional replacement services, database synchronization
+and deferred primary/pointer guards. Legacy pointer changes retain secondary tags;
+clearing the pointer removes all tags. Any-topic Question Bank reads are distinct;
+Mock/Practice selection remains primary-topic based until D4. See
+[D3 compatibility and rollback](multi-topic-questions.md).
+
+## Phase D2 — optional academic parents and stable codes — 2026-11-10
+
+Reason: approved flexible Subject→Part→Module→Chapter→Topic hierarchy with skipped
+levels and preserved IDs. Impact: required Subject ancestry anchors, at most one
+deeper immediate parent, scoped names/slugs, stable per-model codes, revised four
+PostgreSQL guards and an atomic guarded rollback. Reuse all existing models;
+leave question/revision content, difficulty and Mock/Practice selection unchanged.
+See [D2 migration and compatibility](flexible-taxonomy.md). D3 is not implemented.
+
 ## Shared question hierarchy — 2026-11-10
 
 Reason: the user requests Exam → Subject → Part → Module → Chapter → Topic and

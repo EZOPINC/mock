@@ -5,11 +5,13 @@ from .services import published_questions
 CONTENT_FIELDS = ("question_text", "option_a", "option_b", "option_c", "option_d")
 
 
-def eligible_question_ids(exam_id, *, subject_id=None, topic_id=None, language_mode="mixed"):
+def eligible_question_ids(exam_id, *, subject_id=None, topic_id=None, language_mode="mixed", question_ids=None):
     questions = published_questions().filter(exam_associations__exam_id=exam_id,
         exam_associations__exam__is_active=True, exam_associations__exam__authority__is_active=True).distinct()
     if subject_id:
         questions = questions.filter(subject_id=subject_id)
+    if question_ids is not None:
+        questions = questions.filter(pk__in=question_ids)
     if topic_id:
         questions = questions.filter(topic_id=topic_id)
     languages = {"en", "bn"} if language_mode == "mixed" else {language_mode}

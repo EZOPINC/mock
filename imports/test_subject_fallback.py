@@ -10,18 +10,13 @@ from .validation import validate
 
 
 class SubjectFallbackTests(ImportFixture):
-    def test_preview_does_not_create_fallback_and_confirmation_creates_once(self):
+    def test_missing_fallback_requires_mapping_without_creating_subject(self):
         data = self.data([values(subject=""), values(subject="  ", question_number="2")])
-        result = validate(data)
-        self.assertEqual(result["error_count"], 0)
-        self.assertEqual(result["rows"][0]["subject"].name, "UnIdentified")
+        self.assertGreater(validate(data)["error_count"], 0)
+        with self.assertRaises(ValidationError):
+            confirm_import(data, self.user)
         self.assertFalse(Subject.objects.filter(code="UNIDENTIFIED").exists())
-        batch = confirm_import(data, self.user)
-        fallback = Subject.objects.get(code="UNIDENTIFIED")
-        self.assertEqual(fallback.name, "UnIdentified")
-        self.assertEqual(Question.objects.filter(subject=fallback).count(), 2)
-        for record in batch.imported_questions.all():
-            self.assertEqual(record.source_metadata["resolved"]["subject_id"], fallback.pk)
+        self.assertFalse(Question.objects.exists())
 
     def test_existing_fallback_reused_and_explicit_default_wins(self):
         fallback = Subject.objects.create(name="UnIdentified", code="LEGACY", slug="legacy-unidentified")

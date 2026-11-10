@@ -7,35 +7,23 @@ from django.core.exceptions import ValidationError
 from django.db.models import Q, Value
 from django.db.models.functions import Coalesce, Lower, Trim
 
-from exams.models import Exam, Subject, Topic
+from exams.models import Exam
 from previous_year.models import PreviousYearPaper
 from questions.models import QuestionRevision, QuestionTranslation
 from .models import ImportBatch, ImportedQuestion
 from .parsing import COLUMNS, MAX_CELL, REQUIRED
 from .context import context_hash, exam_ids, mode
 from .translation_input import normalize_translations
-from .taxonomy import unidentified_subject
+from .taxonomy import TaxonomyCatalogue, normalized
 from .pairing import groups_for
 
 CONTENT = ("language", "question_text", "option_a", "option_b", "option_c", "option_d", "correct_answer", "explanation")
 
 
-def normalized(value):
-    return " ".join(str(value).split()).casefold()
-
 
 def map_key(value):
     return sha256(normalized(value).encode()).hexdigest()[:16]
 
-
-def resolve_taxonomy(value, records, aliases):
-    key = normalized(value)
-    if key in aliases:
-        return next((record for record in records if record.pk == int(aliases[key])), None)
-    if not key:
-        return None
-    matches = [record for record in records if normalized(record.name) == key]
-    return matches[0] if len(matches) == 1 else None
 
 
 def selection(data, *, locked=False):
@@ -118,13 +106,8 @@ def validate(data, *, locked=False):
     except ValidationError as error:
         errors.extend(error.messages)
         exams, paper = [], None
-    subject_queryset = Subject.objects.all()
-    if locked and mode(data) == "previous_year":
-        # Serialize topic creation even for imports targeting different exams.
-        subject_queryset = subject_queryset.select_for_update().order_by("pk")
-    subjects = list(subject_queryset)
+    catalogue = TaxonomyCatalogue(locked=locked)
     exam_catalogue = list(Exam.objects.select_related("authority").all()) if mode(data) == "general" and data["selection"].get("exam_mapping") == "rows" else []
-    topics = list(Topic.objects.select_related("subject"))
     subject_map, topic_map = data.get("subject_map", {}), data.get("topic_map", {})
     numbers = Counter(row["values"]["question_number"].strip() for row in data["rows"])
     existing_numbers = set(paper.paper_questions.values_list("question_number", flat=True)) if paper and paper.pk else set()
@@ -143,7 +126,6 @@ def validate(data, *, locked=False):
                 existing_texts.add(key)
     seen = set()
     result = []
-    fallback_subject = None
     for index, row in enumerate(data["rows"]):
         values = row["values"]
         revision, translations, translation_errors, translation_warnings = normalized_inputs[index]
@@ -158,49 +140,13 @@ def validate(data, *, locked=False):
         if number in existing_numbers:
             row_errors.append("Question number already exists in the selected paper. Resolve the conflict; nothing will be overwritten.")
         selected = data["selection"]
-        if values["subject"].strip():
-            subject = resolve_taxonomy(values["subject"], subjects, subject_map)
-        else:
-            subject = resolve_taxonomy("", subjects, subject_map) or next((item for item in subjects if item.pk == selected.get("subject_id")), None)
-            if subject is None:
-                try:
-                    if fallback_subject is None:
-                        fallback_subject = unidentified_subject(subjects)
-                    subject = fallback_subject
-                    warnings.append("Blank subject defaults to UnIdentified. It will be created or reused only when the import is confirmed.")
-                except ValidationError as error:
-                    row_errors.extend(error.messages)
-        if subject is None:
-            row_errors.append("Subject is unresolved or ambiguous. Select an existing subject mapping.")
-        elif paper is not None and paper.subject_id and subject.pk != paper.subject_id:
+        taxonomy = catalogue.resolve(values, selected, subject_map, topic_map)
+        subject, topic = taxonomy["subject"], taxonomy["topic"]
+        row_errors.extend(taxonomy.pop("taxonomy_errors"))
+        if paper is not None and paper.subject_id and subject is not None and subject.pk != paper.subject_id:
             row_errors.append("Resolved subject must match the selected paper's subject.")
-        topic = None
-        if values["topic"].strip() and subject:
-            scoped = [topic for topic in topics if topic.subject_id == subject.pk]
-            aliases = {normalized(values["topic"]): topic_map.get(normalized(values["subject"] + " / " + values["topic"]))} if normalized(values["subject"] + " / " + values["topic"]) in topic_map else {}
-            topic = resolve_taxonomy(values["topic"], scoped, aliases)
-            if topic is None and mode(data) == "previous_year" and not aliases:
-                key = normalized(values["topic"])
-                exact = [item for item in scoped if normalized(item.name) == key]
-                prefix = [item for item in scoped if normalized(item.name)[:4] == key[:4]] if len(key) >= 4 else []
-                if len(exact) > 1:
-                    row_errors.append("Topic match is ambiguous. Select an existing topic mapping.")
-                elif len(prefix) == 1:
-                    topic = prefix[0]
-                    warnings.append(f"Topic matched by first four characters: {topic.name}. Verify this mapping before confirming.")
-                elif subject.pk is not None:
-                    from .taxonomy import proposed_topic
-                    try:
-                        topic = proposed_topic(subject, values["topic"])
-                        warnings.append(f"New topic '{topic.name}' will be created under {subject.name} only on confirmation (Add topic permission required).")
-                    except ValidationError as error:
-                        row_errors.extend(error.messages)
-            if topic is None:
-                row_errors.append("Topic is unresolved or does not belong to the selected subject.")
-        if not values["topic"].strip() and selected.get("topic_id"):
-            topic = next((item for item in topics if item.pk == selected["topic_id"]), None)
-            if topic is None or subject is None or topic.subject_id != subject.pk:
-                row_errors.append("Default topic must belong to the resolved subject.")
+        if topic is None and any(values.get(kind + "_code", "").strip() or values.get(kind, "").strip() for kind in ("part", "module", "chapter")):
+            warnings.append("Intermediate taxonomy values validate context only; no topic assignment is stored without a primary topic.")
         strategy = selected.get("exam_mapping", "selected") if mode(data) == "general" else "selected"
         resolved_exams, exam_errors = row_exams(values["exam_categories"], exams, strategy, exam_catalogue)
         row_errors.extend(exam_errors)
@@ -242,7 +188,7 @@ def validate(data, *, locked=False):
         if values["review_status"].strip() or values["verification_notes"].strip():
             warnings.append("Legacy review/verification values are audit metadata only. The question will be pending review.")
         result.append({"index": index, "source_row": row["source_row"], "values": values,
-                       "errors": row_errors, "warnings": warnings, "subject": subject, "topic": topic, "revision": revision, "translations": translations, "translation_languages": [item["language"] for item in translations], "exams": resolved_exams})
+                       "errors": row_errors, "warnings": warnings, **taxonomy, "revision": revision, "translations": translations, "translation_languages": [item["language"] for item in translations], "exams": resolved_exams})
     groups = groups_for(result, data.get("pairings", {}))
     if paper is not None and paper.expected_question_count is not None:
         try:

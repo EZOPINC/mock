@@ -12,31 +12,41 @@ class TopicInline(admin.TabularInline):
     model = Topic
     extra = 0
     prepopulated_fields = {"slug": ("name",)}
-    autocomplete_fields = ("chapter",)
+    autocomplete_fields = ("chapter", "module", "part")
+    readonly_fields = ("code",)
 
 
 class ModuleInline(admin.TabularInline):
     model = Module
     extra = 0
     prepopulated_fields = {"slug": ("name",)}
+    readonly_fields = ("code",)
 
 
 class PartInline(admin.TabularInline):
     model = Part
     extra = 0
     prepopulated_fields = {"slug": ("name",)}
+    readonly_fields = ("code",)
 
 
 class ChapterInline(admin.TabularInline):
     model = Chapter
     extra = 0
     prepopulated_fields = {"slug": ("name",)}
+    readonly_fields = ("code",)
+
+
+class TaxonomyCodeAdmin:
+    def get_readonly_fields(self, request, obj=None):
+        fields = super().get_readonly_fields(request, obj)
+        return (*fields, "code") if obj else fields
 
 
 @admin.register(Part)
-class PartAdmin(admin.ModelAdmin):
-    list_display = ("name", "subject", "display_order")
-    search_fields = ("name", "subject__name")
+class PartAdmin(TaxonomyCodeAdmin, admin.ModelAdmin):
+    list_display = ("name", "code", "subject", "display_order")
+    search_fields = ("name", "code", "subject__name")
     list_filter = ("subject",)
     list_select_related = ("subject",)
     autocomplete_fields = ("subject",)
@@ -45,23 +55,23 @@ class PartAdmin(admin.ModelAdmin):
 
 
 @admin.register(Module)
-class ModuleAdmin(admin.ModelAdmin):
-    list_display = ("name", "part", "display_order")
-    search_fields = ("name", "part__name", "part__subject__name")
-    list_filter = ("part__subject", "part")
-    list_select_related = ("part__subject",)
-    autocomplete_fields = ("part",)
+class ModuleAdmin(TaxonomyCodeAdmin, admin.ModelAdmin):
+    list_display = ("name", "code", "subject", "part", "display_order")
+    search_fields = ("name", "code", "subject__name", "part__name")
+    list_filter = ("subject", "part")
+    list_select_related = ("subject", "part__subject")
+    autocomplete_fields = ("subject", "part")
     prepopulated_fields = {"slug": ("name",)}
     inlines = (ChapterInline,)
 
 
 @admin.register(Chapter)
-class ChapterAdmin(admin.ModelAdmin):
-    list_display = ("name", "module", "display_order")
-    search_fields = ("name", "module__name", "module__part__name", "module__part__subject__name")
-    list_filter = ("module__part__subject", "module__part", "module")
-    list_select_related = ("module__part__subject",)
-    autocomplete_fields = ("module",)
+class ChapterAdmin(TaxonomyCodeAdmin, admin.ModelAdmin):
+    list_display = ("name", "code", "subject", "module", "part", "display_order")
+    search_fields = ("name", "code", "subject__name", "module__name", "part__name")
+    list_filter = ("subject", "part", "module")
+    list_select_related = ("subject", "part__subject", "module__subject", "module__part__subject")
+    autocomplete_fields = ("subject", "module", "part")
     prepopulated_fields = {"slug": ("name",)}
 
 
@@ -104,11 +114,11 @@ class SubjectAdmin(admin.ModelAdmin):
 
 
 @admin.register(Topic)
-class TopicAdmin(admin.ModelAdmin):
-    list_display = ("name", "subject", "chapter", "slug")
-    search_fields = ("name", "subject__name", "subject__code", "chapter__name", "chapter__module__name", "chapter__module__part__name")
-    list_filter = ("subject", "chapter__module__part", "chapter__module", "chapter")
-    list_select_related = ("subject", "chapter__module__part__subject")
-    autocomplete_fields = ("chapter",)
+class TopicAdmin(TaxonomyCodeAdmin, admin.ModelAdmin):
+    list_display = ("name", "code", "subject", "chapter", "module", "part", "slug")
+    search_fields = ("name", "code", "subject__name", "subject__code", "chapter__name", "module__name", "part__name")
+    list_filter = ("subject", "part", "module", "chapter")
+    list_select_related = ("subject", "part__subject", "module__subject", "module__part__subject", "chapter__subject", "chapter__part__subject", "chapter__module__subject", "chapter__module__part__subject")
+    autocomplete_fields = ("chapter", "module", "part")
     ordering = ("subject__name", "name")
     prepopulated_fields = {"slug": ("name",)}

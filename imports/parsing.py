@@ -17,9 +17,10 @@ from .translation_input import LANGUAGE_COLUMNS, EXTRA_METADATA, REQUIRED_TEXT
 
 REQUIRED = ("question_number", "question_text",
             "option_a", "option_b", "option_c", "option_d")
+TAXONOMY_COLUMNS = ("subject_code", "part_code", "module_code", "chapter_code", "topic_code", "additional_topic_codes", "part", "module", "chapter")
 OPTIONAL = ("correct_answer", "explanation", "subject", "topic", "language", "exam_categories", "previous_year_tags", "source_document",
-            "source_page", "difficulty_level", "review_status", "verification_notes", "comments", "created_date", "updated_date", "updated_by")
-COLUMNS = REQUIRED + OPTIONAL
+            "source_page", "difficulty_level", "review_status", "verification_notes", "comments", "created_date", "updated_date", "updated_by", "source_question_number")
+COLUMNS = REQUIRED + OPTIONAL + TAXONOMY_COLUMNS
 MAX_CELL = 32000
 MAX_COLUMNS = 64
 SUPPORTED_COLUMNS = COLUMNS + LANGUAGE_COLUMNS + EXTRA_METADATA
@@ -114,6 +115,8 @@ def parse_upload(upload, worksheet=""):
             "Duplicate column headers are not allowed, including aliases (review_flag maps to review_status). Keep only one of review_flag or review_status.")
     wide_header = any(all(f"{field}_{code}" in headers for field in REQUIRED_TEXT) for code, label in settings.QUESTION_LANGUAGES)
     missing = ({"question_number"} if wide_header else set(REQUIRED)) - set(headers)
+    if "source_question_number" in headers:
+        missing.discard("question_number")
     unknown = set(named) - set(SUPPORTED_COLUMNS)
     if missing or unknown:
         raise ValidationError(
@@ -137,6 +140,8 @@ def parse_upload(upload, worksheet=""):
             if headers[index]:
                 row[headers[index]] = value
         original_values = dict(row)
+        if "question_number" not in headers:
+            row["question_number"] = row["source_question_number"]
         row["language"] = normalize_language(row["language"])
         rows.append({"source_row": number, "values": row, "original_values": original_values})
     if not rows:

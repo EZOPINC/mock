@@ -146,6 +146,113 @@ class ExamPatternSection(models.Model):
             return super().delete(*args, **kwargs)
 
 
+def rule_taxonomy_check():
+    fields = ("subject", "part", "module", "chapter", "topic")
+    condition = Q()
+    for selected in fields:
+        condition |= Q(**{field + "__isnull": field != selected for field in fields})
+    return condition
+
+
+class SectionSelectionRule(models.Model):
+    section = models.ForeignKey(ExamPatternSection, on_delete=models.CASCADE, related_name="selection_rules")
+    subject = models.ForeignKey("exams.Subject", on_delete=models.PROTECT, null=True, blank=True)
+    part = models.ForeignKey("exams.Part", on_delete=models.PROTECT, null=True, blank=True)
+    module = models.ForeignKey("exams.Module", on_delete=models.PROTECT, null=True, blank=True)
+    chapter = models.ForeignKey("exams.Chapter", on_delete=models.PROTECT, null=True, blank=True)
+    topic = models.ForeignKey("exams.Topic", on_delete=models.PROTECT, null=True, blank=True)
+    question_count = models.PositiveIntegerField(validators=[MinValueValidator(1)])
+    difficulty = models.CharField(max_length=12, blank=True, default="", choices=[("", "Any difficulty"), ("easy", "Easy"), ("medium", "Medium"), ("hard", "Hard"), ("unspecified", "Unspecified")])
+    selection_mode = models.CharField(max_length=6, default="random", choices=[("random", "Random"), ("manual", "Manual")])
+    display_order = models.PositiveIntegerField(default=1, validators=[MinValueValidator(1)])
+    objects = ConfigurationQuerySet.as_manager()
+
+    class Meta:
+        ordering = ("display_order", "pk")
+        constraints = [
+            models.UniqueConstraint(fields=("section", "display_order"), name="mock_rule_section_order_unique"),
+            models.CheckConstraint(condition=rule_taxonomy_check(), name="mock_rule_one_taxonomy"),
+            models.CheckConstraint(condition=Q(question_count__gt=0, display_order__gt=0), name="mock_rule_counts_valid"),
+            models.CheckConstraint(condition=Q(difficulty__in=["", "easy", "medium", "hard", "unspecified"]), name="mock_rule_difficulty_valid"),
+            models.CheckConstraint(condition=Q(selection_mode__in=["random", "manual"]), name="mock_rule_mode_valid"),
+        ]
+
+    def __str__(self):
+        return f"{self.section.name}: rule {self.display_order}"
+
+    def clean(self):
+        super().clean()
+        if sum(getattr(self, field + "_id") is not None for field in ("subject", "part", "module", "chapter", "topic")) != 1:
+            raise ValidationError("Select exactly one taxonomy filter: Subject, Part, Module, Chapter or Topic.")
+        if self.pk and type(self).objects.filter(pk=self.pk).exclude(section_id=self.section_id).exists():
+            raise ValidationError("Existing selection rules cannot move between sections.")
+
+    def _lock_pattern(self):
+        if not self.section_id:
+            raise ValidationError("Save an existing section before configuring its rules.")
+        pattern_id = ExamPatternSection.objects.values_list("pattern_id", flat=True).get(pk=self.section_id)
+        pattern = ExamPattern.objects.select_for_update().get(pk=pattern_id)
+        if pattern.is_active or pattern.attempts.exists():
+            raise ValidationError("Active or previously used patterns cannot change rules. Create a new pattern version.")
+        return pattern
+
+    def save(self, *args, **kwargs):
+        with transaction.atomic():
+            self._lock_pattern()
+            self.full_clean()
+            return super().save(*args, **kwargs)
+
+    def delete(self, *args, **kwargs):
+        with transaction.atomic():
+            self._lock_pattern()
+            return super().delete(*args, **kwargs)
+
+
+class ManualRuleQuestion(models.Model):
+    rule = models.ForeignKey(SectionSelectionRule, on_delete=models.CASCADE, related_name="manual_questions")
+    question = models.ForeignKey("questions.Question", on_delete=models.PROTECT)
+    display_order = models.PositiveIntegerField(default=1, validators=[MinValueValidator(1)])
+    objects = ConfigurationQuerySet.as_manager()
+
+    class Meta:
+        ordering = ("display_order", "pk")
+        constraints = [
+            models.UniqueConstraint(fields=("rule", "question"), name="mock_manual_rule_question_unique"),
+            models.UniqueConstraint(fields=("rule", "display_order"), name="mock_manual_rule_order_unique"),
+            models.CheckConstraint(condition=Q(display_order__gt=0), name="mock_manual_order_positive"),
+        ]
+
+    def __str__(self):
+        return f"{self.rule}: question {self.question_id}"
+
+    def clean(self):
+        super().clean()
+        from .rules import eligible_for_rule
+        if not self.question_id or (not self.rule_id and "rule" not in self._state.fields_cache):
+            return
+        if not self.rule.section_id:
+            return
+        if self.rule.selection_mode != "manual":
+            raise ValidationError("Specific questions can only be assigned to manual rules.")
+        if self.question_id not in eligible_for_rule(self.rule, question_ids=[self.question_id]):
+            raise ValidationError({"question": "Question is not eligible for this rule's exam, taxonomy, difficulty or language."})
+        if type(self).objects.filter(rule__section__pattern_id=self.rule.section.pattern_id, question_id=self.question_id).exclude(pk=self.pk).exists():
+            raise ValidationError("This question is already manually selected elsewhere in the pattern.")
+        if self.pk and type(self).objects.filter(pk=self.pk).exclude(rule_id=self.rule_id, question_id=self.question_id).exists():
+            raise ValidationError("Replace existing manual associations instead of moving them.")
+
+    def save(self, *args, **kwargs):
+        with transaction.atomic():
+            self.rule._lock_pattern()
+            self.full_clean()
+            return super().save(*args, **kwargs)
+
+    def delete(self, *args, **kwargs):
+        with transaction.atomic():
+            self.rule._lock_pattern()
+            return super().delete(*args, **kwargs)
+
+
 class AttemptQuerySet(ConfigurationQuerySet):
     def delete(self):
         raise ValidationError("Attempts and their fixed question sets must be retained.")

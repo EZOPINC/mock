@@ -8,9 +8,14 @@ from django.db import transaction
 
 from .models import AttemptQuestion, ExamPattern, MockAttempt
 from .execution import refresh_attempt
+from .rules import eligible_for_rule, rule_snapshot, section_rules, selection_tasks, validate_rule_layout
 
 
 def eligible_question_ids(section):
+    rules = section_rules(section)
+    if rules:
+        cache = {}
+        return set().union(*(eligible_for_rule(rule, cache=cache) for rule in rules))
     from questions.eligibility import eligible_question_ids as eligible_ids
     return eligible_ids(section.pattern.exam_id, subject_id=section.subject_id,
         topic_id=section.topic_id, language_mode=section.language_mode)
@@ -92,17 +97,19 @@ def validate_configuration(pattern, sections=None, *, check_availability=True):
         if section.display_order in orders:
             raise ValidationError("Section display orders must be unique.")
         orders.add(section.display_order)
+        validate_rule_layout(section)
     if sum(item.question_count for item in sections) != pattern.total_questions:
         raise ValidationError("Section question counts must equal the pattern total questions.")
     marks = sum((item.question_count * (item.positive_marks if item.positive_marks is not None else pattern.default_positive_marks) for item in sections), Decimal(0))
     if marks != pattern.total_marks:
         raise ValidationError("Section maximum marks must equal pattern total marks.")
     if check_availability:
-        pools = [eligible_question_ids(section) for section in sections]
-        for section, pool in zip(sections, pools):
-            if len(pool) < section.question_count:
-                raise ValidationError(f"{section.name}: requires {section.question_count} eligible questions; only {len(pool)} available.")
-        if not _capacity_sufficient(sections, pools):
+        tasks = selection_tasks(sections, legacy_eligibility=eligible_question_ids)
+        random = [task for task in tasks if task["manual"] is None]
+        for task in random:
+            if len(task["pool"]) < task["quota"].question_count:
+                raise ValidationError(f"{task['quota']}: requires {task['quota'].question_count} eligible questions; only {len(task['pool'])} available.")
+        if not _capacity_sufficient([task["quota"] for task in random], [task["pool"] for task in random]):
             raise ValidationError("Overlapping sections have insufficient distinct questions. A master question cannot be repeated.")
     return sections
 
@@ -135,7 +142,7 @@ def deactivate_pattern(pattern):
 def available_patterns(**filters):
     candidates = ExamPattern.objects.filter(status=ExamPattern.Status.ACTIVE,
         exam__is_active=True, exam__authority__is_active=True, **filters).select_related(
-            "exam__authority", "stage").prefetch_related("sections__subject", "sections__topic")
+            "exam__authority", "stage").prefetch_related("sections__subject", "sections__topic", "sections__selection_rules__manual_questions")
     result = []
     for pattern in candidates:
         try:
@@ -147,12 +154,22 @@ def available_patterns(**filters):
 
 
 def select_questions(sections, *, pools=None):
-    if pools is None:
-        pools = [eligible_question_ids(section) for section in sections]
-    selection = _capacity_sufficient(sections, pools, select=True)
+    sections = list(sections)
+    tasks = selection_tasks(sections, pools=pools, legacy_eligibility=eligible_question_ids)
+    random = [task for task in tasks if task["manual"] is None]
+    selection = _capacity_sufficient([task["quota"] for task in random], [task["pool"] for task in random], select=True)
     if selection is False:
         raise ValidationError("There are not enough distinct eligible questions. Please choose another test or try again later.")
-    return selection
+    choices = iter(selection)
+    result = {section.pk: [] for section in sections}
+    for section in sections:
+        section._rule_snapshot = []
+    for task in tasks:
+        ids = task["manual"] if task["manual"] is not None else next(choices)
+        result[task["section"].pk].extend(ids)
+        if task["rule"]:
+            task["section"]._rule_snapshot.append(rule_snapshot(task["rule"], ids))
+    return [result[section.pk] for section in sections]
 
 
 def _configuration_snapshot(pattern, sections):
@@ -168,6 +185,7 @@ def _configuration_snapshot(pattern, sections):
             "question_count": section.question_count, "subject_id": section.subject_id, "topic_id": section.topic_id,
             "subject_name": section.subject.name if section.subject_id else "",
             "topic_name": section.topic.name if section.topic_id else "", "language_mode": section.language_mode,
+            "selection_rules": getattr(section, "_rule_snapshot", []),
             "positive_marks": str(section.positive_marks if section.positive_marks is not None else pattern.default_positive_marks),
             "negative_marks": str(section.negative_marks if section.negative_marks is not None else pattern.default_negative_marks)} for section in sections],
     }
@@ -194,6 +212,13 @@ def start_attempt(user, pattern):
     # Lock candidate masters before rechecking publication pointers and eligibility.
     candidate_ids = set().union(*(eligible_question_ids(section) for section in sections))
     list(Question.objects.select_for_update().filter(pk__in=candidate_ids).order_by("pk").values_list("pk", flat=True))
+    # Freeze eligibility relationships during the final recheck/assembly as well.
+    from exams.models import Topic
+    from questions.models import QuestionExam, QuestionTopic
+    list(Topic.objects.select_for_update().filter(pk__in=QuestionTopic.objects.filter(
+        question_id__in=candidate_ids).values("topic_id")).order_by("pk").values_list("pk", flat=True))
+    list(QuestionExam.objects.select_for_update().filter(question_id__in=candidate_ids,
+        exam_id=pattern.exam_id).order_by("pk").values_list("pk", flat=True))
     # Restrict rechecked pools to locked masters, excluding newly published rows.
     pools = [eligible_question_ids(section) & candidate_ids for section in sections]
     selection = select_questions(sections, pools=pools)

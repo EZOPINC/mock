@@ -1,7 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ValidationError
 from django.db.models import Case, IntegerField, Prefetch, Value, When
-from collections import Counter
 from uuid import UUID
 
 from django.http import Http404
@@ -13,6 +12,7 @@ from exams.models import Exam, ExamAuthority, Subject
 from questions.eligibility import eligible_question_ids
 from questions.models import Question, QuestionTranslation
 from .forms import PracticeStartForm
+from .discovery import LEVELS, PracticeTaxonomy, configuration_matches
 from .models import PracticeQuestion, PracticeSession
 from .services import abandon_session, performance, progress, start_session, submit_answer
 
@@ -67,26 +67,23 @@ def configure(request, authority_slug, exam_slug, subject_slug):
         except (ValueError, TypeError, AttributeError):
             token = None
         existing = PracticeSession.objects.filter(user=request.user, start_token=token).first() if token else None
-        if existing and existing.exam_id == exam.pk and existing.subject_id == subject.pk and str(existing.topic_id or "") == request.POST.get("topic", "") and existing.configuration["requested_count"] == request.POST.get("count"):
+        if existing and configuration_matches(existing, exam_id=exam.pk, subject_id=subject.pk, count=request.POST.get("count"), filters={kind: request.POST.get(kind) for kind in LEVELS}):
             return redirect("practice:session", session_id=existing.pk)
-    ids = eligible_question_ids(exam.pk, subject_id=subject.pk)
-    if not ids:
-        raise Http404
-    topic_counts = Counter(Question.objects.filter(pk__in=ids).values_list("topic_id", flat=True))
-    topic_ids = set(topic_counts) - {None}
+    scope = PracticeTaxonomy(exam, subject)
     form = PracticeStartForm(request.POST if request.method == "POST" else None,
-        topic_ids=topic_ids, available_count=len(ids))
+        scope=scope, available_count=len(scope.question_ids))
     if request.method == "POST" and form.is_valid():
         try:
-            session = start_session(request.user, exam=exam, subject=subject, topic=form.cleaned_data["topic"],
+            session = start_session(request.user, exam=exam, subject=subject, **{kind: form.cleaned_data[kind] for kind in LEVELS},
                 count=form.cleaned_data["count"], token=form.cleaned_data["token"])
         except ValidationError as error:
             form.add_error(None, error)
         else:
             return redirect("practice:session", session_id=session.pk)
-    topics = [{"topic": topic, "count": topic_counts[topic.pk]} for topic in form.fields["topic"].queryset]
+    topics = [{"topic": topic, "count": len(scope.pools["topic"][topic.pk])} for topic in form.fields["topic"].queryset]
     return render(request, "practice/configure.html", {"exam": exam, "subject": subject, "form": form,
-        "available_count": len(ids), "topics": topics}, status=400 if request.method == "POST" and form.errors else 200)
+        "available_count": len(scope.question_ids), "topics": topics,
+        "taxonomy_options": scope.options()}, status=400 if request.method == "POST" and form.errors else 200)
 
 
 def question_context(session, row):

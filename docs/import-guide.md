@@ -1,5 +1,62 @@
 # Unified administrative question import (Milestone 2.3B)
 
+Phase D5 resolves normalized taxonomy codes and multiple topic tags through the
+same preview and transactional import pipeline. Missing taxonomy is never created
+automatically. Existing Question IDs, revisions, paper associations and attempts
+are not modified. See [multi-topic tagging](multi-topic-questions.md).
+
+## Name-based hierarchy columns
+
+`part`, `module` and `chapter` are optional case-insensitive names, scoped to
+Subject and the supplied ancestor path. They can be combined with stable codes,
+but names and codes must agree. Unknown/ambiguous values require correction;
+missing taxonomy records are never created automatically.
+
+`source_question_number` is optional source metadata when `question_number` is
+present. If the `question_number` header is absent, it supplies the required local
+question number instead (including original text such as leading zeros).
+
+## Taxonomy columns (Phase D5)
+
+Optional CSV/XLSX columns: `subject_code`, `part_code`, `module_code`,
+`chapter_code`, `topic_code`, `additional_topic_codes`.
+
+- Codes are exact, case-sensitive stable codes from existing taxonomy records;
+  surrounding whitespace is ignored. Names continue to match case-insensitively.
+- Supply any available levels. All supplied primary-path codes must be actual
+  ancestors of the deepest supplied node; Subject must agree throughout.
+  Intermediate levels may be skipped according to the stored hierarchy.
+- A topic code can infer Subject when no explicit Subject is supplied. An explicit
+  name/mapping and code must agree. Parent codes can disambiguate identical topic
+  names in different branches. Row values take precedence over batch defaults.
+- `topic_code` selects the primary topic. Existing name/default topic mapping also
+  remains supported. `additional_topic_codes` accepts semicolon, comma or pipe
+  delimiters. Secondary topics may be in other branches of the same Subject.
+  Repeated codes are deduplicated, including repeats of the primary code.
+- Secondary tags require a primary topic. Questions may have no topics. Parent
+  codes without a topic validate context only; they do not create a new question
+  classification field. Preview warns about this.
+- Preview shows full resolved paths and editable code columns, including for old
+  uploads. Correct unknown codes, ambiguous names, ancestry and Subject errors
+  before confirmation. Use explicit Add subject/topic controls (with permissions)
+  or Admin to create missing records; neither prefix matching nor automatic
+  creation is performed by validation/confirmation.
+- Bilingual pairing requires identical primary and secondary topic assignments;
+  corrections invalidate the prior pairing approval. Tags are stored once per
+  master via the D3 service, with the legacy `Question.topic` kept synchronized.
+- Duplicate-text warnings never merge or update an existing Question. A separate
+  draft is created; existing topic tags and exam/year associations remain intact.
+  Repeated confirmation remains idempotent. All rows/tags roll back on failure.
+- Resolution loads each taxonomy table once per validation, with no per-row
+  taxonomy queries. Confirmation locks taxonomy while validating and importing.
+
+CSV and XLSX examples are in [samples/questions-taxonomy.csv](samples/questions-taxonomy.csv)
+and [samples/questions-taxonomy.xlsx](samples/questions-taxonomy.xlsx). Replace the
+symbolic codes with existing Admin codes before uploading. Both contain the same
+English/Bengali pair; approve pairing in preview. Choose Exam/Year in the form for
+Previous Year, or one or more Exams for General Question Bank. Legacy files need
+none of these additional columns.
+
 ## Multilingual enhancement (Milestone 2.3C)
 
 English-only, Bengali-only and bilingual imports now share one master identity
@@ -51,7 +108,7 @@ Required: `question_number`, `question_text`, `option_a`, `option_b`, `option_c`
 Optional: `correct_answer`, `explanation`, `subject`, `topic`, `language`,
 `exam_categories`, `previous_year_tags`, `source_document`, `source_page`,
 `difficulty_level`, `review_status`, `verification_notes`, `comments`,
-`created_date`, `updated_date`, `updated_by`.
+`created_date`, `updated_date`, `updated_by`, plus the taxonomy code/name columns above.
 
 Headers ignore case/surrounding whitespace. Duplicate/unknown named headers are
 rejected; completely empty unnamed trailing columns are ignored. UTF-8 CSV and
@@ -101,27 +158,12 @@ similar text never causes an automatic identity merge.
    for Latin-script text (Greek mathematical letters are tolerated). Inference is
    shown as a preview warning; explicit row language, then batch language, take
    precedence. Numbers/symbols alone or unsupported scripts require correction.
-   UTF-8 itself does not identify a language. When subject is blank and neither
-   an explicit mapping nor batch default resolves it, use `UnIdentified`. Preview
-   shows a warning without creating records; confirmation reuses the subject or
-   creates it transactionally (code `UNIDENTIFIED`, slug `unidentified`). Creation
-   requires Add subject permission. Nonblank unknown subjects still need mapping;
-   topics must still belong to the resolved subject. Subject names match without
-   case sensitivity (`history`, `History`, `HISTORY`); duplicate matching names
-   still require an explicit mapping.
-   For **Previous Year** imports, topics first match by case-insensitive exact
-   name within that subject, then by a unique case-insensitive first-four-character
-   prefix (only for labels at least four characters long). Preview warns about
-   prefix matches: inspect them before confirming. If multiple prefix candidates
-   exist but no exact name matches, the importer proposes the exact uploaded name
-   as a new topic instead of choosing an arbitrary candidate. Multiple exact-name
-   matches still need a manual mapping.
-   If nothing matches and the subject already exists, preview proposes a new
-   topic. Confirmation creates it transactionally under that subject, requiring
-   **Add topic** permission. Repeated case variants reuse the same new topic.
-   Preview never writes taxonomy records. Unknown subjects still block import;
-   a proposed, not-yet-created UnIdentified subject cannot receive a new topic.
-   General Question imports retain their existing explicit topic-mapping behavior.
+   UTF-8 itself does not identify a language. Blank subjects use an explicit
+   mapping, a code-inferred Subject or the batch default. An existing, uniquely
+   named `UnIdentified` subject is supported as a legacy fallback, but the importer
+   never creates it. If none resolves, select an existing Subject before import.
+   Subject and Topic names match case-insensitively. Unknown/ambiguous names need
+   explicit mapping; taxonomy codes and ancestry are validated as described above.
 2. Review all preview pages (up to 25 rows/page; fewer for wide files), including resolved Subject/Topic,
    Language, Answer, Exams and Paper. Search/status filters cover the entire file;
    clear filters to edit. Map unknown or missing subject labels to existing

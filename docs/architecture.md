@@ -1,5 +1,12 @@
 # Architecture
 
+Phase D3 supports multiple same-Subject topic tags per Question, retaining the
+legacy primary pointer and current selection rules. See
+[multi-topic question tagging](multi-topic-questions.md).
+
+Phase D2 supports skipped academic levels, independent of Exam, while retaining
+all master/revision associations. See [flexible academic taxonomy](flexible-taxonomy.md).
+
 The shared optional Subject → Part → Module → Chapter → Topic tagging hierarchy
 extends the original taxonomy without duplicating question masters. See
 [question taxonomy and integrity](question-taxonomy.md).

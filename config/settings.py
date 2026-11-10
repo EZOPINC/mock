@@ -44,7 +44,7 @@ CSRF_TRUSTED_ORIGINS = [
     if origin.strip()
 ]
 INSTALLED_APPS = [
-    "django.contrib.admin",
+    "config.admin.PlatformAdminConfig",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",

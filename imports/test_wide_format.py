@@ -49,6 +49,7 @@ class WideExtractionImportTests(ImportFixture):
     def data_from_file(self, upload):
         data = self.data()
         data.update(parse_upload(upload))
+        data["selection"]["subject_id"] = self.subject.pk
         for row in data["rows"]:
             row["original_values"] = dict(row["values"])
         return data
