@@ -43,10 +43,10 @@ class QuestionAdmin(admin.ModelAdmin):
     change_form_template = "admin/questions/question/change_form.html"
     change_list_template = "admin/questions/question/change_list.html"
     list_display = ("id", "subject", "topic", "language", "publication_status", "review_status", "revision_number")
-    list_filter = ("subject", "current_revision__translations__language", "review_status", "publication_status", "exam_associations__exam")
+    list_filter = ("subject", "topic__chapter__module__part", "topic__chapter__module", "topic__chapter", "topic", "current_revision__translations__language", "review_status", "publication_status", "exam_associations__exam")
     search_fields = ("current_revision__translations__question_text", "published_revision__translations__question_text", "source_question_id", "source_references__source__source_name", "source_references__source__source_document", "source_references__source_question_number")
     readonly_fields = ("publication_status", "review_status", "current_revision", "published_revision", "created_at", "updated_at")
-    list_select_related = ("subject", "topic", "current_revision")
+    list_select_related = ("subject", "topic__chapter__module__part__subject", "current_revision")
     inlines = (RevisionInline, QuestionExamInline, QuestionSourceReferenceInline)
     actions = ("review_questions", "publish_questions")
 

@@ -1,5 +1,9 @@
 # Architecture
 
+The shared optional Subject → Part → Module → Chapter → Topic tagging hierarchy
+extends the original taxonomy without duplicating question masters. See
+[question taxonomy and integrity](question-taxonomy.md).
+
 UI Phase 1.8 assesses future mobile adapters without adding endpoints, tokens or
 schema changes. See [mobile readiness and proposed API](mobile-readiness.md).
 

@@ -192,8 +192,12 @@ class PracticeServiceTests(PracticeFixture):
         create_revision(question, language="en", question_text="Later version", option_a="A", option_b="B", option_c="C", option_d="D", correct_answer="D", explanation="New explanation")
         publish_question(mark_reviewed(question))
         self.topic.name = "Changed topic"
-        self.topic.subject = self.other_subject
         self.topic.save()
+        # Renames preserve history; cross-subject moves now violate taxonomy integrity.
+        self.topic.subject = self.other_subject
+        with self.assertRaises(ValidationError):
+            self.topic.save()
+        self.topic.refresh_from_db()
         self.assertTrue(submit_answer(self.user, session.pk, row.pk, "A").is_correct)
         row.refresh_from_db()
         self.assertEqual(row.question_revision_id, original)

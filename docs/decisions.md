@@ -1,5 +1,16 @@
 # Architecture decisions
 
+## Shared question hierarchy — 2026-11-10
+
+Reason: the user requests Exam → Subject → Part → Module → Chapter → Topic and
+approves a hierarchy reused across exams, with optional classification for legacy
+data. Impact: add Part/Module/Chapter, optional Topic.chapter, parent-scoped
+uniqueness and PostgreSQL hierarchy guards. Reuse QuestionExam for exam membership
+and existing Question.subject/topic rather than duplicating master metadata.
+Existing topics remain unclassified until edited. Parent moves require new nodes;
+renames and same-subject Chapter assignment remain possible. Revisions, imports,
+attempts and scores retain their existing identities. See [taxonomy](question-taxonomy.md).
+
 Milestone 3.2 public Previous Year finalization (2026-11-04): reuse the completed
 viewer and canonical slug-scoped routes. Standardize breadcrumbs/titles and fail
 closed for papers whose revision translation set is missing, approval is absent,

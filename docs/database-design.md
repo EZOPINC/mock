@@ -1,5 +1,9 @@
 # Database design
 
+The optional shared question hierarchy adds Part (Subject FK), Module (Part FK),
+Chapter (Module FK) and Topic.chapter (nullable FK). Existing Topic.subject and
+Question links remain. See [hierarchy constraints and ERD](question-taxonomy.md).
+
 Milestone 3.1 administrative completion / D24 adds optional PreviousYearPaper
 duration_minutes, total_marks (decimal), instructions, subject FK PROTECT and
 expected_question_count. Database checks enforce positive optional duration/count

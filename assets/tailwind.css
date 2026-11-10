@@ -951,3 +951,20 @@
 .ui-paper-reader .paper-reader-actions .paper-premium-link { justify-self: center; background: #fbbf24; border: 1px solid #f59e0b; color: #422006; border-radius: .65rem; gap: .5rem; }
 .ui-paper-reader .paper-reader-actions .paper-premium-link:hover { background: #f59e0b; color: #422006; }
 @media(max-width:40rem) { .ui-paper-reader .paper-reader-actions { grid-template-columns: repeat(2,minmax(0,1fr)); } .ui-paper-reader .paper-reader-actions .paper-premium-link { grid-column: 1/-1; grid-row: 1; } }
+
+/* Available mock patterns: compact format metrics and section breakdown. */
+.mock-patterns .mock-pattern-card { border-top: 3px solid #95c7b0; padding: 1rem; }
+.mock-patterns .mock-pattern-card .mock-hub-card-top { margin-bottom: .7rem; }
+.mock-patterns .mock-pattern-card h3 { font-size: 1rem; margin-bottom: .3rem; }
+.mock-patterns .mock-pattern-card .ui-card-icon { width: 2rem; height: 2rem; }
+.mock-patterns .mock-pattern-stats { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: .5rem; margin: .6rem 0 .85rem; padding: .65rem 0; border-top: 1px solid #e2e9ed; border-bottom: 1px solid #e2e9ed; }
+.mock-patterns .mock-pattern-stats dt { color: #5c6d7c; font-size: .7rem; line-height: 1.8; }
+.mock-patterns .mock-pattern-stats dd { margin: .4rem 0 0; font-size: 1.15rem; font-weight: 750; color: #142d45; overflow-wrap: anywhere; }
+.mock-patterns .mock-pattern-stats dd span { font-size: .7rem; font-weight: 400; }
+.mock-patterns .mock-pattern-sections-heading { margin: 0 0 .75rem; font-size: .8rem; letter-spacing: normal; color: #364e5e; }
+.mock-patterns .mock-pattern-sections { display: grid; gap: .4rem; margin: 0 0 1rem; padding: 0; list-style: none; }
+.mock-patterns .mock-pattern-sections li { display: flex; align-items: center; flex-wrap: wrap; gap: .5rem; padding: .5rem .6rem; background: #f4f8fa; border-radius: .65rem; }
+.mock-patterns .mock-pattern-sections li > div { flex: 1; min-width: 0; }
+.mock-patterns .mock-pattern-sections strong { display: block; font-size: .8rem; font-weight: 650; color: #20364c; line-height: 1.7; overflow-wrap: anywhere; }
+.mock-patterns .mock-pattern-sections div > span { display: block; font-size: .7rem; color: #5c6d7c; line-height: 1.8; }
+.mock-patterns .mock-pattern-section-count { padding: .25rem .45rem; border-radius: .4rem; background: #e3eee9; color: #06665f; font-size: .7rem; white-space: nowrap; }

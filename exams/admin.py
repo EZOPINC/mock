@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Exam, ExamAuthority, ExamStage, Subject, Topic
+from .models import Chapter, Exam, ExamAuthority, ExamStage, Module, Part, Subject, Topic
 
 
 class ExamStageInline(admin.TabularInline):
@@ -11,6 +11,57 @@ class ExamStageInline(admin.TabularInline):
 class TopicInline(admin.TabularInline):
     model = Topic
     extra = 0
+    prepopulated_fields = {"slug": ("name",)}
+    autocomplete_fields = ("chapter",)
+
+
+class ModuleInline(admin.TabularInline):
+    model = Module
+    extra = 0
+    prepopulated_fields = {"slug": ("name",)}
+
+
+class PartInline(admin.TabularInline):
+    model = Part
+    extra = 0
+    prepopulated_fields = {"slug": ("name",)}
+
+
+class ChapterInline(admin.TabularInline):
+    model = Chapter
+    extra = 0
+    prepopulated_fields = {"slug": ("name",)}
+
+
+@admin.register(Part)
+class PartAdmin(admin.ModelAdmin):
+    list_display = ("name", "subject", "display_order")
+    search_fields = ("name", "subject__name")
+    list_filter = ("subject",)
+    list_select_related = ("subject",)
+    autocomplete_fields = ("subject",)
+    prepopulated_fields = {"slug": ("name",)}
+    inlines = (ModuleInline,)
+
+
+@admin.register(Module)
+class ModuleAdmin(admin.ModelAdmin):
+    list_display = ("name", "part", "display_order")
+    search_fields = ("name", "part__name", "part__subject__name")
+    list_filter = ("part__subject", "part")
+    list_select_related = ("part__subject",)
+    autocomplete_fields = ("part",)
+    prepopulated_fields = {"slug": ("name",)}
+    inlines = (ChapterInline,)
+
+
+@admin.register(Chapter)
+class ChapterAdmin(admin.ModelAdmin):
+    list_display = ("name", "module", "display_order")
+    search_fields = ("name", "module__name", "module__part__name", "module__part__subject__name")
+    list_filter = ("module__part__subject", "module__part", "module")
+    list_select_related = ("module__part__subject",)
+    autocomplete_fields = ("module",)
     prepopulated_fields = {"slug": ("name",)}
 
 
@@ -49,14 +100,15 @@ class SubjectAdmin(admin.ModelAdmin):
     search_fields = ("name", "code")
     ordering = ("name",)
     prepopulated_fields = {"slug": ("name",)}
-    inlines = (TopicInline,)
+    inlines = (PartInline, TopicInline)
 
 
 @admin.register(Topic)
 class TopicAdmin(admin.ModelAdmin):
-    list_display = ("name", "subject", "slug")
-    search_fields = ("name", "subject__name", "subject__code")
-    list_filter = ("subject",)
-    list_select_related = ("subject",)
+    list_display = ("name", "subject", "chapter", "slug")
+    search_fields = ("name", "subject__name", "subject__code", "chapter__name", "chapter__module__name", "chapter__module__part__name")
+    list_filter = ("subject", "chapter__module__part", "chapter__module", "chapter")
+    list_select_related = ("subject", "chapter__module__part__subject")
+    autocomplete_fields = ("chapter",)
     ordering = ("subject__name", "name")
     prepopulated_fields = {"slug": ("name",)}

@@ -1,7 +1,12 @@
 """Public taxonomy reads shared by HTML views and future adapters."""
 from django.db.models import Prefetch
 
-from .models import Exam, ExamAuthority
+from .models import Exam, ExamAuthority, Subject
+
+
+def subjects_for_exam(exam_id):
+    """Reuse QuestionExam membership; subjects/chapters are shared across exams."""
+    return Subject.objects.filter(questions__exam_associations__exam_id=exam_id).distinct()
 
 
 def active_exams():
