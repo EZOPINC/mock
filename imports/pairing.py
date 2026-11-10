@@ -26,6 +26,7 @@ def groups_for(rows, approvals):
             shared = {(row["revision"]["correct_answer"], row["values"]["difficulty_level"].strip(),
                        row["subject"].code if row["subject"] else None,
                        json.dumps(topic_identity(row["topic"])),
+                       row.get("taxonomy_path", ""),
                        tuple(sorted(topic.pk for topic in row.get("secondary_topics", []))),
                        tuple(sorted(exam.pk for exam in row["exams"]))) for row in members}
             if len(set(languages)) != len(languages) or not all(languages):

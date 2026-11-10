@@ -32,6 +32,7 @@ def confirm_import(data, user):
             result = validate(data, locked=True)
             if result["error_count"]:
                 raise ValidationError(result["errors"] or ["Resolve all row errors and revalidate before confirming."])
+            result["taxonomy_catalogue"].persist()
             paper = result["paper"]
             if paper is not None and paper.pk is None:
                 paper.save()

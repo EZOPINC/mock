@@ -1,16 +1,17 @@
 # Unified administrative question import (Milestone 2.3B)
 
 Phase D5 resolves normalized taxonomy codes and multiple topic tags through the
-same preview and transactional import pipeline. Missing taxonomy is never created
-automatically. Existing Question IDs, revisions, paper associations and attempts
+same preview and transactional import pipeline. Missing named Parts, Modules, Chapters and Topics are created on confirmation
+under existing Subjects. Subjects are never created automatically. Existing Question IDs, revisions, paper associations and attempts
 are not modified. See [multi-topic tagging](multi-topic-questions.md).
 
 ## Name-based hierarchy columns
 
 `part`, `module` and `chapter` are optional case-insensitive names, scoped to
 Subject and the supplied ancestor path. They can be combined with stable codes,
-but names and codes must agree. Unknown/ambiguous values require correction;
-missing taxonomy records are never created automatically.
+but names and codes must agree. Ambiguous values require correction. Missing named entries are proposed in preview
+and created on confirmation. New codes require corresponding names; omitted codes
+are generated automatically.
 
 `source_question_number` is optional source metadata when `question_number` is
 present. If the `question_number` header is absent, it supplies the required local
@@ -38,9 +39,8 @@ Optional CSV/XLSX columns: `subject_code`, `part_code`, `module_code`,
   classification field. Preview warns about this.
 - Preview shows full resolved paths and editable code columns, including for old
   uploads. Correct unknown codes, ambiguous names, ancestry and Subject errors
-  before confirmation. Use explicit Add subject/topic controls (with permissions)
-  or Admin to create missing records; neither prefix matching nor automatic
-  creation is performed by validation/confirmation.
+  before confirmation. An admin must add missing Subjects. Named child entries
+  are created on confirmation; preview performs no database writes.
 - Bilingual pairing requires identical primary and secondary topic assignments;
   corrections invalidate the prior pairing approval. Tags are stored once per
   master via the D3 service, with the legacy `Question.topic` kept synchronized.

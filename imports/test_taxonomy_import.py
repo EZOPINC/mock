@@ -30,11 +30,42 @@ class TaxonomyImportTests(ImportFixture):
 
     def test_parent_name_conflicts_unknown_names_and_ambiguity_are_rejected(self):
         Module.objects.create(subject=self.subject, name="Language", slug="root-language")
-        for changes in ({"module": "Language"}, {"chapter": "Unknown"}, {"part": "Wrong", "part_code": "P1"}):
+        for changes in ({"module": "Language"}, {"part": "Wrong", "part_code": "P1"}):
             data = self.data([values(**changes)])
             self.assertGreater(validate(data)["error_count"], 0)
         data = self.data([values(part="India", module="Language", chapter="Basics", topic="Primary")])
         self.assertEqual(validate(data)["error_count"], 0)
+
+    def test_new_hierarchy_is_read_only_in_preview_and_created_for_pair(self):
+        row = values(part="New part", module="New module", chapter="New chapter", topic="New topic", topic_code="NEW-T")
+        data = self.data([row, {**row, "language": "bn", "question_text": "Translated question"}])
+        models = (Subject, Part, Module, Chapter, Topic)
+        counts = [model.objects.count() for model in models]
+        group = validate(data)["groups"][0]
+        self.assertEqual(counts, [model.objects.count() for model in models])
+        data["pairings"] = {group["number"]: group["signature"]}
+        self.assertEqual(validate(data)["error_count"], 0)
+        batch = confirm_import(data, self.user)
+        topic = batch.imported_questions.first().question.topic
+        self.assertEqual(topic.code, "NEW-T")
+        self.assertEqual(topic.chapter.module.part.name, "New part")
+        self.assertEqual(topic.subject, self.subject)
+        self.assertEqual([counts[0]] + [count + 1 for count in counts[1:]],
+                         [model.objects.count() for model in models])
+        self.assertEqual(confirm_import(data, self.user).pk, batch.pk)
+
+    def test_new_hierarchy_requires_existing_subject_and_rolls_back(self):
+        data = self.data([values(subject="Missing subject", part="New part", topic="New topic")])
+        with self.assertRaises(ValidationError):
+            confirm_import(data, self.user)
+        self.assertFalse(Subject.objects.filter(name="Missing subject").exists())
+        self.assertFalse(Part.objects.filter(name="New part").exists())
+        data = self.data([values(part="New part", topic="New topic")])
+        with patch("imports.services.create_question", side_effect=ValidationError("Failure")):
+            with self.assertRaises(ValidationError):
+                confirm_import(data, self.user)
+        self.assertFalse(Part.objects.filter(name="New part").exists())
+        self.assertFalse(Topic.objects.filter(name="New topic").exists())
 
     def test_source_number_is_metadata_when_both_number_headers_exist(self):
         data = self.data([values(question_number="1", source_question_number="original-42", topic="Grammar")])

@@ -1,5 +1,8 @@
 """Read-only, batch-loaded taxonomy resolution shared by preview and confirmation."""
 import re
+from hashlib import sha256
+from django.utils.text import slugify
+from django.core.exceptions import ValidationError
 
 from exams.models import Subject, Part, Module, Chapter, Topic
 
@@ -13,6 +16,7 @@ class TaxonomyCatalogue:
 
     def __init__(self, *, locked=False):
         self.records, self.codes, self.ids = {}, {}, {}
+        self.pending = []
         for kind, model in self.models.items():
             queryset = model.objects.order_by("pk")
             if locked:
@@ -20,6 +24,46 @@ class TaxonomyCatalogue:
             self.records[kind] = list(queryset)
             self.codes[kind] = {node.code: node for node in self.records[kind]}
             self.ids[kind] = {node.pk: node for node in self.records[kind]}
+
+    def propose(self, kind, value, code, subject, nodes, errors):
+        """Stage a named child; preview never writes to the database."""
+        if not subject or errors:
+            return None
+        model = self.models[kind]
+        parent_kind = next((field for field in model.parent_fields if field in nodes), None)
+        parent = nodes[parent_kind] if parent_kind else subject
+        key = f"{kind}:{parent_kind or 'subject'}:{parent.pk}:{normalized(value)}"
+        digest = sha256(key.encode()).hexdigest()
+        code = code or f"{kind.upper()}-{digest[:32]}"
+        if any(normalized(node.code) == normalized(code) for node in self.records[kind]):
+            errors.append(f"{kind.title()} code conflicts with an existing record.")
+            return None
+        node = model(name=value, code=code, subject=subject,
+                     slug=(slugify(value)[:160] or kind) + "-" + digest[:16])
+        if parent_kind:
+            setattr(node, parent_kind, parent)
+        try:
+            for field in ("name", "code", "slug"):
+                node._meta.get_field(field).clean(getattr(node, field), node)
+        except ValidationError as error:
+            errors.extend(error.messages)
+            return None
+        node.pk = -int(digest[:15], 16)
+        self.pending.append((kind, node))
+        self.records[kind].append(node)
+        self.codes[kind][code] = node
+        self.ids[kind][node.pk] = node
+        return node
+
+    def persist(self):
+        """Called only after validation, inside the import transaction."""
+        for kind, node in self.pending:
+            for field in node.parent_fields:
+                if getattr(node, field + "_id") is not None:
+                    setattr(node, field + "_id", getattr(node, field).pk)
+            node.pk = None
+            node.full_clean()
+            node.save()
 
     def lineage(self, kind, node):
         """Root-first nodes without following ORM relationships (no per-row queries)."""
@@ -41,9 +85,9 @@ class TaxonomyCatalogue:
             code = values.get(kind + "_code", "").strip()
             if code:
                 node = self.codes[kind].get(code)
-                if node is None:
+                if node is None and (kind == "subject" or not values.get(kind, "").strip()):
                     errors.append(f"Unknown {kind}_code: {code}. Select an existing taxonomy code.")
-                else:
+                elif node is not None:
                     nodes[kind] = node
 
         def name_match(value, candidates, aliases, *, code_node=None):
@@ -96,6 +140,10 @@ class TaxonomyCatalogue:
                     (other_kind, other.pk) in {(k, n.pk) for k, n in self.lineage(kind, node)} or
                     (kind, node.pk) in {(k, n.pk) for k, n in self.lineage(other_kind, other)}]
             named = name_match(value, candidates, {}, code_node=nodes.get(kind))
+            if named is None and kind not in nodes and not any(normalized(node.name) == normalized(value) for node in candidates):
+                named = self.propose(kind, value, values.get(kind + "_code", "").strip(), subject, nodes, errors)
+            if named is not None and values.get(kind + "_code", "").strip() and named.code != values[kind + "_code"].strip():
+                errors.append(f"{kind}_code conflicts with the {kind} name.")
             if named is None:
                 errors.append(f"{kind.title()} is unresolved or ambiguous within the selected subject/ancestry. Use an existing name or stable code.")
             elif kind in nodes and nodes[kind].pk != named.pk:
@@ -114,6 +162,10 @@ class TaxonomyCatalogue:
             key = normalized(values.get("subject", "") + " / " + values["topic"])
             aliases = {normalized(raw_topic): topic_map[key]} if key in topic_map else {}
             named = name_match(raw_topic, candidates, aliases, code_node=topic)
+            if named is None and topic is None and not aliases and not any(normalized(node.name) == normalized(raw_topic) for node in candidates):
+                named = self.propose("topic", raw_topic, values.get("topic_code", "").strip(), subject, nodes, errors)
+            if named is not None and values.get("topic_code", "").strip() and named.code != values["topic_code"].strip():
+                errors.append("topic_code conflicts with the topic name/mapping.")
             if named is None:
                 errors.append("Topic is unresolved or ambiguous, or does not belong to the selected subject/ancestry. Select an existing topic mapping.")
             elif topic is not None and topic.pk != named.pk:

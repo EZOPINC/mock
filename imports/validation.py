@@ -142,6 +142,8 @@ def validate(data, *, locked=False):
         selected = data["selection"]
         taxonomy = catalogue.resolve(values, selected, subject_map, topic_map)
         subject, topic = taxonomy["subject"], taxonomy["topic"]
+        if catalogue.pending:
+            warnings.append("Missing named hierarchy entries will be created on confirmation. Subjects must already exist.")
         row_errors.extend(taxonomy.pop("taxonomy_errors"))
         if paper is not None and paper.subject_id and subject is not None and subject.pk != paper.subject_id:
             row_errors.append("Resolved subject must match the selected paper's subject.")
@@ -195,7 +197,7 @@ def validate(data, *, locked=False):
             paper.validate_question_count(actual_count=len(existing_numbers) + len(groups))
         except ValidationError as error:
             errors.extend(error.messages)
-    return {"rows": result, "groups": groups, "master_count": len(groups), "errors": errors, "exam": exams[0] if len(exams) == 1 else None, "exams": exams, "import_type": mode(data), "paper": paper, "existing_count": len(existing_numbers), "existing_imports": existing_imports,
+    return {"taxonomy_catalogue": catalogue, "rows": result, "groups": groups, "master_count": len(groups), "errors": errors, "exam": exams[0] if len(exams) == 1 else None, "exams": exams, "import_type": mode(data), "paper": paper, "existing_count": len(existing_numbers), "existing_imports": existing_imports,
             "total": len(result), "valid": sum(not row["errors"] for row in result),
             "error_count": sum(len(row["errors"]) for row in result) + len(errors),
             "warning_count": sum(len(row["warnings"]) for row in result)}

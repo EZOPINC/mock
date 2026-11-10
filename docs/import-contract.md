@@ -86,7 +86,7 @@ Ignore the unnamed trailing column only when empty. Metadata without a dedicated
 ## Validation and association rules
 
 - Validate file type/size, headers, rows, language, four options, answer keys, subjects, exams, and paper metadata. Allowed languages are `en` and `bn`; allowed answers are `A`, `B`, `C`, `D`. English and Bengali are independent Questions. Preserve original Unicode text and explanations; a Question's language cannot change across revisions.
-- Resolve taxonomy with explicit admin-confirmed mappings. Reject unresolved or ambiguous references. Topic is optional but must belong to the selected Subject. Do not silently create or guess taxonomy.
+- Resolve taxonomy with explicit admin-confirmed mappings. Reject unresolved or ambiguous references. Topic is optional but must belong to the selected Subject. Missing named Parts, Modules, Chapters and Topics are created atomically on confirmation under existing Subjects. Imports never create Subjects. New codes require corresponding names.
 - A Question can belong to multiple exams. `PSC Clerkship` maps to WBPSC / Clerkship only with explicit admin confirmation of that alias.
 - `Prelims 2023 (Part-I, Session I)` requires explicit resolution of exam, optional stage, year, paper identity, part, and session. Stage must belong to the exam. Paper identity is unique across exam/stage/year/paper_name/part/session, including nullable fields.
 - Preserve historical paper numbering and order. PaperQuestion references a specific QuestionRevision; question_number is not a source/global ID. Paper display_order must be unique within its paper. A question can appear in multiple papers.
