@@ -20,7 +20,7 @@ class PracticeStartForm(forms.Form):
         if scope:
             for kind in LEVELS:
                 self.fields[kind] = forms.ModelChoiceField(queryset=MODELS[kind].objects.filter(pk__in=scope.pools[kind]),
-                    required=False, empty_label=f"All {kind}s", label=kind.title())
+                    required=False, empty_label=f"All {kind}s" if scope.pools[kind] else "Not Applicable", label=kind.title())
                 # Avoid HierarchyNode.__str__ traversing parent FKs for every option.
                 self.fields[kind].label_from_instance = lambda node, level=kind: f"{node.name} ({len(scope.pools[level][node.pk])})"
             self.order_fields([*LEVELS, "count", "token"])

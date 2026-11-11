@@ -21,7 +21,7 @@
       const options = catalogue[level].filter((node) => Object.entries(chosen).every(
         ([parent, id]) => String(node.ancestors[parent] || "") === id));
       options.sort((a, b) => a.name.localeCompare(b.name));
-      select.replaceChildren(new Option(`All ${level}s`, ""));
+      select.replaceChildren(new Option(catalogue[level].length ? `All ${level}s` : "Not Applicable", ""));
       options.forEach((node) => select.add(new Option(`${node.name} (${node.count})`, String(node.id))));
       const selected = options.find((node) => String(node.id) === previous);
       if (selected) {
