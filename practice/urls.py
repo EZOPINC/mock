@@ -10,5 +10,7 @@ urlpatterns = [
     path("sessions/<int:session_id>/abandon/", views.abandon, name="abandon"),
     path("<slug:authority_slug>/", views.exams, name="exams"),
     path("<slug:authority_slug>/<slug:exam_slug>/", views.subjects, name="subjects"),
+    path("<slug:authority_slug>/<slug:exam_slug>/<slug:subject_slug>/modules/<int:module_id>/difficulty/", views.difficulty, name="module_difficulty"),
+    path("<slug:authority_slug>/<slug:exam_slug>/<slug:subject_slug>/difficulty/", views.difficulty, name="difficulty"),
     path("<slug:authority_slug>/<slug:exam_slug>/<slug:subject_slug>/", views.configure, name="configure"),
 ]

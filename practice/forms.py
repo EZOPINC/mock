@@ -36,3 +36,19 @@ class PracticeStartForm(forms.Form):
             if not ids or (count != "available" and int(count) > len(ids)):
                 raise forms.ValidationError("Insufficient eligible questions. Select another filter or question count.")
         return cleaned
+
+
+class PracticeDifficultyForm(forms.Form):
+    difficulty = forms.ChoiceField(label="Choose a difficulty", widget=forms.RadioSelect)
+    token = forms.UUIDField(widget=forms.HiddenInput, initial=uuid4)
+
+    def __init__(self, *args, pools, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Prefix values so unspecified difficulty is a valid, explicit choice.
+        self.fields["difficulty"].choices = [
+            ("level:" + value, f"{value.title() if value else 'Unspecified difficulty'} - {len(ids)} question{'s' if len(ids) != 1 else ''}")
+            for value, ids in sorted(pools.items())
+        ]
+
+    def clean_difficulty(self):
+        return self.cleaned_data["difficulty"][len("level:"):]

@@ -289,7 +289,7 @@ class PracticeViewTests(PracticeFixture):
         self.question(subject=self.other_subject, published=False)
         for name, args, expected in (("index", [], "Authority"), ("exams", [self.authority.slug], "Exam"),
             ("subjects", [self.authority.slug, self.exam.slug], "Mathematics"),
-            ("configure", [self.authority.slug, self.exam.slug, self.subject.slug], "Arithmetic")):
+            ("configure", [self.authority.slug, self.exam.slug, self.subject.slug], "Continue with this subject")):
             response = self.client.get(reverse(f"practice:{name}", args=args))
             self.assertContains(response, expected)
             self.assertNotContains(response, "Ancient")
@@ -301,12 +301,14 @@ class PracticeViewTests(PracticeFixture):
         self.client.force_login(self.user)
         response = self.client.get(self.configure_url())
         self.assertFalse(PracticeSession.objects.exists())
+        difficulty_url = reverse("practice:difficulty", args=[self.authority.slug, self.exam.slug, self.subject.slug])
+        response = self.client.get(difficulty_url)
         token = response.context["form"]["token"].value()
-        data = {"token": token, "count": "available", "topic": ""}
-        first = self.client.post(self.configure_url(), data)
+        data = {"token": token, "difficulty": "level:"}
+        first = self.client.post(difficulty_url, data)
         session = PracticeSession.objects.get()
         self.assertRedirects(first, self.session_url(session))
-        self.assertRedirects(self.client.post(self.configure_url(), data), self.session_url(session))
+        self.assertRedirects(self.client.post(difficulty_url, data), self.session_url(session))
         self.assertEqual(PracticeSession.objects.count(), 1)
 
     def test_one_question_no_solution_until_submission_then_locked_feedback(self):

@@ -59,6 +59,7 @@ INSTALLED_APPS = [
     "general_question.apps.GeneralQuestionConfig",
     "mock_tests.apps.MockTestsConfig",
     "practice.apps.PracticeConfig",
+    "revision.apps.RevisionConfig",
 ]
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",

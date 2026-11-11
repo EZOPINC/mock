@@ -138,15 +138,13 @@ class PracticeTaxonomyTests(PracticeFixture):
         empty = Part.objects.create(subject=self.subject, name="Unavailable branch", slug="empty")
         self.client.force_login(self.user)
         response = self.client.get(self.configure_url())
-        self.assertContains(response, 'id="id_part"')
-        self.assertContains(response, 'id="id_module"')
-        self.assertContains(response, 'id="id_chapter"')
-        self.assertContains(response, "practice-filters.js")
+        self.assertContains(response, "Foundations")
+        self.assertNotContains(response, 'id="id_part"')
+        self.assertNotContains(response, 'id="id_chapter"')
+        self.assertNotContains(response, "practice-filters.js")
         self.assertNotContains(response, empty.name)
-        payload = response.context["taxonomy_options"]
-        self.assertEqual(payload["part"][0]["count"], 1)
-        self.assertNotIn("correct_answer", str(payload))
-        self.assertNotIn("question_ids", str(payload))
+        self.assertEqual(response.context["modules"][0]["count"], 1)
+        self.assertNotContains(response, "VERIFIED SOLUTION")
 
     def test_invalid_browser_filter_combinations_and_foreign_ids_are_rejected(self):
         self.question(topic=self.deep)
@@ -162,7 +160,7 @@ class PracticeTaxonomyTests(PracticeFixture):
         self.client.force_login(self.user)
         response = self.client.get(self.configure_url())
         self.assertContains(response, "No eligible questions are available")
-        self.assertContains(response, "data-practice-start disabled")
+        self.assertNotContains(response, "Continue with this subject")
 
     def test_query_count_does_not_grow_with_question_or_tag_count(self):
         self.question(topic=self.deep)

@@ -1,0 +1,11 @@
+{% load revision_tags %}
+<article class="paper-question practice-question-card"{% if row.selected_answer %} data-selected-answer="{{ row.selected_answer }}" data-feedback-correct="{{ row.is_correct|yesno:'true,false' }}"{% endif %} id="practice-question" tabindex="-1" aria-labelledby="practice-question-heading"><div class="question-card-header"><h2 id="practice-question-heading">Question {{ row.display_order }} of {{ progress.total }}</h2><span class="badge badge-outline">{% if row.selected_answer %}Answer locked{% else %}Choose your answer{% endif %}</span>{% bookmark_control row "practice-question" %}{% explore_control row.question_id "practice-question" %}</div>
+{% if not row.selected_answer and session.status == 'in_progress' %}
+<form method="post" action="{{ answer_url }}" class="practice-answer embedded-answer-form"{% if is_revision %} data-revision-answer{% endif %}>{% csrf_token %}
+{% include "questions/translations.html" with revision=row.question_revision show_solutions=False hide_answers=True selectable=True mock_selection=False hide_language_heading=True %}
+<div class="question-content"><p class="practice-selection-status" role="status">Select an option to reveal the answer and explanation. Your choice will be locked.</p><noscript><p>JavaScript is disabled. Select an option, then check your answer.</p><button type="submit">Check answer</button></noscript></div></form>
+{% else %}
+{% include "questions/translations.html" with revision=row.question_revision show_solutions=row.selected_answer hide_answers=False verified_only=True selectable=False hide_language_heading=True %}
+{% if not row.selected_answer %}<p class="practice-closed-note">This session is closed. No answer was submitted for this question.</p>{% endif %}
+{% endif %}
+</article>

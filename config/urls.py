@@ -10,5 +10,6 @@ urlpatterns = [
     path("general-questions/", include("general_question.urls")),
     path("mock-tests/", include("mock_tests.urls")),
     path("practice/", include("practice.urls")),
+    path("revision/", include("revision.urls")),
     path("", include("core.urls")),
 ]

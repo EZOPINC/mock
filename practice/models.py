@@ -19,14 +19,19 @@ class PracticeQuerySet(models.QuerySet):
 
 
 class PracticeSession(models.Model):
+    class Kind(models.TextChoices):
+        PRACTICE = "practice", "Practice"
+        REVISION = "revision", "Revision"
+
     class Status(models.TextChoices):
         IN_PROGRESS = "in_progress", "In Progress"
         COMPLETED = "completed", "Completed"
         ABANDONED = "abandoned", "Abandoned"
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, related_name="practice_sessions")
-    exam = models.ForeignKey("exams.Exam", on_delete=models.PROTECT, related_name="practice_sessions")
-    subject = models.ForeignKey("exams.Subject", on_delete=models.PROTECT, related_name="practice_sessions")
+    kind = models.CharField(max_length=8, choices=Kind, default=Kind.PRACTICE)
+    exam = models.ForeignKey("exams.Exam", on_delete=models.PROTECT, related_name="practice_sessions", null=True, blank=True)
+    subject = models.ForeignKey("exams.Subject", on_delete=models.PROTECT, related_name="practice_sessions", null=True, blank=True)
     topic = models.ForeignKey("exams.Topic", on_delete=models.PROTECT, null=True, blank=True, related_name="practice_sessions")
     start_token = models.UUIDField()
     configuration = models.JSONField()
@@ -39,6 +44,7 @@ class PracticeSession(models.Model):
         ordering = ("-started_at", "-pk")
         indexes = [models.Index(fields=("user", "status", "-started_at"), name="practice_user_status_idx")]
         constraints = [
+            models.CheckConstraint(condition=Q(kind="practice", exam__isnull=False, subject__isnull=False) | Q(kind="revision", exam__isnull=True, subject__isnull=True, topic__isnull=True), name="practice_session_kind_scope"),
             models.UniqueConstraint(fields=("user", "start_token"), name="practice_start_token_unique"),
             models.CheckConstraint(condition=Q(status="in_progress", completed_at__isnull=True) | Q(status__in=["completed", "abandoned"], completed_at__isnull=False), name="practice_session_status_valid"),
         ]

@@ -16,6 +16,7 @@ from questions.models import QuestionTranslation
 from questions.services import published_questions
 from .models import AttemptQuestion, ExamPattern, MockAttempt
 from .services import available_patterns, start_attempt
+from revision.services import attach_saved_state
 from .execution import confirmation_counts, refresh_attempt, save_response, submit_attempt
 
 
@@ -99,7 +100,9 @@ def attempt_context(request, attempt_id):
             Prefetch("question_revision__translations", queryset=translations)))), pk=attempt_id, user=request.user)
     sections = {item["id"]: item for item in attempt.configuration["sections"]}
     rows = list(attempt.questions.all())
+    attach_saved_state(request.user.pk, rows)
     for row in rows:
+        row.bookmark_anchor = f"question-{row.display_order}"
         row.section_snapshot = sections[row.section_id]
     return {"attempt": attempt, "rows": rows, "options": "ABCD", "clock": {
         "server_now": timezone.now().isoformat(), "deadline": attempt.expires_at.isoformat() if attempt.expires_at else None,

@@ -1,0 +1,28 @@
+/* Scoped layout; existing compiled Tailwind supplies cards, buttons and form styles. */
+.revision-bank{min-width:0}
+.revision-filters,.revision-card{padding:clamp(1rem,3vw,1.5rem);margin-block:1.25rem}
+.revision-filter-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,14rem),1fr));gap:1rem}
+.revision-filter-grid .form-field{margin:0}
+.revision-filters>.button-row{margin-top:1rem}
+.revision-list{display:grid;gap:1rem}
+.revision-list .revision-card{margin:0}
+.revision-card-heading{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.75rem;margin-bottom:1rem}
+.revision-card-heading time{color:#5c6d7c;font-size:.85rem}
+.revision-bank .translation-grid{gap:1.25rem}
+.revision-stem{white-space:pre-wrap;overflow-wrap:anywhere}
+.revision-pagination{justify-content:center;margin-top:2rem}
+.revision-bank .button-row{flex-wrap:wrap}
+.revision-bank textarea{max-width:100%;min-width:0}
+@media(max-width:48rem){.revision-bank .translation-grid,.revision-bank .dashboard-overview{grid-template-columns:minmax(0,1fr)}}
+
+.revision-taxonomy-path ol{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem;list-style:none;margin:0;padding:0}
+.revision-taxonomy-path li{display:flex;align-items:center;min-width:0;overflow-wrap:anywhere}
+.revision-taxonomy-path li+li:before{content:"/";margin-inline:.25rem .75rem;color:#5c6d7c}
+.revision-taxonomy-path a{color:#06665f;line-height:1.8}
+.revision-taxonomy-path a span{font-size:.8rem;color:#5c6d7c;overflow-wrap:anywhere}
+.revision-topic-path+.revision-topic-path{border-top:1px solid #dce4e9;margin-top:1.5rem;padding-top:1rem}
+.revision-topic-labels{padding:1rem;margin:0;overflow-wrap:anywhere}
+.revision-related-card .question-card-header{flex-wrap:wrap;gap:.75rem}
+.revision-bank .translation-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+.revision-bank .translation-grid>section:only-child{grid-column:1/-1}
+@media(max-width:48rem){.revision-bank .translation-grid{grid-template-columns:minmax(0,1fr)}}

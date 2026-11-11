@@ -13,6 +13,7 @@ from .models import PaperQuestion
 from .services import published_papers
 from .forms import PaperSelectionForm
 from questions.models import QuestionTranslation
+from revision.services import attach_saved_state
 
 
 @require_safe
@@ -96,6 +97,7 @@ def paper_year(request, authority_slug, exam_slug, year):
     return redirect(reverse("previous_year:paper_detail", args=[authority_slug, exam_slug, year, selected.pk]) + "?" + urlencode({"mode": mode}))
 
 
+@never_cache
 @require_safe
 @transaction.atomic
 def paper_detail(request, authority_slug, exam_slug, year, paper_id):
@@ -125,6 +127,9 @@ def paper_context(request, authority_slug, exam_slug, year, paper_id):
     if selected_subject and selected_subject not in {str(pk) for pk in counts}:
         raise Http404
     viewer_rows = [row for row in rows if not selected_subject or str(row.question.subject_id) == selected_subject]
+    for row in viewer_rows:
+        row.bookmark_anchor = f"question-{row.pk}"
+    attach_saved_state(request.user.pk if request.user.is_authenticated else None, viewer_rows)
     return {"paper": paper, "exam": exam, "paper_form": selector, "viewer_mode": mode,
         "question_count": len(rows), "subject_counts": sorted(counts.values(), key=lambda item: item["name"]),
         "selected_subject": selected_subject, "viewer_rows": viewer_rows, "answer_options": "ABCD"}

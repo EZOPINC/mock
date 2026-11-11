@@ -4,6 +4,7 @@ from django.db.models import Case, IntegerField, Prefetch, Value, When
 from uuid import UUID
 
 from django.http import Http404
+from django.urls import reverse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.cache import never_cache
 from django.views.decorators.http import require_http_methods, require_safe
@@ -11,9 +12,10 @@ from django.views.decorators.http import require_http_methods, require_safe
 from exams.models import Exam, ExamAuthority, Subject
 from questions.eligibility import eligible_question_ids
 from questions.models import Question, QuestionTranslation
-from .forms import PracticeStartForm
-from .discovery import LEVELS, PracticeTaxonomy, configuration_matches
+from .forms import PracticeDifficultyForm
+from .discovery import LEVELS, PracticeTaxonomy, configuration_matches, difficulty_pools
 from .models import PracticeQuestion, PracticeSession
+from revision.services import attach_saved_state
 from .services import abandon_session, performance, progress, start_session, submit_answer
 
 
@@ -23,7 +25,7 @@ def exam_from_slugs(authority_slug, exam_slug):
 
 
 def session_for(user, session_id):
-    return get_object_or_404(PracticeSession, pk=session_id, user=user)
+    return get_object_or_404(PracticeSession, pk=session_id, user=user, kind="practice")
 
 
 @login_required
@@ -33,8 +35,8 @@ def index(request):
     ids = [exam.pk for exam in Exam.objects.filter(is_active=True, authority__is_active=True) if eligible_question_ids(exam.pk)]
     return render(request, "practice/index.html", {
         "authorities": ExamAuthority.objects.filter(exams__pk__in=ids).distinct(),
-        "open_sessions": PracticeSession.objects.filter(user=request.user, status="in_progress"),
-        "closed_sessions": PracticeSession.objects.filter(user=request.user).exclude(status="in_progress")[:20],
+        "open_sessions": PracticeSession.objects.filter(user=request.user, kind="practice", status="in_progress"),
+        "closed_sessions": PracticeSession.objects.filter(user=request.user, kind="practice").exclude(status="in_progress")[:20],
     })
 
 
@@ -70,29 +72,63 @@ def configure(request, authority_slug, exam_slug, subject_slug):
         if existing and configuration_matches(existing, exam_id=exam.pk, subject_id=subject.pk, count=request.POST.get("count"), filters={kind: request.POST.get(kind) for kind in LEVELS}):
             return redirect("practice:session", session_id=existing.pk)
     scope = PracticeTaxonomy(exam, subject)
-    form = PracticeStartForm(request.POST if request.method == "POST" else None,
-        scope=scope, available_count=len(scope.question_ids))
+    modules = [{"module": scope.nodes["module"][pk], "count": len(ids)}
+               for pk, ids in scope.pools["module"].items()]
+    modules.sort(key=lambda item: (item["module"].name.casefold(), item["module"].pk))
+    return render(request, "practice/configure.html", {"exam": exam, "subject": subject,
+        "modules": modules, "available_count": len(scope.question_ids),
+        "setup_error": "Choose a module and difficulty to start a new session." if request.method == "POST" else ""},
+        status=400 if request.method == "POST" else 200)
+
+
+@login_required
+@never_cache
+@require_http_methods(["GET", "HEAD", "POST"])
+def difficulty(request, authority_slug, exam_slug, subject_slug, module_id=None):
+    exam = exam_from_slugs(authority_slug, exam_slug)
+    subject = get_object_or_404(Subject, slug=subject_slug)
+    scope = PracticeTaxonomy(exam, subject)
+    module = scope.nodes["module"].get(module_id) if module_id is not None else None
+    if module_id is not None and module is None:
+        raise Http404
+    filters = {"module": module}
+    if request.method == "POST":
+        try:
+            token = UUID(request.POST.get("token", ""))
+        except (ValueError, TypeError, AttributeError):
+            token = None
+        existing = PracticeSession.objects.filter(user=request.user, start_token=token).first() if token else None
+        value = request.POST.get("difficulty", "")
+        if existing and value.startswith("level:") and configuration_matches(existing,
+                exam_id=exam.pk, subject_id=subject.pk, count="available", filters=filters, difficulty=value[6:]):
+            return redirect("practice:session", session_id=existing.pk)
+    # A whole-subject route is available only when no eligible module exists.
+    if module is None and scope.pools["module"]:
+        return redirect("practice:configure", authority_slug=authority_slug, exam_slug=exam_slug, subject_slug=subject_slug)
+    pools = difficulty_pools(scope.selected_ids(filters))
+    form = PracticeDifficultyForm(request.POST if request.method == "POST" else None, pools=pools)
     if request.method == "POST" and form.is_valid():
         try:
-            session = start_session(request.user, exam=exam, subject=subject, **{kind: form.cleaned_data[kind] for kind in LEVELS},
-                count=form.cleaned_data["count"], token=form.cleaned_data["token"])
+            session = start_session(request.user, exam=exam, subject=subject, module=module,
+                difficulty=form.cleaned_data["difficulty"], token=form.cleaned_data["token"])
         except ValidationError as error:
             form.add_error(None, error)
         else:
             return redirect("practice:session", session_id=session.pk)
-    topics = [{"topic": topic, "count": len(scope.pools["topic"][topic.pk])} for topic in form.fields["topic"].queryset]
-    return render(request, "practice/configure.html", {"exam": exam, "subject": subject, "form": form,
-        "available_count": len(scope.question_ids), "topics": topics,
-        "taxonomy_options": scope.options()}, status=400 if request.method == "POST" and form.errors else 200)
+    return render(request, "practice/difficulty.html", {"exam": exam, "subject": subject,
+        "module": module, "form": form, "available_count": sum(map(len, pools.values()))},
+        status=400 if request.method == "POST" and form.errors else 200)
 
 
-def question_context(session, row):
-    translations = QuestionTranslation.objects.annotate(_order=Case(When(language="en", then=Value(0)),
+def question_context(session, row, *, translations=None):
+    translations = translations if translations is not None else QuestionTranslation.objects.annotate(_order=Case(When(language="en", then=Value(0)),
         When(language="bn", then=Value(1)), default=Value(2), output_field=IntegerField())).order_by("_order", "language", "pk")
     row = PracticeQuestion.objects.select_related("question_revision").prefetch_related(
         Prefetch("question_revision__translations", queryset=translations)).get(pk=row.pk, session=session)
     rows = list(session.questions.all())
-    return {"session": session, "row": row, "rows": rows, "progress": progress(rows), "options": "ABCD"}
+    attach_saved_state(session.user_id, [row])
+    return {"session": session, "row": row, "rows": rows, "progress": progress(rows), "options": "ABCD",
+            "answer_url": reverse("practice:answer", args=[session.pk, row.pk])}
 
 
 @login_required

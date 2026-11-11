@@ -1,0 +1,8 @@
+{% extends "base.html" %}{% load static %}
+{% block title %}Revision question {{ row.display_order }} | Mock Exam Platform{% endblock %}
+{% block extra_head %}<link rel="stylesheet" href="{% static 'css/practice.css' %}"><link rel="stylesheet" href="{% static 'css/revision.css' %}"><script src="{% static 'js/bookmarks.js' %}" defer></script><script src="{% static 'js/revision-session.js' %}" defer></script>{% endblock %}
+{% block content %}<div class="ui-practice ui-practice-session revision-bank" data-revision-session>
+<nav class="breadcrumbs" aria-label="Breadcrumb"><a href="{% url 'revision:dashboard' %}">My Revision Bank</a><a href="{% url 'revision:history' %}">Revision sessions</a><span aria-current="page">Session {{ session.pk }}</span></nav>
+<header class="practice-page-heading practice-session-heading"><div><p class="eyebrow">ONE QUESTION. ONE STEP FORWARD.</p><h1>Your revision session</h1><p>{{ session.configuration.subject_name }} &middot; Untimed</p></div><a class="button button-secondary" href="{% url 'revision:dashboard' %}">Pause and return to Revision Bank</a></header>
+<div data-revision-live>{% include "revision/session_body.html" %}</div>
+</div>{% endblock %}

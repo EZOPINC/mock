@@ -1,0 +1,9 @@
+{% extends "base.html" %}{% load static %}
+{% block title %}Explore Topic | Mock Exam Platform{% endblock %}
+{% block extra_head %}<link rel="stylesheet" href="{% static 'css/revision.css' %}">{% endblock %}
+{% block content %}<div class="revision-bank">
+<nav class="breadcrumbs" aria-label="Breadcrumb"><a href="{% url 'revision:dashboard' %}">My Revision Bank</a><span aria-current="page">Explore Topic</span></nav>
+<header class="dashboard-heading"><div><p class="eyebrow">FOLLOW YOUR CURIOSITY</p><h1>Explore this question's topics</h1><p>Choose a topic or expand to an available ancestor to discover related questions.</p></div></header>
+<section class="ui-card revision-card"><h2>Academic hierarchy</h2>{% for item in paths %}<section class="revision-topic-path"><h3>{{ item.topic.name }} <span class="badge badge-outline">{% if item.primary %}Primary topic{% else %}Secondary topic{% endif %}</span></h3>{% include "revision/taxonomy_breadcrumbs.html" with path=item.path %}</section>{% empty %}<p>No topics are assigned to this question. You can explore its subject instead.</p>{% include "revision/taxonomy_breadcrumbs.html" with path=subject_path %}{% endfor %}</section>
+<div class="button-row">{% if saved_source %}<a class="button button-primary" href="{% url 'revision:detail' saved_source.pk %}">Back to saved question</a>{% endif %}<a class="button button-secondary" href="{% url 'revision:dashboard' %}">My Revision Bank</a></div>
+</div>{% endblock %}

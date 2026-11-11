@@ -1,0 +1,18 @@
+{% extends "base.html" %}{% load static revision_tags %}
+{% block title %}Saved question | My Revision Bank{% endblock %}
+{% block extra_head %}<link rel="stylesheet" href="{% static 'css/revision.css' %}">{% endblock %}
+{% block content %}<div class="revision-bank">
+<nav class="breadcrumbs" aria-label="Breadcrumb"><a href="{% url 'revision:dashboard' %}">My Revision Bank</a><span aria-current="page">Saved question</span></nav>
+<header class="dashboard-heading"><div><p class="eyebrow">YOUR PERSONAL REVISION</p><h1>{% if question %}{{ question.subject.name }}{% else %}Question currently unavailable{% endif %}</h1><p>Saved {{ saved.saved_at|date:"M j, Y" }} &middot; {{ saved.review_count }} review{{ saved.review_count|pluralize }}{% if saved.reviewed_at %} &middot; Last reviewed {{ saved.reviewed_at|date:"M j, Y" }}{% endif %}</p></div><span class="badge {% if saved.is_mastered %}badge-live{% else %}badge-outline{% endif %}">{% if saved.is_mastered %}Mastered{% else %}Needs revision{% endif %}</span></header>
+{% if question %}
+<p><strong>Difficulty:</strong> {{ question.published_revision.difficulty_level|default:"Unspecified" }}</p>
+<article class="paper-question">{% include "questions/translations.html" with revision=question.published_revision show_solutions=True hide_answers=False verified_only=True selectable=False %}</article>
+<section class="ui-card revision-card" aria-label="Related topics"><h2>Explore Topic</h2><p>Discover eligible questions across the Question Bank using this question's primary and secondary topics.</p>{% explore_control question.pk %}<div class="button-row">{% for tag in question.topic_associations.all %}<a class="button button-secondary" href="{% url 'revision:explore' 'topic' tag.topic_id %}?from_question={{ question.pk }}">{{ tag.topic.name }}{% if tag.is_primary %} (primary){% endif %}</a>{% empty %}<p>No topic is assigned to this question yet. Explore Topic still offers its subject.</p>{% endfor %}</div></section>
+{% else %}<div class="ui-empty"><p>This question is not available for revision right now. Content may be unpublished, unavailable for your language, or part of an open mock attempt. Your bookmark and note are retained.</p></div>{% endif %}
+<section class="ui-card revision-card" aria-labelledby="progress-heading"><h2 id="progress-heading">Revision progress</h2><div class="button-row">
+{% if question %}<form method="post" action="{% url 'revision:manage' saved.pk %}">{% csrf_token %}<button type="submit" name="action" value="reviewed" class="button button-primary">Mark reviewed</button></form>{% endif %}
+<form method="post" action="{% url 'revision:manage' saved.pk %}">{% csrf_token %}<button type="submit" name="action" value="{% if saved.is_mastered %}needs_revision{% else %}mastered{% endif %}" class="button button-secondary">{% if saved.is_mastered %}Mark as needing revision{% else %}Mark as mastered{% endif %}</button></form>
+</div></section>
+<section class="ui-card revision-card" aria-labelledby="note-heading"><h2 id="note-heading">Personal note</h2><form method="post" action="{% url 'revision:manage' saved.pk %}">{% csrf_token %}<input type="hidden" name="action" value="note">{{ note_form.non_field_errors }}<div class="form-field ui-form-field">{{ note_form.personal_note.as_field_group }}</div><button class="button button-primary" type="submit">Save note</button></form></section>
+<div class="button-row"><a href="{% url 'revision:dashboard' %}">Back to My Revision Bank</a><a href="{% url 'revision:remove' saved.pk %}">Remove bookmark</a></div>
+</div>{% endblock %}

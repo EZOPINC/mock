@@ -1,0 +1,10 @@
+{% if authenticated %}
+<form method="post" action="{% if is_saved %}{% url 'revision:unsave' question_id %}{% else %}{% url 'revision:save' question_id %}{% endif %}"
+      data-bookmark-form data-question-id="{{ question_id }}"
+      data-save-url="{% url 'revision:save' question_id %}" data-unsave-url="{% url 'revision:unsave' question_id %}">
+  {% csrf_token %}<input type="hidden" name="next" value="{{ next }}">
+  <button type="submit" class="button button-secondary button-small" aria-pressed="{{ is_saved|yesno:'true,false' }}" data-bookmark-button>{% if is_saved %}Unsave question{% else %}Save question{% endif %}</button>
+  <span role="status" aria-live="polite" data-bookmark-status></span>
+  <a href="{{ login_url }}" data-bookmark-login hidden>Sign in to save</a>
+</form>
+{% else %}<a class="button button-secondary button-small" href="{{ login_url }}">Sign in to save question</a>{% endif %}

@@ -1,0 +1,3 @@
+{% extends "base.html" %}
+{% block title %}Remove bookmark | My Revision Bank{% endblock %}
+{% block content %}<section class="ui-card account-panel"><h1>Remove this bookmark?</h1><p>This removes the question from your Revision Bank, including its personal note and revision progress. Your practice and mock-test history will stay unchanged.</p>{% if error %}<p class="form-errors" role="alert">{{ error }}</p>{% endif %}<form method="post">{% csrf_token %}<div class="button-row"><button class="button button-primary" name="confirm" value="yes" type="submit">Remove bookmark</button><a class="button button-secondary" href="{% url 'revision:detail' saved.pk %}">Keep bookmark</a></div></form></section>{% endblock %}

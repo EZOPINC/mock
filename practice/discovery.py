@@ -3,7 +3,7 @@ from django.core.exceptions import ValidationError
 
 from exams.models import Part, Module, Chapter, Topic
 from questions.eligibility import eligible_question_ids
-from questions.models import QuestionTopic
+from questions.models import Question, QuestionTopic
 
 
 LEVELS = ("part", "module", "chapter", "topic")
@@ -68,7 +68,11 @@ class PracticeTaxonomy:
                 for kind in LEVELS}
 
 
-def configuration_matches(session, *, exam_id, subject_id, count, filters):
+def configuration_matches(session, *, exam_id, subject_id, count, filters, difficulty=None):
+    if session.kind != "practice":
+        return False
+    if session.configuration.get("difficulty") != difficulty:
+        return False
     if (session.exam_id, session.subject_id, session.configuration["requested_count"]) != (exam_id, subject_id, str(count)):
         return False
     frozen = session.configuration.get("taxonomy_filters", {})
@@ -79,3 +83,12 @@ def configuration_matches(session, *, exam_id, subject_id, count, filters):
         if str(submitted) != str(expected):
             return False
     return True
+
+
+def difficulty_pools(question_ids):
+    """Group by published difficulty, never an unpublished working revision."""
+    pools = {}
+    for pk, value in Question.objects.filter(pk__in=question_ids).values_list("pk", "published_revision__difficulty_level"):
+        key = (value or "").strip().casefold()
+        pools.setdefault(key, set()).add(pk)
+    return pools

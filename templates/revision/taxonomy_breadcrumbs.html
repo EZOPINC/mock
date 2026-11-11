@@ -1,0 +1,1 @@
+<nav class="revision-taxonomy-path" aria-label="Academic hierarchy"><ol>{% for item in path %}<li><a href="{{ item.url }}" data-taxonomy-code="{{ item.node.code }}">{{ item.kind|title }}: {{ item.node.name }} <span>[{{ item.node.code }}]</span></a></li>{% endfor %}</ol></nav>

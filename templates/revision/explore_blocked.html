@@ -1,0 +1,4 @@
+{% extends "base.html" %}{% load static %}
+{% block title %}Topic exploration unavailable | Mock Exam Platform{% endblock %}
+{% block extra_head %}<link rel="stylesheet" href="{% static 'css/revision.css' %}">{% endblock %}
+{% block content %}<section class="ui-card revision-card"><h1>Topic exploration is temporarily unavailable</h1><p>You have an open Mock Test covering this scope. Submit or finish that test before exploring related questions.</p><div class="button-row"><a class="button button-primary" href="{% url 'mock_tests:index' %}">My Mock Tests</a><a class="button button-secondary" href="{% url 'revision:dashboard' %}">My Revision Bank</a></div></section>{% endblock %}

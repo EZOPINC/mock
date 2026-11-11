@@ -1,3 +1,21 @@
+# Module and difficulty practice setup
+
+The student flow is Exam category -> Exam -> Subject -> Module -> Difficulty -> Practice.
+The subject page lists only modules with eligible questions, including questions
+assigned through descendant topics and secondary tags. It has no hierarchy dropdowns
+or session-size control. Subjects with no eligible modules offer a whole-subject
+continuation instead.
+
+The next page lists difficulty levels present in the selected module's published
+questions, with counts. Matching ignores case and surrounding whitespace. Questions
+without a difficulty appear under "Unspecified difficulty". Starting uses all eligible
+questions at that difficulty in random order. Selection is revalidated under the
+existing question locks. Module and difficulty are frozen in the session configuration,
+and repeated submissions with the same token reuse the session. Draft difficulty
+changes do not affect selection. Existing sessions remain accessible.
+
+The underlying hierarchy discovery and legacy session behavior are described below.
+
 # Practice taxonomy filters — Phase D6
 
 ## Behavior and compatibility

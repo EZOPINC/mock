@@ -29,3 +29,9 @@
 .mock-execution :focus-visible{outline:3px solid #167da3;outline-offset:3px}
 @media(max-width:64rem){.mock-workspace{grid-template-columns:minmax(0,1fr)}.mock-sidebar,.mock-workspace>.question-list{grid-column:1;grid-row:auto}.mock-sidebar{position:static}.mock-palette-grid{grid-template-columns:repeat(auto-fill,minmax(44px,1fr))}.mock-toolbar{grid-template-columns:auto minmax(0,1fr);gap:1rem}.mock-save-block{grid-column:1/-1}.mock-palette{max-height:40vh}}
 @media(max-width:40rem){.mock-exam-heading{align-items:flex-start;flex-direction:column;gap:.5rem}.mock-toolbar{padding:.75rem;gap:.75rem}.mock-answer{margin:0 .75rem 1rem;padding:.75rem}.mock-action-bar{padding:.75rem;flex-wrap:wrap;padding-bottom:max(.75rem,env(safe-area-inset-bottom))}.mock-action-bar #mock-finish{flex:1}.mock-question-nav button,.mock-action-bar button{padding:.65rem .75rem}}
+
+/* The question navigation remains available without the mobile palette. */
+@media (max-width: 48rem) {
+  .mock-execution .mock-sidebar,
+  .mock-execution [data-palette-toggle] { display: none; }
+}

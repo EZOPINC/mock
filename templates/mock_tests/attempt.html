@@ -1,7 +1,7 @@
-{% extends "base.html" %}{% load static %}
+{% extends "base.html" %}{% load static revision_tags %}
 {% block title %}{{ attempt.configuration.name }} attempt | Mock Exam Platform{% endblock %}
 {% block body_class %} ui-exam-page{% endblock %}{% block site_header %}{% endblock %}{% block site_footer %}{% endblock %}
-{% block extra_head %}<link rel="stylesheet" href="{% static 'css/mock-test.css' %}"><script src="{% static 'js/mock-test.js' %}" defer></script>{% endblock %}
+{% block extra_head %}<script src="{% static 'js/bookmarks.js' %}" defer></script><link rel="stylesheet" href="{% static 'css/mock-test.css' %}"><script src="{% static 'js/mock-test.js' %}" defer></script>{% endblock %}
 {% block content %}
 <div class="mock-execution ui-mock-exam" data-save-url="{% url 'mock_tests:save_answer' attempt.pk %}" data-status-url="{% url 'mock_tests:attempt_status' attempt.pk %}" data-confirm-url="{% url 'mock_tests:submit' attempt.pk %}">
 {% csrf_token %}{{ clock|json_script:"attempt-clock" }}
@@ -24,7 +24,7 @@
 <p class="mock-palette-note">All questions stay visible. Jump to any question without changing its answer. Review marks do not affect scoring.</p>
 </div></details></aside>
 <div class="question-list">{% for row in rows %}<article class="paper-question mock-question" id="question-{{ row.display_order }}" data-order="{{ row.display_order }}" data-row-id="{{ row.pk }}" data-section-id="{{ row.section_snapshot.id }}" tabindex="-1" aria-labelledby="mock-heading-{{ row.pk }}">
-<div class="question-card-header"><h2 id="mock-heading-{{ row.pk }}">Question {{ row.display_order }}</h2><span class="badge badge-outline">{{ row.question.subject.name }}</span><label class="mock-review"><input type="checkbox" data-review{% if row.marked_for_review %} checked{% endif %}> Mark for review</label></div>
+<div class="question-card-header"><h2 id="mock-heading-{{ row.pk }}">Question {{ row.display_order }}</h2><span class="badge badge-outline">{{ row.question.subject.name }}</span><label class="mock-review"><input type="checkbox" data-review{% if row.marked_for_review %} checked{% endif %}> Mark for review</label>{% bookmark_control row row.bookmark_anchor %}</div>
 {% include "questions/translations.html" with revision=row.question_revision show_solutions=False hide_answers=True selectable=True mock_selection=True hide_language_heading=True %}
 <fieldset class="mock-answer"><legend class="visually-hidden">Answer tools for question {{ row.display_order }}</legend><div class="mock-answer-tools"><button type="button" data-clear>Clear answer</button></div></fieldset>
 <nav class="mock-question-nav" aria-label="Question {{ row.display_order }} navigation">{% if not forloop.first %}<button type="button" data-goto="{{ row.display_order|add:'-1' }}">{% include "components/icon.html" with name="arrow" icon_class="ui-back-icon" %} Previous</button>{% endif %}{% if not forloop.last %}<button type="button" data-goto="{{ row.display_order|add:'1' }}">Next {% include "components/icon.html" with name="arrow" %}</button>{% endif %}</nav>
