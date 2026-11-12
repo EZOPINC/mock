@@ -134,24 +134,24 @@ class CrossModuleBookmarkTests(ExecutionFixture):
 
     def test_one_master_bookmark_shared_across_all_three_interfaces(self):
         for url in (self.paper_url, self.detail_url(self.attempt), self.practice_url):
-            self.assertContains(self.client.get(url), "Save question")
+            self.assertContains(self.client.get(url), "Save for revision")
         self.client.post(self.bookmark_url, HTTP_ACCEPT="application/json")
         for url in (self.paper_url, self.detail_url(self.attempt), self.practice_url):
             response = self.client.get(url)
-            self.assertContains(response, "Unsave question")
+            self.assertContains(response, "Saved for revision")
             self.assertContains(response, self.remove_url)
             self.assertContains(response, 'aria-pressed="true"')
         saved = SavedQuestion.objects.get()
         self.assertEqual(saved.question_id, self.question_record.pk)
         self.client.post(self.remove_url, HTTP_ACCEPT="application/json")
-        self.assertContains(self.client.get(self.paper_url), "Save question")
+        self.assertContains(self.client.get(self.paper_url), "Save for revision")
         self.assertFalse(SavedQuestion.objects.exists())
 
     def test_guest_login_preserves_paper_mode_filter_and_question_anchor(self):
         self.client.logout()
         url = self.paper_url + f"?mode=practice&subject={self.subject.pk}"
         response = self.client.get(url)
-        self.assertContains(response, "Sign in to save question")
+        self.assertContains(response, "Sign in to save for revision")
         from html.parser import HTMLParser
         class Links(HTMLParser):
             def __init__(self):

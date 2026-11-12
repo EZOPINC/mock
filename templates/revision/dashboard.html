@@ -21,7 +21,7 @@
 {% with question=saved.visible_question %}{% if question %}
 <div class="translation-grid">{% for translation in question.published_revision.translations.all %}<section lang="{{ translation.language }}"><h2 class="translation-heading">{{ translation.get_language_display }}</h2><p class="revision-stem">{{ translation.question_text|truncatechars:320 }}</p></section>{% endfor %}</div>
 <p><strong>Subject:</strong> {{ question.subject.name }} &middot; <strong>Difficulty:</strong> {{ question.published_revision.difficulty_level|default:"Unspecified" }}</p>
-{% explore_control question.pk %}<p><strong>Topics:</strong> {% for tag in question.topic_associations.all %}{{ tag.topic.name }}{% if tag.is_primary %} (primary){% endif %}{% if not forloop.last %}, {% endif %}{% empty %}No topic assigned{% endfor %}</p>
+<p><strong>Topics:</strong> {% for tag in question.topic_associations.all %}{{ tag.topic.name }}{% if tag.is_primary %} (primary){% endif %}{% if not forloop.last %}, {% endif %}{% empty %}No topic assigned{% endfor %}</p>
 {% else %}<h2>Question currently unavailable</h2><p>Content is not available for revision right now. You can still manage your note or remove this bookmark.</p>{% endif %}{% endwith %}
 <p>{{ saved.review_count }} review{{ saved.review_count|pluralize }}{% if saved.reviewed_at %} &middot; Last reviewed {{ saved.reviewed_at|date:"M j, Y" }}{% endif %}{% if saved.personal_note %} &middot; Personal note added{% endif %}</p>
 <div class="button-row"><a class="button button-primary" href="{% url 'revision:detail' saved.pk %}">Open saved question</a><a class="text-link" href="{% url 'revision:remove' saved.pk %}">Remove bookmark</a></div>

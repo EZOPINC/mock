@@ -1,0 +1,20 @@
+/* Compact shared question bookmark; independent of answer and exam controls. */
+.paper-question{position:relative}
+.paper-question>.question-card-header:has(.revision-bookmark-control){padding-inline-end:11rem;min-height:4.25rem}
+.question-card-header .revision-bookmark-control{position:absolute;inset-block-start:.75rem;inset-inline-end:.85rem;margin:0;z-index:1}
+.revision-bookmark-control{display:flex;flex-direction:column;align-items:flex-end;gap:.35rem;max-width:10rem;font-size:.75rem}
+/* Match the checkbox-and-label presentation of the mock Mark for review control. */
+.revision-bookmark-control .revision-bookmark-button,a.revision-bookmark-button{display:inline-flex;flex-direction:row;align-items:center;justify-content:flex-start;gap:.5rem;min-height:44px;margin:0;padding:0;border:0;border-radius:0;background:transparent;box-shadow:none;color:inherit;font:inherit;font-size:.8rem;font-weight:600;line-height:1.4;text-decoration:none;white-space:nowrap;cursor:pointer}
+.revision-bookmark-control .revision-bookmark-button:hover,a.revision-bookmark-button:hover{background:transparent;border:0;box-shadow:none;color:inherit}
+.revision-bookmark-check{display:inline-flex;align-items:center;justify-content:center;width:1.2rem;height:1.2rem;flex-shrink:0;border:1px solid #8b969e;border-radius:3px;background:#fff;color:#fff;box-sizing:border-box}
+.revision-bookmark-button .revision-bookmark-check .ui-icon{width:.85rem;height:.85rem;visibility:hidden;fill:none;stroke-width:2.5}
+.revision-bookmark-button[aria-pressed=true] .revision-bookmark-check{background:#087f79;border-color:#087f79}
+.revision-bookmark-button[aria-pressed=true] .revision-bookmark-check .ui-icon{visibility:visible}
+.revision-bookmark-button[aria-disabled=true]{opacity:.6;cursor:wait}
+.revision-bookmark-button:focus-visible{outline:3px solid #167da3;outline-offset:3px}
+.revision-bookmark-control [data-bookmark-status]:not(.visually-hidden){max-width:10rem;padding:.4rem;background:#fff;border:1px solid #dce4e9;border-radius:.35rem;color:#a62636;font-size:.72rem;white-space:normal}
+.revision-bookmark-control [hidden]{display:none!important}
+@media(max-width:40rem){
+  .paper-question>.question-card-header:has(.revision-bookmark-control){padding-block-start:4rem;padding-inline-end:1rem}
+  .question-card-header .revision-bookmark-control{inset-block-start:.5rem;inset-inline-end:.65rem}
+}

@@ -135,14 +135,14 @@ class TopicExplorationTests(PracticeFixture):
         self.assertContains(response, "\u09ac\u09be\u0982\u09b2\u09be")
         self.assertContains(response, "AUTHORIZED RELATED EXPLANATION")
         self.assertContains(response, "BENGALI EXPLANATION")
-        self.assertContains(response, "Unsave question")
+        self.assertContains(response, "Saved for revision")
         self.assertNotContains(response, "My private note")
         self.client.post(reverse("revision:save", args=[question.pk]), HTTP_ACCEPT="application/json")
         saved.refresh_from_db()
         self.assertEqual((saved.personal_note, saved.review_count, saved.is_mastered), ("My private note", 4, True))
         self.client.force_login(self.other_user)
-        self.assertContains(self.client.get(self.url()), "Save question")
-        self.assertNotContains(self.client.get(self.url()), "Unsave question")
+        self.assertContains(self.client.get(self.url()), "Save for revision")
+        self.assertNotContains(self.client.get(self.url()), "Saved for revision")
         self.client.post(reverse("revision:unsave", args=[question.pk]), HTTP_ACCEPT="application/json")
         self.assertTrue(SavedQuestion.objects.filter(pk=saved.pk).exists())
 
@@ -210,7 +210,7 @@ class TopicExplorationTests(PracticeFixture):
         self.client.get(self.question_url(source))
         self.client.get(self.url(), {"from_question": source.pk})
         self.client.post(reverse("revision:save", args=[related.pk]), HTTP_ACCEPT="application/json")
-        self.assertContains(self.client.get(self.url(), {"from_question": source.pk}), "Unsave question")
+        self.assertContains(self.client.get(self.url(), {"from_question": source.pk}), "Saved for revision")
         self.client.post(reverse("revision:unsave", args=[related.pk]), HTTP_ACCEPT="application/json")
         self.assertEqual(before, list(session.questions.values()))
         saved.refresh_from_db()
@@ -240,12 +240,12 @@ class MockExplorationConfidentialityTests(ExecutionFixture):
         self.assertEqual(self.client.get(reverse("revision:explore", args=["topic", self.topic.pk])).status_code, 200)
         self.client.force_login(self.user)
         submit_attempt(self.user, attempt.pk, expected_version=attempt.save_version)
-        self.assertContains(self.client.get(reverse("mock_tests:results", args=[attempt.pk])), "Explore Topic")
+        self.assertNotContains(self.client.get(reverse("mock_tests:results", args=[attempt.pk])), "Explore Topic")
         self.assertContains(self.client.get(reverse("revision:explore", args=["topic", self.topic.pk])), "RELATED ANSWER SENTINEL")
 
 
 class ExplorationEntryPointTests(ExecutionFixture):
-    def test_bank_paper_practice_and_final_mock_entrypoints_preserve_bookmarks(self):
+    def test_question_cards_omit_topic_controls_and_preserve_bookmarks(self):
         from practice.services import start_session
         from previous_year.models import PaperQuestion, PreviousYearPaper
         from previous_year.services import publish_paper
@@ -264,10 +264,10 @@ class ExplorationEntryPointTests(ExecutionFixture):
                     reverse("practice:session", args=[practice.pk]), paper_url, paper_url + "?mode=practice",
                     reverse("mock_tests:results", args=[attempt.pk])):
             response = self.client.get(url)
-            self.assertContains(response, "Explore Topic")
-            self.assertContains(response, topics_url)
-        self.assertContains(self.client.get(paper_url), "Unsave question")
-        self.assertContains(self.client.get(reverse("practice:session", args=[practice.pk])), "Unsave question")
+            self.assertNotContains(response, "Explore Topic")
+            self.assertNotContains(response, topics_url)
+        self.assertContains(self.client.get(paper_url), "Saved for revision")
+        self.assertContains(self.client.get(reverse("practice:session", args=[practice.pk])), "Saved for revision")
         self.assertContains(self.client.get(topics_url), reverse("revision:detail", args=[saved.pk]))
         self.client.logout()
-        self.assertContains(self.client.get(paper_url + "?mode=practice"), "Sign in to explore topics")
+        self.assertNotContains(self.client.get(paper_url + "?mode=practice"), "Sign in to explore topics")

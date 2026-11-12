@@ -7,7 +7,7 @@
 {% if question %}
 <p><strong>Difficulty:</strong> {{ question.published_revision.difficulty_level|default:"Unspecified" }}</p>
 <article class="paper-question">{% include "questions/translations.html" with revision=question.published_revision show_solutions=True hide_answers=False verified_only=True selectable=False %}</article>
-<section class="ui-card revision-card" aria-label="Related topics"><h2>Explore Topic</h2><p>Discover eligible questions across the Question Bank using this question's primary and secondary topics.</p>{% explore_control question.pk %}<div class="button-row">{% for tag in question.topic_associations.all %}<a class="button button-secondary" href="{% url 'revision:explore' 'topic' tag.topic_id %}?from_question={{ question.pk }}">{{ tag.topic.name }}{% if tag.is_primary %} (primary){% endif %}</a>{% empty %}<p>No topic is assigned to this question yet. Explore Topic still offers its subject.</p>{% endfor %}</div></section>
+
 {% else %}<div class="ui-empty"><p>This question is not available for revision right now. Content may be unpublished, unavailable for your language, or part of an open mock attempt. Your bookmark and note are retained.</p></div>{% endif %}
 <section class="ui-card revision-card" aria-labelledby="progress-heading"><h2 id="progress-heading">Revision progress</h2><div class="button-row">
 {% if question %}<form method="post" action="{% url 'revision:manage' saved.pk %}">{% csrf_token %}<button type="submit" name="action" value="reviewed" class="button button-primary">Mark reviewed</button></form>{% endif %}
