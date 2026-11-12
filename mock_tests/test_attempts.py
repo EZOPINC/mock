@@ -40,6 +40,44 @@ class AttemptFixture(TestCase):
         return reverse("mock_tests:attempt_detail", args=[attempt.pk])
 
 
+class AttemptLanguageTests(AttemptFixture):
+    def bilingual_pattern(self):
+        question = self.question()
+        add_translation(question, language="bn", question_text="Bengali edition", option_a="BN A",
+                        option_b="BN B", option_c="BN C", option_d="BN D")
+        question = publish_question(mark_reviewed(question))
+        self.section.language_mode = "mixed"
+        self.section.save()
+        activate_pattern(self.pattern)
+        return question
+
+    def test_selected_language_is_rendered_on_server_and_preserved_on_resume(self):
+        self.bilingual_pattern()
+        self.client.force_login(self.user)
+        for language in ("en", "bn", "both"):
+            with self.subTest(language=language):
+                user = get_user_model().objects.create_user(username="language_" + language)
+                self.client.force_login(user)
+                attempt = start_attempt(user, self.pattern, language=language)
+                response = self.client.get(self.detail_url(attempt))
+                for code in ("en", "bn"):
+                    marker = f'lang="{code}" aria-label='
+                    if language in (code, "both"):
+                        self.assertContains(response, marker)
+                    else:
+                        self.assertNotContains(response, marker)
+                resumed = start_attempt(user, self.pattern, language="both")
+                self.assertEqual(resumed.pk, attempt.pk)
+                self.assertEqual(resumed.configuration["language"], language)
+
+    def test_invalid_or_unavailable_language_does_not_create_attempt(self):
+        self.ready()
+        for language in ("invalid", "bn"):
+            with self.subTest(language=language), self.assertRaises(ValidationError):
+                start_attempt(self.user, self.pattern, language=language)
+        self.assertFalse(MockAttempt.objects.exists())
+
+
 class AttemptServiceTests(AttemptFixture):
     def test_section_marks_and_labels_are_snapshotted(self):
         from decimal import Decimal
@@ -144,7 +182,7 @@ class AttemptServiceTests(AttemptFixture):
         self.pattern.total_questions = 2
         self.pattern.total_marks = 2
         self.pattern.save()
-        restricted = ExamPatternSection.objects.create(pattern=self.pattern, name="Restricted", display_order=2, question_count=1, topic=self.topic)
+        restricted = ExamPatternSection.objects.create(language_mode="en", pattern=self.pattern, name="Restricted", display_order=2, question_count=1, topic=self.topic)
         second.topic = None
         second.save()
         activate_pattern(self.pattern)
@@ -158,7 +196,7 @@ class AttemptServiceTests(AttemptFixture):
         self.pattern.total_questions = 2
         self.pattern.total_marks = 2
         self.pattern.save()
-        second = ExamPatternSection.objects.create(pattern=self.pattern, name="Other", display_order=2, question_count=1)
+        second = ExamPatternSection.objects.create(language_mode="en", pattern=self.pattern, name="Other", display_order=2, question_count=1)
         with self.assertRaises(ValidationError):
             select_questions([self.section, second])
         self.assertFalse(MockAttempt.objects.exists())
@@ -239,7 +277,12 @@ class AttemptViewTests(AttemptFixture):
         self.assertFalse(MockAttempt.objects.exists())
 
     def test_start_resume_and_ownership(self):
-        self.ready()
+        question = self.question()
+        add_translation(question, language="bn", question_text="Bengali question", option_a="BN A", option_b="BN B", option_c="BN C", option_d="BN D")
+        publish_question(mark_reviewed(question))
+        self.section.language_mode = "mixed"
+        self.section.save()
+        activate_pattern(self.pattern)
         self.client.force_login(self.user)
         response = self.client.post(self.start_url(), {"language": "bn"})
         attempt = MockAttempt.objects.get()
@@ -247,6 +290,13 @@ class AttemptViewTests(AttemptFixture):
         self.assertRedirects(self.client.post(self.start_url()), self.detail_url(attempt))
         self.assertRedirects(self.client.get(self.start_url()), self.detail_url(attempt))
         self.assertEqual(self.client.get(self.detail_url(attempt)).context["preferred_language"], "bn")
+        self.assertEqual(attempt.configuration["language"], "bn")
+        # The preference survives a new login, without relying on the old browser session.
+        self.client.logout()
+        self.client.force_login(self.user)
+        response = self.client.get(self.detail_url(attempt))
+        self.assertContains(response, "Bengali question")
+        self.assertNotContains(response, 'lang="en" aria-label="English version"')
         self.assertEqual(MockAttempt.objects.count(), 1)
         self.assertContains(self.client.get(reverse("mock_tests:index")), "Resume Pattern")
         self.client.force_login(self.other_user)

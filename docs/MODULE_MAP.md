@@ -81,6 +81,7 @@ Use `docs/architecture.md` for architecture context and `docs/DEVELOPMENT_RULES.
 | `general_question/services.py` | general_batches, batch_questions, fingerprint, transition_batch, require_batch_permission |
 | `mock_tests/services.py` | validate_configuration, activate_pattern, deactivate_pattern, available_patterns, select_questions, start_attempt |
 | `mock_tests/rules.py` | eligible_for_rule, validate_rule_layout, selection_tasks, rule_snapshot |
+| `mock_tests/languages.py` | Mock-only eligibility: English/Bengali sections require both published translations |
 | `mock_tests/execution.py` | refresh_attempt, save_response, submit_attempt, confirmation_counts |
 | `practice/discovery.py` | PracticeTaxonomy.selected_ids/snapshot/options; difficulty_pools, configuration_matches |
 | `practice/services.py` | start_session, assemble_session, submit_answer, abandon_session, complete_session, progress, performance |

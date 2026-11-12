@@ -16,7 +16,7 @@ def eligible_question_ids(section):
     if rules:
         cache = {}
         return set().union(*(eligible_for_rule(rule, cache=cache) for rule in rules))
-    from questions.eligibility import eligible_question_ids as eligible_ids
+    from .languages import eligible_question_ids as eligible_ids
     return eligible_ids(section.pattern.exam_id, subject_id=section.subject_id,
         topic_id=section.topic_id, language_mode=section.language_mode)
 
@@ -192,12 +192,14 @@ def _configuration_snapshot(pattern, sections):
 
 
 @transaction.atomic
-def start_attempt(user, pattern):
+def start_attempt(user, pattern, *, language="both"):
     from django.contrib.auth import get_user_model
     from django.utils import timezone
     from questions.models import Question
     if not user.is_authenticated or not user.is_active:
         raise ValidationError("An active authenticated account is required.")
+    if language not in {"en", "bn", "both"}:
+        raise ValidationError("Choose English, Bengali or Both.")
     # Serialize repeated starts, including requests from separate tabs/devices.
     get_user_model().objects.select_for_update().get(pk=user.pk)
     existing = MockAttempt.objects.filter(user=user, pattern_id=pattern.pk,
@@ -224,7 +226,16 @@ def start_attempt(user, pattern):
     selection = select_questions(sections, pools=pools)
     selected_ids = set().union(*selection)
     questions = {item.pk: item for item in Question.objects.filter(pk__in=selected_ids).select_related("published_revision")}
-    attempt = MockAttempt(user=user, pattern=pattern, configuration=_configuration_snapshot(pattern, sections))
+    if language in {"en", "bn"}:
+        from questions.models import QuestionTranslation
+        translated = set(QuestionTranslation.objects.filter(
+            revision_id__in=[item.published_revision_id for item in questions.values()], language=language
+        ).values_list("question_id", flat=True))
+        if not selected_ids <= translated:
+            raise ValidationError("This test does not have every question in the selected language. Choose another language or contact the administrator.")
+    configuration = _configuration_snapshot(pattern, sections)
+    configuration["language"] = language
+    attempt = MockAttempt(user=user, pattern=pattern, configuration=configuration)
     attempt.save(_assembly=True)
     order = 0
     for section, ids in zip(sections, selection):

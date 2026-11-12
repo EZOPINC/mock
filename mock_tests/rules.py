@@ -4,7 +4,7 @@ from django.db.models import Q
 from django.db.models.functions import Lower, Trim
 
 from exams.models import Topic
-from questions.eligibility import eligible_question_ids
+from .languages import eligible_question_ids
 from questions.models import Question
 
 

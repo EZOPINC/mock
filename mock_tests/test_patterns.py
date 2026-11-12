@@ -26,7 +26,7 @@ class PatternTests(TestCase):
 
     def setUp(self):
         self.pattern = ExamPattern.objects.create(exam=self.exam, name="Pattern", duration_minutes=60, total_questions=1, total_marks=1)
-        self.section = ExamPatternSection.objects.create(pattern=self.pattern, name="Section", question_count=1, display_order=1)
+        self.section = ExamPatternSection.objects.create(language_mode="en", pattern=self.pattern, name="Section", question_count=1, display_order=1)
 
     def question(self, *, published=True, exam=None):
         question = create_question(subject=self.subject, topic=self.topic, revision=dict(language="en", question_text="Question?", option_a="A", option_b="B", option_c="C", option_d="D", correct_answer="A", explanation=""))
@@ -87,7 +87,12 @@ class PatternTests(TestCase):
         self.assertTrue(activate_pattern(self.pattern).is_active)
 
     def test_bilingual_counts_as_one_and_language_filters(self):
+        self.section.language_mode = "mixed"
+        self.section.save()
         question = self.question()
+        self.assertEqual(eligible_question_ids(self.section), set())
+        with self.assertRaises(ValidationError):
+            activate_pattern(self.pattern)
         add_translation(question, language="bn", question_text="Translation", option_a="A", option_b="B", option_c="C", option_d="D")
         question = publish_question(mark_reviewed(question))
         for language in ("en", "bn", "mixed"):
@@ -144,7 +149,7 @@ class PatternTests(TestCase):
             self.pattern.save()
         active = activate_pattern(self.pattern)
         second = ExamPattern.objects.create(exam=self.exam, name="Second", duration_minutes=30, total_questions=1, total_marks=1)
-        ExamPatternSection.objects.create(pattern=second, name="Section", question_count=1, display_order=1)
+        ExamPatternSection.objects.create(language_mode="en", pattern=second, name="Section", question_count=1, display_order=1)
         with self.assertRaises(ValidationError):
             activate_pattern(second)
         stage = ExamStage.objects.create(exam=self.exam, name="Stage", code="S")
@@ -158,7 +163,7 @@ class PatternTests(TestCase):
         self.pattern.total_questions = 2
         self.pattern.total_marks = 2
         self.pattern.save()
-        ExamPatternSection.objects.create(pattern=self.pattern, name="Other", question_count=1, display_order=2)
+        ExamPatternSection.objects.create(language_mode="en", pattern=self.pattern, name="Other", question_count=1, display_order=2)
         with self.assertRaisesMessage(ValidationError, "Overlapping"):
             activate_pattern(self.pattern)
         self.question()
@@ -205,7 +210,7 @@ class PatternTests(TestCase):
             with connection.cursor() as cursor:
                 cursor.execute("UPDATE mock_tests_exampattern SET duration_minutes = 0 WHERE id = %s", [self.pattern.pk])
         with self.assertRaises(ValidationError):
-            ExamPatternSection.objects.create(pattern=self.pattern, name="Duplicate", display_order=1, question_count=1)
+            ExamPatternSection.objects.create(language_mode="en", pattern=self.pattern, name="Duplicate", display_order=1, question_count=1)
         from django.db.models.deletion import ProtectedError
         with self.assertRaises(ProtectedError):
             self.exam.delete()

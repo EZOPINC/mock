@@ -6,6 +6,15 @@ Log in, open Mock Tests, choose an authority/exam and active pattern, then start
 Attempts keep their original question order, immutable revisions, translations,
 configuration and effective marks. Repeated starts resume an open attempt.
 
+Students choose English, Bengali or Both before starting. New attempts freeze this
+choice in `configuration.language`; `start_attempt(..., language="both")` validates
+the choice and rejects unavailable selected translations before creating an attempt.
+The server renders only the selected edition (or both) from the frozen revision.
+Resuming from another browser preserves the saved language. Existing attempts without
+this key keep their original question sets and legacy display behavior. No migration
+or historical attempt update is required. Bilingual sections require both complete
+published translations; insufficient pools fail existing activation/availability checks.
+
 The viewer restores saved choices, review flags and current question position.
 All questions remain visible on one scrolling page in persisted order. The palette
 and Previous/Next scroll to a question; focusing its controls updates the active

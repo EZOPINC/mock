@@ -14,6 +14,12 @@ nodes include descendant topics through every supported optional parent path.
 Both primary and secondary topic tags match; translations count as one master
 question.
 
+For Mock Tests, section language `mixed` (English/Bengali) requires complete English
+and Bengali translations in the same published revision. This applies to section
+filters, detailed rules and manual selections, including activation and locked
+attempt assembly. English-only and Bengali-only sections retain their respective
+language requirements. Practice's mixed-language eligibility is unchanged.
+
 Difficulty uses the **published revision**, compared case-insensitively after
 trimming whitespace. Blank configuration means any difficulty. `unspecified`
 matches blank or literal `unspecified`; unknown historical values match only

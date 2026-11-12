@@ -71,12 +71,10 @@ def test_start(request, pattern_id):
     error = None
     if request.method == "POST":
         try:
-            attempt = start_attempt(request.user, pattern)
+            attempt = start_attempt(request.user, pattern, language=request.POST.get("language", "both"))
         except ValidationError as exception:
             error = "; ".join(exception.messages)
         else:
-            language = request.POST.get("language", "both")
-            request.session[f"mock_language_{attempt.pk}"] = language if language in {"en", "bn", "both"} else "both"
             return redirect("mock_tests:attempt_detail", attempt_id=attempt.pk)
     elif not any(item.pk == pattern.pk for item in available_patterns(pk=pattern.pk)):
         raise Http404
@@ -94,9 +92,14 @@ def attempt_detail(request, attempt_id):
 
 
 def attempt_context(request, attempt_id):
+    attempt = get_object_or_404(MockAttempt, pk=attempt_id, user=request.user)
+    language = attempt.configuration.get("language", request.session.get(f"mock_language_{attempt.pk}", "both"))
     translations = QuestionTranslation.objects.annotate(_language_order=Case(
         When(language="en", then=Value(0)), When(language="bn", then=Value(1)), default=Value(2), output_field=IntegerField(),
     )).order_by("_language_order", "language", "pk")
+    # Historical attempts retain their original display behavior and question snapshots.
+    if "language" in attempt.configuration and language in {"en", "bn"}:
+        translations = translations.filter(language=language)
     attempt = get_object_or_404(MockAttempt.objects.prefetch_related(Prefetch("questions",
         queryset=AttemptQuestion.objects.select_related("question_revision", "question__subject").prefetch_related(
             Prefetch("question_revision__translations", queryset=translations)))), pk=attempt_id, user=request.user)
@@ -106,7 +109,7 @@ def attempt_context(request, attempt_id):
     for row in rows:
         row.bookmark_anchor = f"question-{row.display_order}"
         row.section_snapshot = sections[row.section_id]
-    return {"attempt": attempt, "rows": rows, "options": "ABCD", "preferred_language": request.session.get(f"mock_language_{attempt.pk}", "both"), "clock": {
+    return {"attempt": attempt, "rows": rows, "options": "ABCD", "preferred_language": language, "clock": {
         "server_now": timezone.now().isoformat(), "deadline": attempt.expires_at.isoformat() if attempt.expires_at else None,
         "version": attempt.save_version, "position": attempt.last_position,
     }}

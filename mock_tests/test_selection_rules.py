@@ -18,6 +18,34 @@ from .test_attempts import AttemptFixture
 
 
 class AdvancedSelectionTests(AttemptFixture):
+    def test_bilingual_rules_require_both_published_translations(self):
+        self.section.language_mode = "mixed"
+        self.section.save()
+        question = self.question_at()
+        rule = self.rule(subject=self.subject)
+        self.assertEqual(eligible_for_rule(rule), set())
+        add_translation(question, language="bn", question_text="Bengali edition", option_a="A",
+                        option_b="B", option_c="C", option_d="D")
+        self.assertEqual(eligible_for_rule(rule), set())
+        publish_question(mark_reviewed(question))
+        self.assertEqual(eligible_for_rule(rule), {question.pk})
+
+    def test_pattern_add_invalid_parent_shows_validation_errors(self):
+        user = get_user_model().objects.create_superuser(username="pattern-admin")
+        self.client.force_login(user)
+        url = reverse("admin:mock_tests_exampattern_add")
+        self.assertEqual(self.client.get(url).status_code, 200)
+        response = self.client.post(url, {
+            "exam": self.exam.pk, "name": "", "version": 1,
+            "duration_minutes": 30, "total_questions": 1, "total_marks": 1,
+            "default_positive_marks": 1, "default_negative_marks": 0,
+            "sections-TOTAL_FORMS": 0, "sections-INITIAL_FORMS": 0,
+            "sections-MIN_NUM_FORMS": 0, "sections-MAX_NUM_FORMS": 1000,
+        })
+        self.assertEqual(response.status_code, 200)
+        self.assertIn("name", response.context["adminform"].form.errors)
+        self.assertFalse(self.exam.mock_patterns.filter(name="").exists())
+
     def configure(self, count):
         self.pattern.total_questions = count
         self.pattern.total_marks = count
@@ -110,7 +138,7 @@ class AdvancedSelectionTests(AttemptFixture):
     def test_manual_order_and_random_reservation_across_sections(self):
         self.pattern.total_questions = self.pattern.total_marks = 3
         self.pattern.save()
-        second = ExamPatternSection.objects.create(pattern=self.pattern, name="Manual section", question_count=2, display_order=2)
+        second = ExamPatternSection.objects.create(language_mode="en", pattern=self.pattern, name="Manual section", question_count=2, display_order=2)
         questions = [self.question_at() for _ in range(3)]
         random = self.rule(topic=self.topic)
         manual = self.rule(section=second, subject=self.subject, selection_mode="manual", question_count=2)
@@ -147,7 +175,7 @@ class AdvancedSelectionTests(AttemptFixture):
     def test_cross_section_manual_duplicates_are_rejected_at_activation(self):
         self.pattern.total_questions = self.pattern.total_marks = 2
         self.pattern.save()
-        second = ExamPatternSection.objects.create(pattern=self.pattern, name="Second", question_count=1, display_order=2)
+        second = ExamPatternSection.objects.create(language_mode="en", pattern=self.pattern, name="Second", question_count=1, display_order=2)
         question = self.question_at()
         first_rule = self.rule(selection_mode="manual")
         second_rule = self.rule(section=second, selection_mode="manual")

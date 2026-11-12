@@ -167,11 +167,23 @@ class SectionFormSet(BaseInlineFormSet):
         if any(self.errors) or self.instance.is_active:
             return
         sections = [form.instance for form in self.forms if form.cleaned_data and not form.cleaned_data.get("DELETE")]
-        validate_configuration(self.instance, sections, check_availability=False)
+        try:
+            validate_configuration(self.instance, sections, check_availability=False)
+        except ValidationError as error:
+            # Formsets require a list, while model validation can return a field dictionary.
+            raise ValidationError(error.messages) from error
+
+
+class SectionForm(forms.ModelForm):
+    class Meta:
+        model = ExamPatternSection
+        fields = "__all__"
+        help_texts = {"language_mode": "English/Bengali requires both complete translations in each question's published revision. Students choose which edition to display when starting."}
 
 
 class SectionInline(admin.TabularInline):
     model = ExamPatternSection
+    form = SectionForm
     formset = SectionFormSet
     extra = 0
     show_change_link = True
@@ -241,6 +253,7 @@ class ExamPatternAdmin(admin.ModelAdmin):
 
 @admin.register(ExamPatternSection)
 class ExamPatternSectionAdmin(admin.ModelAdmin):
+    form = SectionForm
     list_display = ("name", "pattern", "display_order", "question_count", "subject", "topic", "language_mode")
     list_filter = ("pattern", "subject", "language_mode")
     search_fields = ("name", "pattern__name")

@@ -129,7 +129,7 @@ class ExecutionServiceTests(ExecutionFixture):
         self.section.positive_marks = 2
         self.section.negative_marks = 3
         self.section.save()
-        second = ExamPatternSection.objects.create(pattern=self.pattern, name="Second section", display_order=2, question_count=1)
+        second = ExamPatternSection.objects.create(language_mode="en", pattern=self.pattern, name="Second section", display_order=2, question_count=1)
         self.question()
         self.question()
         activate_pattern(self.pattern)
