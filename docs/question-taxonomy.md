@@ -1,92 +1,46 @@
-# Shared question taxonomy — 2026-11-10
+# Shared Question Taxonomy - Current Reference
 
-Phase D2 supersedes the mandatory-chain details below with optional immediate
-parents and stable taxonomy codes. See [flexible taxonomy](flexible-taxonomy.md).
+Use [flexible taxonomy](flexible-taxonomy.md) for exact parent/code rules and
+[multi-topic questions](multi-topic-questions.md) for primary/secondary tag integrity.
+This replaces the original mandatory-chain diagram, superseded by optional parents.
 
-Approved choices: reuse the hierarchy across exams; keep new levels optional for
-existing records until administrators classify them.
+## Stored academic paths
 
-```mermaid
-erDiagram
-    ExamAuthority ||--o{ Exam : contains
-    Exam ||--o{ QuestionExam : associates
-    Question ||--o{ QuestionExam : belongs_to
-    Subject ||--o{ Question : classifies
-    Subject ||--o{ Part : contains
-    Part ||--o{ Module : contains
-    Module ||--o{ Chapter : contains
-    Chapter o|--o{ Topic : optionally_classifies
-    Subject ||--o{ Topic : owns
-    Topic o|--o{ Question : tags
-```
+| Node | Subject anchor | Permitted immediate parent |
+|---|---|---|
+| Subject | Itself | None |
+| Part | Required | Subject |
+| Module | Required/derived | Subject or Part |
+| Chapter | Required/derived | Subject, Part or Module |
+| Topic | Required/derived | Subject, Part, Module or Chapter |
 
-WBCS is the existing **Exam**, not ExamAuthority. Example shared path:
-History → India → Ancient history → Stone age → Paleolithic.
-WBCS and Clerkship can reuse this path and the same question master through
-QuestionExam. `exams.selectors.subjects_for_exam(exam_id)` derives associated
-subjects from existing question/exam membership; no second exam/subject mapping
-is introduced. Subjects without question associations are not returned by this
-selector. This is question tagging, not a separate syllabus-definition system.
+Skipped levels follow real stored foreign keys; do not synthesize empty parent records.
+Stable codes identify nodes; names/slugs are scoped to their actual parent. Existing
+ancestry/code changes are guarded. A Topic may move within the same existing Subject
+under the applicable model/database rules; this does not rewrite historical sessions.
 
-## Models and compatibility
+## Question and exam membership
 
-- Part: Subject FK, name, slug, display_order.
-- Module: Part FK, name, slug, display_order.
-- Chapter: Module FK, name, slug, display_order.
-- Topic retains its required Subject FK and existing identity, and adds optional
-  Chapter FK. Part/Module/Chapter are derived through Chapter, not duplicated on
-  Questions. A classified Topic must trace back to its own Subject.
-- Question keeps its existing required Subject and optional Topic references.
-  No question, revision, translation, paper association or attempt is recreated.
+Question has one Subject, an intentional legacy primary Topic pointer, and zero or
+more QuestionTopic tags. All tags share Subject; classified questions require one
+primary matching the legacy pointer. Use questions.tagging.set_question_topics so
+the pointer/tag set and deferred transaction checks remain coherent.
 
-This Part is a subject subdivision (India/World). PreviousYearPaper.part remains
-the existing paper-name metadata; these are separate concepts.
+QuestionExam provides many-exam membership independently of the shared taxonomy.
+Do not place Subjects/Parts/Modules under an Exam or duplicate masters per language,
+exam or secondary tag. Descendant filters use any-tag matching and master deduplication.
+The optional topic_id argument in the shared legacy eligibility service still means
+primary Topic; do not silently change that interface when adding any-tag discovery.
 
-New nodes have parent-scoped slug and case-insensitive trimmed-name database
-uniqueness. Classified topics additionally have chapter-scoped normalized-name
-uniqueness. Existing `(subject, slug)` uniqueness remains: use distinct topic
-slugs when the same name occurs in different chapters of one subject. Legacy
-unclassified topics retain their names, IDs and existing uniqueness policy.
+## Discovery and compatibility
 
-All hierarchy FKs use PROTECT. PostgreSQL triggers reject topic/chapter subject
-mismatches, even in bulk/SQL writes, and prevent moving existing Part, Module,
-Chapter or Topic to another parent subject/path. Rename/reorder nodes normally;
-for a genuinely different path create new nodes and explicitly retag questions.
-Attaching/changing a Topic's Chapter within the same Subject is allowed and does
-not rewrite existing question-content snapshots. Model validation reports useful
-errors before saves; database constraints remain the final integrity guard.
+- PracticeTaxonomy builds eligible descendant pools; current UI chooses Module then difficulty.
+- Mock detailed selection rules, Revision bank filters and exploration support skipped levels.
+- Explore Topic routes can display stored paths/codes; per-question controls were removed.
+- Import may propose/create missing named child nodes under an existing Subject at confirmation.
+- Subject creation remains explicit administration; ambiguous names/codes are not guessed.
+- Frozen paper/attempt/session revisions and classification labels remain historical.
 
-## Administration
-
-Create Part under Subject, Module under Part, Chapter under Module, then choose
-Chapter when creating/editing Topic. New admin screens provide search, parent
-filters, slug prepopulation and Module/Chapter inlines. Topic administration and
-the existing Subject topic inline allow Chapter selection. Question administration
-adds Part/Module/Chapter/Topic filters; selecting a Topic applies its full path.
-Existing Subject/Topic validation still rejects a question with the wrong subject.
-
-No new mandatory fields are added to imports, Practice configuration or patterns.
-Their existing Topic selections still reference these same IDs. Imports continue
-to accept the established Subject/Topic columns and may create unclassified topics;
-classify them in Admin afterward. Part/Module/Chapter CSV columns and a cascading
-student hierarchy picker are not implemented in this change. Ambiguous same-name
-topics across chapters require explicit existing-topic mapping during import;
-the importer must not guess a chapter.
-
-## Migrations, audit and history
-
-Run `python manage.py migrate` and `python manage.py audit_taxonomy` on each host.
-Migration 0002 creates the hierarchy tables and nullable Topic.chapter; all old
-topics start with no Chapter. Migration 0003 installs the PostgreSQL integrity
-triggers. No automatic classification, data deletion or production seed data.
-Existing migrations remain unchanged. Removing the new hierarchy schema later
-would discard its classifications; preserve that data before any rollback.
-
-The audit checks Topic/Chapter subject consistency and existing Question,
-PracticeSession and ExamPatternSection subject/topic links without modifying data.
-Cross-table links in those older models retain their existing model/service
-validation; the new triggers do not claim to enforce every legacy relation in SQL.
-
-Historical mock/practice configuration snapshots, answers, translations and scores
-are not rewritten. Taxonomy labels on live question masters remain editable metadata;
-the new hierarchy is not backfilled into frozen attempt classifications.
+Start with exams/models.py, questions/tagging.py and the relevant selector from MODULE_MAP.md.
+Use exams.test_flexible_taxonomy and questions.test_topic_tags for targeted integrity work.
+No application/data migration or tests were run for this documentation consolidation.

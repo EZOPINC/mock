@@ -1,157 +1,92 @@
-# Phase R1: Saved Questions foundation
+# Saved Questions, Revision Bank and Revision Sessions
 
-`revision.SavedQuestion` stores the authenticated user, master Question and save
-creation time. The database unique constraint prevents duplicate user/question
-pairs. Saving again preserves the original saved_at. Unsave only deletes the
-caller's association and succeeds even if it was already removed.
+Current reference, 2026-11-12. The R1/R2/R3 features are implemented, not separate engines.
+Use [MODULE_MAP](MODULE_MAP.md) for files and [Practice engine](practice-sessions.md) for
+shared answer/snapshot behavior. [Topic exploration](topic-exploration.md) covers live discovery.
 
-## Endpoints
+## Personal bookmarks and access
 
-- POST `/revision/questions/<question_id>/save/`
-- POST `/revision/questions/<question_id>/unsave/`
+revision.SavedQuestion stores user, master Question, saved_at, optional personal_note,
+reviewed_at, review_count and is_mastered. The user/master pair is unique; no attempt or
+paper-question ID substitutes for a master. Repeated save preserves existing notes/progress.
+Notes are escaped/private and limited to 10,000 characters. Unsave deletes only the caller's
+personal state, including notes/progress, while historical session rows remain intact.
 
-Both require an active authenticated user and CSRF protection for session-authenticated
-requests. No user ID or revision ID is accepted. With `Accept: application/json`,
-success is exactly `{"question_id": 123, "saved": true}` (false for unsave).
-Authentication failure returns 401; unavailable save targets return 404. Neither
-endpoint serializes question text, answers, explanations, attempts or scores.
-No GET request changes a bookmark. The service layer can be reused by a future
-mobile authentication/API adapter; no new authentication mechanism is added here.
+| Endpoint | Contract |
+|---|---|
+| POST /revision/questions/<question_id>/save/ | Idempotently save an accessible master for the authenticated owner |
+| POST /revision/questions/<question_id>/unsave/ | Idempotently remove only that owner's bookmark |
+| GET /revision/ | My Revision Bank: global owner counts, filters, 20-row pagination |
+| GET /revision/saved/<pk>/ | Owner-scoped bookmark detail; no read-triggered progress writes |
+| POST /revision/saved/<pk>/manage/ | note/mastered/needs_revision/reviewed actions |
+| GET /revision/saved/<pk>/remove/ | Confirmation page |
+| POST same remove route with confirm=yes | Confirmed removal through the R1 service |
 
-Saving is allowed for published questions in active exams, or frozen questions
-in the caller's own mock/practice history. Other users' private history grants
-no access. Unsave is always scoped to the caller, including after unpublication.
-HTML form submissions return to a validated local `next` URL. Guest sign-in links
-preserve the page query string and question anchor. No automatic save occurs on GET
-or after sign-in: the user returns to the question and can save it there.
+Session-authenticated writes require CSRF. Bookmark requests with Accept: application/json
+return only question_id/saved; unauthenticated requests return 401 and unavailable saves 404.
+Native forms return to a validated local next URL. Guest sign-in preserves question context.
+Bookmark permission accepts a published active-exam question or the user's own frozen history;
+this does not authorize reading unpublished content through the bank.
 
-## UI and assessment isolation
+## Bank UI and eligibility
 
-The shared template tag/control is used by previous-year papers (both modes),
-practice questions and mock questions/results. State is loaded in one query per
-render, scoped to the signed-in user. Personalized paper responses are not cached.
-The control reuses existing button styling. JavaScript sends independent POSTs and
-updates all instances of the same question without navigating or submitting an
-answer form. Failed/timeout requests can be retried safely. The script does not
-read answer inputs, invoke autosave, stop timers or expose solution data.
+My Revision Bank is under My account and in account-section navigation, not a standalone
+header item. Cards use compact checkbox-style Save for revision controls where applicable;
+success announcements are commented out in static/js/bookmarks.js; error feedback remains.
 
-## Migration
+Counts cover all of the user's bookmarks, distinct reviewed questions and mastered questions,
+independent of filters. Filters cover Exam, Subject, Part, Module, Chapter, Topic and mastery.
+Hierarchy filters include primary/secondary tags and deduplicate masters. Sorting supports
+saved date and normalized published difficulty. Pagination retains filters.
 
-`revision/0001_initial.py` creates only `revision_savedquestion` with user/question
-foreign keys, saved_at, and `revision_user_question_unique`. It depends on the
-configured user model and `questions/0005_primary_topic_compatibility`. No existing
-Question Bank tables or assessment schemas change. Apply with
-`python manage.py migrate revision` after existing dependencies are installed.
+Readable content uses only the current approved revision, active exam membership and complete
+English/Bengali translations. Working drafts are excluded. Questions in the caller's open
+Mock Tests are withheld. Unavailable bookmarks retain their notes/progress with content-free
+placeholders and remain removable. Notes are never serialized into related-question pages.
+Manual mark-reviewed updates reviewed_at/count; ordinary GET/detail/refresh does not.
+Mastery is an explicit independent action, not a consequence of an answer's correctness.
 
-R1 did not add a saved-question browsing page. Phase R2 adds the bank described below; revision sessions and AI remain out of scope.
+## Personalized sessions
 
+Start Revision at /revision/start/ accepts all eligible saved questions or the same bank
+filters and an optional positive limit up to 10,000. Blank means all; a limit uses up to
+the available count. Selection randomizes unique master IDs. Empty/invalid selections create
+no session. Question availability is rechecked under locks before freezing the set.
 
-# Phase R2: My Revision Bank
+RevisionSession is a proxy over PracticeSession(kind=revision). The same PracticeQuestion
+records store approved revision IDs, order, frozen classification, answers and correctness.
+Revision scope has null Exam/Subject/Topic FKs, allowing mixed exams/subjects without inventing
+an arbitrary owning Exam. Normal Practice retains its required scope and separate statistics.
 
-Authenticated navigation links to `/revision/`. The dashboard counts all personal
-bookmarks, distinct questions explicitly marked reviewed, and mastered questions.
-Counts are global to the user, independent of current filters. Lists have 20 records
-per page and preserve query parameters in pagination links.
+| Route under /revision/ | Purpose |
+|---|---|
+| sessions/ | Paginated owner history |
+| sessions/<id>/ | One pinned question; resume next unanswered or explicit question order |
+| POST sessions/<id>/questions/<row_id>/answer/ | Shared Practice submission; AJAX fragment or native redirect |
+| POST sessions/<id>/questions/<row_id>/mastery/ | Update the existing owner's bookmark mastery |
+| GET sessions/<id>/finish/ | Early-completion confirmation |
+| POST finish/ with confirm=yes | Complete, preserving unanswered rows |
+| GET sessions/<id>/results/ | Total/attempted/correct/incorrect/unanswered and accuracy; incorrect=1 subset |
 
-Filters: exam, subject, part, module, chapter, topic and mastery status. Topic paths
-include primary and secondary associations and skipped hierarchy levels. Combined
-hierarchy filters must match a single topic path. Filters use subqueries and distinct
-master bookmarks, so multiple exams/tags cannot duplicate results. Difficulty sorting
-uses the published difficulty: easy/beginner/1, medium/moderate/intermediate/2,
-hard/difficult/advanced/3; other labels follow alphabetically, after known levels.
+Pause is navigation away from persistent state. First successful submission locks feedback
+and atomically updates an existing SavedQuestion once. Session locking prevents duplicate
+or concurrent answer requests from recounting. The hook never recreates a removed bookmark.
+Last-answer completion is automatic; early completion also preserves unanswered rows.
 
-`personal_note` is optional (10,000 characters), `reviewed_at` is nullable,
-`review_count` defaults to zero, and `is_mastered` defaults to false. Migration
-`0002_savedquestion_is_mastered_and_more` adds only these fields in the revision app.
-It preserves existing IDs, saved timestamps and the unique user/question constraint.
+Completed results and pinned translations remain historical after bookmark deletion,
+retagging or newer publication. Resume follows Practice's frozen-history policy, whereas
+new bank/exploration reads use current eligibility. No timer or Mock scoring is added.
 
-Detail and removal routes identify the user's SavedQuestion ID, not a Question ID:
+## Schema and verification references
 
-- GET `/revision/saved/<pk>/`: detail and management controls; no progress writes.
-- POST `/revision/saved/<pk>/manage/`: action `note`, `mastered`, `needs_revision`
-  or `reviewed`. Blank personal_note deletes the note. Mark reviewed atomically
-  increments review_count and updates reviewed_at; mastery is independent.
-- GET `/revision/saved/<pk>/remove/`: confirmation page.
-- POST the same route with `confirm=yes`: remove through the existing R1 service.
+| Migration | Purpose |
+|---|---|
+| revision/0001_initial | Unique owner/master bookmark |
+| revision/0002_savedquestion_is_mastered_and_more | Backward-compatible note/progress defaults |
+| practice/0002_practicesession_kind_alter_practicesession_exam_and_more | Shared kind/scope constraint and nullable revision context |
+| revision/0003_revisionsession | Proxy registration; no additional question/session response table |
 
-All mutations enforce login, ownership and CSRF. The R1 endpoints and JSON response
-shape are unchanged, and saving an already-saved question preserves notes/progress.
-
-Content uses only the current published revision, active exam availability and the
-existing complete English/Bengali translation policy. The bank withholds content for
-questions in the user's created/in-progress mock attempts until finalization, without
-changing those attempts. It never serves a working draft or substitutes an old
-attempt revision. Unavailable bookmarks remain manageable with a content-free
-placeholder; their content metadata is also excluded from filter choices. Notes are
-private, escaped text. Review actions require currently visible content.
-
-Phase R2 linked Explore Topic to the saved-question topic filter. Phase R4 replaces
-that destination with the published Question Bank discovery pages described in
-[topic exploration](topic-exploration.md). Phase R2 added no revision-session or AI flow. Phase R3 sessions are described below.
-
-
-# Phase R3: Personalized revision sessions
-
-Start Revision on the bank preserves its exam/subject/hierarchy/mastery filters.
-`/revision/start/` offers the same filters and an optional positive limit (up to
-10,000); blank means all eligible saved questions. Limits select up to the available
-count. Selection is server-side, deduplicated by master Question and randomized.
-Unavailable questions are skipped; empty selections create no session. Repeated
-start POSTs with the same user/token/configuration return the existing session,
-even if bookmarks or taxonomy changed later.
-
-## Shared engine and migrations
-
-`PracticeSession.kind` distinguishes practice from revision. Normal practice retains
-its exam and subject; revision permits both to be null to support questions spanning
-multiple exams/subjects. A database constraint enforces these two scopes. The
-`RevisionSession` proxy supplies a revision-only manager without another table.
-
-`practice/0002_practicesession_kind_alter_practicesession_exam_and_more` adds kind,
-adjusts the two nullable context fields and adds the scope constraint. Existing
-sessions default to kind=practice with all snapshots/answers unchanged.
-`revision/0003_revisionsession` registers the proxy (no question/answer tables).
-Question, QuestionRevision and MockAttempt schemas are unchanged.
-
-Revision creation reuses `practice.services.assemble_session`. Each PracticeQuestion
-stores the selected master ID, approved published revision ID, random order and
-frozen classification labels. Submission reuses `practice.services.submit_answer`
-for correctness, locked feedback and automatic completion. The first successful
-answer invokes `record_review` in the same transaction, updating only an existing
-SavedQuestion for that owner/master. Session locking makes duplicate/concurrent
-submissions count once. Removed bookmarks are not recreated. Mastery remains an
-explicit independent POST action and never follows correctness automatically.
-
-## Student flow and history
-
-- `/revision/sessions/`: paginated personal history, including open/completed sessions.
-- `/revision/sessions/<id>/`: one frozen question, immediate feedback after answer,
-  previous/next navigation, mastery and pause link back to the bank.
-- POST `.../questions/<row_id>/answer/`: shared Practice submission. AJAX returns
-  the refreshed question/progress fragment; ordinary form POST redirects back.
-- POST `.../questions/<row_id>/mastery/`: owner-only mastered/needs_revision update.
-- GET `.../finish/`: confirmation; POST with confirm=yes closes the session early,
-  retaining unanswered rows. Finishing or answering an already-closed session
-  cannot change prior answers. The final answered row also completes automatically.
-- GET `.../results/`: total, attempted, correct, incorrect, unanswered and accuracy
-  (correct/attempted). `?incorrect=1` links back to incorrect frozen questions.
-
-Pause is navigation away from a persisted session; resume opens the next unanswered
-row, matching Practice behavior. Explicit question links allow revisiting any row.
-Page refreshes and result views never increment review counts. Completed sessions
-retain original answers and scoring after bookmark deletion, retagging or publishing
-new revisions. Practice lists/statistics exclude revision-kind records.
-
-## Security and scope
-
-Creation reuses R2 visibility/language eligibility, including excluding questions
-in the caller's open mock tests. Publication/retagging are rechecked under Question
-locks before freezing the set. Resuming an existing session follows Practice's
-frozen-history policy; later bookmark changes or unpublication do not substitute
-content. Only complete English/Bengali translations from the frozen approved
-revision are rendered. Shared answer/feedback markup remains answer-free until
-submission. Every session, answer and mastery lookup is user-scoped; mutations
-require authenticated POST and CSRF. GET setup/resume/results are read-only.
-
-R3 introduces no revision-session timer, Mock Test selection/scoring changes, AI,
-or topic-exploration behavior in Phase R3. Phase R4 is documented separately.
+Tests: revision.tests, revision.test_bank, revision.test_sessions and relevant shared Practice
+regressions. No new application tests or database commands were run for this documentation edit.
+AI/mobile token adapters are not implied. Exploration routes exist, but per-question Explore
+Topic controls were removed; do not restore them accidentally while changing bookmark UI.

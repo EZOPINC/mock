@@ -1,77 +1,84 @@
-# Practice sessions - Milestone 5.1
+# Persistent Practice Engine
 
-## Workflow
+Current reference, 2026-11-12. For the student setup use [module/difficulty discovery](practice-taxonomy.md).
+For its revision-specific consumer use [Revision Bank and sessions](saved-questions.md).
 
-Authenticated navigation: Practice -> Exam Authority (category) -> Exam -> Subject
--> optional Topic -> number of questions. Only exams/subjects/topics with eligible
-published questions appear. Counts are 10/20/30/50, when available, or the available
-pool count. A selected topic may have fewer questions than the whole subject;
-starting rechecks availability and reports insufficient pools without partial writes.
-Practice is untimed and does not create mock attempts or official scores.
+## Ownership and shared records
 
-The viewer renders one persisted question at a time. The palette and Previous/Next
-links allow skipping/revisiting; links never submit answers. Submitting A-D reveals
-correct/incorrect, the pinned correct answer and available explanations in all
-available translations. The answer is then locked. Neither active HTML nor summary
-links reveal keys/explanations for an unanswered question. English is first, Bengali
-second; existing responsive translation styles stack them on mobile.
+practice/models.py owns PracticeSession and PracticeQuestion. PracticeQuestion is the
+implemented response model; the old PracticeResponse name was a target-design label.
+Rows store master IDs, approved revision IDs, order, answer/correctness/time and frozen
+classification. Content/translation text stays in the protected Question Bank snapshots.
 
-Pause by leaving the page; the session stays In Progress and saved responses remain.
-Resume from Practice to the first unanswered question, or revisit any question with
-the palette. Answering every question automatically marks the session Completed.
-Unfinished sessions may be explicitly Abandoned after confirmation; no new answers
-can be submitted afterward. Submitted feedback remains reviewable in both states.
-Accuracy uses correct/answered (zero before answering); progress uses answered/total.
-Summary displays correct/incorrect/remaining and frozen subject/topic performance.
+| Session kind | Scope | Owner-facing workflow |
+|---|---|---|
+| practice | Required Exam/Subject; optional Topic | Module/difficulty Practice Sets |
+| revision | Null Exam/Subject/Topic | Filtered personal Revision Bank selections |
 
-## Persistence and integrity
+RevisionSession is a revision-only proxy, not a copied engine or additional response table.
+Account/Practice lists and statistics filter normal Practice separately from revision kind.
+Session states are in_progress/completed/abandoned; pause means leaving an open session.
 
-PracticeSession stores owner, Exam, required Subject, optional Topic, start token,
-configuration snapshot, status, started_at and completed_at. States are In Progress,
-Completed and Abandoned; pause does not introduce another state. FK relationships
-use PROTECT. Configuration snapshots keep labels, requested and actual question count.
+## Services to reuse
 
-PracticeQuestion implements the earlier planned PracticeResponse relationship;
-there is no duplicate response model/table. It stores session, master Question,
-pinned QuestionRevision, question order, frozen classification labels/IDs,
-selected_answer, is_correct and answered_at. The revision and its translations are
-immutable, including the correct answer; no new question or text copies are created.
-Frozen classification is summary metadata, not a parallel taxonomy. Unique constraints
-cover (session, master question), (session, order) and (user, start token). Database
-checks require positive order and coherent unanswered/submitted response state.
+| Entry point in practice/services.py | Responsibility |
+|---|---|
+| start_session | Validate normal Practice scope/count/token; lock owner/candidates; recheck eligibility |
+| assemble_session | Internal shared snapshot/order assembly after caller selection validation |
+| submit_answer | Lock owned session, validate A-D, grade frozen revision, lock feedback, auto-complete |
+| abandon_session | Close an open session as abandoned without changing prior answers |
+| complete_session | Finish a revision-kind session early, retaining unanswered rows |
+| progress / performance | Read persisted totals/accuracy and frozen classification groupings |
 
-Shared eligibility lives in questions/eligibility.py; existing mock-test services
-retain their section-aware wrapper. Only approved published revision pointers,
-complete valid primary content/translations and active exam associations qualify.
-One master counts once, including bilingual content. Practice samples a single
-filtered pool without replacement; mock multi-section capacity allocation is unchanged.
-Creation locks the user and candidate masters, revalidates the pool, pins revisions
-and assembles the entire session in a transaction. A token replay returns its original
-session, including after completion, and cannot change its configuration.
+The existing service accepts counts 10/20/30/50/available; the current student difficulty
+page starts all available questions at the selected level. Do not confuse service support
+with visible configuration controls.
 
-Answer submission locks the parent session, grades on the server and commits feedback
-and automatic completion together. Same-answer retries return stored feedback;
-conflicting retries are rejected. The first concurrent response wins. Session/row
-snapshots reject direct edits/deletes and finalized responses remain immutable.
-Abandonment uses the same parent lock. Errors roll back partial creation or feedback.
+Same-answer retries return stored feedback. Conflicting retries fail. The first successful
+answer wins under the parent lock. Invalid submissions roll back without changing results.
+The last answered row completes automatically. Completed/abandoned history cannot be edited.
 
-## Routes and checks
+For revision kind, the first-answer path calls revision.sessions.record_review in the same
+transaction. This updates the existing owner bookmark once; it never recreates a removed
+bookmark or infers mastery from correctness. Plain Practice does not update revision counts.
 
-All routes live below `/practice/` and require authentication. Session, feedback and
-summary views use owner-scoped queries and no-store responses. Unknown/foreign session
-or question IDs return 404. Start, answer and abandonment use POST with CSRF. No
-JavaScript or asynchronous save is required for feedback, making retry/refresh safe.
+## Frozen history and eligibility
 
-- `/`: categories, open sessions and recent completed/abandoned history.
-- `/<authority>/`: eligible exams.
-- `/<authority>/<exam>/`: eligible subjects.
-- `/<authority>/<exam>/<subject>/`: topic/count configuration and POST start.
-- `/sessions/<id>/`: one-question viewer; `?question=<order>` chooses a question.
-- `/sessions/<id>/questions/<row_id>/answer/`: POST a locked answer.
-- `/sessions/<id>/summary/`: progress, classification breakdown and review links.
-- `/sessions/<id>/abandon/`: confirmation and POST abandonment.
+Creation uses questions.eligibility and active exam membership, complete primary content
+and matching supported translations. One bilingual master counts once. Creation rechecks
+under Question locks; later publication, tags or bookmark changes do not replace its rows.
 
-Run `python manage.py test practice --noinput`, `python manage.py check`, and
-`python manage.py makemigrations --check --dry-run` using PostgreSQL. Actual
-concurrency tests use TransactionTestCase; application tests use TestCase.
-No timers, mock scoring changes, deployment work or Milestone 6.1 is included.
+Unique constraints cover user/start_token, session/master and session/order. Checks enforce
+positive order, valid session kind/scope, and coherent unanswered/submitted fields. Model/
+queryset guards reject unsupported snapshot writes/deletes; services use internal flags.
+
+Existing configuration_matches supports historical taxonomy filters/legacy Topic semantics
+and returns an existing matching owned session before current-pool validation. Revision has
+its own request-spec comparison for retry safety, then reuses the same persisted engine.
+
+## Routes, rendering and feedback
+
+practice/urls.py wires session, answer, summary and abandonment. Reads are authenticated
+and owner-scoped; answer/abandon writes use POST/CSRF. Revision has separate owner-scoped
+routes in revision/session_views.py and rejects ordinary Practice IDs there.
+
+practice/views.question_context prepares the row's pinned translations, progress and
+bookmark state. templates/practice/question_panel.html is shared with Revision. Templates
+hide answers before submission; afterward the stored feedback and approved explanations
+are displayed. English/Bengali versions in the frozen revision remain available.
+
+Resume chooses the next unanswered row; explicit question links revisit answered rows.
+Summaries show total/answered/correct/incorrect/remaining and correct-over-answered accuracy.
+Previous-Year reader practice is temporary and does not create these persisted records.
+
+## UI and checks
+
+Normal Practice uses native POST enhanced by static/js/practice-ui.js. Revision answers use
+static/js/revision-session.js with partial feedback plus a native POST fallback. Bookmark
+forms remain outside answer forms and independent of any mock autosave/review controls.
+Small-screen palettes are hidden by CSS while next/previous and session tools remain.
+
+Targeted references: practice/tests.py, practice/test_taxonomy.py, practice/test_difficulty.py
+and revision/test_sessions.py. Run python manage.py test practice --noinput for engine scope;
+include Revision tests when changing shared assembly/answer/model behavior. Historical test
+counts are not current verification results. No tests were run for this documentation edit.

@@ -1,39 +1,42 @@
-# Codex Development Guidelines — Mock Exam Platform
+# Codex Instructions - Mock Exam Platform
 
-## Objective
-Minimize token usage while maintaining code quality, modularity, security and backward compatibility.
+## Locate the task
 
-## Mandatory Rules
+- Work on one clearly defined task at a time and identify the owning Django app.
+- Consult `docs/MODULE_MAP.md` before exploring implementation files.
+- Read `docs/architecture.md` only when architecture context is needed.
+- Follow `docs/DEVELOPMENT_RULES.md`; distinguish observations from recommendations.
+- Documents are navigation aids. Never treat documentation as more authoritative than source.
+- Do not assume prior phases/roadmaps describe the current implementation accurately.
 
-1. Work on one clearly defined task at a time.
-2. Identify the owning Django app before making changes.
-3. Read only files directly relevant to the task and their immediate dependencies.
-4. Do not scan the entire repository unless explicitly requested or necessary to resolve a dependency.
-5. Consult docs/MODULE_MAP.md to locate relevant files when available.
-6. Reuse existing models, services, utilities and UI components.
-7. Prefer minimal changes over broad refactoring.
-8. Do not rewrite unrelated files or modify unrelated apps.
-9. Preserve existing functionality, database integrity and historical records.
-10. Create migrations only when schema changes require them.
-11. Run targeted tests first. Expand testing only when failures or cross-module risks justify it.
-12. Do not print complete source files, large diffs or verbose test logs.
-13. Do not generate lengthy explanations or documentation unless requested.
-14. Do not introduce dependencies or architectural changes without justification.
-15. If a task requires changes beyond the agreed scope, explain the dependency before proceeding.
+## Inspect efficiently
 
-## Response Format
+- Read only relevant mapped files and their direct dependencies.
+- Start with paths, symbols and focused excerpts rather than complete files or broad dumps.
+- Use rg for bounded searches; avoid repeatedly scanning files already inspected.
+- Scan the whole repository only when requested or needed to resolve a dependency.
+- Exclude .git, .venv, node_modules, caches, logs, staged uploads and generated/collected assets.
+- Do not inspect or print credentials, local environment values or personal records.
 
-Return only:
-- Changed files
-- Summary of changes (maximum 5 bullets)
-- Tests executed and results
-- Remaining issues, if any
+## Implement safely
 
-## Implementation Principle
-Make the smallest safe change that satisfies the requirement.
+- Prefer the smallest safe patch; reuse existing services, models and UI components.
+- Avoid unrelated refactoring, speculative features, dependencies and architectural changes.
+- Explain necessary cross-app dependencies before expanding agreed scope.
+- Preserve master Question IDs, immutable revisions/translations and historical attempts/sessions.
+- Use domain workflows/tagging services; do not bypass guards, querysets or SQL constraints.
+- Preserve authentication, ownership, CSRF, eligibility and active-mock confidentiality.
+- Keep Mock Test scoring/timer/autosave changes within explicitly authorized scope.
+- Add migrations only when necessary; preserve backward compatibility.
+- Never apply migrations, install dependencies or deploy for a documentation-only task.
+- Update documentation only when architecture, interfaces or file locations change.
 
-## Context Management
-- Treat the repository as the source of truth.
-- Do not assume previous implementation phases are complete without verifying relevant code.
-- Read architecture documentation only when needed.
-- Update module documentation only when interfaces or responsibilities change.
+## Verify and report
+
+- Run targeted tests first; expand only for failures or justified cross-module risks.
+- Use existing PostgreSQL/concurrency/migration tests for affected integrity behavior.
+- Avoid unnecessary tests/builds for documentation-only or reversible low-impact styling tasks.
+- Verify diff scope; do not revert unrelated user changes.
+- Return concise changed-file, behavior, test-result and remaining-issue summaries.
+- Do not print full code/docs, credentials or verbose logs in the final response.
+- Follow a task-specific final-output format when supplied by the user.

@@ -1,9 +1,10 @@
 # Phase R4: Explore Topic and related questions
 
-Registered users can choose Explore Topic from the Revision Bank, saved question
-details, Previous-Year Papers, Practice/Revision questions and finalized Mock Test
-results. Active Mock Test pages do not include the control. Existing bookmark
-controls and their CSRF-protected save/unsave endpoints are reused unchanged.
+Current UI status (2026-11-12): per-question Explore Topic controls were removed from
+Revision Bank/detail, Previous-Year, Practice and mock-result cards. The routes,
+services and templates below remain implemented for registered users; they are not
+planned features. Question cards instead retain the shared Save for revision control.
+Bookmark success announcements are commented out; existing POST/CSRF behavior remains.
 
 ## Routes and taxonomy
 

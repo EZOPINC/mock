@@ -1,8 +1,10 @@
 # UI Phase 1.8 — future Android/iOS readiness
 
-Reviewed 2026-11-09. Assessment and proposed contracts, not an implemented API or
-approval to change authentication. Django/PostgreSQL remains one modular monolith.
-No app, API route, token system, dependency, schema or migration is added.
+Original assessment: 2026-11-09; implementation boundaries refreshed 2026-11-12.
+All /api/v1/ routes, payloads and token-authentication examples below are proposals,
+not implemented APIs or approval to change authentication. Existing bookmark/mock
+JSON endpoints are session-authenticated feature endpoints, not a general mobile API.
+Use MODULE_MAP.md for current code and saved-questions.md for implemented Revision.
 
 ## Assessment and reusable boundaries
 
@@ -16,7 +18,8 @@ call it rather than copy selection, publication, feedback or scoring rules.
 | questions | `services.published_questions()`, `get_published_revision()`, review/publication services; `eligibility.eligible_question_ids()` | ORM models contain answer keys. They are not safe API response objects; future serializers must allowlist fields. |
 | previous_year | `services.published_papers()` enforces visibility; publication/unpublication services preserve pinned revisions | `views.stage_scope`, `paper_context` combine discovery, counts, filtering, locks and forms. `paper_answer` validates choices; template compares answers. Extract data/feedback functions before exposing mobile paper practice. |
 | mock_tests | `services.available_patterns`, `select_questions`, `start_attempt`; `execution.refresh_attempt`, `save_response`, `submit_attempt`, `confirmation_counts` | `views.attempt_context` prepares frozen section labels, ordered translations and clock metadata. Index also expires attempts on access. Future API must preserve expiry side effects and use existing write services. |
-| practice | `services.start_session`, `submit_answer`, `abandon_session`, `progress`, `performance` | Views assemble eligibility discovery/topic counts, resume configuration checks, default question position and translation queries. Future read selectors should accept explicit IDs/filters, not requests/forms. |
+| practice | `services.start_session`, `submit_answer`, `abandon_session`, `progress`, `performance` | Views currently assemble module/difficulty discovery, resume checks, default question position and translation queries; assembly/feedback are shared with Revision. Future read selectors should accept explicit IDs/filters, not requests/forms. |
+| revision | services.set_saved; selectors.visible_questions; sessions.start_revision; shared Practice answer engine | Preserve private notes/mastery, source/scope confidentiality and review-count idempotency. Existing bookmark JSON is minimal; mobile serializers/token auth remain future work. |
 
 Templates render feedback labels, answer highlights, bilingual columns and formatted
 scores. They must not become the source of API business rules. Mock scoring and

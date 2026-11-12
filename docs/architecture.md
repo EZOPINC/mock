@@ -1,123 +1,212 @@
-# Architecture
+# Project Architecture
 
-Phase D3 supports multiple same-Subject topic tags per Question, retaining the
-legacy primary pointer and current selection rules. See
-[multi-topic question tagging](multi-topic-questions.md).
+Source-verified reference, 2026-11-12. Source code overrides this document.
+Use MODULE_MAP.md for navigation and DEVELOPMENT_RULES.md for change safety.
+This consolidates older roadmap notes into the current implementation.
+The tracked filename is `docs/architecture.md`; retain its casing in links.
 
-Phase D2 supports skipped academic levels, independent of Exam, while retaining
-all master/revision associations. See [flexible academic taxonomy](flexible-taxonomy.md).
+## Stack and layout
 
-The shared optional Subject → Part → Module → Chapter → Topic tagging hierarchy
-extends the original taxonomy without duplicating question masters. See
-[question taxonomy and integrity](question-taxonomy.md).
+- Python with Django `>=5.2.19,<5.3`; PostgreSQL via psycopg 3.
+- `requirements.txt` also declares python-dotenv, openpyxl and defusedxml.
+- A modular Django monolith uses server-rendered templates and session authentication.
+- Vanilla JavaScript enhances forms, navigation and asynchronous saves.
+- Tailwind 4.3.5 is pinned with checksums in `tools/tailwind-lock.json`.
+- `assets/tailwind.css` is source; `static/css/tailwind.css` is compiled output.
+- `tools/build_css.py` uses a standalone compiler; Node/npm is not required.
+- `static/css/site.css` and feature stylesheets provide fallback/scoped presentation.
+- `templates/base.html` loads shell assets; bookmark CSS follows feature head assets.
+- `config/` holds settings, root URLs, admin customization, ASGI and WSGI.
+- Settings load environment values; never copy local values into documentation.
+- PostgreSQL is required; settings provide no SQLite fallback.
+- `manage.py`, `requirements.txt`, `templates/`, `static/` and `tools/` are shared roots.
+- Ignore virtual environments, caches, staged uploads and collected/generated assets.
 
-UI Phase 1.8 assesses future mobile adapters without adding endpoints, tokens or
-schema changes. See [mobile readiness and proposed API](mobile-readiness.md).
+## App boundaries
 
-Original-roadmap Milestone 3.1 administrative completion reuses existing paper
-models, adding optional configuration and declared master-question counts only.
-Public routes and mock preview are unchanged. See
-[paper administration](previous-year-administration.md) and D24 in decisions.
+| App | Owns | Main consumers |
+|---|---|---|
+| `core` | Curated home catalogue; database readiness endpoint | Public landing/shared shell |
+| `accounts` | Custom User, registration, account views, learning dashboard | User-owned workflows |
+| `exams` | Authorities, exams, stages and normalized academic taxonomy | Question discovery |
+| `questions` | Master identities, immutable content, translations, topic/exam/source tags | All assessment/content apps |
+| `imports` | Bounded ingestion, staged correction/pairing, confirmation and audit | Staff UI; General collections |
+| `previous_year` | Papers, ordered approved-revision associations, public reader | Imports, admin, students |
+| `general_question` | General-import collections and whole-batch review/publication | Staff/public collections |
+| `mock_tests` | Pattern/rule configuration, timed attempts, autosave and scoring | Authenticated exams |
+| `practice` | Untimed snapshots, answer locking, feedback and progress | Practice and Revision sessions |
+| `revision` | Bookmarks/notes/mastery, bank, revision selection, topic exploration | Registered students |
 
-Milestone 2.3D enhances Previous Year browsing to Exam → Year → Paper selection →
-Questions using the existing public paper relationships and translation snapshots.
-See [viewer navigation and constraints](previous-year-viewer.md); no new data
-models or publication changes are introduced.
+`config` is project wiring, not a domain app. `questions` has no standalone URL module.
+Question admin is in `questions/admin.py`; student rendering is downstream.
+`general_question` is the package; its URL namespace is `general_questions`.
 
-Milestone 2.3C supersedes the independent-language Question rule below: one master
-Question can now have available language versions in revision-bound
-QuestionTranslation snapshots. Shared answer/difficulty are versioned for historical
-integrity. Existing masters and all historical references remain unchanged; imports
-pair only explicitly reviewed source-local language rows. See
-[multilingual architecture](multilingual-questions.md) and D23 in decisions.
+## Models and identity
 
-Authority: **Mock Exam Platform — Database & Import Specification v1.0**, supplied as the approved Phase 0 specification. This document describes the approved target; the implementation status below distinguishes existing functionality. Changes require explicit review and approval.
+- `accounts.User` extends AbstractUser and is AUTH_USER_MODEL.
+- ExamAuthority -> Exam -> ExamStage is the exam catalogue, with protected relations.
+- Authorities/exams have active flags; a stage belongs to one exam.
+- Subject is independent of exam membership.
+- Academic paths: Subject -> optional Part -> optional Module -> optional Chapter -> Topic.
+- Each hierarchy node has its Subject anchor and at most one immediate parent.
+- Modules may attach to Subject; Chapters to Subject/Part/Module; Topics to any ancestor.
+- Names/slugs are scoped to actual parents; stable codes identify existing nodes.
+- Model validation and PostgreSQL triggers guard codes and established ancestry.
+- Topic immediate-parent moves within its Subject differ from immutable parent nodes.
+- Question is the deduplication identity, not a language, paper row or attempt row.
+- Question has one Subject, legacy primary topic, and multiple QuestionTopic tags.
+- All tags share its Subject; classified questions have one matching primary tag.
+- QuestionExam supplies many-exam membership; there is no direct Subject-to-Exam ownership.
+- QuestionSource and QuestionSourceReference retain provenance and page references.
+- QuestionRevision stores numbered content, answer, difficulty and publication time.
+- QuestionTranslation stores language content, unique within each revision/language pair.
+- Primary-language revision fields remain for compatibility with older consumers.
+- Configured languages are English (`en`) and Bengali (`bn`).
+- current_revision is working content; published_revision is the approved live pointer.
+- Master answer/difficulty mirror the working revision; scoring uses frozen content.
+- A new revision resets review status; an older published revision can remain live.
+- Revision content is append-only, including drafts; publication permits one guarded timestamp write.
 
-## Structure
+## Shared interfaces and dependencies
 
-A modular Django monolith uses the Django ORM and one PostgreSQL UTF-8 database as the single data source for users, the centralized Question Bank, associations, attempts, and import audits. Development and automated tests use PostgreSQL; no SQLite fallback. The interface uses Django Templates, HTML, plain CSS, and vanilla JavaScript.
-
-| Application | Responsibility |
+| Interface | Responsibility / return |
 |---|---|
-| `core` | Shared foundation, home page, database readiness endpoint |
-| `accounts` | Custom `AbstractUser` user model and authentication foundation |
-| `exams` | Authorities, exams, optional stages, subjects, topics |
-| `questions` | Central Question Bank, immutable published revisions, exam and source associations |
-| `imports` | Administrative CSV/XLSX validation, preview, transactional confirmation, audit |
-| `previous_year` | Historical papers and ordered revision associations; public published-paper browsing |
-| `mock_tests` | Versioned patterns and sections, timed attempts, saved answers and scoring |
-| `practice` | Filtered sessions, saved responses, immediate feedback and progress |
+| `questions.services.create_question` / `create_revision` | Create masters/new multilingual snapshots |
+| `questions.services.mark_reviewed` / `publish_question` | Explicit review/publication; optional expected revision ID |
+| `questions.services.published_questions` | Published master queryset and approved content preloads |
+| `questions.eligibility.eligible_question_ids` | Eligible master-ID set by exam/language/optional scope |
+| `questions.tagging.set_question_topics` | Atomic tag replacement and legacy primary synchronization |
+| `questions.selectors.questions_by_topics` | Distinct masters for explicit topic IDs |
+| `previous_year.services.published_papers` | Public papers; fails closed on invalid associations |
+| `practice.discovery.PracticeTaxonomy` | Eligible descendant pools and frozen filter labels |
+| `practice.services.assemble_session` / `submit_answer` | Shared snapshots and locked feedback |
+| `revision.selectors.visible_questions` | SQL eligibility plus owner-specific open-mock exclusions |
+| `revision.exploration.related_questions` | Scoped, source-excluding related master queryset |
 
-`config` holds project configuration and entry points; it is not a domain app.
+Publication alone is not full eligibility: exam activity, translations and access rules matter.
+`exams.selectors.subjects_for_exam` derives membership, not full question eligibility.
+`mock_tests.services.eligible_question_ids(section)` is a section adapter with a different signature.
+Imports depend on Question workflows/paper models; General collections depend on import audit.
+Revision reuses Practice services; Practice lazily calls the Revision first-answer review hook.
+Account dashboard excludes revision-kind sessions from ordinary Practice statistics.
 
-## Navigation and access
+## Question and taxonomy workflow
 
-| Destination | Approved access and behavior |
-|---|---|
-| Home | Existing public `/` page |
-| Health | Existing public `/health/`; database query, HTTP 200 when ready, 503 on database failure |
-| Administration | Existing `/admin/`; Django staff authentication and permissions |
-| Previous Year | Public, no login; only published papers with revisions approved for publication |
-| Mock Test | Authentication required; pattern determines distribution and language |
-| Practice | Authentication required; exam/subject/topic filtering |
-| Imports and publication | Administrative operations with permission checks |
+1. Staff create a master/draft through admin forms and Question services.
+2. Edits create a new numbered revision and its language snapshot.
+3. Review validates working content; publication selects its approved revision.
+4. Consumers read the published pointer or an already-frozen approved revision.
+5. Tag services synchronize current classification without rewriting historical content.
+6. Descendant discovery includes secondary tags and deduplicates master IDs.
+7. Taxonomy integrity audits inspect ancestry and compatibility assumptions.
 
-Future route paths, menu hierarchy, and detailed administrative roles are not specified. CSRF protection, safe redirects, and permission checks are mandatory.
+## CSV/XLSX import workflow
 
-## Questions and languages
+1. Staff access `/admin/question-import/`; permission requirements depend on mode.
+2. parse_upload accepts UTF-8 CSV/XLSX within byte/row/column/cell bounds.
+3. Formula/error cells, macros and external-link workbooks are rejected.
+4. staging stores owner-bound expiring JSON with token locks and version digests.
+5. validate resolves selection, exams, language/translations, taxonomy and row errors.
+6. Source-local translation groups need explicit approval of their current signature.
+7. Corrections invalidate stale approvals; duplicate text warns rather than merging masters.
+8. Missing named Parts/Modules/Chapters/Topics can be proposed under an existing Subject.
+9. Preview resolution stages proposals; confirmation persists them atomically.
+10. Row resolution never auto-creates Subjects; explicit privileged admin actions differ.
+11. confirm_import rechecks owner/permissions, locks exams/taxonomy and revalidates.
+12. It creates pending-review drafts, topic/exam/source links and optional draft paper rows.
+13. ImportBatch/ImportedQuestion retain original/corrected/resolved audit metadata.
+14. Staging tokens and file/context uniqueness prevent duplicate confirmation/import.
 
-Each Question represents one language. English (`en`) and Bengali (`bn`) are independent records, with no translation grouping. Preserve original Unicode question text, options, and explanations. A Question's language cannot change across revisions.
+Default bounds: 5 MB upload, 2,000 rows, 64 columns, 32,000 characters per cell.
+Staging defaults to two hours; its configured root is private server-side storage.
+General mode creates no paper. Previous-Year mode targets one unpublished paper/exam.
+Import does not silently publish questions; review/publication remain explicit.
 
-Question stores identity, classification, publication/review state, and a nullable current-revision reference. QuestionRevision stores language, content, options, answer, and explanation. Published revisions are immutable. Historical papers and responses reference specific revisions rather than mutable current content. A Topic must belong to the Question's Subject; a Question may belong to multiple exams and sources.
+## Previous-Year and General collections
 
-Implemented in Milestone 2.2: `current_revision` is the working pointer; the additional `published_revision` pointer preserves approved live content while a new draft awaits review. `published_at` permanently identifies revisions that have been published. Revision content is append-only. Reusable transactional services create revisions, review, and publish with parent-row locks. Public consumers use `questions.services.published_questions()` or `get_published_revision()`, never the working pointer. See [D17](decisions.md#milestone-22-clarification--2026-11-03).
+- PreviousYearPaper belongs to an Exam with optional Stage/Subject/configuration metadata.
+- PaperQuestion binds a master to a fixed approved revision, number and display order.
+- Paper constraints prevent duplicate master/order/number associations within a paper.
+- The controlled _import_draft path can attach draft questions to unpublished import papers.
+- Paper publication checks nonempty rows, membership and declared counts under locks.
+- Published paper editing requires unpublication; old approved references remain historical.
+- Public browsing is Exam -> Year -> Paper -> direct-answer or paper-practice mode.
+- paper_answer gives reader feedback without creating persistent PracticeSession records.
+- GeneralQuestionBatch is an ImportBatch proxy filtered to general-mode collections.
+- General public views expose published questions; staff actions check signed fingerprints.
+- transition_batch atomically reviews/publishes the inspected working revisions.
 
-## Workflows
+## Mock Test workflow
 
-- **Previous Year:** resolve exam, optional stage, year, paper, part, and session; associate revisions using original numbering and order. A question may appear in multiple papers. Publish only after the paper and its referenced revisions are approved.
-- **Mock Test:** use the active ExamPattern for an exam/stage. ExamPatternSection controls subject counts, order, `en`/`bn`/`mixed` eligibility, and optional marks overrides. Mixed permits both languages without fixed proportions. There is no student mock-test language selector. Validate counts and published availability before activation. Persist revisions, order, and effective marks when creating an attempt; enforce autosave, timing, expiry, submission, and scoring on the server. Do not expose answer keys before submission.
-- **Practice:** select published questions by exam and optional subject/topic, avoid duplicate questions in a session, save responses, and show immediate answer feedback and explanation.
-- **Import:** admin preview and confirmation create auditable drafts in one transaction; explicit review and publication follow. See [import contract](import-contract.md).
+1. Admin configures ExamPattern, sections, totals, duration and marking defaults.
+2. Optional SectionSelectionRule selects exactly one taxonomy scope and a quota.
+3. Rules support normalized difficulty and random/manual choices with descendant tags.
+4. ManualRuleQuestion records explicit ordered master choices.
+5. Availability checks quotas/overlap; allocation prevents duplicates across sections.
+6. Activation is explicit; active/previously attempted configurations have guarded edits.
+7. start_attempt locks owner/configuration/candidates and rechecks eligibility.
+8. MockAttempt freezes configuration/deadline; AttemptQuestion freezes revision/order/marks.
+9. Resume keeps the existing open attempt rather than selecting a fresh set.
+10. save_response checks owner, action, row, version, UUID token and position.
+11. Retry recognition applies to the latest save token/version pair.
+12. Conflicts return 409; finalized attempts reject changes; expiry is server-authoritative.
+13. Finalization awards positive marks, subtracts penalties and scores unanswered rows zero.
+14. It freezes totals/section results; active responses do not serialize answer keys.
+15. expire_mock_attempts exists; external scheduling is not established by this scan.
 
-## Milestone 1.1 implementation inspected
+refresh_attempt, status checks and relevant views can finalize elapsed attempts.
+History uses frozen revisions/marking, not current taxonomy or mutable master answers.
 
-Milestone 2.3 supersedes the import deferral for the single-paper administrative CSV/XLSX workflow. It adds private expiring preview staging, explicit alias/taxonomy resolution, transactional draft import, and batch/row audit models. A narrow internal draft-paper association option is used only during import; review, question publication, paper publication, and public visibility remain separate and validated. Source-scoped deduplication remains deferred. See [import guide](import-guide.md) and D20 in [decisions](decisions.md).
+## Practice and Revision sessions
 
-Later implementation status: Milestone 3.1 adds paper administration, transactional publication/unpublication, and public year-grouped paper lists and solutions. Paper associations preserve historical published revisions; new associations require the approved live revision and matching exam membership. Published papers must be unpublished before editing. Exam detail now links to its scoped paper list. Imports and source-scoped deduplication are deferred until the core application is usable (D19); see [decisions](decisions.md) for paper identity and duplicate-question enforcement (D18). The original Milestone 1.1 snapshot below remains historical context.
+- Practice UI: category/authority -> exam -> subject -> module -> difficulty -> session.
+- Eligible module cards replace the old hierarchy-dropdown setup.
+- Subjects without eligible modules can continue with the whole subject.
+- Difficulty uses published values; unspecified difficulty is an explicit choice.
+- The current UI uses all questions at that level; service counts/filter support remains.
+- PracticeSession/PracticeQuestion persist revisions/order, answers and classification.
+- submit_answer gives immediate feedback, locks the answer and auto-completes the last row.
+- A repeated identical answer is safe; changing an answered row is rejected.
+- SavedQuestion is unique per user/master, with note, timestamps, review count and mastery.
+- Save/unsave are authenticated CSRF-protected POSTs with minimal JSON support.
+- Bookmark permission can include owned frozen history; readable bank content is stricter.
+- My Revision Bank lives under My account and in account-section navigation.
+- Bank filters cover exam/hierarchy/mastery/sorting; unavailable rows show placeholders.
+- Mark-reviewed is explicit; simply reading a page does not increment review_count.
+- RevisionSession proxies PracticeSession with kind=revision, not another table/engine.
+- Practice kind requires Exam/Subject; revision kind has null Exam/Subject/Topic.
+- Revision supports all eligible bookmarks or filters plus an optional question limit.
+- start_revision serializes/rechecks selection and reuses shared snapshot assembly.
+- First-answer submission invokes record_review in the same transaction for revision kind.
+- Refresh/retry/resume do not recount; the hook does not recreate removed bookmarks.
+- Mastery is explicit and independent of correctness; completed results remain historical.
+- Pause is navigation away; resume chooses the next unanswered row or explicit question link.
+- Revision supports early completion with unanswered rows retained and incorrect-only results.
 
-All eight apps are installed. Only `accounts.User` and its initial migration are implemented as application models; six domain apps remain skeletons. `core` supplies home and health views. Django Admin, authentication/session/CSRF middleware, shared templates, static CSS, ASGI/WSGI entry points, password validators, environment configuration, and timezone-aware timestamps are configured. Timezone defaults to UTC; debug defaults to false; session and CSRF cookies require HTTPS when debug is false.
+## Topic exploration and presentation boundaries
 
-Existing nine tests cover PostgreSQL, home/health, health failure, the custom user, password hashing, admin login/session/access, and CSRF. The target domain workflows above are not yet implemented. No functionality is added by Milestone 1.1A.
+- Registered users can reach question-topic and related-scope routes under `/revision/`.
+- Stored paths support skipped levels and primary/secondary topic associations.
+- Scopes expand through Topic/Chapter/Module/Part/Subject; Subject includes unclassified rows.
+- Discovery excludes the source master and filters by active Exam and published difficulty.
+- Related pages paginate 20 rows and batch translations/tags/bookmark state.
+- Revision eligibility withholds questions in the user's open mock attempts.
+- Exploration also blocks a requested scope containing an owner's open-mock question.
+- Brief user-row locks coordinate exploration rendering with Mock Test starts.
+- Exploration uses live approved content; existing session snapshots remain frozen.
+- Per-question Explore Topic controls were removed; routes/helpers remain implemented.
+- Bookmarks use compact checkbox-style toggles; success prompts are commented out.
+- Active Mock bookmark actions stay separate from review flags and autosave semantics.
 
-See [database design](database-design.md) and [decisions](decisions.md). Approved boundaries exclude OCR/PDF extraction, difficulty functionality, payments/subscriptions, advanced analytics, translation grouping, React, DRF, Redis, Celery, Docker, and microservices.
+## Integrity, known drift and verification limits
 
-
-## Unified import (Milestone 2.3B)
-
-User-approved General Questions module: `general_question.views` provides public
-General import collections/solutions and staff-only whole-batch review/publication.
-It reuses ImportBatch and existing Question services. The dedicated
-`general_question` app now owns this module, with an admin-only batch proxy. Published-only browsing supports exam/subject/topic/language filters.
-Signed snapshots, CSRF, permissions and atomic row-locked services protect the
-separate whole-batch Review and Publish actions. See [import guide](import-guide.md).
-
-The administrative import interface now requires Previous Year Questions or
-General Question Bank mode. It shares bounded parsing, private expiring staging,
-editable preview and transactional confirmation. Previous Year imports use one
-exam/year and optional stage with draft-paper creation/reuse. General imports use
-selected exams or explicitly resolved row exams, without paper records. Batch
-taxonomy/language defaults fill missing row values only. Incomplete subject,
-language or answer blocks confirmation; publication/immutability services remain
-unchanged. D21 supersedes earlier single-paper/global-file-hash import rules; see
-[import guide](import-guide.md).
-
-
-## Dedicated General Questions app (2026-11-04)
-
-At the user's explicit request, general_question is a ninth domain app alongside
-previous_year. It owns General collection browsing, filters, templates, tests and
-whole-batch review/publication services. The GeneralQuestionBatch proxy over
-ImportBatch provides a distinct Django Admin module without copying records or
-creating a new data table. Its migration adds proxy-model metadata/permissions
-only. Existing URLs and the general_questions namespace remain unchanged;
-Question and QuestionRevision remain solely in the central questions app.
+- Constraints, guarded model saves and row locks provide complementary integrity layers.
+- Deferred primary-tag triggers require coherent pointer/tag state at transaction commit.
+- Some reverse migrations intentionally reject data incompatible with older schemas.
+- Attempts, Practice history and content snapshots have protected mutation/deletion paths.
+- Historical decisions and mobile proposals are explicitly labeled; current guides consolidate earlier milestone wording.
+- Legacy Practice forms/filter assets coexist with module/difficulty setup; verify consumers.
+- No AI/external-learning integration or general mobile token API is configured.
+- This reference is statically verified against source, URL mappings and migration operations.
+- Runtime data, installed PostgreSQL version, deployment topology and job schedules are unverified.
+- No tests, database commands, CSS builds or deployment checks were run for this documentation task.

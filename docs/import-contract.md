@@ -1,114 +1,105 @@
-# Import contract
+# Import Contract - Current Implementation
 
-## Wide extraction format extension (2026-11-04)
+Source-verified on 2026-11-12. This replaces overlapping Phase 0/2.3 override text.
+The parser/normalizer/validator are authoritative. Use [import guide](import-guide.md)
+for the staff workflow and [MODULE_MAP](MODULE_MAP.md) for implementation navigation.
 
-The current importer also accepts explicit `question_text_en`, `option_a_en`
-through `option_d_en`, their `_bn` equivalents and optional per-language
-`explanation_en` / `explanation_bn`. A wide source row maps to one master with
-only available translations; `language=en,bn` is allowed. Generic content must
-agree with an available version; incomplete/conflicting blocks require correction.
-Separate long rows retain explicit pairing approval and shared-attribute checks.
-`handwritten_mark_unverified` and `needs_review` are audit metadata and preview
-warnings only. Verified A/B/C/D answers remain mandatory before confirmation;
-no mark becomes an answer automatically. No schema or publication policy changes.
-See [import guide](import-guide.md) for header requirements and the reviewed
-100-row WBP SI 2019 extraction example.
+## Modes and ownership
 
+| Mode | Selection and result |
+|---|---|
+| Previous Year | Exactly one existing Exam; select/create an unpublished paper within the chosen context; append draft question associations |
+| General | One or more existing Exams; no paper; draft questions and General ImportBatch audit |
 
-## Milestone 2.3C override
+An active staff importer needs imports/Question Bank permissions and the paper-create
+permissions for Previous Year mode. Staging is uploader-owned; confirmation rechecks
+ownership/permissions server-side. Inline Add subject/topic is a separate privileged
+POST action, not implicit permission for row-driven Subject creation.
 
-QuestionTranslation now stores the available per-language text/options/explanation
-under a shared Question and immutable revision. The primary-language legacy
-QuestionRevision fields remain for compatibility. Difficulty is optional bounded
-shared Question/revision text as well as preserved source audit metadata. Repeated
-question numbers with distinct languages in one selected paper/import may become
-one master only after explicit preview pairing approval and matching shared
-attributes; no automatic legacy/cross-paper merge. Same-language duplicates and
-existing paper number conflicts remain errors. See [multilingual design](multilingual-questions.md).
+## File and content bounds
 
-Authority: approved Phase 0 **Database & Import Specification v1.0**, including its reviewed Questions.xlsx mapping. The workbook itself was not supplied for this milestone; the source reports one worksheet, 100 data rows, 22 named columns, and an unnamed trailing column. The list below expands grouped headers from that source; it does not assert a verified physical column order.
+- UTF-8 CSV or selected XLSX worksheet; plain data only, not executable formulas/macros.
+- Defaults: 5 MB upload, 2,000 rows, 64 columns and 32,000 characters per cell.
+- XLSX expanded/archive limits and bounded row/staging JSON also apply.
+- Required long-form headers are question_number, question_text and option_a through option_d.
+- source_question_number can supply a missing question_number header.
+- Confirmation requires a valid A/B/C/D answer and complete eligible language content.
+- A blank answer can reach preview but blocks confirmation; handwriting is never inferred as truth.
+- Empty unnamed trailing cells are allowed; duplicate/unknown headers or extra populated cells fail.
+- Preserve Unicode text and source numbering; do not use printed numbers as global master IDs.
 
-## Active contract: Milestone 2.3B
+## Supported field groups
 
-Language clarification: when row and batch language are both absent, the importer
-infers en/bn from question/options Unicode scripts, displays a preview warning,
-and records the result in audit. Ambiguous or unsupported text still needs an
-explicit supported language. See the current import guide for precedence.
+| Fields | Interpretation |
+|---|---|
+| question_number | Local grouping/paper number; string identity within the selected import context |
+| question_text, option_a, option_b, option_c, option_d, explanation | Primary content/optional explanation in the revision snapshot |
+| correct_answer, difficulty_level | Shared versioned answer/difficulty; difficulty is used by existing selection/filter flows |
+| language | Configured language; normalization/inference rules live in imports/language.py |
+| subject, topic | Existing Subject resolution and optional primary Topic name/mapping |
+| part, module, chapter | Named hierarchy scoped to resolved Subject/ancestors |
+| subject_code, part_code, module_code, chapter_code, topic_code | Stable taxonomy codes; conflicts/invalid ancestry block confirmation |
+| additional_topic_codes | Secondary topics, separated by semicolon/comma/pipe; deduplicated within the same Subject |
+| exam_categories | Existing-exam resolution only when row mapping is selected; otherwise preserved metadata |
+| previous_year_tags | Audit metadata; never overrides the form-selected paper |
+| source_document, source_page | Optional source references; page labels are bounded/validated |
+| source_question_number | Original numbering metadata when question_number is also present |
+| review_status, verification_notes, comments | Source audit metadata, not editorial approval |
+| created_date, updated_date, updated_by | Source metadata, never replacements for system timestamps/User identity |
+| handwritten_mark_unverified, needs_review, source_row | Extraction/audit metadata; not an answer or publication signal |
 
-The latest unified-import request supersedes earlier single-paper and duplicate
-scope rules below. Only question_number, question_text, and option_a/b/c/d headers
-are required; all other supported headers are optional. Missing subject/language/
-answer may be corrected in preview, but confirmation still requires a resolved
-Subject, en/bn and A/B/C/D. Row Subject/Topic override explicitly selected batch
-defaults. No answer/language/classification is invented.
+The original 22-column format remains a supported subset, not an exhaustive current schema.
+HEADER_ALIASES in imports/parsing.py defines accepted alternate names, including review_flag,
+review_notes, source_doc, source_pg and source_row_id. Keep only one header per canonical key.
 
-Previous Year mode uses one selected Exam, required Year and optional Stage,
-creating/reusing a draft paper with default name Previous Year Paper. Its source
-exam_categories and previous_year_tags are metadata only. General mode requires
-multiple-capable Exam selection, has no paper/year/stage, and explicitly chooses
-selected exams or row categories with selected fallback. Row categories resolve
-unambiguously against existing Exams. Numbers are batch-local in General mode;
-Previous Year also checks existing paper numbers. File duplicates are scoped to
-canonical import context, not globally. See [current import guide](import-guide.md)
-and D21 in [decisions](decisions.md) for the authoritative operational rules. The
-Phase 0 workflow/gap sections retained below are historical context when they
-conflict with this section.
+## Multilingual normalization and pairing
 
-## Canonical 22 named columns
+English/Bengali versions belong to one master through immutable QuestionTranslation
+rows in a revision. They are not independent masters merely because languages differ.
+Primary revision fields remain for compatibility; the primary language stays fixed across revisions.
 
-| # | Header | Model mapping / handling |
-|---|---|---|
-| 1 | `question_number` | PaperQuestion.question_number; paper-local string, never a global Question ID |
-| 2 | `question_text` | QuestionRevision.question_text |
-| 3 | `option_a` | QuestionRevision.option_a |
-| 4 | `option_b` | QuestionRevision.option_b |
-| 5 | `option_c` | QuestionRevision.option_c |
-| 6 | `option_d` | QuestionRevision.option_d |
-| 7 | `correct_answer` | QuestionRevision.correct_answer |
-| 8 | `explanation` | QuestionRevision.explanation, optional; preserve Unicode |
-| 9 | `difficulty_level` | Import metadata only; no difficulty functionality |
-| 10 | `subject` | Resolve Subject; assign Question.subject |
-| 11 | `topic` | Resolve optional Topic; assign Question.topic |
-| 12 | `exam_categories` | Explicitly resolve exams; create QuestionExam associations |
-| 13 | `previous_year_tags` | Explicitly resolve PreviousYearPaper metadata and PaperQuestion association |
-| 14 | `language` | QuestionRevision.language (`en`/`bn`) |
-| 15 | `source_document` | QuestionSource.source_document / source association |
-| 16 | `review_status` | Preserve as source metadata; numeric values are not review states |
-| 17 | `source_page` | QuestionSourceReference.source_page |
-| 18 | `verification_notes` | Source review metadata only; Milestone 2.3 supersedes the earlier status mapping; never auto-approves |
-| 19 | `comments` | Import review metadata |
-| 20 | `created_date` | Source metadata, never the system created_at timestamp |
-| 21 | `updated_date` | Source metadata, never the system updated_at timestamp |
-| 22 | `updated_by` | Source metadata, never a Django User FK |
+Long-form rows with the same local number can pair only when languages are distinct,
+shared answer/difficulty/Subject/topic sets/exams agree, and the importer explicitly
+confirms the current group signature. Corrections invalidate stale pairing approvals.
+Same-language duplicates and ambiguous matches block import; there is no cross-paper merge.
 
-Ignore the unnamed trailing column only when empty. Metadata without a dedicated relational field may be retained in a bounded JSONField on an import audit record linked to the imported row. Phase 0 allows this storage approach but does not name the field, bound, or precise owning model. Preserve metadata without inventing new domain functionality.
+Wide format uses complete question_text/option_a/option_b/option_c/option_d blocks
+with _en and/or _bn suffixes, plus optional explanation suffixes. It already represents
+one master per row and uses the same normalized translation/answer workflow.
+Partial blocks fail. Extraction marks remain metadata even when the correct answer is blank.
 
-## Validation and association rules
+## Taxonomy and association resolution
 
-- Validate file type/size, headers, rows, language, four options, answer keys, subjects, exams, and paper metadata. Allowed languages are `en` and `bn`; allowed answers are `A`, `B`, `C`, `D`. English and Bengali are independent Questions. Preserve original Unicode text and explanations; a Question's language cannot change across revisions.
-- Resolve taxonomy with explicit admin-confirmed mappings. Reject unresolved or ambiguous references. Topic is optional but must belong to the selected Subject. Missing named Parts, Modules, Chapters and Topics are created atomically on confirmation under existing Subjects. Imports never create Subjects. New codes require corresponding names.
-- A Question can belong to multiple exams. `PSC Clerkship` maps to WBPSC / Clerkship only with explicit admin confirmation of that alias.
-- `Prelims 2023 (Part-I, Session I)` requires explicit resolution of exam, optional stage, year, paper identity, part, and session. Stage must belong to the exam. Paper identity is unique across exam/stage/year/paper_name/part/session, including nullable fields.
-- Preserve historical paper numbering and order. PaperQuestion references a specific QuestionRevision; question_number is not a source/global ID. Paper display_order must be unique within its paper. A question can appear in multiple papers.
-- Keep source_document, source_page, and other source metadata. QuestionSourceReference also supports source_question_number; the approved mapping does not say to derive it from question_number. There is no source_question_id column among these 22 headers.
+- Row values/codes take precedence over batch defaults; mappings resolve ambiguity explicitly.
+- Subject must already exist. Only an existing uniquely resolved fallback/default may be reused.
+- Missing named Parts/Modules/Chapters/Topics can be proposed under that Subject in preview.
+- Confirmation creates proposed nodes atomically; preview resolution itself writes no domain rows.
+- A new code needs its corresponding name; omitted child codes can be generated.
+- Existing code/name conflicts and inconsistent ancestry are rejected, not silently rewritten.
+- Skipped levels are valid. The selected primary Topic and secondary tags must share Subject.
+- Secondary tags require an explicit primary Topic.
+- Parent-only metadata is context; without a primary Topic it creates no new question classification field.
+- Exam values must resolve existing records under the selected mapping strategy; no Exam is auto-created.
+- Previous-Year associations target the selected unpublished paper and require append acknowledgment when applicable.
 
-## Preview and transactional confirmation
+## Confirmation, audit and duplicates
 
-1. An authorized admin uploads CSV/XLSX.
-2. Validate the complete file and resolve explicit mappings.
-3. Detect duplicate source IDs, duplicate rows, and possible content duplicates; show row-level errors and preview.
-4. Revalidate on confirmation, including references and duplicates.
-5. Save the entire valid batch using `transaction.atomic()`: Questions and QuestionRevisions, exam/source associations, draft historical-paper associations, and batch/row audit records. **Any invalid row rejects the entire batch; never partially import.**
-6. Admin reviews and explicitly publishes questions and papers. Imports default to draft; review metadata cannot silently publish content. Public papers must reference revisions approved for publication.
+confirm_import revalidates in an atomic transaction under exam/paper/taxonomy locks.
+It creates pending-review masters/revisions/translations, associations, optional sources,
+ImportBatch and ImportedQuestion. Any blocking error rolls back the entire operation.
+Questions and papers are reviewed/published explicitly afterward.
 
-ImportBatch tracks uploader, filename, file_sha256, mapping_version, status, row/error counts, and creation/confirmation timestamps. ImportedQuestion links batch, source_row_number, Question, and action. Import is auditable and idempotent. The source does not specify how failed previews are persisted relative to the confirmation transaction.
+ImportBatch stores mapping/selection metadata. ImportedQuestion.source_metadata retains
+bounded original, corrected and resolved row data; this storage is already implemented.
 
-## Duplicate prevention
+Duplicate protection is file_sha256 plus canonical context_sha256, with a separately
+unique staging UUID. Context includes mode, selected exams/mapping strategy and normalized
+paper identity when applicable. Changing an alias/correction/uploader does not define a
+new question identity. Similar content warns; it never silently merges existing masters.
+source_question_id is not globally unique and no automatic source-identity merge key exists.
 
-Use file hashes and source-scoped identifiers to prevent accidental repeat imports. External IDs are unique within their defined source scope, not globally. Detect repeated rows and possible duplicate content; do not silently merge similar questions. The exact source scope, content fingerprint rules, repeated-file behavior, and row action semantics require approval before implementation.
+## Verification references
 
-## Missing contract details
-
-Milestone 2.3 resolves the first-release behavior in [import guide](import-guide.md) and D20 in [decisions](decisions.md). Selected Exam/Paper is authoritative, source-scoped identity remains deferred, and verification_notes never changes editorial review state. The original Phase 0 gap list below is historical context; operational rules now specified in the guide take precedence.
-
-The approved review does not define header/order normalization, multi-value delimiters, alias catalogue, maximum file/row sizes, exact required-cell/blank-option rules, unknown verification_notes handling, source_name derivation, source-ID ingestion, date parsing, paper order derivation, or metadata size limits/storage schema. The workbook is needed to independently verify physical header order and sample values. These gaps must be settled before implementing their respective parser/confirmation behavior; no new rules are assumed here.
+Targeted tests: imports.tests, imports.test_unified, imports.test_multilingual,
+imports.test_wide_format and imports.test_taxonomy_import. These are test entry points,
+not a claim that a historical test count validates today's checkout.
