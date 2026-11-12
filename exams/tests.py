@@ -7,7 +7,7 @@ from django.db.models.deletion import ProtectedError
 from django.test import TestCase
 from django.urls import reverse
 
-from .admin import ExamStageInline, TopicInline
+from .admin import ChapterInline, ExamStageInline, ModuleInline, PartInline, TopicInline
 from .models import Exam, ExamAuthority, ExamStage, Subject, Topic
 
 
@@ -183,7 +183,7 @@ class TaxonomyAdminTests(TaxonomyFixture):
         for model in (ExamAuthority, Exam, ExamStage, Subject, Topic):
             self.assertTrue(admin.site.is_registered(model))
         self.assertIn(ExamStageInline, admin.site._registry[Exam].inlines)
-        self.assertIn(TopicInline, admin.site._registry[Subject].inlines)
+        self.assertEqual(admin.site._registry[Subject].inlines, (PartInline, ModuleInline, ChapterInline, TopicInline))
 
     def test_guests_and_students_cannot_access_admin(self):
         url = reverse("admin:exams_exam_changelist")

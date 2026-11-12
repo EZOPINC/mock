@@ -96,7 +96,7 @@ Use `docs/architecture.md` for architecture context and `docs/DEVELOPMENT_RULES.
 |---|---|
 | `core` | `core/views.py`: home/health; `core/urls.py`; `templates/core/home.html` |
 | `accounts` | `accounts/views.py`: RegisterView/ProfileView/LearningSpaceView; `accounts/forms.py`: RegistrationForm; `accounts/urls.py`, `accounts/admin.py`; `templates/accounts/` |
-| `exams` | `exams/views.py`: authorities/exam_list/exam_detail; `exams/urls.py`, `exams/admin.py`; `templates/exams/` |
+| `exams` | `exams/views.py`: authorities/exam_list/exam_detail; `exams/urls.py`, `exams/admin.py`; SubjectAdmin lists PartInline/ModuleInline/ChapterInline/TopicInline using standard Django Admin; `templates/exams/` |
 | `questions` | `questions/admin.py`: QuestionAdmin/QuestionRevisionAdmin; `questions/forms.py`: RevisionForm/TranslationForm/QuestionAdminForm/NewQuestionAdminForm; `templates/questions/` |
 | `imports` | `imports/views.py`: upload/preview/confirm/cancel/complete; `imports/forms.py`: UploadForm/ImportSubjectForm/ImportTopicForm; `imports/urls.py`, `imports/admin.py`; `templates/imports/` |
 | `previous_year` | `previous_year/views.py`: paper_list/paper_year/paper_context/paper_detail/paper_answer; `previous_year/forms.py`: PaperSelectionForm; `previous_year/urls.py`, `previous_year/admin.py`; `templates/previous_year/` |
@@ -139,6 +139,7 @@ Explore uses kind/node ID with from_question, exam and prefixed difficulty param
 | Task | Read first | Direct dependency / tests |
 |---|---|---|
 | Question editing/publication | `questions/services.py`, `questions/models.py`, `questions/admin.py` | `questions/test_multilingual.py`, `questions/tests.py` |
+| Subject Admin taxonomy lists | `exams/admin.py`: PartInline/ModuleInline/ChapterInline/TopicInline | `exams/test_admin_taxonomy.py`; existing taxonomy admin tests |
 | Taxonomy/tag paths | `exams/models.py`, `questions/tagging.py` | `exams/test_flexible_taxonomy.py`, `questions/test_topic_tags.py`; trigger migrations |
 | Import columns/matching | `imports/parsing.py`, `imports/translation_input.py`, `imports/taxonomy.py`, `imports/validation.py` | `imports/test_taxonomy_import.py`, `imports/test_wide_format.py` |
 | Import confirmation | `imports/services.py`, `imports/staging.py`, `imports/context.py` | `imports/tests.py`, `imports/test_unified.py` |
