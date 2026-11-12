@@ -26,21 +26,22 @@ class DifficultyFlowTests(PracticeFixture):
         self.assertContains(response, "BN feedback")
         self.assertNotContains(response, "VERIFIED SOLUTION")
 
-    def test_subject_links_directly_to_whole_subject_setup_with_modules(self):
+    def test_subject_links_to_modules_then_difficulty_and_language(self):
         first = self.leveled_question("Easy", topic=self.module_topic)
-        second = self.leveled_question("Easy")
+        self.leveled_question("Easy")
         self.leveled_question("Hard", topic=self.module_topic)
-        url = reverse("practice:difficulty", args=[self.authority.slug, self.exam.slug, self.subject.slug])
+        url = self.url
         subjects = reverse("practice:subjects", args=[self.authority.slug, self.exam.slug])
-        self.assertContains(self.client.get(subjects), url)
+        self.assertContains(self.client.get(subjects), self.configure_url())
+        self.assertContains(self.client.get(self.configure_url()), url)
         response = self.client.get(url)
-        self.assertContains(response, "Easy - 2 questions")
+        self.assertContains(response, "Easy - 1 question")
         self.assertContains(response, 'name="language"')
-        self.assertNotContains(response, "Back to modules")
+        self.assertContains(response, "Back to modules")
         self.assertFalse(PracticeSession.objects.exists())
         self.client.post(url, {"token": uuid4(), "difficulty": "level:easy", "language": "bn"})
         session = PracticeSession.objects.get()
-        self.assertEqual(set(session.questions.values_list("question_id", flat=True)), {first.pk, second.pk})
+        self.assertEqual(set(session.questions.values_list("question_id", flat=True)), {first.pk})
         # English-only questions remain readable when Bengali was preferred.
         self.assertContains(self.client.get(self.session_url(session)), "Difficulty question")
 

@@ -9,7 +9,7 @@
             <div>
                 <p class="eyebrow">FIND YOUR FOCUS</p>
                 <h1>{{ exam.name }}: choose a subject</h1>
-                <p>Focus on a subject, choose your difficulty and language, and practice at your own pace.</p>
+                <p>Focus on a subject, choose a module, then select your difficulty and language.</p>
             </div>
             <span class="mock-hub-heading-icon" aria-hidden="true">
                 {% include "components/icon.html" with name="book" %}
@@ -24,11 +24,11 @@
             <div class="mock-hub-categories">
                 {% for subject in subjects %}
                     <a class="mock-hub-category"
-                       href="{% url 'practice:difficulty' exam.authority.slug exam.slug subject.slug %}">
+                       href="{% url 'practice:configure' exam.authority.slug exam.slug subject.slug %}">
                         <span class="ui-card-icon">{% include "components/icon.html" with name="pencil" %}</span>
                         <div>
                             <h3>{{ subject.name }}</h3>
-                            <span>Choose difficulty and language</span>
+                            <span>Explore available modules</span>
                         </div>
                         {% include "components/icon.html" with name="arrow" %}
                     </a>{% empty %}

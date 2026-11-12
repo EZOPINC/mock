@@ -14,7 +14,7 @@
       <a class="practice-module-card" href="{% url 'practice:module_difficulty' exam.authority.slug exam.slug subject.slug item.module.pk %}">
         <span class="ui-card-icon" aria-hidden="true">{% include "components/icon.html" with name="book" %}</span>
         <h3>{{ item.module.name }}</h3><p>{{ item.count }} question{{ item.count|pluralize }} available</p>
-        <span class="practice-module-cta">Choose difficulty {% include "components/icon.html" with name="arrow" %}</span>
+        <span class="practice-module-cta">Choose difficulty and language {% include "components/icon.html" with name="arrow" %}</span>
       </a>
       {% empty %}
       <div class="mock-hub-empty">

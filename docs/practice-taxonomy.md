@@ -6,22 +6,23 @@ configuration-page description; legacy service helpers remain for compatibility.
 ## Current student flow
 
 1. Choose an authority/category, Exam and eligible Subject.
-2. Selecting a Subject opens the combined difficulty and language page directly.
-3. Choose a published difficulty level and English, Bengali or Both.
-4. Start all eligible questions at that level across the whole Subject in randomized order.
+2. Selecting a Subject opens the available Module cards.
+3. Select a Module, then choose a published difficulty level and English, Bengali or Both.
+4. Start all eligible questions at that level in the selected Module in randomized order.
+   Subjects without eligible Modules can continue with the whole Subject instead.
 5. The language display preference is kept in the browser's Django session per practice
    session; questions without the selected translation show their available translations.
 
 No Part/Chapter/Topic dropdown or question-size selector appears in the new setup.
 The old configure POST only resumes matching historical tokens; new starts go through
-the difficulty page. Legacy module routes remain available for compatibility, but the
-subject cards skip module selection. Empty pools show an explicit message and create no session.
+the difficulty page. The whole-subject difficulty route also remains available for
+compatibility. Empty pools show an explicit message and create no session.
 
 ## Files and selectors
 
 | File | Current responsibility |
 |---|---|
-| practice/views.py | Combined difficulty/language setup and start orchestration; legacy module cards |
+| practice/views.py | Module cards, combined difficulty/language setup and start orchestration |
 | practice/forms.py | PracticeDifficultyForm; legacy PracticeStartForm remains implemented |
 | practice/discovery.py | PracticeTaxonomy pools/ancestry; difficulty_pools; configuration_matches |
 | templates/practice/configure.html | Available Module cards / whole-Subject fallback |

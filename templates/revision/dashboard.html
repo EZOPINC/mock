@@ -1,31 +1,113 @@
-{% extends "base.html" %}{% load static revision_tags %}
+{% extends "base.html" %}
+{% load static revision_tags %}
 {% block title %}My Revision Bank | Mock Exam Platform{% endblock %}
-{% block extra_head %}<link rel="stylesheet" href="{% static 'css/revision.css' %}">{% endblock %}
-{% block content %}<div class="ui-dashboard revision-bank">
-{% include "accounts/account_navigation.html" with account_section="revision" %}
-<header class="dashboard-heading"><div><p class="eyebrow">SAVE. REFLECT. REMEMBER.</p><h1>My Revision Bank</h1><p>Your saved questions, personal notes and revision progress.</p></div><div class="button-row"><a class="button button-primary" href="{% url 'revision:start' %}{% if query %}?{{ query }}{% endif %}">Start Revision</a><a class="button button-secondary" href="{% url 'revision:history' %}">Revision sessions</a></div></header>
-{% if recent_sessions %}<section class="ui-card revision-card" aria-label="Recent revision sessions"><h2>Pick up your revision</h2>{% for session in recent_sessions %}<p>Session {{ session.pk }} &middot; {{ session.get_status_display }} &middot; <a href="{% url 'revision:session' session.pk %}">{% if session.status == 'in_progress' %}Resume{% else %}Revisit{% endif %}</a> &middot; <a href="{% url 'revision:results' session.pk %}">Results</a></p>{% endfor %}</section>{% endif %}
-<section class="dashboard-overview" aria-label="Revision progress">
-<article class="dashboard-stat-card"><h2>Total saved</h2><p class="dashboard-stat-number">{{ counts.total }}</p></article>
-<article class="dashboard-stat-card"><h2>Reviewed</h2><p class="dashboard-stat-number">{{ counts.reviewed }}</p></article>
-<article class="dashboard-stat-card"><h2>Mastered</h2><p class="dashboard-stat-number">{{ counts.mastered }}</p></article>
-</section>
-<form method="get" class="ui-card revision-filters" aria-label="Filter saved questions">
-<div class="revision-filter-grid">{% for field in form %}<div class="form-field ui-form-field">{{ field.as_field_group }}</div>{% endfor %}</div>
-<div class="button-row"><button class="button button-primary" type="submit">Apply filters</button><a class="button button-secondary" href="{% url 'revision:dashboard' %}">Reset filters</a></div>
-</form>
-<p role="status">{{ page.paginator.count }} saved question{{ page.paginator.count|pluralize }} matching your filters.</p>
-<div class="revision-list">
-{% for saved in page %}<article class="ui-card revision-card">
-<div class="revision-card-heading"><span class="badge {% if saved.is_mastered %}badge-live{% else %}badge-outline{% endif %}">{% if saved.is_mastered %}Mastered{% else %}Needs revision{% endif %}</span><time datetime="{{ saved.saved_at|date:'c' }}">Saved {{ saved.saved_at|date:"M j, Y" }}</time></div>
-{% with question=saved.visible_question %}{% if question %}
-<div class="translation-grid">{% for translation in question.published_revision.translations.all %}<section lang="{{ translation.language }}"><h2 class="translation-heading">{{ translation.get_language_display }}</h2><p class="revision-stem">{{ translation.question_text|truncatechars:320 }}</p></section>{% endfor %}</div>
-<p><strong>Subject:</strong> {{ question.subject.name }} &middot; <strong>Difficulty:</strong> {{ question.published_revision.difficulty_level|default:"Unspecified" }}</p>
-<p><strong>Topics:</strong> {% for tag in question.topic_associations.all %}{{ tag.topic.name }}{% if tag.is_primary %} (primary){% endif %}{% if not forloop.last %}, {% endif %}{% empty %}No topic assigned{% endfor %}</p>
-{% else %}<h2>Question currently unavailable</h2><p>Content is not available for revision right now. You can still manage your note or remove this bookmark.</p>{% endif %}{% endwith %}
-<p>{{ saved.review_count }} review{{ saved.review_count|pluralize }}{% if saved.reviewed_at %} &middot; Last reviewed {{ saved.reviewed_at|date:"M j, Y" }}{% endif %}{% if saved.personal_note %} &middot; Personal note added{% endif %}</p>
-<div class="button-row"><a class="button button-primary" href="{% url 'revision:detail' saved.pk %}">Open saved question</a><a class="text-link" href="{% url 'revision:remove' saved.pk %}">Remove bookmark</a></div>
-</article>{% empty %}<div class="empty-state ui-empty">{% if counts.total %}<h2>No matching saved questions</h2><p>Try another filter or reset your filters.</p><a href="{% url 'revision:dashboard' %}">Show all saved questions</a>{% else %}<h2>Your Revision Bank is empty</h2><p>Use Save question in Previous-Year Papers, Mock Tests or Practice Sets to collect questions here.</p><a class="button button-primary" href="{% url 'previous_year:index' %}">Explore Previous-Year Papers</a>{% endif %}</div>{% endfor %}
-</div>
-{% if page.has_other_pages %}<nav class="button-row revision-pagination" aria-label="Saved questions pages">{% if page.has_previous %}<a class="button button-secondary" href="?{% if query %}{{ query }}&amp;{% endif %}page={{ page.previous_page_number }}">Previous</a>{% endif %}<span>Page {{ page.number }} of {{ page.paginator.num_pages }}</span>{% if page.has_next %}<a class="button button-secondary" href="?{% if query %}{{ query }}&amp;{% endif %}page={{ page.next_page_number }}">Next</a>{% endif %}</nav>{% endif %}
-</div>{% endblock %}
+{% block extra_head %}
+  <link rel="stylesheet" href="{% static 'css/revision.css' %}">
+{% endblock %}
+{% block content %}
+  <div class="ui-dashboard revision-bank">
+    {% include "accounts/account_navigation.html" with account_section="revision" %}
+    <header class="dashboard-heading">
+      <div>
+        <p class="eyebrow">SAVE. REFLECT. REMEMBER.</p>
+        <h1>My Revision Bank</h1>
+        <p>Your saved questions, personal notes and revision progress.</p>
+      </div>
+      <div class="button-row">
+        <a class="button button-primary"
+           href="{% url 'revision:start' %}{% if query %}?{{ query }}{% endif %}">Start Revision</a>
+        <a class="button button-secondary" href="{% url 'revision:history' %}">Revision sessions</a>
+      </div>
+    </header>
+    {% if recent_sessions %}
+      <section class="ui-card revision-card" aria-label="Recent revision sessions">
+        <h2>Pick up your revision</h2>{% for session in recent_sessions %}
+        <p>Session {{ session.pk }} · {{ session.get_status_display }} · <a href="{% url 'revision:session' session.pk %}">{% if session.status == "in_progress" %}Resume{% else %}Revisit{% endif %}</a> · <a href="{% url 'revision:results' session.pk %}">Results</a></p>{% endfor %}</section>{% endif %}
+    <section class="dashboard-overview" aria-label="Revision progress">
+      <article class="dashboard-stat-card">
+        <h2>Total saved</h2>
+        <p class="dashboard-stat-number">{{ counts.total }}</p>
+      </article>
+      <article class="dashboard-stat-card">
+        <h2>Reviewed</h2>
+        <p class="dashboard-stat-number">{{ counts.reviewed }}</p>
+      </article>
+      <article class="dashboard-stat-card">
+        <h2>Mastered</h2>
+        <p class="dashboard-stat-number">{{ counts.mastered }}</p>
+      </article>
+    </section>
+    <form method="get"
+          class="ui-card revision-filters"
+          aria-label="Filter saved questions">
+      <div class="revision-filter-grid">
+        <div class="form-field ui-form-field">{{ form.exam.as_field_group }}</div>
+        <div class="form-field ui-form-field">{{ form.subject.as_field_group }}</div>
+        {% comment "Optional filters: remove this comment block to show these controls again." %}
+                {% for field in form %}
+                {% if field.name != 'exam' and field.name != 'subject' %}
+      <div class="form-field ui-form-field">{{ field.as_field_group }}</div>
+                     {% endif %}
+                      {% endfor %}
+        {% endcomment %}
+      </div>
+      <div class="button-row">
+        <button class="button button-primary" type="submit">Apply filters</button>
+        <a class="button button-secondary" href="{% url 'revision:dashboard' %}">Reset filters</a></div>
+    </form>
+    <p role="status">{{ page.paginator.count }} saved question{{ page.paginator.count|pluralize }} matching your filters.</p>
+    <div class="revision-list">
+      {% for saved in page %}
+        <article class="ui-card revision-card">
+          <div class="revision-card-heading">
+            <span class="badge {% if saved.is_mastered %}badge-live{% else %}badge-outline{% endif %}">{% if saved.is_mastered %}Mastered{% else %}Needs revision{% endif %}</span>
+            <time datetime="{{ saved.saved_at|date:'c' }}">Saved {{ saved.saved_at|date:"M j, Y" }}</time>
+          </div>
+          {% with question=saved.visible_question %}
+            {% if question %}
+              <div class="translation-grid">
+                {% for translation in question.published_revision.translations.all %}
+                  <section lang="{{ translation.language }}">
+                    <h2 class="translation-heading">{{ translation.get_language_display }}</h2>
+                    <p class="revision-stem">{{ translation.question_text|truncatechars:320 }}</p></section>{% endfor %}
+                </div>
+                <p><strong>Subject:</strong> {{ question.subject.name }} · <strong>Difficulty:</strong> {{ question.published_revision.difficulty_level|default:"Unspecified" }}</p>
+                <p><strong>Topics:</strong> {% for tag in question.topic_associations.all %}{{ tag.topic.name }}{% if tag.is_primary %} (primary){% endif %}{% if not forloop.last %}, {% endif %}{% empty %}No topic assigned{% endfor %}
+                </p>
+            {% else %}
+              <h2>Question currently unavailable</h2>
+              <p>
+                Content is not available for revision right now. You can still manage your note or remove this bookmark.
+              </p>
+            {% endif %}
+          {% endwith %}
+          <p>{{ saved.review_count }} review{{ saved.review_count|pluralize }}{% if saved.reviewed_at %} · Last reviewed {{ saved.reviewed_at|date:"M j, Y" }}{% endif %}{% if saved.personal_note %} · Personal note added{% endif %}</p>
+          <div class="button-row"><a class="button button-primary"
+                                     href="{% url 'revision:detail' saved.pk %}">Open saved question</a>
+            <a class="text-link" href="{% url 'revision:remove' saved.pk %}">Remove bookmark</a>
+          </div>
+        </article>{% empty %}
+        <div class="empty-state ui-empty">
+          {% if counts.total %}
+            <h2>No matching saved questions</h2>
+            <p>Try another filter or reset your filters.</p>
+            <a href="{% url 'revision:dashboard' %}">Show all saved questions</a>{% else %}<h2>Your Revision Bank is empty</h2>
+            <p>Use Save question in Previous-Year Papers, Mock Tests or Practice Sets to collect questions here.</p>
+            <a class="button button-primary" href="{% url 'previous_year:index' %}">Explore Previous-Year Papers</a>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+    {% if page.has_other_pages %}
+      <nav class="button-row revision-pagination"
+           aria-label="Saved questions pages">
+        {% if page.has_previous %}
+          <a class="button button-secondary"
+             href="?{% if query %}{{ query }}&amp;{% endif %}page={{ page.previous_page_number }}">Previous</a>{% endif %}
+        <span>Page {{ page.number }} of {{ page.paginator.num_pages }}</span>
+        {% if page.has_next %}<a class="button button-secondary"
+                                 href="?{% if query %}{{ query }}&amp;{% endif %}page={{ page.next_page_number }}">Next</a>{% endif %}
+      </nav>
+    {% endif %}
+  </div>
+{% endblock %}

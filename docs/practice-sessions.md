@@ -12,7 +12,7 @@ classification. Content/translation text stays in the protected Question Bank sn
 
 | Session kind | Scope | Owner-facing workflow |
 |---|---|---|
-| practice | Required Exam/Subject; optional Topic | Subject difficulty/language Practice Sets |
+| practice | Required Exam/Subject; optional Topic | Module difficulty/language Practice Sets |
 | revision | Null Exam/Subject/Topic | Filtered personal Revision Bank selections |
 
 RevisionSession is a revision-only proxy, not a copied engine or additional response table.

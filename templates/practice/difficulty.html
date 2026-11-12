@@ -23,7 +23,7 @@
     {% else %}<h2>No eligible questions are available</h2><p>Choose another subject or check back later.</p>{% endif %}
   </form>
   <div class="button-row practice-back-actions">
-    <a class="button button-primary" href="{% url 'practice:subjects' exam.authority.slug exam.slug %}">{% include "components/icon.html" with name="arrow" icon_class="ui-back-icon" %} Back to subjects</a>
+    {% if module %}<a class="button button-primary" href="{% url 'practice:configure' exam.authority.slug exam.slug subject.slug %}">{% include "components/icon.html" with name="arrow" icon_class="ui-back-icon" %} Back to modules</a>{% else %}<a class="button button-primary" href="{% url 'practice:subjects' exam.authority.slug exam.slug %}">{% include "components/icon.html" with name="arrow" icon_class="ui-back-icon" %} Back to subjects</a>{% endif %}
   </div>
 </div>
 {% endblock %}
