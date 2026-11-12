@@ -1,20 +1,29 @@
 {% extends "base.html" %}
 {% load static %}
-{% block title %}Choose practice difficulty | Mock Exam Platform{% endblock %}
+{% block title %}Choose practice difficulty and language | Mock Exam Platform{% endblock %}
 {% block extra_head %}<link rel="stylesheet" href="{% static 'css/practice.css' %}">{% endblock %}
 {% block content %}
 <div class="mock-hub practice-hub practice-setup">
-  <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="{% url 'practice:subjects' exam.authority.slug exam.slug %}">{{ exam.name }}</a>{% include "components/icon.html" with name="chevron" %}<a href="{% url 'practice:configure' exam.authority.slug exam.slug subject.slug %}">{{ subject.name }}</a>{% include "components/icon.html" with name="chevron" %}<span aria-current="page">Difficulty</span></nav>
-  <header class="mock-hub-heading"><div><p class="eyebrow">STEP 2 OF 2 &middot; SET YOUR PACE</p><h1>Choose your difficulty</h1><p>{{ subject.name }} &middot; {% if module %}{{ module.name }}{% else %}Whole subject{% endif %}</p></div><span class="mock-hub-heading-icon" aria-hidden="true">{% include "components/icon.html" with name="pencil" %}</span></header>
+  <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="{% url 'practice:subjects' exam.authority.slug exam.slug %}">{{ exam.name }}</a>{% include "components/icon.html" with name="chevron" %}<span>{{ subject.name }}</span>{% include "components/icon.html" with name="chevron" %}<span aria-current="page">Difficulty and language</span></nav>
+  <header class="mock-hub-heading"><div><p class="eyebrow">SET YOUR PACE</p><h1>Choose your difficulty and language</h1><p>{{ subject.name }} &middot; {% if module %}{{ module.name }}{% else %}Whole subject{% endif %}</p></div><span class="mock-hub-heading-icon" aria-hidden="true">{% include "components/icon.html" with name="pencil" %}</span></header>
   <form method="post" class="practice-difficulty-card ui-card">
     {% csrf_token %}{{ form.token }}{{ form.token.errors }}
     {% if form.non_field_errors %}<div class="form-errors" role="alert">{{ form.non_field_errors }}</div>{% endif %}
     {% if available_count %}
-      <fieldset><legend>Select a difficulty level</legend><p>Practise all available questions at your selected level. No timer, with feedback after every answer.</p>
+      <p>Practise all available questions at your selected level. No timer, with feedback after every answer.</p>
+      <div class="practice-setup-choices">
+      <fieldset><legend>Select a difficulty level</legend>
       {{ form.difficulty.errors }}<div class="practice-difficulty-options">{% for choice in form.difficulty %}<label>{{ choice.tag }}<span>{{ choice.choice_label }}</span></label>{% endfor %}</div></fieldset>
+      <fieldset><legend>Select a question language</legend>
+        {{ form.language.errors }}<div class="practice-difficulty-options">{% for choice in form.language %}<label>{{ choice.tag }}<span>{{ choice.choice_label }}</span></label>{% endfor %}</div>
+        <p>Your preference applies where the translation is available. Otherwise, the available language is shown.</p>
+      </fieldset>
+      </div>
       <button type="submit" class="button button-primary">Start practice {% include "components/icon.html" with name="arrow" %}</button>
-    {% else %}<h2>No eligible questions are available</h2><p>Choose another module or check back later.</p>{% endif %}
+    {% else %}<h2>No eligible questions are available</h2><p>Choose another subject or check back later.</p>{% endif %}
   </form>
-  <a class="text-link" href="{% url 'practice:configure' exam.authority.slug exam.slug subject.slug %}">Back to modules</a>
+  <div class="button-row practice-back-actions">
+    <a class="button button-primary" href="{% url 'practice:subjects' exam.authority.slug exam.slug %}">{% include "components/icon.html" with name="arrow" icon_class="ui-back-icon" %} Back to subjects</a>
+  </div>
 </div>
 {% endblock %}

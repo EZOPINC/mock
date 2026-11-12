@@ -102,9 +102,6 @@ def difficulty(request, authority_slug, exam_slug, subject_slug, module_id=None)
         if existing and value.startswith("level:") and configuration_matches(existing,
                 exam_id=exam.pk, subject_id=subject.pk, count="available", filters=filters, difficulty=value[6:]):
             return redirect("practice:session", session_id=existing.pk)
-    # A whole-subject route is available only when no eligible module exists.
-    if module is None and scope.pools["module"]:
-        return redirect("practice:configure", authority_slug=authority_slug, exam_slug=exam_slug, subject_slug=subject_slug)
     pools = difficulty_pools(scope.selected_ids(filters))
     form = PracticeDifficultyForm(request.POST if request.method == "POST" else None, pools=pools)
     if request.method == "POST" and form.is_valid():
@@ -114,15 +111,18 @@ def difficulty(request, authority_slug, exam_slug, subject_slug, module_id=None)
         except ValidationError as error:
             form.add_error(None, error)
         else:
+            request.session[f"practice_language_{session.pk}"] = form.cleaned_data["language"] or "both"
             return redirect("practice:session", session_id=session.pk)
     return render(request, "practice/difficulty.html", {"exam": exam, "subject": subject,
         "module": module, "form": form, "available_count": sum(map(len, pools.values()))},
         status=400 if request.method == "POST" and form.errors else 200)
 
 
-def question_context(session, row, *, translations=None):
+def question_context(session, row, *, translations=None, language="both"):
     translations = translations if translations is not None else QuestionTranslation.objects.annotate(_order=Case(When(language="en", then=Value(0)),
         When(language="bn", then=Value(1)), default=Value(2), output_field=IntegerField())).order_by("_order", "language", "pk")
+    if language in {"en", "bn"} and translations.filter(revision_id=row.question_revision_id, language=language).exists():
+        translations = translations.filter(language=language)
     row = PracticeQuestion.objects.select_related("question_revision").prefetch_related(
         Prefetch("question_revision__translations", queryset=translations)).get(pk=row.pk, session=session)
     rows = list(session.questions.all())
@@ -150,7 +150,8 @@ def session_view(request, session_id):
         row = next((item for item in rows if item.display_order == order), None)
         if row is None:
             raise Http404
-    return render(request, "practice/session.html", question_context(session, row))
+    return render(request, "practice/session.html", question_context(session, row,
+        language=request.session.get(f"practice_language_{session.pk}", "both")))
 
 
 @login_required
@@ -163,7 +164,8 @@ def answer(request, session_id, question_id):
         row = submit_answer(request.user, session_id, question_id, request.POST.get("answer"))
     except ValidationError as error:
         session.refresh_from_db()
-        return render(request, "practice/session.html", question_context(session, row) | {"error": "; ".join(error.messages)}, status=400)
+        return render(request, "practice/session.html", question_context(session, row,
+            language=request.session.get(f"practice_language_{session.pk}", "both")) | {"error": "; ".join(error.messages)}, status=400)
     from django.urls import reverse
     return redirect(reverse("practice:session", args=[session.pk]) + f"?question={row.display_order}")
 

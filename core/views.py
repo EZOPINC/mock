@@ -11,7 +11,8 @@ from exams.models import Exam, ExamAuthority
 @require_safe
 def home(request):
     catalogue = ExamAuthority.objects.filter(is_active=True).prefetch_related(
-        Prefetch("exams", queryset=Exam.objects.filter(is_active=True), to_attr="available_exams"),
+        Prefetch("exams", queryset=Exam.objects.filter(
+            is_active=True), to_attr="available_exams"),
     )
     # Homepage editorial order only; database names and other discovery pages stay unchanged.
     layout = (

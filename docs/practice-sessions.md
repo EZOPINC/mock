@@ -1,6 +1,6 @@
 # Persistent Practice Engine
 
-Current reference, 2026-11-12. For the student setup use [module/difficulty discovery](practice-taxonomy.md).
+Current reference, 2026-11-12. For the student setup use [difficulty/language setup](practice-taxonomy.md).
 For its revision-specific consumer use [Revision Bank and sessions](saved-questions.md).
 
 ## Ownership and shared records
@@ -12,7 +12,7 @@ classification. Content/translation text stays in the protected Question Bank sn
 
 | Session kind | Scope | Owner-facing workflow |
 |---|---|---|
-| practice | Required Exam/Subject; optional Topic | Module/difficulty Practice Sets |
+| practice | Required Exam/Subject; optional Topic | Subject difficulty/language Practice Sets |
 | revision | Null Exam/Subject/Topic | Filtered personal Revision Bank selections |
 
 RevisionSession is a revision-only proxy, not a copied engine or additional response table.

@@ -1,13 +1,24 @@
 {% extends "base.html" %}
 {% block title %}General Questions | Mock Exam Platform{% endblock %}
 {% block content %}
-<nav class="breadcrumbs" aria-label="Breadcrumb"><a href="{% url 'home' %}">Home</a><span>/</span><span aria-current="page">General Questions</span></nav>
-{% include "components/page_heading.html" with eyebrow="LEARN AT YOUR OWN PACE" heading="General Questions & Solutions" description="Explore published question collections. Filter by exam, subject, topic, or language." %}
-{% if user.is_staff %}<p><a class="button button-secondary" href="{% url 'general_questions:manage' %}">Manage imports &amp; batch publication</a></p>{% endif %}
-{% include "general_question/filters.html" %}
-<div class="discovery-grid">
-{% for batch in page %}<article class="discovery-card"><span class="badge badge-live">{{ batch.public_count }} published question{{ batch.public_count|pluralize }}</span><h2>Collection #{{ batch.pk }}</h2><a class="text-link" href="{% url 'general_questions:collection' batch.pk %}{% if query %}?{{ query }}{% endif %}">View Questions &amp; Solutions →</a></article>
-{% empty %}{% include "components/empty_state.html" with empty_title="No published general questions match these filters." empty_description="Collections appear after an administrator explicitly reviews and publishes their questions." %}{% endfor %}
-</div>
-{% include "general_question/pagination.html" %}
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="{% url 'home' %}">Home</a><span>/</span>
+        <span aria-current="page">General Questions</span>
+    </nav>
+    {% include "components/page_heading.html" with eyebrow="LEARN AT YOUR OWN PACE" heading="General Questions & Solutions" description="Explore published question collections. Filter by exam, subject, topic, or language." %}
+    {% if user.is_staff %}
+        <p class="text-center"><a class="button button-primary"
+                                  href="{% url 'general_questions:manage' %}">Manage imports &amp; batch publication</a></p>{% endif %}
+    {% include "general_question/filters.html" %}
+    <div class="discovery-grid">
+        {% for batch in page %}
+            <article class="discovery-card"><span class="badge badge-live">{{ batch.public_count }} published question{{ batch.public_count|pluralize }}</span>
+                <h2>Collection #{{ batch.pk }}</h2>
+                <a class="text-link"
+                   href="{% url 'general_questions:collection' batch.pk %}{% if query %}?{{ query }}{% endif %}">View Questions &amp; Solutions →</a>
+            </article>
+        {% empty %}
+            {% include "components/empty_state.html" with empty_title="No published general questions match these filters." empty_description="Collections appear after an administrator explicitly reviews and publishes their questions." %}
+        {% endfor %}
+    </div>
+    {% include "general_question/pagination.html" %}
 {% endblock %}

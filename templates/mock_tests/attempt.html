@@ -5,6 +5,8 @@
 {% block content %}
 <div class="mock-execution ui-mock-exam" data-save-url="{% url 'mock_tests:save_answer' attempt.pk %}" data-status-url="{% url 'mock_tests:attempt_status' attempt.pk %}" data-confirm-url="{% url 'mock_tests:submit' attempt.pk %}">
 {% csrf_token %}{{ clock|json_script:"attempt-clock" }}
+{{ preferred_language|json_script:"mock-preferred-language" }}
+<script src="{% static 'js/mock-language.js' %}" defer></script>
 <header class="mock-exam-heading"><div><p class="eyebrow">{% include "components/icon.html" with name="clock" %} MOCK EXAM</p><h1>{{ attempt.configuration.name }}</h1><p>{{ attempt.configuration.exam_name }} &middot; {{ attempt.configuration.total_questions }} questions &middot; {{ attempt.configuration.total_marks }} marks</p></div><a class="text-link" href="{% url 'mock_tests:index' %}">Exit to Mock Tests {% include "components/icon.html" with name="arrow" %}</a></header>
 <noscript><p class="form-errors">Enable JavaScript to save answers and use the countdown. Your deadline continues while this page is closed.</p></noscript>
 <section class="mock-toolbar" aria-label="Test status">

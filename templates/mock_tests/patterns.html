@@ -1,26 +1,56 @@
 {% extends "base.html" %}
 {% block title %}{{ exam.name }} mock tests | Mock Exam Platform{% endblock %}
 {% block content %}
-<div class="mock-hub mock-patterns">
-  <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="{% url 'mock_tests:index' %}">Mock Tests</a>{% include "components/icon.html" with name="chevron" %}<a href="{% url 'mock_tests:exams' exam.authority.slug %}">{{ exam.authority.name }}</a>{% include "components/icon.html" with name="chevron" %}<span aria-current="page">{{ exam.name }}</span></nav>
-  <header class="mock-hub-heading"><div><p class="eyebrow">CHOOSE YOUR NEXT CHALLENGE</p><h1>{{ exam.name }}: available mock tests</h1><p>Compare the test format, explore its sections, and start when you are ready.</p></div><span class="mock-hub-heading-icon" aria-hidden="true">{% include "components/icon.html" with name="clock" %}</span></header>
-  <section class="mock-hub-section" aria-labelledby="mock-patterns-heading">
-    <div class="mock-hub-section-heading"><h2 id="mock-patterns-heading">Available tests</h2><a class="text-link" href="{% url 'mock_tests:exams' exam.authority.slug %}">Back to exams {% include "components/icon.html" with name="arrow" %}</a></div>
-    <div class="mock-hub-attempts">
-    {% for pattern in patterns %}
-      <article class="mock-hub-card mock-pattern-card">
-        <div class="mock-hub-card-top"><span class="ui-card-icon">{% include "components/icon.html" with name="book" %}</span><span class="badge badge-live">Mock test</span></div>
-        <h3>{{ pattern.name }}</h3>
-        {% if pattern.stage %}<p class="mock-hub-exam">{{ pattern.stage.name }}</p>{% endif %}
-        <dl class="mock-pattern-stats"><div><dt>Questions</dt><dd>{{ pattern.total_questions }}</dd></div><div><dt>Duration</dt><dd>{{ pattern.duration_minutes }} <span>min</span></dd></div><div><dt>Marks</dt><dd>{{ pattern.total_marks }}</dd></div></dl>
-        <h4 class="mock-pattern-sections-heading">Sections</h4>
-        <ul class="mock-pattern-sections">{% for section in pattern.sections.all %}<li><div><strong>{{ section.name }}</strong><span>{{ section.get_language_mode_display }}</span></div><span class="mock-pattern-section-count">{{ section.question_count }} questions</span></li>{% endfor %}</ul>
-        <a class="button button-primary" href="{% url 'mock_tests:start' pattern.pk %}">Start Test {% include "components/icon.html" with name="arrow" %}</a>
-      </article>
-    {% empty %}
-      <div class="mock-hub-empty"><span class="ui-card-icon">{% include "components/icon.html" with name="calendar" %}</span><p>No valid active mock tests are available.</p><small>Choose another exam or check back later.</small></div>
-    {% endfor %}
+  <div class="mock-hub mock-patterns">
+    <nav class="breadcrumbs"
+         aria-label="Breadcrumb"><a href="{% url 'mock_tests:index' %}">Mock Tests</a>{% include "components/icon.html" with name="chevron" %}
+      <a href="{% url 'mock_tests:exams' exam.authority.slug %}">{{ exam.authority.name }}</a>{% include "components/icon.html" with name="chevron" %}<span aria-current="page">{{ exam.name }}</span>
+    </nav>
+    <header class="mock-hub-heading">
+      <div>
+        <p class="eyebrow">CHOOSE YOUR NEXT CHALLENGE</p>
+        <h1>{{ exam.name }}: available mock tests</h1>
+        <p>Compare the test format, explore its sections, and start when you are ready.</p></div><span class="mock-hub-heading-icon" aria-hidden="true">{% include "components/icon.html" with name="clock" %}</span></header>
+      <section class="mock-hub-section" aria-labelledby="mock-patterns-heading">
+        <div class="mock-hub-section-heading">
+          <h2 id="mock-patterns-heading">Available tests</h2>
+          <a class="text-link"
+             href="{% url 'mock_tests:exams' exam.authority.slug %}">Back to exams {% include "components/icon.html" with name="arrow" icon_class="ui-back-icon" %}</a></div>
+        <div class="mock-hub-attempts">
+          {% for pattern in patterns %}
+            <article class="mock-hub-card mock-pattern-card">
+              <div class="mock-hub-card-top"><span class="ui-card-icon">{% include "components/icon.html" with name="book" %}</span><span class="badge badge-live">Mock test</span></div>
+              <h3>{{ pattern.name }}</h3>
+              {% if pattern.stage %}<p class="mock-hub-exam">{{ pattern.stage.name }}</p>{% endif %}
+              <dl class="mock-pattern-stats">
+                <div>
+                  <dt>Questions</dt>
+                  <dd>
+                    {{ pattern.total_questions }}
+                  </dd>
+                </div>
+                <div>
+                  <dt>Duration</dt>
+                  <dd>
+                    {{ pattern.duration_minutes }} <span>min</span>
+                  </dd>
+                </div>
+                <div>
+                  <dt>Marks</dt>
+                  <dd>
+                    {{ pattern.total_marks }}
+                  </dd>
+                </div>
+              </dl>
+              <h4 class="mock-pattern-sections-heading">Sections</h4>
+              <ul class="mock-pattern-sections">{% for section in pattern.sections.all %}<li><div><strong>{{ section.name }}</strong><span>{{ section.get_language_mode_display }}</span></div><span class="mock-pattern-section-count">{{ section.question_count }} questions</span></li>{% endfor %}</ul>
+              <a class="button button-primary"
+                 href="{% url 'mock_tests:start' pattern.pk %}">Go to test {% include "components/icon.html" with name="arrow" %}</a>
+            </article>
+          {% empty %}
+            <div class="mock-hub-empty"><span class="ui-card-icon">{% include "components/icon.html" with name="calendar" %}</span><p>No valid active mock tests are available.</p><small>Choose another exam or check back later.</small></div>
+          {% endfor %}
+        </div>
+      </section>
     </div>
-  </section>
-</div>
 {% endblock %}

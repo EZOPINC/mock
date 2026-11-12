@@ -30,7 +30,7 @@ Use `docs/architecture.md` for architecture context and `docs/DEVELOPMENT_RULES.
 | `previous_year` / `previous_year` | `/previous-year/` | Publication/reader -> approved QuestionRevision |
 | `general_question` / `general_questions` | `/general-questions/` | ImportBatch proxy collections -> review/publication |
 | `mock_tests` / `mock_tests` | `/mock-tests/` | Patterns/rules -> timed snapshots and scoring |
-| `practice` / `practice` | `/practice/` | Module/difficulty discovery -> shared untimed engine |
+| `practice` / `practice` | `/practice/` | Subject difficulty/language setup -> shared untimed engine |
 | `revision` / `revision` | `/revision/` | Personal bank, Practice proxy sessions, topic discovery |
 
 
@@ -119,7 +119,7 @@ Explore routes/helpers remain; per-question explore_control calls were removed f
 | Bilingual options/solutions | `templates/questions/translations.html`, `templates/questions/selectable_option.html`; no active-mock keys |
 | Practice/Revision question panel | `templates/practice/question_panel.html`; keep shared answer/bookmark forms unnested |
 | Mock execution | `templates/mock_tests/attempt.html`, `static/js/mock-test.js`, `static/css/mock-test.css`; save/version/timer contracts |
-| Practice setup | `templates/practice/configure.html`, `templates/practice/difficulty.html`; module cards then difficulty |
+| Practice setup | `templates/practice/subjects.html`, `templates/practice/difficulty.html`; subject then difficulty/language; legacy module cards in `templates/practice/configure.html` |
 | Practice feedback | `templates/practice/session.html`, `static/js/practice-ui.js`, `static/css/practice.css` |
 | Revision AJAX feedback | `templates/revision/session_body.html`, `static/js/revision-session.js`; native POST fallback |
 | Paper modes/feedback | `templates/previous_year/paper_detail.html`, `static/js/paper-practice.js`, `static/css/paper-modes.css` |

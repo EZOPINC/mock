@@ -2,12 +2,48 @@ from uuid import uuid4
 from django.core.exceptions import ValidationError
 from django.urls import reverse
 from exams.models import Module, Topic
-from questions.services import create_revision, mark_reviewed, publish_question
+from questions.services import add_translation, create_revision, mark_reviewed, publish_question
 from .models import PracticeSession
 from .tests import PracticeFixture
 
 
 class DifficultyFlowTests(PracticeFixture):
+    def test_language_preference_applies_to_question_and_feedback(self):
+        question = self.question(published=False)
+        add_translation(question, language="bn", question_text="Bengali version", option_a="BN first",
+                        option_b="BN second", option_c="BN third", option_d="BN fourth", explanation="BN feedback")
+        publish_question(mark_reviewed(question))
+        url = reverse("practice:difficulty", args=[self.authority.slug, self.exam.slug, self.subject.slug])
+        self.assertEqual(self.client.post(url, {"token": uuid4(), "difficulty": "level:", "language": "invalid"}).status_code, 400)
+        self.assertFalse(PracticeSession.objects.exists())
+        self.client.post(url, {"token": uuid4(), "difficulty": "level:", "language": "bn"})
+        session = PracticeSession.objects.get()
+        response = self.client.get(self.session_url(session))
+        self.assertContains(response, "Bengali version")
+        self.assertNotContains(response, "Original question")
+        row = session.questions.get()
+        response = self.client.post(reverse("practice:answer", args=[session.pk, row.pk]), {"answer": "A"}, follow=True)
+        self.assertContains(response, "BN feedback")
+        self.assertNotContains(response, "VERIFIED SOLUTION")
+
+    def test_subject_links_directly_to_whole_subject_setup_with_modules(self):
+        first = self.leveled_question("Easy", topic=self.module_topic)
+        second = self.leveled_question("Easy")
+        self.leveled_question("Hard", topic=self.module_topic)
+        url = reverse("practice:difficulty", args=[self.authority.slug, self.exam.slug, self.subject.slug])
+        subjects = reverse("practice:subjects", args=[self.authority.slug, self.exam.slug])
+        self.assertContains(self.client.get(subjects), url)
+        response = self.client.get(url)
+        self.assertContains(response, "Easy - 2 questions")
+        self.assertContains(response, 'name="language"')
+        self.assertNotContains(response, "Back to modules")
+        self.assertFalse(PracticeSession.objects.exists())
+        self.client.post(url, {"token": uuid4(), "difficulty": "level:easy", "language": "bn"})
+        session = PracticeSession.objects.get()
+        self.assertEqual(set(session.questions.values_list("question_id", flat=True)), {first.pk, second.pk})
+        # English-only questions remain readable when Bengali was preferred.
+        self.assertContains(self.client.get(self.session_url(session)), "Difficulty question")
+
     def setUp(self):
         self.client.force_login(self.user)
         self.module = Module.objects.create(subject=self.subject, name="Foundations", slug="foundations")

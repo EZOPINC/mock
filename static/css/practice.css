@@ -29,7 +29,10 @@
 .practice-setup .practice-module-card h3,.practice-setup .practice-module-card p{margin:0;overflow-wrap:anywhere}
 .practice-setup .practice-module-card p{color:#5c6d7c}
 .practice-module-cta{display:flex;align-items:center;gap:.5rem;margin-top:auto;padding-top:.75rem;color:#06665f;font-weight:600}
-.practice-setup .practice-difficulty-card{max-width:48rem;padding:clamp(1rem,4vw,2rem);margin-bottom:1.5rem}
+.practice-setup .practice-difficulty-card{max-width:64rem;padding:clamp(1rem,4vw,2rem);margin:0 auto 1.5rem}
+.practice-setup-choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2rem;margin-top:1.5rem}
+@media(max-width:40rem){.practice-setup-choices{grid-template-columns:minmax(0,1fr);gap:0}}
+.practice-setup .practice-back-actions{justify-content:center}
 .practice-difficulty-card fieldset{border:0;padding:0;margin:0 0 1.5rem;min-width:0}
 .practice-difficulty-card legend{font-size:1.2rem;font-weight:700}
 .practice-difficulty-card fieldset>p{color:#5c6d7c}

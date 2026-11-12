@@ -6,24 +6,26 @@ configuration-page description; legacy service helpers remain for compatibility.
 ## Current student flow
 
 1. Choose an authority/category, Exam and eligible Subject.
-2. The Subject configure page lists only Modules with eligible descendant questions.
-3. Choose a Module; the next page lists available published difficulty levels and counts.
-4. Choose difficulty and start all eligible questions at that level in randomized order.
-5. Subjects without eligible Modules can continue with the whole Subject instead.
+2. Selecting a Subject opens the combined difficulty and language page directly.
+3. Choose a published difficulty level and English, Bengali or Both.
+4. Start all eligible questions at that level across the whole Subject in randomized order.
+5. The language display preference is kept in the browser's Django session per practice
+   session; questions without the selected translation show their available translations.
 
 No Part/Chapter/Topic dropdown or question-size selector appears in the new setup.
 The old configure POST only resumes matching historical tokens; new starts go through
-the difficulty page. Empty pools show an explicit message and create no session.
+the difficulty page. Legacy module routes remain available for compatibility, but the
+subject cards skip module selection. Empty pools show an explicit message and create no session.
 
 ## Files and selectors
 
 | File | Current responsibility |
 |---|---|
-| practice/views.py | configure/module cards; difficulty selection and start orchestration |
+| practice/views.py | Combined difficulty/language setup and start orchestration; legacy module cards |
 | practice/forms.py | PracticeDifficultyForm; legacy PracticeStartForm remains implemented |
 | practice/discovery.py | PracticeTaxonomy pools/ancestry; difficulty_pools; configuration_matches |
 | templates/practice/configure.html | Available Module cards / whole-Subject fallback |
-| templates/practice/difficulty.html | Difficulty choices and explicit Start practice POST |
+| templates/practice/difficulty.html | Difficulty/language choices and explicit Start practice POST |
 
 PracticeTaxonomy reuses exam eligibility and distinct master IDs from primary/secondary
 QuestionTopic tags. Stored parent FKs support every permitted skipped level. A selected

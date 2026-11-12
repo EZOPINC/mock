@@ -241,11 +241,12 @@ class AttemptViewTests(AttemptFixture):
     def test_start_resume_and_ownership(self):
         self.ready()
         self.client.force_login(self.user)
-        response = self.client.post(self.start_url())
+        response = self.client.post(self.start_url(), {"language": "bn"})
         attempt = MockAttempt.objects.get()
         self.assertRedirects(response, self.detail_url(attempt))
         self.assertRedirects(self.client.post(self.start_url()), self.detail_url(attempt))
         self.assertRedirects(self.client.get(self.start_url()), self.detail_url(attempt))
+        self.assertEqual(self.client.get(self.detail_url(attempt)).context["preferred_language"], "bn")
         self.assertEqual(MockAttempt.objects.count(), 1)
         self.assertContains(self.client.get(reverse("mock_tests:index")), "Resume Pattern")
         self.client.force_login(self.other_user)

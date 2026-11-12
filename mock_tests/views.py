@@ -75,6 +75,8 @@ def test_start(request, pattern_id):
         except ValidationError as exception:
             error = "; ".join(exception.messages)
         else:
+            language = request.POST.get("language", "both")
+            request.session[f"mock_language_{attempt.pk}"] = language if language in {"en", "bn", "both"} else "both"
             return redirect("mock_tests:attempt_detail", attempt_id=attempt.pk)
     elif not any(item.pk == pattern.pk for item in available_patterns(pk=pattern.pk)):
         raise Http404
@@ -104,7 +106,7 @@ def attempt_context(request, attempt_id):
     for row in rows:
         row.bookmark_anchor = f"question-{row.display_order}"
         row.section_snapshot = sections[row.section_id]
-    return {"attempt": attempt, "rows": rows, "options": "ABCD", "clock": {
+    return {"attempt": attempt, "rows": rows, "options": "ABCD", "preferred_language": request.session.get(f"mock_language_{attempt.pk}", "both"), "clock": {
         "server_now": timezone.now().isoformat(), "deadline": attempt.expires_at.isoformat() if attempt.expires_at else None,
         "version": attempt.save_version, "position": attempt.last_position,
     }}

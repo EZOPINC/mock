@@ -40,6 +40,8 @@ class PracticeStartForm(forms.Form):
 
 class PracticeDifficultyForm(forms.Form):
     difficulty = forms.ChoiceField(label="Choose a difficulty", widget=forms.RadioSelect)
+    language = forms.ChoiceField(label="Question language", choices=[("both", "Both"), ("en", "English"), ("bn", "Bengali")],
+                                 widget=forms.RadioSelect, required=False, initial="both")
     token = forms.UUIDField(widget=forms.HiddenInput, initial=uuid4)
 
     def __init__(self, *args, pools, **kwargs):
