@@ -8,6 +8,43 @@ from .tests import PracticeFixture
 
 
 class DifficultyFlowTests(PracticeFixture):
+    def test_selected_language_filters_pool_and_rendered_versions(self):
+        english = self.question()
+        bengali = self.question(language="bn")
+        bilingual = self.question(published=False)
+        add_translation(bilingual, language="bn", question_text="Bengali edition", option_a="BN A",
+                        option_b="BN B", option_c="BN C", option_d="BN D")
+        publish_question(mark_reviewed(bilingual))
+        expected = {"en": {english.pk, bilingual.pk}, "bn": {bengali.pk, bilingual.pk},
+                    "both": {english.pk, bengali.pk, bilingual.pk}}
+        for language in ("en", "bn", "both"):
+            with self.subTest(language=language):
+                session = self.session(language=language)
+                self.assertEqual(set(session.questions.values_list("question_id", flat=True)), expected[language])
+                row = session.questions.get(question=bilingual)
+                response = self.client.get(self.session_url(session) + f"?question={row.display_order}")
+                for code in ("en", "bn"):
+                    marker = f'lang="{code}" aria-label='
+                    if language in (code, "both"):
+                        self.assertContains(response, marker)
+                    else:
+                        self.assertNotContains(response, marker)
+
+    def test_unavailable_or_invalid_language_creates_no_session(self):
+        question = self.question()
+        # A working translation must not make an English published revision Bengali-eligible.
+        add_translation(question, language="bn", question_text="Unpublished Bengali", option_a="A",
+                        option_b="B", option_c="C", option_d="D")
+        for language in ("bn", "invalid"):
+            with self.subTest(language=language), self.assertRaises(ValidationError):
+                self.session(language=language)
+        self.assertFalse(PracticeSession.objects.exists())
+
+        url = reverse("practice:difficulty", args=[self.authority.slug, self.exam.slug, self.subject.slug])
+        response = self.client.post(url, {"token": uuid4(), "difficulty": "level:", "language": "bn"})
+        self.assertContains(response, "Insufficient eligible questions", status_code=400)
+        self.assertFalse(PracticeSession.objects.exists())
+
     def test_language_preference_applies_to_question_and_feedback(self):
         question = self.question(published=False)
         add_translation(question, language="bn", question_text="Bengali version", option_a="BN first",
@@ -18,6 +55,9 @@ class DifficultyFlowTests(PracticeFixture):
         self.assertFalse(PracticeSession.objects.exists())
         self.client.post(url, {"token": uuid4(), "difficulty": "level:", "language": "bn"})
         session = PracticeSession.objects.get()
+        self.assertEqual(session.configuration["language"], "bn")
+        self.client.logout()
+        self.client.force_login(self.user)
         response = self.client.get(self.session_url(session))
         self.assertContains(response, "Bengali version")
         self.assertNotContains(response, "Original question")
@@ -25,6 +65,9 @@ class DifficultyFlowTests(PracticeFixture):
         response = self.client.post(reverse("practice:answer", args=[session.pk, row.pk]), {"answer": "A"}, follow=True)
         self.assertContains(response, "BN feedback")
         self.assertNotContains(response, "VERIFIED SOLUTION")
+        self.assertRedirects(self.client.post(url, {"token": session.start_token, "difficulty": "level:", "language": "en"}), self.session_url(session))
+        session.refresh_from_db()
+        self.assertEqual(session.configuration["language"], "bn")
 
     def test_subject_links_to_modules_then_difficulty_and_language(self):
         first = self.leveled_question("Easy", topic=self.module_topic)
@@ -39,10 +82,10 @@ class DifficultyFlowTests(PracticeFixture):
         self.assertContains(response, 'name="language"')
         self.assertContains(response, "Back to modules")
         self.assertFalse(PracticeSession.objects.exists())
-        self.client.post(url, {"token": uuid4(), "difficulty": "level:easy", "language": "bn"})
+        self.client.post(url, {"token": uuid4(), "difficulty": "level:easy", "language": "en"})
         session = PracticeSession.objects.get()
         self.assertEqual(set(session.questions.values_list("question_id", flat=True)), {first.pk})
-        # English-only questions remain readable when Bengali was preferred.
+        self.assertEqual(session.configuration["language"], "en")
         self.assertContains(self.client.get(self.session_url(session)), "Difficulty question")
 
     def setUp(self):

@@ -10,6 +10,13 @@ implemented response model; the old PracticeResponse name was a target-design la
 Rows store master IDs, approved revision IDs, order, answer/correctness/time and frozen
 classification. Content/translation text stays in the protected Question Bank snapshots.
 
+New Practice sessions store `configuration.language` via
+`start_session(..., language="both")`. English/Bengali choices restrict the locked,
+rechecked candidate pool to complete published translations in that language; Both
+keeps all eligible versions. The server renders the frozen choice for questions and
+feedback. Retries preserve the original configuration. Historical sessions without
+this key retain legacy display behavior. Revision sessions use their existing workflow.
+
 | Session kind | Scope | Owner-facing workflow |
 |---|---|---|
 | practice | Required Exam/Subject; optional Topic | Module difficulty/language Practice Sets |

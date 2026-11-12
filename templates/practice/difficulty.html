@@ -10,13 +10,13 @@
     {% csrf_token %}{{ form.token }}{{ form.token.errors }}
     {% if form.non_field_errors %}<div class="form-errors" role="alert">{{ form.non_field_errors }}</div>{% endif %}
     {% if available_count %}
-      <p>Practise all available questions at your selected level. No timer, with feedback after every answer.</p>
+      <p>Practise questions at your selected level and language. Counts below are before language filtering. No timer, with feedback after every answer.</p>
       <div class="practice-setup-choices">
       <fieldset><legend>Select a difficulty level</legend>
       {{ form.difficulty.errors }}<div class="practice-difficulty-options">{% for choice in form.difficulty %}<label>{{ choice.tag }}<span>{{ choice.choice_label }}</span></label>{% endfor %}</div></fieldset>
       <fieldset><legend>Select a question language</legend>
         {{ form.language.errors }}<div class="practice-difficulty-options">{% for choice in form.language %}<label>{{ choice.tag }}<span>{{ choice.choice_label }}</span></label>{% endfor %}</div>
-        <p>Your preference applies where the translation is available. Otherwise, the available language is shown.</p>
+        <p>English or Bengali includes only questions available in that language. Both shows all available versions. Your selection is saved when you start and preserved when you resume.</p>
       </fieldset>
       </div>
       <button type="submit" class="button button-primary">Start practice {% include "components/icon.html" with name="arrow" %}</button>

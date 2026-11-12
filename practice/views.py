@@ -107,11 +107,11 @@ def difficulty(request, authority_slug, exam_slug, subject_slug, module_id=None)
     if request.method == "POST" and form.is_valid():
         try:
             session = start_session(request.user, exam=exam, subject=subject, module=module,
-                difficulty=form.cleaned_data["difficulty"], token=form.cleaned_data["token"])
+                difficulty=form.cleaned_data["difficulty"], token=form.cleaned_data["token"],
+                language=form.cleaned_data["language"] or "both")
         except ValidationError as error:
             form.add_error(None, error)
         else:
-            request.session[f"practice_language_{session.pk}"] = form.cleaned_data["language"] or "both"
             return redirect("practice:session", session_id=session.pk)
     return render(request, "practice/difficulty.html", {"exam": exam, "subject": subject,
         "module": module, "form": form, "available_count": sum(map(len, pools.values()))},
@@ -119,9 +119,12 @@ def difficulty(request, authority_slug, exam_slug, subject_slug, module_id=None)
 
 
 def question_context(session, row, *, translations=None, language="both"):
+    if session.kind == "practice":
+        language = session.configuration.get("language", language)
     translations = translations if translations is not None else QuestionTranslation.objects.annotate(_order=Case(When(language="en", then=Value(0)),
         When(language="bn", then=Value(1)), default=Value(2), output_field=IntegerField())).order_by("_order", "language", "pk")
-    if language in {"en", "bn"} and translations.filter(revision_id=row.question_revision_id, language=language).exists():
+    if language in {"en", "bn"} and ("language" in session.configuration or
+            translations.filter(revision_id=row.question_revision_id, language=language).exists()):
         translations = translations.filter(language=language)
     row = PracticeQuestion.objects.select_related("question_revision").prefetch_related(
         Prefetch("question_revision__translations", queryset=translations)).get(pk=row.pk, session=session)

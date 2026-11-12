@@ -238,7 +238,7 @@ class PracticeServiceTests(PracticeFixture):
         paper = PreviousYearPaper.objects.create(exam=self.exam, year=2019, paper_name="Original")
         paper_row = PaperQuestion.objects.create(paper=paper, question_revision=question.published_revision, question_number="40", display_order=1)
         pattern = ExamPattern.objects.create(exam=self.exam, name="Mock", total_questions=1, duration_minutes=30, total_marks=1)
-        ExamPatternSection.objects.create(pattern=pattern, name="Section", question_count=1, display_order=1)
+        ExamPatternSection.objects.create(pattern=pattern, name="Section", question_count=1, display_order=1, language_mode="en")
         activate_pattern(pattern)
         attempt = start_attempt(self.user, pattern)
         session = self.session()

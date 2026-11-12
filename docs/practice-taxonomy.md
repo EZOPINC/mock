@@ -10,8 +10,12 @@ configuration-page description; legacy service helpers remain for compatibility.
 3. Select a Module, then choose a published difficulty level and English, Bengali or Both.
 4. Start all eligible questions at that level in the selected Module in randomized order.
    Subjects without eligible Modules can continue with the whole Subject instead.
-5. The language display preference is kept in the browser's Django session per practice
-   session; questions without the selected translation show their available translations.
+5. English or Bengali selects only questions with a complete matching translation in
+   their published revision. Both includes all eligible questions and shows their available
+   translations. Difficulty counts are shown before language filtering.
+6. The language is saved in the immutable Practice configuration and restored across
+   logins/devices for questions and feedback. Historical sessions retain their question
+   sets and legacy display behavior; no migration is required.
 
 No Part/Chapter/Topic dropdown or question-size selector appears in the new setup.
 The old configure POST only resumes matching historical tokens; new starts go through
