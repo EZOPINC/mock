@@ -1,0 +1,1564 @@
+{
+  "schema_version": 1,
+  "subject": {
+    "code": "reasoning",
+    "title": "General Intelligence and Reasoning"
+  },
+  "modules": [
+    {
+      "code": "reas-m01",
+      "subject_code": "reasoning",
+      "title": "Verbal Reasoning: Patterns and Relationships",
+      "sort_order": 1
+    },
+    {
+      "code": "reas-m02",
+      "subject_code": "reasoning",
+      "title": "Verbal Reasoning: Coding, Alphabet and Sequence Tests",
+      "sort_order": 2
+    },
+    {
+      "code": "reas-m03",
+      "subject_code": "reasoning",
+      "title": "Verbal Reasoning: Relations, Directions and Arrangements",
+      "sort_order": 3
+    },
+    {
+      "code": "reas-m04",
+      "subject_code": "reasoning",
+      "title": "Verbal Reasoning: Mathematical Reasoning",
+      "sort_order": 4
+    },
+    {
+      "code": "reas-m05",
+      "subject_code": "reasoning",
+      "title": "Verbal Reasoning: Decision Making and Judgement",
+      "sort_order": 5
+    },
+    {
+      "code": "reas-m06",
+      "subject_code": "reasoning",
+      "title": "Logical Deduction",
+      "sort_order": 6
+    },
+    {
+      "code": "reas-m07",
+      "subject_code": "reasoning",
+      "title": "Non-Verbal Reasoning: Series, Analogy and Classification",
+      "sort_order": 7
+    },
+    {
+      "code": "reas-m08",
+      "subject_code": "reasoning",
+      "title": "Non-Verbal Reasoning: Patterns and Analysis",
+      "sort_order": 8
+    },
+    {
+      "code": "reas-m09",
+      "subject_code": "reasoning",
+      "title": "Non-Verbal Reasoning: Images and Figure Manipulation",
+      "sort_order": 9
+    },
+    {
+      "code": "reas-m10",
+      "subject_code": "reasoning",
+      "title": "Non-Verbal Reasoning: Cubes, Dice and Figure Construction",
+      "sort_order": 10
+    }
+  ],
+  "chapters": [
+    {
+      "code": "reas-c01",
+      "subject_code": "reasoning",
+      "module_code": "reas-m01",
+      "title": "Series Completion (Verbal)",
+      "sort_order": 1
+    },
+    {
+      "code": "reas-c02",
+      "subject_code": "reasoning",
+      "module_code": "reas-m01",
+      "title": "Analogy (Verbal)",
+      "sort_order": 2
+    },
+    {
+      "code": "reas-c03",
+      "subject_code": "reasoning",
+      "module_code": "reas-m01",
+      "title": "Classification (Odd One Out, Verbal)",
+      "sort_order": 3
+    },
+    {
+      "code": "reas-c04",
+      "subject_code": "reasoning",
+      "module_code": "reas-m01",
+      "title": "Inserting the Missing Character",
+      "sort_order": 4
+    },
+    {
+      "code": "reas-c05",
+      "subject_code": "reasoning",
+      "module_code": "reas-m01",
+      "title": "Alpha-Numeric Sequence Puzzle",
+      "sort_order": 5
+    },
+    {
+      "code": "reas-c06",
+      "subject_code": "reasoning",
+      "module_code": "reas-m02",
+      "title": "Coding-Decoding",
+      "sort_order": 6
+    },
+    {
+      "code": "reas-c07",
+      "subject_code": "reasoning",
+      "module_code": "reas-m02",
+      "title": "Alphabet Test",
+      "sort_order": 7
+    },
+    {
+      "code": "reas-c08",
+      "subject_code": "reasoning",
+      "module_code": "reas-m02",
+      "title": "Number, Ranking and Time Sequence Test",
+      "sort_order": 8
+    },
+    {
+      "code": "reas-c09",
+      "subject_code": "reasoning",
+      "module_code": "reas-m02",
+      "title": "Logical Sequence of Words",
+      "sort_order": 9
+    },
+    {
+      "code": "reas-c10",
+      "subject_code": "reasoning",
+      "module_code": "reas-m03",
+      "title": "Blood Relations",
+      "sort_order": 10
+    },
+    {
+      "code": "reas-c11",
+      "subject_code": "reasoning",
+      "module_code": "reas-m03",
+      "title": "Direction Sense Test",
+      "sort_order": 11
+    },
+    {
+      "code": "reas-c12",
+      "subject_code": "reasoning",
+      "module_code": "reas-m03",
+      "title": "Puzzle Test",
+      "sort_order": 12
+    },
+    {
+      "code": "reas-c13",
+      "subject_code": "reasoning",
+      "module_code": "reas-m03",
+      "title": "Sequential Output Tracing",
+      "sort_order": 13
+    },
+    {
+      "code": "reas-c14",
+      "subject_code": "reasoning",
+      "module_code": "reas-m03",
+      "title": "Logical Venn Diagrams",
+      "sort_order": 14
+    },
+    {
+      "code": "reas-c15",
+      "subject_code": "reasoning",
+      "module_code": "reas-m04",
+      "title": "Mathematical Operations",
+      "sort_order": 15
+    },
+    {
+      "code": "reas-c16",
+      "subject_code": "reasoning",
+      "module_code": "reas-m04",
+      "title": "Arithmetical Reasoning",
+      "sort_order": 16
+    },
+    {
+      "code": "reas-c17",
+      "subject_code": "reasoning",
+      "module_code": "reas-m04",
+      "title": "Data Sufficiency",
+      "sort_order": 17
+    },
+    {
+      "code": "reas-c18",
+      "subject_code": "reasoning",
+      "module_code": "reas-m05",
+      "title": "Eligibility Test",
+      "sort_order": 18
+    },
+    {
+      "code": "reas-c19",
+      "subject_code": "reasoning",
+      "module_code": "reas-m05",
+      "title": "Assertion and Reason",
+      "sort_order": 19
+    },
+    {
+      "code": "reas-c20",
+      "subject_code": "reasoning",
+      "module_code": "reas-m05",
+      "title": "Situation Reaction Test",
+      "sort_order": 20
+    },
+    {
+      "code": "reas-c21",
+      "subject_code": "reasoning",
+      "module_code": "reas-m05",
+      "title": "Verification of Truth of the Statement",
+      "sort_order": 21
+    },
+    {
+      "code": "reas-c22",
+      "subject_code": "reasoning",
+      "module_code": "reas-m06",
+      "title": "Logic: Syllogism",
+      "sort_order": 22
+    },
+    {
+      "code": "reas-c23",
+      "subject_code": "reasoning",
+      "module_code": "reas-m06",
+      "title": "Statement and Arguments",
+      "sort_order": 23
+    },
+    {
+      "code": "reas-c24",
+      "subject_code": "reasoning",
+      "module_code": "reas-m06",
+      "title": "Statement and Assumptions",
+      "sort_order": 24
+    },
+    {
+      "code": "reas-c25",
+      "subject_code": "reasoning",
+      "module_code": "reas-m06",
+      "title": "Statement and Courses of Action",
+      "sort_order": 25
+    },
+    {
+      "code": "reas-c26",
+      "subject_code": "reasoning",
+      "module_code": "reas-m06",
+      "title": "Statement and Conclusions",
+      "sort_order": 26
+    },
+    {
+      "code": "reas-c27",
+      "subject_code": "reasoning",
+      "module_code": "reas-m06",
+      "title": "Deriving Conclusions from Passages",
+      "sort_order": 27
+    },
+    {
+      "code": "reas-c28",
+      "subject_code": "reasoning",
+      "module_code": "reas-m06",
+      "title": "Theme Detection",
+      "sort_order": 28
+    },
+    {
+      "code": "reas-c29",
+      "subject_code": "reasoning",
+      "module_code": "reas-m06",
+      "title": "Cause and Effect Reasoning",
+      "sort_order": 29
+    },
+    {
+      "code": "reas-c30",
+      "subject_code": "reasoning",
+      "module_code": "reas-m07",
+      "title": "Series (Figures)",
+      "sort_order": 30
+    },
+    {
+      "code": "reas-c31",
+      "subject_code": "reasoning",
+      "module_code": "reas-m07",
+      "title": "Analogy (Figures)",
+      "sort_order": 31
+    },
+    {
+      "code": "reas-c32",
+      "subject_code": "reasoning",
+      "module_code": "reas-m07",
+      "title": "Classification (Figures)",
+      "sort_order": 32
+    },
+    {
+      "code": "reas-c33",
+      "subject_code": "reasoning",
+      "module_code": "reas-m08",
+      "title": "Analytical Reasoning (Figures)",
+      "sort_order": 33
+    },
+    {
+      "code": "reas-c34",
+      "subject_code": "reasoning",
+      "module_code": "reas-m08",
+      "title": "Completion of Incomplete Pattern",
+      "sort_order": 34
+    },
+    {
+      "code": "reas-c35",
+      "subject_code": "reasoning",
+      "module_code": "reas-m08",
+      "title": "Figure Matrix",
+      "sort_order": 35
+    },
+    {
+      "code": "reas-c36",
+      "subject_code": "reasoning",
+      "module_code": "reas-m08",
+      "title": "Rule Detection",
+      "sort_order": 36
+    },
+    {
+      "code": "reas-c37",
+      "subject_code": "reasoning",
+      "module_code": "reas-m08",
+      "title": "Dot Situation",
+      "sort_order": 37
+    },
+    {
+      "code": "reas-c38",
+      "subject_code": "reasoning",
+      "module_code": "reas-m09",
+      "title": "Mirror Images",
+      "sort_order": 38
+    },
+    {
+      "code": "reas-c39",
+      "subject_code": "reasoning",
+      "module_code": "reas-m09",
+      "title": "Water Images",
+      "sort_order": 39
+    },
+    {
+      "code": "reas-c40",
+      "subject_code": "reasoning",
+      "module_code": "reas-m09",
+      "title": "Spotting Out the Embedded Figure",
+      "sort_order": 40
+    },
+    {
+      "code": "reas-c41",
+      "subject_code": "reasoning",
+      "module_code": "reas-m09",
+      "title": "Paper Folding",
+      "sort_order": 41
+    },
+    {
+      "code": "reas-c42",
+      "subject_code": "reasoning",
+      "module_code": "reas-m09",
+      "title": "Paper Cutting",
+      "sort_order": 42
+    },
+    {
+      "code": "reas-c43",
+      "subject_code": "reasoning",
+      "module_code": "reas-m09",
+      "title": "Grouping of Identical Figures",
+      "sort_order": 43
+    },
+    {
+      "code": "reas-c44",
+      "subject_code": "reasoning",
+      "module_code": "reas-m10",
+      "title": "Cubes and Dice",
+      "sort_order": 44
+    },
+    {
+      "code": "reas-c45",
+      "subject_code": "reasoning",
+      "module_code": "reas-m10",
+      "title": "Construction of Squares and Triangles",
+      "sort_order": 45
+    },
+    {
+      "code": "reas-c46",
+      "subject_code": "reasoning",
+      "module_code": "reas-m10",
+      "title": "Figure Formation and Analysis",
+      "sort_order": 46
+    }
+  ],
+  "topics": [
+    {
+      "code": "reas-c01-t01",
+      "chapter_code": "reas-c01",
+      "title": "Number series",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "reas-c01-t02",
+      "chapter_code": "reas-c01",
+      "title": "Alphabet series",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "reas-c01-t03",
+      "chapter_code": "reas-c01",
+      "title": "Alpha-numeric series",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "reas-c01-t04",
+      "chapter_code": "reas-c01",
+      "title": "Continuous pattern series",
+      "notes": "",
+      "sort_order": 4
+    },
+    {
+      "code": "reas-c02-t01",
+      "chapter_code": "reas-c02",
+      "title": "Completing the analogous pair",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "reas-c02-t02",
+      "chapter_code": "reas-c02",
+      "title": "Direct or simple analogy",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "reas-c02-t03",
+      "chapter_code": "reas-c02",
+      "title": "Choosing the analogous pair",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "reas-c02-t04",
+      "chapter_code": "reas-c02",
+      "title": "Double analogy",
+      "notes": "",
+      "sort_order": 4
+    },
+    {
+      "code": "reas-c02-t05",
+      "chapter_code": "reas-c02",
+      "title": "Choosing a similar word",
+      "notes": "",
+      "sort_order": 5
+    },
+    {
+      "code": "reas-c02-t06",
+      "chapter_code": "reas-c02",
+      "title": "Detecting analogies",
+      "notes": "",
+      "sort_order": 6
+    },
+    {
+      "code": "reas-c02-t07",
+      "chapter_code": "reas-c02",
+      "title": "Multiple-word analogy",
+      "notes": "",
+      "sort_order": 7
+    },
+    {
+      "code": "reas-c02-t08",
+      "chapter_code": "reas-c02",
+      "title": "Number analogy",
+      "notes": "",
+      "sort_order": 8
+    },
+    {
+      "code": "reas-c02-t09",
+      "chapter_code": "reas-c02",
+      "title": "Alphabet analogy",
+      "notes": "",
+      "sort_order": 9
+    },
+    {
+      "code": "reas-c03-t01",
+      "chapter_code": "reas-c03",
+      "title": "Choosing the odd word",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "reas-c03-t02",
+      "chapter_code": "reas-c03",
+      "title": "Choosing the odd pair of words",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "reas-c03-t03",
+      "chapter_code": "reas-c03",
+      "title": "Choosing the odd numeral",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "reas-c03-t04",
+      "chapter_code": "reas-c03",
+      "title": "Choosing the odd numeral pair or group",
+      "notes": "",
+      "sort_order": 4
+    },
+    {
+      "code": "reas-c03-t05",
+      "chapter_code": "reas-c03",
+      "title": "Choosing the odd letter group",
+      "notes": "",
+      "sort_order": 5
+    },
+    {
+      "code": "reas-c04-t01",
+      "chapter_code": "reas-c04",
+      "title": "Number and letter matrices",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "reas-c04-t02",
+      "chapter_code": "reas-c04",
+      "title": "Figure-based missing numbers",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "reas-c04-t03",
+      "chapter_code": "reas-c04",
+      "title": "Pattern identification",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "reas-c05-t01",
+      "chapter_code": "reas-c05",
+      "title": "Letter and number sequences",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "reas-c05-t02",
+      "chapter_code": "reas-c05",
+      "title": "Position-based questions",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "reas-c05-t03",
+      "chapter_code": "reas-c05",
+      "title": "Rearrangement problems",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "reas-c06-t01",
+      "chapter_code": "reas-c06",
+      "title": "Letter coding",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "reas-c06-t02",
+      "chapter_code": "reas-c06",
+      "title": "Direct letter coding",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "reas-c06-t03",
+      "chapter_code": "reas-c06",
+      "title": "Number or symbol coding",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "reas-c06-t04",
+      "chapter_code": "reas-c06",
+      "title": "Matrix coding",
+      "notes": "",
+      "sort_order": 4
+    },
+    {
+      "code": "reas-c06-t05",
+      "chapter_code": "reas-c06",
+      "title": "Substitution",
+      "notes": "",
+      "sort_order": 5
+    },
+    {
+      "code": "reas-c06-t06",
+      "chapter_code": "reas-c06",
+      "title": "Deciphering message word codes",
+      "notes": "",
+      "sort_order": 6
+    },
+    {
+      "code": "reas-c06-t07",
+      "chapter_code": "reas-c06",
+      "title": "Deciphering number and symbol codes for messages",
+      "notes": "",
+      "sort_order": 7
+    },
+    {
+      "code": "reas-c06-t08",
+      "chapter_code": "reas-c06",
+      "title": "Jumbled coding",
+      "notes": "",
+      "sort_order": 8
+    },
+    {
+      "code": "reas-c07-t01",
+      "chapter_code": "reas-c07",
+      "title": "Alphabetical order of words",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "reas-c07-t02",
+      "chapter_code": "reas-c07",
+      "title": "Letter-word problems",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "reas-c07-t03",
+      "chapter_code": "reas-c07",
+      "title": "Rule detection",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "reas-c07-t04",
+      "chapter_code": "reas-c07",
+      "title": "Alphabetical quibble",
+      "notes": "",
+      "sort_order": 4
+    },
+    {
+      "code": "reas-c07-t05",
+      "chapter_code": "reas-c07",
+      "title": "Word formation by unscrambling letters",
+      "notes": "",
+      "sort_order": 5
+    },
+    {
+      "code": "reas-c07-t06",
+      "chapter_code": "reas-c07",
+      "title": "Word formation using letters of a given word",
+      "notes": "",
+      "sort_order": 6
+    },
+    {
+      "code": "reas-c08-t01",
+      "chapter_code": "reas-c08",
+      "title": "Number test",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "reas-c08-t02",
+      "chapter_code": "reas-c08",
+      "title": "Ranking test",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "reas-c08-t03",
+      "chapter_code": "reas-c08",
+      "title": "Time sequence test",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "reas-c09-t01",
+      "chapter_code": "reas-c09",
+      "title": "Arranging words in logical order",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "reas-c09-t02",
+      "chapter_code": "reas-c09",
+      "title": "Dictionary and process order",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "reas-c09-t03",
+      "chapter_code": "reas-c09",
+      "title": "Stages and hierarchy",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "reas-c10-t01",
+      "chapter_code": "reas-c10",
+      "title": "Deciphering jumbled-up descriptions",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "reas-c10-t02",
+      "chapter_code": "reas-c10",
+      "title": "Relation puzzle",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "reas-c10-t03",
+      "chapter_code": "reas-c10",
+      "title": "Coded relations",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "reas-c11-t01",
+      "chapter_code": "reas-c11",
+      "title": "Distance and direction problems",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "reas-c11-t02",
+      "chapter_code": "reas-c11",
+      "title": "Shadow-based questions",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "reas-c11-t03",
+      "chapter_code": "reas-c11",
+      "title": "Final position and turns",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "reas-c12-t01",
+      "chapter_code": "reas-c12",
+      "title": "Classification-type questions",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "reas-c12-t02",
+      "chapter_code": "reas-c12",
+      "title": "Seating and placing arrangements",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "reas-c12-t03",
+      "chapter_code": "reas-c12",
+      "title": "Comparison-type questions",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "reas-c12-t04",
+      "chapter_code": "reas-c12",
+      "title": "Sequential order of things",
+      "notes": "",
+      "sort_order": 4
+    },
+    {
+      "code": "reas-c12-t05",
+      "chapter_code": "reas-c12",
+      "title": "Selection based on given conditions",
+      "notes": "",
+      "sort_order": 5
+    },
+    {
+      "code": "reas-c12-t06",
+      "chapter_code": "reas-c12",
+      "title": "Family-based puzzles",
+      "notes": "",
+      "sort_order": 6
+    },
+    {
+      "code": "reas-c12-t07",
+      "chapter_code": "reas-c12",
+      "title": "Jumbled problems",
+      "notes": "",
+      "sort_order": 7
+    },
+    {
+      "code": "reas-c12-t08",
+      "chapter_code": "reas-c12",
+      "title": "Miscellaneous puzzles",
+      "notes": "",
+      "sort_order": 8
+    },
+    {
+      "code": "reas-c12-t09",
+      "chapter_code": "reas-c12",
+      "title": "Scoreboard",
+      "notes": "",
+      "sort_order": 9
+    },
+    {
+      "code": "reas-c13-t01",
+      "chapter_code": "reas-c13",
+      "title": "Input-output machines",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "reas-c13-t02",
+      "chapter_code": "reas-c13",
+      "title": "Step-wise rearrangement",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "reas-c13-t03",
+      "chapter_code": "reas-c13",
+      "title": "Finding the step or the input",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "reas-c14-t01",
+      "chapter_code": "reas-c14",
+      "title": "Type 1: simple relationships",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "reas-c14-t02",
+      "chapter_code": "reas-c14",
+      "title": "Type 2: complex relationships and overlaps",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "reas-c15-t01",
+      "chapter_code": "reas-c15",
+      "title": "Problem-solving by substitution",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "reas-c15-t02",
+      "chapter_code": "reas-c15",
+      "title": "Interchange of signs and numbers",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "reas-c15-t03",
+      "chapter_code": "reas-c15",
+      "title": "Deriving the appropriate conclusions",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "reas-c16-t01",
+      "chapter_code": "reas-c16",
+      "title": "Calculation-based problems",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "reas-c16-t02",
+      "chapter_code": "reas-c16",
+      "title": "Data-based questions",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "reas-c16-t03",
+      "chapter_code": "reas-c16",
+      "title": "Problems on ages",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "reas-c16-t04",
+      "chapter_code": "reas-c16",
+      "title": "Venn-diagram based questions",
+      "notes": "",
+      "sort_order": 4
+    },
+    {
+      "code": "reas-c17-t01",
+      "chapter_code": "reas-c17",
+      "title": "Questions with two statements",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "reas-c17-t02",
+      "chapter_code": "reas-c17",
+      "title": "Deciding if data is sufficient",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "reas-c17-t03",
+      "chapter_code": "reas-c17",
+      "title": "Types of sufficiency options",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "reas-c18-t01",
+      "chapter_code": "reas-c18",
+      "title": "Type 1: selection with conditions",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "reas-c18-t02",
+      "chapter_code": "reas-c18",
+      "title": "Type 2: multi-criteria selection",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "reas-c19-t01",
+      "chapter_code": "reas-c19",
+      "title": "Identifying the relationship between assertion and reason",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "reas-c19-t02",
+      "chapter_code": "reas-c19",
+      "title": "Standard answer options",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "reas-c19-t03",
+      "chapter_code": "reas-c19",
+      "title": "Cause-and-explanation checking",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "reas-c20-t01",
+      "chapter_code": "reas-c20",
+      "title": "Choosing the best course of action",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "reas-c20-t02",
+      "chapter_code": "reas-c20",
+      "title": "Judging by the situation",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "reas-c20-t03",
+      "chapter_code": "reas-c20",
+      "title": "Ethical and practical responses",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "reas-c21-t01",
+      "chapter_code": "reas-c21",
+      "title": "Checking statements against given data",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "reas-c21-t02",
+      "chapter_code": "reas-c21",
+      "title": "True, false and cannot-say reasoning",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "reas-c21-t03",
+      "chapter_code": "reas-c21",
+      "title": "Logical consistency",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "reas-c22-t01",
+      "chapter_code": "reas-c22",
+      "title": "Type 1: two-premise arguments",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "reas-c22-t02",
+      "chapter_code": "reas-c22",
+      "title": "Type 2: three-premise arguments",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "reas-c22-t03",
+      "chapter_code": "reas-c22",
+      "title": "Venn-diagram method",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "reas-c23-t01",
+      "chapter_code": "reas-c23",
+      "title": "Strong and weak arguments",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "reas-c23-t02",
+      "chapter_code": "reas-c23",
+      "title": "Judging the relevance of arguments",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "reas-c23-t03",
+      "chapter_code": "reas-c23",
+      "title": "Yes and no style arguments",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "reas-c24-t01",
+      "chapter_code": "reas-c24",
+      "title": "Type 1: implicit assumptions",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "reas-c24-t02",
+      "chapter_code": "reas-c24",
+      "title": "Type 2: additional types",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "reas-c24-t03",
+      "chapter_code": "reas-c24",
+      "title": "Identifying what is taken for granted",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "reas-c25-t01",
+      "chapter_code": "reas-c25",
+      "title": "Type 1: problem and follow-up action",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "reas-c25-t02",
+      "chapter_code": "reas-c25",
+      "title": "Choosing the logical course of action",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "reas-c25-t03",
+      "chapter_code": "reas-c25",
+      "title": "Judging practicality",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "reas-c26-t01",
+      "chapter_code": "reas-c26",
+      "title": "Type 1: drawing conclusions from statements",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "reas-c26-t02",
+      "chapter_code": "reas-c26",
+      "title": "Other miscellaneous types",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "reas-c26-t03",
+      "chapter_code": "reas-c26",
+      "title": "Either-or and neither-nor conclusions",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "reas-c27-t01",
+      "chapter_code": "reas-c27",
+      "title": "Reading and judging conclusions",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "reas-c27-t02",
+      "chapter_code": "reas-c27",
+      "title": "Fact versus inference",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "reas-c27-t03",
+      "chapter_code": "reas-c27",
+      "title": "Probably true or false",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "reas-c28-t01",
+      "chapter_code": "reas-c28",
+      "title": "Finding the central theme of a passage",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "reas-c28-t02",
+      "chapter_code": "reas-c28",
+      "title": "Main-idea questions",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "reas-c28-t03",
+      "chapter_code": "reas-c28",
+      "title": "Choosing the best title",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "reas-c29-t01",
+      "chapter_code": "reas-c29",
+      "title": "Identifying cause and effect",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "reas-c29-t02",
+      "chapter_code": "reas-c29",
+      "title": "Independent and related causes",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "reas-c29-t03",
+      "chapter_code": "reas-c29",
+      "title": "Direct and indirect effects",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "reas-c30-t01",
+      "chapter_code": "reas-c30",
+      "title": "Five-figure series",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "reas-c30-t02",
+      "chapter_code": "reas-c30",
+      "title": "Three and four-figure series",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "reas-c30-t03",
+      "chapter_code": "reas-c30",
+      "title": "Choosing the missing figure in a series",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "reas-c30-t04",
+      "chapter_code": "reas-c30",
+      "title": "Detecting the incorrect order in a series",
+      "notes": "",
+      "sort_order": 4
+    },
+    {
+      "code": "reas-c30-t05",
+      "chapter_code": "reas-c30",
+      "title": "Detecting the wrong figure in a series",
+      "notes": "",
+      "sort_order": 5
+    },
+    {
+      "code": "reas-c31-t01",
+      "chapter_code": "reas-c31",
+      "title": "Choosing one element of a similarly related pair",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "reas-c31-t02",
+      "chapter_code": "reas-c31",
+      "title": "Choosing the set of similarly related figures",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "reas-c31-t03",
+      "chapter_code": "reas-c31",
+      "title": "Choosing the set of unrelated figures from a group of sets of similarly related figures",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "reas-c31-t04",
+      "chapter_code": "reas-c31",
+      "title": "Choosing the odd relationship",
+      "notes": "",
+      "sort_order": 4
+    },
+    {
+      "code": "reas-c31-t05",
+      "chapter_code": "reas-c31",
+      "title": "Detecting one element of each of the two related pairs",
+      "notes": "",
+      "sort_order": 5
+    },
+    {
+      "code": "reas-c31-t06",
+      "chapter_code": "reas-c31",
+      "title": "Detecting the relationship and choosing the correct substitute",
+      "notes": "",
+      "sort_order": 6
+    },
+    {
+      "code": "reas-c32-t01",
+      "chapter_code": "reas-c32",
+      "title": "Choosing the odd figure",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "reas-c32-t02",
+      "chapter_code": "reas-c32",
+      "title": "Choosing a similar figure",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "reas-c32-t03",
+      "chapter_code": "reas-c32",
+      "title": "Finding figures with the same characteristics",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "reas-c33-t01",
+      "chapter_code": "reas-c33",
+      "title": "Analysing figure relationships",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "reas-c33-t02",
+      "chapter_code": "reas-c33",
+      "title": "Logical deductions from diagrams",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "reas-c33-t03",
+      "chapter_code": "reas-c33",
+      "title": "Reasoning with shapes",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "reas-c34-t01",
+      "chapter_code": "reas-c34",
+      "title": "Completing a missing part of a pattern",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "reas-c34-t02",
+      "chapter_code": "reas-c34",
+      "title": "Choosing the figure that completes it",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "reas-c34-t03",
+      "chapter_code": "reas-c34",
+      "title": "Pattern and symmetry",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "reas-c35-t01",
+      "chapter_code": "reas-c35",
+      "title": "Rows and columns relationship",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "reas-c35-t02",
+      "chapter_code": "reas-c35",
+      "title": "Finding the missing figure in a matrix",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "reas-c35-t03",
+      "chapter_code": "reas-c35",
+      "title": "Number and shape matrices",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "reas-c36-t01",
+      "chapter_code": "reas-c36",
+      "title": "Identifying the rule from figures",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "reas-c36-t02",
+      "chapter_code": "reas-c36",
+      "title": "Applying the rule to find the result",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "reas-c36-t03",
+      "chapter_code": "reas-c36",
+      "title": "Conditions and exceptions",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "reas-c37-t01",
+      "chapter_code": "reas-c37",
+      "title": "Dots in figures and regions",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "reas-c37-t02",
+      "chapter_code": "reas-c37",
+      "title": "Common regions of shapes",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "reas-c37-t03",
+      "chapter_code": "reas-c37",
+      "title": "Placing dots by conditions",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "reas-c38-t01",
+      "chapter_code": "reas-c38",
+      "title": "Mirror image of figures",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "reas-c38-t02",
+      "chapter_code": "reas-c38",
+      "title": "Letters and numbers",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "reas-c38-t03",
+      "chapter_code": "reas-c38",
+      "title": "Clock mirror images",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "reas-c39-t01",
+      "chapter_code": "reas-c39",
+      "title": "Water images of figures",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "reas-c39-t02",
+      "chapter_code": "reas-c39",
+      "title": "Water images of capital letters",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "reas-c39-t03",
+      "chapter_code": "reas-c39",
+      "title": "Letters and numbers",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "reas-c40-t01",
+      "chapter_code": "reas-c40",
+      "title": "Type 1: hidden figure in a group",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "reas-c40-t02",
+      "chapter_code": "reas-c40",
+      "title": "Type 2: figure hidden in another figure",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "reas-c40-t03",
+      "chapter_code": "reas-c40",
+      "title": "Counting hidden figures",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "reas-c41-t01",
+      "chapter_code": "reas-c41",
+      "title": "Folding a sheet and punching holes",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "reas-c41-t02",
+      "chapter_code": "reas-c41",
+      "title": "Finding the unfolded pattern",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "reas-c41-t03",
+      "chapter_code": "reas-c41",
+      "title": "Multiple folds",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "reas-c42-t01",
+      "chapter_code": "reas-c42",
+      "title": "Cutting a folded sheet",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "reas-c42-t02",
+      "chapter_code": "reas-c42",
+      "title": "Finding the shape on unfolding",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "reas-c42-t03",
+      "chapter_code": "reas-c42",
+      "title": "Symmetrical cuts",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "reas-c43-t01",
+      "chapter_code": "reas-c43",
+      "title": "Grouping similar shapes",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "reas-c43-t02",
+      "chapter_code": "reas-c43",
+      "title": "Classifying figures by characteristics",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "reas-c43-t03",
+      "chapter_code": "reas-c43",
+      "title": "Counting groups",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "reas-c44-t01",
+      "chapter_code": "reas-c44",
+      "title": "Counting the number of cubes or blocks in the given figure",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "reas-c44-t02",
+      "chapter_code": "reas-c44",
+      "title": "Painting a stack of cubes",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "reas-c44-t03",
+      "chapter_code": "reas-c44",
+      "title": "Colouring the six faces of a cube",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "reas-c44-t04",
+      "chapter_code": "reas-c44",
+      "title": "Construction of boxes",
+      "notes": "",
+      "sort_order": 4
+    },
+    {
+      "code": "reas-c44-t05",
+      "chapter_code": "reas-c44",
+      "title": "Problems on dice",
+      "notes": "",
+      "sort_order": 5
+    },
+    {
+      "code": "reas-c45-t01",
+      "chapter_code": "reas-c45",
+      "title": "Forming squares and triangles from parts",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "reas-c45-t02",
+      "chapter_code": "reas-c45",
+      "title": "Counting squares and triangles in figures",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "reas-c45-t03",
+      "chapter_code": "reas-c45",
+      "title": "Combining shapes",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "reas-c46-t01",
+      "chapter_code": "reas-c46",
+      "title": "Forming figures from parts",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "reas-c46-t02",
+      "chapter_code": "reas-c46",
+      "title": "Analysing and breaking figures",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "reas-c46-t03",
+      "chapter_code": "reas-c46",
+      "title": "Counting shapes",
+      "notes": "",
+      "sort_order": 3
+    }
+  ]
+}

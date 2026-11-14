@@ -1,0 +1,861 @@
+{
+  "schema_version": 1,
+  "subject": {
+    "code": "geography",
+    "title": "Geography"
+  },
+  "scope": "West Bengal Geography",
+  "parts": [
+    {
+      "code": "geo-west-bengal",
+      "subject_code": "geography",
+      "title": "West Bengal Geography"
+    }
+  ],
+  "modules": [
+    {
+      "code": "geo-west-bengal-m01",
+      "subject_code": "geography",
+      "part_code": "geo-west-bengal",
+      "title": "Location and Physical Setting",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-west-bengal-m02",
+      "subject_code": "geography",
+      "part_code": "geo-west-bengal",
+      "title": "Climate, Soil and Vegetation",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-west-bengal-m03",
+      "subject_code": "geography",
+      "part_code": "geo-west-bengal",
+      "title": "Resources and Economic Activities",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-west-bengal-m04",
+      "subject_code": "geography",
+      "part_code": "geo-west-bengal",
+      "title": "Population",
+      "sort_order": 4
+    }
+  ],
+  "chapters": [
+    {
+      "code": "geo-west-bengal-c01",
+      "subject_code": "geography",
+      "module_code": "geo-west-bengal-m01",
+      "title": "Introduction: Location and Administrative Divisions",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-west-bengal-c02",
+      "subject_code": "geography",
+      "module_code": "geo-west-bengal-m01",
+      "title": "Physiographic Divisions",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-west-bengal-c03",
+      "subject_code": "geography",
+      "module_code": "geo-west-bengal-m01",
+      "title": "Rivers and Multipurpose Projects",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-west-bengal-c04",
+      "subject_code": "geography",
+      "module_code": "geo-west-bengal-m01",
+      "title": "Lakes and Waterfalls",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-west-bengal-c05",
+      "subject_code": "geography",
+      "module_code": "geo-west-bengal-m02",
+      "title": "Climate",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-west-bengal-c06",
+      "subject_code": "geography",
+      "module_code": "geo-west-bengal-m02",
+      "title": "Soils",
+      "sort_order": 6
+    },
+    {
+      "code": "geo-west-bengal-c07",
+      "subject_code": "geography",
+      "module_code": "geo-west-bengal-m02",
+      "title": "Natural Vegetation",
+      "sort_order": 7
+    },
+    {
+      "code": "geo-west-bengal-c08",
+      "subject_code": "geography",
+      "module_code": "geo-west-bengal-m03",
+      "title": "Agriculture",
+      "sort_order": 8
+    },
+    {
+      "code": "geo-west-bengal-c09",
+      "subject_code": "geography",
+      "module_code": "geo-west-bengal-m03",
+      "title": "Mineral Resources",
+      "sort_order": 9
+    },
+    {
+      "code": "geo-west-bengal-c10",
+      "subject_code": "geography",
+      "module_code": "geo-west-bengal-m03",
+      "title": "Industries",
+      "sort_order": 10
+    },
+    {
+      "code": "geo-west-bengal-c11",
+      "subject_code": "geography",
+      "module_code": "geo-west-bengal-m03",
+      "title": "Transport and Communication",
+      "sort_order": 11
+    },
+    {
+      "code": "geo-west-bengal-c12",
+      "subject_code": "geography",
+      "module_code": "geo-west-bengal-m04",
+      "title": "Population and Census",
+      "sort_order": 12
+    }
+  ],
+  "topics": [
+    {
+      "code": "geo-west-bengal-c01-t01",
+      "chapter_code": "geo-west-bengal-c01",
+      "title": "Location and extent",
+      "notes": "latitude and longitude, area, position in eastern India.",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-west-bengal-c01-t02",
+      "chapter_code": "geo-west-bengal-c01",
+      "title": "Boundaries",
+      "notes": "states and countries bordering West Bengal (Nepal, Sikkim, Bhutan, Bangladesh, Assam, Bihar, Jharkhand, Odisha); length of the international border.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-west-bengal-c01-t03",
+      "chapter_code": "geo-west-bengal-c01",
+      "title": "Formation of the state",
+      "notes": "Partition of Bengal (1905 and 1947), West Bengal State name, capital Kolkata.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-west-bengal-c01-t04",
+      "chapter_code": "geo-west-bengal-c01",
+      "title": "Administrative divisions",
+      "notes": "districts (current number), divisions (Presidency, Burdwan, Jalpaiguri, Malda, Medinipur), sub-divisions, blocks.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-west-bengal-c01-t05",
+      "chapter_code": "geo-west-bengal-c01",
+      "title": "New districts",
+      "notes": "Jhargram, Kalimpong, Paschim and Purba Bardhaman.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-west-bengal-c01-t06",
+      "chapter_code": "geo-west-bengal-c01",
+      "title": "Important cities",
+      "notes": "Kolkata, Howrah, Siliguri, Durgapur, Asansol, Kharagpur.",
+      "sort_order": 6
+    },
+    {
+      "code": "geo-west-bengal-c01-t07",
+      "chapter_code": "geo-west-bengal-c01",
+      "title": "Geographical significance",
+      "notes": "gateway to the north-east and the Bay of Bengal.",
+      "sort_order": 7
+    },
+    {
+      "code": "geo-west-bengal-c01-t08",
+      "chapter_code": "geo-west-bengal-c01",
+      "title": "Matching: district–headquarters",
+      "notes": "all related questions of this topic.",
+      "sort_order": 8
+    },
+    {
+      "code": "geo-west-bengal-c02-t01",
+      "chapter_code": "geo-west-bengal-c02",
+      "title": "Overview",
+      "notes": "northern mountains, northern plains, western plateau and highlands, Ganga delta.",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-west-bengal-c02-t02",
+      "chapter_code": "geo-west-bengal-c02",
+      "title": "Darjeeling Himalaya",
+      "notes": "Sandakphu, Singalila range, Tiger Hill, Darjeeling and Kalimpong ranges.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-west-bengal-c02-t03",
+      "chapter_code": "geo-west-bengal-c02",
+      "title": "Terai and Duars",
+      "notes": "Terai, Duars (Jalpaiguri, Alipurduar, Cooch Behar), alluvial fans.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-west-bengal-c02-t04",
+      "chapter_code": "geo-west-bengal-c02",
+      "title": "North Bengal plains",
+      "notes": "Barind and Diara, Teesta fan.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-west-bengal-c02-t05",
+      "chapter_code": "geo-west-bengal-c02",
+      "title": "Rarh region",
+      "notes": "laterite uplands of Purulia, Bankura, Birbhum, Paschim Medinipur.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-west-bengal-c02-t06",
+      "chapter_code": "geo-west-bengal-c02",
+      "title": "Western plateau and highlands",
+      "notes": "Ayodhya hills, Biharinath, Susunia, Joychandi.",
+      "sort_order": 6
+    },
+    {
+      "code": "geo-west-bengal-c02-t07",
+      "chapter_code": "geo-west-bengal-c02",
+      "title": "Ganga delta and deltaic plains",
+      "notes": "Bhagirathi-Hooghly delta, active and moribund delta.",
+      "sort_order": 7
+    },
+    {
+      "code": "geo-west-bengal-c02-t08",
+      "chapter_code": "geo-west-bengal-c02",
+      "title": "Sundarbans and coastal region",
+      "notes": "mangroves, islands, Digha and Sagar.",
+      "sort_order": 8
+    },
+    {
+      "code": "geo-west-bengal-c02-t09",
+      "chapter_code": "geo-west-bengal-c02",
+      "title": "Highest points and key features",
+      "notes": "Sandakphu, Tiger Hill.",
+      "sort_order": 9
+    },
+    {
+      "code": "geo-west-bengal-c03-t01",
+      "chapter_code": "geo-west-bengal-c03",
+      "title": "Drainage systems",
+      "notes": "northern Himalayan rivers and southern plateau rivers.",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-west-bengal-c03-t02",
+      "chapter_code": "geo-west-bengal-c03",
+      "title": "Himalayan rivers",
+      "notes": "Teesta, Torsa, Jaldhaka, Mahananda, Raidak, Sankosh.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-west-bengal-c03-t03",
+      "chapter_code": "geo-west-bengal-c03",
+      "title": "Ganga and distributaries",
+      "notes": "Bhagirathi, Jalangi, Churni, Hooghly.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-west-bengal-c03-t04",
+      "chapter_code": "geo-west-bengal-c03",
+      "title": "Plateau rivers",
+      "notes": "Damodar, Ajay, Mayurakshi, Kangsabati, Subarnarekha, Rupnarayan, Dwarakeswar.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-west-bengal-c03-t05",
+      "chapter_code": "geo-west-bengal-c03",
+      "title": "Farakka Barrage",
+      "notes": "purpose, location, Ganga water treaty.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-west-bengal-c03-t06",
+      "chapter_code": "geo-west-bengal-c03",
+      "title": "Damodar Valley Corporation",
+      "notes": "dams (Maithon, Panchet, Tilaiya, Konar), Durgapur Barrage.",
+      "sort_order": 6
+    },
+    {
+      "code": "geo-west-bengal-c03-t07",
+      "chapter_code": "geo-west-bengal-c03",
+      "title": "Mayurakshi Project",
+      "notes": "Massanjore (Canada) Dam.",
+      "sort_order": 7
+    },
+    {
+      "code": "geo-west-bengal-c03-t08",
+      "chapter_code": "geo-west-bengal-c03",
+      "title": "Kangsabati Project",
+      "notes": "Mukutmanipur Dam.",
+      "sort_order": 8
+    },
+    {
+      "code": "geo-west-bengal-c03-t09",
+      "chapter_code": "geo-west-bengal-c03",
+      "title": "Teesta Barrage Project",
+      "notes": "Gajoldoba.",
+      "sort_order": 9
+    },
+    {
+      "code": "geo-west-bengal-c03-t10",
+      "chapter_code": "geo-west-bengal-c03",
+      "title": "Floods and river erosion",
+      "notes": "causes, regions affected.",
+      "sort_order": 10
+    },
+    {
+      "code": "geo-west-bengal-c03-t11",
+      "chapter_code": "geo-west-bengal-c03",
+      "title": "Hydroelectric projects",
+      "notes": "Jaldhaka, Teesta, Purulia pumped storage.",
+      "sort_order": 11
+    },
+    {
+      "code": "geo-west-bengal-c04-t01",
+      "chapter_code": "geo-west-bengal-c04",
+      "title": "Lakes of West Bengal",
+      "notes": "types (natural, oxbow, man-made).",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-west-bengal-c04-t02",
+      "chapter_code": "geo-west-bengal-c04",
+      "title": "Important lakes",
+      "notes": "East Kolkata Wetlands, Rabindra Sarobar, Santragachi, Sealdah, Sagar Dighi.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-west-bengal-c04-t03",
+      "chapter_code": "geo-west-bengal-c04",
+      "title": "Wetlands and Ramsar sites",
+      "notes": "East Kolkata Wetlands, Sundarbans.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-west-bengal-c04-t04",
+      "chapter_code": "geo-west-bengal-c04",
+      "title": "Waterfalls",
+      "notes": "Jhargram and Purulia region (Joychandi, Murguma, Sitakund), Darjeeling waterfalls.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-west-bengal-c04-t05",
+      "chapter_code": "geo-west-bengal-c04",
+      "title": "Reservoirs",
+      "notes": "Mayurakshi, Kangsabati, Massanjore.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-west-bengal-c04-t06",
+      "chapter_code": "geo-west-bengal-c04",
+      "title": "Tourism and uses",
+      "notes": "recreational and ecological importance.",
+      "sort_order": 6
+    },
+    {
+      "code": "geo-west-bengal-c04-t07",
+      "chapter_code": "geo-west-bengal-c04",
+      "title": "Matching: lake or waterfall–district",
+      "notes": "all related question of this topic.",
+      "sort_order": 7
+    },
+    {
+      "code": "geo-west-bengal-c05-t01",
+      "chapter_code": "geo-west-bengal-c05",
+      "title": "Climatic type",
+      "notes": "tropical monsoon (Aw) in the plains, temperate in the hills.",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-west-bengal-c05-t02",
+      "chapter_code": "geo-west-bengal-c05",
+      "title": "Seasons",
+      "notes": "summer, monsoon, retreating monsoon, winter.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-west-bengal-c05-t03",
+      "chapter_code": "geo-west-bengal-c05",
+      "title": "Temperature",
+      "notes": "regional variation, hottest and coldest places.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-west-bengal-c05-t04",
+      "chapter_code": "geo-west-bengal-c05",
+      "title": "Rainfall distribution",
+      "notes": "heavy rainfall in the north (Jalpaiguri, Darjeeling), moderate in the south, dry western parts.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-west-bengal-c05-t05",
+      "chapter_code": "geo-west-bengal-c05",
+      "title": "Monsoon and cyclones",
+      "notes": "south-west monsoon, Bay of Bengal cyclones (Aila, Amphan, Yaas).",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-west-bengal-c05-t06",
+      "chapter_code": "geo-west-bengal-c05",
+      "title": "Kalbaishakhi",
+      "notes": "north-westers.",
+      "sort_order": 6
+    },
+    {
+      "code": "geo-west-bengal-c05-t07",
+      "chapter_code": "geo-west-bengal-c05",
+      "title": "Climatic regions",
+      "notes": "Himalayan, Terai-Duars, plains, plateau, coastal.",
+      "sort_order": 7
+    },
+    {
+      "code": "geo-west-bengal-c05-t08",
+      "chapter_code": "geo-west-bengal-c05",
+      "title": "Climate and agriculture",
+      "notes": "relationship with crops.",
+      "sort_order": 8
+    },
+    {
+      "code": "geo-west-bengal-c06-t01",
+      "chapter_code": "geo-west-bengal-c06",
+      "title": "Soil types",
+      "notes": "alluvial, red and laterite, coastal saline, hill (forest) soil, terai soil.",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-west-bengal-c06-t02",
+      "chapter_code": "geo-west-bengal-c06",
+      "title": "Alluvial soil",
+      "notes": "new (khadar) and old (bhangar), distribution, fertility.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-west-bengal-c06-t03",
+      "chapter_code": "geo-west-bengal-c06",
+      "title": "Red and laterite soil",
+      "notes": "western districts, properties.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-west-bengal-c06-t04",
+      "chapter_code": "geo-west-bengal-c06",
+      "title": "Coastal and saline soil",
+      "notes": "Sundarbans, South 24 Parganas.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-west-bengal-c06-t05",
+      "chapter_code": "geo-west-bengal-c06",
+      "title": "Hill and Terai soils",
+      "notes": "Darjeeling, Jalpaiguri; crop suitability.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-west-bengal-c06-t06",
+      "chapter_code": "geo-west-bengal-c06",
+      "title": "Soil erosion and conservation",
+      "notes": "causes, measures.",
+      "sort_order": 6
+    },
+    {
+      "code": "geo-west-bengal-c06-t07",
+      "chapter_code": "geo-west-bengal-c06",
+      "title": "Soil and crops",
+      "notes": "matching of soil with crop.",
+      "sort_order": 7
+    },
+    {
+      "code": "geo-west-bengal-c06-t08",
+      "chapter_code": "geo-west-bengal-c06",
+      "title": "Soil Survey and research organisations",
+      "notes": "role.",
+      "sort_order": 8
+    },
+    {
+      "code": "geo-west-bengal-c07-t01",
+      "chapter_code": "geo-west-bengal-c07",
+      "title": "Forest types",
+      "notes": "tropical wet evergreen, tropical moist deciduous, tropical dry deciduous, littoral and mangrove, montane, alpine.",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-west-bengal-c07-t02",
+      "chapter_code": "geo-west-bengal-c07",
+      "title": "Himalayan forests",
+      "notes": "oak, rhododendron, pine, fir.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-west-bengal-c07-t03",
+      "chapter_code": "geo-west-bengal-c07",
+      "title": "Terai and Duars forests",
+      "notes": "sal, teak, savanna.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-west-bengal-c07-t04",
+      "chapter_code": "geo-west-bengal-c07",
+      "title": "Sundarbans mangroves",
+      "notes": "sundari, genwa; UNESCO World Heritage Site.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-west-bengal-c07-t05",
+      "chapter_code": "geo-west-bengal-c07",
+      "title": "Forest cover",
+      "notes": "state percentage, district distribution.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-west-bengal-c07-t06",
+      "chapter_code": "geo-west-bengal-c07",
+      "title": "Protected areas",
+      "notes": "Sundarbans, Jaldapara, Gorumara, Buxa, Neora Valley, Singalila, Sajnekhali.",
+      "sort_order": 6
+    },
+    {
+      "code": "geo-west-bengal-c07-t07",
+      "chapter_code": "geo-west-bengal-c07",
+      "title": "Wildlife",
+      "notes": "Bengal tiger, one-horned rhino, elephant, Himalayan black bear, red panda.",
+      "sort_order": 7
+    },
+    {
+      "code": "geo-west-bengal-c07-t08",
+      "chapter_code": "geo-west-bengal-c07",
+      "title": "Biosphere reserves",
+      "notes": "Sundarbans, Darjeeling Himalaya.",
+      "sort_order": 8
+    },
+    {
+      "code": "geo-west-bengal-c07-t09",
+      "chapter_code": "geo-west-bengal-c07",
+      "title": "Forest policy and conservation",
+      "notes": "Joint Forest Management.",
+      "sort_order": 9
+    },
+    {
+      "code": "geo-west-bengal-c08-t01",
+      "chapter_code": "geo-west-bengal-c08",
+      "title": "Importance",
+      "notes": "share in the economy, agricultural regions.",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-west-bengal-c08-t02",
+      "chapter_code": "geo-west-bengal-c08",
+      "title": "Major crops",
+      "notes": "rice (aus, aman, boro), jute, tea, potato, wheat, pulses, oilseeds, vegetables.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-west-bengal-c08-t03",
+      "chapter_code": "geo-west-bengal-c08",
+      "title": "Jute",
+      "notes": "leading state, regions, mills.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-west-bengal-c08-t04",
+      "chapter_code": "geo-west-bengal-c08",
+      "title": "Tea",
+      "notes": "Darjeeling, Terai and Duars, tea types.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-west-bengal-c08-t05",
+      "chapter_code": "geo-west-bengal-c08",
+      "title": "Cash crops and plantation",
+      "notes": "tea, cinchona, rubber, tobacco.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-west-bengal-c08-t06",
+      "chapter_code": "geo-west-bengal-c08",
+      "title": "Horticulture and fisheries",
+      "notes": "fruits, vegetables, fish production.",
+      "sort_order": 6
+    },
+    {
+      "code": "geo-west-bengal-c08-t07",
+      "chapter_code": "geo-west-bengal-c08",
+      "title": "Irrigation",
+      "notes": "canals, tube wells, projects.",
+      "sort_order": 7
+    },
+    {
+      "code": "geo-west-bengal-c08-t08",
+      "chapter_code": "geo-west-bengal-c08",
+      "title": "Agricultural problems and reforms",
+      "notes": "Operation Barga, land reforms.",
+      "sort_order": 8
+    },
+    {
+      "code": "geo-west-bengal-c08-t09",
+      "chapter_code": "geo-west-bengal-c08",
+      "title": "Ranking",
+      "notes": "West Bengal’s place among states in rice, jute and potato.",
+      "sort_order": 9
+    },
+    {
+      "code": "geo-west-bengal-c09-t01",
+      "chapter_code": "geo-west-bengal-c09",
+      "title": "Coal",
+      "notes": "Raniganj coalfield (main), Birbhum (Deucha-Pachami) and Dinajpur coal blocks.",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-west-bengal-c09-t02",
+      "chapter_code": "geo-west-bengal-c09",
+      "title": "Other minerals",
+      "notes": "china clay, fireclay, limestone, dolomite, quartzite, tungsten (Bankura).",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-west-bengal-c09-t03",
+      "chapter_code": "geo-west-bengal-c09",
+      "title": "Sand, stone and laterite",
+      "notes": "construction materials.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-west-bengal-c09-t04",
+      "chapter_code": "geo-west-bengal-c09",
+      "title": "Petroleum and natural gas",
+      "notes": "prospects.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-west-bengal-c09-t05",
+      "chapter_code": "geo-west-bengal-c09",
+      "title": "Salt, copper and others",
+      "notes": "occurrence.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-west-bengal-c09-t06",
+      "chapter_code": "geo-west-bengal-c09",
+      "title": "Distribution by district",
+      "notes": "matching.",
+      "sort_order": 6
+    },
+    {
+      "code": "geo-west-bengal-c09-t07",
+      "chapter_code": "geo-west-bengal-c09",
+      "title": "Mining policy and issues",
+      "notes": "Geological Survey of India, environmental concerns.",
+      "sort_order": 7
+    },
+    {
+      "code": "geo-west-bengal-c10-t01",
+      "chapter_code": "geo-west-bengal-c10",
+      "title": "Industrial regions",
+      "notes": "Kolkata-Howrah, Durgapur-Asansol (Burdwan), Hooghly belt, Haldia.",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-west-bengal-c10-t02",
+      "chapter_code": "geo-west-bengal-c10",
+      "title": "Jute industry",
+      "notes": "mills along the Hooghly.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-west-bengal-c10-t03",
+      "chapter_code": "geo-west-bengal-c10",
+      "title": "Iron and steel",
+      "notes": "Durgapur, Burnpur, Kulti and Kalyani.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-west-bengal-c10-t04",
+      "chapter_code": "geo-west-bengal-c10",
+      "title": "Engineering and textile",
+      "notes": "Chittaranjan Locomotive Works, Garden Reach, cotton and silk.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-west-bengal-c10-t05",
+      "chapter_code": "geo-west-bengal-c10",
+      "title": "Chemical and petrochemical",
+      "notes": "Haldia Petrochemicals.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-west-bengal-c10-t06",
+      "chapter_code": "geo-west-bengal-c10",
+      "title": "Information technology",
+      "notes": "Salt Lake (Sector V), New Town.",
+      "sort_order": 6
+    },
+    {
+      "code": "geo-west-bengal-c10-t07",
+      "chapter_code": "geo-west-bengal-c10",
+      "title": "Cottage and small industries",
+      "notes": "handloom (Santipur, Dhaniakhali), sholapith, terracotta, brass.",
+      "sort_order": 7
+    },
+    {
+      "code": "geo-west-bengal-c10-t08",
+      "chapter_code": "geo-west-bengal-c10",
+      "title": "Industrial policy and parks",
+      "notes": "special economic zones (SEZs), industrial parks.",
+      "sort_order": 8
+    },
+    {
+      "code": "geo-west-bengal-c10-t09",
+      "chapter_code": "geo-west-bengal-c10",
+      "title": "Ports and trade",
+      "notes": "Kolkata Port and Haldia dock; major exports.",
+      "sort_order": 9
+    },
+    {
+      "code": "geo-west-bengal-c11-t01",
+      "chapter_code": "geo-west-bengal-c11",
+      "title": "Roadways",
+      "notes": "major National Highways passing through the state, State Highways, Grand Trunk Road.",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-west-bengal-c11-t02",
+      "chapter_code": "geo-west-bengal-c11",
+      "title": "Railways",
+      "notes": "Eastern and South Eastern Railway, Northeast Frontier Railway; Kolkata Metro (first in India); Darjeeling Himalayan Railway (UNESCO World Heritage).",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-west-bengal-c11-t03",
+      "chapter_code": "geo-west-bengal-c11",
+      "title": "Waterways",
+      "notes": "inland waterways, Hooghly river, National Waterway 1.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-west-bengal-c11-t04",
+      "chapter_code": "geo-west-bengal-c11",
+      "title": "Airways",
+      "notes": "Netaji Subhas Chandra Bose International Airport (Dum Dum), Bagdogra, Cooch Behar.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-west-bengal-c11-t05",
+      "chapter_code": "geo-west-bengal-c11",
+      "title": "Ports",
+      "notes": "Kolkata and Haldia.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-west-bengal-c11-t06",
+      "chapter_code": "geo-west-bengal-c11",
+      "title": "Communication",
+      "notes": "postal, telecom, digital.",
+      "sort_order": 6
+    },
+    {
+      "code": "geo-west-bengal-c11-t07",
+      "chapter_code": "geo-west-bengal-c11",
+      "title": "Important bridges",
+      "notes": "Howrah Bridge, Vidyasagar Setu, Vivekananda Setu, Nivedita Setu.",
+      "sort_order": 7
+    },
+    {
+      "code": "geo-west-bengal-c11-t08",
+      "chapter_code": "geo-west-bengal-c11",
+      "title": "Matching: route–type–region",
+      "notes": "all related questions of this topic.",
+      "sort_order": 8
+    },
+    {
+      "code": "geo-west-bengal-c12-t01",
+      "chapter_code": "geo-west-bengal-c12",
+      "title": "Census 2011 headline figures",
+      "notes": "population, share in India, rank.",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-west-bengal-c12-t02",
+      "chapter_code": "geo-west-bengal-c12",
+      "title": "Density",
+      "notes": "persons per square km, highest and lowest districts.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-west-bengal-c12-t03",
+      "chapter_code": "geo-west-bengal-c12",
+      "title": "Sex ratio",
+      "notes": "state and district-wise.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-west-bengal-c12-t04",
+      "chapter_code": "geo-west-bengal-c12",
+      "title": "Literacy rate",
+      "notes": "state, male, female, district-wise highest and lowest.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-west-bengal-c12-t05",
+      "chapter_code": "geo-west-bengal-c12",
+      "title": "Growth rate",
+      "notes": "decadal growth, trend.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-west-bengal-c12-t06",
+      "chapter_code": "geo-west-bengal-c12",
+      "title": "Rural and urban population",
+      "notes": "urbanisation.",
+      "sort_order": 6
+    },
+    {
+      "code": "geo-west-bengal-c12-t07",
+      "chapter_code": "geo-west-bengal-c12",
+      "title": "Scheduled Castes and Scheduled Tribes",
+      "notes": "population share, important tribes (Santhal, Oraon, Munda, Lodha, Toto).",
+      "sort_order": 7
+    },
+    {
+      "code": "geo-west-bengal-c12-t08",
+      "chapter_code": "geo-west-bengal-c12",
+      "title": "Religion and language",
+      "notes": "composition.",
+      "sort_order": 8
+    },
+    {
+      "code": "geo-west-bengal-c12-t09",
+      "chapter_code": "geo-west-bengal-c12",
+      "title": "Child population and workforce",
+      "notes": "0–6 sex ratio, working population.",
+      "sort_order": 9
+    },
+    {
+      "code": "geo-west-bengal-c12-t10",
+      "chapter_code": "geo-west-bengal-c12",
+      "title": "District-wise highlights",
+      "notes": "most and least populous districts.",
+      "sort_order": 10
+    },
+    {
+      "code": "geo-west-bengal-c12-t11",
+      "chapter_code": "geo-west-bengal-c12",
+      "title": "Census terms",
+      "notes": "definitions.",
+      "sort_order": 11
+    }
+  ]
+}

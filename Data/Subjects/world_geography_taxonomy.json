@@ -1,0 +1,2709 @@
+{
+  "schema_version": 1,
+  "subject": {
+    "code": "geography",
+    "title": "Geography"
+  },
+  "scope": "World Geography",
+  "parts": [
+    {
+      "code": "geo-world",
+      "subject_code": "geography",
+      "title": "World Geography"
+    }
+  ],
+  "modules": [
+    {
+      "code": "geo-world-m01",
+      "subject_code": "geography",
+      "part_code": "geo-world",
+      "title": "Universe, Earth and Maps",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-world-m02",
+      "subject_code": "geography",
+      "part_code": "geo-world",
+      "title": "Lithosphere: Rocks and Landforms",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-world-m03",
+      "subject_code": "geography",
+      "part_code": "geo-world",
+      "title": "Atmosphere, Weather and Climate",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-world-m04",
+      "subject_code": "geography",
+      "part_code": "geo-world",
+      "title": "Hydrosphere: Oceans, Rivers and Water Bodies",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-world-m05",
+      "subject_code": "geography",
+      "part_code": "geo-world",
+      "title": "Soils and Natural Vegetation",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-world-m06",
+      "subject_code": "geography",
+      "part_code": "geo-world",
+      "title": "Political Geography: Countries, Borders and Cities",
+      "sort_order": 6
+    },
+    {
+      "code": "geo-world-m07",
+      "subject_code": "geography",
+      "part_code": "geo-world",
+      "title": "People: Races, Tribes and Languages",
+      "sort_order": 7
+    },
+    {
+      "code": "geo-world-m08",
+      "subject_code": "geography",
+      "part_code": "geo-world",
+      "title": "Economic Geography",
+      "sort_order": 8
+    },
+    {
+      "code": "geo-world-m09",
+      "subject_code": "geography",
+      "part_code": "geo-world",
+      "title": "Miscellaneous",
+      "sort_order": 9
+    }
+  ],
+  "chapters": [
+    {
+      "code": "geo-world-c01",
+      "subject_code": "geography",
+      "module_code": "geo-world-m01",
+      "title": "The Universe and Solar System",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-world-c02",
+      "subject_code": "geography",
+      "module_code": "geo-world-m01",
+      "title": "The Earth: Structure, Motions and Latitudes",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-world-c03",
+      "subject_code": "geography",
+      "module_code": "geo-world-m01",
+      "title": "Maps, Projections and Map Skills",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-world-c04",
+      "subject_code": "geography",
+      "module_code": "geo-world-m02",
+      "title": "Rocks and Rock Types",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-world-c05",
+      "subject_code": "geography",
+      "module_code": "geo-world-m02",
+      "title": "Volcanoes",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-world-c06",
+      "subject_code": "geography",
+      "module_code": "geo-world-m02",
+      "title": "Earthquakes",
+      "sort_order": 6
+    },
+    {
+      "code": "geo-world-c07",
+      "subject_code": "geography",
+      "module_code": "geo-world-m02",
+      "title": "Continents of the World",
+      "sort_order": 7
+    },
+    {
+      "code": "geo-world-c08",
+      "subject_code": "geography",
+      "module_code": "geo-world-m02",
+      "title": "Major Mountain Ranges of the World",
+      "sort_order": 8
+    },
+    {
+      "code": "geo-world-c09",
+      "subject_code": "geography",
+      "module_code": "geo-world-m02",
+      "title": "Plateaus of the World",
+      "sort_order": 9
+    },
+    {
+      "code": "geo-world-c10",
+      "subject_code": "geography",
+      "module_code": "geo-world-m02",
+      "title": "Valleys of the World",
+      "sort_order": 10
+    },
+    {
+      "code": "geo-world-c11",
+      "subject_code": "geography",
+      "module_code": "geo-world-m02",
+      "title": "River-Made Landforms",
+      "sort_order": 11
+    },
+    {
+      "code": "geo-world-c12",
+      "subject_code": "geography",
+      "module_code": "geo-world-m02",
+      "title": "Deserts of the World",
+      "sort_order": 12
+    },
+    {
+      "code": "geo-world-c13",
+      "subject_code": "geography",
+      "module_code": "geo-world-m02",
+      "title": "Grasslands of the World",
+      "sort_order": 13
+    },
+    {
+      "code": "geo-world-c14",
+      "subject_code": "geography",
+      "module_code": "geo-world-m03",
+      "title": "Structure and Composition of the Atmosphere",
+      "sort_order": 14
+    },
+    {
+      "code": "geo-world-c15",
+      "subject_code": "geography",
+      "module_code": "geo-world-m03",
+      "title": "Insolation and Heat Budget",
+      "sort_order": 15
+    },
+    {
+      "code": "geo-world-c16",
+      "subject_code": "geography",
+      "module_code": "geo-world-m03",
+      "title": "Air Pressure and Pressure Belts",
+      "sort_order": 16
+    },
+    {
+      "code": "geo-world-c17",
+      "subject_code": "geography",
+      "module_code": "geo-world-m03",
+      "title": "Planetary and Periodic Winds",
+      "sort_order": 17
+    },
+    {
+      "code": "geo-world-c18",
+      "subject_code": "geography",
+      "module_code": "geo-world-m03",
+      "title": "Local Winds",
+      "sort_order": 18
+    },
+    {
+      "code": "geo-world-c19",
+      "subject_code": "geography",
+      "module_code": "geo-world-m03",
+      "title": "Humidity and Precipitation",
+      "sort_order": 19
+    },
+    {
+      "code": "geo-world-c20",
+      "subject_code": "geography",
+      "module_code": "geo-world-m03",
+      "title": "Clouds",
+      "sort_order": 20
+    },
+    {
+      "code": "geo-world-c21",
+      "subject_code": "geography",
+      "module_code": "geo-world-m03",
+      "title": "Cyclones and Storms",
+      "sort_order": 21
+    },
+    {
+      "code": "geo-world-c22",
+      "subject_code": "geography",
+      "module_code": "geo-world-m03",
+      "title": "Climate and Climatic Regions",
+      "sort_order": 22
+    },
+    {
+      "code": "geo-world-c23",
+      "subject_code": "geography",
+      "module_code": "geo-world-m04",
+      "title": "The Hydrosphere",
+      "sort_order": 23
+    },
+    {
+      "code": "geo-world-c24",
+      "subject_code": "geography",
+      "module_code": "geo-world-m04",
+      "title": "Major Oceans of the World",
+      "sort_order": 24
+    },
+    {
+      "code": "geo-world-c25",
+      "subject_code": "geography",
+      "module_code": "geo-world-m04",
+      "title": "Ocean Relief and Oceanic Trenches",
+      "sort_order": 25
+    },
+    {
+      "code": "geo-world-c26",
+      "subject_code": "geography",
+      "module_code": "geo-world-m04",
+      "title": "Salinity of Ocean Water",
+      "sort_order": 26
+    },
+    {
+      "code": "geo-world-c27",
+      "subject_code": "geography",
+      "module_code": "geo-world-m04",
+      "title": "Oceanic Currents",
+      "sort_order": 27
+    },
+    {
+      "code": "geo-world-c28",
+      "subject_code": "geography",
+      "module_code": "geo-world-m04",
+      "title": "Tides: High Tide and Low Tide",
+      "sort_order": 28
+    },
+    {
+      "code": "geo-world-c29",
+      "subject_code": "geography",
+      "module_code": "geo-world-m04",
+      "title": "Coral Reefs",
+      "sort_order": 29
+    },
+    {
+      "code": "geo-world-c30",
+      "subject_code": "geography",
+      "module_code": "geo-world-m04",
+      "title": "Islands of the World",
+      "sort_order": 30
+    },
+    {
+      "code": "geo-world-c31",
+      "subject_code": "geography",
+      "module_code": "geo-world-m04",
+      "title": "Straits of the World",
+      "sort_order": 31
+    },
+    {
+      "code": "geo-world-c32",
+      "subject_code": "geography",
+      "module_code": "geo-world-m04",
+      "title": "Rivers of the World",
+      "sort_order": 32
+    },
+    {
+      "code": "geo-world-c33",
+      "subject_code": "geography",
+      "module_code": "geo-world-m04",
+      "title": "Lakes and Waterfalls of the World",
+      "sort_order": 33
+    },
+    {
+      "code": "geo-world-c34",
+      "subject_code": "geography",
+      "module_code": "geo-world-m04",
+      "title": "Canals of the World",
+      "sort_order": 34
+    },
+    {
+      "code": "geo-world-c35",
+      "subject_code": "geography",
+      "module_code": "geo-world-m04",
+      "title": "Dams of the World",
+      "sort_order": 35
+    },
+    {
+      "code": "geo-world-c36",
+      "subject_code": "geography",
+      "module_code": "geo-world-m04",
+      "title": "Cities Along the Banks of Rivers",
+      "sort_order": 36
+    },
+    {
+      "code": "geo-world-c37",
+      "subject_code": "geography",
+      "module_code": "geo-world-m05",
+      "title": "Soils of the World",
+      "sort_order": 37
+    },
+    {
+      "code": "geo-world-c38",
+      "subject_code": "geography",
+      "module_code": "geo-world-m05",
+      "title": "Forests and Natural Vegetation",
+      "sort_order": 38
+    },
+    {
+      "code": "geo-world-c39",
+      "subject_code": "geography",
+      "module_code": "geo-world-m06",
+      "title": "Countries of the World and Their Borders",
+      "sort_order": 39
+    },
+    {
+      "code": "geo-world-c40",
+      "subject_code": "geography",
+      "module_code": "geo-world-m06",
+      "title": "International Boundary Lines",
+      "sort_order": 40
+    },
+    {
+      "code": "geo-world-c41",
+      "subject_code": "geography",
+      "module_code": "geo-world-m06",
+      "title": "Land-Locked Countries",
+      "sort_order": 41
+    },
+    {
+      "code": "geo-world-c42",
+      "subject_code": "geography",
+      "module_code": "geo-world-m06",
+      "title": "Dependent Territories",
+      "sort_order": 42
+    },
+    {
+      "code": "geo-world-c43",
+      "subject_code": "geography",
+      "module_code": "geo-world-m06",
+      "title": "Former and Old Names of Countries",
+      "sort_order": 43
+    },
+    {
+      "code": "geo-world-c44",
+      "subject_code": "geography",
+      "module_code": "geo-world-m06",
+      "title": "Capitals of Countries",
+      "sort_order": 44
+    },
+    {
+      "code": "geo-world-c45",
+      "subject_code": "geography",
+      "module_code": "geo-world-m06",
+      "title": "Important Cities of the World",
+      "sort_order": 45
+    },
+    {
+      "code": "geo-world-c46",
+      "subject_code": "geography",
+      "module_code": "geo-world-m06",
+      "title": "Geographical Nicknames",
+      "sort_order": 46
+    },
+    {
+      "code": "geo-world-c47",
+      "subject_code": "geography",
+      "module_code": "geo-world-m07",
+      "title": "Races and Tribes of the World",
+      "sort_order": 47
+    },
+    {
+      "code": "geo-world-c48",
+      "subject_code": "geography",
+      "module_code": "geo-world-m07",
+      "title": "Languages of the World",
+      "sort_order": 48
+    },
+    {
+      "code": "geo-world-c49",
+      "subject_code": "geography",
+      "module_code": "geo-world-m08",
+      "title": "World Agriculture",
+      "sort_order": 49
+    },
+    {
+      "code": "geo-world-c50",
+      "subject_code": "geography",
+      "module_code": "geo-world-m08",
+      "title": "Mineral Resources of the World",
+      "sort_order": 50
+    },
+    {
+      "code": "geo-world-c51",
+      "subject_code": "geography",
+      "module_code": "geo-world-m08",
+      "title": "Industrial Cities and Industries",
+      "sort_order": 51
+    },
+    {
+      "code": "geo-world-c52",
+      "subject_code": "geography",
+      "module_code": "geo-world-m08",
+      "title": "Transport Systems of the World",
+      "sort_order": 52
+    },
+    {
+      "code": "geo-world-c53",
+      "subject_code": "geography",
+      "module_code": "geo-world-m08",
+      "title": "Ports and Harbours",
+      "sort_order": 53
+    },
+    {
+      "code": "geo-world-c54",
+      "subject_code": "geography",
+      "module_code": "geo-world-m09",
+      "title": "Miscellaneous (Mixed World Geography)",
+      "sort_order": 54
+    }
+  ],
+  "topics": [
+    {
+      "code": "geo-world-c01-t01",
+      "chapter_code": "geo-world-c01",
+      "title": "Origin of the universe",
+      "notes": "Big Bang theory, Steady State, expanding universe, age.",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-world-c01-t02",
+      "chapter_code": "geo-world-c01",
+      "title": "Galaxies and stars",
+      "notes": "Milky Way, Andromeda, types of galaxies; life cycle of a star, Sun, red giants, white dwarfs, black holes, Chandrasekhar limit.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-world-c01-t03",
+      "chapter_code": "geo-world-c01",
+      "title": "The Solar System",
+      "notes": "Sun, eight planets, dwarf planets (Pluto, Ceres), asteroid belt, Kuiper belt.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-world-c01-t04",
+      "chapter_code": "geo-world-c01",
+      "title": "Planets: inner and outer",
+      "notes": "Mercury, Venus, Earth, Mars; Jupiter, Saturn, Uranus, Neptune; features, moons, rotation, nearest and largest.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-world-c01-t05",
+      "chapter_code": "geo-world-c01",
+      "title": "Moon and eclipses",
+      "notes": "phases, lunar and solar eclipses, tides link.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-world-c01-t06",
+      "chapter_code": "geo-world-c01",
+      "title": "Comets, meteors and meteorites",
+      "notes": "Halley’s comet, shooting stars.",
+      "sort_order": 6
+    },
+    {
+      "code": "geo-world-c01-t07",
+      "chapter_code": "geo-world-c01",
+      "title": "Space missions",
+      "notes": "Chandrayaan, Mangalyaan, Apollo, Voyager; satellites and ISRO.",
+      "sort_order": 7
+    },
+    {
+      "code": "geo-world-c02-t01",
+      "chapter_code": "geo-world-c02",
+      "title": "Shape, size and age",
+      "notes": "geoid, equatorial and polar diameters, circumference.",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-world-c02-t02",
+      "chapter_code": "geo-world-c02",
+      "title": "Interior of the Earth",
+      "notes": "crust, mantle, core; Mohorovicic and Gutenberg discontinuities; sial and sima.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-world-c02-t03",
+      "chapter_code": "geo-world-c02",
+      "title": "Rotation and revolution",
+      "notes": "day and night, seasons, perihelion, aphelion, equinoxes and solstices.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-world-c02-t04",
+      "chapter_code": "geo-world-c02",
+      "title": "Latitudes and longitudes",
+      "notes": "Equator, Prime Meridian, Tropics, Arctic and Antarctic Circles; International Date Line, time zones.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-world-c02-t05",
+      "chapter_code": "geo-world-c02",
+      "title": "Plate tectonics and continental drift",
+      "notes": "Wegener, sea-floor spreading, plate boundaries (convergent, divergent, transform).",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-world-c02-t06",
+      "chapter_code": "geo-world-c02",
+      "title": "Geological time scale",
+      "notes": "eras and periods.",
+      "sort_order": 6
+    },
+    {
+      "code": "geo-world-c02-t07",
+      "chapter_code": "geo-world-c02",
+      "title": "Earth’s magnetic field",
+      "notes": "magnetosphere, auroras.",
+      "sort_order": 7
+    },
+    {
+      "code": "geo-world-c03-t01",
+      "chapter_code": "geo-world-c03",
+      "title": "Types of maps",
+      "notes": "physical, political, thematic, topographic.",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-world-c03-t02",
+      "chapter_code": "geo-world-c03",
+      "title": "Scale and direction",
+      "notes": "representative fraction, graphic scale; cardinal directions.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-world-c03-t03",
+      "chapter_code": "geo-world-c03",
+      "title": "Map projections",
+      "notes": "cylindrical (Mercator), conical, azimuthal; properties.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-world-c03-t04",
+      "chapter_code": "geo-world-c03",
+      "title": "Conventional signs and symbols",
+      "notes": "contour lines, topographic sheets.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-world-c03-t05",
+      "chapter_code": "geo-world-c03",
+      "title": "Map-based questions",
+      "notes": "locating countries, mountain ranges, rivers, lakes, straits on outline maps.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-world-c03-t06",
+      "chapter_code": "geo-world-c03",
+      "title": "Remote sensing and GIS",
+      "notes": "GPS, satellite imagery, Survey of India.",
+      "sort_order": 6
+    },
+    {
+      "code": "geo-world-c04-t01",
+      "chapter_code": "geo-world-c04",
+      "title": "Igneous rocks",
+      "notes": "granite (intrusive), basalt (extrusive); features.",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-world-c04-t02",
+      "chapter_code": "geo-world-c04",
+      "title": "Sedimentary rocks",
+      "notes": "sandstone, limestone, shale, coal; fossils, stratification.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-world-c04-t03",
+      "chapter_code": "geo-world-c04",
+      "title": "Metamorphic rocks",
+      "notes": "marble, slate, gneiss, quartzite; metamorphism from granite, limestone, shale.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-world-c04-t04",
+      "chapter_code": "geo-world-c04",
+      "title": "Rock cycle",
+      "notes": "transformation among the three types.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-world-c04-t05",
+      "chapter_code": "geo-world-c04",
+      "title": "Minerals in rocks",
+      "notes": "quartz, feldspar, mica.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-world-c04-t06",
+      "chapter_code": "geo-world-c04",
+      "title": "Weathering and erosion",
+      "notes": "physical, chemical, biological; agents of gradation.",
+      "sort_order": 6
+    },
+    {
+      "code": "geo-world-c04-t07",
+      "chapter_code": "geo-world-c04",
+      "title": "Economic importance of rocks",
+      "notes": "building stones, ores.",
+      "sort_order": 7
+    },
+    {
+      "code": "geo-world-c05-t01",
+      "chapter_code": "geo-world-c05",
+      "title": "Types of volcanoes",
+      "notes": "active, dormant, extinct; shield, composite, cinder cone.",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-world-c05-t02",
+      "chapter_code": "geo-world-c05",
+      "title": "Distribution",
+      "notes": "Pacific Ring of Fire, Mediterranean belt, Mid-Atlantic ridge.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-world-c05-t03",
+      "chapter_code": "geo-world-c05",
+      "title": "Famous volcanoes",
+      "notes": "Mount Etna, Vesuvius, Stromboli, Krakatoa, Mount Fuji, Mauna Loa, Kilimanjaro, Mount St Helens.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-world-c05-t04",
+      "chapter_code": "geo-world-c05",
+      "title": "Volcanic landforms",
+      "notes": "craters, calderas, lava plateaus, geysers, hot springs.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-world-c05-t05",
+      "chapter_code": "geo-world-c05",
+      "title": "Intrusive landforms",
+      "notes": "batholith, laccolith, sill, dyke.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-world-c05-t06",
+      "chapter_code": "geo-world-c05",
+      "title": "Lava and ash",
+      "notes": "effects, Deccan Traps.",
+      "sort_order": 6
+    },
+    {
+      "code": "geo-world-c05-t07",
+      "chapter_code": "geo-world-c05",
+      "title": "Matching: volcano–country–type",
+      "notes": "quick revision.",
+      "sort_order": 7
+    },
+    {
+      "code": "geo-world-c06-t01",
+      "chapter_code": "geo-world-c06",
+      "title": "Causes and terminology",
+      "notes": "focus, epicentre, seismic waves (P, S, L waves).",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-world-c06-t02",
+      "chapter_code": "geo-world-c06",
+      "title": "Measurement",
+      "notes": "Richter scale, Mercalli scale, seismograph.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-world-c06-t03",
+      "chapter_code": "geo-world-c06",
+      "title": "Earthquake belts",
+      "notes": "Circum-Pacific belt, Alpine-Himalayan belt.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-world-c06-t04",
+      "chapter_code": "geo-world-c06",
+      "title": "Major earthquakes",
+      "notes": "Japan, Nepal 2015, Haiti 2010, Chile 1960.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-world-c06-t05",
+      "chapter_code": "geo-world-c06",
+      "title": "Tsunami",
+      "notes": "causes, warning systems, 2004 Indian Ocean.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-world-c06-t06",
+      "chapter_code": "geo-world-c06",
+      "title": "Shadow zones",
+      "notes": "P and S wave behaviour, Earth’s interior.",
+      "sort_order": 6
+    },
+    {
+      "code": "geo-world-c06-t07",
+      "chapter_code": "geo-world-c06",
+      "title": "Effects and mitigation",
+      "notes": "building codes, early warning.",
+      "sort_order": 7
+    },
+    {
+      "code": "geo-world-c07-t01",
+      "chapter_code": "geo-world-c07",
+      "title": "Seven continents",
+      "notes": "Asia, Africa, North America, South America, Antarctica, Europe, Australia (Oceania).",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-world-c07-t02",
+      "chapter_code": "geo-world-c07",
+      "title": "Area and population ranks",
+      "notes": "largest and smallest, most populated.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-world-c07-t03",
+      "chapter_code": "geo-world-c07",
+      "title": "Extreme points",
+      "notes": "highest and lowest points, longest river, largest lake.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-world-c07-t04",
+      "chapter_code": "geo-world-c07",
+      "title": "Continental features",
+      "notes": "Asia, Africa, Europe, Americas, Australia.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-world-c07-t05",
+      "chapter_code": "geo-world-c07",
+      "title": "Theory of continental drift and Pangaea",
+      "notes": "Laurasia, Gondwanaland.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-world-c07-t06",
+      "chapter_code": "geo-world-c07",
+      "title": "Countries and key facts by continent",
+      "notes": "matching.",
+      "sort_order": 6
+    },
+    {
+      "code": "geo-world-c08-t01",
+      "chapter_code": "geo-world-c08",
+      "title": "Fold mountains",
+      "notes": "Himalayas, Alps, Rockies, Andes, Urals, Atlas.",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-world-c08-t02",
+      "chapter_code": "geo-world-c08",
+      "title": "Highest peaks by continent",
+      "notes": "Everest, Aconcagua, Denali, Kilimanjaro, Elbrus, Vinson Massif, Puncak Jaya.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-world-c08-t03",
+      "chapter_code": "geo-world-c08",
+      "title": "Block and volcanic mountains",
+      "notes": "Vosges, Black Forest, Sierra Nevada.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-world-c08-t04",
+      "chapter_code": "geo-world-c08",
+      "title": "Residual mountains",
+      "notes": "Aravalli, Appalachians.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-world-c08-t05",
+      "chapter_code": "geo-world-c08",
+      "title": "Mountain ranges by country",
+      "notes": "matching.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-world-c08-t06",
+      "chapter_code": "geo-world-c08",
+      "title": "Formation of mountains",
+      "notes": "orogenic, plate tectonics.",
+      "sort_order": 6
+    },
+    {
+      "code": "geo-world-c08-t07",
+      "chapter_code": "geo-world-c08",
+      "title": "Mountain passes of the world",
+      "notes": "Khyber, Brenner, Simplon.",
+      "sort_order": 7
+    },
+    {
+      "code": "geo-world-c09-t01",
+      "chapter_code": "geo-world-c09",
+      "title": "Types of plateaus",
+      "notes": "intermontane, piedmont, continental.",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-world-c09-t02",
+      "chapter_code": "geo-world-c09",
+      "title": "Tibetan Plateau (Roof of the World)",
+      "notes": "Pamir, “world’s highest”.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-world-c09-t03",
+      "chapter_code": "geo-world-c09",
+      "title": "Plateaus by continent",
+      "notes": "Deccan, Colorado, Mexican, Bolivian, Patagonian, Ethiopian, Mongolian.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-world-c09-t04",
+      "chapter_code": "geo-world-c09",
+      "title": "Lava plateaus",
+      "notes": "Deccan, Columbia.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-world-c09-t05",
+      "chapter_code": "geo-world-c09",
+      "title": "Economic importance",
+      "notes": "minerals, grazing.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-world-c09-t06",
+      "chapter_code": "geo-world-c09",
+      "title": "Matching: plateau–country–feature",
+      "notes": "quick revision.",
+      "sort_order": 6
+    },
+    {
+      "code": "geo-world-c10-t01",
+      "chapter_code": "geo-world-c10",
+      "title": "Types of valleys",
+      "notes": "V-shaped, U-shaped (glacial), rift valleys, gorges, canyons.",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-world-c10-t02",
+      "chapter_code": "geo-world-c10",
+      "title": "Famous valleys",
+      "notes": "Great Rift Valley, Death Valley, Rhine Valley, Yosemite, Kashmir Valley.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-world-c10-t03",
+      "chapter_code": "geo-world-c10",
+      "title": "Rift valleys",
+      "notes": "East African, Jordan-Dead Sea.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-world-c10-t04",
+      "chapter_code": "geo-world-c10",
+      "title": "Canyons",
+      "notes": "Grand Canyon (Colorado River).",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-world-c10-t05",
+      "chapter_code": "geo-world-c10",
+      "title": "Glacial valleys and fjords",
+      "notes": "Norway, New Zealand.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-world-c10-t06",
+      "chapter_code": "geo-world-c10",
+      "title": "Matching: valley–country–river",
+      "notes": "quick revision.",
+      "sort_order": 6
+    },
+    {
+      "code": "geo-world-c11-t01",
+      "chapter_code": "geo-world-c11",
+      "title": "Stages of a river",
+      "notes": "youth, mature, old; V-valley, meanders, floodplain.",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-world-c11-t02",
+      "chapter_code": "geo-world-c11",
+      "title": "Erosional landforms",
+      "notes": "gorges, canyons, waterfalls, potholes, rapids.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-world-c11-t03",
+      "chapter_code": "geo-world-c11",
+      "title": "Depositional landforms",
+      "notes": "meanders, oxbow lakes, levees, floodplains, deltas, alluvial fans.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-world-c11-t04",
+      "chapter_code": "geo-world-c11",
+      "title": "Types of deltas",
+      "notes": "arcuate (Nile), bird-foot (Mississippi), estuarine (Ganga-Brahmaputra).",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-world-c11-t05",
+      "chapter_code": "geo-world-c11",
+      "title": "Drainage patterns",
+      "notes": "dendritic, trellis, radial, rectangular.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-world-c11-t06",
+      "chapter_code": "geo-world-c11",
+      "title": "Glacial and wind landforms (brief)",
+      "notes": "moraines, cirques, sand dunes, barchans, loess.",
+      "sort_order": 6
+    },
+    {
+      "code": "geo-world-c11-t07",
+      "chapter_code": "geo-world-c11",
+      "title": "Karst topography",
+      "notes": "stalactites and stalagmites.",
+      "sort_order": 7
+    },
+    {
+      "code": "geo-world-c12-t01",
+      "chapter_code": "geo-world-c12",
+      "title": "Hot deserts",
+      "notes": "Sahara, Arabian, Thar, Kalahari, Great Australian, Atacama.",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-world-c12-t02",
+      "chapter_code": "geo-world-c12",
+      "title": "Cold deserts",
+      "notes": "Gobi, Patagonia, Taklamakan, Antarctica.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-world-c12-t03",
+      "chapter_code": "geo-world-c12",
+      "title": "Largest deserts",
+      "notes": "ranking, area.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-world-c12-t04",
+      "chapter_code": "geo-world-c12",
+      "title": "Desert climate and causes",
+      "notes": "trade-wind belt, rain shadow, cold currents.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-world-c12-t05",
+      "chapter_code": "geo-world-c12",
+      "title": "Desert landforms",
+      "notes": "ergs, regs, oasis, playas, wadis.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-world-c12-t06",
+      "chapter_code": "geo-world-c12",
+      "title": "Desert people and resources",
+      "notes": "Bedouins, Tuaregs, oil.",
+      "sort_order": 6
+    },
+    {
+      "code": "geo-world-c12-t07",
+      "chapter_code": "geo-world-c12",
+      "title": "Matching: desert–country–type",
+      "notes": "quick revision.",
+      "sort_order": 7
+    },
+    {
+      "code": "geo-world-c13-t01",
+      "chapter_code": "geo-world-c13",
+      "title": "Tropical grasslands",
+      "notes": "Savanna (Africa), Campos (Brazil), Llanos (Venezuela).",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-world-c13-t02",
+      "chapter_code": "geo-world-c13",
+      "title": "Temperate grasslands",
+      "notes": "Prairies (North America), Pampas (Argentina), Steppes (Eurasia), Veld (South Africa), Downs (Australia), Canterbury (New Zealand).",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-world-c13-t03",
+      "chapter_code": "geo-world-c13",
+      "title": "Climate and vegetation",
+      "notes": "rainfall, grasses, wildlife.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-world-c13-t04",
+      "chapter_code": "geo-world-c13",
+      "title": "Animal husbandry and wheat belts",
+      "notes": "economic importance.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-world-c13-t05",
+      "chapter_code": "geo-world-c13",
+      "title": "Matching: grassland–region–continent",
+      "notes": "quick revision.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-world-c14-t01",
+      "chapter_code": "geo-world-c14",
+      "title": "Composition of air",
+      "notes": "nitrogen, oxygen, argon, carbon dioxide; water vapour.",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-world-c14-t02",
+      "chapter_code": "geo-world-c14",
+      "title": "Layers",
+      "notes": "troposphere, stratosphere (ozone), mesosphere, thermosphere (ionosphere), exosphere.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-world-c14-t03",
+      "chapter_code": "geo-world-c14",
+      "title": "Ozone layer",
+      "notes": "depletion, CFCs, Montreal Protocol.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-world-c14-t04",
+      "chapter_code": "geo-world-c14",
+      "title": "Greenhouse effect and global warming",
+      "notes": "gases, Kyoto, Paris Agreement.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-world-c14-t05",
+      "chapter_code": "geo-world-c14",
+      "title": "Weather vs climate",
+      "notes": "elements.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-world-c14-t06",
+      "chapter_code": "geo-world-c14",
+      "title": "Atmospheric phenomena",
+      "notes": "aurora, mirage.",
+      "sort_order": 6
+    },
+    {
+      "code": "geo-world-c15-t01",
+      "chapter_code": "geo-world-c15",
+      "title": "Insolation",
+      "notes": "solar radiation, factors affecting insolation.",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-world-c15-t02",
+      "chapter_code": "geo-world-c15",
+      "title": "Heat budget of the Earth",
+      "notes": "albedo, terrestrial radiation.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-world-c15-t03",
+      "chapter_code": "geo-world-c15",
+      "title": "Temperature distribution",
+      "notes": "latitude, altitude, ocean currents; isotherms.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-world-c15-t04",
+      "chapter_code": "geo-world-c15",
+      "title": "Inversion of temperature",
+      "notes": "types, causes.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-world-c15-t05",
+      "chapter_code": "geo-world-c15",
+      "title": "Heat zones",
+      "notes": "torrid, temperate, frigid.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-world-c15-t06",
+      "chapter_code": "geo-world-c15",
+      "title": "Lapse rate",
+      "notes": "normal lapse rate (6.5°C per km).",
+      "sort_order": 6
+    },
+    {
+      "code": "geo-world-c16-t01",
+      "chapter_code": "geo-world-c16",
+      "title": "Atmospheric pressure",
+      "notes": "barometer, isobars.",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-world-c16-t02",
+      "chapter_code": "geo-world-c16",
+      "title": "Pressure belts",
+      "notes": "Equatorial low, Subtropical highs, Subpolar lows, Polar highs.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-world-c16-t03",
+      "chapter_code": "geo-world-c16",
+      "title": "Variation with altitude and temperature",
+      "notes": "factors.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-world-c16-t04",
+      "chapter_code": "geo-world-c16",
+      "title": "Doldrums, horse latitudes",
+      "notes": "features.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-world-c16-t05",
+      "chapter_code": "geo-world-c16",
+      "title": "Shifting pressure belts",
+      "notes": "seasonal.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-world-c17-t01",
+      "chapter_code": "geo-world-c17",
+      "title": "Planetary winds",
+      "notes": "Trade winds, Westerlies (Roaring Forties, Furious Fifties, Screaming Sixties), Polar easterlies.",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-world-c17-t02",
+      "chapter_code": "geo-world-c17",
+      "title": "Coriolis force and Ferrel’s law",
+      "notes": "deflection.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-world-c17-t03",
+      "chapter_code": "geo-world-c17",
+      "title": "Periodic winds",
+      "notes": "monsoons, land and sea breezes, mountain and valley winds.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-world-c17-t04",
+      "chapter_code": "geo-world-c17",
+      "title": "Jet streams",
+      "notes": "subtropical and polar jets.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-world-c17-t05",
+      "chapter_code": "geo-world-c17",
+      "title": "Fronts and air masses",
+      "notes": "cold and warm fronts.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-world-c17-t06",
+      "chapter_code": "geo-world-c17",
+      "title": "El Nino and La Nina",
+      "notes": "effects, Southern Oscillation.",
+      "sort_order": 6
+    },
+    {
+      "code": "geo-world-c18-t01",
+      "chapter_code": "geo-world-c18",
+      "title": "Hot local winds",
+      "notes": "Loo (India), Sirocco (Sahara to Italy), Harmattan, Khamsin, Simoom.",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-world-c18-t02",
+      "chapter_code": "geo-world-c18",
+      "title": "Cold local winds",
+      "notes": "Mistral (France), Bora (Adriatic), Buran, Blizzard, Pampero.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-world-c18-t03",
+      "chapter_code": "geo-world-c18",
+      "title": "Warm dry winds on mountain slopes",
+      "notes": "Foehn (Alps), Chinook (Rockies, “snow eater”), Zonda (Andes), Santa Ana.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-world-c18-t04",
+      "chapter_code": "geo-world-c18",
+      "title": "Matching: wind–region–type",
+      "notes": "quick revision table.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-world-c19-t01",
+      "chapter_code": "geo-world-c19",
+      "title": "Types of humidity",
+      "notes": "absolute, specific, relative.",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-world-c19-t02",
+      "chapter_code": "geo-world-c19",
+      "title": "Condensation forms",
+      "notes": "dew, frost, fog, mist, haze.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-world-c19-t03",
+      "chapter_code": "geo-world-c19",
+      "title": "Types of precipitation",
+      "notes": "rain, snow, sleet, hail.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-world-c19-t04",
+      "chapter_code": "geo-world-c19",
+      "title": "Rainfall types",
+      "notes": "convectional, orographic, cyclonic.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-world-c19-t05",
+      "chapter_code": "geo-world-c19",
+      "title": "Hygrometer and measurement",
+      "notes": "rain gauge.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-world-c19-t06",
+      "chapter_code": "geo-world-c19",
+      "title": "Global rainfall distribution",
+      "notes": "wettest and driest places.",
+      "sort_order": 6
+    },
+    {
+      "code": "geo-world-c20-t01",
+      "chapter_code": "geo-world-c20",
+      "title": "Cloud types",
+      "notes": "cirrus, cumulus, stratus, nimbus; classification by height (high, medium, low).",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-world-c20-t02",
+      "chapter_code": "geo-world-c20",
+      "title": "Cloud formation",
+      "notes": "condensation, dew point.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-world-c20-t03",
+      "chapter_code": "geo-world-c20",
+      "title": "Rain-bearing clouds",
+      "notes": "cumulonimbus, nimbostratus.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-world-c20-t04",
+      "chapter_code": "geo-world-c20",
+      "title": "Cloud seeding",
+      "notes": "artificial rain.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-world-c20-t05",
+      "chapter_code": "geo-world-c20",
+      "title": "Lightning and thunderstorms",
+      "notes": "mechanism.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-world-c21-t01",
+      "chapter_code": "geo-world-c21",
+      "title": "Tropical cyclones",
+      "notes": "hurricanes (Atlantic), typhoons (China Sea), cyclones (Indian Ocean), Willy-willies (Australia).",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-world-c21-t02",
+      "chapter_code": "geo-world-c21",
+      "title": "Temperate (extra-tropical) cyclones",
+      "notes": "fronts, mid-latitude.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-world-c21-t03",
+      "chapter_code": "geo-world-c21",
+      "title": "Anticyclones",
+      "notes": "features.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-world-c21-t04",
+      "chapter_code": "geo-world-c21",
+      "title": "Tornadoes",
+      "notes": "Tornado Alley (USA), Waterspouts.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-world-c21-t05",
+      "chapter_code": "geo-world-c21",
+      "title": "Naming of cyclones",
+      "notes": "WMO, regional bodies.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-world-c21-t06",
+      "chapter_code": "geo-world-c21",
+      "title": "Famous cyclones and impact",
+      "notes": "regions.",
+      "sort_order": 6
+    },
+    {
+      "code": "geo-world-c22-t01",
+      "chapter_code": "geo-world-c22",
+      "title": "Koppen’s classification",
+      "notes": "groups A, B, C, D, E, H.",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-world-c22-t02",
+      "chapter_code": "geo-world-c22",
+      "title": "Equatorial climate",
+      "notes": "Amazon, Congo; rainfall and vegetation.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-world-c22-t03",
+      "chapter_code": "geo-world-c22",
+      "title": "Tropical monsoon climate",
+      "notes": "India, Southeast Asia.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-world-c22-t04",
+      "chapter_code": "geo-world-c22",
+      "title": "Savanna climate",
+      "notes": "Sudan type.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-world-c22-t05",
+      "chapter_code": "geo-world-c22",
+      "title": "Desert climate",
+      "notes": "hot and cold.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-world-c22-t06",
+      "chapter_code": "geo-world-c22",
+      "title": "Mediterranean climate",
+      "notes": "California, Chile, Cape Town, Australia.",
+      "sort_order": 6
+    },
+    {
+      "code": "geo-world-c22-t07",
+      "chapter_code": "geo-world-c22",
+      "title": "China type, British type, Siberian, Taiga",
+      "notes": "temperate climates.",
+      "sort_order": 7
+    },
+    {
+      "code": "geo-world-c22-t08",
+      "chapter_code": "geo-world-c22",
+      "title": "Tundra and polar climate",
+      "notes": "Eskimos, permafrost.",
+      "sort_order": 8
+    },
+    {
+      "code": "geo-world-c22-t09",
+      "chapter_code": "geo-world-c22",
+      "title": "Matching: climate–region–vegetation",
+      "notes": "quick revision.",
+      "sort_order": 9
+    },
+    {
+      "code": "geo-world-c23-t01",
+      "chapter_code": "geo-world-c23",
+      "title": "Distribution of water on Earth",
+      "notes": "oceans, ice caps, groundwater, rivers.",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-world-c23-t02",
+      "chapter_code": "geo-world-c23",
+      "title": "Hydrological cycle",
+      "notes": "evaporation, condensation, precipitation.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-world-c23-t03",
+      "chapter_code": "geo-world-c23",
+      "title": "Oceans vs seas vs gulfs",
+      "notes": "definitions.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-world-c23-t04",
+      "chapter_code": "geo-world-c23",
+      "title": "Ocean resources",
+      "notes": "fisheries, oil, minerals, tidal energy.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-world-c23-t05",
+      "chapter_code": "geo-world-c23",
+      "title": "Ocean pollution",
+      "notes": "oil spills, plastic.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-world-c24-t01",
+      "chapter_code": "geo-world-c24",
+      "title": "Pacific Ocean",
+      "notes": "largest and deepest, Mariana Trench, Ring of Fire.",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-world-c24-t02",
+      "chapter_code": "geo-world-c24",
+      "title": "Atlantic Ocean",
+      "notes": "S-shaped, Mid-Atlantic ridge, Sargasso Sea.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-world-c24-t03",
+      "chapter_code": "geo-world-c24",
+      "title": "Indian Ocean",
+      "notes": "Arabian Sea, Bay of Bengal, Java Trench.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-world-c24-t04",
+      "chapter_code": "geo-world-c24",
+      "title": "Arctic and Southern Ocean",
+      "notes": "ice, Antarctic.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-world-c24-t05",
+      "chapter_code": "geo-world-c24",
+      "title": "Seas of the world",
+      "notes": "Mediterranean, Red Sea, Black Sea, Caspian (largest lake), Dead Sea.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-world-c24-t06",
+      "chapter_code": "geo-world-c24",
+      "title": "Bays and gulfs",
+      "notes": "Hudson, Persian, Mexico.",
+      "sort_order": 6
+    },
+    {
+      "code": "geo-world-c24-t07",
+      "chapter_code": "geo-world-c24",
+      "title": "Matching: sea–location–feature",
+      "notes": "quick revision.",
+      "sort_order": 7
+    },
+    {
+      "code": "geo-world-c25-t01",
+      "chapter_code": "geo-world-c25",
+      "title": "Ocean floor relief",
+      "notes": "continental shelf, slope, abyssal plains, mid-oceanic ridges.",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-world-c25-t02",
+      "chapter_code": "geo-world-c25",
+      "title": "Oceanic trenches",
+      "notes": "Mariana (Challenger Deep), Tonga, Kuril-Kamchatka, Philippine, Puerto Rico, Java (Sunda).",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-world-c25-t03",
+      "chapter_code": "geo-world-c25",
+      "title": "Deepest trench by ocean",
+      "notes": "Pacific, Atlantic, Indian.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-world-c25-t04",
+      "chapter_code": "geo-world-c25",
+      "title": "Seamounts and guyots",
+      "notes": "features.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-world-c25-t05",
+      "chapter_code": "geo-world-c25",
+      "title": "Mid-Atlantic ridge",
+      "notes": "Iceland.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-world-c26-t01",
+      "chapter_code": "geo-world-c26",
+      "title": "Definition and average salinity",
+      "notes": "about 35 parts per thousand.",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-world-c26-t02",
+      "chapter_code": "geo-world-c26",
+      "title": "Factors affecting salinity",
+      "notes": "evaporation, precipitation, river inflow, currents.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-world-c26-t03",
+      "chapter_code": "geo-world-c26",
+      "title": "Salinity of seas",
+      "notes": "highest (Dead Sea, Lake Van, Great Salt Lake), lowest (Baltic, Black Sea).",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-world-c26-t04",
+      "chapter_code": "geo-world-c26",
+      "title": "Salinity distribution",
+      "notes": "equator, tropics, poles.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-world-c26-t05",
+      "chapter_code": "geo-world-c26",
+      "title": "Isohaline",
+      "notes": "lines of equal salinity.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-world-c26-t06",
+      "chapter_code": "geo-world-c26",
+      "title": "Salinity and ocean life",
+      "notes": "brackish water.",
+      "sort_order": 6
+    },
+    {
+      "code": "geo-world-c27-t01",
+      "chapter_code": "geo-world-c27",
+      "title": "Causes",
+      "notes": "wind, temperature, salinity, Coriolis force.",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-world-c27-t02",
+      "chapter_code": "geo-world-c27",
+      "title": "Warm currents",
+      "notes": "Gulf Stream, Kuroshio, North Atlantic Drift, Brazil, Agulhas.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-world-c27-t03",
+      "chapter_code": "geo-world-c27",
+      "title": "Cold currents",
+      "notes": "Labrador, Humboldt (Peru), Benguela, California, Canaries, West Australian.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-world-c27-t04",
+      "chapter_code": "geo-world-c27",
+      "title": "Currents of the Indian Ocean",
+      "notes": "monsoon drift.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-world-c27-t05",
+      "chapter_code": "geo-world-c27",
+      "title": "Effects on climate",
+      "notes": "fog (Newfoundland), fisheries, deserts.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-world-c27-t06",
+      "chapter_code": "geo-world-c27",
+      "title": "Gyres and Sargasso Sea",
+      "notes": "circulation.",
+      "sort_order": 6
+    },
+    {
+      "code": "geo-world-c27-t07",
+      "chapter_code": "geo-world-c27",
+      "title": "Matching: current–ocean–type",
+      "notes": "quick revision.",
+      "sort_order": 7
+    },
+    {
+      "code": "geo-world-c28-t01",
+      "chapter_code": "geo-world-c28",
+      "title": "Causes of tides",
+      "notes": "Moon and Sun gravitation, centrifugal force.",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-world-c28-t02",
+      "chapter_code": "geo-world-c28",
+      "title": "Spring and neap tides",
+      "notes": "new moon and full moon, quarter moon.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-world-c28-t03",
+      "chapter_code": "geo-world-c28",
+      "title": "Tidal range",
+      "notes": "Bay of Fundy (highest), Gulf of Khambhat.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-world-c28-t04",
+      "chapter_code": "geo-world-c28",
+      "title": "Interval between two high tides",
+      "notes": "about 12 hours 26 minutes.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-world-c28-t05",
+      "chapter_code": "geo-world-c28",
+      "title": "Tidal energy",
+      "notes": "power plants.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-world-c28-t06",
+      "chapter_code": "geo-world-c28",
+      "title": "Tidal bores",
+      "notes": "Hooghly, Amazon (Pororoca).",
+      "sort_order": 6
+    },
+    {
+      "code": "geo-world-c29-t01",
+      "chapter_code": "geo-world-c29",
+      "title": "Types of coral reefs",
+      "notes": "fringing, barrier, atolls.",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-world-c29-t02",
+      "chapter_code": "geo-world-c29",
+      "title": "Great Barrier Reef",
+      "notes": "Australia, largest, UNESCO.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-world-c29-t03",
+      "chapter_code": "geo-world-c29",
+      "title": "Conditions for growth",
+      "notes": "warm clear shallow water, 20–21°C.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-world-c29-t04",
+      "chapter_code": "geo-world-c29",
+      "title": "Coral bleaching",
+      "notes": "causes.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-world-c29-t05",
+      "chapter_code": "geo-world-c29",
+      "title": "Coral reefs in India",
+      "notes": "Lakshadweep, Gulf of Mannar, Andaman, Kachchh.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-world-c29-t06",
+      "chapter_code": "geo-world-c29",
+      "title": "Atolls of the world",
+      "notes": "Maldives, Bikini.",
+      "sort_order": 6
+    },
+    {
+      "code": "geo-world-c30-t01",
+      "chapter_code": "geo-world-c30",
+      "title": "Largest islands",
+      "notes": "Greenland, New Guinea, Borneo, Madagascar, Baffin, Sumatra, Honshu, Great Britain.",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-world-c30-t02",
+      "chapter_code": "geo-world-c30",
+      "title": "Island groups and archipelagos",
+      "notes": "Hawaii, Indonesia, Philippines, Japan, Maldives.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-world-c30-t03",
+      "chapter_code": "geo-world-c30",
+      "title": "Continental vs oceanic islands",
+      "notes": "formation.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-world-c30-t04",
+      "chapter_code": "geo-world-c30",
+      "title": "Islands by ocean",
+      "notes": "Pacific, Atlantic, Indian.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-world-c30-t05",
+      "chapter_code": "geo-world-c30",
+      "title": "Disputed islands",
+      "notes": "Falklands, Senkaku, Spratly.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-world-c30-t06",
+      "chapter_code": "geo-world-c30",
+      "title": "Matching: island–country–ocean",
+      "notes": "quick revision.",
+      "sort_order": 6
+    },
+    {
+      "code": "geo-world-c31-t01",
+      "chapter_code": "geo-world-c31",
+      "title": "Famous straits",
+      "notes": "Gibraltar, Bosphorus, Dardanelles, Hormuz, Malacca, Bering, Dover, Palk.",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-world-c31-t02",
+      "chapter_code": "geo-world-c31",
+      "title": "Straits connecting seas and oceans",
+      "notes": "Mediterranean-Atlantic, Persian Gulf-Gulf of Oman.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-world-c31-t03",
+      "chapter_code": "geo-world-c31",
+      "title": "Strategic importance",
+      "notes": "oil routes, chokepoints.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-world-c31-t04",
+      "chapter_code": "geo-world-c31",
+      "title": "Matching: strait–connects–countries",
+      "notes": "quick revision.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-world-c32-t01",
+      "chapter_code": "geo-world-c32",
+      "title": "Longest rivers",
+      "notes": "Nile, Amazon, Yangtze, Mississippi, Yenisei.",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-world-c32-t02",
+      "chapter_code": "geo-world-c32",
+      "title": "Rivers by continent",
+      "notes": "Asia (Yangtze, Ganga, Mekong), Africa (Nile, Congo), Europe (Volga, Danube), Americas (Amazon, Mississippi), Australia (Murray-Darling).",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-world-c32-t03",
+      "chapter_code": "geo-world-c32",
+      "title": "River origin and mouth",
+      "notes": "source and sea.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-world-c32-t04",
+      "chapter_code": "geo-world-c32",
+      "title": "International rivers",
+      "notes": "Danube, Rhine, Mekong, Nile.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-world-c32-t05",
+      "chapter_code": "geo-world-c32",
+      "title": "Rivers and deltas",
+      "notes": "Nile, Mississippi, Ganga.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-world-c32-t06",
+      "chapter_code": "geo-world-c32",
+      "title": "Matching: river–country–length",
+      "notes": "quick revision.",
+      "sort_order": 6
+    },
+    {
+      "code": "geo-world-c33-t01",
+      "chapter_code": "geo-world-c33",
+      "title": "Largest lakes",
+      "notes": "Caspian Sea, Superior, Victoria, Huron, Michigan, Tanganyika, Baikal.",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-world-c33-t02",
+      "chapter_code": "geo-world-c33",
+      "title": "Great Lakes",
+      "notes": "Superior, Michigan, Huron, Erie, Ontario.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-world-c33-t03",
+      "chapter_code": "geo-world-c33",
+      "title": "Deepest and highest lakes",
+      "notes": "Baikal (deepest), Titicaca (highest navigable).",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-world-c33-t04",
+      "chapter_code": "geo-world-c33",
+      "title": "Saltwater lakes",
+      "notes": "Dead Sea, Great Salt Lake, Caspian.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-world-c33-t05",
+      "chapter_code": "geo-world-c33",
+      "title": "Waterfalls",
+      "notes": "Angel (highest), Niagara, Victoria, Iguazu.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-world-c33-t06",
+      "chapter_code": "geo-world-c33",
+      "title": "Matching: lake–country–feature",
+      "notes": "quick revision.",
+      "sort_order": 6
+    },
+    {
+      "code": "geo-world-c34-t01",
+      "chapter_code": "geo-world-c34",
+      "title": "Suez Canal",
+      "notes": "Mediterranean-Red Sea, Egypt, 1869, Ferdinand de Lesseps.",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-world-c34-t02",
+      "chapter_code": "geo-world-c34",
+      "title": "Panama Canal",
+      "notes": "Atlantic-Pacific, 1914.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-world-c34-t03",
+      "chapter_code": "geo-world-c34",
+      "title": "Kiel Canal",
+      "notes": "Baltic and North Sea, Germany.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-world-c34-t04",
+      "chapter_code": "geo-world-c34",
+      "title": "Other canals",
+      "notes": "Grand Canal (China), Erie Canal, St Lawrence Seaway.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-world-c34-t05",
+      "chapter_code": "geo-world-c34",
+      "title": "Strategic and trade importance",
+      "notes": "shipping time, distance saved.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-world-c34-t06",
+      "chapter_code": "geo-world-c34",
+      "title": "Matching: canal–connects–country",
+      "notes": "quick revision.",
+      "sort_order": 6
+    },
+    {
+      "code": "geo-world-c35-t01",
+      "chapter_code": "geo-world-c35",
+      "title": "Highest and largest dams",
+      "notes": "Three Gorges (China), Hoover (USA), Aswan High (Egypt), Itaipu, Grand Coulee.",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-world-c35-t02",
+      "chapter_code": "geo-world-c35",
+      "title": "Dams by river and country",
+      "notes": "Nile, Colorado, Yangtze, Volga.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-world-c35-t03",
+      "chapter_code": "geo-world-c35",
+      "title": "Hydroelectric power",
+      "notes": "leading producers.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-world-c35-t04",
+      "chapter_code": "geo-world-c35",
+      "title": "Man-made reservoirs",
+      "notes": "Lake Nasser, Lake Mead.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-world-c35-t05",
+      "chapter_code": "geo-world-c35",
+      "title": "Matching: dam–river–country",
+      "notes": "quick revision.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-world-c36-t01",
+      "chapter_code": "geo-world-c36",
+      "title": "Capitals on rivers",
+      "notes": "London (Thames), Paris (Seine), Rome (Tiber), Cairo (Nile), Baghdad (Tigris), Vienna (Danube), Berlin (Spree), Moscow (Moskva).",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-world-c36-t02",
+      "chapter_code": "geo-world-c36",
+      "title": "Other cities on rivers",
+      "notes": "New Orleans (Mississippi), Shanghai (Huangpu), Karachi (Indus mouth).",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-world-c36-t03",
+      "chapter_code": "geo-world-c36",
+      "title": "Cities of South and Southeast Asia",
+      "notes": "Bangkok (Chao Phraya), Phnom Penh, Dhaka (Buriganga).",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-world-c36-t04",
+      "chapter_code": "geo-world-c36",
+      "title": "Cities of Europe, Africa, Americas",
+      "notes": "quick lists.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-world-c36-t05",
+      "chapter_code": "geo-world-c36",
+      "title": "Matching: city–river–country",
+      "notes": "quick revision.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-world-c37-t01",
+      "chapter_code": "geo-world-c37",
+      "title": "Soil formation",
+      "notes": "parent rock, climate, relief, organisms, time.",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-world-c37-t02",
+      "chapter_code": "geo-world-c37",
+      "title": "Soil types",
+      "notes": "podzol, chernozem, laterite, desert, tundra, alluvial.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-world-c37-t03",
+      "chapter_code": "geo-world-c37",
+      "title": "Soil horizons",
+      "notes": "O, A, B, C, R.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-world-c37-t04",
+      "chapter_code": "geo-world-c37",
+      "title": "Soil of major grasslands and forests",
+      "notes": "black earth (chernozem), terra rossa.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-world-c37-t05",
+      "chapter_code": "geo-world-c37",
+      "title": "Soil erosion and conservation",
+      "notes": "dust bowl.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-world-c37-t06",
+      "chapter_code": "geo-world-c37",
+      "title": "World soil distribution",
+      "notes": "matching.",
+      "sort_order": 6
+    },
+    {
+      "code": "geo-world-c38-t01",
+      "chapter_code": "geo-world-c38",
+      "title": "Tropical rainforests",
+      "notes": "Amazon, Congo, Southeast Asia; layers.",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-world-c38-t02",
+      "chapter_code": "geo-world-c38",
+      "title": "Tropical deciduous (monsoon) forests",
+      "notes": "teak, sal.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-world-c38-t03",
+      "chapter_code": "geo-world-c38",
+      "title": "Temperate forests",
+      "notes": "evergreen and deciduous, coniferous (taiga), Mediterranean.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-world-c38-t04",
+      "chapter_code": "geo-world-c38",
+      "title": "Tundra and polar vegetation",
+      "notes": "lichens, mosses.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-world-c38-t05",
+      "chapter_code": "geo-world-c38",
+      "title": "Forest products and wood",
+      "notes": "timber, softwood, hardwood.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-world-c38-t06",
+      "chapter_code": "geo-world-c38",
+      "title": "Deforestation and conservation",
+      "notes": "Amazon, forests treaty.",
+      "sort_order": 6
+    },
+    {
+      "code": "geo-world-c38-t07",
+      "chapter_code": "geo-world-c38",
+      "title": "Matching: vegetation–region–tree",
+      "notes": "quick revision.",
+      "sort_order": 7
+    },
+    {
+      "code": "geo-world-c39-t01",
+      "chapter_code": "geo-world-c39",
+      "title": "Largest, smallest and most populous countries",
+      "notes": "Russia, Vatican City; China, India.",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-world-c39-t02",
+      "chapter_code": "geo-world-c39",
+      "title": "Countries sharing borders",
+      "notes": "countries with most neighbours (China, Russia), longest border (Canada-USA).",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-world-c39-t03",
+      "chapter_code": "geo-world-c39",
+      "title": "Number of countries and UN members",
+      "notes": "193 UN members.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-world-c39-t04",
+      "chapter_code": "geo-world-c39",
+      "title": "Countries by continent",
+      "notes": "quick lists.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-world-c39-t05",
+      "chapter_code": "geo-world-c39",
+      "title": "Important facts: area and population ranks",
+      "notes": "matching.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-world-c40-t01",
+      "chapter_code": "geo-world-c40",
+      "title": "Radcliffe Line",
+      "notes": "India-Pakistan.",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-world-c40-t02",
+      "chapter_code": "geo-world-c40",
+      "title": "McMahon Line",
+      "notes": "India-China.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-world-c40-t03",
+      "chapter_code": "geo-world-c40",
+      "title": "Durand Line",
+      "notes": "Afghanistan-Pakistan.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-world-c40-t04",
+      "chapter_code": "geo-world-c40",
+      "title": "38th Parallel",
+      "notes": "North and South Korea.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-world-c40-t05",
+      "chapter_code": "geo-world-c40",
+      "title": "49th Parallel",
+      "notes": "USA-Canada.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-world-c40-t06",
+      "chapter_code": "geo-world-c40",
+      "title": "War-time and European lines",
+      "notes": "Hindenburg Line (WWI German defensive line in France), Maginot Line (France), Siegfried Line (Germany), Mannerheim Line (Finland), Oder-Neisse Line (Germany-Poland).",
+      "sort_order": 6
+    },
+    {
+      "code": "geo-world-c40-t07",
+      "chapter_code": "geo-world-c40",
+      "title": "Line of Actual Control and Line of Control",
+      "notes": "India-China, India-Pakistan.",
+      "sort_order": 7
+    },
+    {
+      "code": "geo-world-c40-t08",
+      "chapter_code": "geo-world-c40",
+      "title": "Matching: line–countries–year",
+      "notes": "quick revision.",
+      "sort_order": 8
+    },
+    {
+      "code": "geo-world-c41-t01",
+      "chapter_code": "geo-world-c41",
+      "title": "List of land-locked countries",
+      "notes": "Afghanistan, Nepal, Bhutan, Mongolia, Kazakhstan, Bolivia, Paraguay, Switzerland, Austria, Czechia, Hungary, Ethiopia, Uganda, Zambia, Zimbabwe, Botswana, Chad, Niger.",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-world-c41-t02",
+      "chapter_code": "geo-world-c41",
+      "title": "Doubly land-locked",
+      "notes": "Liechtenstein, Uzbekistan.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-world-c41-t03",
+      "chapter_code": "geo-world-c41",
+      "title": "Land-locked countries by continent",
+      "notes": "Africa (most), Europe, Asia, South America.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-world-c41-t04",
+      "chapter_code": "geo-world-c41",
+      "title": "Access to sea",
+      "notes": "transit agreements.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-world-c41-t05",
+      "chapter_code": "geo-world-c41",
+      "title": "Matching: country–neighbours–continent",
+      "notes": "quick revision.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-world-c42-t01",
+      "chapter_code": "geo-world-c42",
+      "title": "Meaning and examples",
+      "notes": "territories administered by other countries.",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-world-c42-t02",
+      "chapter_code": "geo-world-c42",
+      "title": "British Overseas Territories",
+      "notes": "Gibraltar, Falklands, Bermuda, Cayman Islands.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-world-c42-t03",
+      "chapter_code": "geo-world-c42",
+      "title": "French territories",
+      "notes": "Reunion, Guadeloupe, French Guiana, New Caledonia.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-world-c42-t04",
+      "chapter_code": "geo-world-c42",
+      "title": "US and Danish territories",
+      "notes": "Puerto Rico, Guam, Greenland (Denmark).",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-world-c42-t05",
+      "chapter_code": "geo-world-c42",
+      "title": "Territories of other countries",
+      "notes": "Hong Kong and Macau history.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-world-c42-t06",
+      "chapter_code": "geo-world-c42",
+      "title": "Matching: territory–country–location",
+      "notes": "quick revision.",
+      "sort_order": 6
+    },
+    {
+      "code": "geo-world-c43-t01",
+      "chapter_code": "geo-world-c43",
+      "title": "Africa",
+      "notes": "Gold Coast (Ghana), Rhodesia (Zimbabwe), Zaire (DR Congo), Abyssinia (Ethiopia), Dahomey (Benin), Upper Volta (Burkina Faso).",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-world-c43-t02",
+      "chapter_code": "geo-world-c43",
+      "title": "Asia",
+      "notes": "Ceylon (Sri Lanka), Siam (Thailand), Burma (Myanmar), Persia (Iran), Formosa (Taiwan), East Pakistan (Bangladesh), Mesopotamia (Iraq).",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-world-c43-t03",
+      "chapter_code": "geo-world-c43",
+      "title": "Americas and Oceania",
+      "notes": "Dutch Guiana (Suriname), Dutch East Indies (Indonesia).",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-world-c43-t04",
+      "chapter_code": "geo-world-c43",
+      "title": "Cities’ old names",
+      "notes": "Constantinople (Istanbul), Bombay (Mumbai), Madras (Chennai), Peking (Beijing), Saigon (Ho Chi Minh City).",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-world-c43-t05",
+      "chapter_code": "geo-world-c43",
+      "title": "Matching: old name–new name",
+      "notes": "quick revision.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-world-c44-t01",
+      "chapter_code": "geo-world-c44",
+      "title": "Capitals of Asian countries",
+      "notes": "matching.",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-world-c44-t02",
+      "chapter_code": "geo-world-c44",
+      "title": "Capitals of European countries",
+      "notes": "matching.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-world-c44-t03",
+      "chapter_code": "geo-world-c44",
+      "title": "Capitals of African countries",
+      "notes": "matching.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-world-c44-t04",
+      "chapter_code": "geo-world-c44",
+      "title": "Capitals of the Americas and Oceania",
+      "notes": "matching.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-world-c44-t05",
+      "chapter_code": "geo-world-c44",
+      "title": "Countries with more than one capital",
+      "notes": "South Africa, Bolivia.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-world-c44-t06",
+      "chapter_code": "geo-world-c44",
+      "title": "Capital changes",
+      "notes": "Brasilia, Canberra, Naypyidaw, Astana.",
+      "sort_order": 6
+    },
+    {
+      "code": "geo-world-c45-t01",
+      "chapter_code": "geo-world-c45",
+      "title": "Largest cities by population",
+      "notes": "Tokyo, Delhi, Shanghai, Sao Paulo.",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-world-c45-t02",
+      "chapter_code": "geo-world-c45",
+      "title": "Cities with historical importance",
+      "notes": "Rome, Athens, Jerusalem, Mecca.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-world-c45-t03",
+      "chapter_code": "geo-world-c45",
+      "title": "Ports and trade hubs",
+      "notes": "Singapore, Rotterdam, Shanghai.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-world-c45-t04",
+      "chapter_code": "geo-world-c45",
+      "title": "Cities and their famous monuments",
+      "notes": "Paris (Eiffel Tower), Agra (Taj Mahal), Rome (Colosseum).",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-world-c45-t05",
+      "chapter_code": "geo-world-c45",
+      "title": "Matching: city–country–feature",
+      "notes": "quick revision.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-world-c46-t01",
+      "chapter_code": "geo-world-c46",
+      "title": "Nicknames of countries",
+      "notes": "Land of the Rising Sun (Japan), Land of the Midnight Sun (Norway), Land of Thunderbolt (Bhutan), Land of Thousand Lakes (Finland), Land of Maple (Canada), Land of White Elephants (Thailand).",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-world-c46-t02",
+      "chapter_code": "geo-world-c46",
+      "title": "Nicknames of cities",
+      "notes": "Eternal City (Rome), City of Canals (Venice), Big Apple (New York), City of Seven Hills (Rome).",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-world-c46-t03",
+      "chapter_code": "geo-world-c46",
+      "title": "Nicknames of rivers and seas",
+      "notes": "matching.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-world-c46-t04",
+      "chapter_code": "geo-world-c46",
+      "title": "Matching: nickname–place",
+      "notes": "quick revision.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-world-c47-t01",
+      "chapter_code": "geo-world-c47",
+      "title": "Major races",
+      "notes": "Caucasoid, Mongoloid, Negroid, Australoid.",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-world-c47-t02",
+      "chapter_code": "geo-world-c47",
+      "title": "Characteristics of races",
+      "notes": "skin colour, hair, facial features.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-world-c47-t03",
+      "chapter_code": "geo-world-c47",
+      "title": "Tribes of Africa",
+      "notes": "Pygmies (Congo), Bushmen (Kalahari), Masai (Kenya, Tanzania), Bedouins, Tuaregs.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-world-c47-t04",
+      "chapter_code": "geo-world-c47",
+      "title": "Tribes of Asia and Oceania",
+      "notes": "Eskimos (Arctic), Ainu (Japan), Semang, Maori, Aborigines.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-world-c47-t05",
+      "chapter_code": "geo-world-c47",
+      "title": "Tribes of the Americas",
+      "notes": "Red Indians, Aztecs, Mayas, Incas, Yanomami.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-world-c47-t06",
+      "chapter_code": "geo-world-c47",
+      "title": "Matching: tribe–region–occupation",
+      "notes": "quick revision.",
+      "sort_order": 6
+    },
+    {
+      "code": "geo-world-c48-t01",
+      "chapter_code": "geo-world-c48",
+      "title": "Language families",
+      "notes": "Indo-European, Sino-Tibetan, Afro-Asiatic, Dravidian.",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-world-c48-t02",
+      "chapter_code": "geo-world-c48",
+      "title": "Most spoken languages",
+      "notes": "English, Mandarin, Hindi, Spanish.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-world-c48-t03",
+      "chapter_code": "geo-world-c48",
+      "title": "Official languages of countries",
+      "notes": "matching.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-world-c48-t04",
+      "chapter_code": "geo-world-c48",
+      "title": "UN official languages",
+      "notes": "six languages.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-world-c48-t05",
+      "chapter_code": "geo-world-c48",
+      "title": "Scripts and alphabets",
+      "notes": "Roman, Cyrillic, Arabic, Devanagari.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-world-c49-t01",
+      "chapter_code": "geo-world-c49",
+      "title": "Types of farming",
+      "notes": "subsistence, commercial, plantation, mixed, shifting.",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-world-c49-t02",
+      "chapter_code": "geo-world-c49",
+      "title": "Major crops: rice, wheat, maize",
+      "notes": "leading producers and climatic needs.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-world-c49-t03",
+      "chapter_code": "geo-world-c49",
+      "title": "Cash crops",
+      "notes": "cotton, sugarcane, tea, coffee, cocoa, rubber.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-world-c49-t04",
+      "chapter_code": "geo-world-c49",
+      "title": "Agricultural regions",
+      "notes": "Mediterranean agriculture, plantation (Malaysia, Brazil).",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-world-c49-t05",
+      "chapter_code": "geo-world-c49",
+      "title": "Leading producers of each crop",
+      "notes": "matching.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-world-c49-t06",
+      "chapter_code": "geo-world-c49",
+      "title": "Agricultural revolutions",
+      "notes": "Green Revolution, genetic crops.",
+      "sort_order": 6
+    },
+    {
+      "code": "geo-world-c50-t01",
+      "chapter_code": "geo-world-c50",
+      "title": "Iron ore",
+      "notes": "leading producers (Australia, Brazil, China).",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-world-c50-t02",
+      "chapter_code": "geo-world-c50",
+      "title": "Coal",
+      "notes": "leading producers (China, India, USA), coalfields.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-world-c50-t03",
+      "chapter_code": "geo-world-c50",
+      "title": "Petroleum",
+      "notes": "OPEC, Saudi Arabia, Russia, USA; Persian Gulf.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-world-c50-t04",
+      "chapter_code": "geo-world-c50",
+      "title": "Copper, bauxite, gold, diamond",
+      "notes": "leading producers and regions.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-world-c50-t05",
+      "chapter_code": "geo-world-c50",
+      "title": "Natural gas and uranium",
+      "notes": "Russia, Kazakhstan.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-world-c50-t06",
+      "chapter_code": "geo-world-c50",
+      "title": "Matching: mineral–country–mine",
+      "notes": "quick revision.",
+      "sort_order": 6
+    },
+    {
+      "code": "geo-world-c51-t01",
+      "chapter_code": "geo-world-c51",
+      "title": "Iron and steel centres",
+      "notes": "Pittsburgh, Ruhr, Sheffield, Jamshedpur.",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-world-c51-t02",
+      "chapter_code": "geo-world-c51",
+      "title": "Textile centres",
+      "notes": "Manchester, Osaka, Lyon.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-world-c51-t03",
+      "chapter_code": "geo-world-c51",
+      "title": "Technology and automobile hubs",
+      "notes": "Detroit, Silicon Valley, Tokyo, Stuttgart.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-world-c51-t04",
+      "chapter_code": "geo-world-c51",
+      "title": "Industrial regions",
+      "notes": "Ruhr, Great Lakes, Pearl River Delta.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-world-c51-t05",
+      "chapter_code": "geo-world-c51",
+      "title": "Industries by country",
+      "notes": "matching.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-world-c51-t06",
+      "chapter_code": "geo-world-c51",
+      "title": "Nicknames of industrial cities",
+      "notes": "Manchester of India, Motor City.",
+      "sort_order": 6
+    },
+    {
+      "code": "geo-world-c52-t01",
+      "chapter_code": "geo-world-c52",
+      "title": "Railways",
+      "notes": "Trans-Siberian (longest), Orient Express, Trans-Canadian, Cape-to-Cairo.",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-world-c52-t02",
+      "chapter_code": "geo-world-c52",
+      "title": "Roadways and highways",
+      "notes": "Pan-American Highway, Silk Road, Trans-Africa.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-world-c52-t03",
+      "chapter_code": "geo-world-c52",
+      "title": "Airways",
+      "notes": "busiest airports, main air routes.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-world-c52-t04",
+      "chapter_code": "geo-world-c52",
+      "title": "Waterways",
+      "notes": "Great Lakes, Rhine, Mississippi.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-world-c52-t05",
+      "chapter_code": "geo-world-c52",
+      "title": "Pipelines",
+      "notes": "oil and gas pipelines.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-world-c52-t06",
+      "chapter_code": "geo-world-c52",
+      "title": "Matching: route–countries–type",
+      "notes": "quick revision.",
+      "sort_order": 6
+    },
+    {
+      "code": "geo-world-c53-t01",
+      "chapter_code": "geo-world-c53",
+      "title": "Types of ports",
+      "notes": "natural, artificial, entrepot, oil.",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-world-c53-t02",
+      "chapter_code": "geo-world-c53",
+      "title": "Major ports by continent",
+      "notes": "Rotterdam, Singapore, Shanghai, Los Angeles, Hamburg, London.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-world-c53-t03",
+      "chapter_code": "geo-world-c53",
+      "title": "Ports by country",
+      "notes": "matching.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-world-c53-t04",
+      "chapter_code": "geo-world-c53",
+      "title": "Largest and busiest ports",
+      "notes": "ranks.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-world-c53-t05",
+      "chapter_code": "geo-world-c53",
+      "title": "Harbours and bays",
+      "notes": "Sydney, Rio, Lisbon.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-world-c53-t06",
+      "chapter_code": "geo-world-c53",
+      "title": "Matching: port–country–ocean",
+      "notes": "quick revision.",
+      "sort_order": 6
+    },
+    {
+      "code": "geo-world-c54-t01",
+      "chapter_code": "geo-world-c54",
+      "title": "World records and firsts",
+      "notes": "highest, longest, largest, deepest.",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-world-c54-t02",
+      "chapter_code": "geo-world-c54",
+      "title": "Mixed matching and one-liners",
+      "notes": "countries, capitals, rivers, mountains.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-world-c54-t03",
+      "chapter_code": "geo-world-c54",
+      "title": "Important international organisations and geography links",
+      "notes": "UN, OPEC, ASEAN (cross-reference).",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-world-c54-t04",
+      "chapter_code": "geo-world-c54",
+      "title": "Environmental issues and global agreements",
+      "notes": "climate change, biodiversity.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-world-c54-t05",
+      "chapter_code": "geo-world-c54",
+      "title": "Map-based facts",
+      "notes": "locating features on outline maps.",
+      "sort_order": 5
+    }
+  ]
+}

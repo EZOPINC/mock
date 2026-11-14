@@ -1,0 +1,2660 @@
+{
+  "schema_version": 1,
+  "subject": {
+    "code": "geography",
+    "title": "Geography"
+  },
+  "scope": "Indian Geography",
+  "parts": [
+    {
+      "code": "geo-india",
+      "subject_code": "geography",
+      "title": "Indian Geography"
+    }
+  ],
+  "modules": [
+    {
+      "code": "geo-india-m01",
+      "subject_code": "geography",
+      "part_code": "geo-india",
+      "title": "Location, Size and Political Divisions",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-india-m02",
+      "subject_code": "geography",
+      "part_code": "geo-india",
+      "title": "Physiography: The Land of India",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-india-m03",
+      "subject_code": "geography",
+      "part_code": "geo-india",
+      "title": "Drainage: Rivers, Lakes and Waterfalls",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-india-m04",
+      "subject_code": "geography",
+      "part_code": "geo-india",
+      "title": "Climate, Monsoon and Disasters",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-india-m05",
+      "subject_code": "geography",
+      "part_code": "geo-india",
+      "title": "Soils, Vegetation, Wildlife and People",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-india-m06",
+      "subject_code": "geography",
+      "part_code": "geo-india",
+      "title": "Water Resources and Irrigation",
+      "sort_order": 6
+    },
+    {
+      "code": "geo-india-m07",
+      "subject_code": "geography",
+      "part_code": "geo-india",
+      "title": "Agriculture and Allied Sectors",
+      "sort_order": 7
+    },
+    {
+      "code": "geo-india-m08",
+      "subject_code": "geography",
+      "part_code": "geo-india",
+      "title": "Minerals, Energy, Industry and Research",
+      "sort_order": 8
+    },
+    {
+      "code": "geo-india-m09",
+      "subject_code": "geography",
+      "part_code": "geo-india",
+      "title": "Transport and Tourism",
+      "sort_order": 9
+    },
+    {
+      "code": "geo-india-m10",
+      "subject_code": "geography",
+      "part_code": "geo-india",
+      "title": "Miscellaneous",
+      "sort_order": 10
+    }
+  ],
+  "chapters": [
+    {
+      "code": "geo-india-c01",
+      "subject_code": "geography",
+      "module_code": "geo-india-m01",
+      "title": "Size and Area of India",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-india-c02",
+      "subject_code": "geography",
+      "module_code": "geo-india-m01",
+      "title": "Latitudinal and Longitudinal Extent",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-india-c03",
+      "subject_code": "geography",
+      "module_code": "geo-india-m01",
+      "title": "Tropic of Cancer",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-india-c04",
+      "subject_code": "geography",
+      "module_code": "geo-india-m01",
+      "title": "Indian Standard Time and Time Zones",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-india-c05",
+      "subject_code": "geography",
+      "module_code": "geo-india-m01",
+      "title": "Extreme Points of India",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-india-c06",
+      "subject_code": "geography",
+      "module_code": "geo-india-m01",
+      "title": "Neighbouring Countries and Borders",
+      "sort_order": 6
+    },
+    {
+      "code": "geo-india-c07",
+      "subject_code": "geography",
+      "module_code": "geo-india-m01",
+      "title": "States of India",
+      "sort_order": 7
+    },
+    {
+      "code": "geo-india-c08",
+      "subject_code": "geography",
+      "module_code": "geo-india-m01",
+      "title": "Union Territories of India",
+      "sort_order": 8
+    },
+    {
+      "code": "geo-india-c09",
+      "subject_code": "geography",
+      "module_code": "geo-india-m02",
+      "title": "Physiographic Divisions of India",
+      "sort_order": 9
+    },
+    {
+      "code": "geo-india-c10",
+      "subject_code": "geography",
+      "module_code": "geo-india-m02",
+      "title": "The Himalayas and Northern Mountains",
+      "sort_order": 10
+    },
+    {
+      "code": "geo-india-c11",
+      "subject_code": "geography",
+      "module_code": "geo-india-m02",
+      "title": "Peninsular and Central Indian Hills",
+      "sort_order": 11
+    },
+    {
+      "code": "geo-india-c12",
+      "subject_code": "geography",
+      "module_code": "geo-india-m02",
+      "title": "Important Mountain Peaks",
+      "sort_order": 12
+    },
+    {
+      "code": "geo-india-c13",
+      "subject_code": "geography",
+      "module_code": "geo-india-m02",
+      "title": "Valleys",
+      "sort_order": 13
+    },
+    {
+      "code": "geo-india-c14",
+      "subject_code": "geography",
+      "module_code": "geo-india-m02",
+      "title": "Mountain Passes",
+      "sort_order": 14
+    },
+    {
+      "code": "geo-india-c15",
+      "subject_code": "geography",
+      "module_code": "geo-india-m02",
+      "title": "Snow Line and Glaciers",
+      "sort_order": 15
+    },
+    {
+      "code": "geo-india-c16",
+      "subject_code": "geography",
+      "module_code": "geo-india-m02",
+      "title": "Plateaus of India",
+      "sort_order": 16
+    },
+    {
+      "code": "geo-india-c17",
+      "subject_code": "geography",
+      "module_code": "geo-india-m02",
+      "title": "Coastal Plains and Coastline",
+      "sort_order": 17
+    },
+    {
+      "code": "geo-india-c18",
+      "subject_code": "geography",
+      "module_code": "geo-india-m02",
+      "title": "Islands of India",
+      "sort_order": 18
+    },
+    {
+      "code": "geo-india-c19",
+      "subject_code": "geography",
+      "module_code": "geo-india-m03",
+      "title": "Ganga River System",
+      "sort_order": 19
+    },
+    {
+      "code": "geo-india-c20",
+      "subject_code": "geography",
+      "module_code": "geo-india-m03",
+      "title": "Brahmaputra River System",
+      "sort_order": 20
+    },
+    {
+      "code": "geo-india-c21",
+      "subject_code": "geography",
+      "module_code": "geo-india-m03",
+      "title": "Peninsular (South Indian) Rivers",
+      "sort_order": 21
+    },
+    {
+      "code": "geo-india-c22",
+      "subject_code": "geography",
+      "module_code": "geo-india-m03",
+      "title": "Other Rivers and Inland Drainage",
+      "sort_order": 22
+    },
+    {
+      "code": "geo-india-c23",
+      "subject_code": "geography",
+      "module_code": "geo-india-m03",
+      "title": "Waterfalls and Lakes",
+      "sort_order": 23
+    },
+    {
+      "code": "geo-india-c24",
+      "subject_code": "geography",
+      "module_code": "geo-india-m03",
+      "title": "River-Bank Cities",
+      "sort_order": 24
+    },
+    {
+      "code": "geo-india-c25",
+      "subject_code": "geography",
+      "module_code": "geo-india-m04",
+      "title": "Indian Monsoon",
+      "sort_order": 25
+    },
+    {
+      "code": "geo-india-c26",
+      "subject_code": "geography",
+      "module_code": "geo-india-m04",
+      "title": "Rainfall Distribution",
+      "sort_order": 26
+    },
+    {
+      "code": "geo-india-c27",
+      "subject_code": "geography",
+      "module_code": "geo-india-m04",
+      "title": "Winter Rainfall and Western Disturbances",
+      "sort_order": 27
+    },
+    {
+      "code": "geo-india-c28",
+      "subject_code": "geography",
+      "module_code": "geo-india-m04",
+      "title": "Natural Disasters",
+      "sort_order": 28
+    },
+    {
+      "code": "geo-india-c29",
+      "subject_code": "geography",
+      "module_code": "geo-india-m05",
+      "title": "Soils of India",
+      "sort_order": 29
+    },
+    {
+      "code": "geo-india-c30",
+      "subject_code": "geography",
+      "module_code": "geo-india-m05",
+      "title": "Natural Vegetation and Forests",
+      "sort_order": 30
+    },
+    {
+      "code": "geo-india-c31",
+      "subject_code": "geography",
+      "module_code": "geo-india-m05",
+      "title": "Wildlife Species and Tribal Groups",
+      "sort_order": 31
+    },
+    {
+      "code": "geo-india-c32",
+      "subject_code": "geography",
+      "module_code": "geo-india-m05",
+      "title": "Languages of India",
+      "sort_order": 32
+    },
+    {
+      "code": "geo-india-c33",
+      "subject_code": "geography",
+      "module_code": "geo-india-m06",
+      "title": "Irrigation and Canals",
+      "sort_order": 33
+    },
+    {
+      "code": "geo-india-c34",
+      "subject_code": "geography",
+      "module_code": "geo-india-m06",
+      "title": "Multi-Purpose River Valley Projects",
+      "sort_order": 34
+    },
+    {
+      "code": "geo-india-c35",
+      "subject_code": "geography",
+      "module_code": "geo-india-m07",
+      "title": "Agriculture: Types, Seasons and Land Use",
+      "sort_order": 35
+    },
+    {
+      "code": "geo-india-c36",
+      "subject_code": "geography",
+      "module_code": "geo-india-m07",
+      "title": "Green Revolution and Other Agricultural Revolutions",
+      "sort_order": 36
+    },
+    {
+      "code": "geo-india-c37",
+      "subject_code": "geography",
+      "module_code": "geo-india-m07",
+      "title": "Food Grain Crops",
+      "sort_order": 37
+    },
+    {
+      "code": "geo-india-c38",
+      "subject_code": "geography",
+      "module_code": "geo-india-m07",
+      "title": "Pulses",
+      "sort_order": 38
+    },
+    {
+      "code": "geo-india-c39",
+      "subject_code": "geography",
+      "module_code": "geo-india-m07",
+      "title": "Oilseeds",
+      "sort_order": 39
+    },
+    {
+      "code": "geo-india-c40",
+      "subject_code": "geography",
+      "module_code": "geo-india-m07",
+      "title": "Cash and Fibre Crops",
+      "sort_order": 40
+    },
+    {
+      "code": "geo-india-c41",
+      "subject_code": "geography",
+      "module_code": "geo-india-m07",
+      "title": "Plantation Crops",
+      "sort_order": 41
+    },
+    {
+      "code": "geo-india-c42",
+      "subject_code": "geography",
+      "module_code": "geo-india-m07",
+      "title": "Horticulture and Other Crops",
+      "sort_order": 42
+    },
+    {
+      "code": "geo-india-c43",
+      "subject_code": "geography",
+      "module_code": "geo-india-m07",
+      "title": "Sericulture and Silk",
+      "sort_order": 43
+    },
+    {
+      "code": "geo-india-c44",
+      "subject_code": "geography",
+      "module_code": "geo-india-m07",
+      "title": "Animal Husbandry and Dairying",
+      "sort_order": 44
+    },
+    {
+      "code": "geo-india-c45",
+      "subject_code": "geography",
+      "module_code": "geo-india-m08",
+      "title": "Mineral Resources",
+      "sort_order": 45
+    },
+    {
+      "code": "geo-india-c46",
+      "subject_code": "geography",
+      "module_code": "geo-india-m08",
+      "title": "Energy Resources",
+      "sort_order": 46
+    },
+    {
+      "code": "geo-india-c47",
+      "subject_code": "geography",
+      "module_code": "geo-india-m08",
+      "title": "Industries of India",
+      "sort_order": 47
+    },
+    {
+      "code": "geo-india-c48",
+      "subject_code": "geography",
+      "module_code": "geo-india-m08",
+      "title": "Research Centres and Institutes",
+      "sort_order": 48
+    },
+    {
+      "code": "geo-india-c49",
+      "subject_code": "geography",
+      "module_code": "geo-india-m09",
+      "title": "Transport and Communication",
+      "sort_order": 49
+    },
+    {
+      "code": "geo-india-c50",
+      "subject_code": "geography",
+      "module_code": "geo-india-m09",
+      "title": "Tourist Places and Heritage Sites",
+      "sort_order": 50
+    },
+    {
+      "code": "geo-india-c51",
+      "subject_code": "geography",
+      "module_code": "geo-india-m10",
+      "title": "Miscellaneous (Mixed Geography)",
+      "sort_order": 51
+    }
+  ],
+  "topics": [
+    {
+      "code": "geo-india-c01-t01",
+      "chapter_code": "geo-india-c01",
+      "title": "Total area and world rank",
+      "notes": "7th largest country; share of world’s area and population.",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-india-c01-t02",
+      "chapter_code": "geo-india-c01",
+      "title": "Comparison with other countries",
+      "notes": "Russia, Canada, China, USA, Brazil, Australia.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-india-c01-t03",
+      "chapter_code": "geo-india-c01",
+      "title": "Area of largest and smallest states and UTs",
+      "notes": "Rajasthan, Madhya Pradesh, Maharashtra; Goa, Sikkim; Lakshadweep.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-india-c01-t04",
+      "chapter_code": "geo-india-c01",
+      "title": "North-south and east-west distances",
+      "notes": "total length and width, difference in local time.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-india-c01-t05",
+      "chapter_code": "geo-india-c01",
+      "title": "Land frontier and coastline",
+      "notes": "length of land border, coastline (mainland and with islands), coastal states.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-india-c02-t01",
+      "chapter_code": "geo-india-c02",
+      "title": "Latitudinal extent",
+      "notes": "mainland (8°4’N to 37°6’N) and with Andaman and Nicobar (6°45’N).",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-india-c02-t02",
+      "chapter_code": "geo-india-c02",
+      "title": "Longitudinal extent",
+      "notes": "68°7’E to 97°25’E; reason for the time difference.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-india-c02-t03",
+      "chapter_code": "geo-india-c02",
+      "title": "Tropical and temperate zones",
+      "notes": "role of the Tropic of Cancer; climatic effect.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-india-c02-t04",
+      "chapter_code": "geo-india-c02",
+      "title": "Strategic location",
+      "notes": "position in the Indian Ocean, trade routes, Suez Canal.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-india-c02-t05",
+      "chapter_code": "geo-india-c02",
+      "title": "Important latitudes and longitudes",
+      "notes": "Equator, Prime Meridian, Tropic of Cancer, Standard Meridian.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-india-c03-t01",
+      "chapter_code": "geo-india-c03",
+      "title": "Meaning and value",
+      "notes": "23°30’N; Sun overhead on 21 June.",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-india-c03-t02",
+      "chapter_code": "geo-india-c03",
+      "title": "States crossed (8)",
+      "notes": "Gujarat, Rajasthan, Madhya Pradesh, Chhattisgarh, Jharkhand, West Bengal, Tripura, Mizoram.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-india-c03-t03",
+      "chapter_code": "geo-india-c03",
+      "title": "Cities and places on or near the line",
+      "notes": "near Gandhinagar, Bhopal and Ranchi; Kolkata lies just south of it.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-india-c03-t04",
+      "chapter_code": "geo-india-c03",
+      "title": "Division of India",
+      "notes": "northern and southern halves; tropical vs sub-tropical climate.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-india-c03-t05",
+      "chapter_code": "geo-india-c03",
+      "title": "Countries crossed",
+      "notes": "world map of the Tropic of Cancer.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-india-c04-t01",
+      "chapter_code": "geo-india-c04",
+      "title": "Standard Meridian",
+      "notes": "82°30’E, Mirzapur (near Prayagraj); IST is GMT +5:30.",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-india-c04-t02",
+      "chapter_code": "geo-india-c04",
+      "title": "Why time differs",
+      "notes": "earth’s rotation, 4 minutes per degree.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-india-c04-t03",
+      "chapter_code": "geo-india-c04",
+      "title": "Time difference between east and west",
+      "notes": "about two hours; demand for a second time zone.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-india-c04-t04",
+      "chapter_code": "geo-india-c04",
+      "title": "Tea garden time (Assam) and local time",
+      "notes": "regional practices.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-india-c04-t05",
+      "chapter_code": "geo-india-c04",
+      "title": "International Date Line and GMT",
+      "notes": "Greenwich, IDL, world time zones.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-india-c05-t01",
+      "chapter_code": "geo-india-c05",
+      "title": "Northernmost point",
+      "notes": "Indira Col (Siachen); mainland north.",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-india-c05-t02",
+      "chapter_code": "geo-india-c05",
+      "title": "Southernmost point",
+      "notes": "Indira Point (Great Nicobar); mainland south: Kanyakumari.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-india-c05-t03",
+      "chapter_code": "geo-india-c05",
+      "title": "Easternmost point",
+      "notes": "Kibithu (Arunachal Pradesh).",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-india-c05-t04",
+      "chapter_code": "geo-india-c05",
+      "title": "Westernmost point",
+      "notes": "Ghuar Mota (Gujarat).",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-india-c05-t05",
+      "chapter_code": "geo-india-c05",
+      "title": "Extreme points by state or UT",
+      "notes": "northernmost, southernmost, etc.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-india-c05-t06",
+      "chapter_code": "geo-india-c05",
+      "title": "Quick matching",
+      "notes": "direction, place, state.",
+      "sort_order": 6
+    },
+    {
+      "code": "geo-india-c06-t01",
+      "chapter_code": "geo-india-c06",
+      "title": "List of neighbours",
+      "notes": "Pakistan, Afghanistan, China, Nepal, Bhutan, Bangladesh, Myanmar (land); Sri Lanka and Maldives (sea).",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-india-c06-t02",
+      "chapter_code": "geo-india-c06",
+      "title": "Length of border with each country",
+      "notes": "Bangladesh (longest), China, Pakistan, Nepal, Myanmar, Bhutan, Afghanistan.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-india-c06-t03",
+      "chapter_code": "geo-india-c06",
+      "title": "Border lines",
+      "notes": "Radcliffe Line (Pakistan, Bangladesh), McMahon Line (China), Durand Line (Afghanistan), Line of Actual Control, Line of Control.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-india-c06-t04",
+      "chapter_code": "geo-india-c06",
+      "title": "Border states",
+      "notes": "states sharing borders with each country; states with international borders.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-india-c06-t05",
+      "chapter_code": "geo-india-c06",
+      "title": "Straits and channels",
+      "notes": "Palk Strait, Gulf of Mannar, Ten Degree Channel, Nine Degree Channel.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-india-c06-t06",
+      "chapter_code": "geo-india-c06",
+      "title": "Disputed areas and agreements",
+      "notes": "Sir Creek, Kalapani, Siachen, Tin Bigha; land boundary agreement (Bangladesh).",
+      "sort_order": 6
+    },
+    {
+      "code": "geo-india-c07-t01",
+      "chapter_code": "geo-india-c07",
+      "title": "Total number and formation",
+      "notes": "28 states; States Reorganisation Act 1956; newest states (Telangana).",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-india-c07-t02",
+      "chapter_code": "geo-india-c07",
+      "title": "Capitals of states",
+      "notes": "quick matching table.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-india-c07-t03",
+      "chapter_code": "geo-india-c07",
+      "title": "Largest and smallest states",
+      "notes": "by area and population.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-india-c07-t04",
+      "chapter_code": "geo-india-c07",
+      "title": "Border-sharing and landlocked states",
+      "notes": "states touching international borders; coastal and landlocked states.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-india-c07-t05",
+      "chapter_code": "geo-india-c07",
+      "title": "Linguistic and cultural reorganisation",
+      "notes": "Fazl Ali Commission, creation dates.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-india-c07-t06",
+      "chapter_code": "geo-india-c07",
+      "title": "State symbols and nicknames",
+      "notes": "state animals, birds, flowers, dances.",
+      "sort_order": 6
+    },
+    {
+      "code": "geo-india-c07-t07",
+      "chapter_code": "geo-india-c07",
+      "title": "Number of Lok Sabha and Rajya Sabha seats",
+      "notes": "link with polity (cross-reference).",
+      "sort_order": 7
+    },
+    {
+      "code": "geo-india-c08-t01",
+      "chapter_code": "geo-india-c08",
+      "title": "List and capitals of UTs",
+      "notes": "8 Union Territories (including Delhi, Puducherry, Jammu and Kashmir, Ladakh).",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-india-c08-t02",
+      "chapter_code": "geo-india-c08",
+      "title": "Special status and administration",
+      "notes": "Lieutenant Governor, Administrator, legislative UTs.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-india-c08-t03",
+      "chapter_code": "geo-india-c08",
+      "title": "Formation and merger",
+      "notes": "Dadra and Nagar Haveli with Daman and Diu (2020), J&K reorganisation (2019).",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-india-c08-t04",
+      "chapter_code": "geo-india-c08",
+      "title": "Geography of UTs",
+      "notes": "Lakshadweep, Andaman and Nicobar, Chandigarh.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-india-c08-t05",
+      "chapter_code": "geo-india-c08",
+      "title": "Capital cities and high courts",
+      "notes": "matching.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-india-c09-t01",
+      "chapter_code": "geo-india-c09",
+      "title": "Six physical divisions",
+      "notes": "Northern Mountains, Northern Plains, Peninsular Plateau, Indian Desert, Coastal Plains, Islands.",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-india-c09-t02",
+      "chapter_code": "geo-india-c09",
+      "title": "Geological structure",
+      "notes": "Gondwana, Himalayan folding, Tethys Sea, Archaean rocks, Deccan Trap.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-india-c09-t03",
+      "chapter_code": "geo-india-c09",
+      "title": "Formation of India",
+      "notes": "continental drift, Indo-Australian plate collision.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-india-c09-t04",
+      "chapter_code": "geo-india-c09",
+      "title": "Northern Plains",
+      "notes": "Punjab plains, Ganga plain, Brahmaputra plain; Bhabar, Terai, Bhangar, Khadar.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-india-c09-t05",
+      "chapter_code": "geo-india-c09",
+      "title": "Peninsular Plateau",
+      "notes": "Central Highlands, Deccan Plateau; Western and Eastern Ghats.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-india-c09-t06",
+      "chapter_code": "geo-india-c09",
+      "title": "Thar (Indian) Desert",
+      "notes": "Marusthali, Bagar, Luni; formation and climate.",
+      "sort_order": 6
+    },
+    {
+      "code": "geo-india-c09-t07",
+      "chapter_code": "geo-india-c09",
+      "title": "Comparison of regions",
+      "notes": "relief, rocks, soils, rivers.",
+      "sort_order": 7
+    },
+    {
+      "code": "geo-india-c10-t01",
+      "chapter_code": "geo-india-c10",
+      "title": "Divisions of the Himalayas (north-south)",
+      "notes": "Trans-Himalaya, Greater Himalaya (Himadri), Lesser Himalaya (Himachal), Shiwaliks.",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-india-c10-t02",
+      "chapter_code": "geo-india-c10",
+      "title": "Regional divisions (west-east)",
+      "notes": "Punjab, Kumaon, Nepal, Assam Himalayas.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-india-c10-t03",
+      "chapter_code": "geo-india-c10",
+      "title": "Eastern hills",
+      "notes": "Purvanchal: Patkai, Naga, Manipur, Mizo hills.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-india-c10-t04",
+      "chapter_code": "geo-india-c10",
+      "title": "Trans-Himalayan ranges",
+      "notes": "Karakoram, Ladakh, Zaskar.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-india-c10-t05",
+      "chapter_code": "geo-india-c10",
+      "title": "Himalayan ranges and local names",
+      "notes": "Dhauladhar, Pir Panjal, Mussoorie, Nag Tibba.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-india-c10-t06",
+      "chapter_code": "geo-india-c10",
+      "title": "Duns and Bugyals",
+      "notes": "Dehradun, Patli Dun; Margs of Kashmir.",
+      "sort_order": 6
+    },
+    {
+      "code": "geo-india-c10-t07",
+      "chapter_code": "geo-india-c10",
+      "title": "Himalayan peaks and glaciers",
+      "notes": "cross-reference to Chapters 12 and 15.",
+      "sort_order": 7
+    },
+    {
+      "code": "geo-india-c10-t08",
+      "chapter_code": "geo-india-c10",
+      "title": "Importance of the Himalayas",
+      "notes": "climate, water, soil, forests, culture.",
+      "sort_order": 8
+    },
+    {
+      "code": "geo-india-c11-t01",
+      "chapter_code": "geo-india-c11",
+      "title": "Aravalli Range",
+      "notes": "Guru Shikhar (highest, Mount Abu), oldest fold mountains.",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-india-c11-t02",
+      "chapter_code": "geo-india-c11",
+      "title": "Vindhya Range",
+      "notes": "Kaimur and Bhander hills; Narmada rift valley to the south.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-india-c11-t03",
+      "chapter_code": "geo-india-c11",
+      "title": "Satpura Range",
+      "notes": "Dhupgarh (Pachmarhi), Mahadeo hills, Maikal range, Tapi valley.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-india-c11-t04",
+      "chapter_code": "geo-india-c11",
+      "title": "Western Ghats (Sahyadri)",
+      "notes": "Anamudi, Doddabetta, Nilgiri, Anaimalai, Cardamom hills; gaps (Thal, Bhor, Pal).",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-india-c11-t05",
+      "chapter_code": "geo-india-c11",
+      "title": "Eastern Ghats",
+      "notes": "Mahendragiri, Nallamalai, Javadi, Shevaroy.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-india-c11-t06",
+      "chapter_code": "geo-india-c11",
+      "title": "Other hills",
+      "notes": "Rajmahal, Chhota Nagpur, Garo-Khasi-Jaintia.",
+      "sort_order": 6
+    },
+    {
+      "code": "geo-india-c11-t07",
+      "chapter_code": "geo-india-c11",
+      "title": "Comparison of Eastern and Western Ghats",
+      "notes": "height, continuity, rivers, rainfall.",
+      "sort_order": 7
+    },
+    {
+      "code": "geo-india-c12-t01",
+      "chapter_code": "geo-india-c12",
+      "title": "Highest peaks of the world and India",
+      "notes": "Everest, K2, Kanchenjunga, Nanda Devi.",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-india-c12-t02",
+      "chapter_code": "geo-india-c12",
+      "title": "Peaks by Himalayan range",
+      "notes": "Karakoram (K2, Godwin Austen), Great Himalaya, Lesser Himalaya.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-india-c12-t03",
+      "chapter_code": "geo-india-c12",
+      "title": "Peaks by state",
+      "notes": "highest peak of each state.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-india-c12-t04",
+      "chapter_code": "geo-india-c12",
+      "title": "Peaks of peninsular India",
+      "notes": "Anamudi, Doddabetta, Mahendragiri.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-india-c12-t05",
+      "chapter_code": "geo-india-c12",
+      "title": "Matching: peak–height–location–range",
+      "notes": "quick revision.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-india-c13-t01",
+      "chapter_code": "geo-india-c13",
+      "title": "Valleys of Jammu and Kashmir and Ladakh",
+      "notes": "Kashmir Valley, Nubra, Zanskar.",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-india-c13-t02",
+      "chapter_code": "geo-india-c13",
+      "title": "Himachal valleys",
+      "notes": "Kullu, Kangra, Lahaul-Spiti, Pin.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-india-c13-t03",
+      "chapter_code": "geo-india-c13",
+      "title": "Uttarakhand valleys",
+      "notes": "Valley of Flowers, Doon valley, Niti.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-india-c13-t04",
+      "chapter_code": "geo-india-c13",
+      "title": "Valleys of Northeast and elsewhere",
+      "notes": "Dzukou, Umngot, Ziro.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-india-c13-t05",
+      "chapter_code": "geo-india-c13",
+      "title": "Rift valleys",
+      "notes": "Narmada, Tapi, Damodar graben.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-india-c13-t06",
+      "chapter_code": "geo-india-c13",
+      "title": "Matching: valley–state–river",
+      "notes": "quick revision.",
+      "sort_order": 6
+    },
+    {
+      "code": "geo-india-c14-t01",
+      "chapter_code": "geo-india-c14",
+      "title": "Passes in Jammu and Kashmir and Ladakh",
+      "notes": "Banihal, Zoji La, Khardung La, Pir Panjal, Burzil, Khyber.",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-india-c14-t02",
+      "chapter_code": "geo-india-c14",
+      "title": "Himachal and Uttarakhand passes",
+      "notes": "Shipki La, Rohtang, Baralacha La, Lipulekh, Mana, Niti.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-india-c14-t03",
+      "chapter_code": "geo-india-c14",
+      "title": "Sikkim and Northeast passes",
+      "notes": "Nathu La, Jelep La, Bomdi La, Diphu, Pangsau.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-india-c14-t04",
+      "chapter_code": "geo-india-c14",
+      "title": "Southern passes",
+      "notes": "Palghat, Bhor, Thal, Pal, Shencottah.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-india-c14-t05",
+      "chapter_code": "geo-india-c14",
+      "title": "Matching: pass–state–connects",
+      "notes": "quick revision table.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-india-c15-t01",
+      "chapter_code": "geo-india-c15",
+      "title": "Snow line",
+      "notes": "concept, altitude differences east to west.",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-india-c15-t02",
+      "chapter_code": "geo-india-c15",
+      "title": "Major glaciers",
+      "notes": "Siachen, Gangotri, Zemu, Milam, Pindari, Kangchenjunga.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-india-c15-t03",
+      "chapter_code": "geo-india-c15",
+      "title": "Glacier–river origins",
+      "notes": "Gangotri (Ganga), Yamunotri, Siachen (Nubra).",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-india-c15-t04",
+      "chapter_code": "geo-india-c15",
+      "title": "Glacier-related hazards",
+      "notes": "GLOF, retreat, climate change.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-india-c15-t05",
+      "chapter_code": "geo-india-c15",
+      "title": "Glacier facts",
+      "notes": "longest, largest, lengths.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-india-c16-t01",
+      "chapter_code": "geo-india-c16",
+      "title": "Peninsular plateau divisions",
+      "notes": "Malwa, Marwar, Bundelkhand, Baghelkhand, Chhota Nagpur, Meghalaya.",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-india-c16-t02",
+      "chapter_code": "geo-india-c16",
+      "title": "Deccan Plateau",
+      "notes": "Maharashtra, Karnataka, Telangana plateaus; black soil, lava origin.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-india-c16-t03",
+      "chapter_code": "geo-india-c16",
+      "title": "Chhota Nagpur Plateau",
+      "notes": "minerals, rivers, “Ruhr of India”.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-india-c16-t04",
+      "chapter_code": "geo-india-c16",
+      "title": "Central Highlands and Marwar",
+      "notes": "Mewar, Hadoti, Malwa.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-india-c16-t05",
+      "chapter_code": "geo-india-c16",
+      "title": "Meghalaya Plateau",
+      "notes": "Garo, Khasi, Jaintia hills.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-india-c16-t06",
+      "chapter_code": "geo-india-c16",
+      "title": "Plateaus of the Himalaya",
+      "notes": "Tibetan, Ladakh (Aksai Chin).",
+      "sort_order": 6
+    },
+    {
+      "code": "geo-india-c17-t01",
+      "chapter_code": "geo-india-c17",
+      "title": "Western coastal plain",
+      "notes": "Konkan, Karnataka coast, Malabar; lagoons (Kayals).",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-india-c17-t02",
+      "chapter_code": "geo-india-c17",
+      "title": "Eastern coastal plain",
+      "notes": "Northern Circars, Coromandel; deltas of Mahanadi, Godavari, Krishna, Kaveri.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-india-c17-t03",
+      "chapter_code": "geo-india-c17",
+      "title": "Gujarat coast",
+      "notes": "Kathiawar, Kachchh, Gulf of Khambhat.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-india-c17-t04",
+      "chapter_code": "geo-india-c17",
+      "title": "Major ports",
+      "notes": "list of ports on east and west coasts.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-india-c17-t05",
+      "chapter_code": "geo-india-c17",
+      "title": "Lagoons and lakes",
+      "notes": "Chilika, Pulicat, Vembanad.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-india-c17-t06",
+      "chapter_code": "geo-india-c17",
+      "title": "Coastal states",
+      "notes": "length of coastline by state.",
+      "sort_order": 6
+    },
+    {
+      "code": "geo-india-c17-t07",
+      "chapter_code": "geo-india-c17",
+      "title": "Comparison: Western and Eastern coasts",
+      "notes": "width, rivers, ports.",
+      "sort_order": 7
+    },
+    {
+      "code": "geo-india-c18-t01",
+      "chapter_code": "geo-india-c18",
+      "title": "Andaman and Nicobar Islands",
+      "notes": "Ten Degree Channel, Port Blair, Saddle Peak, Barren Island volcano.",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-india-c18-t02",
+      "chapter_code": "geo-india-c18",
+      "title": "Lakshadweep",
+      "notes": "coral atolls, Kavaratti, Minicoy, Eight Degree and Nine Degree channels.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-india-c18-t03",
+      "chapter_code": "geo-india-c18",
+      "title": "Other islands",
+      "notes": "Sriharikota, Majuli (largest river island), Salsette, Diu, Elephanta, Pamban.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-india-c18-t04",
+      "chapter_code": "geo-india-c18",
+      "title": "Island chains and tribes",
+      "notes": "Jarawa, Onge, Sentinelese, Great Andamanese.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-india-c18-t05",
+      "chapter_code": "geo-india-c18",
+      "title": "Disputed or strategic islands",
+      "notes": "Katchatheevu, Coco Islands, New Moore.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-india-c19-t01",
+      "chapter_code": "geo-india-c19",
+      "title": "Origin and course of the Ganga",
+      "notes": "Gangotri, Bhagirathi, Alaknanda, Devprayag; Haridwar, Prayagraj, Varanasi.",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-india-c19-t02",
+      "chapter_code": "geo-india-c19",
+      "title": "Five Prayags (Panch Prayag)",
+      "notes": "Vishnuprayag to Devprayag.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-india-c19-t03",
+      "chapter_code": "geo-india-c19",
+      "title": "Right-bank tributaries",
+      "notes": "Yamuna and Son; Chambal, Betwa and Ken join through the Yamuna.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-india-c19-t04",
+      "chapter_code": "geo-india-c19",
+      "title": "Left-bank tributaries",
+      "notes": "Ramganga, Gomti, Ghaghara, Gandak, Kosi, Mahananda.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-india-c19-t05",
+      "chapter_code": "geo-india-c19",
+      "title": "Course in Bengal",
+      "notes": "Bhagirathi-Hooghly, Padma, Meghna; Sunderbans.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-india-c19-t06",
+      "chapter_code": "geo-india-c19",
+      "title": "Yamuna system",
+      "notes": "origin Yamunotri, tributaries, Delhi.",
+      "sort_order": 6
+    },
+    {
+      "code": "geo-india-c19-t07",
+      "chapter_code": "geo-india-c19",
+      "title": "Ganga cleaning projects",
+      "notes": "Namami Gange, Ganga Action Plan.",
+      "sort_order": 7
+    },
+    {
+      "code": "geo-india-c19-t08",
+      "chapter_code": "geo-india-c19",
+      "title": "Matching: river–tributary–place",
+      "notes": "quick revision.",
+      "sort_order": 8
+    },
+    {
+      "code": "geo-india-c20-t01",
+      "chapter_code": "geo-india-c20",
+      "title": "Origin and course",
+      "notes": "Chemayungdung glacier (Tibet), Tsangpo, Dihang, Brahmaputra.",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-india-c20-t02",
+      "chapter_code": "geo-india-c20",
+      "title": "Tributaries",
+      "notes": "Dibang, Lohit, Subansiri, Manas, Teesta, Kameng.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-india-c20-t03",
+      "chapter_code": "geo-india-c20",
+      "title": "Features",
+      "notes": "braided channels, Majuli, floods, Kaziranga.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-india-c20-t04",
+      "chapter_code": "geo-india-c20",
+      "title": "Brahmaputra in Bangladesh",
+      "notes": "Jamuna, Meghna.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-india-c20-t05",
+      "chapter_code": "geo-india-c20",
+      "title": "Barak river",
+      "notes": "Barak–Surma–Meghna system; Kopili as a Brahmaputra tributary.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-india-c20-t06",
+      "chapter_code": "geo-india-c20",
+      "title": "Hydropower and dispute",
+      "notes": "Siang project, China dams.",
+      "sort_order": 6
+    },
+    {
+      "code": "geo-india-c21-t01",
+      "chapter_code": "geo-india-c21",
+      "title": "East-flowing rivers",
+      "notes": "Mahanadi, Godavari, Krishna, Kaveri, Penna, Subarnarekha.",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-india-c21-t02",
+      "chapter_code": "geo-india-c21",
+      "title": "West-flowing rivers",
+      "notes": "Narmada, Tapi, Sabarmati, Mahi, Luni, Periyar.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-india-c21-t03",
+      "chapter_code": "geo-india-c21",
+      "title": "Godavari (“Vridha Ganga”)",
+      "notes": "origin Trimbak, tributaries, Polavaram.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-india-c21-t04",
+      "chapter_code": "geo-india-c21",
+      "title": "Krishna and tributaries",
+      "notes": "Tungabhadra, Bhima, Koyna.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-india-c21-t05",
+      "chapter_code": "geo-india-c21",
+      "title": "Kaveri and delta",
+      "notes": "Shivasamudram falls, Mettur dam.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-india-c21-t06",
+      "chapter_code": "geo-india-c21",
+      "title": "Narmada and Tapi",
+      "notes": "rift valley, estuary, dams.",
+      "sort_order": 6
+    },
+    {
+      "code": "geo-india-c21-t07",
+      "chapter_code": "geo-india-c21",
+      "title": "Comparison of Himalayan and peninsular rivers",
+      "notes": "source, flow, delta.",
+      "sort_order": 7
+    },
+    {
+      "code": "geo-india-c22-t01",
+      "chapter_code": "geo-india-c22",
+      "title": "Indus system",
+      "notes": "Indus, Jhelum, Chenab, Ravi, Beas, Sutlej; Indus Waters Treaty.",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-india-c22-t02",
+      "chapter_code": "geo-india-c22",
+      "title": "Rivers of Rajasthan",
+      "notes": "Luni, Banas, Ghaggar; inland drainage.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-india-c22-t03",
+      "chapter_code": "geo-india-c22",
+      "title": "Rivers of Kashmir and Ladakh",
+      "notes": "Jhelum, Zanskar, Shyok, Nubra.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-india-c22-t04",
+      "chapter_code": "geo-india-c22",
+      "title": "Rivers of the Northeast",
+      "notes": "Barak, Teesta, Gomati.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-india-c22-t05",
+      "chapter_code": "geo-india-c22",
+      "title": "Rivers by length and discharge",
+      "notes": "longest, biggest by basin.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-india-c22-t06",
+      "chapter_code": "geo-india-c22",
+      "title": "River confluences",
+      "notes": "major sangams and prayags.",
+      "sort_order": 6
+    },
+    {
+      "code": "geo-india-c23-t01",
+      "chapter_code": "geo-india-c23",
+      "title": "Major waterfalls",
+      "notes": "Jog (Gersoppa), Shivasamudram, Kunchikal, Dudhsagar, Athirappilly, Chitrakoot.",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-india-c23-t02",
+      "chapter_code": "geo-india-c23",
+      "title": "Lakes: freshwater",
+      "notes": "Dal, Wular, Loktak, Sambhar (saline), Vembanad.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-india-c23-t03",
+      "chapter_code": "geo-india-c23",
+      "title": "Lakes: saline and coastal",
+      "notes": "Chilika, Pulicat, Sambhar, Lonar.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-india-c23-t04",
+      "chapter_code": "geo-india-c23",
+      "title": "Man-made lakes",
+      "notes": "Govind Sagar, Gobind Ballabh Pant Sagar, Nagarjuna Sagar.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-india-c23-t05",
+      "chapter_code": "geo-india-c23",
+      "title": "Ramsar sites",
+      "notes": "wetlands in India.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-india-c23-t06",
+      "chapter_code": "geo-india-c23",
+      "title": "Matching: lake–state–type",
+      "notes": "quick revision table.",
+      "sort_order": 6
+    },
+    {
+      "code": "geo-india-c24-t01",
+      "chapter_code": "geo-india-c24",
+      "title": "Cities on the Ganga",
+      "notes": "Haridwar, Kanpur, Prayagraj, Varanasi, Patna, Kolkata (Hooghly).",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-india-c24-t02",
+      "chapter_code": "geo-india-c24",
+      "title": "Cities on the Yamuna and tributaries",
+      "notes": "Delhi, Mathura, Agra.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-india-c24-t03",
+      "chapter_code": "geo-india-c24",
+      "title": "Cities on peninsular rivers",
+      "notes": "Nashik (Godavari), Hyderabad (Musi), Vijayawada (Krishna), Tiruchirappalli (Kaveri).",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-india-c24-t04",
+      "chapter_code": "geo-india-c24",
+      "title": "Cities on other rivers",
+      "notes": "Ahmedabad (Sabarmati), Surat (Tapi), Lucknow (Gomti), Guwahati (Brahmaputra).",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-india-c24-t05",
+      "chapter_code": "geo-india-c24",
+      "title": "Matching: city–river–state",
+      "notes": "quick revision.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-india-c25-t01",
+      "chapter_code": "geo-india-c25",
+      "title": "Seasons of India",
+      "notes": "winter, summer, monsoon, retreating monsoon.",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-india-c25-t02",
+      "chapter_code": "geo-india-c25",
+      "title": "Mechanism of the monsoon",
+      "notes": "differential heating, ITCZ, jet streams, Tibetan Plateau, El Nino, Indian Ocean Dipole.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-india-c25-t03",
+      "chapter_code": "geo-india-c25",
+      "title": "Onset and withdrawal",
+      "notes": "Kerala coast (1 June), Delhi (end June), withdrawal in October.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-india-c25-t04",
+      "chapter_code": "geo-india-c25",
+      "title": "Break in monsoon",
+      "notes": "dry spells, Mahawat.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-india-c25-t05",
+      "chapter_code": "geo-india-c25",
+      "title": "Branches of southwest monsoon",
+      "notes": "Arabian Sea branch, Bay of Bengal branch.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-india-c25-t06",
+      "chapter_code": "geo-india-c25",
+      "title": "Northeast monsoon",
+      "notes": "Tamil Nadu rainfall.",
+      "sort_order": 6
+    },
+    {
+      "code": "geo-india-c25-t07",
+      "chapter_code": "geo-india-c25",
+      "title": "Local winds",
+      "notes": "Loo, Kalbaisakhi, Mango showers, Nor’westers.",
+      "sort_order": 7
+    },
+    {
+      "code": "geo-india-c26-t01",
+      "chapter_code": "geo-india-c26",
+      "title": "Rainfall zones",
+      "notes": "very heavy, heavy, moderate, low rainfall regions.",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-india-c26-t02",
+      "chapter_code": "geo-india-c26",
+      "title": "Wettest and driest places",
+      "notes": "Mawsynram, Cherrapunji; Jaisalmer, Leh.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-india-c26-t03",
+      "chapter_code": "geo-india-c26",
+      "title": "Rainfall in the Western Ghats and Northeast",
+      "notes": "orographic rainfall, rain-shadow.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-india-c26-t04",
+      "chapter_code": "geo-india-c26",
+      "title": "Variability of rainfall",
+      "notes": "droughts and floods.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-india-c26-t05",
+      "chapter_code": "geo-india-c26",
+      "title": "Climate regions of India (Koppen)",
+      "notes": "Am, Aw, BShw, BWhw, Cwg, Dfc, ET.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-india-c26-t06",
+      "chapter_code": "geo-india-c26",
+      "title": "Rainfall facts by state",
+      "notes": "matching.",
+      "sort_order": 6
+    },
+    {
+      "code": "geo-india-c27-t01",
+      "chapter_code": "geo-india-c27",
+      "title": "Western disturbances",
+      "notes": "origin in Mediterranean, effect in northwest India.",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-india-c27-t02",
+      "chapter_code": "geo-india-c27",
+      "title": "Benefits to rabi crops",
+      "notes": "wheat, Punjab, Haryana.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-india-c27-t03",
+      "chapter_code": "geo-india-c27",
+      "title": "Northeast monsoon",
+      "notes": "Coromandel Coast.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-india-c27-t04",
+      "chapter_code": "geo-india-c27",
+      "title": "Snowfall",
+      "notes": "Himalayas, Jammu and Kashmir.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-india-c27-t05",
+      "chapter_code": "geo-india-c27",
+      "title": "Cold wave and fog",
+      "notes": "impact.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-india-c28-t01",
+      "chapter_code": "geo-india-c28",
+      "title": "Floods",
+      "notes": "flood-prone states, Brahmaputra, Kosi (“sorrow of Bihar”), Damodar.",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-india-c28-t02",
+      "chapter_code": "geo-india-c28",
+      "title": "Droughts",
+      "notes": "drought-prone regions, causes.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-india-c28-t03",
+      "chapter_code": "geo-india-c28",
+      "title": "Earthquakes",
+      "notes": "seismic zones (II to V), Latur, Bhuj, Uttarkashi; NDMA.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-india-c28-t04",
+      "chapter_code": "geo-india-c28",
+      "title": "Cyclones",
+      "notes": "Bay of Bengal, Arabian Sea; IMD classification; Fani, Amphan, Tauktae.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-india-c28-t05",
+      "chapter_code": "geo-india-c28",
+      "title": "Landslides and avalanches",
+      "notes": "Himalaya, Western Ghats.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-india-c28-t06",
+      "chapter_code": "geo-india-c28",
+      "title": "Tsunami (2004)",
+      "notes": "Indian Ocean; Tsunami warning centre.",
+      "sort_order": 6
+    },
+    {
+      "code": "geo-india-c28-t07",
+      "chapter_code": "geo-india-c28",
+      "title": "Disaster management",
+      "notes": "NDMA, NDRF, Disaster Management Act 2005, Sendai Framework.",
+      "sort_order": 7
+    },
+    {
+      "code": "geo-india-c29-t01",
+      "chapter_code": "geo-india-c29",
+      "title": "Alluvial soil",
+      "notes": "largest area, Khadar and Bhangar, crops.",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-india-c29-t02",
+      "chapter_code": "geo-india-c29",
+      "title": "Black (Regur) soil",
+      "notes": "cotton soil, Deccan lava, moisture retention.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-india-c29-t03",
+      "chapter_code": "geo-india-c29",
+      "title": "Red and yellow soil",
+      "notes": "iron oxide, crops, regions.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-india-c29-t04",
+      "chapter_code": "geo-india-c29",
+      "title": "Laterite soil",
+      "notes": "leaching, plantation crops.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-india-c29-t05",
+      "chapter_code": "geo-india-c29",
+      "title": "Desert (arid) and saline soil",
+      "notes": "Rajasthan, Kachchh.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-india-c29-t06",
+      "chapter_code": "geo-india-c29",
+      "title": "Mountain and forest soils",
+      "notes": "Himalayas.",
+      "sort_order": 6
+    },
+    {
+      "code": "geo-india-c29-t07",
+      "chapter_code": "geo-india-c29",
+      "title": "Soil erosion and conservation",
+      "notes": "gully, sheet, methods.",
+      "sort_order": 7
+    },
+    {
+      "code": "geo-india-c29-t08",
+      "chapter_code": "geo-india-c29",
+      "title": "Soil research",
+      "notes": "ICAR, Soil Health Card, soil testing.",
+      "sort_order": 8
+    },
+    {
+      "code": "geo-india-c30-t01",
+      "chapter_code": "geo-india-c30",
+      "title": "Types of forests",
+      "notes": "tropical evergreen, deciduous (moist, dry), thorn, montane, mangrove.",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-india-c30-t02",
+      "chapter_code": "geo-india-c30",
+      "title": "Forest cover",
+      "notes": "Forest Survey of India, state with highest forest cover.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-india-c30-t03",
+      "chapter_code": "geo-india-c30",
+      "title": "Mangroves",
+      "notes": "Sundarbans, Bhitarkanika, Pichavaram.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-india-c30-t04",
+      "chapter_code": "geo-india-c30",
+      "title": "Biosphere reserves",
+      "notes": "Nilgiri, Nanda Devi, Sundarbans, Great Nicobar.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-india-c30-t05",
+      "chapter_code": "geo-india-c30",
+      "title": "National parks and sanctuaries",
+      "notes": "Kaziranga, Corbett, Gir, Ranthambore, Periyar.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-india-c30-t06",
+      "chapter_code": "geo-india-c30",
+      "title": "Forest policy and acts",
+      "notes": "National Forest Policy 1988, Forest Conservation Act 1980, FRA 2006.",
+      "sort_order": 6
+    },
+    {
+      "code": "geo-india-c30-t07",
+      "chapter_code": "geo-india-c30",
+      "title": "Tiger reserves and Project Tiger",
+      "notes": "quick facts.",
+      "sort_order": 7
+    },
+    {
+      "code": "geo-india-c30-t08",
+      "chapter_code": "geo-india-c30",
+      "title": "Conservation movements",
+      "notes": "Chipko, Appiko, Silent Valley.",
+      "sort_order": 8
+    },
+    {
+      "code": "geo-india-c31-t01",
+      "chapter_code": "geo-india-c31",
+      "title": "Mammals of India",
+      "notes": "tiger, lion, elephant, rhinoceros, snow leopard; endemic species.",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-india-c31-t02",
+      "chapter_code": "geo-india-c31",
+      "title": "Birds and reptiles",
+      "notes": "Great Indian Bustard, crocodiles (gharial, mugger).",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-india-c31-t03",
+      "chapter_code": "geo-india-c31",
+      "title": "Endangered species",
+      "notes": "Red Data Book, IUCN categories, CITES.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-india-c31-t04",
+      "chapter_code": "geo-india-c31",
+      "title": "Wildlife Protection Act 1972",
+      "notes": "schedules, national parks, sanctuaries.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-india-c31-t05",
+      "chapter_code": "geo-india-c31",
+      "title": "Major tribes of India",
+      "notes": "Gonds, Bhils, Santhals, Todas, Khasis, Nagas, Mundas.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-india-c31-t06",
+      "chapter_code": "geo-india-c31",
+      "title": "Tribes by state or region",
+      "notes": "Himalayan, Northeast, Central, Western, Southern, Island tribes.",
+      "sort_order": 6
+    },
+    {
+      "code": "geo-india-c31-t07",
+      "chapter_code": "geo-india-c31",
+      "title": "Particularly Vulnerable Tribal Groups (PVTG)",
+      "notes": "Jarawa, Sentinelese, Onge.",
+      "sort_order": 7
+    },
+    {
+      "code": "geo-india-c31-t08",
+      "chapter_code": "geo-india-c31",
+      "title": "Matching: tribe–state–region",
+      "notes": "quick revision.",
+      "sort_order": 8
+    },
+    {
+      "code": "geo-india-c32-t01",
+      "chapter_code": "geo-india-c32",
+      "title": "Language families",
+      "notes": "Indo-Aryan, Dravidian, Austro-Asiatic, Tibeto-Burman.",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-india-c32-t02",
+      "chapter_code": "geo-india-c32",
+      "title": "Scheduled languages (Eighth Schedule)",
+      "notes": "22 languages; additions (Bodo, Santhali, Maithili, Dogri).",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-india-c32-t03",
+      "chapter_code": "geo-india-c32",
+      "title": "Classical languages",
+      "notes": "Tamil, Sanskrit, Telugu, Kannada, Malayalam, Odia.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-india-c32-t04",
+      "chapter_code": "geo-india-c32",
+      "title": "Official languages",
+      "notes": "Hindi, English, Article 343.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-india-c32-t05",
+      "chapter_code": "geo-india-c32",
+      "title": "State-wise languages",
+      "notes": "major languages of each state.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-india-c32-t06",
+      "chapter_code": "geo-india-c32",
+      "title": "Scripts",
+      "notes": "Devanagari, Brahmi, Gurmukhi, Perso-Arabic.",
+      "sort_order": 6
+    },
+    {
+      "code": "geo-india-c32-t07",
+      "chapter_code": "geo-india-c32",
+      "title": "Linguistic reorganisation of states",
+      "notes": "Dhar Commission, JVP Committee.",
+      "sort_order": 7
+    },
+    {
+      "code": "geo-india-c33-t01",
+      "chapter_code": "geo-india-c33",
+      "title": "Sources of irrigation",
+      "notes": "canals, wells and tubewells, tanks.",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-india-c33-t02",
+      "chapter_code": "geo-india-c33",
+      "title": "State-wise irrigation patterns",
+      "notes": "Punjab (tubewells), Tamil Nadu (tanks), Uttar Pradesh.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-india-c33-t03",
+      "chapter_code": "geo-india-c33",
+      "title": "Major canals",
+      "notes": "Indira Gandhi Canal, Sirhind, Upper Ganga, Sarda, Yamuna.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-india-c33-t04",
+      "chapter_code": "geo-india-c33",
+      "title": "Command area and projects",
+      "notes": "major, medium, minor irrigation.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-india-c33-t05",
+      "chapter_code": "geo-india-c33",
+      "title": "Modern techniques",
+      "notes": "drip, sprinkler irrigation; Pradhan Mantri Krishi Sinchai Yojana.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-india-c33-t06",
+      "chapter_code": "geo-india-c33",
+      "title": "Irrigation problems",
+      "notes": "waterlogging, salinity.",
+      "sort_order": 6
+    },
+    {
+      "code": "geo-india-c34-t01",
+      "chapter_code": "geo-india-c34",
+      "title": "Major dams",
+      "notes": "Bhakra Nangal, Hirakud, Nagarjuna Sagar, Tungabhadra, Sardar Sarovar, Tehri.",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-india-c34-t02",
+      "chapter_code": "geo-india-c34",
+      "title": "Highest and longest dams",
+      "notes": "Tehri, Hirakud.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-india-c34-t03",
+      "chapter_code": "geo-india-c34",
+      "title": "Projects by river",
+      "notes": "Damodar (DVC), Narmada, Krishna, Kaveri, Mahanadi.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-india-c34-t04",
+      "chapter_code": "geo-india-c34",
+      "title": "Interstate river disputes",
+      "notes": "Cauvery, Krishna, Godavari, Ravi-Beas.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-india-c34-t05",
+      "chapter_code": "geo-india-c34",
+      "title": "Environmental and social issues",
+      "notes": "displacement, Narmada Bachao Andolan, Silent Valley.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-india-c34-t06",
+      "chapter_code": "geo-india-c34",
+      "title": "Reservoir facts",
+      "notes": "Govind Sagar, Indira Sagar.",
+      "sort_order": 6
+    },
+    {
+      "code": "geo-india-c34-t07",
+      "chapter_code": "geo-india-c34",
+      "title": "Matching: project–river–state",
+      "notes": "quick revision.",
+      "sort_order": 7
+    },
+    {
+      "code": "geo-india-c35-t01",
+      "chapter_code": "geo-india-c35",
+      "title": "Cropping seasons",
+      "notes": "Kharif, Rabi, Zaid.",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-india-c35-t02",
+      "chapter_code": "geo-india-c35",
+      "title": "Types of farming",
+      "notes": "subsistence, commercial, shifting (jhum), plantation, mixed.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-india-c35-t03",
+      "chapter_code": "geo-india-c35",
+      "title": "Land use pattern",
+      "notes": "net sown area, forest, fallow.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-india-c35-t04",
+      "chapter_code": "geo-india-c35",
+      "title": "Cropping patterns",
+      "notes": "crop rotation, multiple cropping.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-india-c35-t05",
+      "chapter_code": "geo-india-c35",
+      "title": "Agricultural regions",
+      "notes": "states leading in production.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-india-c35-t06",
+      "chapter_code": "geo-india-c35",
+      "title": "Agricultural policies",
+      "notes": "MSP, Kisan Credit Card, PM-KISAN, e-NAM.",
+      "sort_order": 6
+    },
+    {
+      "code": "geo-india-c35-t07",
+      "chapter_code": "geo-india-c35",
+      "title": "Agricultural problems",
+      "notes": "fragmentation, low productivity.",
+      "sort_order": 7
+    },
+    {
+      "code": "geo-india-c36-t01",
+      "chapter_code": "geo-india-c36",
+      "title": "Green Revolution (1960s)",
+      "notes": "M.S. Swaminathan, Norman Borlaug, HYV seeds, wheat, Punjab.",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-india-c36-t02",
+      "chapter_code": "geo-india-c36",
+      "title": "Effects and problems",
+      "notes": "regional disparity, soil degradation.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-india-c36-t03",
+      "chapter_code": "geo-india-c36",
+      "title": "Other revolutions",
+      "notes": "White (Operation Flood, Verghese Kurien), Blue (fisheries), Yellow (oilseeds), Pink (prawns), Silver (eggs), Golden (horticulture), Red (tomato), Round (potato).",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-india-c36-t04",
+      "chapter_code": "geo-india-c36",
+      "title": "Second Green Revolution",
+      "notes": "Evergreen revolution.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-india-c36-t05",
+      "chapter_code": "geo-india-c36",
+      "title": "Related institutions",
+      "notes": "ICAR, IARI, NDDB.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-india-c37-t01",
+      "chapter_code": "geo-india-c37",
+      "title": "Rice",
+      "notes": "climate, soil, major producers (West Bengal, Uttar Pradesh, Punjab).",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-india-c37-t02",
+      "chapter_code": "geo-india-c37",
+      "title": "Wheat",
+      "notes": "Rabi crop, Uttar Pradesh, Punjab, Haryana.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-india-c37-t03",
+      "chapter_code": "geo-india-c37",
+      "title": "Maize and millets",
+      "notes": "jowar, bajra, ragi.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-india-c37-t04",
+      "chapter_code": "geo-india-c37",
+      "title": "Barley, oats and other cereals",
+      "notes": "regions.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-india-c37-t05",
+      "chapter_code": "geo-india-c37",
+      "title": "Production ranks",
+      "notes": "India’s rank in the world, leading states.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-india-c37-t06",
+      "chapter_code": "geo-india-c37",
+      "title": "Climatic requirements",
+      "notes": "rainfall, temperature, soils.",
+      "sort_order": 6
+    },
+    {
+      "code": "geo-india-c37-t07",
+      "chapter_code": "geo-india-c37",
+      "title": "Matching: crop–state–soil",
+      "notes": "quick revision.",
+      "sort_order": 7
+    },
+    {
+      "code": "geo-india-c38-t01",
+      "chapter_code": "geo-india-c38",
+      "title": "Major pulses",
+      "notes": "gram, tur (arhar), moong, urad, masoor, peas.",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-india-c38-t02",
+      "chapter_code": "geo-india-c38",
+      "title": "Leading states",
+      "notes": "Madhya Pradesh, Rajasthan, Maharashtra, Uttar Pradesh.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-india-c38-t03",
+      "chapter_code": "geo-india-c38",
+      "title": "Growing conditions",
+      "notes": "Kharif and Rabi pulses; soil nitrogen fixation.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-india-c38-t04",
+      "chapter_code": "geo-india-c38",
+      "title": "India’s position",
+      "notes": "largest producer and consumer.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-india-c38-t05",
+      "chapter_code": "geo-india-c38",
+      "title": "Policy",
+      "notes": "MSP, National Food Security Mission.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-india-c39-t01",
+      "chapter_code": "geo-india-c39",
+      "title": "Major oilseeds",
+      "notes": "groundnut, mustard, soyabean, sunflower, sesamum, castor, linseed.",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-india-c39-t02",
+      "chapter_code": "geo-india-c39",
+      "title": "Leading states",
+      "notes": "Gujarat (groundnut), Rajasthan (mustard), Madhya Pradesh (soybean).",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-india-c39-t03",
+      "chapter_code": "geo-india-c39",
+      "title": "Climate and soil needs",
+      "notes": "Kharif and Rabi oilseeds.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-india-c39-t04",
+      "chapter_code": "geo-india-c39",
+      "title": "Yellow Revolution",
+      "notes": "National Mission on Oilseeds.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-india-c39-t05",
+      "chapter_code": "geo-india-c39",
+      "title": "Edible oil import",
+      "notes": "palm oil.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-india-c40-t01",
+      "chapter_code": "geo-india-c40",
+      "title": "Sugarcane",
+      "notes": "Uttar Pradesh, Maharashtra, Karnataka; sugar mills; climate.",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-india-c40-t02",
+      "chapter_code": "geo-india-c40",
+      "title": "Cotton",
+      "notes": "black soil, Gujarat, Maharashtra, Telangana; Bt cotton.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-india-c40-t03",
+      "chapter_code": "geo-india-c40",
+      "title": "Jute",
+      "notes": "West Bengal, Assam, Bihar; “Golden fibre”.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-india-c40-t04",
+      "chapter_code": "geo-india-c40",
+      "title": "Tobacco and others",
+      "notes": "Andhra Pradesh, Gujarat.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-india-c40-t05",
+      "chapter_code": "geo-india-c40",
+      "title": "Fibre crops",
+      "notes": "hemp, flax, coir.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-india-c40-t06",
+      "chapter_code": "geo-india-c40",
+      "title": "Matching: crop–state–industry",
+      "notes": "quick revision.",
+      "sort_order": 6
+    },
+    {
+      "code": "geo-india-c41-t01",
+      "chapter_code": "geo-india-c41",
+      "title": "Tea",
+      "notes": "Assam, West Bengal (Darjeeling), Nilgiri; climate and soil.",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-india-c41-t02",
+      "chapter_code": "geo-india-c41",
+      "title": "Coffee",
+      "notes": "Karnataka (Kodagu), Kerala, Tamil Nadu.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-india-c41-t03",
+      "chapter_code": "geo-india-c41",
+      "title": "Rubber",
+      "notes": "Kerala, Tamil Nadu, Northeast.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-india-c41-t04",
+      "chapter_code": "geo-india-c41",
+      "title": "Spices",
+      "notes": "cardamom, pepper, clove, cinnamon (Kerala).",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-india-c41-t05",
+      "chapter_code": "geo-india-c41",
+      "title": "Coconut and areca nut",
+      "notes": "Kerala, Tamil Nadu.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-india-c41-t06",
+      "chapter_code": "geo-india-c41",
+      "title": "Boards",
+      "notes": "Tea Board, Coffee Board, Spices Board, Rubber Board.",
+      "sort_order": 6
+    },
+    {
+      "code": "geo-india-c42-t01",
+      "chapter_code": "geo-india-c42",
+      "title": "Fruits",
+      "notes": "mango (Uttar Pradesh, Andhra Pradesh), banana (Tamil Nadu), apple (Jammu and Kashmir, Himachal), orange, grapes (Maharashtra).",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-india-c42-t02",
+      "chapter_code": "geo-india-c42",
+      "title": "Vegetables",
+      "notes": "potato, onion, tomato; leading states.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-india-c42-t03",
+      "chapter_code": "geo-india-c42",
+      "title": "Flowers and medicinal plants",
+      "notes": "floriculture, herbal gardens.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-india-c42-t04",
+      "chapter_code": "geo-india-c42",
+      "title": "Spices and condiments",
+      "notes": "chilli, turmeric, ginger.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-india-c42-t05",
+      "chapter_code": "geo-india-c42",
+      "title": "Organic and horticulture missions",
+      "notes": "National Horticulture Mission.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-india-c43-t01",
+      "chapter_code": "geo-india-c43",
+      "title": "Types of silk",
+      "notes": "Mulberry, Tasar, Eri, Muga.",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-india-c43-t02",
+      "chapter_code": "geo-india-c43",
+      "title": "Leading states",
+      "notes": "Karnataka (mulberry), Assam (Muga, Eri), Jharkhand (Tasar).",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-india-c43-t03",
+      "chapter_code": "geo-india-c43",
+      "title": "Silk centres",
+      "notes": "Kanchipuram, Mysore, Varanasi, Bhagalpur.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-india-c43-t04",
+      "chapter_code": "geo-india-c43",
+      "title": "Central Silk Board",
+      "notes": "Bengaluru.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-india-c43-t05",
+      "chapter_code": "geo-india-c43",
+      "title": "India’s silk industry",
+      "notes": "second largest producer.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-india-c44-t01",
+      "chapter_code": "geo-india-c44",
+      "title": "Livestock census and population",
+      "notes": "cattle, buffalo, goat, sheep.",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-india-c44-t02",
+      "chapter_code": "geo-india-c44",
+      "title": "Breeds of cattle and buffalo",
+      "notes": "Sahiwal, Gir, Murrah, Jaffrabadi, Kankrej.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-india-c44-t03",
+      "chapter_code": "geo-india-c44",
+      "title": "Dairy development",
+      "notes": "Operation Flood, Amul, NDDB, Verghese Kurien.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-india-c44-t04",
+      "chapter_code": "geo-india-c44",
+      "title": "Poultry and fisheries",
+      "notes": "Blue Revolution; leading states.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-india-c44-t05",
+      "chapter_code": "geo-india-c44",
+      "title": "Sheep and wool",
+      "notes": "Rajasthan, Jammu and Kashmir.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-india-c44-t06",
+      "chapter_code": "geo-india-c44",
+      "title": "Research institutes",
+      "notes": "NDRI (Karnal), CIRB (Hisar), IVRI.",
+      "sort_order": 6
+    },
+    {
+      "code": "geo-india-c45-t01",
+      "chapter_code": "geo-india-c45",
+      "title": "Iron ore",
+      "notes": "Odisha, Jharkhand, Chhattisgarh, Karnataka; hematite and magnetite.",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-india-c45-t02",
+      "chapter_code": "geo-india-c45",
+      "title": "Coal",
+      "notes": "Gondwana coalfields, Jharia, Raniganj; types (anthracite, bituminous, lignite).",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-india-c45-t03",
+      "chapter_code": "geo-india-c45",
+      "title": "Mica, bauxite and copper",
+      "notes": "producers and uses.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-india-c45-t04",
+      "chapter_code": "geo-india-c45",
+      "title": "Manganese and others",
+      "notes": "Odisha, Madhya Pradesh; chromite, gold (Kolar), diamond (Panna).",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-india-c45-t05",
+      "chapter_code": "geo-india-c45",
+      "title": "Petroleum and natural gas",
+      "notes": "Mumbai High, Assam, Krishna-Godavari basin, Cambay.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-india-c45-t06",
+      "chapter_code": "geo-india-c45",
+      "title": "Mineral belts",
+      "notes": "Chhota Nagpur belt, Mineral-rich states.",
+      "sort_order": 6
+    },
+    {
+      "code": "geo-india-c45-t07",
+      "chapter_code": "geo-india-c45",
+      "title": "Minerals related organisations",
+      "notes": "Geological Survey of India, Indian Bureau of Mines.",
+      "sort_order": 7
+    },
+    {
+      "code": "geo-india-c46-t01",
+      "chapter_code": "geo-india-c46",
+      "title": "Thermal power",
+      "notes": "coal-based plants; NTPC.",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-india-c46-t02",
+      "chapter_code": "geo-india-c46",
+      "title": "Hydroelectric power",
+      "notes": "dams and projects.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-india-c46-t03",
+      "chapter_code": "geo-india-c46",
+      "title": "Nuclear power",
+      "notes": "Tarapur, Kalpakkam, Kudankulam, Rawatbhata; thorium (Kerala).",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-india-c46-t04",
+      "chapter_code": "geo-india-c46",
+      "title": "Renewable energy",
+      "notes": "solar (Bhadla), wind (Tamil Nadu), tidal, geothermal; National Solar Mission.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-india-c46-t05",
+      "chapter_code": "geo-india-c46",
+      "title": "Biogas, ethanol and biofuels",
+      "notes": "policy.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-india-c46-t06",
+      "chapter_code": "geo-india-c46",
+      "title": "Power sector organisations",
+      "notes": "NTPC, NHPC, Power Grid, BEE.",
+      "sort_order": 6
+    },
+    {
+      "code": "geo-india-c46-t07",
+      "chapter_code": "geo-india-c46",
+      "title": "Energy policy and targets",
+      "notes": "National Energy Policy.",
+      "sort_order": 7
+    },
+    {
+      "code": "geo-india-c47-t01",
+      "chapter_code": "geo-india-c47",
+      "title": "Iron and steel industry",
+      "notes": "Bhilai, Rourkela, Durgapur, Bokaro, Jamshedpur; SAIL.",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-india-c47-t02",
+      "chapter_code": "geo-india-c47",
+      "title": "Cotton textiles",
+      "notes": "Mumbai, Ahmedabad; Coimbatore.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-india-c47-t03",
+      "chapter_code": "geo-india-c47",
+      "title": "Jute, sugar, cement",
+      "notes": "Kolkata, Uttar Pradesh.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-india-c47-t04",
+      "chapter_code": "geo-india-c47",
+      "title": "Automobile and engineering",
+      "notes": "Chennai, Pune.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-india-c47-t05",
+      "chapter_code": "geo-india-c47",
+      "title": "IT and electronics",
+      "notes": "Bengaluru, Hyderabad, Noida; Software Technology Parks.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-india-c47-t06",
+      "chapter_code": "geo-india-c47",
+      "title": "Chemical and fertiliser",
+      "notes": "fertiliser plants, petrochemicals.",
+      "sort_order": 6
+    },
+    {
+      "code": "geo-india-c47-t07",
+      "chapter_code": "geo-india-c47",
+      "title": "Special Economic Zones and industrial corridors",
+      "notes": "SEZ Act 2005, DMIC.",
+      "sort_order": 7
+    },
+    {
+      "code": "geo-india-c47-t08",
+      "chapter_code": "geo-india-c47",
+      "title": "Industrial regions",
+      "notes": "Hooghly, Mumbai-Pune, Chhota Nagpur.",
+      "sort_order": 8
+    },
+    {
+      "code": "geo-india-c48-t01",
+      "chapter_code": "geo-india-c48",
+      "title": "Agricultural research",
+      "notes": "ICAR, IARI, CRRI Cuttack, CPRI Shimla, NDRI Karnal.",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-india-c48-t02",
+      "chapter_code": "geo-india-c48",
+      "title": "Scientific research",
+      "notes": "ISRO, DRDO, BARC, IISc, TIFR, CSIR.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-india-c48-t03",
+      "chapter_code": "geo-india-c48",
+      "title": "Forest and wildlife research",
+      "notes": "FRI Dehradun, Wildlife Institute of India.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-india-c48-t04",
+      "chapter_code": "geo-india-c48",
+      "title": "Earth sciences and meteorology",
+      "notes": "IMD, NCEOR, Survey of India.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-india-c48-t05",
+      "chapter_code": "geo-india-c48",
+      "title": "Space research",
+      "notes": "ISRO headquarters, launch centres.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-india-c48-t06",
+      "chapter_code": "geo-india-c48",
+      "title": "Matching: institute–headquarters",
+      "notes": "quick revision.",
+      "sort_order": 6
+    },
+    {
+      "code": "geo-india-c49-t01",
+      "chapter_code": "geo-india-c49",
+      "title": "Roadways",
+      "notes": "NHAI, National Highways (NH-44 longest), Golden Quadrilateral, Bharatmala.",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-india-c49-t02",
+      "chapter_code": "geo-india-c49",
+      "title": "Railways",
+      "notes": "zones, headquarters, first train (1853), Vande Bharat.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-india-c49-t03",
+      "chapter_code": "geo-india-c49",
+      "title": "Waterways",
+      "notes": "National Waterways (NW-1 Ganga), inland waterways.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-india-c49-t04",
+      "chapter_code": "geo-india-c49",
+      "title": "Airways",
+      "notes": "airports, AAI, international airports.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-india-c49-t05",
+      "chapter_code": "geo-india-c49",
+      "title": "Ports",
+      "notes": "major and minor ports; Sagarmala.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-india-c49-t06",
+      "chapter_code": "geo-india-c49",
+      "title": "Communication",
+      "notes": "postal system, telecom, satellite.",
+      "sort_order": 6
+    },
+    {
+      "code": "geo-india-c49-t07",
+      "chapter_code": "geo-india-c49",
+      "title": "Pipelines",
+      "notes": "gas and oil pipelines.",
+      "sort_order": 7
+    },
+    {
+      "code": "geo-india-c50-t01",
+      "chapter_code": "geo-india-c50",
+      "title": "UNESCO World Heritage Sites in India",
+      "notes": "list (Taj Mahal, Ajanta, Ellora, Hampi, Khajuraho).",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-india-c50-t02",
+      "chapter_code": "geo-india-c50",
+      "title": "Hill stations",
+      "notes": "Shimla, Darjeeling, Ooty, Munnar.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-india-c50-t03",
+      "chapter_code": "geo-india-c50",
+      "title": "Religious places and pilgrimages",
+      "notes": "Char Dham, Kedarnath, Tirupati.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-india-c50-t04",
+      "chapter_code": "geo-india-c50",
+      "title": "Beaches, backwaters and wildlife tourism",
+      "notes": "Goa, Kerala, Kaziranga.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-india-c50-t05",
+      "chapter_code": "geo-india-c50",
+      "title": "Famous monuments by state",
+      "notes": "matching.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-india-c50-t06",
+      "chapter_code": "geo-india-c50",
+      "title": "Tourism policy",
+      "notes": "Swadesh Darshan, Incredible India.",
+      "sort_order": 6
+    },
+    {
+      "code": "geo-india-c51-t01",
+      "chapter_code": "geo-india-c51",
+      "title": "India at a glance",
+      "notes": "area, population, density, literacy (cross-reference).",
+      "sort_order": 1
+    },
+    {
+      "code": "geo-india-c51-t02",
+      "chapter_code": "geo-india-c51",
+      "title": "Important facts: firsts and bests",
+      "notes": "highest, largest, longest.",
+      "sort_order": 2
+    },
+    {
+      "code": "geo-india-c51-t03",
+      "chapter_code": "geo-india-c51",
+      "title": "Geographical nicknames of places",
+      "notes": "Silicon Valley of India, Manchester of India, City of Lakes.",
+      "sort_order": 3
+    },
+    {
+      "code": "geo-india-c51-t04",
+      "chapter_code": "geo-india-c51",
+      "title": "Rivers, mountains, states matching",
+      "notes": "mixed one-liners.",
+      "sort_order": 4
+    },
+    {
+      "code": "geo-india-c51-t05",
+      "chapter_code": "geo-india-c51",
+      "title": "Map-based questions",
+      "notes": "locating rivers, mountains, cities.",
+      "sort_order": 5
+    },
+    {
+      "code": "geo-india-c51-t06",
+      "chapter_code": "geo-india-c51",
+      "title": "Environmental issues and agreements",
+      "notes": "climate change, biodiversity.",
+      "sort_order": 6
+    }
+  ]
+}

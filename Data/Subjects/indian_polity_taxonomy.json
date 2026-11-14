@@ -1,0 +1,2376 @@
+{
+  "schema_version": 1,
+  "subject": {
+    "code": "indian-polity",
+    "title": "Indian Polity and Governance"
+  },
+  "modules": [
+    {
+      "code": "pol-m01",
+      "subject_code": "indian-polity",
+      "title": "Constitutional Foundations",
+      "sort_order": 1
+    },
+    {
+      "code": "pol-m02",
+      "subject_code": "indian-polity",
+      "title": "Territory, Citizenship and Symbols",
+      "sort_order": 2
+    },
+    {
+      "code": "pol-m03",
+      "subject_code": "indian-polity",
+      "title": "Rights and Duties",
+      "sort_order": 3
+    },
+    {
+      "code": "pol-m04",
+      "subject_code": "indian-polity",
+      "title": "The Union Executive",
+      "sort_order": 4
+    },
+    {
+      "code": "pol-m05",
+      "subject_code": "indian-polity",
+      "title": "The Union Legislature",
+      "sort_order": 5
+    },
+    {
+      "code": "pol-m06",
+      "subject_code": "indian-polity",
+      "title": "The Judiciary",
+      "sort_order": 6
+    },
+    {
+      "code": "pol-m07",
+      "subject_code": "indian-polity",
+      "title": "The State Government",
+      "sort_order": 7
+    },
+    {
+      "code": "pol-m08",
+      "subject_code": "indian-polity",
+      "title": "Federalism, Emergency and Special Provisions",
+      "sort_order": 8
+    },
+    {
+      "code": "pol-m09",
+      "subject_code": "indian-polity",
+      "title": "Constitutional Bodies, Elections and Political Parties",
+      "sort_order": 9
+    },
+    {
+      "code": "pol-m10",
+      "subject_code": "indian-polity",
+      "title": "Local Government and Revision",
+      "sort_order": 10
+    }
+  ],
+  "chapters": [
+    {
+      "code": "pol-c01",
+      "subject_code": "indian-polity",
+      "module_code": "pol-m01",
+      "title": "Constitutional Development Before 1950",
+      "sort_order": 1
+    },
+    {
+      "code": "pol-c02",
+      "subject_code": "indian-polity",
+      "module_code": "pol-m01",
+      "title": "Sources of the Constitution: Foreign Influences",
+      "sort_order": 2
+    },
+    {
+      "code": "pol-c03",
+      "subject_code": "indian-polity",
+      "module_code": "pol-m01",
+      "title": "The Preamble",
+      "sort_order": 3
+    },
+    {
+      "code": "pol-c04",
+      "subject_code": "indian-polity",
+      "module_code": "pol-m01",
+      "title": "Salient Features and the Governance System",
+      "sort_order": 4
+    },
+    {
+      "code": "pol-c05",
+      "subject_code": "indian-polity",
+      "module_code": "pol-m01",
+      "title": "Articles and Schedules of the Constitution",
+      "sort_order": 5
+    },
+    {
+      "code": "pol-c06",
+      "subject_code": "indian-polity",
+      "module_code": "pol-m01",
+      "title": "Amendment of the Constitution",
+      "sort_order": 6
+    },
+    {
+      "code": "pol-c07",
+      "subject_code": "indian-polity",
+      "module_code": "pol-m02",
+      "title": "States and Union Territories",
+      "sort_order": 7
+    },
+    {
+      "code": "pol-c08",
+      "subject_code": "indian-polity",
+      "module_code": "pol-m02",
+      "title": "Citizenship",
+      "sort_order": 8
+    },
+    {
+      "code": "pol-c09",
+      "subject_code": "indian-polity",
+      "module_code": "pol-m02",
+      "title": "National Symbols and Emblem",
+      "sort_order": 9
+    },
+    {
+      "code": "pol-c10",
+      "subject_code": "indian-polity",
+      "module_code": "pol-m02",
+      "title": "Official Language",
+      "sort_order": 10
+    },
+    {
+      "code": "pol-c11",
+      "subject_code": "indian-polity",
+      "module_code": "pol-m03",
+      "title": "Fundamental Rights",
+      "sort_order": 11
+    },
+    {
+      "code": "pol-c12",
+      "subject_code": "indian-polity",
+      "module_code": "pol-m03",
+      "title": "Directive Principles of State Policy",
+      "sort_order": 12
+    },
+    {
+      "code": "pol-c13",
+      "subject_code": "indian-polity",
+      "module_code": "pol-m03",
+      "title": "Fundamental Duties",
+      "sort_order": 13
+    },
+    {
+      "code": "pol-c14",
+      "subject_code": "indian-polity",
+      "module_code": "pol-m04",
+      "title": "The President",
+      "sort_order": 14
+    },
+    {
+      "code": "pol-c15",
+      "subject_code": "indian-polity",
+      "module_code": "pol-m04",
+      "title": "The Vice-President",
+      "sort_order": 15
+    },
+    {
+      "code": "pol-c16",
+      "subject_code": "indian-polity",
+      "module_code": "pol-m04",
+      "title": "Prime Minister and Council of Ministers",
+      "sort_order": 16
+    },
+    {
+      "code": "pol-c17",
+      "subject_code": "indian-polity",
+      "module_code": "pol-m04",
+      "title": "Attorney General and CAG",
+      "sort_order": 17
+    },
+    {
+      "code": "pol-c18",
+      "subject_code": "indian-polity",
+      "module_code": "pol-m04",
+      "title": "Order of Precedence",
+      "sort_order": 18
+    },
+    {
+      "code": "pol-c19",
+      "subject_code": "indian-polity",
+      "module_code": "pol-m05",
+      "title": "The Parliament",
+      "sort_order": 19
+    },
+    {
+      "code": "pol-c20",
+      "subject_code": "indian-polity",
+      "module_code": "pol-m05",
+      "title": "Lok Sabha",
+      "sort_order": 20
+    },
+    {
+      "code": "pol-c21",
+      "subject_code": "indian-polity",
+      "module_code": "pol-m05",
+      "title": "Rajya Sabha",
+      "sort_order": 21
+    },
+    {
+      "code": "pol-c22",
+      "subject_code": "indian-polity",
+      "module_code": "pol-m06",
+      "title": "The Supreme Court",
+      "sort_order": 22
+    },
+    {
+      "code": "pol-c23",
+      "subject_code": "indian-polity",
+      "module_code": "pol-m06",
+      "title": "High Courts and Subordinate Courts",
+      "sort_order": 23
+    },
+    {
+      "code": "pol-c24",
+      "subject_code": "indian-polity",
+      "module_code": "pol-m07",
+      "title": "The Governor",
+      "sort_order": 24
+    },
+    {
+      "code": "pol-c25",
+      "subject_code": "indian-polity",
+      "module_code": "pol-m07",
+      "title": "State Legislature",
+      "sort_order": 25
+    },
+    {
+      "code": "pol-c26",
+      "subject_code": "indian-polity",
+      "module_code": "pol-m08",
+      "title": "Centre-State Relations",
+      "sort_order": 26
+    },
+    {
+      "code": "pol-c27",
+      "subject_code": "indian-polity",
+      "module_code": "pol-m08",
+      "title": "Emergency Provisions",
+      "sort_order": 27
+    },
+    {
+      "code": "pol-c28",
+      "subject_code": "indian-polity",
+      "module_code": "pol-m08",
+      "title": "Finance Commission",
+      "sort_order": 28
+    },
+    {
+      "code": "pol-c29",
+      "subject_code": "indian-polity",
+      "module_code": "pol-m08",
+      "title": "Planning Commission and NITI Aayog",
+      "sort_order": 29
+    },
+    {
+      "code": "pol-c30",
+      "subject_code": "indian-polity",
+      "module_code": "pol-m08",
+      "title": "Temporary, Transitional and Special Provisions for States",
+      "sort_order": 30
+    },
+    {
+      "code": "pol-c31",
+      "subject_code": "indian-polity",
+      "module_code": "pol-m08",
+      "title": "Special Provisions for Certain Classes",
+      "sort_order": 31
+    },
+    {
+      "code": "pol-c32",
+      "subject_code": "indian-polity",
+      "module_code": "pol-m09",
+      "title": "Election Commission and Elections",
+      "sort_order": 32
+    },
+    {
+      "code": "pol-c33",
+      "subject_code": "indian-polity",
+      "module_code": "pol-m09",
+      "title": "Political Parties",
+      "sort_order": 33
+    },
+    {
+      "code": "pol-c34",
+      "subject_code": "indian-polity",
+      "module_code": "pol-m09",
+      "title": "Lokpal and Other Commissions",
+      "sort_order": 34
+    },
+    {
+      "code": "pol-c35",
+      "subject_code": "indian-polity",
+      "module_code": "pol-m10",
+      "title": "Panchayati Raj and Community Development",
+      "sort_order": 35
+    },
+    {
+      "code": "pol-c36",
+      "subject_code": "indian-polity",
+      "module_code": "pol-m10",
+      "title": "Polity Miscellaneous",
+      "sort_order": 36
+    }
+  ],
+  "topics": [
+    {
+      "code": "pol-c01-t01",
+      "chapter_code": "pol-c01",
+      "title": "East India Company period",
+      "notes": "Regulating Act 1773, Pitt’s India Act 1784, Charter Acts 1793, 1813, 1833, 1853.",
+      "sort_order": 1
+    },
+    {
+      "code": "pol-c01-t02",
+      "chapter_code": "pol-c01",
+      "title": "Crown rule",
+      "notes": "Government of India Act 1858, Indian Councils Acts 1861, 1892, 1909 (Morley-Minto).",
+      "sort_order": 2
+    },
+    {
+      "code": "pol-c01-t03",
+      "chapter_code": "pol-c01",
+      "title": "Government of India Act 1919",
+      "notes": "Montagu-Chelmsford reforms, dyarchy.",
+      "sort_order": 3
+    },
+    {
+      "code": "pol-c01-t04",
+      "chapter_code": "pol-c01",
+      "title": "Government of India Act 1935",
+      "notes": "provincial autonomy, federation, Federal Court.",
+      "sort_order": 4
+    },
+    {
+      "code": "pol-c01-t05",
+      "chapter_code": "pol-c01",
+      "title": "Indian Independence Act 1947",
+      "notes": "partition, dominion status.",
+      "sort_order": 5
+    },
+    {
+      "code": "pol-c01-t06",
+      "chapter_code": "pol-c01",
+      "title": "Commissions and proposals",
+      "notes": "Simon Commission, Nehru Report, Cripps Mission, Cabinet Mission, Wavell Plan, Mountbatten Plan.",
+      "sort_order": 6
+    },
+    {
+      "code": "pol-c01-t07",
+      "chapter_code": "pol-c01",
+      "title": "Constituent Assembly",
+      "notes": "formation (1946), members, first meeting (9 Dec 1946), president Rajendra Prasad.",
+      "sort_order": 7
+    },
+    {
+      "code": "pol-c01-t08",
+      "chapter_code": "pol-c01",
+      "title": "Committees of the Assembly",
+      "notes": "Drafting Committee (Ambedkar), other committees and chairmen.",
+      "sort_order": 8
+    },
+    {
+      "code": "pol-c01-t09",
+      "chapter_code": "pol-c01",
+      "title": "Adoption and enforcement",
+      "notes": "26 Nov 1949, 26 Jan 1950; time taken (2 years 11 months 18 days).",
+      "sort_order": 9
+    },
+    {
+      "code": "pol-c01-t10",
+      "chapter_code": "pol-c01",
+      "title": "Objectives Resolution",
+      "notes": "1946, Nehru.",
+      "sort_order": 10
+    },
+    {
+      "code": "pol-c02-t01",
+      "chapter_code": "pol-c02",
+      "title": "British Constitution",
+      "notes": "parliamentary system, rule of law, single citizenship, bicameralism, writs.",
+      "sort_order": 1
+    },
+    {
+      "code": "pol-c02-t02",
+      "chapter_code": "pol-c02",
+      "title": "US Constitution",
+      "notes": "fundamental rights, judicial review, independent judiciary, Vice-President, impeachment.",
+      "sort_order": 2
+    },
+    {
+      "code": "pol-c02-t03",
+      "chapter_code": "pol-c02",
+      "title": "Irish Constitution",
+      "notes": "Directive Principles, Rajya Sabha nomination, electoral college for President.",
+      "sort_order": 3
+    },
+    {
+      "code": "pol-c02-t04",
+      "chapter_code": "pol-c02",
+      "title": "Canadian Constitution",
+      "notes": "federation with strong Centre, residuary powers.",
+      "sort_order": 4
+    },
+    {
+      "code": "pol-c02-t05",
+      "chapter_code": "pol-c02",
+      "title": "Australian Constitution",
+      "notes": "Concurrent List, freedom of trade, joint sitting.",
+      "sort_order": 5
+    },
+    {
+      "code": "pol-c02-t06",
+      "chapter_code": "pol-c02",
+      "title": "Other sources",
+      "notes": "Weimar (Germany) emergency; USSR (fundamental duties); South Africa (amendment procedure); Japan (procedure established by law); France (republic, liberty, equality, fraternity).",
+      "sort_order": 6
+    },
+    {
+      "code": "pol-c02-t07",
+      "chapter_code": "pol-c02",
+      "title": "Government of India Act 1935",
+      "notes": "federal scheme, Public Service Commission, emergency provisions.",
+      "sort_order": 7
+    },
+    {
+      "code": "pol-c02-t08",
+      "chapter_code": "pol-c02",
+      "title": "Matching: feature–source",
+      "notes": "all question related to this.",
+      "sort_order": 8
+    },
+    {
+      "code": "pol-c03-t01",
+      "chapter_code": "pol-c03",
+      "title": "Text and meaning",
+      "notes": "“We, the people of India…”.",
+      "sort_order": 1
+    },
+    {
+      "code": "pol-c03-t02",
+      "chapter_code": "pol-c03",
+      "title": "Key words",
+      "notes": "sovereign, socialist, secular, democratic, republic; justice, liberty, equality, fraternity.",
+      "sort_order": 2
+    },
+    {
+      "code": "pol-c03-t03",
+      "chapter_code": "pol-c03",
+      "title": "42nd Amendment (1976)",
+      "notes": "added socialist, secular, integrity.",
+      "sort_order": 3
+    },
+    {
+      "code": "pol-c03-t04",
+      "chapter_code": "pol-c03",
+      "title": "Is the Preamble part of the Constitution?",
+      "notes": "Berubari case (1960) and Kesavananda Bharati case (1973).",
+      "sort_order": 4
+    },
+    {
+      "code": "pol-c03-t05",
+      "chapter_code": "pol-c03",
+      "title": "Sources and objectives",
+      "notes": "Objectives Resolution.",
+      "sort_order": 5
+    },
+    {
+      "code": "pol-c03-t06",
+      "chapter_code": "pol-c03",
+      "title": "Enforceability",
+      "notes": "not justiciable; use in interpretation.",
+      "sort_order": 6
+    },
+    {
+      "code": "pol-c03-t07",
+      "chapter_code": "pol-c03",
+      "title": "Amendability",
+      "notes": "whether it can be amended.",
+      "sort_order": 7
+    },
+    {
+      "code": "pol-c04-t01",
+      "chapter_code": "pol-c04",
+      "title": "Salient features",
+      "notes": "longest written constitution, parliamentary form, federal with unitary bias, secular, fundamental rights, DPSP.",
+      "sort_order": 1
+    },
+    {
+      "code": "pol-c04-t02",
+      "chapter_code": "pol-c04",
+      "title": "Parts and size",
+      "notes": "articles, parts, schedules (original and current numbers).",
+      "sort_order": 2
+    },
+    {
+      "code": "pol-c04-t03",
+      "chapter_code": "pol-c04",
+      "title": "Basic structure doctrine",
+      "notes": "Kesavananda Bharati case, features included.",
+      "sort_order": 3
+    },
+    {
+      "code": "pol-c04-t04",
+      "chapter_code": "pol-c04",
+      "title": "Separation of powers",
+      "notes": "legislature, executive, judiciary.",
+      "sort_order": 4
+    },
+    {
+      "code": "pol-c04-t05",
+      "chapter_code": "pol-c04",
+      "title": "Types of government",
+      "notes": "parliamentary vs presidential, unitary vs federal.",
+      "sort_order": 5
+    },
+    {
+      "code": "pol-c04-t06",
+      "chapter_code": "pol-c04",
+      "title": "Rigid and flexible",
+      "notes": "amendment features.",
+      "sort_order": 6
+    },
+    {
+      "code": "pol-c04-t07",
+      "chapter_code": "pol-c04",
+      "title": "Independent bodies",
+      "notes": "judiciary, Election Commission, CAG.",
+      "sort_order": 7
+    },
+    {
+      "code": "pol-c04-t08",
+      "chapter_code": "pol-c04",
+      "title": "Constitutional vs non-constitutional bodies",
+      "notes": "lists.",
+      "sort_order": 8
+    },
+    {
+      "code": "pol-c05-t01",
+      "chapter_code": "pol-c05",
+      "title": "Parts of the Constitution",
+      "notes": "Parts I to XXII, subjects.",
+      "sort_order": 1
+    },
+    {
+      "code": "pol-c05-t02",
+      "chapter_code": "pol-c05",
+      "title": "Important articles",
+      "notes": "quick list (Article 1, 14, 17, 19, 21, 32, 44, 51A, 52, 79, 112, 124, 280, 324, 352, 356, 360, 368).",
+      "sort_order": 2
+    },
+    {
+      "code": "pol-c05-t03",
+      "chapter_code": "pol-c05",
+      "title": "Twelve Schedules",
+      "notes": "contents (1st: States and UTs; 8th: languages; 9th: land reforms; 10th: anti-defection; 11th: Panchayats; 12th: Municipalities).",
+      "sort_order": 3
+    },
+    {
+      "code": "pol-c05-t04",
+      "chapter_code": "pol-c05",
+      "title": "Lists in the Seventh Schedule",
+      "notes": "Union, State, Concurrent; number of items.",
+      "sort_order": 4
+    },
+    {
+      "code": "pol-c05-t05",
+      "chapter_code": "pol-c05",
+      "title": "Articles by subject",
+      "notes": "grouping for revision.",
+      "sort_order": 5
+    },
+    {
+      "code": "pol-c05-t06",
+      "chapter_code": "pol-c05",
+      "title": "Matching: article–subject",
+      "notes": "all question related to this.",
+      "sort_order": 6
+    },
+    {
+      "code": "pol-c06-t01",
+      "chapter_code": "pol-c06",
+      "title": "Article 368",
+      "notes": "procedure of amendment; special majority; ratification by states.",
+      "sort_order": 1
+    },
+    {
+      "code": "pol-c06-t02",
+      "chapter_code": "pol-c06",
+      "title": "Types of amendment",
+      "notes": "simple majority, special majority, special majority with state ratification.",
+      "sort_order": 2
+    },
+    {
+      "code": "pol-c06-t03",
+      "chapter_code": "pol-c06",
+      "title": "Important amendments",
+      "notes": "1st, 7th, 24th, 25th, 31st, 42nd, 44th, 52nd, 61st, 73rd, 74th, 86th, 101st (GST), 103rd (EWS), 104th, 105th, 106th (women’s reservation).",
+      "sort_order": 3
+    },
+    {
+      "code": "pol-c06-t04",
+      "chapter_code": "pol-c06",
+      "title": "Judicial review of amendments",
+      "notes": "Shankari Prasad, Golaknath, Kesavananda, Minerva Mills.",
+      "sort_order": 4
+    },
+    {
+      "code": "pol-c06-t05",
+      "chapter_code": "pol-c06",
+      "title": "Total amendments and criticisms",
+      "notes": "number to date.",
+      "sort_order": 5
+    },
+    {
+      "code": "pol-c06-t06",
+      "chapter_code": "pol-c06",
+      "title": "Mini-Constitution",
+      "notes": "42nd Amendment.",
+      "sort_order": 6
+    },
+    {
+      "code": "pol-c06-t07",
+      "chapter_code": "pol-c06",
+      "title": "Anti-defection",
+      "notes": "52nd and 91st Amendments.",
+      "sort_order": 7
+    },
+    {
+      "code": "pol-c06-t08",
+      "chapter_code": "pol-c06",
+      "title": "Matching: amendment–subject",
+      "notes": "all question related to this.",
+      "sort_order": 8
+    },
+    {
+      "code": "pol-c07-t01",
+      "chapter_code": "pol-c07",
+      "title": "Union and its territory",
+      "notes": "Articles 1 to 4.",
+      "sort_order": 1
+    },
+    {
+      "code": "pol-c07-t02",
+      "chapter_code": "pol-c07",
+      "title": "Reorganisation of states",
+      "notes": "Dhar Commission, JVP Committee, Fazl Ali Commission, States Reorganisation Act 1956.",
+      "sort_order": 2
+    },
+    {
+      "code": "pol-c07-t03",
+      "chapter_code": "pol-c07",
+      "title": "Formation of new states",
+      "notes": "Andhra, Goa, Sikkim, Chhattisgarh, Uttarakhand, Jharkhand, Telangana.",
+      "sort_order": 3
+    },
+    {
+      "code": "pol-c07-t04",
+      "chapter_code": "pol-c07",
+      "title": "Current number",
+      "notes": "28 states and 8 UTs (after Ladakh and J&K, Dadra-Nagar Haveli-Daman-Diu merger).",
+      "sort_order": 4
+    },
+    {
+      "code": "pol-c07-t05",
+      "chapter_code": "pol-c07",
+      "title": "Union Territories",
+      "notes": "administration, Article 239, Lieutenant Governors, Delhi (NCT, 69th Amendment) and Puducherry.",
+      "sort_order": 5
+    },
+    {
+      "code": "pol-c07-t06",
+      "chapter_code": "pol-c07",
+      "title": "Special status",
+      "notes": "Article 370 and Article 371; abrogation in 2019.",
+      "sort_order": 6
+    },
+    {
+      "code": "pol-c07-t07",
+      "chapter_code": "pol-c07",
+      "title": "Autonomous bodies",
+      "notes": "Sixth Schedule areas.",
+      "sort_order": 7
+    },
+    {
+      "code": "pol-c07-t08",
+      "chapter_code": "pol-c07",
+      "title": "Capitals, high courts, states’ formation dates",
+      "notes": "tabular facts.",
+      "sort_order": 8
+    },
+    {
+      "code": "pol-c08-t01",
+      "chapter_code": "pol-c08",
+      "title": "Constitutional provisions",
+      "notes": "Articles 5 to 11, Part II.",
+      "sort_order": 1
+    },
+    {
+      "code": "pol-c08-t02",
+      "chapter_code": "pol-c08",
+      "title": "Citizenship Act 1955",
+      "notes": "five modes: birth, descent, registration, naturalisation, incorporation of territory.",
+      "sort_order": 2
+    },
+    {
+      "code": "pol-c08-t03",
+      "chapter_code": "pol-c08",
+      "title": "Loss of citizenship",
+      "notes": "renunciation, termination, deprivation.",
+      "sort_order": 3
+    },
+    {
+      "code": "pol-c08-t04",
+      "chapter_code": "pol-c08",
+      "title": "Amendments",
+      "notes": "1986, 2003, 2015, 2019 (CAA).",
+      "sort_order": 4
+    },
+    {
+      "code": "pol-c08-t05",
+      "chapter_code": "pol-c08",
+      "title": "Overseas Citizen of India",
+      "notes": "OCI, PIO, NRI.",
+      "sort_order": 5
+    },
+    {
+      "code": "pol-c08-t06",
+      "chapter_code": "pol-c08",
+      "title": "Single citizenship",
+      "notes": "India vs USA.",
+      "sort_order": 6
+    },
+    {
+      "code": "pol-c08-t07",
+      "chapter_code": "pol-c08",
+      "title": "NRC and related topics",
+      "notes": "Assam Accord.",
+      "sort_order": 7
+    },
+    {
+      "code": "pol-c08-t08",
+      "chapter_code": "pol-c08",
+      "title": "Citizenship vs domicile",
+      "notes": "differences.",
+      "sort_order": 8
+    },
+    {
+      "code": "pol-c09-t01",
+      "chapter_code": "pol-c09",
+      "title": "National Emblem",
+      "notes": "Lion Capital of Ashoka at Sarnath; “Satyameva Jayate” from the Mundaka Upanishad.",
+      "sort_order": 1
+    },
+    {
+      "code": "pol-c09-t02",
+      "chapter_code": "pol-c09",
+      "title": "National Flag",
+      "notes": "Pingali Venkayya, adoption (22 July 1947), proportions, Ashoka Chakra, Flag Code.",
+      "sort_order": 2
+    },
+    {
+      "code": "pol-c09-t03",
+      "chapter_code": "pol-c09",
+      "title": "National Anthem and Song",
+      "notes": "Jana Gana Mana, Vande Mataram; adoption (24 Jan 1950), duration.",
+      "sort_order": 3
+    },
+    {
+      "code": "pol-c09-t04",
+      "chapter_code": "pol-c09",
+      "title": "National Calendar",
+      "notes": "Saka era.",
+      "sort_order": 4
+    },
+    {
+      "code": "pol-c09-t05",
+      "chapter_code": "pol-c09",
+      "title": "Other symbols",
+      "notes": "national animal (tiger), bird (peacock), flower (lotus), tree (banyan), fruit (mango), river (Ganga), aquatic animal (Gangetic dolphin), heritage animal (elephant).",
+      "sort_order": 5
+    },
+    {
+      "code": "pol-c09-t06",
+      "chapter_code": "pol-c09",
+      "title": "Honours",
+      "notes": "Bharat Ratna, Padma awards.",
+      "sort_order": 6
+    },
+    {
+      "code": "pol-c09-t07",
+      "chapter_code": "pol-c09",
+      "title": "Prevention of insults to National Honour Act 1971.",
+      "notes": "",
+      "sort_order": 7
+    },
+    {
+      "code": "pol-c10-t01",
+      "chapter_code": "pol-c10",
+      "title": "Constitutional provisions",
+      "notes": "Part XVII, Articles 343 to 351.",
+      "sort_order": 1
+    },
+    {
+      "code": "pol-c10-t02",
+      "chapter_code": "pol-c10",
+      "title": "Official language of the Union",
+      "notes": "Hindi in Devanagari script, English.",
+      "sort_order": 2
+    },
+    {
+      "code": "pol-c10-t03",
+      "chapter_code": "pol-c10",
+      "title": "Eighth Schedule",
+      "notes": "22 languages; additions (Sindhi 1967, Konkani, Manipuri, Nepali 1992; Bodo, Dogri, Maithili, Santhali 2003).",
+      "sort_order": 3
+    },
+    {
+      "code": "pol-c10-t04",
+      "chapter_code": "pol-c10",
+      "title": "Official Languages Act 1963 and Commissions",
+      "notes": "Kher, Parliamentary Committee.",
+      "sort_order": 4
+    },
+    {
+      "code": "pol-c10-t05",
+      "chapter_code": "pol-c10",
+      "title": "Three-language formula",
+      "notes": "education.",
+      "sort_order": 5
+    },
+    {
+      "code": "pol-c10-t06",
+      "chapter_code": "pol-c10",
+      "title": "Classical languages",
+      "notes": "Tamil, Sanskrit, Kannada, Telugu, Malayalam, Odia, and others.",
+      "sort_order": 6
+    },
+    {
+      "code": "pol-c10-t07",
+      "chapter_code": "pol-c10",
+      "title": "Languages of states",
+      "notes": "regional official languages.",
+      "sort_order": 7
+    },
+    {
+      "code": "pol-c10-t08",
+      "chapter_code": "pol-c10",
+      "title": "Hindi Diwas and other days",
+      "notes": "14 September.",
+      "sort_order": 8
+    },
+    {
+      "code": "pol-c11-t01",
+      "chapter_code": "pol-c11",
+      "title": "Overview",
+      "notes": "Part III, Articles 12 to 35; meaning of “State”.",
+      "sort_order": 1
+    },
+    {
+      "code": "pol-c11-t02",
+      "chapter_code": "pol-c11",
+      "title": "Right to Equality (Art. 14–18)",
+      "notes": "equality before law, no discrimination, public employment, abolition of untouchability (17), titles (18).",
+      "sort_order": 2
+    },
+    {
+      "code": "pol-c11-t03",
+      "chapter_code": "pol-c11",
+      "title": "Right to Freedom (Art. 19–22)",
+      "notes": "six freedoms, protection in respect of conviction, Article 21 (life and personal liberty), 21A (education), preventive detention (22).",
+      "sort_order": 3
+    },
+    {
+      "code": "pol-c11-t04",
+      "chapter_code": "pol-c11",
+      "title": "Right against Exploitation (Art. 23–24)",
+      "notes": "forced labour, child labour.",
+      "sort_order": 4
+    },
+    {
+      "code": "pol-c11-t05",
+      "chapter_code": "pol-c11",
+      "title": "Right to Freedom of Religion (Art. 25–28).",
+      "notes": "",
+      "sort_order": 5
+    },
+    {
+      "code": "pol-c11-t06",
+      "chapter_code": "pol-c11",
+      "title": "Cultural and Educational Rights (Art. 29–30).",
+      "notes": "",
+      "sort_order": 6
+    },
+    {
+      "code": "pol-c11-t07",
+      "chapter_code": "pol-c11",
+      "title": "Right to Constitutional Remedies (Art. 32)",
+      "notes": "five writs: habeas corpus, mandamus, prohibition, certiorari, quo warranto.",
+      "sort_order": 7
+    },
+    {
+      "code": "pol-c11-t08",
+      "chapter_code": "pol-c11",
+      "title": "Right to property",
+      "notes": "44th Amendment, Article 300A.",
+      "sort_order": 8
+    },
+    {
+      "code": "pol-c11-t09",
+      "chapter_code": "pol-c11",
+      "title": "Fundamental Rights during emergency",
+      "notes": "Article 359.",
+      "sort_order": 9
+    },
+    {
+      "code": "pol-c11-t10",
+      "chapter_code": "pol-c11",
+      "title": "Important cases",
+      "notes": "Maneka Gandhi, Kesavananda, Puttaswamy (privacy).",
+      "sort_order": 10
+    },
+    {
+      "code": "pol-c11-t11",
+      "chapter_code": "pol-c11",
+      "title": "Fundamental Rights vs DPSP",
+      "notes": "conflicts.",
+      "sort_order": 11
+    },
+    {
+      "code": "pol-c12-t01",
+      "chapter_code": "pol-c12",
+      "title": "Part IV, Articles 36 to 51",
+      "notes": "source (Ireland), non-justiciable.",
+      "sort_order": 1
+    },
+    {
+      "code": "pol-c12-t02",
+      "chapter_code": "pol-c12",
+      "title": "Socialist principles",
+      "notes": "Articles 38, 39, 39A, 41, 42, 43, 43A, 47.",
+      "sort_order": 2
+    },
+    {
+      "code": "pol-c12-t03",
+      "chapter_code": "pol-c12",
+      "title": "Gandhian principles",
+      "notes": "Articles 40, 43, 43B, 46, 47, 48.",
+      "sort_order": 3
+    },
+    {
+      "code": "pol-c12-t04",
+      "chapter_code": "pol-c12",
+      "title": "Liberal-intellectual principles",
+      "notes": "Articles 44 (Uniform Civil Code), 45, 48, 48A, 49, 50, 51.",
+      "sort_order": 4
+    },
+    {
+      "code": "pol-c12-t05",
+      "chapter_code": "pol-c12",
+      "title": "Amendments",
+      "notes": "42nd, 44th, 86th, 97th.",
+      "sort_order": 5
+    },
+    {
+      "code": "pol-c12-t06",
+      "chapter_code": "pol-c12",
+      "title": "Fundamental Rights vs DPSP",
+      "notes": "Champakam Dorairajan, Kesavananda, Minerva Mills.",
+      "sort_order": 6
+    },
+    {
+      "code": "pol-c12-t07",
+      "chapter_code": "pol-c12",
+      "title": "Directives outside Part IV",
+      "notes": "Articles 335, 350A, 351.",
+      "sort_order": 7
+    },
+    {
+      "code": "pol-c13-t01",
+      "chapter_code": "pol-c13",
+      "title": "Source and addition",
+      "notes": "Swaran Singh Committee; 42nd Amendment (1976); Article 51A.",
+      "sort_order": 1
+    },
+    {
+      "code": "pol-c13-t02",
+      "chapter_code": "pol-c13",
+      "title": "List of duties",
+      "notes": "10 originally, 11th added by the 86th Amendment (2002).",
+      "sort_order": 2
+    },
+    {
+      "code": "pol-c13-t03",
+      "chapter_code": "pol-c13",
+      "title": "Nature",
+      "notes": "non-justiciable.",
+      "sort_order": 3
+    },
+    {
+      "code": "pol-c13-t04",
+      "chapter_code": "pol-c13",
+      "title": "Duties and rights relation",
+      "notes": "comparison with Fundamental Rights.",
+      "sort_order": 4
+    },
+    {
+      "code": "pol-c13-t05",
+      "chapter_code": "pol-c13",
+      "title": "Source country",
+      "notes": "USSR.",
+      "sort_order": 5
+    },
+    {
+      "code": "pol-c13-t06",
+      "chapter_code": "pol-c13",
+      "title": "Recent developments",
+      "notes": "Verma Committee.",
+      "sort_order": 6
+    },
+    {
+      "code": "pol-c14-t01",
+      "chapter_code": "pol-c14",
+      "title": "Qualification and election",
+      "notes": "Articles 52 to 62; electoral college, proportional representation, single transferable vote.",
+      "sort_order": 1
+    },
+    {
+      "code": "pol-c14-t02",
+      "chapter_code": "pol-c14",
+      "title": "Term and removal",
+      "notes": "5 years, impeachment (Article 61).",
+      "sort_order": 2
+    },
+    {
+      "code": "pol-c14-t03",
+      "chapter_code": "pol-c14",
+      "title": "Powers",
+      "notes": "executive, legislative, financial, judicial, military, diplomatic, emergency.",
+      "sort_order": 3
+    },
+    {
+      "code": "pol-c14-t04",
+      "chapter_code": "pol-c14",
+      "title": "Ordinance-making power",
+      "notes": "Article 123.",
+      "sort_order": 4
+    },
+    {
+      "code": "pol-c14-t05",
+      "chapter_code": "pol-c14",
+      "title": "Veto powers",
+      "notes": "absolute, suspensive, pocket veto.",
+      "sort_order": 5
+    },
+    {
+      "code": "pol-c14-t06",
+      "chapter_code": "pol-c14",
+      "title": "Pardoning power",
+      "notes": "Article 72.",
+      "sort_order": 6
+    },
+    {
+      "code": "pol-c14-t07",
+      "chapter_code": "pol-c14",
+      "title": "Discretionary powers",
+      "notes": "appointment of PM in a hung House, etc.",
+      "sort_order": 7
+    },
+    {
+      "code": "pol-c14-t08",
+      "chapter_code": "pol-c14",
+      "title": "List of Presidents of India",
+      "notes": "term and special facts (Dr Rajendra Prasad to Droupadi Murmu).",
+      "sort_order": 8
+    },
+    {
+      "code": "pol-c14-t09",
+      "chapter_code": "pol-c14",
+      "title": "Salary and facilities",
+      "notes": "emoluments.",
+      "sort_order": 9
+    },
+    {
+      "code": "pol-c15-t01",
+      "chapter_code": "pol-c15",
+      "title": "Article 63 and qualification",
+      "notes": "election, electoral college.",
+      "sort_order": 1
+    },
+    {
+      "code": "pol-c15-t02",
+      "chapter_code": "pol-c15",
+      "title": "Term and removal",
+      "notes": "5 years.",
+      "sort_order": 2
+    },
+    {
+      "code": "pol-c15-t03",
+      "chapter_code": "pol-c15",
+      "title": "Functions",
+      "notes": "ex-officio Chairman of the Rajya Sabha.",
+      "sort_order": 3
+    },
+    {
+      "code": "pol-c15-t04",
+      "chapter_code": "pol-c15",
+      "title": "Acting President",
+      "notes": "circumstances.",
+      "sort_order": 4
+    },
+    {
+      "code": "pol-c15-t05",
+      "chapter_code": "pol-c15",
+      "title": "List of Vice-Presidents",
+      "notes": "Radhakrishnan to present.",
+      "sort_order": 5
+    },
+    {
+      "code": "pol-c15-t06",
+      "chapter_code": "pol-c15",
+      "title": "Comparison with US Vice-President",
+      "notes": "differences.",
+      "sort_order": 6
+    },
+    {
+      "code": "pol-c16-t01",
+      "chapter_code": "pol-c16",
+      "title": "Articles 74 and 75",
+      "notes": "aid and advice, collective responsibility, individual responsibility.",
+      "sort_order": 1
+    },
+    {
+      "code": "pol-c16-t02",
+      "chapter_code": "pol-c16",
+      "title": "Prime Minister",
+      "notes": "appointment, powers, role as link, leader of the Lok Sabha.",
+      "sort_order": 2
+    },
+    {
+      "code": "pol-c16-t03",
+      "chapter_code": "pol-c16",
+      "title": "Council of Ministers",
+      "notes": "cabinet ministers, ministers of state, deputy ministers.",
+      "sort_order": 3
+    },
+    {
+      "code": "pol-c16-t04",
+      "chapter_code": "pol-c16",
+      "title": "Cabinet and cabinet committees",
+      "notes": "composition, functions.",
+      "sort_order": 4
+    },
+    {
+      "code": "pol-c16-t05",
+      "chapter_code": "pol-c16",
+      "title": "Size of the council",
+      "notes": "91st Amendment (15% of the Lok Sabha).",
+      "sort_order": 5
+    },
+    {
+      "code": "pol-c16-t06",
+      "chapter_code": "pol-c16",
+      "title": "Collective responsibility",
+      "notes": "no-confidence motion.",
+      "sort_order": 6
+    },
+    {
+      "code": "pol-c16-t07",
+      "chapter_code": "pol-c16",
+      "title": "Kitchen cabinet",
+      "notes": "informal.",
+      "sort_order": 7
+    },
+    {
+      "code": "pol-c16-t08",
+      "chapter_code": "pol-c16",
+      "title": "List of Prime Ministers of India",
+      "notes": "tenure, special facts.",
+      "sort_order": 8
+    },
+    {
+      "code": "pol-c16-t09",
+      "chapter_code": "pol-c16",
+      "title": "Comparison with US President",
+      "notes": "differences.",
+      "sort_order": 9
+    },
+    {
+      "code": "pol-c17-t01",
+      "chapter_code": "pol-c17",
+      "title": "Attorney General (Article 76)",
+      "notes": "appointment, qualification, duties, rights in Parliament.",
+      "sort_order": 1
+    },
+    {
+      "code": "pol-c17-t02",
+      "chapter_code": "pol-c17",
+      "title": "Solicitor General and Additional Solicitor General",
+      "notes": "role.",
+      "sort_order": 2
+    },
+    {
+      "code": "pol-c17-t03",
+      "chapter_code": "pol-c17",
+      "title": "Advocate General of states (Article 165)",
+      "notes": "role.",
+      "sort_order": 3
+    },
+    {
+      "code": "pol-c17-t04",
+      "chapter_code": "pol-c17",
+      "title": "CAG (Article 148)",
+      "notes": "appointment, term (6 years or 65 years of age), removal.",
+      "sort_order": 4
+    },
+    {
+      "code": "pol-c17-t05",
+      "chapter_code": "pol-c17",
+      "title": "Functions of CAG",
+      "notes": "audit of Union and state accounts; “guardian of public purse”.",
+      "sort_order": 5
+    },
+    {
+      "code": "pol-c17-t06",
+      "chapter_code": "pol-c17",
+      "title": "Audit reports",
+      "notes": "laid before Parliament, Public Accounts Committee.",
+      "sort_order": 6
+    },
+    {
+      "code": "pol-c17-t07",
+      "chapter_code": "pol-c17",
+      "title": "Other officers",
+      "notes": "Chief Election Commissioner, Chairman of UPSC.",
+      "sort_order": 7
+    },
+    {
+      "code": "pol-c18-t01",
+      "chapter_code": "pol-c18",
+      "title": "Meaning and significance",
+      "notes": "Warrant of Precedence.",
+      "sort_order": 1
+    },
+    {
+      "code": "pol-c18-t02",
+      "chapter_code": "pol-c18",
+      "title": "Top positions in order",
+      "notes": "President, Vice-President, Prime Minister, Governors within their states, former Presidents, Deputy PM, Chief Justice, Speaker.",
+      "sort_order": 2
+    },
+    {
+      "code": "pol-c18-t03",
+      "chapter_code": "pol-c18",
+      "title": "Cabinet ministers and chief ministers",
+      "notes": "ranks.",
+      "sort_order": 3
+    },
+    {
+      "code": "pol-c18-t04",
+      "chapter_code": "pol-c18",
+      "title": "Judges, chiefs of staff, Chairman of Union Public Service Commission.",
+      "notes": "",
+      "sort_order": 4
+    },
+    {
+      "code": "pol-c18-t05",
+      "chapter_code": "pol-c18",
+      "title": "Matching: office–rank",
+      "notes": "quick revision.",
+      "sort_order": 5
+    },
+    {
+      "code": "pol-c18-t06",
+      "chapter_code": "pol-c18",
+      "title": "Cabinet Secretary and Chief Secretary",
+      "notes": "position.",
+      "sort_order": 6
+    },
+    {
+      "code": "pol-c19-t01",
+      "chapter_code": "pol-c19",
+      "title": "Composition",
+      "notes": "President, Lok Sabha, Rajya Sabha (Article 79).",
+      "sort_order": 1
+    },
+    {
+      "code": "pol-c19-t02",
+      "chapter_code": "pol-c19",
+      "title": "Powers and functions",
+      "notes": "legislative, financial, executive control, judicial, electoral.",
+      "sort_order": 2
+    },
+    {
+      "code": "pol-c19-t03",
+      "chapter_code": "pol-c19",
+      "title": "Legislative procedure",
+      "notes": "ordinary, money, financial, constitutional amendment bills.",
+      "sort_order": 3
+    },
+    {
+      "code": "pol-c19-t04",
+      "chapter_code": "pol-c19",
+      "title": "Money Bill",
+      "notes": "Article 110; Lok Sabha primacy.",
+      "sort_order": 4
+    },
+    {
+      "code": "pol-c19-t05",
+      "chapter_code": "pol-c19",
+      "title": "Joint sitting",
+      "notes": "Article 108, instances (1961, 1978, 2002).",
+      "sort_order": 5
+    },
+    {
+      "code": "pol-c19-t06",
+      "chapter_code": "pol-c19",
+      "title": "Parliamentary sessions",
+      "notes": "budget, monsoon, winter; summoning, prorogation, adjournment, dissolution.",
+      "sort_order": 6
+    },
+    {
+      "code": "pol-c19-t07",
+      "chapter_code": "pol-c19",
+      "title": "Parliamentary devices",
+      "notes": "question hour, zero hour, motions (adjournment, no-confidence, cut motions), resolutions.",
+      "sort_order": 7
+    },
+    {
+      "code": "pol-c19-t08",
+      "chapter_code": "pol-c19",
+      "title": "Committees",
+      "notes": "Public Accounts, Estimates, Public Undertakings; departmental standing committees.",
+      "sort_order": 8
+    },
+    {
+      "code": "pol-c19-t09",
+      "chapter_code": "pol-c19",
+      "title": "Privileges and anti-defection",
+      "notes": "Tenth Schedule.",
+      "sort_order": 9
+    },
+    {
+      "code": "pol-c19-t10",
+      "chapter_code": "pol-c19",
+      "title": "Budget process",
+      "notes": "introduction to parliamentary control.",
+      "sort_order": 10
+    },
+    {
+      "code": "pol-c20-t01",
+      "chapter_code": "pol-c20",
+      "title": "Composition",
+      "notes": "maximum 552 members; current 543 elected plus 2 Anglo-Indians (nomination ended with the 104th Amendment).",
+      "sort_order": 1
+    },
+    {
+      "code": "pol-c20-t02",
+      "chapter_code": "pol-c20",
+      "title": "Term and dissolution",
+      "notes": "5 years.",
+      "sort_order": 2
+    },
+    {
+      "code": "pol-c20-t03",
+      "chapter_code": "pol-c20",
+      "title": "Qualification and disqualification",
+      "notes": "Article 84 and 102.",
+      "sort_order": 3
+    },
+    {
+      "code": "pol-c20-t04",
+      "chapter_code": "pol-c20",
+      "title": "Speaker and Deputy Speaker",
+      "notes": "election, powers, removal; list of Speakers.",
+      "sort_order": 4
+    },
+    {
+      "code": "pol-c20-t05",
+      "chapter_code": "pol-c20",
+      "title": "Special powers",
+      "notes": "money bills, no-confidence, impeachment resolution.",
+      "sort_order": 5
+    },
+    {
+      "code": "pol-c20-t06",
+      "chapter_code": "pol-c20",
+      "title": "Delimitation",
+      "notes": "seats by state; reserved seats for SC and ST.",
+      "sort_order": 6
+    },
+    {
+      "code": "pol-c20-t07",
+      "chapter_code": "pol-c20",
+      "title": "General elections",
+      "notes": "first elections (1951–52) and key facts.",
+      "sort_order": 7
+    },
+    {
+      "code": "pol-c20-t08",
+      "chapter_code": "pol-c20",
+      "title": "Leader of Opposition",
+      "notes": "status.",
+      "sort_order": 8
+    },
+    {
+      "code": "pol-c21-t01",
+      "chapter_code": "pol-c21",
+      "title": "Composition",
+      "notes": "maximum 250 members; 238 elected plus 12 nominated.",
+      "sort_order": 1
+    },
+    {
+      "code": "pol-c21-t02",
+      "chapter_code": "pol-c21",
+      "title": "Election",
+      "notes": "indirect, by state legislators, single transferable vote.",
+      "sort_order": 2
+    },
+    {
+      "code": "pol-c21-t03",
+      "chapter_code": "pol-c21",
+      "title": "Term",
+      "notes": "6 years, one-third retire every two years; permanent House.",
+      "sort_order": 3
+    },
+    {
+      "code": "pol-c21-t04",
+      "chapter_code": "pol-c21",
+      "title": "Chairman and Deputy Chairman",
+      "notes": "Vice-President, Deputy elected from members.",
+      "sort_order": 4
+    },
+    {
+      "code": "pol-c21-t05",
+      "chapter_code": "pol-c21",
+      "title": "Special powers",
+      "notes": "Articles 249, 312 (All-India Services).",
+      "sort_order": 5
+    },
+    {
+      "code": "pol-c21-t06",
+      "chapter_code": "pol-c21",
+      "title": "Differences from Lok Sabha",
+      "notes": "powers.",
+      "sort_order": 6
+    },
+    {
+      "code": "pol-c21-t07",
+      "chapter_code": "pol-c21",
+      "title": "Nominated members",
+      "notes": "arts, literature, science, social service.",
+      "sort_order": 7
+    },
+    {
+      "code": "pol-c21-t08",
+      "chapter_code": "pol-c21",
+      "title": "Seats by state",
+      "notes": "Uttar Pradesh the highest.",
+      "sort_order": 8
+    },
+    {
+      "code": "pol-c22-t01",
+      "chapter_code": "pol-c22",
+      "title": "Establishment and composition",
+      "notes": "Article 124; Chief Justice and 33 judges (34 in total).",
+      "sort_order": 1
+    },
+    {
+      "code": "pol-c22-t02",
+      "chapter_code": "pol-c22",
+      "title": "Appointment",
+      "notes": "collegium system, Three Judges Cases.",
+      "sort_order": 2
+    },
+    {
+      "code": "pol-c22-t03",
+      "chapter_code": "pol-c22",
+      "title": "Qualification, term and removal",
+      "notes": "retirement at 65; impeachment.",
+      "sort_order": 3
+    },
+    {
+      "code": "pol-c22-t04",
+      "chapter_code": "pol-c22",
+      "title": "Jurisdiction",
+      "notes": "original, appellate, advisory (Article 143), writ (Article 32).",
+      "sort_order": 4
+    },
+    {
+      "code": "pol-c22-t05",
+      "chapter_code": "pol-c22",
+      "title": "Judicial review",
+      "notes": "power, limits.",
+      "sort_order": 5
+    },
+    {
+      "code": "pol-c22-t06",
+      "chapter_code": "pol-c22",
+      "title": "Court of record",
+      "notes": "contempt (Article 129).",
+      "sort_order": 6
+    },
+    {
+      "code": "pol-c22-t07",
+      "chapter_code": "pol-c22",
+      "title": "Public Interest Litigation",
+      "notes": "origin and importance.",
+      "sort_order": 7
+    },
+    {
+      "code": "pol-c22-t08",
+      "chapter_code": "pol-c22",
+      "title": "Important cases",
+      "notes": "Kesavananda Bharati, Golaknath, Maneka Gandhi, Minerva Mills, Puttaswamy, S.R. Bommai.",
+      "sort_order": 8
+    },
+    {
+      "code": "pol-c22-t09",
+      "chapter_code": "pol-c22",
+      "title": "Chief Justices of India",
+      "notes": "list, first CJI.",
+      "sort_order": 9
+    },
+    {
+      "code": "pol-c22-t10",
+      "chapter_code": "pol-c22",
+      "title": "Judicial activism and reforms",
+      "notes": "NJAC (99th Amendment).",
+      "sort_order": 10
+    },
+    {
+      "code": "pol-c23-t01",
+      "chapter_code": "pol-c23",
+      "title": "Establishment",
+      "notes": "Article 214; 25 High Courts; first at Calcutta (1862).",
+      "sort_order": 1
+    },
+    {
+      "code": "pol-c23-t02",
+      "chapter_code": "pol-c23",
+      "title": "Appointment, qualification and removal",
+      "notes": "judges’ retirement at 62.",
+      "sort_order": 2
+    },
+    {
+      "code": "pol-c23-t03",
+      "chapter_code": "pol-c23",
+      "title": "Jurisdiction",
+      "notes": "original, appellate, writ (Article 226), supervisory (Article 227).",
+      "sort_order": 3
+    },
+    {
+      "code": "pol-c23-t04",
+      "chapter_code": "pol-c23",
+      "title": "Court of record",
+      "notes": "contempt.",
+      "sort_order": 4
+    },
+    {
+      "code": "pol-c23-t05",
+      "chapter_code": "pol-c23",
+      "title": "Subordinate courts",
+      "notes": "district court, sessions court, civil and criminal courts.",
+      "sort_order": 5
+    },
+    {
+      "code": "pol-c23-t06",
+      "chapter_code": "pol-c23",
+      "title": "Lok Adalat and tribunals",
+      "notes": "Legal Services Authority, Article 323A and B.",
+      "sort_order": 6
+    },
+    {
+      "code": "pol-c23-t07",
+      "chapter_code": "pol-c23",
+      "title": "Judicial structure",
+      "notes": "hierarchy.",
+      "sort_order": 7
+    },
+    {
+      "code": "pol-c23-t08",
+      "chapter_code": "pol-c23",
+      "title": "High Courts: seats and territorial jurisdiction",
+      "notes": "matching.",
+      "sort_order": 8
+    },
+    {
+      "code": "pol-c24-t01",
+      "chapter_code": "pol-c24",
+      "title": "Appointment",
+      "notes": "Article 153; by the President, qualification, 5-year term.",
+      "sort_order": 1
+    },
+    {
+      "code": "pol-c24-t02",
+      "chapter_code": "pol-c24",
+      "title": "Powers",
+      "notes": "executive, legislative, financial, judicial, discretionary.",
+      "sort_order": 2
+    },
+    {
+      "code": "pol-c24-t03",
+      "chapter_code": "pol-c24",
+      "title": "Ordinance power",
+      "notes": "Article 213.",
+      "sort_order": 3
+    },
+    {
+      "code": "pol-c24-t04",
+      "chapter_code": "pol-c24",
+      "title": "Role in President’s Rule",
+      "notes": "Article 356.",
+      "sort_order": 4
+    },
+    {
+      "code": "pol-c24-t05",
+      "chapter_code": "pol-c24",
+      "title": "Chief Minister and Council of Ministers",
+      "notes": "appointment and role (Articles 163, 164).",
+      "sort_order": 5
+    },
+    {
+      "code": "pol-c24-t06",
+      "chapter_code": "pol-c24",
+      "title": "Chief Minister",
+      "notes": "list of CMs, record-holders.",
+      "sort_order": 6
+    },
+    {
+      "code": "pol-c24-t07",
+      "chapter_code": "pol-c24",
+      "title": "Governor vs President",
+      "notes": "differences in powers.",
+      "sort_order": 7
+    },
+    {
+      "code": "pol-c24-t08",
+      "chapter_code": "pol-c24",
+      "title": "Controversies and commissions",
+      "notes": "Sarkaria, Punchhi.",
+      "sort_order": 8
+    },
+    {
+      "code": "pol-c25-t01",
+      "chapter_code": "pol-c25",
+      "title": "Composition",
+      "notes": "Vidhan Sabha and Vidhan Parishad (Article 168).",
+      "sort_order": 1
+    },
+    {
+      "code": "pol-c25-t02",
+      "chapter_code": "pol-c25",
+      "title": "Unicameral and bicameral states",
+      "notes": "Bihar, Karnataka, Maharashtra, Telangana, Andhra Pradesh, UP (six states).",
+      "sort_order": 2
+    },
+    {
+      "code": "pol-c25-t03",
+      "chapter_code": "pol-c25",
+      "title": "Strength",
+      "notes": "Vidhan Sabha 60 to 500; Vidhan Parishad one-third of Sabha.",
+      "sort_order": 3
+    },
+    {
+      "code": "pol-c25-t04",
+      "chapter_code": "pol-c25",
+      "title": "Powers",
+      "notes": "legislative, financial; money bill.",
+      "sort_order": 4
+    },
+    {
+      "code": "pol-c25-t05",
+      "chapter_code": "pol-c25",
+      "title": "Speaker and Chairman",
+      "notes": "election and removal.",
+      "sort_order": 5
+    },
+    {
+      "code": "pol-c25-t06",
+      "chapter_code": "pol-c25",
+      "title": "Creation and abolition of Legislative Councils",
+      "notes": "Article 169.",
+      "sort_order": 6
+    },
+    {
+      "code": "pol-c25-t07",
+      "chapter_code": "pol-c25",
+      "title": "State legislature vs Parliament",
+      "notes": "differences.",
+      "sort_order": 7
+    },
+    {
+      "code": "pol-c25-t08",
+      "chapter_code": "pol-c25",
+      "title": "Term and sessions",
+      "notes": "5 years.",
+      "sort_order": 8
+    },
+    {
+      "code": "pol-c26-t01",
+      "chapter_code": "pol-c26",
+      "title": "Legislative relations",
+      "notes": "Union, State and Concurrent Lists; residuary powers.",
+      "sort_order": 1
+    },
+    {
+      "code": "pol-c26-t02",
+      "chapter_code": "pol-c26",
+      "title": "Administrative relations",
+      "notes": "Articles 256 to 263, All India Services.",
+      "sort_order": 2
+    },
+    {
+      "code": "pol-c26-t03",
+      "chapter_code": "pol-c26",
+      "title": "Financial relations",
+      "notes": "Articles 268 to 293; taxes shared.",
+      "sort_order": 3
+    },
+    {
+      "code": "pol-c26-t04",
+      "chapter_code": "pol-c26",
+      "title": "Inter-State relations",
+      "notes": "water disputes, Inter-State Council, Zonal Councils.",
+      "sort_order": 4
+    },
+    {
+      "code": "pol-c26-t05",
+      "chapter_code": "pol-c26",
+      "title": "Commissions",
+      "notes": "Sarkaria (1983), Punchhi (2007), Rajamannar, Administrative Reforms Commission.",
+      "sort_order": 5
+    },
+    {
+      "code": "pol-c26-t06",
+      "chapter_code": "pol-c26",
+      "title": "Doctrine of pith and substance",
+      "notes": "Parliament’s power over state subjects.",
+      "sort_order": 6
+    },
+    {
+      "code": "pol-c26-t07",
+      "chapter_code": "pol-c26",
+      "title": "GST Council",
+      "notes": "cooperative federalism.",
+      "sort_order": 7
+    },
+    {
+      "code": "pol-c26-t08",
+      "chapter_code": "pol-c26",
+      "title": "Federal features and unitary bias.",
+      "notes": "",
+      "sort_order": 8
+    },
+    {
+      "code": "pol-c27-t01",
+      "chapter_code": "pol-c27",
+      "title": "Part XVIII, Articles 352 to 360.",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "pol-c27-t02",
+      "chapter_code": "pol-c27",
+      "title": "National emergency (Art. 352)",
+      "notes": "grounds, procedure, 44th Amendment; emergencies of 1962, 1971, 1975.",
+      "sort_order": 2
+    },
+    {
+      "code": "pol-c27-t03",
+      "chapter_code": "pol-c27",
+      "title": "President’s Rule (Art. 356)",
+      "notes": "grounds, duration, S.R. Bommai (1994).",
+      "sort_order": 3
+    },
+    {
+      "code": "pol-c27-t04",
+      "chapter_code": "pol-c27",
+      "title": "Financial emergency (Art. 360)",
+      "notes": "never declared.",
+      "sort_order": 4
+    },
+    {
+      "code": "pol-c27-t05",
+      "chapter_code": "pol-c27",
+      "title": "Effect on Fundamental Rights",
+      "notes": "Articles 358 and 359.",
+      "sort_order": 5
+    },
+    {
+      "code": "pol-c27-t06",
+      "chapter_code": "pol-c27",
+      "title": "Parliamentary approval and duration",
+      "notes": "one month, six months.",
+      "sort_order": 6
+    },
+    {
+      "code": "pol-c27-t07",
+      "chapter_code": "pol-c27",
+      "title": "Cases and use of President’s Rule",
+      "notes": "first use (Punjab, 1951).",
+      "sort_order": 7
+    },
+    {
+      "code": "pol-c27-t08",
+      "chapter_code": "pol-c27",
+      "title": "Comparison of emergencies",
+      "notes": "table.",
+      "sort_order": 8
+    },
+    {
+      "code": "pol-c28-t01",
+      "chapter_code": "pol-c28",
+      "title": "Article 280",
+      "notes": "appointment every five years; composition.",
+      "sort_order": 1
+    },
+    {
+      "code": "pol-c28-t02",
+      "chapter_code": "pol-c28",
+      "title": "Functions",
+      "notes": "distribution of taxes, grants-in-aid, local bodies.",
+      "sort_order": 2
+    },
+    {
+      "code": "pol-c28-t03",
+      "chapter_code": "pol-c28",
+      "title": "List of Finance Commissions",
+      "notes": "chairmen and periods (1st: K.C. Neogy; 15th: N.K. Singh).",
+      "sort_order": 3
+    },
+    {
+      "code": "pol-c28-t04",
+      "chapter_code": "pol-c28",
+      "title": "Recommendations by commission",
+      "notes": "shares of states in central taxes.",
+      "sort_order": 4
+    },
+    {
+      "code": "pol-c28-t05",
+      "chapter_code": "pol-c28",
+      "title": "Role in fiscal federalism",
+      "notes": "decentralised finance.",
+      "sort_order": 5
+    },
+    {
+      "code": "pol-c28-t06",
+      "chapter_code": "pol-c28",
+      "title": "Other related bodies",
+      "notes": "State Finance Commission (Articles 243I, 243Y).",
+      "sort_order": 6
+    },
+    {
+      "code": "pol-c28-t07",
+      "chapter_code": "pol-c28",
+      "title": "Matching: commission–chairman",
+      "notes": "quick revision.",
+      "sort_order": 7
+    },
+    {
+      "code": "pol-c29-t01",
+      "chapter_code": "pol-c29",
+      "title": "Planning Commission",
+      "notes": "extra-constitutional body, set up 1950; functions, chairman (PM), Deputy Chairman.",
+      "sort_order": 1
+    },
+    {
+      "code": "pol-c29-t02",
+      "chapter_code": "pol-c29",
+      "title": "National Development Council",
+      "notes": "composition and role.",
+      "sort_order": 2
+    },
+    {
+      "code": "pol-c29-t03",
+      "chapter_code": "pol-c29",
+      "title": "Replacement by NITI Aayog",
+      "notes": "1 January 2015.",
+      "sort_order": 3
+    },
+    {
+      "code": "pol-c29-t04",
+      "chapter_code": "pol-c29",
+      "title": "NITI Aayog",
+      "notes": "composition, vice-chairman, CEO, governing council, think tank.",
+      "sort_order": 4
+    },
+    {
+      "code": "pol-c29-t05",
+      "chapter_code": "pol-c29",
+      "title": "Difference between the two bodies",
+      "notes": "advisory vs allocative role.",
+      "sort_order": 5
+    },
+    {
+      "code": "pol-c29-t06",
+      "chapter_code": "pol-c29",
+      "title": "Initiatives",
+      "notes": "SDG India Index, Aspirational Districts.",
+      "sort_order": 6
+    },
+    {
+      "code": "pol-c29-t07",
+      "chapter_code": "pol-c29",
+      "title": "List of Planning Commission Deputy Chairmen",
+      "notes": "quick revision.",
+      "sort_order": 7
+    },
+    {
+      "code": "pol-c30-t01",
+      "chapter_code": "pol-c30",
+      "title": "Part XXI",
+      "notes": "Articles 369 to 392.",
+      "sort_order": 1
+    },
+    {
+      "code": "pol-c30-t02",
+      "chapter_code": "pol-c30",
+      "title": "Article 370",
+      "notes": "Jammu and Kashmir, abrogation in 2019, Reorganisation Act.",
+      "sort_order": 2
+    },
+    {
+      "code": "pol-c30-t03",
+      "chapter_code": "pol-c30",
+      "title": "Article 371 series",
+      "notes": "special provisions for Maharashtra, Gujarat, Nagaland, Assam, Manipur, Andhra Pradesh, Sikkim, Mizoram, Arunachal Pradesh, Goa, Karnataka.",
+      "sort_order": 3
+    },
+    {
+      "code": "pol-c30-t04",
+      "chapter_code": "pol-c30",
+      "title": "Sixth Schedule and Fifth Schedule",
+      "notes": "tribal areas.",
+      "sort_order": 4
+    },
+    {
+      "code": "pol-c30-t05",
+      "chapter_code": "pol-c30",
+      "title": "Temporary provisions",
+      "notes": "transitional.",
+      "sort_order": 5
+    },
+    {
+      "code": "pol-c30-t06",
+      "chapter_code": "pol-c30",
+      "title": "Special category status",
+      "notes": "criteria, former status.",
+      "sort_order": 6
+    },
+    {
+      "code": "pol-c30-t07",
+      "chapter_code": "pol-c30",
+      "title": "Changes since 2019",
+      "notes": "Ladakh and J&K as Union Territories.",
+      "sort_order": 7
+    },
+    {
+      "code": "pol-c31-t01",
+      "chapter_code": "pol-c31",
+      "title": "Part XVI, Articles 330 to 342",
+      "notes": "reservation, representation.",
+      "sort_order": 1
+    },
+    {
+      "code": "pol-c31-t02",
+      "chapter_code": "pol-c31",
+      "title": "SC and ST",
+      "notes": "reserved seats in the Lok Sabha and Vidhan Sabhas, extension through amendments.",
+      "sort_order": 2
+    },
+    {
+      "code": "pol-c31-t03",
+      "chapter_code": "pol-c31",
+      "title": "Anglo-Indians",
+      "notes": "nomination ended (104th Amendment).",
+      "sort_order": 3
+    },
+    {
+      "code": "pol-c31-t04",
+      "chapter_code": "pol-c31",
+      "title": "National Commissions",
+      "notes": "SC (Article 338), ST (338A), OBC (338B).",
+      "sort_order": 4
+    },
+    {
+      "code": "pol-c31-t05",
+      "chapter_code": "pol-c31",
+      "title": "OBC reservation",
+      "notes": "Mandal Commission, Indra Sawhney case, 27% reservation.",
+      "sort_order": 5
+    },
+    {
+      "code": "pol-c31-t06",
+      "chapter_code": "pol-c31",
+      "title": "EWS reservation",
+      "notes": "103rd Amendment, 10%.",
+      "sort_order": 6
+    },
+    {
+      "code": "pol-c31-t07",
+      "chapter_code": "pol-c31",
+      "title": "Women",
+      "notes": "33% in local bodies; 106th Amendment (Nari Shakti Vandan Adhiniyam).",
+      "sort_order": 7
+    },
+    {
+      "code": "pol-c31-t08",
+      "chapter_code": "pol-c31",
+      "title": "Minorities",
+      "notes": "Article 29, 30; National Commission for Minorities.",
+      "sort_order": 8
+    },
+    {
+      "code": "pol-c31-t09",
+      "chapter_code": "pol-c31",
+      "title": "Reservation limits",
+      "notes": "50% ceiling, Ninth Schedule.",
+      "sort_order": 9
+    },
+    {
+      "code": "pol-c32-t01",
+      "chapter_code": "pol-c32",
+      "title": "Article 324",
+      "notes": "composition, Chief Election Commissioner and Election Commissioners.",
+      "sort_order": 1
+    },
+    {
+      "code": "pol-c32-t02",
+      "chapter_code": "pol-c32",
+      "title": "Appointment and removal",
+      "notes": "term (6 years or 65 years), removal as a Supreme Court judge.",
+      "sort_order": 2
+    },
+    {
+      "code": "pol-c32-t03",
+      "chapter_code": "pol-c32",
+      "title": "Functions",
+      "notes": "electoral rolls, conduct of elections, Model Code of Conduct.",
+      "sort_order": 3
+    },
+    {
+      "code": "pol-c32-t04",
+      "chapter_code": "pol-c32",
+      "title": "Election system",
+      "notes": "first past the post, proportional representation (STV).",
+      "sort_order": 4
+    },
+    {
+      "code": "pol-c32-t05",
+      "chapter_code": "pol-c32",
+      "title": "Representation of the People Acts",
+      "notes": "1950, 1951.",
+      "sort_order": 5
+    },
+    {
+      "code": "pol-c32-t06",
+      "chapter_code": "pol-c32",
+      "title": "Electronic Voting Machines and VVPAT",
+      "notes": "introduction.",
+      "sort_order": 6
+    },
+    {
+      "code": "pol-c32-t07",
+      "chapter_code": "pol-c32",
+      "title": "Delimitation Commission and reservation of seats.",
+      "notes": "",
+      "sort_order": 7
+    },
+    {
+      "code": "pol-c32-t08",
+      "chapter_code": "pol-c32",
+      "title": "State Election Commission",
+      "notes": "Article 243K.",
+      "sort_order": 8
+    },
+    {
+      "code": "pol-c32-t09",
+      "chapter_code": "pol-c32",
+      "title": "Electoral reforms",
+      "notes": "NOTA (2013), anti-defection, disqualification.",
+      "sort_order": 9
+    },
+    {
+      "code": "pol-c32-t10",
+      "chapter_code": "pol-c32",
+      "title": "List of Chief Election Commissioners",
+      "notes": "first, longest-serving.",
+      "sort_order": 10
+    },
+    {
+      "code": "pol-c33-t01",
+      "chapter_code": "pol-c33",
+      "title": "Party system in India",
+      "notes": "multi-party, dominant party, coalition era.",
+      "sort_order": 1
+    },
+    {
+      "code": "pol-c33-t02",
+      "chapter_code": "pol-c33",
+      "title": "National and state parties",
+      "notes": "recognition criteria by the Election Commission.",
+      "sort_order": 2
+    },
+    {
+      "code": "pol-c33-t03",
+      "chapter_code": "pol-c33",
+      "title": "List of national parties",
+      "notes": "INC, BJP, CPI(M), BSP, NPP, AAP.",
+      "sort_order": 3
+    },
+    {
+      "code": "pol-c33-t04",
+      "chapter_code": "pol-c33",
+      "title": "Election symbols",
+      "notes": "allotment, reserved symbols.",
+      "sort_order": 4
+    },
+    {
+      "code": "pol-c33-t05",
+      "chapter_code": "pol-c33",
+      "title": "Anti-defection law",
+      "notes": "Tenth Schedule; 52nd and 91st Amendments.",
+      "sort_order": 5
+    },
+    {
+      "code": "pol-c33-t06",
+      "chapter_code": "pol-c33",
+      "title": "Founders and formation",
+      "notes": "dates of parties.",
+      "sort_order": 6
+    },
+    {
+      "code": "pol-c33-t07",
+      "chapter_code": "pol-c33",
+      "title": "Opposition and Leader of Opposition",
+      "notes": "role.",
+      "sort_order": 7
+    },
+    {
+      "code": "pol-c33-t08",
+      "chapter_code": "pol-c33",
+      "title": "Pressure groups",
+      "notes": "role.",
+      "sort_order": 8
+    },
+    {
+      "code": "pol-c33-t09",
+      "chapter_code": "pol-c33",
+      "title": "Party finance",
+      "notes": "electoral bonds, funding rules.",
+      "sort_order": 9
+    },
+    {
+      "code": "pol-c34-t01",
+      "chapter_code": "pol-c34",
+      "title": "Lokpal and Lokayuktas",
+      "notes": "Lokpal and Lokayuktas Act 2013; ARC recommendations; first Lokpal; Lokayukta in states (Maharashtra first).",
+      "sort_order": 1
+    },
+    {
+      "code": "pol-c34-t02",
+      "chapter_code": "pol-c34",
+      "title": "Central Vigilance Commission",
+      "notes": "establishment, Santhanam Committee, powers.",
+      "sort_order": 2
+    },
+    {
+      "code": "pol-c34-t03",
+      "chapter_code": "pol-c34",
+      "title": "Central Bureau of Investigation",
+      "notes": "origin, role, DSPE Act.",
+      "sort_order": 3
+    },
+    {
+      "code": "pol-c34-t04",
+      "chapter_code": "pol-c34",
+      "title": "National Human Rights Commission",
+      "notes": "Protection of Human Rights Act 1993.",
+      "sort_order": 4
+    },
+    {
+      "code": "pol-c34-t05",
+      "chapter_code": "pol-c34",
+      "title": "National Commission for Women",
+      "notes": "1992 and other national commissions.",
+      "sort_order": 5
+    },
+    {
+      "code": "pol-c34-t06",
+      "chapter_code": "pol-c34",
+      "title": "UPSC and State PSC",
+      "notes": "Articles 315 to 323.",
+      "sort_order": 6
+    },
+    {
+      "code": "pol-c34-t07",
+      "chapter_code": "pol-c34",
+      "title": "Central Information Commission",
+      "notes": "RTI Act 2005.",
+      "sort_order": 7
+    },
+    {
+      "code": "pol-c34-t08",
+      "chapter_code": "pol-c34",
+      "title": "Other bodies",
+      "notes": "NGT, National Commission for Backward Classes, Law Commission, Inter-State Council.",
+      "sort_order": 8
+    },
+    {
+      "code": "pol-c34-t09",
+      "chapter_code": "pol-c34",
+      "title": "Constitutional vs statutory bodies",
+      "notes": "differences.",
+      "sort_order": 9
+    },
+    {
+      "code": "pol-c34-t10",
+      "chapter_code": "pol-c34",
+      "title": "Matching: body–year–article",
+      "notes": "quick revision.",
+      "sort_order": 10
+    },
+    {
+      "code": "pol-c35-t01",
+      "chapter_code": "pol-c35",
+      "title": "Community development programme",
+      "notes": "1952; National Extension Service 1953.",
+      "sort_order": 1
+    },
+    {
+      "code": "pol-c35-t02",
+      "chapter_code": "pol-c35",
+      "title": "Committees",
+      "notes": "Balwant Rai Mehta (1957), Ashok Mehta (1977), G.V.K. Rao, L.M. Singhvi, Thungon.",
+      "sort_order": 2
+    },
+    {
+      "code": "pol-c35-t03",
+      "chapter_code": "pol-c35",
+      "title": "First Panchayat",
+      "notes": "Nagaur, Rajasthan (2 October 1959); Andhra Pradesh second.",
+      "sort_order": 3
+    },
+    {
+      "code": "pol-c35-t04",
+      "chapter_code": "pol-c35",
+      "title": "73rd Amendment (1992)",
+      "notes": "Part IX, Articles 243 to 243O; Eleventh Schedule (29 subjects).",
+      "sort_order": 4
+    },
+    {
+      "code": "pol-c35-t05",
+      "chapter_code": "pol-c35",
+      "title": "Three-tier system",
+      "notes": "gram panchayat, panchayat samiti, zila parishad; gram sabha.",
+      "sort_order": 5
+    },
+    {
+      "code": "pol-c35-t06",
+      "chapter_code": "pol-c35",
+      "title": "Municipalities",
+      "notes": "74th Amendment, Part IXA, Twelfth Schedule (18 subjects).",
+      "sort_order": 6
+    },
+    {
+      "code": "pol-c35-t07",
+      "chapter_code": "pol-c35",
+      "title": "State Election Commission and State Finance Commission",
+      "notes": "role.",
+      "sort_order": 7
+    },
+    {
+      "code": "pol-c35-t08",
+      "chapter_code": "pol-c35",
+      "title": "Reservations",
+      "notes": "SC, ST, women (one-third; many states 50%).",
+      "sort_order": 8
+    },
+    {
+      "code": "pol-c35-t09",
+      "chapter_code": "pol-c35",
+      "title": "PESA Act 1996",
+      "notes": "tribal areas.",
+      "sort_order": 9
+    },
+    {
+      "code": "pol-c35-t10",
+      "chapter_code": "pol-c35",
+      "title": "Rural development programmes",
+      "notes": "MGNREGA, PMAY-G, NRLM.",
+      "sort_order": 10
+    },
+    {
+      "code": "pol-c35-t11",
+      "chapter_code": "pol-c35",
+      "title": "National Panchayati Raj Day",
+      "notes": "24 April.",
+      "sort_order": 11
+    },
+    {
+      "code": "pol-c35-t12",
+      "chapter_code": "pol-c35",
+      "title": "Urban local bodies",
+      "notes": "types, Mayor.",
+      "sort_order": 12
+    },
+    {
+      "code": "pol-c36-t01",
+      "chapter_code": "pol-c36",
+      "title": "Important cases and judgments",
+      "notes": "quick revision.",
+      "sort_order": 1
+    },
+    {
+      "code": "pol-c36-t02",
+      "chapter_code": "pol-c36",
+      "title": "Famous articles and facts",
+      "notes": "one-liners.",
+      "sort_order": 2
+    },
+    {
+      "code": "pol-c36-t03",
+      "chapter_code": "pol-c36",
+      "title": "Constitutional offices and tenures",
+      "notes": "table.",
+      "sort_order": 3
+    },
+    {
+      "code": "pol-c36-t04",
+      "chapter_code": "pol-c36",
+      "title": "Committees and commissions",
+      "notes": "names, chairmen.",
+      "sort_order": 4
+    },
+    {
+      "code": "pol-c36-t05",
+      "chapter_code": "pol-c36",
+      "title": "Current affairs links",
+      "notes": "recent amendments, bills.",
+      "sort_order": 5
+    },
+    {
+      "code": "pol-c36-t06",
+      "chapter_code": "pol-c36",
+      "title": "Comparative polity",
+      "notes": "India, USA, UK.",
+      "sort_order": 6
+    },
+    {
+      "code": "pol-c36-t07",
+      "chapter_code": "pol-c36",
+      "title": "Mixed one-liners",
+      "notes": "matching.",
+      "sort_order": 7
+    }
+  ]
+}

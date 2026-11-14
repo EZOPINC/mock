@@ -1,0 +1,674 @@
+{
+  "schema_version": 1,
+  "subject": {
+    "code": "general-awareness",
+    "title": "General Awareness"
+  },
+  "modules": [
+    {
+      "code": "ga-m01",
+      "subject_code": "general-awareness",
+      "title": "Science, Space and Defence",
+      "sort_order": 1
+    },
+    {
+      "code": "ga-m02",
+      "subject_code": "general-awareness",
+      "title": "Art, Culture and Literature",
+      "sort_order": 2
+    },
+    {
+      "code": "ga-m03",
+      "subject_code": "general-awareness",
+      "title": "Awards and Sports",
+      "sort_order": 3
+    },
+    {
+      "code": "ga-m04",
+      "subject_code": "general-awareness",
+      "title": "Revision",
+      "sort_order": 4
+    }
+  ],
+  "chapters": [
+    {
+      "code": "ga-c01",
+      "subject_code": "general-awareness",
+      "module_code": "ga-m01",
+      "title": "Scientists and Inventions",
+      "sort_order": 1
+    },
+    {
+      "code": "ga-c02",
+      "subject_code": "general-awareness",
+      "module_code": "ga-m01",
+      "title": "Space and Satellites",
+      "sort_order": 2
+    },
+    {
+      "code": "ga-c03",
+      "subject_code": "general-awareness",
+      "module_code": "ga-m01",
+      "title": "Defence and Armed Forces",
+      "sort_order": 3
+    },
+    {
+      "code": "ga-c04",
+      "subject_code": "general-awareness",
+      "module_code": "ga-m02",
+      "title": "Indian Art and Culture",
+      "sort_order": 4
+    },
+    {
+      "code": "ga-c05",
+      "subject_code": "general-awareness",
+      "module_code": "ga-m02",
+      "title": "Books and Authors",
+      "sort_order": 5
+    },
+    {
+      "code": "ga-c06",
+      "subject_code": "general-awareness",
+      "module_code": "ga-m03",
+      "title": "Awards and Honours",
+      "sort_order": 6
+    },
+    {
+      "code": "ga-c07",
+      "subject_code": "general-awareness",
+      "module_code": "ga-m03",
+      "title": "Sports",
+      "sort_order": 7
+    },
+    {
+      "code": "ga-c08",
+      "subject_code": "general-awareness",
+      "module_code": "ga-m04",
+      "title": "General Awareness Miscellaneous",
+      "sort_order": 8
+    }
+  ],
+  "topics": [
+    {
+      "code": "ga-c01-t01",
+      "chapter_code": "ga-c01",
+      "title": "Ancient and medieval Indian scientists",
+      "notes": "Aryabhata, Varahamihira, Brahmagupta, Charaka, Sushruta, Bhaskara.",
+      "sort_order": 1
+    },
+    {
+      "code": "ga-c01-t02",
+      "chapter_code": "ga-c01",
+      "title": "Modern Indian scientists",
+      "notes": "C.V. Raman, J.C. Bose, S. Ramanujan, Homi Bhabha, Vikram Sarabhai, Satyendra Nath Bose, Meghnad Saha, S. Chandrasekhar, A.P.J. Abdul Kalam, Har Gobind Khorana.",
+      "sort_order": 2
+    },
+    {
+      "code": "ga-c01-t03",
+      "chapter_code": "ga-c01",
+      "title": "World scientists and discoveries",
+      "notes": "Newton, Einstein, Galileo, Darwin, Pasteur, Marie Curie, Faraday, Edison, Tesla.",
+      "sort_order": 3
+    },
+    {
+      "code": "ga-c01-t04",
+      "chapter_code": "ga-c01",
+      "title": "Inventions and inventors",
+      "notes": "telephone, radio, television, electric bulb, steam engine, aeroplane, printing press, computer, X-rays, penicillin, vaccine.",
+      "sort_order": 4
+    },
+    {
+      "code": "ga-c01-t05",
+      "chapter_code": "ga-c01",
+      "title": "Scientific discoveries",
+      "notes": "electron, proton, neutron, radioactivity, DNA, circulation of blood.",
+      "sort_order": 5
+    },
+    {
+      "code": "ga-c01-t06",
+      "chapter_code": "ga-c01",
+      "title": "Indian research institutions",
+      "notes": "ISRO, DRDO, CSIR, ICMR, BARC, IISc, TIFR.",
+      "sort_order": 6
+    },
+    {
+      "code": "ga-c01-t07",
+      "chapter_code": "ga-c01",
+      "title": "Nobel laureates",
+      "notes": "Indian winners in science, with the field and year.",
+      "sort_order": 7
+    },
+    {
+      "code": "ga-c01-t08",
+      "chapter_code": "ga-c01",
+      "title": "Matching: scientist–discovery–country",
+      "notes": "quick revision.",
+      "sort_order": 8
+    },
+    {
+      "code": "ga-c02-t01",
+      "chapter_code": "ga-c02",
+      "title": "Space history",
+      "notes": "Sputnik (1957), Yuri Gagarin (1961), Neil Armstrong (1969), Valentina Tereshkova, Rakesh Sharma (1984).",
+      "sort_order": 1
+    },
+    {
+      "code": "ga-c02-t02",
+      "chapter_code": "ga-c02",
+      "title": "ISRO",
+      "notes": "establishment (1969), headquarters (Bengaluru), chairmen, Vikram Sarabhai as founder.",
+      "sort_order": 2
+    },
+    {
+      "code": "ga-c02-t03",
+      "chapter_code": "ga-c02",
+      "title": "Indian satellites",
+      "notes": "Aryabhata (1975), Bhaskara, INSAT, IRS, GSAT, NavIC, Cartosat, RISAT.",
+      "sort_order": 3
+    },
+    {
+      "code": "ga-c02-t04",
+      "chapter_code": "ga-c02",
+      "title": "Launch vehicles",
+      "notes": "SLV, ASLV, PSLV, GSLV, LVM3; launch sites (Sriharikota).",
+      "sort_order": 4
+    },
+    {
+      "code": "ga-c02-t05",
+      "chapter_code": "ga-c02",
+      "title": "Space missions",
+      "notes": "Chandrayaan-1 (2008), Mangalyaan (2013), Chandrayaan-2, Chandrayaan-3 (2023), Aditya-L1, Gaganyaan.",
+      "sort_order": 5
+    },
+    {
+      "code": "ga-c02-t06",
+      "chapter_code": "ga-c02",
+      "title": "Types of satellites",
+      "notes": "geostationary, polar, communication, navigation, remote sensing.",
+      "sort_order": 6
+    },
+    {
+      "code": "ga-c02-t07",
+      "chapter_code": "ga-c02",
+      "title": "International space agencies and missions",
+      "notes": "NASA, ESA, Roscosmos, CNSA, JAXA; Apollo, Voyager, Hubble, James Webb, ISS.",
+      "sort_order": 7
+    },
+    {
+      "code": "ga-c02-t08",
+      "chapter_code": "ga-c02",
+      "title": "Astronomy basics",
+      "notes": "planets, dwarf planets, comets, black holes (links to the Geography file).",
+      "sort_order": 8
+    },
+    {
+      "code": "ga-c02-t09",
+      "chapter_code": "ga-c02",
+      "title": "Space organisations",
+      "notes": "IN-SPACe, NSIL, private space sector.",
+      "sort_order": 9
+    },
+    {
+      "code": "ga-c02-t10",
+      "chapter_code": "ga-c02",
+      "title": "GPS and navigation systems",
+      "notes": "GPS, GLONASS, Galileo, BeiDou, NavIC.",
+      "sort_order": 10
+    },
+    {
+      "code": "ga-c03-t01",
+      "chapter_code": "ga-c03",
+      "title": "Structure of the Indian armed forces",
+      "notes": "Army, Navy, Air Force; Supreme Commander (President); Chief of Defence Staff (CDS).",
+      "sort_order": 1
+    },
+    {
+      "code": "ga-c03-t02",
+      "chapter_code": "ga-c03",
+      "title": "Defence ministry and organisations",
+      "notes": "DRDO, HAL, BEL, Ordnance Factories, Coast Guard, paramilitary forces (BSF, CRPF, CISF, ITBP, SSB, Assam Rifles).",
+      "sort_order": 2
+    },
+    {
+      "code": "ga-c03-t03",
+      "chapter_code": "ga-c03",
+      "title": "Commands and headquarters",
+      "notes": "Army, Navy and Air Force commands, with headquarters.",
+      "sort_order": 3
+    },
+    {
+      "code": "ga-c03-t04",
+      "chapter_code": "ga-c03",
+      "title": "Ranks and insignia",
+      "notes": "Army, Navy, Air Force ranks.",
+      "sort_order": 4
+    },
+    {
+      "code": "ga-c03-t05",
+      "chapter_code": "ga-c03",
+      "title": "Missiles",
+      "notes": "Agni, Prithvi, Akash, Trishul, Nag, BrahMos, Astra; Integrated Guided Missile Development Programme, “Missile Man” A.P.J. Abdul Kalam.",
+      "sort_order": 5
+    },
+    {
+      "code": "ga-c03-t06",
+      "chapter_code": "ga-c03",
+      "title": "Military hardware",
+      "notes": "tanks (Arjun), aircraft (Tejas), ships (INS Vikrant, Vikramaditya), submarines (Arihant, Kalvari).",
+      "sort_order": 6
+    },
+    {
+      "code": "ga-c03-t07",
+      "chapter_code": "ga-c03",
+      "title": "Joint military exercises",
+      "notes": "India with USA, Russia, France, Japan, and others.",
+      "sort_order": 7
+    },
+    {
+      "code": "ga-c03-t08",
+      "chapter_code": "ga-c03",
+      "title": "Wars and operations",
+      "notes": "1947–48, 1962, 1965, 1971, Kargil (1999), Operation Vijay, Operation Meghdoot, Operation Blue Star.",
+      "sort_order": 8
+    },
+    {
+      "code": "ga-c03-t09",
+      "chapter_code": "ga-c03",
+      "title": "Defence policy",
+      "notes": "Atmanirbhar Bharat in defence, Defence Acquisition Procedure, FDI limits.",
+      "sort_order": 9
+    },
+    {
+      "code": "ga-c03-t10",
+      "chapter_code": "ga-c03",
+      "title": "Gallantry awards",
+      "notes": "Param Vir Chakra, Maha Vir Chakra, Vir Chakra, Ashoka Chakra, Kirti Chakra, Shaurya Chakra.",
+      "sort_order": 10
+    },
+    {
+      "code": "ga-c03-t11",
+      "chapter_code": "ga-c03",
+      "title": "Military establishments",
+      "notes": "NDA, IMA, OTA, National War Memorial.",
+      "sort_order": 11
+    },
+    {
+      "code": "ga-c04-t01",
+      "chapter_code": "ga-c04",
+      "title": "Classical dances of India",
+      "notes": "Bharatanatyam, Kathak, Kathakali, Kuchipudi, Odissi, Manipuri, Mohiniyattam, Sattriya; states and exponents.",
+      "sort_order": 1
+    },
+    {
+      "code": "ga-c04-t02",
+      "chapter_code": "ga-c04",
+      "title": "Folk dances and theatre",
+      "notes": "by state, Yakshagana, Ramlila, Nautanki.",
+      "sort_order": 2
+    },
+    {
+      "code": "ga-c04-t03",
+      "chapter_code": "ga-c04",
+      "title": "Music",
+      "notes": "Hindustani and Carnatic, ragas, gharanas, instruments and exponents, Tansen, Amir Khusrau.",
+      "sort_order": 3
+    },
+    {
+      "code": "ga-c04-t04",
+      "chapter_code": "ga-c04",
+      "title": "Painting",
+      "notes": "Madhubani, Warli, Pattachitra, Kalamkari, Tanjore, miniature (Mughal, Rajput, Pahari), cave paintings (Ajanta, Bagh).",
+      "sort_order": 4
+    },
+    {
+      "code": "ga-c04-t05",
+      "chapter_code": "ga-c04",
+      "title": "Architecture",
+      "notes": "temple styles (Nagara, Dravida, Vesara), Indo-Islamic, Mughal, colonial.",
+      "sort_order": 5
+    },
+    {
+      "code": "ga-c04-t06",
+      "chapter_code": "ga-c04",
+      "title": "Handicrafts and textiles",
+      "notes": "Banarasi, Kanjeevaram, Chikankari, Bandhani, Phulkari, Pashmina.",
+      "sort_order": 6
+    },
+    {
+      "code": "ga-c04-t07",
+      "chapter_code": "ga-c04",
+      "title": "Fairs and festivals",
+      "notes": "states, religious festivals, Kumbh Mela, Pushkar fair, Sonepur Mela.",
+      "sort_order": 7
+    },
+    {
+      "code": "ga-c04-t08",
+      "chapter_code": "ga-c04",
+      "title": "UNESCO World Heritage Sites",
+      "notes": "cultural and natural sites in India.",
+      "sort_order": 8
+    },
+    {
+      "code": "ga-c04-t09",
+      "chapter_code": "ga-c04",
+      "title": "Intangible Cultural Heritage",
+      "notes": "Yoga, Kumbh Mela, Durga Puja, Garba, others.",
+      "sort_order": 9
+    },
+    {
+      "code": "ga-c04-t10",
+      "chapter_code": "ga-c04",
+      "title": "Languages and literature",
+      "notes": "22 scheduled languages, classical languages.",
+      "sort_order": 10
+    },
+    {
+      "code": "ga-c04-t11",
+      "chapter_code": "ga-c04",
+      "title": "Cultural institutions",
+      "notes": "Sangeet Natak Akademi, Sahitya Akademi, Lalit Kala Akademi, ICCR, National School of Drama.",
+      "sort_order": 11
+    },
+    {
+      "code": "ga-c04-t12",
+      "chapter_code": "ga-c04",
+      "title": "Religions and philosophy",
+      "notes": "Hinduism, Buddhism, Jainism, Sikhism, Sufism, Bhakti.",
+      "sort_order": 12
+    },
+    {
+      "code": "ga-c05-t01",
+      "chapter_code": "ga-c05",
+      "title": "Ancient and classical works",
+      "notes": "Vedas, Ramayana, Mahabharata, Arthashastra, Kadambari, Rajatarangini, Abhijnanashakuntalam.",
+      "sort_order": 1
+    },
+    {
+      "code": "ga-c05-t02",
+      "chapter_code": "ga-c05",
+      "title": "Foreign travellers’ accounts",
+      "notes": "Megasthenes (Indica), Fa-Hien, Hiuen Tsang, Al-Biruni (Kitab-ul-Hind), Ibn Battuta.",
+      "sort_order": 2
+    },
+    {
+      "code": "ga-c05-t03",
+      "chapter_code": "ga-c05",
+      "title": "Medieval works",
+      "notes": "Padmavat, Ain-i-Akbari, Akbarnama, Baburnama, Tuzuk-i-Jahangiri.",
+      "sort_order": 3
+    },
+    {
+      "code": "ga-c05-t04",
+      "chapter_code": "ga-c05",
+      "title": "Freedom struggle authors",
+      "notes": "Gandhi (My Experiments with Truth), Nehru (Discovery of India), Tilak, Aurobindo, Savarkar, Subhas Bose.",
+      "sort_order": 4
+    },
+    {
+      "code": "ga-c05-t05",
+      "chapter_code": "ga-c05",
+      "title": "Famous books and authors (Indian English)",
+      "notes": "Rabindranath Tagore (Gitanjali), R.K. Narayan, Mulk Raj Anand, Arundhati Roy, Salman Rushdie, Vikram Seth, Amitav Ghosh, Kiran Desai.",
+      "sort_order": 5
+    },
+    {
+      "code": "ga-c05-t06",
+      "chapter_code": "ga-c05",
+      "title": "Regional literature",
+      "notes": "Bengali, Hindi, Urdu, Tamil, Malayalam authors and works; Premchand, Bankim Chandra, Sharat Chandra.",
+      "sort_order": 6
+    },
+    {
+      "code": "ga-c05-t07",
+      "chapter_code": "ga-c05",
+      "title": "World literature",
+      "notes": "Shakespeare, Dante, Tolstoy, Homer, Milton, Dickens; famous works and writers.",
+      "sort_order": 7
+    },
+    {
+      "code": "ga-c05-t08",
+      "chapter_code": "ga-c05",
+      "title": "Pen names and nicknames",
+      "notes": "quick revision.",
+      "sort_order": 8
+    },
+    {
+      "code": "ga-c05-t09",
+      "chapter_code": "ga-c05",
+      "title": "Autobiographies and biographies",
+      "notes": "matching.",
+      "sort_order": 9
+    },
+    {
+      "code": "ga-c05-t10",
+      "chapter_code": "ga-c05",
+      "title": "Recently released books",
+      "notes": "current authors and titles.",
+      "sort_order": 10
+    },
+    {
+      "code": "ga-c05-t11",
+      "chapter_code": "ga-c05",
+      "title": "Matching: book–author",
+      "notes": "quick revision.",
+      "sort_order": 11
+    },
+    {
+      "code": "ga-c06-t01",
+      "chapter_code": "ga-c06",
+      "title": "Civilian awards of India",
+      "notes": "Bharat Ratna, Padma Vibhushan, Padma Bhushan, Padma Shri; year of institution, recipients.",
+      "sort_order": 1
+    },
+    {
+      "code": "ga-c06-t02",
+      "chapter_code": "ga-c06",
+      "title": "Gallantry awards",
+      "notes": "Param Vir Chakra and others.",
+      "sort_order": 2
+    },
+    {
+      "code": "ga-c06-t03",
+      "chapter_code": "ga-c06",
+      "title": "Literary awards",
+      "notes": "Jnanpith, Sahitya Akademi, Booker, Pulitzer, Saraswati Samman.",
+      "sort_order": 3
+    },
+    {
+      "code": "ga-c06-t04",
+      "chapter_code": "ga-c06",
+      "title": "Film awards",
+      "notes": "National Film Awards, Dadasaheb Phalke Award, Oscar, Filmfare.",
+      "sort_order": 4
+    },
+    {
+      "code": "ga-c06-t05",
+      "chapter_code": "ga-c06",
+      "title": "Nobel Prizes",
+      "notes": "categories, laureates, Indian winners (Tagore, Raman, Mother Teresa, Amartya Sen, Kailash Satyarthi, Abhijit Banerjee).",
+      "sort_order": 5
+    },
+    {
+      "code": "ga-c06-t06",
+      "chapter_code": "ga-c06",
+      "title": "Other international awards",
+      "notes": "Magsaysay, Booker, Fields Medal, Turing Award.",
+      "sort_order": 6
+    },
+    {
+      "code": "ga-c06-t07",
+      "chapter_code": "ga-c06",
+      "title": "Sports awards",
+      "notes": "Khel Ratna, Arjuna, Dronacharya, Dhyan Chand (see the Sports chapter).",
+      "sort_order": 7
+    },
+    {
+      "code": "ga-c06-t08",
+      "chapter_code": "ga-c06",
+      "title": "Peace and national prizes",
+      "notes": "Gandhi Peace Prize, Indira Gandhi Prize.",
+      "sort_order": 8
+    },
+    {
+      "code": "ga-c06-t09",
+      "chapter_code": "ga-c06",
+      "title": "Recent awardees",
+      "notes": "latest Bharat Ratna, Padma, Nobel winners.",
+      "sort_order": 9
+    },
+    {
+      "code": "ga-c06-t10",
+      "chapter_code": "ga-c06",
+      "title": "Matching: award–field",
+      "notes": "quick revision.",
+      "sort_order": 10
+    },
+    {
+      "code": "ga-c07-t01",
+      "chapter_code": "ga-c07",
+      "title": "Olympic Games",
+      "notes": "history, venues, India’s medals, Indian medallists (Abhinav Bindra, Neeraj Chopra, P.V. Sindhu, Mirabai Chanu).",
+      "sort_order": 1
+    },
+    {
+      "code": "ga-c07-t02",
+      "chapter_code": "ga-c07",
+      "title": "Asian Games and Commonwealth Games",
+      "notes": "hosts, India’s performance.",
+      "sort_order": 2
+    },
+    {
+      "code": "ga-c07-t03",
+      "chapter_code": "ga-c07",
+      "title": "Cricket",
+      "notes": "World Cup winners, IPL, records, grounds, Indian captains and players.",
+      "sort_order": 3
+    },
+    {
+      "code": "ga-c07-t04",
+      "chapter_code": "ga-c07",
+      "title": "Football, Hockey, Tennis, Badminton",
+      "notes": "major tournaments, players and trophies.",
+      "sort_order": 4
+    },
+    {
+      "code": "ga-c07-t05",
+      "chapter_code": "ga-c07",
+      "title": "Athletics and other sports",
+      "notes": "Neeraj Chopra, shooting, wrestling, boxing, chess (Viswanathan Anand, D. Gukesh), archery.",
+      "sort_order": 5
+    },
+    {
+      "code": "ga-c07-t06",
+      "chapter_code": "ga-c07",
+      "title": "Sports awards in India",
+      "notes": "Major Dhyan Chand Khel Ratna, Arjuna, Dronacharya, Dhyan Chand Award.",
+      "sort_order": 6
+    },
+    {
+      "code": "ga-c07-t07",
+      "chapter_code": "ga-c07",
+      "title": "Sports terminology",
+      "notes": "number of players, court and field measurements, terms by sport.",
+      "sort_order": 7
+    },
+    {
+      "code": "ga-c07-t08",
+      "chapter_code": "ga-c07",
+      "title": "Trophies and cups",
+      "notes": "matching of cup and sport.",
+      "sort_order": 8
+    },
+    {
+      "code": "ga-c07-t09",
+      "chapter_code": "ga-c07",
+      "title": "Sports venues and stadiums",
+      "notes": "India.",
+      "sort_order": 9
+    },
+    {
+      "code": "ga-c07-t10",
+      "chapter_code": "ga-c07",
+      "title": "Hosts of major events",
+      "notes": "FIFA World Cup, Olympics, Commonwealth Games.",
+      "sort_order": 10
+    },
+    {
+      "code": "ga-c07-t11",
+      "chapter_code": "ga-c07",
+      "title": "Sports administration",
+      "notes": "SAI, IOA, BCCI, national sports federations.",
+      "sort_order": 11
+    },
+    {
+      "code": "ga-c07-t12",
+      "chapter_code": "ga-c07",
+      "title": "Recent sports events",
+      "notes": "latest tournaments and winners.",
+      "sort_order": 12
+    },
+    {
+      "code": "ga-c08-t01",
+      "chapter_code": "ga-c08",
+      "title": "Important days and weeks",
+      "notes": "national and international, with themes.",
+      "sort_order": 1
+    },
+    {
+      "code": "ga-c08-t02",
+      "chapter_code": "ga-c08",
+      "title": "Books, authors and personalities",
+      "notes": "mixed.",
+      "sort_order": 2
+    },
+    {
+      "code": "ga-c08-t03",
+      "chapter_code": "ga-c08",
+      "title": "Organisations and headquarters",
+      "notes": "UN agencies, international organisations, Indian bodies.",
+      "sort_order": 3
+    },
+    {
+      "code": "ga-c08-t04",
+      "chapter_code": "ga-c08",
+      "title": "Currencies and capitals",
+      "notes": "countries, currency, capitals.",
+      "sort_order": 4
+    },
+    {
+      "code": "ga-c08-t05",
+      "chapter_code": "ga-c08",
+      "title": "Famous personalities",
+      "notes": "Indian and world, by field.",
+      "sort_order": 5
+    },
+    {
+      "code": "ga-c08-t06",
+      "chapter_code": "ga-c08",
+      "title": "National and international firsts",
+      "notes": "first in India and the world.",
+      "sort_order": 6
+    },
+    {
+      "code": "ga-c08-t07",
+      "chapter_code": "ga-c08",
+      "title": "Important places and monuments",
+      "notes": "facts.",
+      "sort_order": 7
+    },
+    {
+      "code": "ga-c08-t08",
+      "chapter_code": "ga-c08",
+      "title": "Current affairs links",
+      "notes": "recent events, schemes, appointments.",
+      "sort_order": 8
+    },
+    {
+      "code": "ga-c08-t09",
+      "chapter_code": "ga-c08",
+      "title": "Mixed one-liners and matching",
+      "notes": ".",
+      "sort_order": 9
+    }
+  ]
+}
