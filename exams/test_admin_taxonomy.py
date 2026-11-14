@@ -32,7 +32,7 @@ class SubjectInlineTests(TestCase):
 
     def test_subject_inline_can_create_a_direct_module_without_intermediate_levels(self):
         empty = Subject.objects.create(name="Empty", code="EMPTY", slug="empty")
-        data = {"name": empty.name, "code": empty.code, "slug": empty.slug}
+        data = {"name": empty.name, "code": empty.code, "slug": empty.slug, "display_order": "0"}
         for prefix in ("parts", "modules", "chapters", "topics"):
             data.update({prefix + "-TOTAL_FORMS": "0", prefix + "-INITIAL_FORMS": "0"})
         data.update({"modules-TOTAL_FORMS": "1", "modules-0-name": "Direct module", "modules-0-slug": "direct-module", "modules-0-display_order": "0"})

@@ -19,6 +19,12 @@ from .validation import validate
 
 
 class TaxonomyImportTests(ImportFixture):
+    def test_topic_code_conflicts_with_form_subject(self):
+        result = TaxonomyCatalogue().resolve(
+            values(subject="", topic="", topic_code="TF"),
+            {"subject_id": self.subject.pk}, {}, {})
+        self.assertTrue(any("import form" in error for error in result["taxonomy_errors"]))
+
     def test_parent_name_columns_resolve_case_insensitively_in_csv_and_xlsx(self):
         row = values(subject="english", part="india", module="LANGUAGE", chapter="Basics", topic="Primary")
         for upload in (csv_file([row]), xlsx_file([row])):

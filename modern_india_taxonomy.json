@@ -1,0 +1,3170 @@
+{
+  "schema_version": 1,
+  "subject": {
+    "code": "history",
+    "title": "History"
+  },
+  "scope": "India",
+  "parts": [
+    {
+      "code": "hist-india",
+      "subject_code": "history",
+      "title": "India"
+    }
+  ],
+  "modules": [
+    {
+      "code": "hist-mod",
+      "subject_code": "history",
+      "part_code": "hist-india",
+      "title": "Modern History"
+    }
+  ],
+  "chapters": [
+    {
+      "code": "hist-mod-c01",
+      "subject_code": "history",
+      "module_code": "hist-mod",
+      "title": "European Trading Companies and Anglo-French Rivalry",
+      "sort_order": 1
+    },
+    {
+      "code": "hist-mod-c02",
+      "subject_code": "history",
+      "module_code": "hist-mod",
+      "title": "Bengal: Plassey, Buxar and the Dual Government",
+      "sort_order": 2
+    },
+    {
+      "code": "hist-mod-c03",
+      "subject_code": "history",
+      "module_code": "hist-mod",
+      "title": "Mysore, Punjab and Other Resisting States",
+      "sort_order": 3
+    },
+    {
+      "code": "hist-mod-c04",
+      "subject_code": "history",
+      "module_code": "hist-mod",
+      "title": "Governors-General and Viceroys: Policies and Reforms",
+      "sort_order": 4
+    },
+    {
+      "code": "hist-mod-c05",
+      "subject_code": "history",
+      "module_code": "hist-mod",
+      "title": "Constitutional Development: Acts from 1773 to 1947",
+      "sort_order": 5
+    },
+    {
+      "code": "hist-mod-c06",
+      "subject_code": "history",
+      "module_code": "hist-mod",
+      "title": "Colonial Economy: Impact of British Rule",
+      "sort_order": 6
+    },
+    {
+      "code": "hist-mod-c07",
+      "subject_code": "history",
+      "module_code": "hist-mod",
+      "title": "The Revolt of 1857",
+      "sort_order": 7
+    },
+    {
+      "code": "hist-mod-c08",
+      "subject_code": "history",
+      "module_code": "hist-mod",
+      "title": "Tribal, Peasant and Other Early Uprisings",
+      "sort_order": 8
+    },
+    {
+      "code": "hist-mod-c09",
+      "subject_code": "history",
+      "module_code": "hist-mod",
+      "title": "Socio-Religious Reform Movements",
+      "sort_order": 9
+    },
+    {
+      "code": "hist-mod-c10",
+      "subject_code": "history",
+      "module_code": "hist-mod",
+      "title": "Growth of Modern Education",
+      "sort_order": 10
+    },
+    {
+      "code": "hist-mod-c11",
+      "subject_code": "history",
+      "module_code": "hist-mod",
+      "title": "Growth of the Press",
+      "sort_order": 11
+    },
+    {
+      "code": "hist-mod-c12",
+      "subject_code": "history",
+      "module_code": "hist-mod",
+      "title": "Political Associations before the Congress",
+      "sort_order": 12
+    },
+    {
+      "code": "hist-mod-c13",
+      "subject_code": "history",
+      "module_code": "hist-mod",
+      "title": "Foundation and Early Phase of the Indian National Congress",
+      "sort_order": 13
+    },
+    {
+      "code": "hist-mod-c14",
+      "subject_code": "history",
+      "module_code": "hist-mod",
+      "title": "Moderates and Extremists",
+      "sort_order": 14
+    },
+    {
+      "code": "hist-mod-c15",
+      "subject_code": "history",
+      "module_code": "hist-mod",
+      "title": "Partition of Bengal and the Swadeshi Movement",
+      "sort_order": 15
+    },
+    {
+      "code": "hist-mod-c16",
+      "subject_code": "history",
+      "module_code": "hist-mod",
+      "title": "Congress Sessions: Banaras, Calcutta and Surat",
+      "sort_order": 16
+    },
+    {
+      "code": "hist-mod-c17",
+      "subject_code": "history",
+      "module_code": "hist-mod",
+      "title": "Formation of the Muslim League (1906)",
+      "sort_order": 17
+    },
+    {
+      "code": "hist-mod-c18",
+      "subject_code": "history",
+      "module_code": "hist-mod",
+      "title": "Morley-Minto Reforms (1909)",
+      "sort_order": 18
+    },
+    {
+      "code": "hist-mod-c19",
+      "subject_code": "history",
+      "module_code": "hist-mod",
+      "title": "Delhi Durbar (1911) and Shifting of the Capital",
+      "sort_order": 19
+    },
+    {
+      "code": "hist-mod-c20",
+      "subject_code": "history",
+      "module_code": "hist-mod",
+      "title": "Revolutionary Movement in India",
+      "sort_order": 20
+    },
+    {
+      "code": "hist-mod-c21",
+      "subject_code": "history",
+      "module_code": "hist-mod",
+      "title": "Revolutionary Activities Outside India",
+      "sort_order": 21
+    },
+    {
+      "code": "hist-mod-c22",
+      "subject_code": "history",
+      "module_code": "hist-mod",
+      "title": "Lucknow Pact (1916)",
+      "sort_order": 22
+    },
+    {
+      "code": "hist-mod-c23",
+      "subject_code": "history",
+      "module_code": "hist-mod",
+      "title": "Home Rule League Movement",
+      "sort_order": 23
+    },
+    {
+      "code": "hist-mod-c24",
+      "subject_code": "history",
+      "module_code": "hist-mod",
+      "title": "Gandhi’s Entry and Early Satyagrahas",
+      "sort_order": 24
+    },
+    {
+      "code": "hist-mod-c25",
+      "subject_code": "history",
+      "module_code": "hist-mod",
+      "title": "Rowlatt Act and Jallianwala Bagh (1919)",
+      "sort_order": 25
+    },
+    {
+      "code": "hist-mod-c26",
+      "subject_code": "history",
+      "module_code": "hist-mod",
+      "title": "Khilafat Movement",
+      "sort_order": 26
+    },
+    {
+      "code": "hist-mod-c27",
+      "subject_code": "history",
+      "module_code": "hist-mod",
+      "title": "Non-Cooperation Movement",
+      "sort_order": 27
+    },
+    {
+      "code": "hist-mod-c28",
+      "subject_code": "history",
+      "module_code": "hist-mod",
+      "title": "Swaraj Party (1923)",
+      "sort_order": 28
+    },
+    {
+      "code": "hist-mod-c29",
+      "subject_code": "history",
+      "module_code": "hist-mod",
+      "title": "Peasant Movements and the Kisan Sabha",
+      "sort_order": 29
+    },
+    {
+      "code": "hist-mod-c30",
+      "subject_code": "history",
+      "module_code": "hist-mod",
+      "title": "Trade Union Movement and the Communist Party",
+      "sort_order": 30
+    },
+    {
+      "code": "hist-mod-c31",
+      "subject_code": "history",
+      "module_code": "hist-mod",
+      "title": "Simon Commission (1927)",
+      "sort_order": 31
+    },
+    {
+      "code": "hist-mod-c32",
+      "subject_code": "history",
+      "module_code": "hist-mod",
+      "title": "Lahore Congress and Poorna Swaraj (1929)",
+      "sort_order": 32
+    },
+    {
+      "code": "hist-mod-c33",
+      "subject_code": "history",
+      "module_code": "hist-mod",
+      "title": "Civil Disobedience Movement",
+      "sort_order": 33
+    },
+    {
+      "code": "hist-mod-c34",
+      "subject_code": "history",
+      "module_code": "hist-mod",
+      "title": "Gandhi-Irwin Pact (1931)",
+      "sort_order": 34
+    },
+    {
+      "code": "hist-mod-c35",
+      "subject_code": "history",
+      "module_code": "hist-mod",
+      "title": "Karachi Congress (1931)",
+      "sort_order": 35
+    },
+    {
+      "code": "hist-mod-c36",
+      "subject_code": "history",
+      "module_code": "hist-mod",
+      "title": "Round Table Conferences",
+      "sort_order": 36
+    },
+    {
+      "code": "hist-mod-c37",
+      "subject_code": "history",
+      "module_code": "hist-mod",
+      "title": "Communal Award and Poona Pact (1932)",
+      "sort_order": 37
+    },
+    {
+      "code": "hist-mod-c38",
+      "subject_code": "history",
+      "module_code": "hist-mod",
+      "title": "Congress Socialist Party (1934)",
+      "sort_order": 38
+    },
+    {
+      "code": "hist-mod-c39",
+      "subject_code": "history",
+      "module_code": "hist-mod",
+      "title": "Provincial Elections and Congress Ministries (1937)",
+      "sort_order": 39
+    },
+    {
+      "code": "hist-mod-c40",
+      "subject_code": "history",
+      "module_code": "hist-mod",
+      "title": "Tripuri Crisis (1939)",
+      "sort_order": 40
+    },
+    {
+      "code": "hist-mod-c41",
+      "subject_code": "history",
+      "module_code": "hist-mod",
+      "title": "Princely States and the National Movement",
+      "sort_order": 41
+    },
+    {
+      "code": "hist-mod-c42",
+      "subject_code": "history",
+      "module_code": "hist-mod",
+      "title": "Second World War and India",
+      "sort_order": 42
+    },
+    {
+      "code": "hist-mod-c43",
+      "subject_code": "history",
+      "module_code": "hist-mod",
+      "title": "Demand for Pakistan",
+      "sort_order": 43
+    },
+    {
+      "code": "hist-mod-c44",
+      "subject_code": "history",
+      "module_code": "hist-mod",
+      "title": "Individual Satyagraha (1940)",
+      "sort_order": 44
+    },
+    {
+      "code": "hist-mod-c45",
+      "subject_code": "history",
+      "module_code": "hist-mod",
+      "title": "Cripps Mission (1942)",
+      "sort_order": 45
+    },
+    {
+      "code": "hist-mod-c46",
+      "subject_code": "history",
+      "module_code": "hist-mod",
+      "title": "Quit India Movement (1942)",
+      "sort_order": 46
+    },
+    {
+      "code": "hist-mod-c47",
+      "subject_code": "history",
+      "module_code": "hist-mod",
+      "title": "Subhas Chandra Bose and the Azad Hind Fauj",
+      "sort_order": 47
+    },
+    {
+      "code": "hist-mod-c48",
+      "subject_code": "history",
+      "module_code": "hist-mod",
+      "title": "Cabinet Mission Plan (1946)",
+      "sort_order": 48
+    },
+    {
+      "code": "hist-mod-c49",
+      "subject_code": "history",
+      "module_code": "hist-mod",
+      "title": "Constituent Assembly (1946)",
+      "sort_order": 49
+    },
+    {
+      "code": "hist-mod-c50",
+      "subject_code": "history",
+      "module_code": "hist-mod",
+      "title": "Interim Government (1946)",
+      "sort_order": 50
+    },
+    {
+      "code": "hist-mod-c51",
+      "subject_code": "history",
+      "module_code": "hist-mod",
+      "title": "Partition and Independence (1947)",
+      "sort_order": 51
+    },
+    {
+      "code": "hist-mod-c52",
+      "subject_code": "history",
+      "module_code": "hist-mod",
+      "title": "Modern History Miscellaneous (Mixed Revision)",
+      "sort_order": 52
+    },
+    {
+      "code": "hist-mod-c53",
+      "subject_code": "history",
+      "module_code": "hist-mod",
+      "title": "Indian National Movement Miscellaneous (Mixed Revision)",
+      "sort_order": 53
+    }
+  ],
+  "topics": [
+    {
+      "code": "hist-mod-c01-t01",
+      "chapter_code": "hist-mod-c01",
+      "title": "Background: sea routes and trade",
+      "notes": "fall of Constantinople (1453), Vasco da Gama (1498, Calicut), motives (God, Gold, Glory).",
+      "sort_order": 1
+    },
+    {
+      "code": "hist-mod-c01-t02",
+      "chapter_code": "hist-mod-c01",
+      "title": "Portuguese",
+      "notes": "Francisco de Almeida (Blue Water policy), Albuquerque (Goa 1510), Cartaz system, Jesuits, decline; Diu, Daman, Salsette.",
+      "sort_order": 2
+    },
+    {
+      "code": "hist-mod-c01-t03",
+      "chapter_code": "hist-mod-c01",
+      "title": "Dutch",
+      "notes": "Dutch East India Company (1602), Masulipatam, Pulicat, Chinsura, Spice Islands, defeat at Bedara (1759).",
+      "sort_order": 3
+    },
+    {
+      "code": "hist-mod-c01-t04",
+      "chapter_code": "hist-mod-c01",
+      "title": "English East India Company",
+      "notes": "charter (1600), Captain Hawkins, Sir Thomas Roe, factories at Surat, Madras (Fort St George), Bombay, Calcutta (Job Charnock).",
+      "sort_order": 4
+    },
+    {
+      "code": "hist-mod-c01-t05",
+      "chapter_code": "hist-mod-c01",
+      "title": "French",
+      "notes": "Compagnie des Indes (1664), Pondicherry (Francois Martin), Dupleix, Chandernagore, Mahe.",
+      "sort_order": 5
+    },
+    {
+      "code": "hist-mod-c01-t06",
+      "chapter_code": "hist-mod-c01",
+      "title": "Danes and others",
+      "notes": "Serampore, Tranquebar; Swedes.",
+      "sort_order": 6
+    },
+    {
+      "code": "hist-mod-c01-t07",
+      "chapter_code": "hist-mod-c01",
+      "title": "Anglo-French rivalry: Carnatic Wars",
+      "notes": "First (1746–48, St Thomé), Second (1749–54), Third (1758–63, Wandiwash 1760, Treaty of Paris 1763); causes of French failure.",
+      "sort_order": 7
+    },
+    {
+      "code": "hist-mod-c01-t08",
+      "chapter_code": "hist-mod-c01",
+      "title": "Comparison of companies",
+      "notes": "dates, headquarters, important governors, quick matching.",
+      "sort_order": 8
+    },
+    {
+      "code": "hist-mod-c02-t01",
+      "chapter_code": "hist-mod-c02",
+      "title": "Bengal before Plassey",
+      "notes": "Murshid Quli Khan, Alivardi Khan, Siraj-ud-Daula; British privileges (farman of 1717, Dastak).",
+      "sort_order": 1
+    },
+    {
+      "code": "hist-mod-c02-t02",
+      "chapter_code": "hist-mod-c02",
+      "title": "Causes of the Battle of Plassey",
+      "notes": "Calcutta fortification, misuse of Dastak, Siraj’s accession, Black Hole (1756).",
+      "sort_order": 2
+    },
+    {
+      "code": "hist-mod-c02-t03",
+      "chapter_code": "hist-mod-c02",
+      "title": "Battle of Plassey (1757)",
+      "notes": "Robert Clive, Mir Jafar, Mir Madan, Omichand, Jagat Seth; effects and significance.",
+      "sort_order": 3
+    },
+    {
+      "code": "hist-mod-c02-t04",
+      "chapter_code": "hist-mod-c02",
+      "title": "Mir Jafar and Mir Qasim",
+      "notes": "Treaty of Calcutta (1760), Mir Qasim’s reforms, shift of capital to Munger, abolition of duties.",
+      "sort_order": 4
+    },
+    {
+      "code": "hist-mod-c02-t05",
+      "chapter_code": "hist-mod-c02",
+      "title": "Battle of Buxar (1764)",
+      "notes": "Mir Qasim, Shuja-ud-Daula, Shah Alam II vs Hector Munro; causes and results.",
+      "sort_order": 5
+    },
+    {
+      "code": "hist-mod-c02-t06",
+      "chapter_code": "hist-mod-c02",
+      "title": "Treaty of Allahabad (1765)",
+      "notes": "Diwani rights to the Company, Allahabad and Kara to Shah Alam, tribute.",
+      "sort_order": 6
+    },
+    {
+      "code": "hist-mod-c02-t07",
+      "chapter_code": "hist-mod-c02",
+      "title": "Dual Government (1765–72)",
+      "notes": "Clive’s system, Diwani (Company) vs Nizamat (Nawab), Deputy Governors (Reza Khan, Raja Sitab Rai), effects; Bengal famine (1770).",
+      "sort_order": 7
+    },
+    {
+      "code": "hist-mod-c03-t01",
+      "chapter_code": "hist-mod-c03",
+      "title": "Mysore: Hyder Ali",
+      "notes": "rise from Wodeyar rule, First Anglo-Mysore War (1767–69), Treaty of Madras, Second War (1780–84), death, Treaty of Mangalore.",
+      "sort_order": 1
+    },
+    {
+      "code": "hist-mod-c03-t02",
+      "chapter_code": "hist-mod-c03",
+      "title": "Anglo-Mysore Wars",
+      "notes": "all questions related to this.",
+      "sort_order": 2
+    },
+    {
+      "code": "hist-mod-c03-t03",
+      "chapter_code": "hist-mod-c03",
+      "title": "Tipu Sultan",
+      "notes": "Third Anglo-Mysore War (1790–92; Cornwallis, Treaty of Seringapatam), Fourth War (1799; Wellesley, death at Seringapatam).",
+      "sort_order": 3
+    },
+    {
+      "code": "hist-mod-c03-t04",
+      "chapter_code": "hist-mod-c03",
+      "title": "Tipu’s administration and innovations",
+      "notes": "rockets, navy, trade, new calendar, coinage, Jacobin club, embassy to France, Sringeri Math.",
+      "sort_order": 4
+    },
+    {
+      "code": "hist-mod-c03-t05",
+      "chapter_code": "hist-mod-c03",
+      "title": "Wodeyar restoration",
+      "notes": "Krishnaraja Wodeyar III, subsidiary alliance.",
+      "sort_order": 5
+    },
+    {
+      "code": "hist-mod-c03-t06",
+      "chapter_code": "hist-mod-c03",
+      "title": "Punjab: rise of Sikh Misls",
+      "notes": "12 Misls, Sukerchakia, Ranjit Singh.",
+      "sort_order": 6
+    },
+    {
+      "code": "hist-mod-c03-t07",
+      "chapter_code": "hist-mod-c03",
+      "title": "Maharaja Ranjit Singh (1780–1839)",
+      "notes": "Lahore (1799), Treaty of Amritsar (1809) with Metcalfe, Maharaja of Punjab, conquests (Multan, Kashmir, Peshawar).",
+      "sort_order": 7
+    },
+    {
+      "code": "hist-mod-c03-t08",
+      "chapter_code": "hist-mod-c03",
+      "title": "Ranjit Singh’s administration and army",
+      "notes": "Fauj-i-Khas (French officers Allard, Ventura), Khalsa army, revenue, Fakir Azizuddin.",
+      "sort_order": 8
+    },
+    {
+      "code": "hist-mod-c03-t09",
+      "chapter_code": "hist-mod-c03",
+      "title": "Anglo-Sikh Wars",
+      "notes": "First (1845–46; Mudki, Ferozeshah, Aliwal, Sobraon; Treaty of Lahore), Second (1848–49; Chilianwala, Gujarat; annexation by Dalhousie).",
+      "sort_order": 9
+    },
+    {
+      "code": "hist-mod-c03-t10",
+      "chapter_code": "hist-mod-c03",
+      "title": "Other states",
+      "notes": "Hyderabad, Awadh, Bengal (Murshid), Rohilkhand, Rajput states; Marathas and Anglo-Maratha Wars (three wars, Treaty of Salbai 1782, Bassein 1802, Peshwa’s end 1818).",
+      "sort_order": 10
+    },
+    {
+      "code": "hist-mod-c03-t11",
+      "chapter_code": "hist-mod-c03",
+      "title": "Sindh annexation (1843)",
+      "notes": "Charles Napier, Amirs, causes.",
+      "sort_order": 11
+    },
+    {
+      "code": "hist-mod-c04-t01",
+      "chapter_code": "hist-mod-c04",
+      "title": "Governors of Bengal",
+      "notes": "Clive (1757–60, 1765–67), Verelst, Cartier.",
+      "sort_order": 1
+    },
+    {
+      "code": "hist-mod-c04-t02",
+      "chapter_code": "hist-mod-c04",
+      "title": "Warren Hastings (1772–85)",
+      "notes": "abolition of Dual Government, Regulating Act (1773), revenue and judicial reforms, First Anglo-Maratha War, Rohilla War, Nandkumar case, Asiatic Society (1784), Pitt’s India Act.",
+      "sort_order": 2
+    },
+    {
+      "code": "hist-mod-c04-t03",
+      "chapter_code": "hist-mod-c04",
+      "title": "Lord Cornwallis (1786–93)",
+      "notes": "Permanent Settlement (1793), Cornwallis Code, Civil Services, Police reforms, Third Mysore War.",
+      "sort_order": 3
+    },
+    {
+      "code": "hist-mod-c04-t04",
+      "chapter_code": "hist-mod-c04",
+      "title": "Sir John Shore and Wellesley",
+      "notes": "Shore’s policy of non-intervention; Wellesley’s Subsidiary Alliance (1798), Fourth Mysore War, Treaty of Bassein, Fort William College.",
+      "sort_order": 4
+    },
+    {
+      "code": "hist-mod-c04-t05",
+      "chapter_code": "hist-mod-c04",
+      "title": "Lord Hastings (1813–23)",
+      "notes": "Anglo-Nepal War (Sugauli 1816), Pindari War, Third Maratha War, Ryotwari and Mahalwari (1822), end of the Peshwa.",
+      "sort_order": 5
+    },
+    {
+      "code": "hist-mod-c04-t06",
+      "chapter_code": "hist-mod-c04",
+      "title": "Lord Amherst and Bentinck",
+      "notes": "First Burmese War; Bentinck: abolition of Sati (1829), Thugs, English education, Charter Act 1833, Macaulay’s Minute.",
+      "sort_order": 6
+    },
+    {
+      "code": "hist-mod-c04-t07",
+      "chapter_code": "hist-mod-c04",
+      "title": "Metcalfe, Auckland and Ellenborough",
+      "notes": "Press liberation, First Afghan War, Sindh annexation.",
+      "sort_order": 7
+    },
+    {
+      "code": "hist-mod-c04-t08",
+      "chapter_code": "hist-mod-c04",
+      "title": "Lord Hardinge I and Dalhousie",
+      "notes": "Dalhousie’s Doctrine of Lapse (Satara 1848, Jhansi 1853), Railways (1853), Telegraph, Postal reform (1854), Wood’s Despatch (1854), Widow Remarriage Act (1856), Public Works Dept.",
+      "sort_order": 8
+    },
+    {
+      "code": "hist-mod-c04-t09",
+      "chapter_code": "hist-mod-c04",
+      "title": "Lord Canning (1856–62)",
+      "notes": "Revolution of 1857, Crown rule, Government of India Act 1858, Indian Councils Act 1861.",
+      "sort_order": 9
+    },
+    {
+      "code": "hist-mod-c04-t10",
+      "chapter_code": "hist-mod-c04",
+      "title": "Viceroys: Lawrence to Mayo",
+      "notes": "Lawrence (High Courts 1865), Mayo (financial decentralisation, Statistical Survey), Northbrook, Lytton (Vernacular Press Act 1878, Arms Act 1878, Delhi Durbar 1877, Royal Titles Act).",
+      "sort_order": 10
+    },
+    {
+      "code": "hist-mod-c04-t11",
+      "chapter_code": "hist-mod-c04",
+      "title": "Viceroys: Ripon (1880–84)",
+      "notes": "Local Self-Government (1882), Repeal of VPA, First Factory Act (1881), Hunter Commission (1882), Ilbert Bill (1883).",
+      "sort_order": 11
+    },
+    {
+      "code": "hist-mod-c04-t12",
+      "chapter_code": "hist-mod-c04",
+      "title": "Lord Dufferin and Lansdowne",
+      "notes": "Congress formed (1885), Third Burmese War, Factory Act 1891, Age of Consent Act (1891), Indian Councils Act 1892.",
+      "sort_order": 12
+    },
+    {
+      "code": "hist-mod-c04-t13",
+      "chapter_code": "hist-mod-c04",
+      "title": "Lord Elgin II and Curzon (1899–1905)",
+      "notes": "Curzon: Calcutta Corporation Act, Indian Universities Act (1904), Partition of Bengal (1905), Ancient Monuments Act (1904), Police Commission, Younghusband mission to Tibet.",
+      "sort_order": 13
+    },
+    {
+      "code": "hist-mod-c04-t14",
+      "chapter_code": "hist-mod-c04",
+      "title": "Lord Minto II and Hardinge II",
+      "notes": "Morley-Minto Reforms (1909), Delhi Durbar (1911), annulment of Partition (1911), capital shift to Delhi, attack on Hardinge (1912).",
+      "sort_order": 14
+    },
+    {
+      "code": "hist-mod-c04-t15",
+      "chapter_code": "hist-mod-c04",
+      "title": "Lord Chelmsford, Reading, Irwin, Willingdon, Linlithgow",
+      "notes": "Montagu-Chelmsford Reforms, Rowlatt Act; Reading (Chauri Chaura); Irwin (Simon, Dominion Status, Gandhi-Irwin); Willingdon (Poona Pact); Linlithgow (August Offer, Cripps).",
+      "sort_order": 15
+    },
+    {
+      "code": "hist-mod-c04-t16",
+      "chapter_code": "hist-mod-c04",
+      "title": "Lord Wavell and Mountbatten (1947–48)",
+      "notes": "Wavell Plan (Simla 1945), Cabinet Mission, Interim Government; Mountbatten Plan (3 June 1947), partition, Independence.",
+      "sort_order": 16
+    },
+    {
+      "code": "hist-mod-c04-t17",
+      "chapter_code": "hist-mod-c04",
+      "title": "Matching: Governors-General and Viceroys with reforms and events",
+      "notes": "quick revision table.",
+      "sort_order": 17
+    },
+    {
+      "code": "hist-mod-c05-t01",
+      "chapter_code": "hist-mod-c05",
+      "title": "Regulating Act 1773",
+      "notes": "Governor of Bengal as Governor-General, Supreme Court at Calcutta, Executive Council of 4.",
+      "sort_order": 1
+    },
+    {
+      "code": "hist-mod-c05-t02",
+      "chapter_code": "hist-mod-c05",
+      "title": "Pitt’s India Act 1784",
+      "notes": "Board of Control, dual control.",
+      "sort_order": 2
+    },
+    {
+      "code": "hist-mod-c05-t03",
+      "chapter_code": "hist-mod-c05",
+      "title": "Charter Acts",
+      "notes": "1793 (renewal), 1813 (end of trade monopoly except tea and China), 1833 (Governor-General of India, Law member Macaulay), 1853 (separate legislative council, open competition ICS).",
+      "sort_order": 3
+    },
+    {
+      "code": "hist-mod-c05-t04",
+      "chapter_code": "hist-mod-c05",
+      "title": "Government of India Act 1858",
+      "notes": "end of Company, Secretary of State, Council of India, Viceroy.",
+      "sort_order": 4
+    },
+    {
+      "code": "hist-mod-c05-t05",
+      "chapter_code": "hist-mod-c05",
+      "title": "Indian Councils Acts",
+      "notes": "1861 (Portfolio system, Indian participation), 1892 (indirect election), 1909 (Morley-Minto, separate electorates).",
+      "sort_order": 5
+    },
+    {
+      "code": "hist-mod-c05-t06",
+      "chapter_code": "hist-mod-c05",
+      "title": "Government of India Act 1919",
+      "notes": "Dyarchy in provinces, bicameral central legislature, Public Service Commission.",
+      "sort_order": 6
+    },
+    {
+      "code": "hist-mod-c05-t07",
+      "chapter_code": "hist-mod-c05",
+      "title": "Government of India Act 1935",
+      "notes": "Federation, provincial autonomy, Federal Court, RBI, Federal Public Service Commission; abolition of Dyarchy in provinces, introduction at centre.",
+      "sort_order": 7
+    },
+    {
+      "code": "hist-mod-c05-t08",
+      "chapter_code": "hist-mod-c05",
+      "title": "Indian Independence Act 1947",
+      "notes": "partition, dominion status, end of paramountcy.",
+      "sort_order": 8
+    },
+    {
+      "code": "hist-mod-c05-t09",
+      "chapter_code": "hist-mod-c05",
+      "title": "Important commissions and committees",
+      "notes": "Simon, Nehru Report, Sapru, Cripps, Cabinet Mission.",
+      "sort_order": 9
+    },
+    {
+      "code": "hist-mod-c05-t10",
+      "chapter_code": "hist-mod-c05",
+      "title": "Matching: Act–year–key provision",
+      "notes": ".",
+      "sort_order": 10
+    },
+    {
+      "code": "hist-mod-c06-t01",
+      "chapter_code": "hist-mod-c06",
+      "title": "Colonial economy overview",
+      "notes": "mercantilism to free trade to finance capital; phases of exploitation.",
+      "sort_order": 1
+    },
+    {
+      "code": "hist-mod-c06-t02",
+      "chapter_code": "hist-mod-c06",
+      "title": "Drain of Wealth",
+      "notes": "Dadabhai Naoroji (Poverty and Un-British Rule in India), R.C. Dutt, Home Charges, economic critique.",
+      "sort_order": 2
+    },
+    {
+      "code": "hist-mod-c06-t03",
+      "chapter_code": "hist-mod-c06",
+      "title": "Land revenue systems: Permanent Settlement",
+      "notes": "Zamindari system (1793), Bengal, Bihar, Orissa; effects (absentee landlords, Sunset Law).",
+      "sort_order": 3
+    },
+    {
+      "code": "hist-mod-c06-t04",
+      "chapter_code": "hist-mod-c06",
+      "title": "Ryotwari and Mahalwari systems",
+      "notes": "Munro and Reed (Madras, Bombay), Mahalwari (NW provinces), differences and effects.",
+      "sort_order": 4
+    },
+    {
+      "code": "hist-mod-c06-t05",
+      "chapter_code": "hist-mod-c06",
+      "title": "Commercialisation of agriculture",
+      "notes": "indigo, cotton, jute, opium, tea; Famines and Famine Commissions (1880 Lyall).",
+      "sort_order": 5
+    },
+    {
+      "code": "hist-mod-c06-t06",
+      "chapter_code": "hist-mod-c06",
+      "title": "Deindustrialisation",
+      "notes": "decline of handicrafts, Dacca muslin, free trade policies, tariffs; Swadeshi response.",
+      "sort_order": 6
+    },
+    {
+      "code": "hist-mod-c06-t07",
+      "chapter_code": "hist-mod-c06",
+      "title": "Modern industries and railways",
+      "notes": "cotton mills (Bombay 1854), jute mills (1855), Tata Steel (1907), railways (1853), Telegraph; stunted growth.",
+      "sort_order": 7
+    },
+    {
+      "code": "hist-mod-c06-t08",
+      "chapter_code": "hist-mod-c06",
+      "title": "Trade, banking and currency",
+      "notes": "Imperial Bank, Home Charges, Council Bills, Gold Standard debate, Hilton Young Commission.",
+      "sort_order": 8
+    },
+    {
+      "code": "hist-mod-c06-t09",
+      "chapter_code": "hist-mod-c06",
+      "title": "Economic nationalism",
+      "notes": "Naoroji, Ranade, Dutt, Gokhale, Tilak; Swadeshi.",
+      "sort_order": 9
+    },
+    {
+      "code": "hist-mod-c06-t10",
+      "chapter_code": "hist-mod-c06",
+      "title": "Famines and relief",
+      "notes": "Bengal famine of 1770 and 1943, Famine Codes, Irrigation works (Ganga Canal).",
+      "sort_order": 10
+    },
+    {
+      "code": "hist-mod-c07-t01",
+      "chapter_code": "hist-mod-c07",
+      "title": "Causes",
+      "notes": "political (Doctrine of Lapse, Awadh annexation), economic (revenue, drain), social-religious, military (Enfield rifle, greased cartridges, General Service Enlistment Act 1856).",
+      "sort_order": 1
+    },
+    {
+      "code": "hist-mod-c07-t02",
+      "chapter_code": "hist-mod-c07",
+      "title": "Beginning and spread",
+      "notes": "Barrackpore (Mangal Pandey), Meerut (10 May 1857), Delhi (Bahadur Shah II).",
+      "sort_order": 2
+    },
+    {
+      "code": "hist-mod-c07-t03",
+      "chapter_code": "hist-mod-c07",
+      "title": "Centres and leaders",
+      "notes": "Delhi (Bakht Khan), Kanpur (Nana Sahib, Tantia Tope), Lucknow (Begum Hazrat Mahal), Jhansi (Rani Lakshmibai), Bihar (Kunwar Singh), Faizabad (Maulvi Ahmadullah).",
+      "sort_order": 3
+    },
+    {
+      "code": "hist-mod-c07-t04",
+      "chapter_code": "hist-mod-c07",
+      "title": "British commanders and suppression",
+      "notes": "Lawrence, Havelock, Colin Campbell, Hugh Rose, Nicholson; role of Sikhs and Gurkhas.",
+      "sort_order": 4
+    },
+    {
+      "code": "hist-mod-c07-t05",
+      "chapter_code": "hist-mod-c07",
+      "title": "Nature and character",
+      "notes": "debated: mutiny, first war of independence (Savarkar), feudal revolt; contrasting views of scholars (S.N. Sen, R.C. Majumdar, Tarachand).",
+      "sort_order": 5
+    },
+    {
+      "code": "hist-mod-c07-t06",
+      "chapter_code": "hist-mod-c07",
+      "title": "Causes of failure",
+      "notes": "lack of unity, leadership, weapons, regional spread, communication.",
+      "sort_order": 6
+    },
+    {
+      "code": "hist-mod-c07-t07",
+      "chapter_code": "hist-mod-c07",
+      "title": "Consequences",
+      "notes": "end of Company rule, Government of India Act 1858, Queen’s Proclamation (1 Nov 1858), army reorganisation, Divide and Rule.",
+      "sort_order": 7
+    },
+    {
+      "code": "hist-mod-c08-t01",
+      "chapter_code": "hist-mod-c08",
+      "title": "Santhal rebellion (1855–56)",
+      "notes": "Sido, Kanhu.",
+      "sort_order": 1
+    },
+    {
+      "code": "hist-mod-c08-t02",
+      "chapter_code": "hist-mod-c08",
+      "title": "Munda Ulgulan (1899–1900)",
+      "notes": "Birsa Munda.",
+      "sort_order": 2
+    },
+    {
+      "code": "hist-mod-c08-t03",
+      "chapter_code": "hist-mod-c08",
+      "title": "Kol, Ho, Khond and Bhil uprisings",
+      "notes": "causes, regions.",
+      "sort_order": 3
+    },
+    {
+      "code": "hist-mod-c08-t04",
+      "chapter_code": "hist-mod-c08",
+      "title": "Wahabi and Faraizi movements",
+      "notes": "Syed Ahmad Barelvi, Titu Mir, Haji Shariatullah, Dudu Miyan.",
+      "sort_order": 4
+    },
+    {
+      "code": "hist-mod-c08-t05",
+      "chapter_code": "hist-mod-c08",
+      "title": "Kuka movement (Namdhari)",
+      "notes": "Baba Ram Singh, Punjab.",
+      "sort_order": 5
+    },
+    {
+      "code": "hist-mod-c08-t06",
+      "chapter_code": "hist-mod-c08",
+      "title": "Indigo revolt (1859–60)",
+      "notes": "Digambar Biswas, Dinabandhu Mitra’s Neel Darpan.",
+      "sort_order": 6
+    },
+    {
+      "code": "hist-mod-c08-t07",
+      "chapter_code": "hist-mod-c08",
+      "title": "Pabna Agrarian League (1873)",
+      "notes": "Ishan Chandra Roy; Deccan Riots (1875).",
+      "sort_order": 7
+    },
+    {
+      "code": "hist-mod-c08-t08",
+      "chapter_code": "hist-mod-c08",
+      "title": "Moplah rebellion (1921)",
+      "notes": "Malabar; Khilafat link.",
+      "sort_order": 8
+    },
+    {
+      "code": "hist-mod-c08-t09",
+      "chapter_code": "hist-mod-c08",
+      "title": "Other civil rebellions",
+      "notes": "Vellore Mutiny (1806), Barrackpore (1824), Ramosi, Kittur (Rani Chennamma), Poligar.",
+      "sort_order": 9
+    },
+    {
+      "code": "hist-mod-c09-t01",
+      "chapter_code": "hist-mod-c09",
+      "title": "Reform movement background",
+      "notes": "western education, Christian missionaries, rationalism; Hindu vs Muslim reform.",
+      "sort_order": 1
+    },
+    {
+      "code": "hist-mod-c09-t02",
+      "chapter_code": "hist-mod-c09",
+      "title": "Brahmo Samaj",
+      "notes": "Raja Ram Mohan Roy (1828), Debendranath Tagore, Keshab Chandra Sen; Sati abolition (1829), monotheism.",
+      "sort_order": 2
+    },
+    {
+      "code": "hist-mod-c09-t03",
+      "chapter_code": "hist-mod-c09",
+      "title": "Prarthana Samaj",
+      "notes": "Atmaram Pandurang (1867), M.G. Ranade, Bhandarkar.",
+      "sort_order": 3
+    },
+    {
+      "code": "hist-mod-c09-t04",
+      "chapter_code": "hist-mod-c09",
+      "title": "Arya Samaj",
+      "notes": "Dayanand Saraswati (1875), Shuddhi, Satyarth Prakash, Vedas, DAV movement.",
+      "sort_order": 4
+    },
+    {
+      "code": "hist-mod-c09-t05",
+      "chapter_code": "hist-mod-c09",
+      "title": "Ramakrishna Mission",
+      "notes": "Ramakrishna Paramahamsa, Swami Vivekananda (1893 Chicago, 1897 Mission), Belur Math.",
+      "sort_order": 5
+    },
+    {
+      "code": "hist-mod-c09-t06",
+      "chapter_code": "hist-mod-c09",
+      "title": "Theosophical Society",
+      "notes": "Madame Blavatsky, Colonel Olcott (1875, Adyar), Annie Besant.",
+      "sort_order": 6
+    },
+    {
+      "code": "hist-mod-c09-t07",
+      "chapter_code": "hist-mod-c09",
+      "title": "Young Bengal movement",
+      "notes": "Henry Derozio, Hindu College.",
+      "sort_order": 7
+    },
+    {
+      "code": "hist-mod-c09-t08",
+      "chapter_code": "hist-mod-c09",
+      "title": "Reformers: widow remarriage and women",
+      "notes": "Vidyasagar (Widow Remarriage Act 1856), Jyotirao and Savitribai Phule (Satyashodhak Samaj 1873), Pandita Ramabai (Sharada Sadan), Karve.",
+      "sort_order": 8
+    },
+    {
+      "code": "hist-mod-c09-t09",
+      "chapter_code": "hist-mod-c09",
+      "title": "Social reform in South India and regions",
+      "notes": "Sri Narayana Guru (SNDP), Periyar (Self-Respect), Vaikom Satyagraha, Ayyankali, Kandukuri Veeresalingam.",
+      "sort_order": 9
+    },
+    {
+      "code": "hist-mod-c09-t10",
+      "chapter_code": "hist-mod-c09",
+      "title": "Muslim reform movements",
+      "notes": "Sir Syed Ahmad Khan (Aligarh, 1875 MAO College), Deoband (1866), Ahmadiyya (Mirza Ghulam Ahmad), Wahabi, Muhammad Iqbal.",
+      "sort_order": 10
+    },
+    {
+      "code": "hist-mod-c09-t11",
+      "chapter_code": "hist-mod-c09",
+      "title": "Sikh reform and others",
+      "notes": "Singh Sabha (1873), Akali movement, Gurudwara Reform Act 1925; Parsi (Rahnumai Mazdayasnan Sabha), Ramakrishna.",
+      "sort_order": 11
+    },
+    {
+      "code": "hist-mod-c09-t12",
+      "chapter_code": "hist-mod-c09",
+      "title": "Laws related to social reform",
+      "notes": "Sati Prohibition (1829), Female Infanticide (1870), Widow Remarriage (1856), Age of Consent (1891), Sharda Act (1929), Special Marriage Act (1872).",
+      "sort_order": 12
+    },
+    {
+      "code": "hist-mod-c09-t13",
+      "chapter_code": "hist-mod-c09",
+      "title": "Dalit and caste movements",
+      "notes": "Phule, Ambedkar (Bahishkrit Hitakarini Sabha 1924), Mahar movement, Justice Party.",
+      "sort_order": 13
+    },
+    {
+      "code": "hist-mod-c10-t01",
+      "chapter_code": "hist-mod-c10",
+      "title": "Early efforts",
+      "notes": "Calcutta Madrasa (Hastings, 1781), Benares Sanskrit College (1791), Fort William College (1800), Missionary education (Serampore).",
+      "sort_order": 1
+    },
+    {
+      "code": "hist-mod-c10-t02",
+      "chapter_code": "hist-mod-c10",
+      "title": "Charter Act 1813",
+      "notes": "Rs 1 lakh for education; Orientalist-Anglicist debate.",
+      "sort_order": 2
+    },
+    {
+      "code": "hist-mod-c10-t03",
+      "chapter_code": "hist-mod-c10",
+      "title": "Macaulay’s Minute (1835)",
+      "notes": "English medium, filtration theory.",
+      "sort_order": 3
+    },
+    {
+      "code": "hist-mod-c10-t04",
+      "chapter_code": "hist-mod-c10",
+      "title": "Wood’s Despatch (1854)",
+      "notes": "“Magna Carta of Indian education”, universities (Calcutta, Bombay, Madras 1857), vernacular schools.",
+      "sort_order": 4
+    },
+    {
+      "code": "hist-mod-c10-t05",
+      "chapter_code": "hist-mod-c10",
+      "title": "Hunter Commission (1882)",
+      "notes": "primary education, women’s education.",
+      "sort_order": 5
+    },
+    {
+      "code": "hist-mod-c10-t06",
+      "chapter_code": "hist-mod-c10",
+      "title": "Indian Universities Act (1904)",
+      "notes": "Curzon; Raleigh Commission; Calcutta University Commission (Sadler, 1917–19).",
+      "sort_order": 6
+    },
+    {
+      "code": "hist-mod-c10-t07",
+      "chapter_code": "hist-mod-c10",
+      "title": "Hartog Committee, Sargent Plan, Wardha Scheme",
+      "notes": "Basic education (Zakir Husain Committee), 1937.",
+      "sort_order": 7
+    },
+    {
+      "code": "hist-mod-c10-t08",
+      "chapter_code": "hist-mod-c10",
+      "title": "National education",
+      "notes": "Bengal National College (Aurobindo), Visva-Bharati (Tagore), Jamia Millia Islamia, Gujarat Vidyapith, Aligarh (Sir Syed), DAV colleges, Gurukul Kangri.",
+      "sort_order": 8
+    },
+    {
+      "code": "hist-mod-c10-t09",
+      "chapter_code": "hist-mod-c10",
+      "title": "Women’s education",
+      "notes": "Bethune School (1849), Karve’s SNDT, Savitribai Phule; Dhondo Keshav Karve.",
+      "sort_order": 9
+    },
+    {
+      "code": "hist-mod-c10-t10",
+      "chapter_code": "hist-mod-c10",
+      "title": "Technical and professional education",
+      "notes": "IISc (Tata), Roorkee Engineering College, Calcutta Medical College.",
+      "sort_order": 10
+    },
+    {
+      "code": "hist-mod-c11-t01",
+      "chapter_code": "hist-mod-c11",
+      "title": "Early press",
+      "notes": "Hicky’s Bengal Gazette (1780), Indian Gazette, Bombay Herald.",
+      "sort_order": 1
+    },
+    {
+      "code": "hist-mod-c11-t02",
+      "chapter_code": "hist-mod-c11",
+      "title": "Press laws",
+      "notes": "Censorship (Wellesley 1799), Licensing Regulations (1823, Adam), Metcalfe (1835 liberation), Licensing Act 1857.",
+      "sort_order": 2
+    },
+    {
+      "code": "hist-mod-c11-t03",
+      "chapter_code": "hist-mod-c11",
+      "title": "Vernacular Press Act (1878)",
+      "notes": "Lytton, repeal by Ripon (1882).",
+      "sort_order": 3
+    },
+    {
+      "code": "hist-mod-c11-t04",
+      "chapter_code": "hist-mod-c11",
+      "title": "Nationalist newspapers",
+      "notes": "Amrita Bazar Patrika, The Hindu, Kesari, Mahratta, Bombay Chronicle, Hindustan Times, Vande Mataram, New India.",
+      "sort_order": 4
+    },
+    {
+      "code": "hist-mod-c11-t05",
+      "chapter_code": "hist-mod-c11",
+      "title": "Press regulations in the 20th century",
+      "notes": "Newspaper Act (1908), Indian Press Act (1910), Sapru Committee, Press Act (1931).",
+      "sort_order": 5
+    },
+    {
+      "code": "hist-mod-c11-t06",
+      "chapter_code": "hist-mod-c11",
+      "title": "Journalists and editors",
+      "notes": "Ram Mohan Roy (Samvad Kaumudi, Mirat-ul-Akhbar), Tilak, Gokhale, Annie Besant, Gandhi (Young India, Harijan), Azad (Al-Hilal).",
+      "sort_order": 6
+    },
+    {
+      "code": "hist-mod-c11-t07",
+      "chapter_code": "hist-mod-c11",
+      "title": "Role of the press in nationalism",
+      "notes": "growth of public opinion, spread of nationalist ideas.",
+      "sort_order": 7
+    },
+    {
+      "code": "hist-mod-c12-t01",
+      "chapter_code": "hist-mod-c12",
+      "title": "Early associations",
+      "notes": "Landholders’ Society (1837), British India Society (1839), Bengal British India Society.",
+      "sort_order": 1
+    },
+    {
+      "code": "hist-mod-c12-t02",
+      "chapter_code": "hist-mod-c12",
+      "title": "British Indian Association (1851)",
+      "notes": "Calcutta; Debendranath Tagore, Radhakanta Deb.",
+      "sort_order": 2
+    },
+    {
+      "code": "hist-mod-c12-t03",
+      "chapter_code": "hist-mod-c12",
+      "title": "Madras Native Association and Bombay Association",
+      "notes": "1852, Jagannath Shankarseth.",
+      "sort_order": 3
+    },
+    {
+      "code": "hist-mod-c12-t04",
+      "chapter_code": "hist-mod-c12",
+      "title": "East India Association (1866)",
+      "notes": "Dadabhai Naoroji, London.",
+      "sort_order": 4
+    },
+    {
+      "code": "hist-mod-c12-t05",
+      "chapter_code": "hist-mod-c12",
+      "title": "Indian Association (1876)",
+      "notes": "Surendranath Banerjee and Anandamohan Bose.",
+      "sort_order": 5
+    },
+    {
+      "code": "hist-mod-c12-t06",
+      "chapter_code": "hist-mod-c12",
+      "title": "Poona Sarvajanik Sabha (1870)",
+      "notes": "M.G. Ranade, Ganesh Vasudev Joshi.",
+      "sort_order": 6
+    },
+    {
+      "code": "hist-mod-c12-t07",
+      "chapter_code": "hist-mod-c12",
+      "title": "Madras Mahajan Sabha (1884)",
+      "notes": "Viraraghavachari, Ananda Charlu.",
+      "sort_order": 7
+    },
+    {
+      "code": "hist-mod-c12-t08",
+      "chapter_code": "hist-mod-c12",
+      "title": "Bombay Presidency Association (1885)",
+      "notes": "Pherozeshah Mehta, Badruddin Tyabji, K.T. Telang.",
+      "sort_order": 8
+    },
+    {
+      "code": "hist-mod-c12-t09",
+      "chapter_code": "hist-mod-c12",
+      "title": "Indian National Association and early nationalism",
+      "notes": "Ilbert Bill agitation, National Conference (1883).",
+      "sort_order": 9
+    },
+    {
+      "code": "hist-mod-c13-t01",
+      "chapter_code": "hist-mod-c13",
+      "title": "Foundation (1885)",
+      "notes": "A.O. Hume, Bombay (Gokuldas Tejpal Sanskrit College), W.C. Bonnerjee (first president), 72 delegates.",
+      "sort_order": 1
+    },
+    {
+      "code": "hist-mod-c13-t02",
+      "chapter_code": "hist-mod-c13",
+      "title": "Safety valve theory",
+      "notes": "Lala Lajpat Rai’s view, evidence for and against; real objectives.",
+      "sort_order": 2
+    },
+    {
+      "code": "hist-mod-c13-t03",
+      "chapter_code": "hist-mod-c13",
+      "title": "Early sessions and presidents",
+      "notes": "Dadabhai Naoroji (1886, 1893, 1906), Badruddin Tyabji (1887), George Yule (1888), Wedderburn, Pherozeshah Mehta, Surendranath Banerjee, Gokhale (1905), Lal Mohan Ghosh.",
+      "sort_order": 3
+    },
+    {
+      "code": "hist-mod-c13-t04",
+      "chapter_code": "hist-mod-c13",
+      "title": "Aims and demands of early Congress",
+      "notes": "Indianisation of services, Legislative council expansion, military expenditure, Home charges, Salt tax.",
+      "sort_order": 4
+    },
+    {
+      "code": "hist-mod-c13-t05",
+      "chapter_code": "hist-mod-c13",
+      "title": "Moderates’ policy: “3 Ps”",
+      "notes": "Prayer, Petition, Protest; constitutional methods; achievements and limitations.",
+      "sort_order": 5
+    },
+    {
+      "code": "hist-mod-c13-t06",
+      "chapter_code": "hist-mod-c13",
+      "title": "Indian Councils Act 1892",
+      "notes": "increased non-official members, right to discuss budget.",
+      "sort_order": 6
+    },
+    {
+      "code": "hist-mod-c13-t07",
+      "chapter_code": "hist-mod-c13",
+      "title": "Early British attitude",
+      "notes": "Dufferin’s hostility, Lord Curzon’s remark.",
+      "sort_order": 7
+    },
+    {
+      "code": "hist-mod-c14-t01",
+      "chapter_code": "hist-mod-c14",
+      "title": "Moderates",
+      "notes": "Naoroji, Gokhale, Ranade, Pherozeshah Mehta, Surendranath Banerjee, W.C. Bonnerjee; beliefs and methods.",
+      "sort_order": 1
+    },
+    {
+      "code": "hist-mod-c14-t02",
+      "chapter_code": "hist-mod-c14",
+      "title": "Rise of Extremism: causes",
+      "notes": "failure of Moderates, Curzon’s policies, growing economic hardship, Indians in Africa, Swami Vivekananda’s influence, international events (Japan 1905).",
+      "sort_order": 2
+    },
+    {
+      "code": "hist-mod-c14-t03",
+      "chapter_code": "hist-mod-c14",
+      "title": "Extremist leaders",
+      "notes": "Bal Gangadhar Tilak, Bipin Chandra Pal, Lala Lajpat Rai (Lal-Bal-Pal), Aurobindo Ghosh.",
+      "sort_order": 3
+    },
+    {
+      "code": "hist-mod-c14-t04",
+      "chapter_code": "hist-mod-c14",
+      "title": "Techniques of Extremists",
+      "notes": "Boycott, Swadeshi, National Education, Passive resistance (Aurobindo).",
+      "sort_order": 4
+    },
+    {
+      "code": "hist-mod-c14-t05",
+      "chapter_code": "hist-mod-c14",
+      "title": "Tilak’s Ganapati and Shivaji festivals",
+      "notes": "Kesari and Mahratta.",
+      "sort_order": 5
+    },
+    {
+      "code": "hist-mod-c14-t06",
+      "chapter_code": "hist-mod-c14",
+      "title": "Differences between Moderates and Extremists",
+      "notes": "tabulated comparison (aims, methods, social base).",
+      "sort_order": 6
+    },
+    {
+      "code": "hist-mod-c14-t07",
+      "chapter_code": "hist-mod-c14",
+      "title": "Role of Surendranath Banerjee, Aurobindo and Tagore",
+      "notes": "Swadeshi phase.",
+      "sort_order": 7
+    },
+    {
+      "code": "hist-mod-c15-t01",
+      "chapter_code": "hist-mod-c15",
+      "title": "Causes",
+      "notes": "Curzon’s administrative reasons vs divide and rule; Bengal’s size, 1903 proposal.",
+      "sort_order": 1
+    },
+    {
+      "code": "hist-mod-c15-t02",
+      "chapter_code": "hist-mod-c15",
+      "title": "Announcement and implementation (16 October 1905)",
+      "notes": "East Bengal and Assam, West Bengal; Risley’s plan.",
+      "sort_order": 2
+    },
+    {
+      "code": "hist-mod-c15-t03",
+      "chapter_code": "hist-mod-c15",
+      "title": "Anti-partition agitation",
+      "notes": "Surendranath Banerjee, Bhupendranath Basu; Raksha Bandhan, Anandamohan Bose; Bande Mataram as the national song.",
+      "sort_order": 3
+    },
+    {
+      "code": "hist-mod-c15-t04",
+      "chapter_code": "hist-mod-c15",
+      "title": "Swadeshi Movement",
+      "notes": "boycott of foreign goods, Swadeshi enterprises, Bengal Chemicals, national education (National Council of Education 1906).",
+      "sort_order": 4
+    },
+    {
+      "code": "hist-mod-c15-t05",
+      "chapter_code": "hist-mod-c15",
+      "title": "Boycott and mass participation",
+      "notes": "students, women, Zamindars; Rabindranath Tagore’s Amar Sonar Bangla; Rakhi.",
+      "sort_order": 5
+    },
+    {
+      "code": "hist-mod-c15-t06",
+      "chapter_code": "hist-mod-c15",
+      "title": "Role of leaders",
+      "notes": "Aurobindo, Bipin Chandra Pal, Tilak, Lajpat Rai, Tagore, Ashwini Kumar Dutta (Swadesh Bandhab Samiti).",
+      "sort_order": 6
+    },
+    {
+      "code": "hist-mod-c15-t07",
+      "chapter_code": "hist-mod-c15",
+      "title": "Repression",
+      "notes": "Carlyle Circular, Lyon Circular, Risley Circular.",
+      "sort_order": 7
+    },
+    {
+      "code": "hist-mod-c15-t08",
+      "chapter_code": "hist-mod-c15",
+      "title": "Annulment (1911)",
+      "notes": "Delhi Durbar, King George V.",
+      "sort_order": 8
+    },
+    {
+      "code": "hist-mod-c15-t09",
+      "chapter_code": "hist-mod-c15",
+      "title": "Assessment and impact",
+      "notes": "new political techniques, rise of Extremism, Muslim League consolidation.",
+      "sort_order": 9
+    },
+    {
+      "code": "hist-mod-c16-t01",
+      "chapter_code": "hist-mod-c16",
+      "title": "Banaras session (1905)",
+      "notes": "Gokhale presided; Swadeshi and Boycott resolutions; Moderates vs Extremists tension.",
+      "sort_order": 1
+    },
+    {
+      "code": "hist-mod-c16-t02",
+      "chapter_code": "hist-mod-c16",
+      "title": "Calcutta session (1906)",
+      "notes": "Dadabhai Naoroji, first use of “Swaraj”, resolutions on Swadeshi, Boycott, National Education.",
+      "sort_order": 2
+    },
+    {
+      "code": "hist-mod-c16-t03",
+      "chapter_code": "hist-mod-c16",
+      "title": "Surat session (1907)",
+      "notes": "Rash Behari Ghosh; the Split between Moderates and Extremists; Tilak vs Moderates.",
+      "sort_order": 3
+    },
+    {
+      "code": "hist-mod-c16-t04",
+      "chapter_code": "hist-mod-c16",
+      "title": "After the split",
+      "notes": "Moderate control of Congress, Allahabad Convention (1908), Extremists’ exclusion.",
+      "sort_order": 4
+    },
+    {
+      "code": "hist-mod-c17-t01",
+      "chapter_code": "hist-mod-c17",
+      "title": "Background",
+      "notes": "Sir Syed’s Aligarh movement, British support, Partition of Bengal.",
+      "sort_order": 1
+    },
+    {
+      "code": "hist-mod-c17-t02",
+      "chapter_code": "hist-mod-c17",
+      "title": "Simla Deputation (1906)",
+      "notes": "Aga Khan, separate electorates demand, Viceroy Minto’s response.",
+      "sort_order": 2
+    },
+    {
+      "code": "hist-mod-c17-t03",
+      "chapter_code": "hist-mod-c17",
+      "title": "Foundation at Dhaka (1906)",
+      "notes": "Nawab Salimullah, Nawab Mohsin-ul-Mulk, Viqar-ul-Mulk; objectives.",
+      "sort_order": 3
+    },
+    {
+      "code": "hist-mod-c17-t04",
+      "chapter_code": "hist-mod-c17",
+      "title": "Early leadership",
+      "notes": "Aga Khan, Syed Ameer Ali, Jinnah’s entry (1913).",
+      "sort_order": 4
+    },
+    {
+      "code": "hist-mod-c17-t05",
+      "chapter_code": "hist-mod-c17",
+      "title": "Muslim League vs Congress",
+      "notes": "aims, methods, relations.",
+      "sort_order": 5
+    },
+    {
+      "code": "hist-mod-c17-t06",
+      "chapter_code": "hist-mod-c17",
+      "title": "Later development",
+      "notes": "Lucknow Pact, Khilafat, Lahore Resolution (1940).",
+      "sort_order": 6
+    },
+    {
+      "code": "hist-mod-c18-t01",
+      "chapter_code": "hist-mod-c18",
+      "title": "Background",
+      "notes": "Congress demands, Minto’s Arundel Committee, Morley as Secretary of State.",
+      "sort_order": 1
+    },
+    {
+      "code": "hist-mod-c18-t02",
+      "chapter_code": "hist-mod-c18",
+      "title": "Provisions",
+      "notes": "Legislative councils expanded (Imperial 60, Provincial), non-official majority in provinces, right to discuss budget and ask supplementary questions.",
+      "sort_order": 2
+    },
+    {
+      "code": "hist-mod-c18-t03",
+      "chapter_code": "hist-mod-c18",
+      "title": "Separate electorates",
+      "notes": "for Muslims, “Father of communal electorates” (Minto).",
+      "sort_order": 3
+    },
+    {
+      "code": "hist-mod-c18-t04",
+      "chapter_code": "hist-mod-c18",
+      "title": "Indian in Viceroy’s Executive Council",
+      "notes": "S.P. Sinha (first Indian, 1909).",
+      "sort_order": 4
+    },
+    {
+      "code": "hist-mod-c18-t05",
+      "chapter_code": "hist-mod-c18",
+      "title": "Congress reaction and assessment",
+      "notes": "“Divide and Rule”, Gokhale’s view; Constitution of Council.",
+      "sort_order": 5
+    },
+    {
+      "code": "hist-mod-c19-t01",
+      "chapter_code": "hist-mod-c19",
+      "title": "Delhi Durbar (1911)",
+      "notes": "Coronation of King George V (December 1911), Lord Hardinge II.",
+      "sort_order": 1
+    },
+    {
+      "code": "hist-mod-c19-t02",
+      "chapter_code": "hist-mod-c19",
+      "title": "Announcements",
+      "notes": "Annulment of Partition of Bengal, capital shifted from Calcutta to Delhi, creation of Bihar and Orissa province.",
+      "sort_order": 2
+    },
+    {
+      "code": "hist-mod-c19-t03",
+      "chapter_code": "hist-mod-c19",
+      "title": "Lutyens and Baker",
+      "notes": "New Delhi planning, inauguration 1931.",
+      "sort_order": 3
+    },
+    {
+      "code": "hist-mod-c19-t04",
+      "chapter_code": "hist-mod-c19",
+      "title": "Reactions",
+      "notes": "Bengali and Muslim, Hardinge bomb case (1912, Rash Behari Bose, Basant Biswas).",
+      "sort_order": 4
+    },
+    {
+      "code": "hist-mod-c19-t05",
+      "chapter_code": "hist-mod-c19",
+      "title": "Earlier Durbars",
+      "notes": "1877 (Lytton), 1903 (Curzon).",
+      "sort_order": 5
+    },
+    {
+      "code": "hist-mod-c20-t01",
+      "chapter_code": "hist-mod-c20",
+      "title": "Origins and causes",
+      "notes": "disillusionment with Moderates, repression, Swadeshi, Cult of the bomb.",
+      "sort_order": 1
+    },
+    {
+      "code": "hist-mod-c20-t02",
+      "chapter_code": "hist-mod-c20",
+      "title": "Bengal revolutionaries",
+      "notes": "Anushilan Samiti (Pramathanath Mitra, Barindra Ghosh), Jugantar, Alipore Bomb Case (1908), Khudiram Bose, Prafulla Chaki, Aurobindo.",
+      "sort_order": 2
+    },
+    {
+      "code": "hist-mod-c20-t03",
+      "chapter_code": "hist-mod-c20",
+      "title": "Maharashtra",
+      "notes": "Chapekar brothers (1897), Mitra Mela (V.D. Savarkar), Abhinav Bharat, Nasik conspiracy (1909).",
+      "sort_order": 3
+    },
+    {
+      "code": "hist-mod-c20-t04",
+      "chapter_code": "hist-mod-c20",
+      "title": "Punjab and North India",
+      "notes": "Ajit Singh, Lala Lajpat Rai, Pagri Sambhal Jatta, Hindustan Republican Association (1924, Sachindra Sanyal, Ramprasad Bismil).",
+      "sort_order": 4
+    },
+    {
+      "code": "hist-mod-c20-t05",
+      "chapter_code": "hist-mod-c20",
+      "title": "Kakori Conspiracy (1925)",
+      "notes": "Bismil, Ashfaqulla Khan, Roshan Singh, Rajendra Lahiri.",
+      "sort_order": 5
+    },
+    {
+      "code": "hist-mod-c20-t06",
+      "chapter_code": "hist-mod-c20",
+      "title": "HSRA and Bhagat Singh",
+      "notes": "Hindustan Socialist Republican Association (1928), Saunders murder (1928), Assembly bomb (1929), Lahore Conspiracy Case, Sukhdev, Rajguru.",
+      "sort_order": 6
+    },
+    {
+      "code": "hist-mod-c20-t07",
+      "chapter_code": "hist-mod-c20",
+      "title": "Chittagong Armoury Raid (1930)",
+      "notes": "Surya Sen, Pritilata Waddedar, Kalpana Dutt.",
+      "sort_order": 7
+    },
+    {
+      "code": "hist-mod-c20-t08",
+      "chapter_code": "hist-mod-c20",
+      "title": "Other revolutionary activities",
+      "notes": "Chandrashekhar Azad, Batukeshwar Dutt, Jatin Das (fast death), Madan Lal Dhingra (1909), Ullaskar Dutt.",
+      "sort_order": 8
+    },
+    {
+      "code": "hist-mod-c20-t09",
+      "chapter_code": "hist-mod-c20",
+      "title": "Women revolutionaries",
+      "notes": "Bina Das, Pritilata, Kalpana Dutt, Suniti Chaudhury, Santi Ghose.",
+      "sort_order": 9
+    },
+    {
+      "code": "hist-mod-c20-t10",
+      "chapter_code": "hist-mod-c20",
+      "title": "Assessment",
+      "notes": "role, limitations, ideology (shift to socialism).",
+      "sort_order": 10
+    },
+    {
+      "code": "hist-mod-c21-t01",
+      "chapter_code": "hist-mod-c21",
+      "title": "India House, London",
+      "notes": "Shyamji Krishnavarma, The Indian Sociologist, Savarkar, Madan Lal Dhingra; Madame Cama, S.R. Rana, Virendranath Chattopadhyaya.",
+      "sort_order": 1
+    },
+    {
+      "code": "hist-mod-c21-t02",
+      "chapter_code": "hist-mod-c21",
+      "title": "Ghadar Party (1913)",
+      "notes": "Lala Har Dayal, Sohan Singh Bhakna, San Francisco, Ghadar newspaper; Komagata Maru (1914), Baba Gurdit Singh; Ghadar conspiracy.",
+      "sort_order": 2
+    },
+    {
+      "code": "hist-mod-c21-t03",
+      "chapter_code": "hist-mod-c21",
+      "title": "Berlin Committee",
+      "notes": "Virendranath Chattopadhyaya, Champakraman Pillai; German help, Zimmermann Plan.",
+      "sort_order": 3
+    },
+    {
+      "code": "hist-mod-c21-t04",
+      "chapter_code": "hist-mod-c21",
+      "title": "Provisional Government of India in Kabul (1915)",
+      "notes": "Raja Mahendra Pratap, Barkatullah, Obeidullah Sindhi; Silk Letter conspiracy.",
+      "sort_order": 4
+    },
+    {
+      "code": "hist-mod-c21-t05",
+      "chapter_code": "hist-mod-c21",
+      "title": "Indian Independence League",
+      "notes": "Rash Behari Bose, Mohan Singh; Indian National Army (first INA).",
+      "sort_order": 5
+    },
+    {
+      "code": "hist-mod-c21-t06",
+      "chapter_code": "hist-mod-c21",
+      "title": "Revolutionaries in the Far East",
+      "notes": "Japan, Singapore, Burma; Singapore Mutiny (1915).",
+      "sort_order": 6
+    },
+    {
+      "code": "hist-mod-c21-t07",
+      "chapter_code": "hist-mod-c21",
+      "title": "Madame Cama and the first flag",
+      "notes": "Stuttgart Congress (1907).",
+      "sort_order": 7
+    },
+    {
+      "code": "hist-mod-c22-t01",
+      "chapter_code": "hist-mod-c22",
+      "title": "Lucknow Session (1916)",
+      "notes": "Ambika Charan Mazumdar presided; Tilak’s return; reunion of Moderates and Extremists.",
+      "sort_order": 1
+    },
+    {
+      "code": "hist-mod-c22-t02",
+      "chapter_code": "hist-mod-c22",
+      "title": "Lucknow reunion",
+      "notes": "all question related this.",
+      "sort_order": 2
+    },
+    {
+      "code": "hist-mod-c22-t03",
+      "chapter_code": "hist-mod-c22",
+      "title": "Lucknow Pact",
+      "notes": "Congress-Muslim League pact (December 1916), Jinnah and Tilak; Congress accepts separate electorates; joint demand for self-government.",
+      "sort_order": 3
+    },
+    {
+      "code": "hist-mod-c22-t04",
+      "chapter_code": "hist-mod-c22",
+      "title": "Provisions of the pact",
+      "notes": "one-third Muslim seats in Imperial Legislative Council, weighted representation.",
+      "sort_order": 4
+    },
+    {
+      "code": "hist-mod-c22-t05",
+      "chapter_code": "hist-mod-c22",
+      "title": "Significance and criticism",
+      "notes": "Hindu-Muslim unity, but communal principle accepted.",
+      "sort_order": 5
+    },
+    {
+      "code": "hist-mod-c22-t06",
+      "chapter_code": "hist-mod-c22",
+      "title": "Montagu’s August Declaration (1917)",
+      "notes": "responsible government as the goal.",
+      "sort_order": 6
+    },
+    {
+      "code": "hist-mod-c23-t01",
+      "chapter_code": "hist-mod-c23",
+      "title": "Background",
+      "notes": "First World War, discontent, Tilak’s release (1914), Annie Besant.",
+      "sort_order": 1
+    },
+    {
+      "code": "hist-mod-c23-t02",
+      "chapter_code": "hist-mod-c23",
+      "title": "Tilak’s Home Rule League (April 1916)",
+      "notes": "Poona, Karnataka, Central Provinces, Berar; slogan “Swaraj is my birthright”.",
+      "sort_order": 2
+    },
+    {
+      "code": "hist-mod-c23-t03",
+      "chapter_code": "hist-mod-c23",
+      "title": "Annie Besant’s Home Rule League (September 1916)",
+      "notes": "Madras, rest of India; New India, Commonweal.",
+      "sort_order": 3
+    },
+    {
+      "code": "hist-mod-c23-t04",
+      "chapter_code": "hist-mod-c23",
+      "title": "Role of Besant",
+      "notes": "internment (1917), Congress presidency (Calcutta 1917), Jawaharlal Nehru and others joined.",
+      "sort_order": 4
+    },
+    {
+      "code": "hist-mod-c23-t05",
+      "chapter_code": "hist-mod-c23",
+      "title": "Government response",
+      "notes": "repression, Montagu’s August Declaration.",
+      "sort_order": 5
+    },
+    {
+      "code": "hist-mod-c23-t06",
+      "chapter_code": "hist-mod-c23",
+      "title": "Significance",
+      "notes": "organisation, mass base, pro-war loyalty, bridge to Gandhian phase; fizzled out after 1919.",
+      "sort_order": 6
+    },
+    {
+      "code": "hist-mod-c24-t01",
+      "chapter_code": "hist-mod-c24",
+      "title": "Gandhi in South Africa (1893–1914)",
+      "notes": "Natal Indian Congress, Satyagraha, Phoenix and Tolstoy farms, Indian Opinion.",
+      "sort_order": 1
+    },
+    {
+      "code": "hist-mod-c24-t02",
+      "chapter_code": "hist-mod-c24",
+      "title": "Return to India (1915)",
+      "notes": "Gokhale as guru, Sabarmati Ashram.",
+      "sort_order": 2
+    },
+    {
+      "code": "hist-mod-c24-t03",
+      "chapter_code": "hist-mod-c24",
+      "title": "Champaran Satyagraha (1917)",
+      "notes": "indigo farmers, Tinkathia system, Rajkumar Shukla, Rajendra Prasad; first civil disobedience.",
+      "sort_order": 3
+    },
+    {
+      "code": "hist-mod-c24-t04",
+      "chapter_code": "hist-mod-c24",
+      "title": "Ahmedabad Mill Strike (1918)",
+      "notes": "hunger strike, Anasuya Sarabhai.",
+      "sort_order": 4
+    },
+    {
+      "code": "hist-mod-c24-t05",
+      "chapter_code": "hist-mod-c24",
+      "title": "Kheda Satyagraha (1918)",
+      "notes": "peasants and revenue, Vallabhbhai Patel.",
+      "sort_order": 5
+    },
+    {
+      "code": "hist-mod-c24-t06",
+      "chapter_code": "hist-mod-c24",
+      "title": "Rowlatt Satyagraha",
+      "notes": "see Chapter 25.",
+      "sort_order": 6
+    },
+    {
+      "code": "hist-mod-c24-t07",
+      "chapter_code": "hist-mod-c24",
+      "title": "Gandhi’s ideology",
+      "notes": "Satyagraha, Ahimsa, Sarvodaya, constructive programme, Swadeshi.",
+      "sort_order": 7
+    },
+    {
+      "code": "hist-mod-c25-t01",
+      "chapter_code": "hist-mod-c25",
+      "title": "Rowlatt Act (March 1919)",
+      "notes": "Anarchical and Revolutionary Crimes Act; Sedition Committee (Justice Rowlatt); provisions.",
+      "sort_order": 1
+    },
+    {
+      "code": "hist-mod-c25-t02",
+      "chapter_code": "hist-mod-c25",
+      "title": "Gandhi’s Satyagraha against Rowlatt",
+      "notes": "hartal (6 April 1919), Satyagraha Sabha.",
+      "sort_order": 2
+    },
+    {
+      "code": "hist-mod-c25-t03",
+      "chapter_code": "hist-mod-c25",
+      "title": "Punjab events",
+      "notes": "arrests of Saifuddin Kitchlew and Satyapal; Amritsar, Lahore.",
+      "sort_order": 3
+    },
+    {
+      "code": "hist-mod-c25-t04",
+      "chapter_code": "hist-mod-c25",
+      "title": "Jallianwala Bagh (13 April 1919)",
+      "notes": "General Dyer, Baisakhi gathering, firing, casualties.",
+      "sort_order": 4
+    },
+    {
+      "code": "hist-mod-c25-t05",
+      "chapter_code": "hist-mod-c25",
+      "title": "Martial law and Hunter Commission",
+      "notes": "Crawling Order, Hunter Committee (Oct 1919), Congress inquiry (Motilal Nehru).",
+      "sort_order": 5
+    },
+    {
+      "code": "hist-mod-c25-t06",
+      "chapter_code": "hist-mod-c25",
+      "title": "Reactions",
+      "notes": "Tagore returned Knighthood, Gandhi’s Kaisar-i-Hind renouncing.",
+      "sort_order": 6
+    },
+    {
+      "code": "hist-mod-c25-t07",
+      "chapter_code": "hist-mod-c25",
+      "title": "Udham Singh (1940)",
+      "notes": "killing of Michael O’Dwyer.",
+      "sort_order": 7
+    },
+    {
+      "code": "hist-mod-c25-t08",
+      "chapter_code": "hist-mod-c25",
+      "title": "Montagu-Chelmsford Reforms and Act of 1919",
+      "notes": "Dyarchy, bicameral central legislature.",
+      "sort_order": 8
+    },
+    {
+      "code": "hist-mod-c26-t01",
+      "chapter_code": "hist-mod-c26",
+      "title": "Background",
+      "notes": "Turkey’s defeat in WWI, Treaty of Sevres (1920), Caliph’s position.",
+      "sort_order": 1
+    },
+    {
+      "code": "hist-mod-c26-t02",
+      "chapter_code": "hist-mod-c26",
+      "title": "Khilafat Committee (1919)",
+      "notes": "Ali Brothers (Muhammad Ali and Shaukat Ali), Abul Kalam Azad, Hakim Ajmal Khan, Hasrat Mohani.",
+      "sort_order": 2
+    },
+    {
+      "code": "hist-mod-c26-t03",
+      "chapter_code": "hist-mod-c26",
+      "title": "Hindu-Muslim unity",
+      "notes": "Gandhi’s support; All India Khilafat Conference (Delhi, 1919); Khilafat Day (19 Oct 1919).",
+      "sort_order": 3
+    },
+    {
+      "code": "hist-mod-c26-t04",
+      "chapter_code": "hist-mod-c26",
+      "title": "Link with Non-Cooperation",
+      "notes": "Gandhi’s alliance, Hijrat movement.",
+      "sort_order": 4
+    },
+    {
+      "code": "hist-mod-c26-t05",
+      "chapter_code": "hist-mod-c26",
+      "title": "Moplah revolt and decline",
+      "notes": "Abolition of Caliphate by Mustafa Kemal Ataturk (1924).",
+      "sort_order": 5
+    },
+    {
+      "code": "hist-mod-c26-t06",
+      "chapter_code": "hist-mod-c26",
+      "title": "Assessment",
+      "notes": "Hindu-Muslim unity, communal drift.",
+      "sort_order": 6
+    },
+    {
+      "code": "hist-mod-c27-t01",
+      "chapter_code": "hist-mod-c27",
+      "title": "Background and causes",
+      "notes": "Rowlatt Act, Jallianwala, Khilafat, Hunter Report, Montagu-Chelmsford.",
+      "sort_order": 1
+    },
+    {
+      "code": "hist-mod-c27-t02",
+      "chapter_code": "hist-mod-c27",
+      "title": "Calcutta Special Session (Sept 1920)",
+      "notes": "Lala Lajpat Rai presided; resolution on non-cooperation; Nagpur session (Dec 1920): change of Congress goal (Swaraj by all legitimate means).",
+      "sort_order": 2
+    },
+    {
+      "code": "hist-mod-c27-t03",
+      "chapter_code": "hist-mod-c27",
+      "title": "Programme",
+      "notes": "boycott of schools, courts, councils, foreign cloth; Swadeshi, charkha; surrender of titles.",
+      "sort_order": 3
+    },
+    {
+      "code": "hist-mod-c27-t04",
+      "chapter_code": "hist-mod-c27",
+      "title": "Constructive programme",
+      "notes": "National schools (Jamia Millia, Kashi Vidyapith), Panchayats, Khadi, Tilak Swaraj Fund (Rs 1 crore).",
+      "sort_order": 4
+    },
+    {
+      "code": "hist-mod-c27-t05",
+      "chapter_code": "hist-mod-c27",
+      "title": "Mass participation",
+      "notes": "tribal and peasant movements, Eka, Moplah, Assam tea workers, Rampa, Chirala-Perala, Forest satyagraha.",
+      "sort_order": 5
+    },
+    {
+      "code": "hist-mod-c27-t06",
+      "chapter_code": "hist-mod-c27",
+      "title": "Prince of Wales visit (Nov 1921)",
+      "notes": "hartal; Chauri Chaura (5 Feb 1922) leading to withdrawal (12 Feb 1922, Bardoli).",
+      "sort_order": 6
+    },
+    {
+      "code": "hist-mod-c27-t07",
+      "chapter_code": "hist-mod-c27",
+      "title": "Gandhi’s arrest and trial (March 1922)",
+      "notes": "sedition, six years’ sentence.",
+      "sort_order": 7
+    },
+    {
+      "code": "hist-mod-c27-t08",
+      "chapter_code": "hist-mod-c27",
+      "title": "Assessment",
+      "notes": "first mass movement, Hindu-Muslim unity, rural involvement; criticism of sudden suspension.",
+      "sort_order": 8
+    },
+    {
+      "code": "hist-mod-c28-t01",
+      "chapter_code": "hist-mod-c28",
+      "title": "Background",
+      "notes": "withdrawal of NCM, Gaya session (Dec 1922), Council entry debate.",
+      "sort_order": 1
+    },
+    {
+      "code": "hist-mod-c28-t02",
+      "chapter_code": "hist-mod-c28",
+      "title": "Pro-changers vs No-changers",
+      "notes": "C.R. Das, Motilal Nehru vs Rajagopalachari, Rajendra Prasad, Vallabhbhai Patel.",
+      "sort_order": 2
+    },
+    {
+      "code": "hist-mod-c28-t03",
+      "chapter_code": "hist-mod-c28",
+      "title": "Formation of Congress-Khilafat Swaraj Party (1 Jan 1923)",
+      "notes": "C.R. Das (president), Motilal Nehru (secretary), Vithalbhai Patel, N.C. Kelkar.",
+      "sort_order": 3
+    },
+    {
+      "code": "hist-mod-c28-t04",
+      "chapter_code": "hist-mod-c28",
+      "title": "Programme",
+      "notes": "“Wreck from within”, obstruction in councils, walkouts.",
+      "sort_order": 4
+    },
+    {
+      "code": "hist-mod-c28-t05",
+      "chapter_code": "hist-mod-c28",
+      "title": "Achievements",
+      "notes": "1923 elections, Vithalbhai Patel as Speaker (1925), rejection of budgets, Muddiman Committee.",
+      "sort_order": 5
+    },
+    {
+      "code": "hist-mod-c28-t06",
+      "chapter_code": "hist-mod-c28",
+      "title": "Decline",
+      "notes": "death of C.R. Das (1925), Gopinath Saha resolution, Congress Cocanada compromise.",
+      "sort_order": 6
+    },
+    {
+      "code": "hist-mod-c28-t07",
+      "chapter_code": "hist-mod-c28",
+      "title": "Assessment",
+      "notes": "kept national spirit alive, parliamentary experience.",
+      "sort_order": 7
+    },
+    {
+      "code": "hist-mod-c29-t01",
+      "chapter_code": "hist-mod-c29",
+      "title": "Early peasant movements",
+      "notes": "Indigo revolt (1859), Pabna, Deccan Riots, Champaran, Kheda.",
+      "sort_order": 1
+    },
+    {
+      "code": "hist-mod-c29-t02",
+      "chapter_code": "hist-mod-c29",
+      "title": "Awadh Kisan Sabha (1920)",
+      "notes": "Baba Ramchandra, Jawaharlal Nehru; Eka Movement.",
+      "sort_order": 2
+    },
+    {
+      "code": "hist-mod-c29-t03",
+      "chapter_code": "hist-mod-c29",
+      "title": "Moplah revolt (1921)",
+      "notes": "Kerala.",
+      "sort_order": 3
+    },
+    {
+      "code": "hist-mod-c29-t04",
+      "chapter_code": "hist-mod-c29",
+      "title": "Bardoli Satyagraha (1928)",
+      "notes": "Vallabhbhai Patel, Sardar title.",
+      "sort_order": 4
+    },
+    {
+      "code": "hist-mod-c29-t05",
+      "chapter_code": "hist-mod-c29",
+      "title": "All India Kisan Sabha (1936)",
+      "notes": "Lucknow, Swami Sahajanand Saraswati (president), N.G. Ranga; Faizpur Congress.",
+      "sort_order": 5
+    },
+    {
+      "code": "hist-mod-c29-t06",
+      "chapter_code": "hist-mod-c29",
+      "title": "Tebhaga (1946)",
+      "notes": "Bengal, Kisan Sabha; Telangana (1946–51), Punnapra-Vayalar.",
+      "sort_order": 6
+    },
+    {
+      "code": "hist-mod-c29-t07",
+      "chapter_code": "hist-mod-c29",
+      "title": "Peasant movement and Congress",
+      "notes": "relations, Gandhi’s stance, Zamindari abolition demand.",
+      "sort_order": 7
+    },
+    {
+      "code": "hist-mod-c30-t01",
+      "chapter_code": "hist-mod-c30",
+      "title": "Early labour movement",
+      "notes": "Bombay Mill Hands Association (N.M. Lokhande, 1890), Factory Acts, Printer’s union.",
+      "sort_order": 1
+    },
+    {
+      "code": "hist-mod-c30-t02",
+      "chapter_code": "hist-mod-c30",
+      "title": "Formation of AITUC (1920)",
+      "notes": "Lala Lajpat Rai (president), Joseph Baptista; Dewan Chaman Lall.",
+      "sort_order": 2
+    },
+    {
+      "code": "hist-mod-c30-t03",
+      "chapter_code": "hist-mod-c30",
+      "title": "Madras Labour Union (1918)",
+      "notes": "B.P. Wadia; Ahmedabad Textile Labour Association (Gandhi, 1918).",
+      "sort_order": 3
+    },
+    {
+      "code": "hist-mod-c30-t04",
+      "chapter_code": "hist-mod-c30",
+      "title": "Early Communist groups",
+      "notes": "M.N. Roy (Tashkent 1920), S.A. Dange, Muzaffar Ahmad, Ghulam Hussain.",
+      "sort_order": 4
+    },
+    {
+      "code": "hist-mod-c30-t05",
+      "chapter_code": "hist-mod-c30",
+      "title": "Communist Party of India (CPI, 1925)",
+      "notes": "Kanpur conference; Meerut Conspiracy Case (1929–33).",
+      "sort_order": 5
+    },
+    {
+      "code": "hist-mod-c30-t06",
+      "chapter_code": "hist-mod-c30",
+      "title": "Workers’ and Peasants’ Party (1925)",
+      "notes": "role in the 1920s.",
+      "sort_order": 6
+    },
+    {
+      "code": "hist-mod-c30-t07",
+      "chapter_code": "hist-mod-c30",
+      "title": "Legislation",
+      "notes": "Trade Unions Act (1926), Trade Disputes Act (1929), Royal Commission on Labour (Whitley, 1929).",
+      "sort_order": 7
+    },
+    {
+      "code": "hist-mod-c30-t08",
+      "chapter_code": "hist-mod-c30",
+      "title": "Communists and Congress",
+      "notes": "Congress Socialist Party, Telangana, Quit India stance.",
+      "sort_order": 8
+    },
+    {
+      "code": "hist-mod-c31-t01",
+      "chapter_code": "hist-mod-c31",
+      "title": "Appointment (Nov 1927)",
+      "notes": "Sir John Simon, seven members, all British; announced 1927 as Statutory Commission.",
+      "sort_order": 1
+    },
+    {
+      "code": "hist-mod-c31-t02",
+      "chapter_code": "hist-mod-c31",
+      "title": "Why boycotted",
+      "notes": "all-white, no Indian members; Congress, Muslim League (Jinnah) boycotted.",
+      "sort_order": 2
+    },
+    {
+      "code": "hist-mod-c31-t03",
+      "chapter_code": "hist-mod-c31",
+      "title": "Protest: “Simon Go Back”",
+      "notes": "Lahore (Lala Lajpat Rai’s injury and death), Lucknow (Nehru, Pant), Calcutta.",
+      "sort_order": 3
+    },
+    {
+      "code": "hist-mod-c31-t04",
+      "chapter_code": "hist-mod-c31",
+      "title": "Nehru Report (1928)",
+      "notes": "Motilal Nehru Committee response to Birkenhead’s challenge; dominion status, fundamental rights, joint electorates; All Parties Conference.",
+      "sort_order": 4
+    },
+    {
+      "code": "hist-mod-c31-t05",
+      "chapter_code": "hist-mod-c31",
+      "title": "Jinnah’s Fourteen Points (1929)",
+      "notes": "response to Nehru Report.",
+      "sort_order": 5
+    },
+    {
+      "code": "hist-mod-c31-t06",
+      "chapter_code": "hist-mod-c31",
+      "title": "Simon Report (1930)",
+      "notes": "recommended Provincial autonomy, end of Dyarchy; basis for Government of India Act 1935.",
+      "sort_order": 6
+    },
+    {
+      "code": "hist-mod-c31-t07",
+      "chapter_code": "hist-mod-c31",
+      "title": "Irwin’s Declaration (Oct 1929)",
+      "notes": "dominion status as goal.",
+      "sort_order": 7
+    },
+    {
+      "code": "hist-mod-c32-t01",
+      "chapter_code": "hist-mod-c32",
+      "title": "Lahore Session (Dec 1929)",
+      "notes": "Jawaharlal Nehru presided; Poorna Swaraj resolution.",
+      "sort_order": 1
+    },
+    {
+      "code": "hist-mod-c32-t02",
+      "chapter_code": "hist-mod-c32",
+      "title": "Independence Day (26 January 1930)",
+      "notes": "first celebration; tricolour hoisting on the Ravi bank.",
+      "sort_order": 2
+    },
+    {
+      "code": "hist-mod-c32-t03",
+      "chapter_code": "hist-mod-c32",
+      "title": "Preceding events",
+      "notes": "Irwin’s declaration, Delhi Manifesto, Nehru Report rejection, Calcutta ultimatum (1928).",
+      "sort_order": 3
+    },
+    {
+      "code": "hist-mod-c32-t04",
+      "chapter_code": "hist-mod-c32",
+      "title": "Decision on Civil Disobedience",
+      "notes": "Gandhi authorised to launch.",
+      "sort_order": 4
+    },
+    {
+      "code": "hist-mod-c32-t05",
+      "chapter_code": "hist-mod-c32",
+      "title": "Boycott of Round Table Conference",
+      "notes": "Congress decision.",
+      "sort_order": 5
+    },
+    {
+      "code": "hist-mod-c33-t01",
+      "chapter_code": "hist-mod-c33",
+      "title": "Causes",
+      "notes": "failure of Nehru Report, Great Depression, Simon Commission, Irwin’s inaction; Gandhi’s Eleven Demands.",
+      "sort_order": 1
+    },
+    {
+      "code": "hist-mod-c33-t02",
+      "chapter_code": "hist-mod-c33",
+      "title": "Dandi March (12 March–6 April 1930)",
+      "notes": "Sabarmati to Dandi, 78 followers, breaking the salt law.",
+      "sort_order": 2
+    },
+    {
+      "code": "hist-mod-c33-t03",
+      "chapter_code": "hist-mod-c33",
+      "title": "Spread of the movement",
+      "notes": "Salt law violation across India; boycott of foreign cloth, no-tax; Peshawar (Khan Abdul Ghaffar Khan, Khudai Khidmatgar), Sholapur, Dharasana (Sarojini Naidu).",
+      "sort_order": 3
+    },
+    {
+      "code": "hist-mod-c33-t04",
+      "chapter_code": "hist-mod-c33",
+      "title": "Regional leaders",
+      "notes": "C. Rajagopalachari (Vedaranyam), K. Kelappan (Payyanur), T. Prakasam, Rani Gaidinliu (Nagaland), Chittagong.",
+      "sort_order": 4
+    },
+    {
+      "code": "hist-mod-c33-t05",
+      "chapter_code": "hist-mod-c33",
+      "title": "Government repression",
+      "notes": "ordinances, lathi charge, imprisonment (Gandhi arrested May 1930).",
+      "sort_order": 5
+    },
+    {
+      "code": "hist-mod-c33-t06",
+      "chapter_code": "hist-mod-c33",
+      "title": "Round Table Conferences and Gandhi-Irwin Pact",
+      "notes": "see Chapters 34 and 36.",
+      "sort_order": 6
+    },
+    {
+      "code": "hist-mod-c33-t07",
+      "chapter_code": "hist-mod-c33",
+      "title": "Second CDM (1932)",
+      "notes": "re-launched after Karachi; Government repression; suspended 1933–34.",
+      "sort_order": 7
+    },
+    {
+      "code": "hist-mod-c33-t08",
+      "chapter_code": "hist-mod-c33",
+      "title": "Assessment",
+      "notes": "mass participation (women, peasants, tribals), limitations (Muslims, Dalits).",
+      "sort_order": 8
+    },
+    {
+      "code": "hist-mod-c34-t01",
+      "chapter_code": "hist-mod-c34",
+      "title": "Background",
+      "notes": "First RTC failure, Tej Bahadur Sapru and Jayakar mediation.",
+      "sort_order": 1
+    },
+    {
+      "code": "hist-mod-c34-t02",
+      "chapter_code": "hist-mod-c34",
+      "title": "Signed on 5 March 1931",
+      "notes": "Delhi Pact.",
+      "sort_order": 2
+    },
+    {
+      "code": "hist-mod-c34-t03",
+      "chapter_code": "hist-mod-c34",
+      "title": "Terms",
+      "notes": "Withdrawal of CDM, release of political prisoners, salt manufacture on the coast, return of confiscated property, Congress participation in the Second RTC.",
+      "sort_order": 3
+    },
+    {
+      "code": "hist-mod-c34-t04",
+      "chapter_code": "hist-mod-c34",
+      "title": "Criticism",
+      "notes": "Nehru and Subhas Bose’s disappointment, execution of Bhagat Singh (23 March 1931).",
+      "sort_order": 4
+    },
+    {
+      "code": "hist-mod-c34-t05",
+      "chapter_code": "hist-mod-c34",
+      "title": "Significance",
+      "notes": "first time government treated Congress on equal terms.",
+      "sort_order": 5
+    },
+    {
+      "code": "hist-mod-c35-t01",
+      "chapter_code": "hist-mod-c35",
+      "title": "Karachi Session (March 1931)",
+      "notes": "Sardar Vallabhbhai Patel presided; endorsed the Gandhi-Irwin Pact.",
+      "sort_order": 1
+    },
+    {
+      "code": "hist-mod-c35-t02",
+      "chapter_code": "hist-mod-c35",
+      "title": "Resolution on Fundamental Rights and Economic Programme",
+      "notes": "draft by Nehru; basic rights, nationalisation of key industries, free primary education, labour rights, abolition of untouchability.",
+      "sort_order": 2
+    },
+    {
+      "code": "hist-mod-c35-t03",
+      "chapter_code": "hist-mod-c35",
+      "title": "Black flag demonstration",
+      "notes": "against Bhagat Singh’s execution.",
+      "sort_order": 3
+    },
+    {
+      "code": "hist-mod-c35-t04",
+      "chapter_code": "hist-mod-c35",
+      "title": "Appointment of Gandhi as representative",
+      "notes": "Second RTC.",
+      "sort_order": 4
+    },
+    {
+      "code": "hist-mod-c35-t05",
+      "chapter_code": "hist-mod-c35",
+      "title": "“Purna Swaraj” meaning",
+      "notes": "included social and economic freedom.",
+      "sort_order": 5
+    },
+    {
+      "code": "hist-mod-c36-t01",
+      "chapter_code": "hist-mod-c36",
+      "title": "First RTC (Nov 1930–Jan 1931)",
+      "notes": "London, Ramsay MacDonald; Congress boycotted; attended by Muslim League, Liberals, Princes, Ambedkar.",
+      "sort_order": 1
+    },
+    {
+      "code": "hist-mod-c36-t02",
+      "chapter_code": "hist-mod-c36",
+      "title": "Second RTC (Sept–Dec 1931)",
+      "notes": "Gandhi as sole Congress representative; communal issue deadlock; Sarojini Naidu, Madan Mohan Malaviya.",
+      "sort_order": 2
+    },
+    {
+      "code": "hist-mod-c36-t03",
+      "chapter_code": "hist-mod-c36",
+      "title": "Third RTC (Nov–Dec 1932)",
+      "notes": "Congress absent; White Paper (1933).",
+      "sort_order": 3
+    },
+    {
+      "code": "hist-mod-c36-t04",
+      "chapter_code": "hist-mod-c36",
+      "title": "Issues: Federation and communal question",
+      "notes": "separate electorates for Depressed Classes, Princes’ role.",
+      "sort_order": 4
+    },
+    {
+      "code": "hist-mod-c36-t05",
+      "chapter_code": "hist-mod-c36",
+      "title": "Outcome",
+      "notes": "Communal Award, Government of India Act 1935.",
+      "sort_order": 5
+    },
+    {
+      "code": "hist-mod-c36-t06",
+      "chapter_code": "hist-mod-c36",
+      "title": "Participants",
+      "notes": "Aga Khan, Jinnah, Ambedkar, Sapru, Jayakar, Sir Mirza Ismail.",
+      "sort_order": 6
+    },
+    {
+      "code": "hist-mod-c37-t01",
+      "chapter_code": "hist-mod-c37",
+      "title": "Communal Award (August 1932)",
+      "notes": "Ramsay MacDonald; separate electorates for Muslims, Sikhs, Europeans, Depressed Classes.",
+      "sort_order": 1
+    },
+    {
+      "code": "hist-mod-c37-t02",
+      "chapter_code": "hist-mod-c37",
+      "title": "Gandhi’s fast (Yerwada, September 1932)",
+      "notes": "against separate electorates for Dalits.",
+      "sort_order": 2
+    },
+    {
+      "code": "hist-mod-c37-t03",
+      "chapter_code": "hist-mod-c37",
+      "title": "Poona Pact (24 September 1932)",
+      "notes": "Gandhi and Ambedkar, Madan Mohan Malaviya; reserved seats in joint electorates (148 vs 71 in the Award), Provincial councils.",
+      "sort_order": 3
+    },
+    {
+      "code": "hist-mod-c37-t04",
+      "chapter_code": "hist-mod-c37",
+      "title": "Provisions",
+      "notes": "Depressed Classes’ share in central legislature, education funds, public services.",
+      "sort_order": 4
+    },
+    {
+      "code": "hist-mod-c37-t05",
+      "chapter_code": "hist-mod-c37",
+      "title": "Impact",
+      "notes": "Harijan Sevak Sangh (1932), Harijan newspaper, anti-untouchability campaign, Harijan Yatra.",
+      "sort_order": 5
+    },
+    {
+      "code": "hist-mod-c37-t06",
+      "chapter_code": "hist-mod-c37",
+      "title": "Criticism",
+      "notes": "by Ambedkar and others.",
+      "sort_order": 6
+    },
+    {
+      "code": "hist-mod-c38-t01",
+      "chapter_code": "hist-mod-c38",
+      "title": "Formation (May 1934, Patna/Bombay)",
+      "notes": "Acharya Narendra Dev (president), Jayaprakash Narayan (general secretary), Ram Manohar Lohia, Minoo Masani, Achyut Patwardhan, Asoka Mehta.",
+      "sort_order": 1
+    },
+    {
+      "code": "hist-mod-c38-t02",
+      "chapter_code": "hist-mod-c38",
+      "title": "Ideology",
+      "notes": "Marxism within Congress, socialism, anti-imperialism.",
+      "sort_order": 2
+    },
+    {
+      "code": "hist-mod-c38-t03",
+      "chapter_code": "hist-mod-c38",
+      "title": "Work and impact",
+      "notes": "Kisan and labour movements, role in Quit India.",
+      "sort_order": 3
+    },
+    {
+      "code": "hist-mod-c38-t04",
+      "chapter_code": "hist-mod-c38",
+      "title": "Relations with Congress and communists",
+      "notes": "Gandhi’s response, 1948 exit.",
+      "sort_order": 4
+    },
+    {
+      "code": "hist-mod-c38-t05",
+      "chapter_code": "hist-mod-c38",
+      "title": "Later development",
+      "notes": "Socialist Party (1948), Praja Socialist Party.",
+      "sort_order": 5
+    },
+    {
+      "code": "hist-mod-c39-t01",
+      "chapter_code": "hist-mod-c39",
+      "title": "Government of India Act 1935",
+      "notes": "provincial autonomy, federation, separate electorates, Burma separation; key features.",
+      "sort_order": 1
+    },
+    {
+      "code": "hist-mod-c39-t02",
+      "chapter_code": "hist-mod-c39",
+      "title": "1937 elections",
+      "notes": "Congress won 711 of 1,585 seats; majority in 5 provinces (Madras, Bihar, Orissa, UP, CP), later 8.",
+      "sort_order": 2
+    },
+    {
+      "code": "hist-mod-c39-t03",
+      "chapter_code": "hist-mod-c39",
+      "title": "Muslim League’s performance",
+      "notes": "failure in Muslim seats, Jinnah’s rebuff of coalition (UP).",
+      "sort_order": 3
+    },
+    {
+      "code": "hist-mod-c39-t04",
+      "chapter_code": "hist-mod-c39",
+      "title": "Congress ministries (July 1937)",
+      "notes": "Rajagopalachari (Madras), Govind Ballabh Pant (UP), K.M. Munshi (Bombay), Dr Khan Sahib (NWFP).",
+      "sort_order": 4
+    },
+    {
+      "code": "hist-mod-c39-t05",
+      "chapter_code": "hist-mod-c39",
+      "title": "Work of ministries",
+      "notes": "Civil liberties, tenancy reforms, Wardha Scheme of education, Vidya Mandir.",
+      "sort_order": 5
+    },
+    {
+      "code": "hist-mod-c39-t06",
+      "chapter_code": "hist-mod-c39",
+      "title": "Resignation (Oct–Nov 1939)",
+      "notes": "India declared at war without consultation.",
+      "sort_order": 6
+    },
+    {
+      "code": "hist-mod-c39-t07",
+      "chapter_code": "hist-mod-c39",
+      "title": "Day of Deliverance (22 Dec 1939)",
+      "notes": "by Muslim League; Jinnah.",
+      "sort_order": 7
+    },
+    {
+      "code": "hist-mod-c40-t01",
+      "chapter_code": "hist-mod-c40",
+      "title": "Background",
+      "notes": "Haripura Congress (1938, Bose president), National Planning Committee (Nehru).",
+      "sort_order": 1
+    },
+    {
+      "code": "hist-mod-c40-t02",
+      "chapter_code": "hist-mod-c40",
+      "title": "Presidential election (Jan 1939)",
+      "notes": "Subhas Chandra Bose defeated Pattabhi Sitaramayya (Gandhi’s candidate); 1580 vs 1375 votes.",
+      "sort_order": 2
+    },
+    {
+      "code": "hist-mod-c40-t03",
+      "chapter_code": "hist-mod-c40",
+      "title": "Tripuri Session (March 1939)",
+      "notes": "Bose’s illness, Pant resolution (Gandhi’s guidance).",
+      "sort_order": 3
+    },
+    {
+      "code": "hist-mod-c40-t04",
+      "chapter_code": "hist-mod-c40",
+      "title": "Bose’s resignation and Forward Bloc (May 1939)",
+      "notes": "Rajendra Prasad took over.",
+      "sort_order": 4
+    },
+    {
+      "code": "hist-mod-c40-t05",
+      "chapter_code": "hist-mod-c40",
+      "title": "Significance",
+      "notes": "Gandhi-Bose differences, ideological split.",
+      "sort_order": 5
+    },
+    {
+      "code": "hist-mod-c41-t01",
+      "chapter_code": "hist-mod-c41",
+      "title": "Princely states: overview",
+      "notes": "562 states, one-third of land, Paramountcy, Subsidiary Alliance.",
+      "sort_order": 1
+    },
+    {
+      "code": "hist-mod-c41-t02",
+      "chapter_code": "hist-mod-c41",
+      "title": "Political control and policy",
+      "notes": "Curzon, Minto (Doctrine of Lapse ended 1858), Crown paramountcy.",
+      "sort_order": 2
+    },
+    {
+      "code": "hist-mod-c41-t03",
+      "chapter_code": "hist-mod-c41",
+      "title": "Chamber of Princes (1921)",
+      "notes": "Montagu-Chelmsford; first Chancellor Maharaja of Bikaner.",
+      "sort_order": 3
+    },
+    {
+      "code": "hist-mod-c41-t04",
+      "chapter_code": "hist-mod-c41",
+      "title": "Butler Committee (1927)",
+      "notes": "Paramountcy relations.",
+      "sort_order": 4
+    },
+    {
+      "code": "hist-mod-c41-t05",
+      "chapter_code": "hist-mod-c41",
+      "title": "Praja Mandal movement",
+      "notes": "All India States People’s Conference (1927), Nehru, Rajkot (Gandhi’s fast 1939), Hyderabad (Swami Ramanand Tirtha), Kashmir.",
+      "sort_order": 5
+    },
+    {
+      "code": "hist-mod-c41-t06",
+      "chapter_code": "hist-mod-c41",
+      "title": "Integration (1947–49)",
+      "notes": "Sardar Patel, V.P. Menon; Instrument of Accession, States Department; Hyderabad (Operation Polo), Junagadh (plebiscite), Kashmir (Hari Singh).",
+      "sort_order": 6
+    },
+    {
+      "code": "hist-mod-c41-t07",
+      "chapter_code": "hist-mod-c41",
+      "title": "Mergers and reorganisation",
+      "notes": "covenanting states, Part B and C states, Privy purse (abolished 1971).",
+      "sort_order": 7
+    },
+    {
+      "code": "hist-mod-c42-t01",
+      "chapter_code": "hist-mod-c42",
+      "title": "Causes and outbreak",
+      "notes": "September 1939, Hitler, Germany’s invasion of Poland.",
+      "sort_order": 1
+    },
+    {
+      "code": "hist-mod-c42-t02",
+      "chapter_code": "hist-mod-c42",
+      "title": "India’s reaction",
+      "notes": "Viceroy Linlithgow declared war; Congress Working Committee demand.",
+      "sort_order": 2
+    },
+    {
+      "code": "hist-mod-c42-t03",
+      "chapter_code": "hist-mod-c42",
+      "title": "August Offer (Aug 1940)",
+      "notes": "Dominion status after war, expansion of Executive Council, Constituent Assembly; Congress rejected.",
+      "sort_order": 3
+    },
+    {
+      "code": "hist-mod-c42-t04",
+      "chapter_code": "hist-mod-c42",
+      "title": "Individual Satyagraha",
+      "notes": "see Chapter 44.",
+      "sort_order": 4
+    },
+    {
+      "code": "hist-mod-c42-t05",
+      "chapter_code": "hist-mod-c42",
+      "title": "Economic impact on India",
+      "notes": "inflation, Bengal Famine (1943), Defence of India Rules.",
+      "sort_order": 5
+    },
+    {
+      "code": "hist-mod-c42-t06",
+      "chapter_code": "hist-mod-c42",
+      "title": "Indian soldiers",
+      "notes": "role in Allied forces; INA (see Chapter 47).",
+      "sort_order": 6
+    },
+    {
+      "code": "hist-mod-c42-t07",
+      "chapter_code": "hist-mod-c42",
+      "title": "Atlantic Charter (1941)",
+      "notes": "Churchill’s interpretation excluding India.",
+      "sort_order": 7
+    },
+    {
+      "code": "hist-mod-c42-t08",
+      "chapter_code": "hist-mod-c42",
+      "title": "Japanese advance",
+      "notes": "Singapore, Burma, threat to India; led to Cripps Mission.",
+      "sort_order": 8
+    },
+    {
+      "code": "hist-mod-c43-t01",
+      "chapter_code": "hist-mod-c43",
+      "title": "Early ideas",
+      "notes": "Muhammad Iqbal’s Allahabad address (1930), Choudhary Rahmat Ali’s name “Pakistan” (1933, Cambridge pamphlet).",
+      "sort_order": 1
+    },
+    {
+      "code": "hist-mod-c43-t02",
+      "chapter_code": "hist-mod-c43",
+      "title": "Congress ministries and Muslim League",
+      "notes": "Pirpur Report, Sharif Report, Day of Deliverance.",
+      "sort_order": 2
+    },
+    {
+      "code": "hist-mod-c43-t03",
+      "chapter_code": "hist-mod-c43",
+      "title": "Lahore Resolution (23 March 1940)",
+      "notes": "moved by A.K. Fazlul Huq, “Pakistan” demand; Jinnah’s Two-Nation Theory.",
+      "sort_order": 3
+    },
+    {
+      "code": "hist-mod-c43-t04",
+      "chapter_code": "hist-mod-c43",
+      "title": "Cripps, Gandhi-Jinnah talks",
+      "notes": "C. Rajagopalachari formula (CR Plan, 1944), Gandhi-Jinnah Talks (Bombay, Sept 1944).",
+      "sort_order": 4
+    },
+    {
+      "code": "hist-mod-c43-t05",
+      "chapter_code": "hist-mod-c43",
+      "title": "Wavell Plan and Simla Conference (1945)",
+      "notes": "failure due to League’s demand to nominate all Muslim members.",
+      "sort_order": 5
+    },
+    {
+      "code": "hist-mod-c43-t06",
+      "chapter_code": "hist-mod-c43",
+      "title": "1945–46 elections",
+      "notes": "League swept Muslim seats; Direct Action Day (16 Aug 1946), Calcutta riots.",
+      "sort_order": 6
+    },
+    {
+      "code": "hist-mod-c43-t07",
+      "chapter_code": "hist-mod-c43",
+      "title": "Fourteen Points and Congress response",
+      "notes": "Jinnah’s role.",
+      "sort_order": 7
+    },
+    {
+      "code": "hist-mod-c44-t01",
+      "chapter_code": "hist-mod-c44",
+      "title": "Background",
+      "notes": "failure of August Offer; Gandhi’s decision to offer symbolic protest.",
+      "sort_order": 1
+    },
+    {
+      "code": "hist-mod-c44-t02",
+      "chapter_code": "hist-mod-c44",
+      "title": "Launch (17 Oct 1940)",
+      "notes": "Vinoba Bhave first Satyagrahi (Paunar), Nehru second, Brahma Datt third.",
+      "sort_order": 2
+    },
+    {
+      "code": "hist-mod-c44-t03",
+      "chapter_code": "hist-mod-c44",
+      "title": "Nature and slogan",
+      "notes": "anti-war speeches, “Neither men nor money for the war”.",
+      "sort_order": 3
+    },
+    {
+      "code": "hist-mod-c44-t04",
+      "chapter_code": "hist-mod-c44",
+      "title": "Delhi Chalo march (Dec 1940) and end",
+      "notes": "Individual Satyagraha was wound up after release of leaders (Dec 1941).",
+      "sort_order": 4
+    },
+    {
+      "code": "hist-mod-c44-t05",
+      "chapter_code": "hist-mod-c44",
+      "title": "Aim and significance",
+      "notes": "to demonstrate Indian opinion on war, avoid embarrassing the British at a critical time.",
+      "sort_order": 5
+    },
+    {
+      "code": "hist-mod-c45-t01",
+      "chapter_code": "hist-mod-c45",
+      "title": "Background",
+      "notes": "Japanese advance, Churchill’s War Cabinet, US and Chinese pressure.",
+      "sort_order": 1
+    },
+    {
+      "code": "hist-mod-c45-t02",
+      "chapter_code": "hist-mod-c45",
+      "title": "Arrival (March 1942)",
+      "notes": "Sir Stafford Cripps, Lord Privy Seal, Leader of the House of Commons.",
+      "sort_order": 2
+    },
+    {
+      "code": "hist-mod-c45-t03",
+      "chapter_code": "hist-mod-c45",
+      "title": "Proposals (Draft Declaration)",
+      "notes": "Dominion status after the war, Constituent Assembly, right of provinces to secede, Princely states’ role.",
+      "sort_order": 3
+    },
+    {
+      "code": "hist-mod-c45-t04",
+      "chapter_code": "hist-mod-c45",
+      "title": "Congress’s rejection",
+      "notes": "Dominion status vs independence, provision of separate state; “Post-dated cheque on a failing bank” (Gandhi).",
+      "sort_order": 4
+    },
+    {
+      "code": "hist-mod-c45-t05",
+      "chapter_code": "hist-mod-c45",
+      "title": "Muslim League’s rejection",
+      "notes": "no Pakistan guarantee.",
+      "sort_order": 5
+    },
+    {
+      "code": "hist-mod-c45-t06",
+      "chapter_code": "hist-mod-c45",
+      "title": "Failure and consequences",
+      "notes": "Quit India background.",
+      "sort_order": 6
+    },
+    {
+      "code": "hist-mod-c46-t01",
+      "chapter_code": "hist-mod-c46",
+      "title": "Causes",
+      "notes": "failure of Cripps Mission, rising prices, Japanese threat, British weakness in Burma and Malaya.",
+      "sort_order": 1
+    },
+    {
+      "code": "hist-mod-c46-t02",
+      "chapter_code": "hist-mod-c46",
+      "title": "Wardha Resolution (July 1942)",
+      "notes": "CWC; Bombay session AICC (8 Aug 1942), Gowalia Tank.",
+      "sort_order": 2
+    },
+    {
+      "code": "hist-mod-c46-t03",
+      "chapter_code": "hist-mod-c46",
+      "title": "“Do or Die” speech",
+      "notes": "Gandhi; operation Zero Hour.",
+      "sort_order": 3
+    },
+    {
+      "code": "hist-mod-c46-t04",
+      "chapter_code": "hist-mod-c46",
+      "title": "Government repression",
+      "notes": "arrests (9 Aug 1942), Congress banned; Gandhi at Aga Khan Palace, others in Ahmednagar Fort.",
+      "sort_order": 4
+    },
+    {
+      "code": "hist-mod-c46-t05",
+      "chapter_code": "hist-mod-c46",
+      "title": "Underground leadership",
+      "notes": "Aruna Asaf Ali, Jayaprakash Narayan, Ram Manohar Lohia (Congress Radio, Usha Mehta), Achyut Patwardhan.",
+      "sort_order": 5
+    },
+    {
+      "code": "hist-mod-c46-t06",
+      "chapter_code": "hist-mod-c46",
+      "title": "Parallel governments",
+      "notes": "Ballia (Chittu Pandey), Tamluk (Jatiya Sarkar), Satara (Prati Sarkar, Y.B. Chavan, Nana Patil).",
+      "sort_order": 6
+    },
+    {
+      "code": "hist-mod-c46-t07",
+      "chapter_code": "hist-mod-c46",
+      "title": "Mass violence and repression",
+      "notes": "railway stations, police stations, strikes.",
+      "sort_order": 7
+    },
+    {
+      "code": "hist-mod-c46-t08",
+      "chapter_code": "hist-mod-c46",
+      "title": "Role of Communists, Muslim League and Princes",
+      "notes": "CPI opposed, League and Savarkar’s stance.",
+      "sort_order": 8
+    },
+    {
+      "code": "hist-mod-c46-t09",
+      "chapter_code": "hist-mod-c46",
+      "title": "Gandhi’s fast (1943)",
+      "notes": "Aga Khan Palace; deaths of Kasturba and Mahadev Desai.",
+      "sort_order": 9
+    },
+    {
+      "code": "hist-mod-c46-t10",
+      "chapter_code": "hist-mod-c46",
+      "title": "Assessment and significance",
+      "notes": "last great mass movement; independence became non-negotiable.",
+      "sort_order": 10
+    },
+    {
+      "code": "hist-mod-c47-t01",
+      "chapter_code": "hist-mod-c47",
+      "title": "Early life and politics",
+      "notes": "ICS resignation (1921), Congress president (1938–39), Forward Bloc (1939), Holwell Monument agitation.",
+      "sort_order": 1
+    },
+    {
+      "code": "hist-mod-c47-t02",
+      "chapter_code": "hist-mod-c47",
+      "title": "Escape and Germany",
+      "notes": "house arrest in Calcutta (1941), Kabul, Moscow, Berlin; Free India Centre, Azad Hind Radio, Indian Legion.",
+      "sort_order": 2
+    },
+    {
+      "code": "hist-mod-c47-t03",
+      "chapter_code": "hist-mod-c47",
+      "title": "First INA (Azad Hind Fauj)",
+      "notes": "Captain Mohan Singh, Japanese POWs (1942); disbanded in December 1942.",
+      "sort_order": 3
+    },
+    {
+      "code": "hist-mod-c47-t04",
+      "chapter_code": "hist-mod-c47",
+      "title": "Bose in Southeast Asia (1943)",
+      "notes": "submarine to Japan, Singapore, Rash Behari Bose handing over; “Netaji”.",
+      "sort_order": 4
+    },
+    {
+      "code": "hist-mod-c47-t05",
+      "chapter_code": "hist-mod-c47",
+      "title": "Provisional Government of Free India (21 Oct 1943)",
+      "notes": "Singapore; Andaman and Nicobar (Shaheed and Swaraj islands).",
+      "sort_order": 5
+    },
+    {
+      "code": "hist-mod-c47-t06",
+      "chapter_code": "hist-mod-c47",
+      "title": "INA structure",
+      "notes": "Rani of Jhansi Regiment (Capt. Lakshmi Sahgal), brigades (Gandhi, Nehru, Azad); Slogan “Jai Hind”, “Delhi Chalo”.",
+      "sort_order": 6
+    },
+    {
+      "code": "hist-mod-c47-t07",
+      "chapter_code": "hist-mod-c47",
+      "title": "INA campaign",
+      "notes": "Imphal and Kohima, Burma; Irrawaddy retreat; surrender in 1945, Bose’s death (18 Aug 1945, Taipei air crash claimed).",
+      "sort_order": 7
+    },
+    {
+      "code": "hist-mod-c47-t08",
+      "chapter_code": "hist-mod-c47",
+      "title": "INA trials (1945–46)",
+      "notes": "Red Fort trials, Shah Nawaz Khan, Prem Sahgal, Gurbaksh Singh Dhillon; defense by Bhulabhai Desai, Nehru.",
+      "sort_order": 8
+    },
+    {
+      "code": "hist-mod-c47-t09",
+      "chapter_code": "hist-mod-c47",
+      "title": "Impact",
+      "notes": "Royal Indian Navy Mutiny (Feb 1946), disillusionment of army.",
+      "sort_order": 9
+    },
+    {
+      "code": "hist-mod-c48-t01",
+      "chapter_code": "hist-mod-c48",
+      "title": "Background",
+      "notes": "Labour government’s decision, Attlee’s announcement (Feb 1946).",
+      "sort_order": 1
+    },
+    {
+      "code": "hist-mod-c48-t02",
+      "chapter_code": "hist-mod-c48",
+      "title": "Members",
+      "notes": "Pethick-Lawrence, Stafford Cripps, A.V. Alexander.",
+      "sort_order": 2
+    },
+    {
+      "code": "hist-mod-c48-t03",
+      "chapter_code": "hist-mod-c48",
+      "title": "Proposals (16 May 1946)",
+      "notes": "Rejected Pakistan; Union of India with three groups (A, B, C), Union subjects (defence, foreign affairs, communications), Constituent Assembly, Interim Government.",
+      "sort_order": 3
+    },
+    {
+      "code": "hist-mod-c48-t04",
+      "chapter_code": "hist-mod-c48",
+      "title": "Reactions",
+      "notes": "Muslim League accepted initially, Congress objections to grouping.",
+      "sort_order": 4
+    },
+    {
+      "code": "hist-mod-c48-t05",
+      "chapter_code": "hist-mod-c48",
+      "title": "Nehru’s press statement and League’s withdrawal",
+      "notes": "League’s Direct Action Day (16 Aug 1946).",
+      "sort_order": 5
+    },
+    {
+      "code": "hist-mod-c48-t06",
+      "chapter_code": "hist-mod-c48",
+      "title": "Outcome",
+      "notes": "Constituent Assembly elections (July 1946).",
+      "sort_order": 6
+    },
+    {
+      "code": "hist-mod-c49-t01",
+      "chapter_code": "hist-mod-c49",
+      "title": "Demand for Constituent Assembly",
+      "notes": "M.N. Roy (1934), Congress (1935), August Offer.",
+      "sort_order": 1
+    },
+    {
+      "code": "hist-mod-c49-t02",
+      "chapter_code": "hist-mod-c49",
+      "title": "Cabinet Mission scheme",
+      "notes": "389 members (296 British India, 93 Princely states); indirect elections.",
+      "sort_order": 2
+    },
+    {
+      "code": "hist-mod-c49-t03",
+      "chapter_code": "hist-mod-c49",
+      "title": "Elections (July–August 1946)",
+      "notes": "Congress 208, Muslim League 73.",
+      "sort_order": 3
+    },
+    {
+      "code": "hist-mod-c49-t04",
+      "chapter_code": "hist-mod-c49",
+      "title": "First session (9 December 1946)",
+      "notes": "Sachchidananda Sinha as temporary president; Rajendra Prasad elected president (11 Dec).",
+      "sort_order": 4
+    },
+    {
+      "code": "hist-mod-c49-t05",
+      "chapter_code": "hist-mod-c49",
+      "title": "Objectives Resolution (13 Dec 1946)",
+      "notes": "moved by Nehru, adopted 22 Jan 1947.",
+      "sort_order": 5
+    },
+    {
+      "code": "hist-mod-c49-t06",
+      "chapter_code": "hist-mod-c49",
+      "title": "Committees",
+      "notes": "Drafting Committee (Dr B.R. Ambedkar, 29 Aug 1947), Rules of Procedure, Union Powers (Nehru), Fundamental Rights (Patel).",
+      "sort_order": 6
+    },
+    {
+      "code": "hist-mod-c49-t07",
+      "chapter_code": "hist-mod-c49",
+      "title": "Constitution adoption",
+      "notes": "26 November 1949; commencement 26 January 1950; 2 years, 11 months, 18 days.",
+      "sort_order": 7
+    },
+    {
+      "code": "hist-mod-c49-t08",
+      "chapter_code": "hist-mod-c49",
+      "title": "Muslim League’s boycott",
+      "notes": "separate Pakistan Constituent Assembly.",
+      "sort_order": 8
+    },
+    {
+      "code": "hist-mod-c50-t01",
+      "chapter_code": "hist-mod-c50",
+      "title": "Background",
+      "notes": "Cabinet Mission; Viceroy Wavell.",
+      "sort_order": 1
+    },
+    {
+      "code": "hist-mod-c50-t02",
+      "chapter_code": "hist-mod-c50",
+      "title": "Formation (2 Sept 1946)",
+      "notes": "Nehru as Vice President of Executive Council; Congress ministers (Patel, Rajendra Prasad, Asaf Ali, C. Rajagopalachari).",
+      "sort_order": 2
+    },
+    {
+      "code": "hist-mod-c50-t03",
+      "chapter_code": "hist-mod-c50",
+      "title": "Muslim League entry (October 1946)",
+      "notes": "Liaquat Ali Khan (finance), I.I. Chundrigar, Jogendra Nath Mandal.",
+      "sort_order": 3
+    },
+    {
+      "code": "hist-mod-c50-t04",
+      "chapter_code": "hist-mod-c50",
+      "title": "Direct Action and communal riots",
+      "notes": "Calcutta Killings, Noakhali (Gandhi’s walk), Bihar.",
+      "sort_order": 4
+    },
+    {
+      "code": "hist-mod-c50-t05",
+      "chapter_code": "hist-mod-c50",
+      "title": "Deadlock and friction",
+      "notes": "League vs Congress inside the cabinet.",
+      "sort_order": 5
+    },
+    {
+      "code": "hist-mod-c50-t06",
+      "chapter_code": "hist-mod-c50",
+      "title": "Attlee’s Statement (20 Feb 1947)",
+      "notes": "June 1948 deadline, Wavell replaced by Mountbatten.",
+      "sort_order": 6
+    },
+    {
+      "code": "hist-mod-c51-t01",
+      "chapter_code": "hist-mod-c51",
+      "title": "Mountbatten Plan (3 June 1947)",
+      "notes": "Partition; provinces’ choice; referendum in NWFP and Sylhet; Boundary Commission.",
+      "sort_order": 1
+    },
+    {
+      "code": "hist-mod-c51-t02",
+      "chapter_code": "hist-mod-c51",
+      "title": "Indian Independence Act (18 July 1947)",
+      "notes": "two dominions, 15 August 1947; Princely states’ choice (accession or independence).",
+      "sort_order": 2
+    },
+    {
+      "code": "hist-mod-c51-t03",
+      "chapter_code": "hist-mod-c51",
+      "title": "Radcliffe Line",
+      "notes": "Boundary Commission (Cyril Radcliffe), Punjab and Bengal division, announced 17 August 1947.",
+      "sort_order": 3
+    },
+    {
+      "code": "hist-mod-c51-t04",
+      "chapter_code": "hist-mod-c51",
+      "title": "Partition violence and migration",
+      "notes": "refugees, riots, Gandhi’s fasts, Kolkata.",
+      "sort_order": 4
+    },
+    {
+      "code": "hist-mod-c51-t05",
+      "chapter_code": "hist-mod-c51",
+      "title": "Factors leading to partition",
+      "notes": "communalism, League-Congress relations, British policy, Direct Action, Interim Government.",
+      "sort_order": 5
+    },
+    {
+      "code": "hist-mod-c51-t06",
+      "chapter_code": "hist-mod-c51",
+      "title": "Mountbatten as Governor-General",
+      "notes": "first Governor-General of free India (till June 1948), C. Rajagopalachari (last, 1948–50).",
+      "sort_order": 6
+    },
+    {
+      "code": "hist-mod-c51-t07",
+      "chapter_code": "hist-mod-c51",
+      "title": "Integration of princely states",
+      "notes": "Patel and V.P. Menon.",
+      "sort_order": 7
+    },
+    {
+      "code": "hist-mod-c51-t08",
+      "chapter_code": "hist-mod-c51",
+      "title": "Gandhi’s assassination (30 Jan 1948)",
+      "notes": "Nathuram Godse.",
+      "sort_order": 8
+    },
+    {
+      "code": "hist-mod-c52-t01",
+      "chapter_code": "hist-mod-c52",
+      "title": "Important acts of Parliament",
+      "notes": "Regulating Act 1773, Pitt’s India Act 1784, Charter Acts 1793, 1813, 1833, 1853; Government of India Acts 1858, 1919, 1935; Indian Independence Act 1947.",
+      "sort_order": 1
+    },
+    {
+      "code": "hist-mod-c52-t02",
+      "chapter_code": "hist-mod-c52",
+      "title": "Wars and treaties of the British period",
+      "notes": "Anglo-Mysore, Anglo-Maratha, Anglo-Sikh, Anglo-Burmese, Anglo-Afghan, Anglo-Nepal; main treaties.",
+      "sort_order": 2
+    },
+    {
+      "code": "hist-mod-c52-t03",
+      "chapter_code": "hist-mod-c52",
+      "title": "Governors-General, Viceroys and reforms",
+      "notes": "quick revision.",
+      "sort_order": 3
+    },
+    {
+      "code": "hist-mod-c52-t04",
+      "chapter_code": "hist-mod-c52",
+      "title": "Foreign travellers and writers on British India",
+      "notes": "Bernier, Tavernier, Thomas Roe, Roy, Macaulay, Mill.",
+      "sort_order": 4
+    },
+    {
+      "code": "hist-mod-c52-t05",
+      "chapter_code": "hist-mod-c52",
+      "title": "Tribal and peasant revolts",
+      "notes": "Santhal (1855–56), Kol, Munda (Birsa), Rampa, Moplah (1921), Deccan Riots, Indigo revolt (1859–60), Pabna, Bardoli.",
+      "sort_order": 5
+    },
+    {
+      "code": "hist-mod-c52-t06",
+      "chapter_code": "hist-mod-c52",
+      "title": "Educational and social reforms",
+      "notes": "Woods Despatch, Hunter, Macaulay, Orientalist-Anglicist controversy, Sati and widow remarriage laws.",
+      "sort_order": 6
+    },
+    {
+      "code": "hist-mod-c52-t07",
+      "chapter_code": "hist-mod-c52",
+      "title": "Matching: personalities, dates and events",
+      "notes": "one-liners.",
+      "sort_order": 7
+    },
+    {
+      "code": "hist-mod-c53-t01",
+      "chapter_code": "hist-mod-c53",
+      "title": "Congress sessions and presidents",
+      "notes": "year, place, president (1885–1947).",
+      "sort_order": 1
+    },
+    {
+      "code": "hist-mod-c53-t02",
+      "chapter_code": "hist-mod-c53",
+      "title": "Important slogans and their authors",
+      "notes": "“Swaraj is my birthright”, “Do or Die”, “Delhi Chalo”, “Jai Hind”, “Inquilab Zindabad”, “Vande Mataram”, “Quit India”.",
+      "sort_order": 2
+    },
+    {
+      "code": "hist-mod-c53-t03",
+      "chapter_code": "hist-mod-c53",
+      "title": "Newspapers and books of the freedom movement",
+      "notes": "Hind Swaraj, Discovery of India, Anandamath, Gitanjali.",
+      "sort_order": 3
+    },
+    {
+      "code": "hist-mod-c53-t04",
+      "chapter_code": "hist-mod-c53",
+      "title": "Women in the freedom struggle",
+      "notes": "Sarojini Naidu, Annie Besant, Kasturba Gandhi, Aruna Asaf Ali, Madame Cama, Sucheta Kripalani, Kamaladevi Chattopadhyay, Rani Gaidinliu.",
+      "sort_order": 4
+    },
+    {
+      "code": "hist-mod-c53-t05",
+      "chapter_code": "hist-mod-c53",
+      "title": "Tribal movements and Dalit leaders",
+      "notes": "Birsa, Ambedkar, Phule, Periyar.",
+      "sort_order": 5
+    },
+    {
+      "code": "hist-mod-c53-t06",
+      "chapter_code": "hist-mod-c53",
+      "title": "Important committees and commissions",
+      "notes": "Hunter, Simon, Sadler, Butler, Sapru, Nehru.",
+      "sort_order": 6
+    },
+    {
+      "code": "hist-mod-c53-t07",
+      "chapter_code": "hist-mod-c53",
+      "title": "Wartime and post-war events",
+      "notes": "INA trials, RIN Mutiny (1946), Telangana, Tebhaga.",
+      "sort_order": 7
+    },
+    {
+      "code": "hist-mod-c53-t08",
+      "chapter_code": "hist-mod-c53",
+      "title": "Foreign personalities and Indian freedom movement",
+      "notes": "Annie Besant, C.F. Andrews, A.O. Hume, Madeleine Slade (Mirabehn), Sister Nivedita.",
+      "sort_order": 8
+    },
+    {
+      "code": "hist-mod-c53-t09",
+      "chapter_code": "hist-mod-c53",
+      "title": "Mixed matching and one-liners",
+      "notes": "who said what, who founded what, which year.",
+      "sort_order": 9
+    }
+  ]
+}

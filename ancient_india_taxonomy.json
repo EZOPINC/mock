@@ -1,0 +1,1480 @@
+{
+    "schema_version": 1,
+    "subject": {
+        "code": "history",
+        "title": "History"
+    },
+    "scope": "Ancient India",
+    "chapters": [
+        {
+            "code": "hist-anc-c01",
+            "subject_code": "history",
+            "title": "Stone Age: Palaeolithic to Megalithic Cultures",
+            "sort_order": 1
+        },
+        {
+            "code": "hist-anc-c02",
+            "subject_code": "history",
+            "title": "Indus Valley (Harappan) Civilization",
+            "sort_order": 2
+        },
+        {
+            "code": "hist-anc-c03",
+            "subject_code": "history",
+            "title": "Vedic Age: Early and Later Vedic Period",
+            "sort_order": 3
+        },
+        {
+            "code": "hist-anc-c04",
+            "subject_code": "history",
+            "title": "Sixth Century B.C.: Mahajanapadas and Rise of Magadha",
+            "sort_order": 4
+        },
+        {
+            "code": "hist-anc-c05",
+            "subject_code": "history",
+            "title": "Buddhism",
+            "sort_order": 5
+        },
+        {
+            "code": "hist-anc-c06",
+            "subject_code": "history",
+            "title": "Jainism",
+            "sort_order": 6
+        },
+        {
+            "code": "hist-anc-c07",
+            "subject_code": "history",
+            "title": "Foreign Invasions: Persian and Greek (Alexander)",
+            "sort_order": 7
+        },
+        {
+            "code": "hist-anc-c08",
+            "subject_code": "history",
+            "title": "Mauryan Empire",
+            "sort_order": 8
+        },
+        {
+            "code": "hist-anc-c09",
+            "subject_code": "history",
+            "title": "Post-Mauryan Period: Shungas, Satavahanas and Foreign Rulers",
+            "sort_order": 9
+        },
+        {
+            "code": "hist-anc-c10",
+            "subject_code": "history",
+            "title": "Gupta Empire and the Post-Gupta Age (Harsha)",
+            "sort_order": 10
+        },
+        {
+            "code": "hist-anc-c11",
+            "subject_code": "history",
+            "title": "South India: Sangam Age, Pallavas, Chalukyas and Cholas",
+            "sort_order": 11
+        },
+        {
+            "code": "hist-anc-c12",
+            "subject_code": "history",
+            "title": "Early Medieval India: Rajputs, Palas and Early Invasions",
+            "sort_order": 12
+        },
+        {
+            "code": "hist-anc-c13",
+            "subject_code": "history",
+            "title": "Shaivism and Vaishnavism (Bhagavata Religion)",
+            "sort_order": 13
+        },
+        {
+            "code": "hist-anc-c14",
+            "subject_code": "history",
+            "title": "Architecture and Art of Ancient India",
+            "sort_order": 14
+        },
+        {
+            "code": "hist-anc-c15",
+            "subject_code": "history",
+            "title": "Ancient Literature and Authors",
+            "sort_order": 15
+        },
+        {
+            "code": "hist-anc-c16",
+            "subject_code": "history",
+            "title": "Miscellaneous (Mixed Ancient History)",
+            "sort_order": 16
+        }
+    ],
+    "topics": [
+        {
+            "code": "hist-anc-c01-t01",
+            "chapter_code": "hist-anc-c01",
+            "title": "Sources and periodisation",
+            "notes": "prehistory vs protohistory vs history; archaeological, literary and foreign-account sources; Robert Bruce Foote (1863, Pallavaram, first Palaeolithic tool); three-age system.",
+            "sort_order": 1
+        },
+        {
+            "code": "hist-anc-c01-t02",
+            "chapter_code": "hist-anc-c01",
+            "title": "Palaeolithic (Old Stone Age)",
+            "notes": "Lower, Middle and Upper phases; hand-axe, cleaver, chopper, flake, blade, burin; hunter-gatherers, knowledge of fire; Pleistocene climate.",
+            "sort_order": 2
+        },
+        {
+            "code": "hist-anc-c01-t03",
+            "chapter_code": "hist-anc-c01",
+            "title": "Palaeolithic sites",
+            "notes": "Bhimbetka (MP), Attirampakkam, Hunsgi (Karnataka), Soan valley (Pakistan), Belan valley (UP), Kurnool caves (AP), Didwana (Rajasthan).",
+            "sort_order": 3
+        },
+        {
+            "code": "hist-anc-c01-t04",
+            "chapter_code": "hist-anc-c01",
+            "title": "Mesolithic (Middle Stone Age)",
+            "notes": "microliths, bow and arrow, beginning of animal domestication; sites: Bagor (Rajasthan), Adamgarh (MP), Langhnaj (Gujarat), Sarai Nahar Rai, Mahadaha (UP).",
+            "sort_order": 4
+        },
+        {
+            "code": "hist-anc-c01-t05",
+            "chapter_code": "hist-anc-c01",
+            "title": "Rock art and cave paintings",
+            "notes": "Bhimbetka, Mirzapur, Raisen; themes (hunting, dance, animals); colours used; Mesolithic vs Upper Palaeolithic paintings.",
+            "sort_order": 5
+        },
+        {
+            "code": "hist-anc-c01-t06",
+            "chapter_code": "hist-anc-c01",
+            "title": "Neolithic (New Stone Age)",
+            "notes": "polished stone tools (celts), agriculture, pottery, settled life; wheel; domestication of cattle, sheep, goat.",
+            "sort_order": 6
+        },
+        {
+            "code": "hist-anc-c01-t07",
+            "chapter_code": "hist-anc-c01",
+            "title": "Neolithic sites",
+            "notes": "Mehrgarh (Baluchistan, earliest farming), Burzahom and Gufkral (Kashmir, pit dwellings), Chirand (Bihar, bone tools), Koldihwa (earliest rice), Maski, Brahmagiri, Piklihal, Utnur (South India), Daojali Hading (Assam).",
+            "sort_order": 7
+        },
+        {
+            "code": "hist-anc-c01-t08",
+            "chapter_code": "hist-anc-c01",
+            "title": "Chalcolithic (Copper-Stone Age)",
+            "notes": "first use of copper; painted pottery; rural economy; mother-goddess figures; child burial in houses.",
+            "sort_order": 8
+        },
+        {
+            "code": "hist-anc-c01-t09",
+            "chapter_code": "hist-anc-c01",
+            "title": "Chalcolithic cultures",
+            "notes": "Ahar-Banas, Kayatha, Malwa, Jorwe, Savalda, Prabhas, Rangpur; Inamgaon, Daimabad, Navdatoli.",
+            "sort_order": 9
+        },
+        {
+            "code": "hist-anc-c01-t10",
+            "chapter_code": "hist-anc-c01",
+            "title": "Megalithic culture and beginning of Iron Age",
+            "notes": "burial types (cist, menhir, dolmen, cairn), South Indian megaliths, early iron use, Painted Grey Ware.",
+            "sort_order": 10
+        },
+        {
+            "code": "hist-anc-c01-t11",
+            "chapter_code": "hist-anc-c01",
+            "title": "firsts and comparisons",
+            "notes": "tools by age, metals by age, earliest agriculture, earliest domestication, site-to-state matching.",
+            "sort_order": 11
+        },
+        {
+            "code": "hist-anc-c02-t01",
+            "chapter_code": "hist-anc-c02",
+            "title": "Discovery and excavation history",
+            "notes": "Charles Masson, Cunningham; Harappa (Dayaram Sahni, 1921), Mohenjodaro (R.D. Banerjee, 1922); John Marshall, Mortimer Wheeler, later excavators.",
+            "sort_order": 1
+        },
+        {
+            "code": "hist-anc-c02-t02",
+            "chapter_code": "hist-anc-c02",
+            "title": "Name, extent and chronology",
+            "notes": "Harappan vs Indus-Saraswati; geographical spread (north-south-east-west limits); phases (Early, Mature, Late); dating (c. 2600–1900 BCE, radiocarbon).",
+            "sort_order": 2
+        },
+        {
+            "code": "hist-anc-c02-t03",
+            "chapter_code": "hist-anc-c02",
+            "title": "Origin and authors",
+            "notes": "theories of origin; Dravidian, Aryan, Sumerian debate; Pre-Harappan link (Kot Diji, Amri, Kalibangan).",
+            "sort_order": 3
+        },
+        {
+            "code": "hist-anc-c02-t04",
+            "chapter_code": "hist-anc-c02",
+            "title": "Major sites and their features",
+            "notes": "Harappa, Mohenjodaro, Chanhudaro, Kalibangan, Lothal, Dholavira, Rakhigarhi, Banawali, Surkotada, Sutkagendor, Ropar, Alamgirpur; site-state-river matching.",
+            "sort_order": 4
+        },
+        {
+            "code": "hist-anc-c02-t05",
+            "chapter_code": "hist-anc-c02",
+            "title": "Town planning",
+            "notes": "grid layout, citadel and lower town, drainage, burnt bricks, Great Bath, granary, Dholavira’s water system.",
+            "sort_order": 5
+        },
+        {
+            "code": "hist-anc-c02-t06",
+            "chapter_code": "hist-anc-c02",
+            "title": "Economy: agriculture and animals",
+            "notes": "crops (wheat, barley, cotton, rice at Lothal and Rangpur), domesticated animals, absence of horse, plough fields at Kalibangan.",
+            "sort_order": 6
+        },
+        {
+            "code": "hist-anc-c02-t07",
+            "chapter_code": "hist-anc-c02",
+            "title": "Trade and commerce",
+            "notes": "internal and foreign trade, Mesopotamia (Meluhha), Dilmun, Magan, Lothal dockyard, seals, weights and measures, barter.",
+            "sort_order": 7
+        },
+        {
+            "code": "hist-anc-c02-t08",
+            "chapter_code": "hist-anc-c02",
+            "title": "Crafts, industries and technology",
+            "notes": "bronze working, bead making (Chanhudaro), pottery, metals and sources, lapis lazuli from Shortughai.",
+            "sort_order": 8
+        },
+        {
+            "code": "hist-anc-c02-t09",
+            "chapter_code": "hist-anc-c02",
+            "title": "Society and daily life",
+            "notes": "social structure, dress, ornaments, food, cosmetics, games, toys, burial practices.",
+            "sort_order": 9
+        },
+        {
+            "code": "hist-anc-c02-t10",
+            "chapter_code": "hist-anc-c02",
+            "title": "Religion and beliefs",
+            "notes": "Mother Goddess, Pashupati seal, sacred animals and trees, phallic worship, fire altars, amulets.",
+            "sort_order": 10
+        },
+        {
+            "code": "hist-anc-c02-t11",
+            "chapter_code": "hist-anc-c02",
+            "title": "Art, seals and script",
+            "notes": "steatite seals, bronze dancing girl, priest-king, red sandstone torso; undeciphered script (boustrophedon).",
+            "sort_order": 11
+        },
+        {
+            "code": "hist-anc-c02-t12",
+            "chapter_code": "hist-anc-c02",
+            "title": "Decline and end",
+            "notes": "theories: flood, river shift, Aryan invasion, climate change, trade decline; Late Harappan.",
+            "sort_order": 12
+        },
+        {
+            "code": "hist-anc-c02-t13",
+            "chapter_code": "hist-anc-c02",
+            "title": "unique facts",
+            "notes": "firsts (cotton, dockyard, ploughed field), what Harappans did not know (iron, horse), site-to-discoverer matching.",
+            "sort_order": 13
+        },
+        {
+            "code": "hist-anc-c03-t01",
+            "chapter_code": "hist-anc-c03",
+            "title": "Origin of the Aryans",
+            "notes": "theories (Central Asia, Arctic home of Tilak, Tibet, Indian homeland); Max Müller, Dayanand Saraswati, B.G. Tilak; Iranian and Avesta link.",
+            "sort_order": 1
+        },
+        {
+            "code": "hist-anc-c03-t02",
+            "chapter_code": "hist-anc-c03",
+            "title": "Sources of the Vedic period",
+            "notes": "literary sources; Painted Grey Ware and archaeological evidence; Boghazkoi inscription.",
+            "sort_order": 2
+        },
+        {
+            "code": "hist-anc-c03-t03",
+            "chapter_code": "hist-anc-c03",
+            "title": "Four Vedas",
+            "notes": "Rigveda, Samaveda, Yajurveda (Shukla and Krishna), Atharvaveda; priests attached to each; Samhita, Brahmana, Aranyaka, Upanishad.",
+            "sort_order": 3
+        },
+        {
+            "code": "hist-anc-c03-t04",
+            "chapter_code": "hist-anc-c03",
+            "title": "Other Vedic literature",
+            "notes": "Vedangas, Upavedas, six Darshanas, Sutras, Upanishads; famous Upanishadic sayings.",
+            "sort_order": 4
+        },
+        {
+            "code": "hist-anc-c03-t05",
+            "chapter_code": "hist-anc-c03",
+            "title": "Early Vedic (Rigvedic) period: geography",
+            "notes": "Sapta Saindhava, rivers (Sindhu, Saraswati, Drishadvati, Ganga, Yamuna), Brahmavarta, Aryavarta.",
+            "sort_order": 5
+        },
+        {
+            "code": "hist-anc-c03-t06",
+            "chapter_code": "hist-anc-c03",
+            "title": "Early Vedic political life",
+            "notes": "tribal polity; Rajan, Sabha, Samiti, Vidatha, Gana; Senani, Purohita, Gramani; Dasarajna (Battle of Ten Kings); Bharata, Purus.",
+            "sort_order": 6
+        },
+        {
+            "code": "hist-anc-c03-t07",
+            "chapter_code": "hist-anc-c03",
+            "title": "Early Vedic society and economy",
+            "notes": "patriarchal family, women’s status, varna origin (Purusha Sukta), cattle-rearing, barter, Nishka; Gavishti, Gopati.",
+            "sort_order": 7
+        },
+        {
+            "code": "hist-anc-c03-t08",
+            "chapter_code": "hist-anc-c03",
+            "title": "Early Vedic religion",
+            "notes": "nature worship; Indra, Agni, Varuna, Soma, Ushas, Maruts; yajna; absence of temples and idols.",
+            "sort_order": 8
+        },
+        {
+            "code": "hist-anc-c03-t09",
+            "chapter_code": "hist-anc-c03",
+            "title": "Later Vedic period: geography and polity",
+            "notes": "spread to Gangetic plain; Kuru, Panchala, Kosala, Kashi, Videha; kingdoms, Rajasuya, Ashvamedha, Vajapeya; Ratnins.",
+            "sort_order": 9
+        },
+        {
+            "code": "hist-anc-c03-t10",
+            "chapter_code": "hist-anc-c03",
+            "title": "Later Vedic society",
+            "notes": "rigid varna system, ashramas, gotra, women’s decline, education; sixteen samskaras.",
+            "sort_order": 10
+        },
+        {
+            "code": "hist-anc-c03-t11",
+            "chapter_code": "hist-anc-c03",
+            "title": "Later Vedic economy",
+            "notes": "iron (Shyam Ayas), agriculture, new crops, craftsmen, trade, Nishka, Satamana, Krishnala.",
+            "sort_order": 11
+        },
+        {
+            "code": "hist-anc-c03-t12",
+            "chapter_code": "hist-anc-c03",
+            "title": "Later Vedic religion and philosophy",
+            "notes": "Prajapati, Rudra, Vishnu; sacrifices; Upanishadic thought, karma, atman, moksha.",
+            "sort_order": 12
+        },
+        {
+            "code": "hist-anc-c03-t13",
+            "chapter_code": "hist-anc-c03",
+            "title": "Early vs Later Vedic comparison",
+            "notes": "tabulated differences (polity, society, economy, religion, deities).",
+            "sort_order": 13
+        },
+        {
+            "code": "hist-anc-c03-t14",
+            "chapter_code": "hist-anc-c03",
+            "title": "Epics",
+            "notes": "Ramayana and Mahabharata (later Vedic setting); themes, authorship, dating, key characters, Bhagavad Gita.",
+            "sort_order": 14
+        },
+        {
+            "code": "hist-anc-c04-t01",
+            "chapter_code": "hist-anc-c04",
+            "title": "Background: second urbanisation",
+            "notes": "iron, agriculture surplus, towns, coinage (punch-marked), trade, rise of territorial states.",
+            "sort_order": 1
+        },
+        {
+            "code": "hist-anc-c04-t02",
+            "chapter_code": "hist-anc-c04",
+            "title": "Mahajanapadas: list and capitals",
+            "notes": "the 16 Mahajanapadas (Anguttara Nikaya; Bhagavati Sutra), their capitals, rivers and modern locations.",
+            "sort_order": 2
+        },
+        {
+            "code": "hist-anc-c04-t03",
+            "chapter_code": "hist-anc-c04",
+            "title": "Monarchies vs republics (Ganas/Sanghas)",
+            "notes": "Vajji (Vaishali), Malla, Shakya, Koliya, Licchavi; Kuru, Panchala; how they differed from monarchies.",
+            "sort_order": 3
+        },
+        {
+            "code": "hist-anc-c04-t04",
+            "chapter_code": "hist-anc-c04",
+            "title": "Four powerful states",
+            "notes": "Magadha, Kosala, Vatsa, Avanti; capitals, rulers (Prasenajit, Udayana, Pradyota).",
+            "sort_order": 4
+        },
+        {
+            "code": "hist-anc-c04-t05",
+            "chapter_code": "hist-anc-c04",
+            "title": "Rise of Magadha: reasons",
+            "notes": "geography, iron mines, fertile land, elephants, rivers, capitals (Rajagriha, Pataliputra).",
+            "sort_order": 5
+        },
+        {
+            "code": "hist-anc-c04-t06",
+            "chapter_code": "hist-anc-c04",
+            "title": "Haryanka dynasty",
+            "notes": "Bimbisara (matrimonial alliances, Anga conquest), Ajatashatru (war with Vajji, Licchavi, Kosala; Rajagriha council), Udayin (Pataliputra).",
+            "sort_order": 6
+        },
+        {
+            "code": "hist-anc-c04-t07",
+            "chapter_code": "hist-anc-c04",
+            "title": "Shishunaga dynasty",
+            "notes": "Shishunaga, Kalashoka (second Buddhist council), defeat of Avanti.",
+            "sort_order": 7
+        },
+        {
+            "code": "hist-anc-c04-t08",
+            "chapter_code": "hist-anc-c04",
+            "title": "Nanda dynasty",
+            "notes": "Mahapadma Nanda (“Ekarat”, “Sarva Kshatrantaka”), Dhana Nanda, wealth and army, fall to Chandragupta.",
+            "sort_order": 8
+        },
+        {
+            "code": "hist-anc-c04-t09",
+            "chapter_code": "hist-anc-c04",
+            "title": "Administration and economy",
+            "notes": "Gramas, Bhaga, Bali, Bhoga; officials; taxes; standing army.",
+            "sort_order": 9
+        },
+        {
+            "code": "hist-anc-c04-t10",
+            "chapter_code": "hist-anc-c04",
+            "title": "Foreign invasions: Persian (Achaemenid)",
+            "notes": "Cyrus, Darius I (Gandhara, Sindh), Xerxes; Behistun inscription, Persepolis; Kharoshthi, Karshapana; influence on India.",
+            "sort_order": 10
+        },
+        {
+            "code": "hist-anc-c05-t01",
+            "chapter_code": "hist-anc-c05",
+            "title": "Religious background of the 6th century BCE",
+            "notes": "causes of rise of new sects; Vedic ritualism, caste, Kshatriya reaction, trade and new economy.",
+            "sort_order": 1
+        },
+        {
+            "code": "hist-anc-c05-t02",
+            "chapter_code": "hist-anc-c05",
+            "title": "Life of Gautama Buddha",
+            "notes": "birth (Lumbini, 563 BCE), Kapilavastu, Shakya clan, parents, Yashodhara, Rahul; Mahabhinishkramana.",
+            "sort_order": 2
+        },
+        {
+            "code": "hist-anc-c05-t03",
+            "chapter_code": "hist-anc-c05",
+            "title": "Four great events and symbols",
+            "notes": "birth, enlightenment (Bodh Gaya), first sermon (Dharmachakra Pravartana, Sarnath), death (Mahaparinirvana, Kushinagar); symbols for each.",
+            "sort_order": 3
+        },
+        {
+            "code": "hist-anc-c05-t04",
+            "chapter_code": "hist-anc-c05",
+            "title": "Teachings: Four Noble Truths and Eightfold Path",
+            "notes": "dukkha, samudaya, nirodha, marga; Madhyama Marga; Panchsheel; Nirvana; Anatmavada; Pratityasamutpada.",
+            "sort_order": 4
+        },
+        {
+            "code": "hist-anc-c05-t05",
+            "chapter_code": "hist-anc-c05",
+            "title": "Buddhist sangha and organisation",
+            "notes": "Bhikshu, Bhikkhuni, Upasaka; Ananda; Mahaprajapati Gautami; Triratna (Buddha, Dhamma, Sangha); Vinaya rules.",
+            "sort_order": 5
+        },
+        {
+            "code": "hist-anc-c05-t06",
+            "chapter_code": "hist-anc-c05",
+            "title": "Buddhist councils",
+            "notes": "four councils: place, year, patron king, president, outcome (Rajagriha, Vaishali, Pataliputra, Kashmir).",
+            "sort_order": 6
+        },
+        {
+            "code": "hist-anc-c05-t07",
+            "chapter_code": "hist-anc-c05",
+            "title": "Buddhist literature",
+            "notes": "Tripitaka (Vinaya, Sutta, Abhidhamma); Jataka tales; Milindapanho; Dipavamsa, Mahavamsa; Buddhacharita, Dhammapada.",
+            "sort_order": 7
+        },
+        {
+            "code": "hist-anc-c05-t08",
+            "chapter_code": "hist-anc-c05",
+            "title": "Sects and schools",
+            "notes": "Hinayana (Theravada), Mahayana, Vajrayana; Sarvastivada, Sautrantika, Madhyamika, Yogachara; Nagarjuna, Asanga, Vasubandhu.",
+            "sort_order": 8
+        },
+        {
+            "code": "hist-anc-c05-t09",
+            "chapter_code": "hist-anc-c05",
+            "title": "Patrons and spread of Buddhism",
+            "notes": "Bimbisara, Ajatashatru, Ashoka, Kanishka, Harsha; spread outside India (Sri Lanka, China, Tibet, South-East Asia).",
+            "sort_order": 9
+        },
+        {
+            "code": "hist-anc-c05-t10",
+            "chapter_code": "hist-anc-c05",
+            "title": "Buddhist art, architecture and centres",
+            "notes": "stupa, chaitya, vihara; Sanchi, Bharhut, Amaravati; Nalanda, Vikramshila, Odantapuri, Taxila universities.",
+            "sort_order": 10
+        },
+        {
+            "code": "hist-anc-c05-t11",
+            "chapter_code": "hist-anc-c05",
+            "title": "Decline of Buddhism",
+            "notes": "causes (ritualism, language, Brahmanical revival, invasions).",
+            "sort_order": 11
+        },
+        {
+            "code": "hist-anc-c05-t12",
+            "chapter_code": "hist-anc-c05",
+            "title": "key terms and places",
+            "notes": "Buddha’s previous names, places of sermons, mudras, important disciples, Buddhist sites.",
+            "sort_order": 12
+        },
+        {
+            "code": "hist-anc-c06-t01",
+            "chapter_code": "hist-anc-c06",
+            "title": "Origin and the Tirthankaras",
+            "notes": "24 Tirthankaras; Rishabhanatha (first); Parshvanatha (23rd, four vows); Mahavira (24th); symbols of Tirthankaras.",
+            "sort_order": 1
+        },
+        {
+            "code": "hist-anc-c06-t02",
+            "chapter_code": "hist-anc-c06",
+            "title": "Life of Mahavira",
+            "notes": "birth (Kundagrama, Vaishali), Jnatrika clan, Vardhamana, Trishala, renunciation at 30, Kevalya at Jrimbhikagrama, death at Pavapuri.",
+            "sort_order": 2
+        },
+        {
+            "code": "hist-anc-c06-t03",
+            "chapter_code": "hist-anc-c06",
+            "title": "Teachings and philosophy",
+            "notes": "Triratna (right faith, knowledge, conduct); five Mahavratas; Anekantavada, Syadvada; Ahimsa; Karma and soul; no creator God.",
+            "sort_order": 3
+        },
+        {
+            "code": "hist-anc-c06-t04",
+            "chapter_code": "hist-anc-c06",
+            "title": "Parshvanatha vs Mahavira",
+            "notes": "four vs five vows; clothing (Antaravasaka); differences in practice.",
+            "sort_order": 4
+        },
+        {
+            "code": "hist-anc-c06-t05",
+            "chapter_code": "hist-anc-c06",
+            "title": "Jain councils",
+            "notes": "first council at Pataliputra (Sthulabhadra), second at Vallabhi (Devardhi Kshamashramana); Digambara–Shvetambara split.",
+            "sort_order": 5
+        },
+        {
+            "code": "hist-anc-c06-t06",
+            "chapter_code": "hist-anc-c06",
+            "title": "Sects: Digambara and Shvetambara",
+            "notes": "Bhadrabahu and Chandragupta Maurya (Shravanabelagola); Sthulabhadra; differences in belief and practice.",
+            "sort_order": 6
+        },
+        {
+            "code": "hist-anc-c06-t07",
+            "chapter_code": "hist-anc-c06",
+            "title": "Jain literature",
+            "notes": "Agamas (12 Angas, Upangas, Prakirnakas, Chheda Sutras); Kalpasutra; Prakrit and Ardhamagadhi languages.",
+            "sort_order": 7
+        },
+        {
+            "code": "hist-anc-c06-t08",
+            "chapter_code": "hist-anc-c06",
+            "title": "Patrons and spread",
+            "notes": "Bimbisara, Ajatashatru, Udayin, Chandragupta Maurya, Kharavela, Kadambas, Gangas, Rashtrakutas, Chalukyas.",
+            "sort_order": 8
+        },
+        {
+            "code": "hist-anc-c06-t09",
+            "chapter_code": "hist-anc-c06",
+            "title": "Jain art and architecture",
+            "notes": "Dilwara temples (Mount Abu), Khajuraho, Gomateshwara (Bahubali), Udayagiri and Khandagiri caves, Ranakpur, Shravanabelagola.",
+            "sort_order": 9
+        },
+        {
+            "code": "hist-anc-c06-t10",
+            "chapter_code": "hist-anc-c06",
+            "title": "Buddhism vs Jainism",
+            "notes": "comparative table of ahimsa, God, soul, rituals, language, decline and spread.",
+            "sort_order": 10
+        },
+        {
+            "code": "hist-anc-c07-t01",
+            "chapter_code": "hist-anc-c07",
+            "title": "Background: Persian and Greek contacts",
+            "notes": "Achaemenid link, Herodotus and Ctesias as sources, Greek knowledge of India.",
+            "sort_order": 1
+        },
+        {
+            "code": "hist-anc-c07-t02",
+            "chapter_code": "hist-anc-c07",
+            "title": "Alexander of Macedon",
+            "notes": "early life, father Philip II, teacher Aristotle, conquest of Persia, march to the Indus (327–326 BCE).",
+            "sort_order": 2
+        },
+        {
+            "code": "hist-anc-c07-t03",
+            "chapter_code": "hist-anc-c07",
+            "title": "Political condition of north-west India",
+            "notes": "Ambhi of Taxila, Porus, Abhisara, Gandhara, Nandas of Magadha.",
+            "sort_order": 3
+        },
+        {
+            "code": "hist-anc-c07-t04",
+            "chapter_code": "hist-anc-c07",
+            "title": "Battle of the Hydaspes (Jhelum), 326 BCE",
+            "notes": "Alexander vs Porus; reasons for Alexander’s victory; treatment of Porus; Bucephala and Nicaea founded.",
+            "sort_order": 4
+        },
+        {
+            "code": "hist-anc-c07-t05",
+            "chapter_code": "hist-anc-c07",
+            "title": "Retreat and death",
+            "notes": "mutiny at the Beas (Hyphasis), return via Sindh, Nearchus’s sea voyage, death at Babylon (323 BCE).",
+            "sort_order": 5
+        },
+        {
+            "code": "hist-anc-c07-t06",
+            "chapter_code": "hist-anc-c07",
+            "title": "Impact of the invasion",
+            "notes": "political (north-west fragmentation, Chandragupta’s rise), cultural, trade routes (land and sea), Greek colonies and satrapies.",
+            "sort_order": 6
+        },
+        {
+            "code": "hist-anc-c07-t07",
+            "chapter_code": "hist-anc-c07",
+            "title": "Indo-Greek contacts and art",
+            "notes": "Gandhara school roots, Greek coinage, astronomy (Yavanajataka), Greek terms (Horasastra, Surunga).",
+            "sort_order": 7
+        },
+        {
+            "code": "hist-anc-c07-t08",
+            "chapter_code": "hist-anc-c07",
+            "title": "Greek writers on India",
+            "notes": "Megasthenes, Arrian, Plutarch, Strabo, Curtius, Nearchus, Onesicritus; works and what each described.",
+            "sort_order": 8
+        },
+        {
+            "code": "hist-anc-c07-t09",
+            "chapter_code": "hist-anc-c07",
+            "title": "Seleucid–Mauryan relations",
+            "notes": "Seleucus Nicator vs Chandragupta (305 BCE), treaty, Helen’s marriage alliance, 500 elephants; Megasthenes as ambassador.",
+            "sort_order": 9
+        },
+        {
+            "code": "hist-anc-c08-t01",
+            "chapter_code": "hist-anc-c08",
+            "title": "Sources",
+            "notes": "Arthashastra (Kautilya), Indica (Megasthenes), Mudrarakshasa, Ashokan inscriptions, Buddhist and Jain texts, Puranas, Rudradaman’s Junagadh inscription.",
+            "sort_order": 1
+        },
+        {
+            "code": "hist-anc-c08-t02",
+            "chapter_code": "hist-anc-c08",
+            "title": "Chandragupta Maurya (c. 321–297 BCE)",
+            "notes": "origin theories, overthrow of Nandas with Chanakya, war with Seleucus, extent of empire, Jain end at Shravanabelagola.",
+            "sort_order": 2
+        },
+        {
+            "code": "hist-anc-c08-t03",
+            "chapter_code": "hist-anc-c08",
+            "title": "Bindusara",
+            "notes": "Amitraghata, expansion to the Deccan, Greek ambassador Deimachus, relations with Antiochus.",
+            "sort_order": 3
+        },
+        {
+            "code": "hist-anc-c08-t04",
+            "chapter_code": "hist-anc-c08",
+            "title": "Ashoka (c. 268–232 BCE)",
+            "notes": "early life, accession, titles (Devanampiya Piyadassi), Kalinga War (261 BCE) and its effect, conversion to Buddhism.",
+            "sort_order": 4
+        },
+        {
+            "code": "hist-anc-c08-t05",
+            "chapter_code": "hist-anc-c08",
+            "title": "Ashoka’s Dhamma",
+            "notes": "principles, Dhamma Mahamatras, welfare measures, Rajukas, tolerance, difference from Buddhism proper.",
+            "sort_order": 5
+        },
+        {
+            "code": "hist-anc-c08-t06",
+            "chapter_code": "hist-anc-c08",
+            "title": "Ashokan inscriptions: types and script",
+            "notes": "Major Rock Edicts (14), Minor Rock Edicts, Pillar Edicts (7), Cave inscriptions; Brahmi, Kharoshthi, Greek, Aramaic; James Prinsep deciphered Brahmi (1837).",
+            "sort_order": 6
+        },
+        {
+            "code": "hist-anc-c08-t07",
+            "chapter_code": "hist-anc-c08",
+            "title": "Important Ashokan edicts and sites",
+            "notes": "Kalinga edicts, Girnar, Shahbazgarhi, Mansehra, Maski, Sarnath pillar, Lumbini pillar, Rummindei, Allahabad pillar; which edict says what.",
+            "sort_order": 7
+        },
+        {
+            "code": "hist-anc-c08-t08",
+            "chapter_code": "hist-anc-c08",
+            "title": "Mauryan administration",
+            "notes": "centralised monarchy, Saptanga theory, council of ministers, Mahamatras, Pradeshika, Rajuka, Yukta, city administration (30-member board).",
+            "sort_order": 8
+        },
+        {
+            "code": "hist-anc-c08-t09",
+            "chapter_code": "hist-anc-c08",
+            "title": "Mauryan provincial and revenue system",
+            "notes": "provinces (Takshashila, Ujjain, Tosali, Suvarnagiri, Pataliputra), Bhaga, Bali, Sita lands, Samaharta, Sannidhata.",
+            "sort_order": 9
+        },
+        {
+            "code": "hist-anc-c08-t10",
+            "chapter_code": "hist-anc-c08",
+            "title": "Mauryan army, espionage and judiciary",
+            "notes": "six boards of the army, Gudhapurushas, Dharmasthiya and Kantakashodhana courts.",
+            "sort_order": 10
+        },
+        {
+            "code": "hist-anc-c08-t11",
+            "chapter_code": "hist-anc-c08",
+            "title": "Mauryan economy, trade and society",
+            "notes": "agriculture, guilds, punch-marked coins (Pana), slavery, position of women; Megasthenes’s seven castes.",
+            "sort_order": 11
+        },
+        {
+            "code": "hist-anc-c08-t12",
+            "chapter_code": "hist-anc-c08",
+            "title": "Mauryan art and architecture",
+            "notes": "polished pillars (Sarnath lion capital, Rampurva bull), stupas (Sanchi), rock-cut caves (Barabar and Nagarjuni), Pataliputra palace; Yaksha-Yakshini images.",
+            "sort_order": 12
+        },
+        {
+            "code": "hist-anc-c08-t13",
+            "chapter_code": "hist-anc-c08",
+            "title": "Mauryan decline",
+            "notes": "Ashoka’s successors (Dasharatha, Samprati, Brihadratha), causes, Pushyamitra Shunga’s coup (185 BCE).",
+            "sort_order": 13
+        },
+        {
+            "code": "hist-anc-c08-t14",
+            "chapter_code": "hist-anc-c08",
+            "title": "Chanakya, Arthashastra and Indica",
+            "notes": "books of Arthashastra, Chanakya’s other names, Megasthenes’s observations.",
+            "sort_order": 14
+        },
+        {
+            "code": "hist-anc-c09-t01",
+            "chapter_code": "hist-anc-c09",
+            "title": "Shunga dynasty",
+            "notes": "Pushyamitra Shunga, Agnimitra, Malavikagnimitram, Ashvamedha, Bharhut stupa, Patanjali, Heliodorus pillar, Vidisha.",
+            "sort_order": 1
+        },
+        {
+            "code": "hist-anc-c09-t02",
+            "chapter_code": "hist-anc-c09",
+            "title": "Kanva dynasty",
+            "notes": "Vasudeva Kanva, Devabhuti, end of Shunga rule, brief rule.",
+            "sort_order": 2
+        },
+        {
+            "code": "hist-anc-c09-t03",
+            "chapter_code": "hist-anc-c09",
+            "title": "Satavahanas: origin and rulers",
+            "notes": "Simuka, Satakarni I, Gautamiputra Satakarni (defeated Shakas, Kshaharatas), Vasishthiputra Pulumavi, Yajna Sri Satakarni.",
+            "sort_order": 3
+        },
+        {
+            "code": "hist-anc-c09-t04",
+            "chapter_code": "hist-anc-c09",
+            "title": "Satavahana administration and society",
+            "notes": "Ahara, Gramika, Nigama, Brahmadeya, matriliny (mother’s name), land grants, Janapada.",
+            "sort_order": 4
+        },
+        {
+            "code": "hist-anc-c09-t05",
+            "chapter_code": "hist-anc-c09",
+            "title": "Satavahana economy and culture",
+            "notes": "trade with Rome, Pratishthana, Hala’s Gathasaptashati, Prakrit, Karle, Nasik and Amaravati art.",
+            "sort_order": 5
+        },
+        {
+            "code": "hist-anc-c09-t06",
+            "chapter_code": "hist-anc-c09",
+            "title": "Indo-Greeks (Bactrian Greeks)",
+            "notes": "Demetrius, Menander (Milinda), Nagasena, coins with legends, Heliodorus; spread of Greek art.",
+            "sort_order": 6
+        },
+        {
+            "code": "hist-anc-c09-t07",
+            "chapter_code": "hist-anc-c09",
+            "title": "Shakas (Scythians)",
+            "notes": "Maues, Shaka era (78 CE), Western Satraps, Rudradaman I (Junagadh inscription, Sudarshan lake), Ujjain.",
+            "sort_order": 7
+        },
+        {
+            "code": "hist-anc-c09-t08",
+            "chapter_code": "hist-anc-c09",
+            "title": "Parthians (Pahlavas)",
+            "notes": "Gondophernes, St. Thomas legend, Takht-i-Bahi inscription, Taxila.",
+            "sort_order": 8
+        },
+        {
+            "code": "hist-anc-c09-t09",
+            "chapter_code": "hist-anc-c09",
+            "title": "Kushanas: rise and rulers",
+            "notes": "Kujula Kadphises, Vima Kadphises (gold coins), Kanishka I (78 CE, capital Purushapura).",
+            "sort_order": 9
+        },
+        {
+            "code": "hist-anc-c09-t10",
+            "chapter_code": "hist-anc-c09",
+            "title": "Kanishka’s achievements",
+            "notes": "fourth Buddhist council (Kundalvana, Kashmir), patronage of Mahayana, Ashvaghosha, Charaka, Nagarjuna, Vasumitra; Gandhara and Mathura art.",
+            "sort_order": 10
+        },
+        {
+            "code": "hist-anc-c09-t11",
+            "chapter_code": "hist-anc-c09",
+            "title": "Kushana administration and society",
+            "notes": "dual monarchy, satraps, Devaputra title, Roman trade, Silk Route, coinage.",
+            "sort_order": 11
+        },
+        {
+            "code": "hist-anc-c09-t12",
+            "chapter_code": "hist-anc-c09",
+            "title": "Gandhara, Mathura and Amaravati schools of art",
+            "notes": "features, material, subjects, differences (comparison table).",
+            "sort_order": 12
+        },
+        {
+            "code": "hist-anc-c09-t13",
+            "chapter_code": "hist-anc-c09",
+            "title": "Post-Mauryan trade and cities",
+            "notes": "Indo-Roman trade, Silk Route, Barygaza, Arikamedu, coin hoards, guilds.",
+            "sort_order": 13
+        },
+        {
+            "code": "hist-anc-c10-t01",
+            "chapter_code": "hist-anc-c10",
+            "title": "Sources",
+            "notes": "Allahabad Pillar inscription (Harishena), Mehrauli iron pillar, Fa-Hien’s account, coins, Vishakhadatta’s Devichandraguptam, Puranas.",
+            "sort_order": 1
+        },
+        {
+            "code": "hist-anc-c10-t02",
+            "chapter_code": "hist-anc-c10",
+            "title": "Early Guptas",
+            "notes": "Sri Gupta, Ghatotkacha, Chandragupta I (Gupta era 319–320 CE, Licchavi marriage).",
+            "sort_order": 2
+        },
+        {
+            "code": "hist-anc-c10-t03",
+            "chapter_code": "hist-anc-c10",
+            "title": "Samudragupta",
+            "notes": "conquests (Aryavarta, Dakshinapatha), Harishena’s prashasti, “Napoleon of India”, Ashvamedha coins, Veena coins, relations with Sri Lanka’s Meghavarna.",
+            "sort_order": 3
+        },
+        {
+            "code": "hist-anc-c10-t04",
+            "chapter_code": "hist-anc-c10",
+            "title": "Chandragupta II (Vikramaditya)",
+            "notes": "conquest of Shakas, Navaratnas, Fa-Hien’s visit, matrimonial alliances (Vakatakas), Ujjain, Mehrauli pillar.",
+            "sort_order": 4
+        },
+        {
+            "code": "hist-anc-c10-t05",
+            "chapter_code": "hist-anc-c10",
+            "title": "Later Guptas",
+            "notes": "Kumaragupta I (Nalanda), Skandagupta (Hun invasion, Sudarshan lake repair), Budhagupta, Narasimhagupta, end of dynasty.",
+            "sort_order": 5
+        },
+        {
+            "code": "hist-anc-c10-t06",
+            "chapter_code": "hist-anc-c10",
+            "title": "Gupta administration",
+            "notes": "Bhukti, Vishaya, Vithi, Grama; Kumaramatyas, Mahadandanayaka, Uparika; feudal elements, land grants.",
+            "sort_order": 6
+        },
+        {
+            "code": "hist-anc-c10-t07",
+            "chapter_code": "hist-anc-c10",
+            "title": "Gupta economy and trade",
+            "notes": "gold coins (Dinara), decline of Indo-Roman trade, guilds, land revenue, Agrahara grants, Bhaga.",
+            "sort_order": 7
+        },
+        {
+            "code": "hist-anc-c10-t08",
+            "chapter_code": "hist-anc-c10",
+            "title": "Gupta society",
+            "notes": "caste, women (sati first inscription at Eran, 510 CE), untouchables (Chandalas), slavery, Fa-Hien’s remarks.",
+            "sort_order": 8
+        },
+        {
+            "code": "hist-anc-c10-t09",
+            "chapter_code": "hist-anc-c10",
+            "title": "Science and technology",
+            "notes": "Aryabhata (Aryabhatiya), Varahamihira (Brihat Samhita), Brahmagupta, Vagbhata, Charaka and Sushruta (medicine), zero and decimal system, metallurgy.",
+            "sort_order": 9
+        },
+        {
+            "code": "hist-anc-c10-t10",
+            "chapter_code": "hist-anc-c10",
+            "title": "Art and education",
+            "notes": "Gupta sculpture (Mathura and Sarnath), Ajanta paintings, Dashavatara temple (Deogarh), Bhitargaon temple, Nalanda University.",
+            "sort_order": 10
+        },
+        {
+            "code": "hist-anc-c10-t11",
+            "chapter_code": "hist-anc-c10",
+            "title": "Hun invasions",
+            "notes": "Toramana, Mihirakula, Yashodharman, effects on Gupta empire.",
+            "sort_order": 11
+        },
+        {
+            "code": "hist-anc-c10-t12",
+            "chapter_code": "hist-anc-c10",
+            "title": "Decline of Guptas",
+            "notes": "causes (Huns, feudal lords, economy).",
+            "sort_order": 12
+        },
+        {
+            "code": "hist-anc-c10-t13",
+            "chapter_code": "hist-anc-c10",
+            "title": "Post-Gupta kingdoms: Vardhanas of Thaneshwar",
+            "notes": "Prabhakaravardhana, Rajyavardhana, Harshavardhana.",
+            "sort_order": 13
+        },
+        {
+            "code": "hist-anc-c10-t14",
+            "chapter_code": "hist-anc-c10",
+            "title": "Harshavardhana (606–647 CE)",
+            "notes": "conquests, Hiuen Tsang’s visit, Kannauj and Prayag assemblies, Ratnavali, Nagananda, Priyadarshika, Banabhatta’s Harshacharita; defeat by Pulakeshin II on the Narmada.",
+            "sort_order": 14
+        },
+        {
+            "code": "hist-anc-c10-t15",
+            "chapter_code": "hist-anc-c10",
+            "title": "Other post-Gupta powers",
+            "notes": "Maukharis, Later Guptas of Magadha, Maitrakas of Valabhi, Gaudas (Shashanka), Kamarupa (Bhaskaravarman), Yashodharman.",
+            "sort_order": 15
+        },
+        {
+            "code": "hist-anc-c10-t16",
+            "chapter_code": "hist-anc-c10",
+            "title": "Foreign travellers",
+            "notes": "Fa-Hien, Hiuen Tsang, I-Tsing; what each recorded.",
+            "sort_order": 16
+        },
+        {
+            "code": "hist-anc-c11-t01",
+            "chapter_code": "hist-anc-c11",
+            "title": "Sangam age: sources and chronology",
+            "notes": "Sangam literature, Ashokan inscriptions, Greek and Roman accounts (Periplus, Pliny, Ptolemy), Megasthenes; three Sangams at Madurai; dating.",
+            "sort_order": 1
+        },
+        {
+            "code": "hist-anc-c11-t02",
+            "chapter_code": "hist-anc-c11",
+            "title": "Sangam kingdoms",
+            "notes": "Cheras (Vanji), Cholas (Uraiyur, Puhar), Pandyas (Madurai); emblems; rulers: Karikala, Senguttuvan, Nedunjeliyan; Battle of Venni.",
+            "sort_order": 2
+        },
+        {
+            "code": "hist-anc-c11-t03",
+            "chapter_code": "hist-anc-c11",
+            "title": "Sangam literature",
+            "notes": "Tolkappiyam, Ettuthokai, Pattuppattu, Silappadikaram, Manimekalai, Tirukkural; poets (Avvaiyar, Kapilar).",
+            "sort_order": 3
+        },
+        {
+            "code": "hist-anc-c11-t04",
+            "chapter_code": "hist-anc-c11",
+            "title": "Sangam society, economy and trade",
+            "notes": "five Tinais, Brahmanas, Vellalas, Bhattas; Muziris, Arikamedu, Puhar; Indo-Roman trade; Pandyan pearls.",
+            "sort_order": 4
+        },
+        {
+            "code": "hist-anc-c11-t05",
+            "chapter_code": "hist-anc-c11",
+            "title": "Early Chalukyas of Badami",
+            "notes": "Pulakeshin I, Kirtivarman, Pulakeshin II (Aihole inscription by Ravikirti, defeat of Harsha, Pallava conflict), Vikramaditya; Vatapi capital.",
+            "sort_order": 5
+        },
+        {
+            "code": "hist-anc-c11-t06",
+            "chapter_code": "hist-anc-c11",
+            "title": "Pallavas",
+            "notes": "Simhavishnu, Mahendravarman I (Mattavilasa Prahasana), Narasimhavarman I (Mamalla, Vatapikonda), Rajasimha; Kanchi capital; Dandin; Alvars and Nayanars.",
+            "sort_order": 6
+        },
+        {
+            "code": "hist-anc-c11-t07",
+            "chapter_code": "hist-anc-c11",
+            "title": "Pallava–Chalukya conflict",
+            "notes": "Pulakeshin II vs Mahendravarman; Narasimhavarman’s capture of Vatapi (642 CE); Vikramaditya’s retaliation.",
+            "sort_order": 7
+        },
+        {
+            "code": "hist-anc-c11-t08",
+            "chapter_code": "hist-anc-c11",
+            "title": "Rashtrakutas",
+            "notes": "Dantidurga, Krishna I (Kailasa temple), Govinda III, Amoghavarsha (Kavirajamarga), Indra III; Tripartite struggle, Arab traders.",
+            "sort_order": 8
+        },
+        {
+            "code": "hist-anc-c11-t09",
+            "chapter_code": "hist-anc-c11",
+            "title": "Western Chalukyas and later dynasties",
+            "notes": "Tailapa II, Someshvara, Vikramaditya VI (Vikramankadevacharita, Bilhana), Vijnaneshvara (Mitakshara).",
+            "sort_order": 9
+        },
+        {
+            "code": "hist-anc-c11-t10",
+            "chapter_code": "hist-anc-c11",
+            "title": "Imperial Cholas",
+            "notes": "Vijayalaya, Aditya I, Parantaka I (Uttaramerur inscription), Rajaraja I (Brihadeshwara), Rajendra I (Gangaikondacholapuram, naval expedition), Kulottunga I.",
+            "sort_order": 10
+        },
+        {
+            "code": "hist-anc-c11-t11",
+            "chapter_code": "hist-anc-c11",
+            "title": "Chola administration and local government",
+            "notes": "Nadu, Valanadu, Kottam; Ur, Sabha, Nagaram; Kudavolai system; Uttaramerur inscriptions; revenue (Kani, Veli).",
+            "sort_order": 11
+        },
+        {
+            "code": "hist-anc-c11-t12",
+            "chapter_code": "hist-anc-c11",
+            "title": "Chola society, economy and culture",
+            "notes": "land survey, temple economy, trade guilds (Manigramam, Ainnurruvar), Kamban, Sekkizhar, Pugalendi, bronzes, Dravida style.",
+            "sort_order": 12
+        },
+        {
+            "code": "hist-anc-c11-t13",
+            "chapter_code": "hist-anc-c11",
+            "title": "Pandyas and Cheras (later)",
+            "notes": "revival of Pandyas (Kadungon), Maravarman Sundara Pandya, Marco Polo; Kulashekhara dynasty.",
+            "sort_order": 13
+        },
+        {
+            "code": "hist-anc-c11-t14",
+            "chapter_code": "hist-anc-c11",
+            "title": "Other southern dynasties",
+            "notes": "Vakatakas, Kadambas, Gangas (Gomateshwara), Hoysalas, Kakatiyas (brief).",
+            "sort_order": 14
+        },
+        {
+            "code": "hist-anc-c11-t15",
+            "chapter_code": "hist-anc-c11",
+            "title": "dynasty, capital, emblem, ruler",
+            "notes": "tabulated matching.",
+            "sort_order": 15
+        },
+        {
+            "code": "hist-anc-c12-t01",
+            "chapter_code": "hist-anc-c12",
+            "title": "Political scenario after Harsha",
+            "notes": "fragmentation, rise of regional kingdoms, feudalism, Rajput origin theories (foreign, Agnikula, Kshatriya).",
+            "sort_order": 1
+        },
+        {
+            "code": "hist-anc-c12-t02",
+            "chapter_code": "hist-anc-c12",
+            "title": "Tripartite struggle for Kannauj",
+            "notes": "Pratiharas, Palas, Rashtrakutas; key rulers and outcomes.",
+            "sort_order": 2
+        },
+        {
+            "code": "hist-anc-c12-t03",
+            "chapter_code": "hist-anc-c12",
+            "title": "Gurjara-Pratiharas",
+            "notes": "Nagabhata I, Vatsaraja, Mihira Bhoja, Mahendrapala, Rajashekhara; Arab account (Sulaiman).",
+            "sort_order": 3
+        },
+        {
+            "code": "hist-anc-c12-t04",
+            "chapter_code": "hist-anc-c12",
+            "title": "Palas of Bengal",
+            "notes": "Gopala, Dharmapala (Vikramshila), Devapala, Mahipala; Buddhism patronage, Nalanda and Odantapuri.",
+            "sort_order": 4
+        },
+        {
+            "code": "hist-anc-c12-t05",
+            "chapter_code": "hist-anc-c12",
+            "title": "Senas of Bengal",
+            "notes": "Vijayasena, Ballalasena (Danasagara), Lakshmanasena, Jayadeva (Gita Govinda); Kulinism.",
+            "sort_order": 5
+        },
+        {
+            "code": "hist-anc-c12-t06",
+            "chapter_code": "hist-anc-c12",
+            "title": "Rajput dynasties",
+            "notes": "Chauhans (Prithviraj III, Tarain 1191–92), Paramaras (Bhoja), Chandellas (Khajuraho), Solankis (Mount Abu), Gahadavalas, Kalachuris.",
+            "sort_order": 6
+        },
+        {
+            "code": "hist-anc-c12-t07",
+            "chapter_code": "hist-anc-c12",
+            "title": "Rashtrakutas (north link)",
+            "notes": "Dantidurga, Dhruva, Govinda III; their role in the Kannauj struggle (see Ch. 11).",
+            "sort_order": 7
+        },
+        {
+            "code": "hist-anc-c12-t08",
+            "chapter_code": "hist-anc-c12",
+            "title": "Arab conquest of Sindh",
+            "notes": "Muhammad bin Qasim (712 CE), Dahir, Chachnama; impact.",
+            "sort_order": 8
+        },
+        {
+            "code": "hist-anc-c12-t09",
+            "chapter_code": "hist-anc-c12",
+            "title": "Turkish invasions: Mahmud of Ghazni",
+            "notes": "17 raids, Somnath (1025), Hindushahis, Al-Biruni’s Tahqiq-i-Hind, Firdausi, Utbi.",
+            "sort_order": 9
+        },
+        {
+            "code": "hist-anc-c12-t10",
+            "chapter_code": "hist-anc-c12",
+            "title": "Muhammad of Ghor",
+            "notes": "First (1191) and Second Battle of Tarain (1192), Chandawar (1194), causes of Rajput defeat.",
+            "sort_order": 10
+        },
+        {
+            "code": "hist-anc-c12-t11",
+            "chapter_code": "hist-anc-c12",
+            "title": "Society, economy and culture",
+            "notes": "feudalism, land grants, decline of trade and towns, regional languages, temple building (Khajuraho, Konark, Lingaraja), Al-Biruni’s observations.",
+            "sort_order": 11
+        },
+        {
+            "code": "hist-anc-c12-t12",
+            "chapter_code": "hist-anc-c12",
+            "title": "Regional kingdoms: East and North-East",
+            "notes": "Kamarupa, Eastern Gangas (Konark), Kashmir (Karkota, Lalitaditya Muktapida).",
+            "sort_order": 12
+        },
+        {
+            "code": "hist-anc-c13-t01",
+            "chapter_code": "hist-anc-c13",
+            "title": "Evolution of Hinduism",
+            "notes": "Vedic religion to Puranic Hinduism; rise of theism, bhakti and image worship; Trimurti.",
+            "sort_order": 1
+        },
+        {
+            "code": "hist-anc-c13-t02",
+            "chapter_code": "hist-anc-c13",
+            "title": "Shaivism: origin and early evidence",
+            "notes": "Rudra of the Vedas, Pashupati seal, Shiva-linga worship; Patanjali, Greek accounts (Megasthenes: Dionysus).",
+            "sort_order": 2
+        },
+        {
+            "code": "hist-anc-c13-t03",
+            "chapter_code": "hist-anc-c13",
+            "title": "Shaiva sects",
+            "notes": "Pashupata (Lakulisa), Kapalika, Kalamukha, Shaiva Siddhanta, Kashmir Shaivism, Virashaiva (Lingayat); founders and regions.",
+            "sort_order": 3
+        },
+        {
+            "code": "hist-anc-c13-t04",
+            "chapter_code": "hist-anc-c13",
+            "title": "Shaiva texts and saints",
+            "notes": "Shiva Purana, Agamas; Nayanars (63 saints), Tirumurai, Tevaram; Appar, Sambandar, Sundarar, Manikkavachakar.",
+            "sort_order": 4
+        },
+        {
+            "code": "hist-anc-c13-t05",
+            "chapter_code": "hist-anc-c13",
+            "title": "Bhagavatism/Vaishnavism: origin",
+            "notes": "Vasudeva-Krishna cult, Vrishni clan, Heliodorus pillar (Besnagar), Narayaniya; Pancharatra.",
+            "sort_order": 5
+        },
+        {
+            "code": "hist-anc-c13-t06",
+            "chapter_code": "hist-anc-c13",
+            "title": "Avatar doctrine and Vishnu cult",
+            "notes": "ten avatars (Dashavatara), Vyuhas, Vishnu in Gupta period, Garuda pillar, Bhagavad Gita.",
+            "sort_order": 6
+        },
+        {
+            "code": "hist-anc-c13-t07",
+            "chapter_code": "hist-anc-c13",
+            "title": "Vaishnava saints and literature",
+            "notes": "Alvars (12), Nalayira Divya Prabandham, Andal, Nammalvar; Vishnu and Bhagavata Purana.",
+            "sort_order": 7
+        },
+        {
+            "code": "hist-anc-c13-t08",
+            "chapter_code": "hist-anc-c13",
+            "title": "Philosophical schools",
+            "notes": "Shankara (Advaita), Ramanuja (Vishishtadvaita), Madhva (Dvaita), Nimbarka, Vallabha; texts and centres.",
+            "sort_order": 8
+        },
+        {
+            "code": "hist-anc-c13-t09",
+            "chapter_code": "hist-anc-c13",
+            "title": "Other cults",
+            "notes": "Shakti worship, Surya (Sun) worship, Ganapatya, Kartikeya; Tantrism.",
+            "sort_order": 9
+        },
+        {
+            "code": "hist-anc-c13-t10",
+            "chapter_code": "hist-anc-c13",
+            "title": "Temple, iconography and patronage",
+            "notes": "Shaiva and Vaishnava temples; royal support of Guptas, Pallavas, Cholas, Rashtrakutas; Greek devotees.",
+            "sort_order": 10
+        },
+        {
+            "code": "hist-anc-c14-t01",
+            "chapter_code": "hist-anc-c14",
+            "title": "Indus Valley architecture",
+            "notes": "planned cities, Great Bath, granary, burnt-brick houses, drainage.",
+            "sort_order": 1
+        },
+        {
+            "code": "hist-anc-c14-t02",
+            "chapter_code": "hist-anc-c14",
+            "title": "Mauryan architecture",
+            "notes": "palaces (Kumhrar), polished monolithic pillars, Sarnath capital, rock-cut Barabar caves (Lomas Rishi), early stupas.",
+            "sort_order": 2
+        },
+        {
+            "code": "hist-anc-c14-t03",
+            "chapter_code": "hist-anc-c14",
+            "title": "Stupa architecture",
+            "notes": "parts (anda, harmika, chhatra, vedika, torana); Sanchi (Great Stupa), Bharhut, Amaravati, Dhamek, Piprahwa; Gandhara-style stupas.",
+            "sort_order": 3
+        },
+        {
+            "code": "hist-anc-c14-t04",
+            "chapter_code": "hist-anc-c14",
+            "title": "Rock-cut caves: Buddhist",
+            "notes": "chaityas and viharas; Karle, Bhaja, Kanheri, Ajanta, Ellora (Buddhist), Nasik, Bedsa, Barabar.",
+            "sort_order": 4
+        },
+        {
+            "code": "hist-anc-c14-t05",
+            "chapter_code": "hist-anc-c14",
+            "title": "Rock-cut caves: Hindu and Jain",
+            "notes": "Ellora (Kailasa temple), Elephanta, Udayagiri (MP), Udayagiri and Khandagiri (Odisha), Badami, Aihole.",
+            "sort_order": 5
+        },
+        {
+            "code": "hist-anc-c14-t06",
+            "chapter_code": "hist-anc-c14",
+            "title": "Ajanta and Ellora",
+            "notes": "number of caves, phases, themes of paintings, Bodhisattva Padmapani, Jataka scenes, Kailasanatha (Rashtrakuta).",
+            "sort_order": 6
+        },
+        {
+            "code": "hist-anc-c14-t07",
+            "chapter_code": "hist-anc-c14",
+            "title": "Gupta temple architecture",
+            "notes": "early flat-roofed temples, Deogarh Dashavatara temple, Bhitargaon brick temple, Tigawa, Sanchi Temple 17.",
+            "sort_order": 7
+        },
+        {
+            "code": "hist-anc-c14-t08",
+            "chapter_code": "hist-anc-c14",
+            "title": "Temple styles: Nagara, Dravida, Vesara",
+            "notes": "shikhara forms, gopuram, vimana, mandapa, garbhagriha, differences and regions.",
+            "sort_order": 8
+        },
+        {
+            "code": "hist-anc-c14-t09",
+            "chapter_code": "hist-anc-c14",
+            "title": "Chalukyan architecture",
+            "notes": "Badami, Aihole (Durga temple), Pattadakal, Vesara style; Virupaksha temple.",
+            "sort_order": 9
+        },
+        {
+            "code": "hist-anc-c14-t10",
+            "chapter_code": "hist-anc-c14",
+            "title": "Pallava architecture",
+            "notes": "four phases: Mahendravarman, Narasimhavarman (Mamallapuram rathas), Rajasimha (Shore Temple, Kailasanatha), Nandivarman.",
+            "sort_order": 10
+        },
+        {
+            "code": "hist-anc-c14-t11",
+            "chapter_code": "hist-anc-c14",
+            "title": "Chola architecture",
+            "notes": "Brihadeshwara (Thanjavur), Gangaikondacholapuram, Airavatesvara (Darasuram), Vimana style, Chola bronzes.",
+            "sort_order": 11
+        },
+        {
+            "code": "hist-anc-c14-t12",
+            "chapter_code": "hist-anc-c14",
+            "title": "Gandhara and Mathura sculpture",
+            "notes": "materials (grey schist vs red sandstone), Greco-Buddhist features, Buddha images, Kushana kings’ statues.",
+            "sort_order": 12
+        },
+        {
+            "code": "hist-anc-c14-t13",
+            "chapter_code": "hist-anc-c14",
+            "title": "Cave and temple site-matching",
+            "notes": "temple-dynasty-place-style quick revision.",
+            "sort_order": 13
+        },
+        {
+            "code": "hist-anc-c15-t01",
+            "chapter_code": "hist-anc-c15",
+            "title": "Vedic literature",
+            "notes": "Vedas, Brahmanas, Aranyakas, Upanishads, Vedangas; Sutra literature (Shrauta, Grihya, Dharma).",
+            "sort_order": 1
+        },
+        {
+            "code": "hist-anc-c15-t02",
+            "chapter_code": "hist-anc-c15",
+            "title": "Epics and Puranas",
+            "notes": "Ramayana (Valmiki), Mahabharata (Vyasa), 18 Puranas, Upapuranas; five characteristics (Pancha-lakshana).",
+            "sort_order": 2
+        },
+        {
+            "code": "hist-anc-c15-t03",
+            "chapter_code": "hist-anc-c15",
+            "title": "Smritis and Dharmashastras",
+            "notes": "Manusmriti, Yajnavalkya, Narada, Brihaspati; Arthashastra; Nitisara.",
+            "sort_order": 3
+        },
+        {
+            "code": "hist-anc-c15-t04",
+            "chapter_code": "hist-anc-c15",
+            "title": "Buddhist and Jain literature",
+            "notes": "Tripitaka, Jataka, Agamas, Milindapanho, Dipavamsa, Mahavamsa; key authors.",
+            "sort_order": 4
+        },
+        {
+            "code": "hist-anc-c15-t05",
+            "chapter_code": "hist-anc-c15",
+            "title": "Classical Sanskrit poets and playwrights",
+            "notes": "Kalidasa (Abhijnanashakuntalam, Meghaduta, Raghuvamsha), Bhasa, Shudraka (Mrichchhakatika), Bhavabhuti, Vishakhadatta, Bharavi, Magha, Dandin.",
+            "sort_order": 5
+        },
+        {
+            "code": "hist-anc-c15-t06",
+            "chapter_code": "hist-anc-c15",
+            "title": "Historical and biographical works",
+            "notes": "Harshacharita (Bana), Kadambari, Rajatarangini (Kalhana), Mudrarakshasa, Vikramankadevacharita, Navasahasankacharita.",
+            "sort_order": 6
+        },
+        {
+            "code": "hist-anc-c15-t07",
+            "chapter_code": "hist-anc-c15",
+            "title": "Science and mathematics authors",
+            "notes": "Aryabhata, Varahamihira, Brahmagupta, Bhaskara I and II, Charaka, Sushruta, Vagbhata, Patanjali (Yoga), Panini (Ashtadhyayi).",
+            "sort_order": 7
+        },
+        {
+            "code": "hist-anc-c15-t08",
+            "chapter_code": "hist-anc-c15",
+            "title": "Philosophy: six Darshanas",
+            "notes": "Nyaya (Gautama), Vaisheshika (Kanada), Sankhya (Kapila), Yoga (Patanjali), Mimamsa (Jaimini), Vedanta (Badarayana); Charvaka.",
+            "sort_order": 8
+        },
+        {
+            "code": "hist-anc-c15-t09",
+            "chapter_code": "hist-anc-c15",
+            "title": "Tamil and other regional literature",
+            "notes": "Sangam works, Tirukkural (Thiruvalluvar), Silappadikaram (Ilango Adigal), Manimekalai (Sattanar), Kamban’s Ramavataram.",
+            "sort_order": 9
+        },
+        {
+            "code": "hist-anc-c15-t10",
+            "chapter_code": "hist-anc-c15",
+            "title": "Prakrit, Pali and Apabhramsha works",
+            "notes": "Gathasaptashati (Hala), Brihatkatha (Gunadhya), Setubandha; Pali Canon.",
+            "sort_order": 10
+        },
+        {
+            "code": "hist-anc-c15-t11",
+            "chapter_code": "hist-anc-c15",
+            "title": "Dramas and aesthetics",
+            "notes": "Natyashastra (Bharata Muni), Rasa theory; Sanskrit drama conventions.",
+            "sort_order": 11
+        },
+        {
+            "code": "hist-anc-c15-t12",
+            "chapter_code": "hist-anc-c15",
+            "title": "Author–work matching",
+            "notes": "quick revision table of authors, works, patron kings.",
+            "sort_order": 12
+        },
+        {
+            "code": "hist-anc-c16-t01",
+            "chapter_code": "hist-anc-c16",
+            "title": "Eras and calendars",
+            "notes": "Vikrama (58 BCE), Shaka (78 CE), Gupta (319 CE), Harsha (606 CE), Kalachuri, Saka-Kali eras; who started which.",
+            "sort_order": 1
+        },
+        {
+            "code": "hist-anc-c16-t02",
+            "chapter_code": "hist-anc-c16",
+            "title": "Inscriptions and scripts",
+            "notes": "Brahmi, Kharoshthi, deciphering by James Prinsep; major inscriptions and what they record (Hathigumpha, Junagadh, Allahabad, Aihole).",
+            "sort_order": 2
+        },
+        {
+            "code": "hist-anc-c16-t03",
+            "chapter_code": "hist-anc-c16",
+            "title": "Coins and numismatics",
+            "notes": "punch-marked, Indo-Greek, Kushana, Gupta, Satavahana coins; metals, legends, units (Pana, Dinara, Karshapana).",
+            "sort_order": 3
+        },
+        {
+            "code": "hist-anc-c16-t04",
+            "chapter_code": "hist-anc-c16",
+            "title": "Foreign travellers and accounts",
+            "notes": "Megasthenes, Fa-Hien, Hiuen Tsang, I-Tsing, Al-Biruni, Ptolemy, Pliny, Periplus, Marco Polo; what each recorded.",
+            "sort_order": 4
+        },
+        {
+            "code": "hist-anc-c16-t05",
+            "chapter_code": "hist-anc-c16",
+            "title": "Ancient universities and education",
+            "notes": "Takshashila, Nalanda, Vikramshila, Vallabhi, Odantapuri, Kanchi; curriculum and patrons.",
+            "sort_order": 5
+        },
+        {
+            "code": "hist-anc-c16-t06",
+            "chapter_code": "hist-anc-c16",
+            "title": "Ancient science, medicine and mathematics",
+            "notes": "Charaka, Sushruta, Aryabhata, Varahamihira, Brahmagupta; zero, decimal, astronomy.",
+            "sort_order": 6
+        },
+        {
+            "code": "hist-anc-c16-t07",
+            "chapter_code": "hist-anc-c16",
+            "title": "Ancient trade routes and ports",
+            "notes": "Uttarapatha, Dakshinapatha, Silk Route, Muziris, Arikamedu, Barygaza, Tamralipti.",
+            "sort_order": 7
+        },
+        {
+            "code": "hist-anc-c16-t08",
+            "chapter_code": "hist-anc-c16",
+            "title": "Slavery, women and social institutions",
+            "notes": "varna, jati, ashramas, purusharthas, women’s status, samskaras.",
+            "sort_order": 8
+        },
+        {
+            "code": "hist-anc-c16-t09",
+            "chapter_code": "hist-anc-c16",
+            "title": "Land grants and feudalism",
+            "notes": "Agrahara, Brahmadeya, Devadana; Gupta and post-Gupta copper plates.",
+            "sort_order": 9
+        },
+        {
+            "code": "hist-anc-c16-t10",
+            "chapter_code": "hist-anc-c16",
+            "title": "Ancient Indian influence abroad",
+            "notes": "Greater India: Angkor Wat, Borobudur, Sri Lanka, Tibet, Central Asia.",
+            "sort_order": 10
+        },
+        {
+            "code": "hist-anc-c16-t11",
+            "chapter_code": "hist-anc-c16",
+            "title": "Important dates and firsts",
+            "notes": "timeline of major events (Buddha, Alexander, Ashoka, Kanishka, Gupta, Harsha).",
+            "sort_order": 11
+        },
+        {
+            "code": "hist-anc-c16-t12",
+            "chapter_code": "hist-anc-c16",
+            "title": "Mixed matching and one-liners",
+            "notes": "who built what, who wrote what, who defeated whom.",
+            "sort_order": 12
+        }
+    ]
+}

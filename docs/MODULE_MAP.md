@@ -166,6 +166,7 @@ Explore uses kind/node ID with from_question, exam and prefixed difficulty param
 | Advanced selection rules | `mock_tests/migrations/0006_sectionselectionrule_manualrulequestion_and_more.py` |
 | Shared revision scope | `practice/migrations/0002_practicesession_kind_alter_practicesession_exam_and_more.py`, `revision/migrations/0003_revisionsession.py` |
 | Taxonomy audit | `exams/management/commands/audit_taxonomy.py` |
+| Subject taxonomy JSON import | `exams/subject_taxonomy.py`, `exams/management/commands/import_subject_taxonomy.py`; format: `docs/subject-taxonomy.md` |
 | Staging cleanup | `imports/management/commands/cleanup_import_staging.py` |
 | Mock expiry | `mock_tests/management/commands/expire_mock_attempts.py` |
 

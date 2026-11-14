@@ -122,6 +122,8 @@ class TaxonomyCatalogue:
         if subject is None:
             errors.append("Subject is unresolved or ambiguous. Select an existing subject mapping.")
         else:
+            if values.get("topic_code", "").strip() and selected.get("subject_id") and subject.pk != selected["subject_id"]:
+                errors.append("topic_code conflicts with the subject selected on the import form.")
             for kind, node in nodes.items():
                 root_id = node.pk if kind == "subject" else node.subject_id
                 if root_id != subject.pk:

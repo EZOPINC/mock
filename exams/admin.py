@@ -1,6 +1,45 @@
 from django.contrib import admin
+from django.db.models import Q
 
 from .models import Chapter, Exam, ExamAuthority, ExamStage, Module, Part, Subject, Topic
+
+
+class ModulePathFilter(admin.SimpleListFilter):
+    title = "module (including ancestors)"
+    parameter_name = "module_path"
+
+    def lookups(self, request, model_admin):
+        nodes = Module.objects.select_related("subject")
+        subject = request.GET.get("subject__id__exact")
+        if subject and subject.isdecimal():
+            nodes = nodes.filter(subject_id=subject)
+        return [(str(node.pk), str(node)) for node in nodes]
+
+    def queryset(self, request, queryset):
+        if self.value() and self.value().isdecimal():
+            query = Q(module_id=self.value())
+            if queryset.model is Topic:
+                query |= Q(chapter__module_id=self.value())
+            return queryset.filter(query)
+        return queryset
+
+
+class ChapterPathFilter(admin.SimpleListFilter):
+    title = "chapter"
+    parameter_name = "chapter_path"
+
+    def lookups(self, request, model_admin):
+        nodes = Chapter.objects.select_related("subject", "module", "part")
+        for param, field in (("subject__id__exact", "subject_id"), ("module_path", "module_id")):
+            value = request.GET.get(param)
+            if value and value.isdecimal():
+                nodes = nodes.filter(**{field: value})
+        return [(str(node.pk), str(node)) for node in nodes]
+
+    def queryset(self, request, queryset):
+        if self.value() and self.value().isdecimal():
+            return queryset.filter(chapter_id=self.value())
+        return queryset
 
 
 class ExamInline(admin.TabularInline):
@@ -85,8 +124,8 @@ class ExamStageAdmin(admin.ModelAdmin):
 
 
 @admin.register(Subject)
-class SubjectAdmin(admin.ModelAdmin):
-    list_display = ("name", "code", "slug", )
+class SubjectAdmin(TaxonomyCodeAdmin, admin.ModelAdmin):
+    list_display = ("name", "code", "slug", "display_order")
     search_fields = ("name", "code")
     ordering = ("name",)
     prepopulated_fields = {"slug": ("name",)}
@@ -121,7 +160,7 @@ class ChapterAdmin(TaxonomyCodeAdmin, admin.ModelAdmin):
                     "module", "part", "display_order")
     search_fields = ("name", "code", "subject__name",
                      "module__name", "part__name")
-    list_filter = ("subject", "part", "module")
+    list_filter = ("subject", "part", ModulePathFilter)
     list_select_related = ("subject", "part__subject",
                            "module__subject", "module__part__subject")
     autocomplete_fields = ("subject", "module", "part")
@@ -135,7 +174,7 @@ class TopicAdmin(TaxonomyCodeAdmin, admin.ModelAdmin):
                     "chapter", "module", "part", "slug")
     search_fields = ("name", "code", "subject__name", "subject__code",
                      "chapter__name", "module__name", "part__name")
-    list_filter = ("subject", "part", "module", "chapter")
+    list_filter = ("subject", "part", ModulePathFilter, ChapterPathFilter)
     list_select_related = ("subject", "part__subject", "module__subject", "module__part__subject", "chapter__subject",
                            "chapter__part__subject", "chapter__module__subject", "chapter__module__part__subject")
     autocomplete_fields = ("chapter", "module", "part")

@@ -140,6 +140,7 @@ class Subject(models.Model):
     name = models.CharField(max_length=200)
     code = models.CharField(max_length=50, unique=True)
     slug = models.SlugField(max_length=200, unique=True)
+    display_order = models.PositiveIntegerField(default=0)
 
     class Meta:
         ordering = ("name", "pk")
@@ -187,6 +188,7 @@ class Chapter(HierarchyNode):
 
 
 class Topic(HierarchyNode):
+    notes = models.TextField(blank=True, default="")
     subject = models.ForeignKey(Subject, on_delete=models.PROTECT, related_name="topics")
     chapter = models.ForeignKey(Chapter, on_delete=models.PROTECT, related_name="topics", null=True, blank=True)
     module = models.ForeignKey(Module, on_delete=models.PROTECT, related_name="topics", null=True, blank=True)

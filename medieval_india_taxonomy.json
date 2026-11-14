@@ -1,0 +1,1847 @@
+{
+  "schema_version": 1,
+  "subject": {
+    "code": "history",
+    "title": "History"
+  },
+  "scope": "Medieval India",
+  "chapters": [
+    {
+      "code": "hist-med-c01",
+      "subject_code": "history",
+      "title": "Arab and Turkish Invasions of India",
+      "sort_order": 1
+    },
+    {
+      "code": "hist-med-c02",
+      "subject_code": "history",
+      "title": "Mamluk (Slave) Dynasty: Aibak to Balban",
+      "sort_order": 2
+    },
+    {
+      "code": "hist-med-c03",
+      "subject_code": "history",
+      "title": "Khalji Dynasty: Alauddin’s Conquests and Reforms",
+      "sort_order": 3
+    },
+    {
+      "code": "hist-med-c04",
+      "subject_code": "history",
+      "title": "Tughluq Dynasty: Experiments, Reforms and Decline",
+      "sort_order": 4
+    },
+    {
+      "code": "hist-med-c05",
+      "subject_code": "history",
+      "title": "Sayyid and Lodi Dynasties: End of the Sultanate",
+      "sort_order": 5
+    },
+    {
+      "code": "hist-med-c06",
+      "subject_code": "history",
+      "title": "Sultanate Administration, Economy and Society",
+      "sort_order": 6
+    },
+    {
+      "code": "hist-med-c07",
+      "subject_code": "history",
+      "title": "Sultanate Art and Architecture",
+      "sort_order": 7
+    },
+    {
+      "code": "hist-med-c08",
+      "subject_code": "history",
+      "title": "Sultanate Literature and Historians",
+      "sort_order": 8
+    },
+    {
+      "code": "hist-med-c09",
+      "subject_code": "history",
+      "title": "Sultanate Miscellaneous (Mixed Revision)",
+      "sort_order": 9
+    },
+    {
+      "code": "hist-med-c10",
+      "subject_code": "history",
+      "title": "Regional Kingdoms: Provincial Dynasties of North India and the Deccan",
+      "sort_order": 10
+    },
+    {
+      "code": "hist-med-c11",
+      "subject_code": "history",
+      "title": "Vijayanagara Empire",
+      "sort_order": 11
+    },
+    {
+      "code": "hist-med-c12",
+      "subject_code": "history",
+      "title": "Bhakti and Sufi Movements",
+      "sort_order": 12
+    },
+    {
+      "code": "hist-med-c13",
+      "subject_code": "history",
+      "title": "Sikh Religion: Gurus and the Khalsa",
+      "sort_order": 13
+    },
+    {
+      "code": "hist-med-c14",
+      "subject_code": "history",
+      "title": "Babur and the Foundation of Mughal Rule",
+      "sort_order": 14
+    },
+    {
+      "code": "hist-med-c15",
+      "subject_code": "history",
+      "title": "Humayun: Struggle and Restoration",
+      "sort_order": 15
+    },
+    {
+      "code": "hist-med-c16",
+      "subject_code": "history",
+      "title": "Sur Dynasty: Sher Shah and His Reforms",
+      "sort_order": 16
+    },
+    {
+      "code": "hist-med-c17",
+      "subject_code": "history",
+      "title": "Akbar: Expansion, Policies and Administration",
+      "sort_order": 17
+    },
+    {
+      "code": "hist-med-c18",
+      "subject_code": "history",
+      "title": "Jahangir and Nur Jahan",
+      "sort_order": 18
+    },
+    {
+      "code": "hist-med-c19",
+      "subject_code": "history",
+      "title": "Shah Jahan: Golden Age of Architecture",
+      "sort_order": 19
+    },
+    {
+      "code": "hist-med-c20",
+      "subject_code": "history",
+      "title": "Aurangzeb: Empire at Its Peak and Decline",
+      "sort_order": 20
+    },
+    {
+      "code": "hist-med-c21",
+      "subject_code": "history",
+      "title": "Mughal Administration, Mansabdari and Revenue",
+      "sort_order": 21
+    },
+    {
+      "code": "hist-med-c22",
+      "subject_code": "history",
+      "title": "Mughal Painting and Music",
+      "sort_order": 22
+    },
+    {
+      "code": "hist-med-c23",
+      "subject_code": "history",
+      "title": "Mughal Literature and Historians",
+      "sort_order": 23
+    },
+    {
+      "code": "hist-med-c24",
+      "subject_code": "history",
+      "title": "Mughal Period Miscellaneous (Mixed Revision)",
+      "sort_order": 24
+    },
+    {
+      "code": "hist-med-c25",
+      "subject_code": "history",
+      "title": "Marathas: Shivaji, Peshwas and the Confederacy",
+      "sort_order": 25
+    },
+    {
+      "code": "hist-med-c26",
+      "subject_code": "history",
+      "title": "Decline and Disintegration of the Mughal Empire",
+      "sort_order": 26
+    },
+    {
+      "code": "hist-med-c27",
+      "subject_code": "history",
+      "title": "Medieval India Miscellaneous (Mixed Revision)",
+      "sort_order": 27
+    }
+  ],
+  "topics": [
+    {
+      "code": "hist-med-c01-t01",
+      "chapter_code": "hist-med-c01",
+      "title": "Sources",
+      "notes": "Chachnama, Tahqiq-i-Hind (Al-Biruni), Tarikh-i-Yamini (Utbi), Tabaqat-i-Nasiri (Minhaj-us-Siraj), Shahnama (Firdausi).",
+      "sort_order": 1
+    },
+    {
+      "code": "hist-med-c01-t02",
+      "chapter_code": "hist-med-c01",
+      "title": "Arab conquest of Sindh",
+      "notes": "Muhammad bin Qasim (712 CE), Raja Dahir, battle of Rawar, Hajjaj, causes and effects, Arab rule in Multan and Mansura.",
+      "sort_order": 2
+    },
+    {
+      "code": "hist-med-c01-t03",
+      "chapter_code": "hist-med-c01",
+      "title": "Political condition of India before the Turks",
+      "notes": "Rajput states, Hindushahi kingdom, Ghaznavid and Ghurid rise.",
+      "sort_order": 3
+    },
+    {
+      "code": "hist-med-c01-t04",
+      "chapter_code": "hist-med-c01",
+      "title": "Mahmud of Ghazni",
+      "notes": "17 invasions (1000–1027), Jaipal and Anandapal, Nagarkot, Mathura, Kannauj, Somnath (1025); motives; Al-Biruni, Firdausi, Utbi at his court.",
+      "sort_order": 4
+    },
+    {
+      "code": "hist-med-c01-t05",
+      "chapter_code": "hist-med-c01",
+      "title": "Muhammad of Ghor",
+      "notes": "Multan and Gujarat (1178, defeat by Mularaja II), First Battle of Tarain (1191), Second Battle of Tarain (1192), Chandawar (1194).",
+      "sort_order": 5
+    },
+    {
+      "code": "hist-med-c01-t06",
+      "chapter_code": "hist-med-c01",
+      "title": "Causes of Rajput defeat",
+      "notes": "lack of unity, military tactics, cavalry, social and political factors.",
+      "sort_order": 6
+    },
+    {
+      "code": "hist-med-c01-t07",
+      "chapter_code": "hist-med-c01",
+      "title": "Ghaznavid vs Ghurid comparison",
+      "notes": "aims, methods, administration and results.",
+      "sort_order": 7
+    },
+    {
+      "code": "hist-med-c01-t08",
+      "chapter_code": "hist-med-c01",
+      "title": "Effects of the Turkish conquest",
+      "notes": "political, economic, social and cultural impact; end of Hindu rule in the north.",
+      "sort_order": 8
+    },
+    {
+      "code": "hist-med-c02-t01",
+      "chapter_code": "hist-med-c02",
+      "title": "Qutbuddin Aibak (1206–1210)",
+      "notes": "first Sultan, capital Lahore, “Lakh Baksh”, Hasan Nizami, Quwwat-ul-Islam mosque, Qutb Minar start, death in polo accident.",
+      "sort_order": 1
+    },
+    {
+      "code": "hist-med-c02-t02",
+      "chapter_code": "hist-med-c02",
+      "title": "Aram Shah and early instability",
+      "notes": "succession, Turkish nobles, Yalduz and Qubacha.",
+      "sort_order": 2
+    },
+    {
+      "code": "hist-med-c02-t03",
+      "chapter_code": "hist-med-c02",
+      "title": "Iltutmish (1211–1236)",
+      "notes": "“Real founder” of the Sultanate, Delhi as capital, Iqta system, silver Tanka and copper Jital, Chahalgani (Forty), Abbasid investiture (1229), Mongol threat (Chengiz Khan).",
+      "sort_order": 3
+    },
+    {
+      "code": "hist-med-c02-t04",
+      "chapter_code": "hist-med-c02",
+      "title": "Razia Sultana (1236–1240)",
+      "notes": "first woman ruler, Yaqut, Altuniya, revolt of nobles, struggle with Turkan-i-Chahalgani.",
+      "sort_order": 4
+    },
+    {
+      "code": "hist-med-c02-t05",
+      "chapter_code": "hist-med-c02",
+      "title": "Later slave rulers",
+      "notes": "Bahram Shah, Masud Shah, Nasiruddin Mahmud.",
+      "sort_order": 5
+    },
+    {
+      "code": "hist-med-c02-t06",
+      "chapter_code": "hist-med-c02",
+      "title": "Balban (1266–1287)",
+      "notes": "theory of kingship, Sijda and Paibos, Zij-i-Siyasat, Persian festival of Nauroz, Diwan-i-Arz, Mongol policy, destruction of the Chahalgani.",
+      "sort_order": 6
+    },
+    {
+      "code": "hist-med-c02-t07",
+      "chapter_code": "hist-med-c02",
+      "title": "Mongol invasions in this period",
+      "notes": "Chengiz Khan, Mongols at the Indus, defence by Balban and his son Muhammad.",
+      "sort_order": 7
+    },
+    {
+      "code": "hist-med-c02-t08",
+      "chapter_code": "hist-med-c02",
+      "title": "Important Slave Dynasty facts",
+      "notes": "titles, capitals, monuments, contemporary writers (Minhaj-us-Siraj, Hasan Nizami, Amir Khusrau).",
+      "sort_order": 8
+    },
+    {
+      "code": "hist-med-c03-t01",
+      "chapter_code": "hist-med-c03",
+      "title": "Jalaluddin Khalji (1290–1296)",
+      "notes": "founder, “Khalji Revolution”, mild policy, rise of non-Turkish nobles, murder by Alauddin.",
+      "sort_order": 1
+    },
+    {
+      "code": "hist-med-c03-t02",
+      "chapter_code": "hist-med-c03",
+      "title": "Alauddin Khalji: accession and early conquests",
+      "notes": "Devagiri (1296), Gujarat (1299), Ranthambore (1301), Chittor (1303; Rani Padmini legend), Malwa, Siwana, Jalore.",
+      "sort_order": 2
+    },
+    {
+      "code": "hist-med-c03-t03",
+      "chapter_code": "hist-med-c03",
+      "title": "Alauddin’s southern campaigns",
+      "notes": "Malik Kafur; Devagiri, Warangal (Kakatiyas), Dwarasamudra (Hoysalas), Madurai (Pandyas).",
+      "sort_order": 3
+    },
+    {
+      "code": "hist-med-c03-t04",
+      "chapter_code": "hist-med-c03",
+      "title": "Mongol invasions and defence",
+      "notes": "Zafar Khan, Ali Beg, Kaplak, Ghazi Malik; Siri fort.",
+      "sort_order": 4
+    },
+    {
+      "code": "hist-med-c03-t05",
+      "chapter_code": "hist-med-c03",
+      "title": "Market control (Diwan-i-Riyasat)",
+      "notes": "price control for grain, cloth, horses, slaves; Shahna-i-Mandi; Barid; Munhiyan.",
+      "sort_order": 5
+    },
+    {
+      "code": "hist-med-c03-t06",
+      "chapter_code": "hist-med-c03",
+      "title": "Agrarian and revenue reforms",
+      "notes": "Kharaj at half the produce, land measurement (Masaha), Diwan-i-Mustakhraj, Ghari and Chari taxes, Jizya.",
+      "sort_order": 6
+    },
+    {
+      "code": "hist-med-c03-t07",
+      "chapter_code": "hist-med-c03",
+      "title": "Military reforms",
+      "notes": "Dagh (branding horses), Chehra (descriptive rolls), standing army.",
+      "sort_order": 7
+    },
+    {
+      "code": "hist-med-c03-t08",
+      "chapter_code": "hist-med-c03",
+      "title": "Cultural contributions",
+      "notes": "Alai Darwaza, Siri, Hauz-i-Khas, Amir Khusrau, Amir Hasan, Barani; “Sikandar-i-Sani”.",
+      "sort_order": 8
+    },
+    {
+      "code": "hist-med-c03-t09",
+      "chapter_code": "hist-med-c03",
+      "title": "Last Khaljis",
+      "notes": "Qutbuddin Mubarak Shah, Khusrau Khan, end of dynasty.",
+      "sort_order": 9
+    },
+    {
+      "code": "hist-med-c04-t01",
+      "chapter_code": "hist-med-c04",
+      "title": "Ghiyasuddin Tughluq (1320–1325)",
+      "notes": "founder (Ghazi Malik), Tughluqabad, conquest of Warangal, Bengal, Jaunpur; Nizamuddin Auliya conflict.",
+      "sort_order": 1
+    },
+    {
+      "code": "hist-med-c04-t02",
+      "chapter_code": "hist-med-c04",
+      "title": "Muhammad bin Tughluq (1325–1351)",
+      "notes": "ambitious schemes, intellectual and scholar, Ibn Battuta’s visit, Barani’s accounts.",
+      "sort_order": 2
+    },
+    {
+      "code": "hist-med-c04-t03",
+      "chapter_code": "hist-med-c04",
+      "title": "Transfer of capital (Delhi to Daulatabad)",
+      "notes": "1327, reasons, failure.",
+      "sort_order": 3
+    },
+    {
+      "code": "hist-med-c04-t04",
+      "chapter_code": "hist-med-c04",
+      "title": "Token currency",
+      "notes": "copper and brass coins, causes of failure, counterfeiting.",
+      "sort_order": 4
+    },
+    {
+      "code": "hist-med-c04-t05",
+      "chapter_code": "hist-med-c04",
+      "title": "Taxation in the Doab",
+      "notes": "tax hike, famine, Taqavi loans, Diwan-i-Amir-i-Kohi.",
+      "sort_order": 5
+    },
+    {
+      "code": "hist-med-c04-t06",
+      "chapter_code": "hist-med-c04",
+      "title": "Khurasan and Qarachil expeditions",
+      "notes": "plan and failure.",
+      "sort_order": 6
+    },
+    {
+      "code": "hist-med-c04-t07",
+      "chapter_code": "hist-med-c04",
+      "title": "Revolts and the end of his reign",
+      "notes": "Bahmani and Vijayanagara foundation (1336), Madurai Sultanate, Bengal, Sindh, death at Thatta.",
+      "sort_order": 7
+    },
+    {
+      "code": "hist-med-c04-t08",
+      "chapter_code": "hist-med-c04",
+      "title": "Firoz Shah Tughluq (1351–1388)",
+      "notes": "conquests, canals (Yamuna, Sutlej), new towns (Firozabad, Jaunpur, Hissar, Fatehabad), Jizya on Brahmanas, Khutbah, Diwan-i-Khairat, Diwan-i-Bandagan.",
+      "sort_order": 8
+    },
+    {
+      "code": "hist-med-c04-t09",
+      "chapter_code": "hist-med-c04",
+      "title": "Firoz Shah’s administration and reforms",
+      "notes": "Iqta heredity, tax reforms, slave department, Ashokan pillars shifted to Delhi, coins (Adha, Bikh).",
+      "sort_order": 9
+    },
+    {
+      "code": "hist-med-c04-t10",
+      "chapter_code": "hist-med-c04",
+      "title": "Later Tughluqs and Timur’s invasion (1398)",
+      "notes": "Nasiruddin Mahmud, sack of Delhi, end of dynasty.",
+      "sort_order": 10
+    },
+    {
+      "code": "hist-med-c04-t11",
+      "chapter_code": "hist-med-c04",
+      "title": "Contemporary scholars",
+      "notes": "Barani, Afif, Ibn Battuta, Isami, Amir Khusrau.",
+      "sort_order": 11
+    },
+    {
+      "code": "hist-med-c05-t01",
+      "chapter_code": "hist-med-c05",
+      "title": "Sayyid Dynasty (brief)",
+      "notes": "Khizr Khan (founder, 1414), Mubarak Shah, Muhammad Shah, Alam Shah; Timur’s nominee; capital Delhi.",
+      "sort_order": 1
+    },
+    {
+      "code": "hist-med-c05-t02",
+      "chapter_code": "hist-med-c05",
+      "title": "Bahlul Lodi (1451–1489)",
+      "notes": "first Afghan ruler, Jaunpur conquest, tribal basis of rule, Bahlul coins.",
+      "sort_order": 2
+    },
+    {
+      "code": "hist-med-c05-t03",
+      "chapter_code": "hist-med-c05",
+      "title": "Sikandar Lodi (1489–1517)",
+      "notes": "Agra founded (1504), Gaz-i-Sikandari, revenue reforms, Gulrukhi poet, patron of learning, temple destruction, Bihar and Bengal.",
+      "sort_order": 3
+    },
+    {
+      "code": "hist-med-c05-t04",
+      "chapter_code": "hist-med-c05",
+      "title": "Ibrahim Lodi (1517–1526)",
+      "notes": "conflict with nobles, revolt of Daulat Khan Lodi, Rana Sanga, Alam Khan.",
+      "sort_order": 4
+    },
+    {
+      "code": "hist-med-c05-t05",
+      "chapter_code": "hist-med-c05",
+      "title": "First Battle of Panipat (1526)",
+      "notes": "Babur vs Ibrahim Lodi, causes, use of artillery, end of the Sultanate.",
+      "sort_order": 5
+    },
+    {
+      "code": "hist-med-c05-t06",
+      "chapter_code": "hist-med-c05",
+      "title": "Lodi administration and economy",
+      "notes": "Afghan polity, Iqta, revenue, differences from Turkish rule.",
+      "sort_order": 6
+    },
+    {
+      "code": "hist-med-c06-t01",
+      "chapter_code": "hist-med-c06",
+      "title": "Nature of the state and kingship",
+      "notes": "theocratic and Persian ideals; Sultan, Caliph’s recognition, Balban’s theory, Barani’s view.",
+      "sort_order": 1
+    },
+    {
+      "code": "hist-med-c06-t02",
+      "chapter_code": "hist-med-c06",
+      "title": "Central administration",
+      "notes": "Naib, Wazir (Diwan-i-Wizarat), Diwan-i-Arz, Diwan-i-Insha, Diwan-i-Risalat, Sadr-us-Sudur, Qazi-ul-Quzat; Diwan-i-Mustakhraj, Diwan-i-Kohi.",
+      "sort_order": 2
+    },
+    {
+      "code": "hist-med-c06-t03",
+      "chapter_code": "hist-med-c06",
+      "title": "Provincial and local administration",
+      "notes": "Iqta (Muqti), Shiq (Shiqdar), Pargana (Amil), Gram (Muqaddam, Khut, Chaudhari).",
+      "sort_order": 3
+    },
+    {
+      "code": "hist-med-c06-t04",
+      "chapter_code": "hist-med-c06",
+      "title": "Land revenue system",
+      "notes": "Kharaj, Ushr, Khams, Zakat, Jizya; Alauddin’s measurement system, Firoz’s Diwan-i-Khairat.",
+      "sort_order": 4
+    },
+    {
+      "code": "hist-med-c06-t05",
+      "chapter_code": "hist-med-c06",
+      "title": "Army and military organisation",
+      "notes": "Hasham-i-Qalb, Hasham-i-Atraf; Mansabs of horsemen; Ghulams; Dagh and Chehra.",
+      "sort_order": 5
+    },
+    {
+      "code": "hist-med-c06-t06",
+      "chapter_code": "hist-med-c06",
+      "title": "Judiciary",
+      "notes": "Sultan, Qazi, Mufti, Amir-i-Dad, Shariat law, Urf law, punishments.",
+      "sort_order": 6
+    },
+    {
+      "code": "hist-med-c06-t07",
+      "chapter_code": "hist-med-c06",
+      "title": "Nobility (Maliks and Amirs)",
+      "notes": "Chahalgani, Turkish, Khalji, Afghan nobles; Wazir and Muqti role.",
+      "sort_order": 7
+    },
+    {
+      "code": "hist-med-c06-t08",
+      "chapter_code": "hist-med-c06",
+      "title": "Economy: currency and trade",
+      "notes": "Tanka, Jital, Shashgani, Dehliwal; internal trade, banks, merchants (Multani), Karwanis.",
+      "sort_order": 8
+    },
+    {
+      "code": "hist-med-c06-t09",
+      "chapter_code": "hist-med-c06",
+      "title": "Society and social change",
+      "notes": "Muslim and Hindu communities, Zimmis, Ulama, Sufis.",
+      "sort_order": 9
+    },
+    {
+      "code": "hist-med-c07-t01",
+      "chapter_code": "hist-med-c07",
+      "title": "Features of Indo-Islamic architecture",
+      "notes": "arch, dome, minaret, mosque, tomb, Persian influence, blend with Indian craft.",
+      "sort_order": 1
+    },
+    {
+      "code": "hist-med-c07-t02",
+      "chapter_code": "hist-med-c07",
+      "title": "Slave dynasty monuments",
+      "notes": "Quwwat-ul-Islam mosque, Qutb Minar, Adhai-din-ka-Jhonpra (Ajmer), Iltutmish’s tomb, Sultan Ghari, Balban’s tomb.",
+      "sort_order": 2
+    },
+    {
+      "code": "hist-med-c07-t03",
+      "chapter_code": "hist-med-c07",
+      "title": "Khalji monuments",
+      "notes": "Alai Darwaza, Jamaat Khana mosque, Siri fort, Hauz-i-Khas.",
+      "sort_order": 3
+    },
+    {
+      "code": "hist-med-c07-t04",
+      "chapter_code": "hist-med-c07",
+      "title": "Tughluq monuments",
+      "notes": "Tughluqabad, Adilabad, Jahanpanah, Firozabad (Kotla), Begumpur mosque, Khirki mosque, Tomb of Ghiyasuddin Tughluq.",
+      "sort_order": 4
+    },
+    {
+      "code": "hist-med-c07-t05",
+      "chapter_code": "hist-med-c07",
+      "title": "Sayyid and Lodi architecture",
+      "notes": "octagonal tombs, Lodi Gardens (Bara Gumbad, Sheesh Gumbad), Moth ki Masjid, tomb of Sikandar Lodi.",
+      "sort_order": 5
+    },
+    {
+      "code": "hist-med-c07-t06",
+      "chapter_code": "hist-med-c07",
+      "title": "Provincial architecture",
+      "notes": "Jaunpur (Atala mosque), Bengal (Adina mosque), Gujarat, Malwa (Hoshang Shah’s tomb, Jahaz Mahal), Bahmani (Gulbarga and Bidar), Bijapur (Gol Gumbaz), Kashmir.",
+      "sort_order": 6
+    },
+    {
+      "code": "hist-med-c07-t07",
+      "chapter_code": "hist-med-c07",
+      "title": "Painting, music and crafts",
+      "notes": "Persian influence, calligraphy, Amir Khusrau’s music, sitar and tabla traditions.",
+      "sort_order": 7
+    },
+    {
+      "code": "hist-med-c08-t01",
+      "chapter_code": "hist-med-c08",
+      "title": "Persian literature of the Sultanate",
+      "notes": "Amir Khusrau (Tuti-i-Hind; Khazain-ul-Futuh; Laila Majnu), Hasan Nizami, Minhaj-us-Siraj.",
+      "sort_order": 1
+    },
+    {
+      "code": "hist-med-c08-t02",
+      "chapter_code": "hist-med-c08",
+      "title": "Historians",
+      "notes": "Ziauddin Barani (Tarikh-i-Firozshahi), Shams-i-Siraj Afif, Isami (Futuh-us-Salatin), Yahya Sirhindi.",
+      "sort_order": 2
+    },
+    {
+      "code": "hist-med-c08-t03",
+      "chapter_code": "hist-med-c08",
+      "title": "Al-Biruni and Ibn Battuta",
+      "notes": "Tahqiq-i-Hind and Rihla.",
+      "sort_order": 3
+    },
+    {
+      "code": "hist-med-c08-t04",
+      "chapter_code": "hist-med-c08",
+      "title": "Amir Khusrau: life and achievements",
+      "notes": "Qawwali, ghazal, sitar, Hindavi poetry, disciple of Nizamuddin Auliya.",
+      "sort_order": 4
+    },
+    {
+      "code": "hist-med-c08-t05",
+      "chapter_code": "hist-med-c08",
+      "title": "Sanskrit and regional literature",
+      "notes": "Rajatarangini (Kalhana, earlier), Bengali Ramayana (Krittivasa), Tamil, Marathi (Dnyaneshwar).",
+      "sort_order": 5
+    },
+    {
+      "code": "hist-med-c08-t06",
+      "chapter_code": "hist-med-c08",
+      "title": "Evolution of Urdu and Hindi",
+      "notes": "Urdu language, Hindavi, Persian, regional vernaculars.",
+      "sort_order": 6
+    },
+    {
+      "code": "hist-med-c08-t07",
+      "chapter_code": "hist-med-c08",
+      "title": "Translation work",
+      "notes": "translation of Sanskrit works to Persian, Firoz Shah’s translation department.",
+      "sort_order": 7
+    },
+    {
+      "code": "hist-med-c09-t01",
+      "chapter_code": "hist-med-c09",
+      "title": "Chronology and dynasties of the Sultanate",
+      "notes": "Slave, Khalji, Tughluq, Sayyid, Lodi: rulers and dates.",
+      "sort_order": 1
+    },
+    {
+      "code": "hist-med-c09-t02",
+      "chapter_code": "hist-med-c09",
+      "title": "Titles and terms",
+      "notes": "Sultan, Amir, Malik, Chahalgani, Sijda, Paibos, Nauroz, Zij-i-Siyasat.",
+      "sort_order": 2
+    },
+    {
+      "code": "hist-med-c09-t03",
+      "chapter_code": "hist-med-c09",
+      "title": "Foreign travellers and accounts",
+      "notes": "Ibn Battuta, Marco Polo, Abdur Razzaq, Nicolo Conti, Al-Biruni.",
+      "sort_order": 3
+    },
+    {
+      "code": "hist-med-c09-t04",
+      "chapter_code": "hist-med-c09",
+      "title": "Mongol invasions",
+      "notes": "Chengiz Khan, Alauddin, Muhammad bin Tughluq, Timur.",
+      "sort_order": 4
+    },
+    {
+      "code": "hist-med-c09-t05",
+      "chapter_code": "hist-med-c09",
+      "title": "Women in Sultanate history",
+      "notes": "Razia, Devala Devi, queen Padmini, Gulbadan.",
+      "sort_order": 5
+    },
+    {
+      "code": "hist-med-c09-t06",
+      "chapter_code": "hist-med-c09",
+      "title": "Currency and coins",
+      "notes": "Tanka, Jital, Adha, Bikh, Shashgani.",
+      "sort_order": 6
+    },
+    {
+      "code": "hist-med-c09-t07",
+      "chapter_code": "hist-med-c09",
+      "title": "Matching: ruler-monument-achievement",
+      "notes": ".",
+      "sort_order": 7
+    },
+    {
+      "code": "hist-med-c10-t01",
+      "chapter_code": "hist-med-c10",
+      "title": "Bahmani kingdom",
+      "notes": "Alauddin Hasan Bahman Shah (1347), Gulbarga to Bidar, Mohammad Shah I, Firoz Shah, Mahmud Gawan (reforms, Madrasa at Bidar), Nikitin visit.",
+      "sort_order": 1
+    },
+    {
+      "code": "hist-med-c10-t02",
+      "chapter_code": "hist-med-c10",
+      "title": "Successor Deccan states",
+      "notes": "Bijapur (Adil Shahi: Yusuf Adil Shah, Ibrahim II, Gol Gumbaz), Ahmadnagar (Nizam Shahi: Chand Bibi), Golconda (Qutb Shahi: Hyderabad, Charminar), Berar (Imad Shahi), Bidar (Barid Shahi).",
+      "sort_order": 2
+    },
+    {
+      "code": "hist-med-c10-t03",
+      "chapter_code": "hist-med-c10",
+      "title": "Gujarat Sultanate",
+      "notes": "Zafar Khan, Ahmad Shah I (Ahmedabad), Mahmud Begada.",
+      "sort_order": 3
+    },
+    {
+      "code": "hist-med-c10-t04",
+      "chapter_code": "hist-med-c10",
+      "title": "Malwa Sultanate",
+      "notes": "Dilawar Khan Ghuri, Hoshang Shah (Mandu), Baz Bahadur and Rani Roopmati.",
+      "sort_order": 4
+    },
+    {
+      "code": "hist-med-c10-t05",
+      "chapter_code": "hist-med-c10",
+      "title": "Jaunpur Sultanate (Sharqi)",
+      "notes": "Malik Sarwar, Ibrahim Shah, Husain Shah, Atala mosque.",
+      "sort_order": 5
+    },
+    {
+      "code": "hist-med-c10-t06",
+      "chapter_code": "hist-med-c10",
+      "title": "Bengal Sultanate",
+      "notes": "Ilyas Shah, Alauddin Husain Shah, Adina mosque, Bengali literature patronage.",
+      "sort_order": 6
+    },
+    {
+      "code": "hist-med-c10-t07",
+      "chapter_code": "hist-med-c10",
+      "title": "Kashmir",
+      "notes": "Zain-ul-Abidin (Budshah), Shah Mir dynasty, Kashmir under Sikandar But-Shikan.",
+      "sort_order": 7
+    },
+    {
+      "code": "hist-med-c10-t08",
+      "chapter_code": "hist-med-c10",
+      "title": "Khandesh and other small states",
+      "notes": "Faruqi dynasty, Burhanpur; Multan, Sindh, Orissa (Gajapatis).",
+      "sort_order": 8
+    },
+    {
+      "code": "hist-med-c10-t09",
+      "chapter_code": "hist-med-c10",
+      "title": "Rajput kingdoms",
+      "notes": "Mewar (Rana Kumbha, Rana Sanga), Marwar (Rao Maldeo), Amber; Chittor Vijay Stambh.",
+      "sort_order": 9
+    },
+    {
+      "code": "hist-med-c10-t10",
+      "chapter_code": "hist-med-c10",
+      "title": "Other regional states in the east",
+      "notes": "Ahoms of Assam, Odisha’s Gajapatis.",
+      "sort_order": 10
+    },
+    {
+      "code": "hist-med-c10-t11",
+      "chapter_code": "hist-med-c10",
+      "title": "Matching: dynasty–capital–founder",
+      "notes": ".",
+      "sort_order": 11
+    },
+    {
+      "code": "hist-med-c11-t01",
+      "chapter_code": "hist-med-c11",
+      "title": "Foundation and sources",
+      "notes": "Harihara and Bukka (1336), Sangama brothers, guru Vidyaranya; Nuniz, Paes, Nikitin, Abdur Razzaq.",
+      "sort_order": 1
+    },
+    {
+      "code": "hist-med-c11-t02",
+      "chapter_code": "hist-med-c11",
+      "title": "Dynasties",
+      "notes": "Sangama, Saluva, Tuluva, Aravidu; rulers of each.",
+      "sort_order": 2
+    },
+    {
+      "code": "hist-med-c11-t03",
+      "chapter_code": "hist-med-c11",
+      "title": "Deva Raya I and II",
+      "notes": "Abdur Razzaq’s visit, conflict with the Bahmanis.",
+      "sort_order": 3
+    },
+    {
+      "code": "hist-med-c11-t04",
+      "chapter_code": "hist-med-c11",
+      "title": "Krishnadeva Raya (1509–1529)",
+      "notes": "conquests (Raichur, Orissa), Amuktamalyada, Ashtadiggajas, Hazara Rama and Vitthalaswami temples, Allasani Peddana.",
+      "sort_order": 4
+    },
+    {
+      "code": "hist-med-c11-t05",
+      "chapter_code": "hist-med-c11",
+      "title": "Battle of Talikota (1565)",
+      "notes": "Rama Raya vs Deccan Sultanates, causes, destruction of Hampi.",
+      "sort_order": 5
+    },
+    {
+      "code": "hist-med-c11-t06",
+      "chapter_code": "hist-med-c11",
+      "title": "Administration",
+      "notes": "Rajya, Nadu, Sthala, Gramam; Nayaka (Amara-Nayaka) system, Ayagar system, Mahamandaleshwara.",
+      "sort_order": 6
+    },
+    {
+      "code": "hist-med-c11-t07",
+      "chapter_code": "hist-med-c11",
+      "title": "Economy and trade",
+      "notes": "land revenue (Shist), port trade, currency (Varaha, Pagoda), guilds.",
+      "sort_order": 7
+    },
+    {
+      "code": "hist-med-c11-t08",
+      "chapter_code": "hist-med-c11",
+      "title": "Society, art and architecture",
+      "notes": "Virupaksha temple, Vithala temple, stone chariot, gopurams, Kalyana mandapas, Dravida style; Telugu, Kannada, Sanskrit, Tamil literature.",
+      "sort_order": 8
+    },
+    {
+      "code": "hist-med-c11-t09",
+      "chapter_code": "hist-med-c11",
+      "title": "Foreign travellers",
+      "notes": "Nicolo Conti, Abdur Razzaq, Domingo Paes, Fernao Nuniz, Barbosa.",
+      "sort_order": 9
+    },
+    {
+      "code": "hist-med-c12-t01",
+      "chapter_code": "hist-med-c12",
+      "title": "Origin and background of the Bhakti movement",
+      "notes": "Alvars and Nayanars (South), Tamil bhakti, Sufi influence, role of vernacular languages.",
+      "sort_order": 1
+    },
+    {
+      "code": "hist-med-c12-t02",
+      "chapter_code": "hist-med-c12",
+      "title": "South Indian philosophers",
+      "notes": "Shankaracharya (Advaita), Ramanuja (Vishishtadvaita), Madhva (Dvaita), Nimbarka, Vallabhacharya.",
+      "sort_order": 2
+    },
+    {
+      "code": "hist-med-c12-t03",
+      "chapter_code": "hist-med-c12",
+      "title": "North Indian Bhakti saints (Nirguna)",
+      "notes": "Kabir, Nanak, Dadu Dayal, Ravidas (Raidas), Namdev.",
+      "sort_order": 3
+    },
+    {
+      "code": "hist-med-c12-t04",
+      "chapter_code": "hist-med-c12",
+      "title": "North Indian Bhakti saints (Saguna)",
+      "notes": "Ramananda, Tulsidas, Surdas, Mirabai, Chaitanya Mahaprabhu, Vallabhacharya.",
+      "sort_order": 4
+    },
+    {
+      "code": "hist-med-c12-t05",
+      "chapter_code": "hist-med-c12",
+      "title": "Maharashtra saints",
+      "notes": "Dnyaneshwar, Namdev, Eknath, Tukaram, Ramdas; Varkari tradition.",
+      "sort_order": 5
+    },
+    {
+      "code": "hist-med-c12-t06",
+      "chapter_code": "hist-med-c12",
+      "title": "Bengal and Assam saints",
+      "notes": "Chaitanya (Gaudiya Vaishnavism), Sankaradeva (Neo-Vaishnavism, Assam), Chandidas.",
+      "sort_order": 6
+    },
+    {
+      "code": "hist-med-c12-t07",
+      "chapter_code": "hist-med-c12",
+      "title": "Sufism: origins and concepts",
+      "notes": "Wahdat al-Wujud, Pir, Khanqah, Silsila, Dhikr, Sama; Rabia and Mansur al-Hallaj.",
+      "sort_order": 7
+    },
+    {
+      "code": "hist-med-c12-t08",
+      "chapter_code": "hist-med-c12",
+      "title": "Sufi orders (Silsilas) in India",
+      "notes": "Chishti (Moinuddin Chishti, Nizamuddin Auliya, Bakhtiyar Kaki), Suhrawardi (Bahauddin Zakariya), Qadiri, Naqshbandi (Khwaja Baqi Billah), Firdausi.",
+      "sort_order": 8
+    },
+    {
+      "code": "hist-med-c12-t09",
+      "chapter_code": "hist-med-c12",
+      "title": "Impact of Bhakti and Sufi movements",
+      "notes": "religious, social, literary and cultural synthesis; vernacular literature; decline of rigid caste practices.",
+      "sort_order": 9
+    },
+    {
+      "code": "hist-med-c12-t10",
+      "chapter_code": "hist-med-c12",
+      "title": "Comparison and matching",
+      "notes": "saint–region–sect–work quick revision.",
+      "sort_order": 10
+    },
+    {
+      "code": "hist-med-c13-t01",
+      "chapter_code": "hist-med-c13",
+      "title": "Guru Nanak (1469–1539)",
+      "notes": "birth at Talwandi (Nankana Sahib), teachings (Ik Onkar, Nam, Dan, Isnan), Udasis, Kartarpur, Langar.",
+      "sort_order": 1
+    },
+    {
+      "code": "hist-med-c13-t02",
+      "chapter_code": "hist-med-c13",
+      "title": "Guru Angad",
+      "notes": "Gurmukhi script, Guru Nanak’s successor.",
+      "sort_order": 2
+    },
+    {
+      "code": "hist-med-c13-t03",
+      "chapter_code": "hist-med-c13",
+      "title": "Guru Amar Das",
+      "notes": "Manji system, Langar, Anand Karaj, ban on Sati.",
+      "sort_order": 3
+    },
+    {
+      "code": "hist-med-c13-t04",
+      "chapter_code": "hist-med-c13",
+      "title": "Guru Ram Das",
+      "notes": "founded Amritsar (Chak Ram Das), Akbar’s grant.",
+      "sort_order": 4
+    },
+    {
+      "code": "hist-med-c13-t05",
+      "chapter_code": "hist-med-c13",
+      "title": "Guru Arjan Dev",
+      "notes": "Harmandir Sahib (Golden Temple), Adi Granth compilation (1604), execution by Jahangir (1606).",
+      "sort_order": 5
+    },
+    {
+      "code": "hist-med-c13-t06",
+      "chapter_code": "hist-med-c13",
+      "title": "Guru Hargobind",
+      "notes": "Miri and Piri, Akal Takht, army, conflict with Jahangir and Shah Jahan.",
+      "sort_order": 6
+    },
+    {
+      "code": "hist-med-c13-t07",
+      "chapter_code": "hist-med-c13",
+      "title": "Guru Har Rai and Guru Har Krishan",
+      "notes": "brief periods, Dara Shikoh connection.",
+      "sort_order": 7
+    },
+    {
+      "code": "hist-med-c13-t08",
+      "chapter_code": "hist-med-c13",
+      "title": "Guru Tegh Bahadur",
+      "notes": "martyrdom at Delhi (1675), Gurdwara Sis Ganj.",
+      "sort_order": 8
+    },
+    {
+      "code": "hist-med-c13-t09",
+      "chapter_code": "hist-med-c13",
+      "title": "Guru Gobind Singh",
+      "notes": "Khalsa (1699, Baisakhi at Anandpur), Five Ks, Panj Pyare, battles, Guru Granth Sahib as eternal Guru.",
+      "sort_order": 9
+    },
+    {
+      "code": "hist-med-c13-t10",
+      "chapter_code": "hist-med-c13",
+      "title": "Sikhism after the Gurus",
+      "notes": "Banda Bahadur, Misls, Maharaja Ranjit Singh (brief).",
+      "sort_order": 10
+    },
+    {
+      "code": "hist-med-c13-t11",
+      "chapter_code": "hist-med-c13",
+      "title": "Sikh scriptures and institutions",
+      "notes": "Adi Granth, Dasam Granth, Akal Takht, SGPC, Gurdwaras, Rehat Maryada.",
+      "sort_order": 11
+    },
+    {
+      "code": "hist-med-c14-t01",
+      "chapter_code": "hist-med-c14",
+      "title": "Early life and background",
+      "notes": "Zahiruddin Muhammad Babur (b. 1483), Timurid and Chagatai lineage, Farghana, Samarqand, Kabul.",
+      "sort_order": 1
+    },
+    {
+      "code": "hist-med-c14-t02",
+      "chapter_code": "hist-med-c14",
+      "title": "Invitation to India and causes",
+      "notes": "Daulat Khan Lodi and Alam Khan, Rana Sanga; instability under Lodis.",
+      "sort_order": 2
+    },
+    {
+      "code": "hist-med-c14-t03",
+      "chapter_code": "hist-med-c14",
+      "title": "First Battle of Panipat (1526)",
+      "notes": "Ibrahim Lodi, artillery (Ustad Ali Quli), Tulughma and Araba tactics; foundation of the Mughal empire.",
+      "sort_order": 3
+    },
+    {
+      "code": "hist-med-c14-t04",
+      "chapter_code": "hist-med-c14",
+      "title": "Battle of Khanwa (1527)",
+      "notes": "Rana Sanga, title of Ghazi, Rajput confederacy defeated.",
+      "sort_order": 4
+    },
+    {
+      "code": "hist-med-c14-t05",
+      "chapter_code": "hist-med-c14",
+      "title": "Battle of Chanderi (1528) and Ghagra (1529)",
+      "notes": "Medini Rai, Afghan confederates.",
+      "sort_order": 5
+    },
+    {
+      "code": "hist-med-c14-t06",
+      "chapter_code": "hist-med-c14",
+      "title": "Babur’s administration and policies",
+      "notes": "Padshah title (1530), Alwar, Jagirs, Dar-ul-Harb vs Dar-ul-Islam.",
+      "sort_order": 6
+    },
+    {
+      "code": "hist-med-c14-t07",
+      "chapter_code": "hist-med-c14",
+      "title": "Baburnama and gardens",
+      "notes": "Tuzuk-i-Baburi in Turki, Bagh-i-Babur at Kabul, Aram Bagh at Agra, literary patronage.",
+      "sort_order": 7
+    },
+    {
+      "code": "hist-med-c14-t08",
+      "chapter_code": "hist-med-c14",
+      "title": "Death and legacy",
+      "notes": "death at Agra (1530), tomb in Kabul.",
+      "sort_order": 8
+    },
+    {
+      "code": "hist-med-c15-t01",
+      "chapter_code": "hist-med-c15",
+      "title": "Accession and challenges",
+      "notes": "1530, partition of the empire among brothers, Kamran, Askari, Hindal.",
+      "sort_order": 1
+    },
+    {
+      "code": "hist-med-c15-t02",
+      "chapter_code": "hist-med-c15",
+      "title": "Early campaigns",
+      "notes": "Kalinjar, Gujarat (Bahadur Shah), Chunar.",
+      "sort_order": 2
+    },
+    {
+      "code": "hist-med-c15-t03",
+      "chapter_code": "hist-med-c15",
+      "title": "Battle of Chausa (1539)",
+      "notes": "Humayun vs Sher Shah; Nizam the water-carrier legend.",
+      "sort_order": 3
+    },
+    {
+      "code": "hist-med-c15-t04",
+      "chapter_code": "hist-med-c15",
+      "title": "Battle of Kannauj / Bilgram (1540)",
+      "notes": "defeat, loss of throne.",
+      "sort_order": 4
+    },
+    {
+      "code": "hist-med-c15-t05",
+      "chapter_code": "hist-med-c15",
+      "title": "Exile and Persia",
+      "notes": "Safavid help (Shah Tahmasp), Amarkot (Akbar’s birth, 1542), return to Kabul.",
+      "sort_order": 5
+    },
+    {
+      "code": "hist-med-c15-t06",
+      "chapter_code": "hist-med-c15",
+      "title": "Restoration (1555)",
+      "notes": "Sirhind, Delhi recovered, Bairam Khan.",
+      "sort_order": 6
+    },
+    {
+      "code": "hist-med-c15-t07",
+      "chapter_code": "hist-med-c15",
+      "title": "Death and legacy",
+      "notes": "fall from Din Panah library stairs (1556), Humayun’s Tomb (Haji Begum), Humayun-nama (Gulbadan Begum).",
+      "sort_order": 7
+    },
+    {
+      "code": "hist-med-c16-t01",
+      "chapter_code": "hist-med-c16",
+      "title": "Early life and rise",
+      "notes": "Farid, Sasaram, Sher Khan title, service under Babur and Bihar, Chunar acquisition.",
+      "sort_order": 1
+    },
+    {
+      "code": "hist-med-c16-t02",
+      "chapter_code": "hist-med-c16",
+      "title": "Conquest of Bengal and Humayun",
+      "notes": "Chausa (1539), Kannauj (1540); Sher Shah as Padshah.",
+      "sort_order": 2
+    },
+    {
+      "code": "hist-med-c16-t03",
+      "chapter_code": "hist-med-c16",
+      "title": "Military campaigns",
+      "notes": "Malwa, Raisen, Marwar (Maldeo; Giri-Sumel 1544), Kalinjar (death 1545).",
+      "sort_order": 3
+    },
+    {
+      "code": "hist-med-c16-t04",
+      "chapter_code": "hist-med-c16",
+      "title": "Central administration",
+      "notes": "ministers (Diwan-i-Wizarat, Diwan-i-Ariz, Diwan-i-Rasalat, Diwan-i-Insha), Sarkar and Pargana.",
+      "sort_order": 4
+    },
+    {
+      "code": "hist-med-c16-t05",
+      "chapter_code": "hist-med-c16",
+      "title": "Revenue system",
+      "notes": "land measurement, Patta and Qabuliyat, classification of land (good, medium, bad), 1/3 share of the state, Zabti system, Rai.",
+      "sort_order": 5
+    },
+    {
+      "code": "hist-med-c16-t06",
+      "chapter_code": "hist-med-c16",
+      "title": "Currency, trade and roads",
+      "notes": "silver Rupaya, copper Dam, Grand Trunk Road (Sonargaon to Peshawar), sarais, postal system (Dak Chowki).",
+      "sort_order": 6
+    },
+    {
+      "code": "hist-med-c16-t07",
+      "chapter_code": "hist-med-c16",
+      "title": "Military and police reforms",
+      "notes": "Dagh and Chehra, centralised army, Pargana-level policing.",
+      "sort_order": 7
+    },
+    {
+      "code": "hist-med-c16-t08",
+      "chapter_code": "hist-med-c16",
+      "title": "Justice and welfare",
+      "notes": "Qazi, Mir Adl, charity (Langars).",
+      "sort_order": 8
+    },
+    {
+      "code": "hist-med-c16-t09",
+      "chapter_code": "hist-med-c16",
+      "title": "Architecture",
+      "notes": "Rohtasgarh fort, Sher Shah’s tomb (Sasaram), Purana Qila and Qila-i-Kuhna mosque.",
+      "sort_order": 9
+    },
+    {
+      "code": "hist-med-c16-t10",
+      "chapter_code": "hist-med-c16",
+      "title": "Successors",
+      "notes": "Islam Shah, Adil Shah, Sikandar Shur; Hemu (Hemchandra Vikramaditya) and Second Battle of Panipat (1556).",
+      "sort_order": 10
+    },
+    {
+      "code": "hist-med-c17-t01",
+      "chapter_code": "hist-med-c17",
+      "title": "Accession and early years",
+      "notes": "Kalanaur coronation (1556), Bairam Khan regency, Second Battle of Panipat (1556) vs Hemu.",
+      "sort_order": 1
+    },
+    {
+      "code": "hist-med-c17-t02",
+      "chapter_code": "hist-med-c17",
+      "title": "Fall of Bairam Khan and petticoat government",
+      "notes": "Maham Anga, Adham Khan; Akbar’s independence by 1562.",
+      "sort_order": 2
+    },
+    {
+      "code": "hist-med-c17-t03",
+      "chapter_code": "hist-med-c17",
+      "title": "Conquests in North India",
+      "notes": "Malwa (Baz Bahadur), Chunar, Gondwana (Rani Durgavati), Chittor (1568), Ranthambhor, Kalinjar, Gujarat, Bengal.",
+      "sort_order": 3
+    },
+    {
+      "code": "hist-med-c17-t04",
+      "chapter_code": "hist-med-c17",
+      "title": "Battle of Haldighati (1576)",
+      "notes": "Maharana Pratap vs Man Singh, outcome and aftermath.",
+      "sort_order": 4
+    },
+    {
+      "code": "hist-med-c17-t05",
+      "chapter_code": "hist-med-c17",
+      "title": "Deccan and North-West campaigns",
+      "notes": "Khandesh, Ahmednagar (Chand Bibi), Asirgarh (1601), Kabul, Kashmir, Sindh, Qandahar.",
+      "sort_order": 5
+    },
+    {
+      "code": "hist-med-c17-t06",
+      "chapter_code": "hist-med-c17",
+      "title": "Rajput policy",
+      "notes": "matrimonial alliances (Jodha Bai/Harkha Bai), abolition of Jizya and pilgrim tax (1563–64), Mansabs for Rajputs.",
+      "sort_order": 6
+    },
+    {
+      "code": "hist-med-c17-t07",
+      "chapter_code": "hist-med-c17",
+      "title": "Religious policy: Din-i-Ilahi",
+      "notes": "Ibadat Khana (1575), Mahzar (1579), Sulh-i-Kul, Din-i-Ilahi (1582), key followers (Birbal).",
+      "sort_order": 7
+    },
+    {
+      "code": "hist-med-c17-t08",
+      "chapter_code": "hist-med-c17",
+      "title": "Mansabdari system",
+      "notes": "Zat and Sawar, ranks, Jagirs vs cash, Dagh and Chehra.",
+      "sort_order": 8
+    },
+    {
+      "code": "hist-med-c17-t09",
+      "chapter_code": "hist-med-c17",
+      "title": "Revenue system",
+      "notes": "Zabt (Todar Mal’s Dahsala), Ain-i-Dahsala, Karori experiment, Ghallabakshi, Nasaq, classification of land.",
+      "sort_order": 9
+    },
+    {
+      "code": "hist-med-c17-t10",
+      "chapter_code": "hist-med-c17",
+      "title": "Administration and officials",
+      "notes": "Wakil, Wazir, Mir Bakshi, Sadr-us-Sudur; provinces (Subas), Sarkars.",
+      "sort_order": 10
+    },
+    {
+      "code": "hist-med-c17-t11",
+      "chapter_code": "hist-med-c17",
+      "title": "Navaratnas",
+      "notes": "Birbal, Todar Mal, Tansen, Abul Fazl, Faizi, Abdur Rahim Khan-i-Khanan, Man Singh, Mulla Do-Piyaza, Fakir Aziao-Din.",
+      "sort_order": 11
+    },
+    {
+      "code": "hist-med-c17-t12",
+      "chapter_code": "hist-med-c17",
+      "title": "Architecture and arts",
+      "notes": "Fatehpur Sikri (Buland Darwaza, Jama Masjid, Diwan-i-Khas, Panch Mahal), Agra Fort, Humayun’s Tomb, Akbar’s Tomb (Sikandra), Akbari painting.",
+      "sort_order": 12
+    },
+    {
+      "code": "hist-med-c17-t13",
+      "chapter_code": "hist-med-c17",
+      "title": "Literature and translation",
+      "notes": "Akbarnama, Ain-i-Akbari (Abul Fazl), Razmnama (Mahabharata translation), Mahabharata and Ramayana Persian translation.",
+      "sort_order": 13
+    },
+    {
+      "code": "hist-med-c17-t14",
+      "chapter_code": "hist-med-c17",
+      "title": "Foreign contacts",
+      "notes": "Portuguese, Jesuit missions (Monserrate), Jahangir’s English envoys.",
+      "sort_order": 14
+    },
+    {
+      "code": "hist-med-c18-t01",
+      "chapter_code": "hist-med-c18",
+      "title": "Accession (1605)",
+      "notes": "Salim, Khusrau’s revolt, Guru Arjan Dev’s execution, Chain of Justice (Zanjir-i-Adl).",
+      "sort_order": 1
+    },
+    {
+      "code": "hist-med-c18-t02",
+      "chapter_code": "hist-med-c18",
+      "title": "Nur Jahan and her junta",
+      "notes": "marriage with Mehr-un-Nisa (1611), Itimad-ud-Daula, Asaf Khan, Khurram; patronage and influence; Nur Jahan’s coins.",
+      "sort_order": 2
+    },
+    {
+      "code": "hist-med-c18-t03",
+      "chapter_code": "hist-med-c18",
+      "title": "Mewar and Deccan campaigns",
+      "notes": "submission of Mewar (Rana Amar Singh, 1615), Ahmednagar and Malik Ambar, Kangra (1620).",
+      "sort_order": 3
+    },
+    {
+      "code": "hist-med-c18-t04",
+      "chapter_code": "hist-med-c18",
+      "title": "Revolt of Khurram and Mahabat Khan",
+      "notes": "Shah Jahan’s rebellion, Mahabat Khan’s coup (1626).",
+      "sort_order": 4
+    },
+    {
+      "code": "hist-med-c18-t05",
+      "chapter_code": "hist-med-c18",
+      "title": "Foreign relations",
+      "notes": "Captain Hawkins (1608), Sir Thomas Roe (1615), Persian loss of Qandahar (1622).",
+      "sort_order": 5
+    },
+    {
+      "code": "hist-med-c18-t06",
+      "chapter_code": "hist-med-c18",
+      "title": "Jahangir and religion",
+      "notes": "Sikh Gurus, Jahangir’s orthodoxy, tolerance, Jogis (Gosains).",
+      "sort_order": 6
+    },
+    {
+      "code": "hist-med-c18-t07",
+      "chapter_code": "hist-med-c18",
+      "title": "Art, painting and architecture",
+      "notes": "height of Mughal painting, Ustad Mansur, Bishandas, Abul Hasan; Itimad-ud-Daula tomb, Shalimar Bagh, Nishat Bagh, Akbar’s tomb completion.",
+      "sort_order": 7
+    },
+    {
+      "code": "hist-med-c18-t08",
+      "chapter_code": "hist-med-c18",
+      "title": "Tuzuk-i-Jahangiri",
+      "notes": "autobiography, Persian; Muatamad Khan’s Iqbalnama.",
+      "sort_order": 8
+    },
+    {
+      "code": "hist-med-c19-t01",
+      "chapter_code": "hist-med-c19",
+      "title": "Accession (1628)",
+      "notes": "war of succession against Shahryar, Asaf Khan; purge of rivals; title Abul Muzaffar Shihabuddin.",
+      "sort_order": 1
+    },
+    {
+      "code": "hist-med-c19-t02",
+      "chapter_code": "hist-med-c19",
+      "title": "Deccan policy",
+      "notes": "conquest of Ahmednagar (1633), Bijapur and Golconda treaty (1636), Aurangzeb as viceroy.",
+      "sort_order": 2
+    },
+    {
+      "code": "hist-med-c19-t03",
+      "chapter_code": "hist-med-c19",
+      "title": "North-West campaigns",
+      "notes": "Balkh and Badakhshan (1646–47), Qandahar loss (1649), Aurangzeb’s failures.",
+      "sort_order": 3
+    },
+    {
+      "code": "hist-med-c19-t04",
+      "chapter_code": "hist-med-c19",
+      "title": "Rajput relations and revolts",
+      "notes": "Bundelas (Jujhar Singh), Khan Jahan Lodi, Portuguese at Hooghly (1632).",
+      "sort_order": 4
+    },
+    {
+      "code": "hist-med-c19-t05",
+      "chapter_code": "hist-med-c19",
+      "title": "War of Succession (1657–58)",
+      "notes": "Dara Shikoh, Shuja, Murad, Aurangzeb; Samugarh (1658), Dharmat; imprisonment at Agra.",
+      "sort_order": 5
+    },
+    {
+      "code": "hist-med-c19-t06",
+      "chapter_code": "hist-med-c19",
+      "title": "Administration and economy",
+      "notes": "Mansabdari strains, Jagirdari crisis, revenue (Khalisa, half of produce), famine in Gujarat (1630).",
+      "sort_order": 6
+    },
+    {
+      "code": "hist-med-c19-t07",
+      "chapter_code": "hist-med-c19",
+      "title": "Architecture: golden age",
+      "notes": "Taj Mahal (Ustad Ahmad Lahori), Red Fort, Jama Masjid (Delhi), Moti Masjid (Agra), Diwan-i-Am, Diwan-i-Khas, Peacock Throne, Shahjahanabad.",
+      "sort_order": 7
+    },
+    {
+      "code": "hist-med-c19-t08",
+      "chapter_code": "hist-med-c19",
+      "title": "Painting, music and literature",
+      "notes": "Padshahnama (Abdul Hamid Lahori), Dara Shikoh’s Majma-ul-Bahrain and Upanishad translation, Sirr-i-Akbar.",
+      "sort_order": 8
+    },
+    {
+      "code": "hist-med-c19-t09",
+      "chapter_code": "hist-med-c19",
+      "title": "Foreign travellers",
+      "notes": "Bernier, Tavernier, Peter Mundy, Manucci.",
+      "sort_order": 9
+    },
+    {
+      "code": "hist-med-c20-t01",
+      "chapter_code": "hist-med-c20",
+      "title": "Accession and consolidation",
+      "notes": "1658, Alamgir title, Samugarh, execution of Dara (1659), coronation (1659).",
+      "sort_order": 1
+    },
+    {
+      "code": "hist-med-c20-t02",
+      "chapter_code": "hist-med-c20",
+      "title": "Religious policy",
+      "notes": "Jizya reimposed (1679), ban on music and jharokha, Sati prohibition, Muhtasib, temple destruction debate, Fatawa-i-Alamgiri.",
+      "sort_order": 2
+    },
+    {
+      "code": "hist-med-c20-t03",
+      "chapter_code": "hist-med-c20",
+      "title": "Rajput policy",
+      "notes": "Jaswant Singh of Marwar, Durgadas Rathore, Mewar conflict; Rathor and Sisodia revolts.",
+      "sort_order": 3
+    },
+    {
+      "code": "hist-med-c20-t04",
+      "chapter_code": "hist-med-c20",
+      "title": "Sikh policy and Guru Tegh Bahadur",
+      "notes": "execution (1675), Guru Gobind Singh, Khalsa (1699).",
+      "sort_order": 4
+    },
+    {
+      "code": "hist-med-c20-t05",
+      "chapter_code": "hist-med-c20",
+      "title": "Jat, Satnami and Bundela revolts",
+      "notes": "Gokula, Raja Ram, Churaman; Satnami (1672), Bundela (Chhatrasal).",
+      "sort_order": 5
+    },
+    {
+      "code": "hist-med-c20-t06",
+      "chapter_code": "hist-med-c20",
+      "title": "Pathan revolt",
+      "notes": "Khushal Khan Khattak.",
+      "sort_order": 6
+    },
+    {
+      "code": "hist-med-c20-t07",
+      "chapter_code": "hist-med-c20",
+      "title": "Maratha policy",
+      "notes": "Shivaji (Agra visit, 1666), Shambhaji’s execution (1689), Rajaram, Tarabai; Deccan wars.",
+      "sort_order": 7
+    },
+    {
+      "code": "hist-med-c20-t08",
+      "chapter_code": "hist-med-c20",
+      "title": "Deccan conquest",
+      "notes": "Bijapur (1686), Golconda (1687), Mughal empire at its greatest extent.",
+      "sort_order": 8
+    },
+    {
+      "code": "hist-med-c20-t09",
+      "chapter_code": "hist-med-c20",
+      "title": "Aurangzeb’s administration",
+      "notes": "Mansabdari decay, Jagirdari crisis, revenue (Muqata), Khalisa; Deccani nobles.",
+      "sort_order": 9
+    },
+    {
+      "code": "hist-med-c20-t10",
+      "chapter_code": "hist-med-c20",
+      "title": "Aurangzeb’s character and personal life",
+      "notes": "skullcap-stitching, Tilism-i-Mahal, Ruqaat-i-Alamgiri, Mir Jumla.",
+      "sort_order": 10
+    },
+    {
+      "code": "hist-med-c20-t11",
+      "chapter_code": "hist-med-c20",
+      "title": "Causes of Mughal decline linked to Aurangzeb",
+      "notes": "long Deccan war, religious policy debate, revolts, jagirdari crisis.",
+      "sort_order": 11
+    },
+    {
+      "code": "hist-med-c21-t01",
+      "chapter_code": "hist-med-c21",
+      "title": "Central structure",
+      "notes": "Emperor (divine kingship), Wakil, Diwan (Diwan-i-Kul), Mir Bakshi, Mir Saman, Sadr-us-Sudur, Qazi-ul-Quzat, Muhtasib.",
+      "sort_order": 1
+    },
+    {
+      "code": "hist-med-c21-t02",
+      "chapter_code": "hist-med-c21",
+      "title": "Provincial administration",
+      "notes": "Suba, Sarkar, Pargana; Subedar (Sipah Salar), Diwan, Bakhshi, Waqia Navis; Qanungo, Chaudhari.",
+      "sort_order": 2
+    },
+    {
+      "code": "hist-med-c21-t03",
+      "chapter_code": "hist-med-c21",
+      "title": "Mansabdari system",
+      "notes": "introduced by Akbar, Zat and Sawar, 33 grades, Do-aspa-sih-aspa, rank-pay, differences under successors.",
+      "sort_order": 3
+    },
+    {
+      "code": "hist-med-c21-t04",
+      "chapter_code": "hist-med-c21",
+      "title": "Land revenue system",
+      "notes": "Zabt, Ghallabakshi, Nasaq, Dahsala; Jagirdari and Khalisa; land classification (Polaj, Parauti, Chachar, Banjar).",
+      "sort_order": 4
+    },
+    {
+      "code": "hist-med-c21-t05",
+      "chapter_code": "hist-med-c21",
+      "title": "Army organisation",
+      "notes": "Mansabdari cavalry, artillery (Topkhana), infantry, navy, Dagh and Chehra.",
+      "sort_order": 5
+    },
+    {
+      "code": "hist-med-c21-t06",
+      "chapter_code": "hist-med-c21",
+      "title": "Judicial system",
+      "notes": "Qazi, Mufti, Mir Adl, Diwan-i-Mazalim; Hindu panchayats; Fatawa-i-Alamgiri.",
+      "sort_order": 6
+    },
+    {
+      "code": "hist-med-c21-t07",
+      "chapter_code": "hist-med-c21",
+      "title": "Economy, trade and currency",
+      "notes": "silver rupee, Mohur, Dam; export of textiles and indigo; European companies; urban centres.",
+      "sort_order": 7
+    },
+    {
+      "code": "hist-med-c21-t08",
+      "chapter_code": "hist-med-c21",
+      "title": "Society and social structure",
+      "notes": "Zamindars, peasants, artisans, Sati abolition attempts, Bhakti.",
+      "sort_order": 8
+    },
+    {
+      "code": "hist-med-c22-t01",
+      "chapter_code": "hist-med-c22",
+      "title": "Persian and Indian painting roots",
+      "notes": "Timurid influence, Mir Sayyid Ali, Abdus Samad, Humayun’s atelier.",
+      "sort_order": 1
+    },
+    {
+      "code": "hist-med-c22-t02",
+      "chapter_code": "hist-med-c22",
+      "title": "Akbar’s painting",
+      "notes": "Hamzanama, Razmnama, Akbarnama illustrations; Daswant, Basawan, Mukunda.",
+      "sort_order": 2
+    },
+    {
+      "code": "hist-med-c22-t03",
+      "chapter_code": "hist-med-c22",
+      "title": "Jahangir’s paintings",
+      "notes": "naturalism, portraits, bird and flower studies; Ustad Mansur, Bishandas, Abul Hasan.",
+      "sort_order": 3
+    },
+    {
+      "code": "hist-med-c22-t04",
+      "chapter_code": "hist-med-c22",
+      "title": "Shah Jahan and Aurangzeb",
+      "notes": "decline of painting, calligraphy and precious-stone work (pietra dura).",
+      "sort_order": 4
+    },
+    {
+      "code": "hist-med-c22-t05",
+      "chapter_code": "hist-med-c22",
+      "title": "Mughal music",
+      "notes": "Tansen, Baiju Bawra, Dhrupad, Khayal; patronage by Akbar; decline under Aurangzeb.",
+      "sort_order": 5
+    },
+    {
+      "code": "hist-med-c22-t06",
+      "chapter_code": "hist-med-c22",
+      "title": "Gharanas and instruments",
+      "notes": "Sitar, Tabla, Rabab; Mian ki Malhar, Deepak.",
+      "sort_order": 6
+    },
+    {
+      "code": "hist-med-c22-t07",
+      "chapter_code": "hist-med-c22",
+      "title": "Regional schools",
+      "notes": "Rajput (Mewar, Bundi, Kishangarh), Pahari (Kangra), Deccani painting.",
+      "sort_order": 7
+    },
+    {
+      "code": "hist-med-c23-t01",
+      "chapter_code": "hist-med-c23",
+      "title": "Babur’s literary work",
+      "notes": "Baburnama (Tuzuk-i-Baburi), Turki.",
+      "sort_order": 1
+    },
+    {
+      "code": "hist-med-c23-t02",
+      "chapter_code": "hist-med-c23",
+      "title": "Humayun’s and Gulbadan’s works",
+      "notes": "Humayun-nama (Gulbadan Begum), Qanun-i-Humayuni (Khwandamir).",
+      "sort_order": 2
+    },
+    {
+      "code": "hist-med-c23-t03",
+      "chapter_code": "hist-med-c23",
+      "title": "Akbar’s court literature",
+      "notes": "Akbarnama and Ain-i-Akbari (Abul Fazl), Muntakhab-ut-Tawarikh (Badauni), Tabaqat-i-Akbari (Nizamuddin Ahmad).",
+      "sort_order": 3
+    },
+    {
+      "code": "hist-med-c23-t04",
+      "chapter_code": "hist-med-c23",
+      "title": "Translations",
+      "notes": "Razmnama (Mahabharata), Ramayana, Atharvaveda, Lilavati, Rajatarangini into Persian.",
+      "sort_order": 4
+    },
+    {
+      "code": "hist-med-c23-t05",
+      "chapter_code": "hist-med-c23",
+      "title": "Jahangir and Shah Jahan era",
+      "notes": "Tuzuk-i-Jahangiri, Iqbalnama, Padshahnama (Lahori and Waris).",
+      "sort_order": 5
+    },
+    {
+      "code": "hist-med-c23-t06",
+      "chapter_code": "hist-med-c23",
+      "title": "Aurangzeb and later period",
+      "notes": "Fatawa-i-Alamgiri, Muntakhab-ul-Lubab (Khafi Khan), Zafarnama.",
+      "sort_order": 6
+    },
+    {
+      "code": "hist-med-c23-t07",
+      "chapter_code": "hist-med-c23",
+      "title": "Regional language literature",
+      "notes": "Tulsidas (Ramcharitmanas), Surdas, Keshavdas, Biharilal, Bhushan; Urdu poetry (Mir, Sauda).",
+      "sort_order": 7
+    },
+    {
+      "code": "hist-med-c23-t08",
+      "chapter_code": "hist-med-c23",
+      "title": "Author–work matching",
+      "notes": "quick revision.",
+      "sort_order": 8
+    },
+    {
+      "code": "hist-med-c24-t01",
+      "chapter_code": "hist-med-c24",
+      "title": "Mughal rulers chronology",
+      "notes": "Babur to Bahadur Shah II, dates, capitals.",
+      "sort_order": 1
+    },
+    {
+      "code": "hist-med-c24-t02",
+      "chapter_code": "hist-med-c24",
+      "title": "Foreign travellers",
+      "notes": "Hawkins, Roe, Bernier, Tavernier, Manucci, Peter Mundy, Terry, Fryer.",
+      "sort_order": 2
+    },
+    {
+      "code": "hist-med-c24-t03",
+      "chapter_code": "hist-med-c24",
+      "title": "European trading companies",
+      "notes": "Portuguese, Dutch, English East India Company (1600), French; early factories.",
+      "sort_order": 3
+    },
+    {
+      "code": "hist-med-c24-t04",
+      "chapter_code": "hist-med-c24",
+      "title": "Mughal gardens and monuments",
+      "notes": "Shalimar, Nishat, Taj, Agra Fort, Fatehpur Sikri.",
+      "sort_order": 4
+    },
+    {
+      "code": "hist-med-c24-t05",
+      "chapter_code": "hist-med-c24",
+      "title": "Coins and measures",
+      "notes": "Mohur, Rupaya, Dam, Ilahi gaz, Bigha, Maund.",
+      "sort_order": 5
+    },
+    {
+      "code": "hist-med-c24-t06",
+      "chapter_code": "hist-med-c24",
+      "title": "Titles and terms",
+      "notes": "Mansabdar, Zamindar, Jagir, Khalisa, Madad-i-Maash, Suyurghal.",
+      "sort_order": 6
+    },
+    {
+      "code": "hist-med-c24-t07",
+      "chapter_code": "hist-med-c24",
+      "title": "Wars and treaties",
+      "notes": "Panipat (1526, 1556), Khanwa, Haldighati, Purandar (1665), Samugarh.",
+      "sort_order": 7
+    },
+    {
+      "code": "hist-med-c24-t08",
+      "chapter_code": "hist-med-c24",
+      "title": "Women of the Mughal era",
+      "notes": "Nur Jahan, Mumtaz Mahal, Jahanara, Roshanara, Zebunnisa.",
+      "sort_order": 8
+    },
+    {
+      "code": "hist-med-c25-t01",
+      "chapter_code": "hist-med-c25",
+      "title": "Rise of the Marathas",
+      "notes": "geography, Bhakti saints, role of Shahaji Bhonsle, Jijabai, Dadoji Konddev.",
+      "sort_order": 1
+    },
+    {
+      "code": "hist-med-c25-t02",
+      "chapter_code": "hist-med-c25",
+      "title": "Shivaji (1627–1680)",
+      "notes": "early conquests (Torna, Purandar), Afzal Khan killed (1659), Shaista Khan raid (1663), Surat sack, Treaty of Purandar (1665).",
+      "sort_order": 2
+    },
+    {
+      "code": "hist-med-c25-t03",
+      "chapter_code": "hist-med-c25",
+      "title": "Coronation and administration",
+      "notes": "Rajyabhisheka at Raigad (1674), Chhatrapati title, Ashtapradhan (Peshwa, Amatya, Sachiv, Mantri, Senapati, Sumant, Nyayadhish, Panditrao).",
+      "sort_order": 3
+    },
+    {
+      "code": "hist-med-c25-t04",
+      "chapter_code": "hist-med-c25",
+      "title": "Revenue system",
+      "notes": "Chauth and Sardeshmukhi, Ryotwari-type assessment, Jagirdari abolished and land survey for assessment.",
+      "sort_order": 4
+    },
+    {
+      "code": "hist-med-c25-t05",
+      "chapter_code": "hist-med-c25",
+      "title": "Military and navy",
+      "notes": "forts (Raigad), light cavalry, navy under Kanhoji Angre.",
+      "sort_order": 5
+    },
+    {
+      "code": "hist-med-c25-t06",
+      "chapter_code": "hist-med-c25",
+      "title": "Shambhaji and Rajaram",
+      "notes": "Mughal war, Shambhaji’s execution, Rajaram at Jinji, Tarabai.",
+      "sort_order": 6
+    },
+    {
+      "code": "hist-med-c25-t07",
+      "chapter_code": "hist-med-c25",
+      "title": "Shahu and the Peshwas",
+      "notes": "Shahu’s release (1707), Balaji Vishwanath (first Peshwa), Baji Rao I, Balaji Baji Rao (Nanasaheb).",
+      "sort_order": 7
+    },
+    {
+      "code": "hist-med-c25-t08",
+      "chapter_code": "hist-med-c25",
+      "title": "Maratha Confederacy",
+      "notes": "Gaekwad (Baroda), Holkar (Indore), Sindhia (Gwalior), Bhonsle (Nagpur), Peshwa (Pune).",
+      "sort_order": 8
+    },
+    {
+      "code": "hist-med-c25-t09",
+      "chapter_code": "hist-med-c25",
+      "title": "Third Battle of Panipat (1761)",
+      "notes": "Ahmad Shah Abdali vs Sadashiv Rao Bhau, causes and consequences.",
+      "sort_order": 9
+    },
+    {
+      "code": "hist-med-c25-t10",
+      "chapter_code": "hist-med-c25",
+      "title": "Later Peshwas and Anglo-Maratha Wars",
+      "notes": "Madhav Rao I, Nana Phadnavis, three Anglo-Maratha Wars, Treaty of Salbai, Bassein.",
+      "sort_order": 10
+    },
+    {
+      "code": "hist-med-c25-t11",
+      "chapter_code": "hist-med-c25",
+      "title": "Maratha culture",
+      "notes": "Marathi literature, Ramdas, Tukaram, Shivaji’s patronage; Peshwa architecture.",
+      "sort_order": 11
+    },
+    {
+      "code": "hist-med-c26-t01",
+      "chapter_code": "hist-med-c26",
+      "title": "Later Mughals",
+      "notes": "Bahadur Shah I, Jahandar Shah, Farrukhsiyar, Muhammad Shah, Alamgir II, Shah Alam II, Akbar II, Bahadur Shah II.",
+      "sort_order": 1
+    },
+    {
+      "code": "hist-med-c26-t02",
+      "chapter_code": "hist-med-c26",
+      "title": "Causes of decline",
+      "notes": "Aurangzeb’s policies, jagirdari crisis, weak successors, noble factions, economy, foreign invasions.",
+      "sort_order": 2
+    },
+    {
+      "code": "hist-med-c26-t03",
+      "chapter_code": "hist-med-c26",
+      "title": "Invasion of Nadir Shah (1739)",
+      "notes": "Karnal, sack of Delhi, Peacock Throne and Koh-i-Noor removed.",
+      "sort_order": 3
+    },
+    {
+      "code": "hist-med-c26-t04",
+      "chapter_code": "hist-med-c26",
+      "title": "Invasions of Ahmad Shah Abdali",
+      "notes": "Panipat III (1761), Rohillas, Awadh.",
+      "sort_order": 4
+    },
+    {
+      "code": "hist-med-c26-t05",
+      "chapter_code": "hist-med-c26",
+      "title": "Regional successor states",
+      "notes": "Awadh (Saadat Khan), Bengal (Murshid Quli Khan), Hyderabad (Nizam-ul-Mulk), Mysore (Haidar Ali), Rohilkhand.",
+      "sort_order": 5
+    },
+    {
+      "code": "hist-med-c26-t06",
+      "chapter_code": "hist-med-c26",
+      "title": "Rise of the Sikhs, Jats and Rajputs",
+      "notes": "Misls, Churaman, Suraj Mal, Mewar.",
+      "sort_order": 6
+    },
+    {
+      "code": "hist-med-c26-t07",
+      "chapter_code": "hist-med-c26",
+      "title": "European companies’ rise",
+      "notes": "East India Company, Battle of Plassey (1757), Buxar (1764), Diwani (1765).",
+      "sort_order": 7
+    },
+    {
+      "code": "hist-med-c26-t08",
+      "chapter_code": "hist-med-c26",
+      "title": "Role of Sayyid Brothers",
+      "notes": "kingmakers, Farrukhsiyar’s removal.",
+      "sort_order": 8
+    },
+    {
+      "code": "hist-med-c27-t01",
+      "chapter_code": "hist-med-c27",
+      "title": "Chronology of Medieval India",
+      "notes": "timeline from 712 CE to 1857.",
+      "sort_order": 1
+    },
+    {
+      "code": "hist-med-c27-t02",
+      "chapter_code": "hist-med-c27",
+      "title": "Foreign travellers",
+      "notes": "Al-Biruni, Ibn Battuta, Marco Polo, Abdur Razzaq, Nicolo Conti, Bernier, Tavernier, Manucci.",
+      "sort_order": 2
+    },
+    {
+      "code": "hist-med-c27-t03",
+      "chapter_code": "hist-med-c27",
+      "title": "Medieval economy, trade and currency",
+      "notes": "ports, trade routes, banking, European companies, coins.",
+      "sort_order": 3
+    },
+    {
+      "code": "hist-med-c27-t04",
+      "chapter_code": "hist-med-c27",
+      "title": "Social conditions",
+      "notes": "caste, women, slavery, Sati, Purdah, rural and urban society.",
+      "sort_order": 4
+    },
+    {
+      "code": "hist-med-c27-t05",
+      "chapter_code": "hist-med-c27",
+      "title": "Religious movements",
+      "notes": "Bhakti, Sufism, Sikhism, Din-i-Ilahi; key leaders.",
+      "sort_order": 5
+    },
+    {
+      "code": "hist-med-c27-t06",
+      "chapter_code": "hist-med-c27",
+      "title": "Architecture and art across periods",
+      "notes": "Sultanate, Provincial, Mughal, Vijayanagara.",
+      "sort_order": 6
+    },
+    {
+      "code": "hist-med-c27-t07",
+      "chapter_code": "hist-med-c27",
+      "title": "Medieval literature and historians",
+      "notes": "Barani, Afif, Abul Fazl, Badauni, Khafi Khan; matching of works.",
+      "sort_order": 7
+    },
+    {
+      "code": "hist-med-c27-t08",
+      "chapter_code": "hist-med-c27",
+      "title": "Wars and treaties",
+      "notes": "Tarain, Panipat (three), Talikota, Khanwa, Haldighati, Purandar, Plassey (link).",
+      "sort_order": 8
+    },
+    {
+      "code": "hist-med-c27-t09",
+      "chapter_code": "hist-med-c27",
+      "title": "Mixed matching and one-liners",
+      "notes": "who built what, who wrote what, who defeated whom.",
+      "sort_order": 9
+    }
+  ]
+}
