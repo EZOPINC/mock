@@ -12,7 +12,7 @@ def key(code):
     return code.strip().casefold()
 
 
-def plan_taxonomy(data, *, create_subjects=False):
+def plan_taxonomy(data, *, create_subjects=False, attach_unassigned_chapters=False):
     if not isinstance(data, dict) or data.get("version", data.get("schema_version", 1)) != 1:
         raise ValidationError("Expected a version 1 taxonomy object.")
     data = deepcopy(data)
@@ -71,7 +71,10 @@ def plan_taxonomy(data, *, create_subjects=False):
                         old = getattr(existing, field, None)
                         new = parents.get(field)
                         initial_module_part = kind == "modules" and field == "part" and old is None and new is not None
-                        if getattr(old, "code", None) != getattr(new, "code", None) and not initial_module_part:
+                        initial_chapter_module = (attach_unassigned_chapters and kind == "chapters"
+                                                  and field == "module" and existing.module_id is None
+                                                  and existing.part_id is None and new is not None)
+                        if getattr(old, "code", None) != getattr(new, "code", None) and not (initial_module_part or initial_chapter_module):
                             raise ValidationError(f"Implicit reparenting rejected for {code}.")
                 for field, parent in parents.items():
                     setattr(obj, field, parent)
@@ -93,8 +96,9 @@ def plan_taxonomy(data, *, create_subjects=False):
             for field in ("code", "name", "slug", "display_order"):
                 obj._meta.get_field(field).clean(getattr(obj, field), obj)
             mutable = ("name", "display_order") + (("notes",) if kind == "topics" else ())
-            parent_changed = kind == "modules" and existing and (
-                getattr(obj.part, "code", None) != getattr(existing.part, "code", None))
+            parent_changed = existing and any(
+                getattr(getattr(obj, field, None), "code", None) != getattr(getattr(existing, field, None), "code", None)
+                for field in getattr(obj, "parent_fields", ()))
             action = "create" if existing is None else ("update" if parent_changed or any(getattr(obj, f) != getattr(existing, f) for f in mutable) else "unchanged")
             counts[kind][action] += 1
             catalogue[kind][key(code)] = obj

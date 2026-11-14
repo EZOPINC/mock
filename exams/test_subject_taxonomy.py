@@ -11,6 +11,35 @@ from .models import Subject, Part, Module, Chapter, Topic
 
 
 class SubjectTaxonomyTests(TestCase):
+    def test_explicit_first_chapter_module_attachment(self):
+        self.run_import()
+        chapter = Chapter.objects.get(code='C')
+        topic = Topic.objects.get(code='T')
+        identity = (chapter.pk, topic.pk, topic.chapter_id)
+        self.data['modules'] = [{'code': 'M', 'name': 'Ancient'}]
+        self.data['chapters'][0]['module_code'] = 'M'
+        with self.assertRaisesMessage(CommandError, 'reparenting'):
+            self.run_import()
+        flag = '--attach-unassigned-chapters'
+        self.assertIn('chapters: create=0, update=1', self.run_import(flag, '--dry-run'))
+        self.assertFalse(Module.objects.exists())
+        chapter.refresh_from_db()
+        self.assertIsNone(chapter.module_id)
+        self.run_import(flag)
+        chapter.refresh_from_db()
+        topic.refresh_from_db()
+        self.assertEqual(chapter.module.code, 'M')
+        self.assertEqual(identity, (chapter.pk, topic.pk, topic.chapter_id))
+        self.assertIn('chapters: create=0, update=0, unchanged=1', self.run_import())
+        self.data['modules'].append({'code': 'M2', 'name': 'Other'})
+        self.data['chapters'][0]['module_code'] = 'M2'
+        with self.assertRaisesMessage(CommandError, 'reparenting'):
+            self.run_import(flag)
+        self.assertFalse(Module.objects.filter(code='M2').exists())
+        self.data['chapters'][0]['module_code'] = 'missing'
+        with self.assertRaisesMessage(CommandError, 'Missing module'):
+            self.run_import(flag)
+
     def test_parts_import_and_first_module_assignment_preserve_ids(self):
         module = Module.objects.create(subject=self.subject, code="M", name="Module", slug="module")
         self.data['parts'] = [{'code': 'P', 'title': 'India'}]

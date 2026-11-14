@@ -44,6 +44,25 @@ Subject, code and IDs remain fixed; existing chapter/topic links and historical
 snapshots are untouched. Once assigned, the Part cannot be removed or changed.
 Cross-subject assignments remain blocked by model validation and PostgreSQL.
 
+Migration `0007_chapter_initial_module_assignment` similarly allows a chapter
+directly under its Subject (no Part or Module) to receive its first same-subject
+Module. For existing chapters, the importer requires the explicit
+`--attach-unassigned-chapters` option as well as `module_code` on each chapter.
+Without the option, existing-parent changes are still rejected. Chapters already
+under a Part or Module cannot move. IDs, topic links and codes are preserved.
+
+The supplied `Data/Questions/ancient_india_taxonomy.json` now explicitly sets
+`"module_code": "hist-anc"` on its 16 chapters. To repair an earlier direct-subject
+import, run:
+
+```console
+python manage.py migrate
+python manage.py import_subject_taxonomy Data/Questions/ancient_india_taxonomy.json --attach-unassigned-chapters --dry-run
+python manage.py import_subject_taxonomy Data/Questions/ancient_india_taxonomy.json --attach-unassigned-chapters
+```
+
+Once attached, ordinary repeat imports work without the repair option.
+
 The original single-subject format is also accepted: omit version (defaults to 1),
 use `"subject": {"code": "HI", "name": "History"}` (or a subject code string),
 and use `title` instead of `name`. Children inherit this subject_code. `scope`

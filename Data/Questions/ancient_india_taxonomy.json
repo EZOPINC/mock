@@ -16,96 +16,112 @@
     "chapters": [
         {
             "code": "hist-anc-c01",
+            "module_code": "hist-anc",
             "subject_code": "history",
             "title": "Stone Age: Palaeolithic to Megalithic Cultures",
             "sort_order": 1
         },
         {
             "code": "hist-anc-c02",
+            "module_code": "hist-anc",
             "subject_code": "history",
             "title": "Indus Valley (Harappan) Civilization",
             "sort_order": 2
         },
         {
             "code": "hist-anc-c03",
+            "module_code": "hist-anc",
             "subject_code": "history",
             "title": "Vedic Age: Early and Later Vedic Period",
             "sort_order": 3
         },
         {
             "code": "hist-anc-c04",
+            "module_code": "hist-anc",
             "subject_code": "history",
             "title": "Sixth Century B.C.: Mahajanapadas and Rise of Magadha",
             "sort_order": 4
         },
         {
             "code": "hist-anc-c05",
+            "module_code": "hist-anc",
             "subject_code": "history",
             "title": "Buddhism",
             "sort_order": 5
         },
         {
             "code": "hist-anc-c06",
+            "module_code": "hist-anc",
             "subject_code": "history",
             "title": "Jainism",
             "sort_order": 6
         },
         {
             "code": "hist-anc-c07",
+            "module_code": "hist-anc",
             "subject_code": "history",
             "title": "Foreign Invasions: Persian and Greek (Alexander)",
             "sort_order": 7
         },
         {
             "code": "hist-anc-c08",
+            "module_code": "hist-anc",
             "subject_code": "history",
             "title": "Mauryan Empire",
             "sort_order": 8
         },
         {
             "code": "hist-anc-c09",
+            "module_code": "hist-anc",
             "subject_code": "history",
             "title": "Post-Mauryan Period: Shungas, Satavahanas and Foreign Rulers",
             "sort_order": 9
         },
         {
             "code": "hist-anc-c10",
+            "module_code": "hist-anc",
             "subject_code": "history",
             "title": "Gupta Empire and the Post-Gupta Age (Harsha)",
             "sort_order": 10
         },
         {
             "code": "hist-anc-c11",
+            "module_code": "hist-anc",
             "subject_code": "history",
             "title": "South India: Sangam Age, Pallavas, Chalukyas and Cholas",
             "sort_order": 11
         },
         {
             "code": "hist-anc-c12",
+            "module_code": "hist-anc",
             "subject_code": "history",
             "title": "Early Medieval India: Rajputs, Palas and Early Invasions",
             "sort_order": 12
         },
         {
             "code": "hist-anc-c13",
+            "module_code": "hist-anc",
             "subject_code": "history",
             "title": "Shaivism and Vaishnavism (Bhagavata Religion)",
             "sort_order": 13
         },
         {
             "code": "hist-anc-c14",
+            "module_code": "hist-anc",
             "subject_code": "history",
             "title": "Architecture and Art of Ancient India",
             "sort_order": 14
         },
         {
             "code": "hist-anc-c15",
+            "module_code": "hist-anc",
             "subject_code": "history",
             "title": "Ancient Literature and Authors",
             "sort_order": 15
         },
         {
             "code": "hist-anc-c16",
+            "module_code": "hist-anc",
             "subject_code": "history",
             "title": "Miscellaneous (Mixed Ancient History)",
             "sort_order": 16

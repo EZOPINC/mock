@@ -164,6 +164,7 @@ Explore uses kind/node ID with from_question, exam and prefixed difficulty param
 |---|---|
 | Flexible paths/parent guards | `exams/migrations/0004_flexible_academic_taxonomy.py` |
 | Initial Module Part assignment | `exams/migrations/0006_module_initial_part_assignment.py`; same-subject null-to-Part only |
+| Initial Chapter Module assignment | `exams/migrations/0007_chapter_initial_module_assignment.py`; same-subject root-to-Module only; importer requires `--attach-unassigned-chapters` |
 | Translation backfill | `questions/migrations/0003_backfill_translations.py` |
 | Deferred primary-tag checks | `questions/migrations/0005_primary_topic_compatibility.py` |
 | Import context/audit compatibility | `imports/migrations/0002_unified_import.py` |

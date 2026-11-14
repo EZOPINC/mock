@@ -6,6 +6,25 @@ from .models import Chapter, Module, Part, Subject, Topic
 
 
 class FlexibleTaxonomyTests(TestCase):
+    def test_chapter_first_module_assignment_guards(self):
+        chapter = Chapter.objects.create(subject=self.subject, name='Direct', slug='direct')
+        chapter.module = self.module
+        chapter.save()
+        with self.assertRaises(ValidationError):
+            chapter.module = None
+            chapter.save()
+        with self.assertRaises(IntegrityError), transaction.atomic():
+            Chapter.objects.filter(pk=chapter.pk).update(module=None)
+        other_module = Module.objects.create(subject=self.other, name='Foreign', slug='foreign')
+        root = Chapter.objects.create(subject=self.subject, name='Root', slug='root')
+        with self.assertRaises(IntegrityError), transaction.atomic():
+            Chapter.objects.filter(pk=root.pk).update(module=other_module)
+        with self.assertRaises(IntegrityError), transaction.atomic():
+            Chapter.objects.filter(pk=chapter.pk).update(module=other_module)
+        part_chapter = Chapter.objects.create(part=self.part, name='Part child', slug='part-child')
+        with self.assertRaises(IntegrityError), transaction.atomic():
+            Chapter.objects.filter(pk=part_chapter.pk).update(part=None, module=self.module)
+
     def test_module_can_receive_first_same_subject_part_but_cannot_move(self):
         module = Module.objects.create(subject=self.subject, name='Direct module', slug='direct-module')
         chapter = Chapter.objects.create(module=module, name='Child', slug='child')
