@@ -1,5 +1,5 @@
-{% extends "base.html" %}
-{% load static %}
+{% extends "base.html" %}{% block body_class %} student-flow-page{% endblock %}
+{% load static reading %}
 {% block title %}Start {{ pattern.name }} | Mock Exam Platform{% endblock %}
 {% block extra_head %}<link rel="stylesheet" href="{% static 'css/mock-start.css' %}">{% endblock %}
 {% block content %}
@@ -19,14 +19,9 @@
   {% if error %}<p class="form-errors" role="alert">{{ error }}</p>{% endif %}
   <div class="mock-start-setup">
     {% if not error %}<form method="post">{% csrf_token %}
-      <fieldset class="mock-language-choice"><legend>Question language</legend>
-        <div class="button-row">
-          <label><input type="radio" name="language" value="en"> English</label>
-          <label><input type="radio" name="language" value="bn"> Bengali</label>
-          <label><input type="radio" name="language" value="both" checked> Both</label>
-        </div>
-        <p class="muted">Bilingual sections use questions with both English and Bengali translations. Your selected language is saved for this attempt, including when you resume it.</p>
-      </fieldset>
+      {% pattern_reading_language pattern as pattern_language %}
+      <input type="hidden" name="language" value="{{ pattern_language }}">
+      <div class="mock-pattern-language"><h2>Question language</h2><p>Language follows this exam pattern: {% for section in pattern.sections.all %}{{ section.name }} &mdash; {{ section.get_language_mode_display }}{% if not forloop.last %}; {% endif %}{% endfor %}.</p></div>
       <div class="button-row mock-start-buttons">
       <button type="submit" class="button button-primary">Start Test {% include "components/icon.html" with name="arrow" %}</button>
       <a class="button button-secondary" href="{% url 'mock_tests:patterns' pattern.exam.authority.slug pattern.exam.slug %}">Back to available tests</a>

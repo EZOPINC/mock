@@ -1,8 +1,10 @@
 {% extends "base.html" %}
-{% block title %}Profile | Mock Exam Platform{% endblock %}
-{% block content %}<div class="ui-dashboard">
+{% block title %}Your profile | Mock Exam Platform{% endblock %}
+{% block content %}<div class="account-profile">
 <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="{% url 'home' %}">Home</a>{% include "components/icon.html" with name="chevron" %}<span aria-current="page">Profile</span></nav>
 {% include "accounts/account_navigation.html" with account_section="profile" %}
-<header class="dashboard-heading"><div><p class="eyebrow">MY ACCOUNT</p><h1>Your profile</h1><p>Your account details, in one place.</p></div><a class="button button-primary" href="{% url 'accounts:learning_space' %}">Open Learning Space {% include "components/icon.html" with name="arrow" %}</a></header>
-<section class="dashboard-account-card" aria-labelledby="account-details-heading"><div><span class="account-symbol" aria-hidden="true">{{ user.username|first|upper }}</span><h2 id="account-details-heading">Account details</h2><p>Your personal account information.</p></div><dl><div><dt>Username</dt><dd>{{ user.username }}</dd></div><div><dt>Email</dt><dd>{{ user.email|default:"Not provided" }}</dd></div><div><dt>Account created</dt><dd><time datetime="{{ user.date_joined|date:'c' }}">{{ user.date_joined|date:"F j, Y" }}</time></dd></div></dl></section>
-</div>{% endblock %}
+<header class="profile-welcome"><span class="profile-avatar" aria-hidden="true">{{ user.username|first|upper }}</span><div><p class="eyebrow">YOUR LEARNING ACCOUNT</p><h1>{{ user.username }}</h1><p>A little progress, at your own pace.</p></div></header>
+<div class="profile-layout">
+<section class="profile-details" aria-labelledby="account-details-heading"><h2 id="account-details-heading">Account details</h2><p class="profile-description">Your personal information, in one place.</p><dl><div><dt>Username</dt><dd>{{ user.username }}</dd></div><div><dt>Email</dt><dd>{{ user.email|default:"Not provided" }}</dd></div></dl><p class="profile-member-since">Member since <time datetime="{{ user.date_joined|date:'c' }}">{{ user.date_joined|date:"F j, Y" }}</time></p></section>
+<section class="profile-study" aria-labelledby="profile-study-heading"><span class="ui-card-icon" aria-hidden="true">{% include "components/icon.html" with name="book" %}</span><h2 id="profile-study-heading">Your next study moment</h2><p>Return to your progress, pick up a saved session, or revisit a question.</p><a class="button button-primary" href="{% url 'accounts:learning_space' %}">Open Learning Space {% include "components/icon.html" with name="arrow" %}</a><div class="profile-study-links"><a href="{% url 'mock_tests:index' %}">Continue a mock test {% include "components/icon.html" with name="arrow" %}</a><a href="{% url 'practice:index' %}">Continue practice {% include "components/icon.html" with name="arrow" %}</a><a href="{% url 'revision:dashboard' %}">Open Revision Bank {% include "components/icon.html" with name="arrow" %}</a></div></section>
+</div></div>{% endblock %}

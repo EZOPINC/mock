@@ -1,0 +1,14 @@
+{% load reading %}
+{% if not verified_only or revision.published_at %}
+{% reading_translations revision as solution_translations %}
+<div class="exam-paper-solutions">
+  {% if not hide_answers %}<p class="correct-answer"><strong>Correct answer: {{ revision.correct_answer }}</strong></p>{% endif %}
+  <details class="solution"{% if not hide_answers %} open{% endif %}>
+    <summary>{% if hide_answers %}Show Answer/Explanation{% else %}Explanation &amp; solution{% endif %}</summary>
+    {% if hide_answers %}<p class="correct-answer"><strong>Correct answer: {{ revision.correct_answer }}</strong></p>{% endif %}
+    <div class="exam-language-pair">
+      {% for translation in solution_translations %}<section lang="{{ translation.language }}"><h3 class="exam-language-label">{{ translation.get_language_display }}</h3><div>{% if translation.explanation.strip %}{{ translation.explanation|linebreaksbr }}{% else %}Explanation unavailable.{% endif %}</div></section>{% endfor %}
+    </div>
+  </details>
+</div>
+{% else %}<p class="muted">Verified solution unavailable.</p>{% endif %}

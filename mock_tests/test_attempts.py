@@ -41,6 +41,14 @@ class AttemptFixture(TestCase):
 
 
 class AttemptLanguageTests(AttemptFixture):
+    def test_start_screen_language_follows_pattern(self):
+        self.ready()
+        self.client.force_login(self.user)
+        response = self.client.get(self.start_url())
+        self.assertContains(response, 'type="hidden" name="language" value="en"')
+        self.assertNotContains(response, 'type="radio" name="language"')
+        self.assertContains(response, "Language follows this exam pattern")
+
     def bilingual_pattern(self):
         question = self.question()
         add_translation(question, language="bn", question_text="Bengali edition", option_a="BN A",
@@ -298,7 +306,7 @@ class AttemptViewTests(AttemptFixture):
         self.assertContains(response, "Bengali question")
         self.assertNotContains(response, 'lang="en" aria-label="English version"')
         self.assertEqual(MockAttempt.objects.count(), 1)
-        self.assertContains(self.client.get(reverse("mock_tests:index")), "Resume Pattern")
+        self.assertContains(self.client.get(reverse("mock_tests:index")), "Continue mock test")
         self.client.force_login(self.other_user)
         self.assertEqual(self.client.get(self.detail_url(attempt)).status_code, 404)
         self.assertEqual(self.client.post(self.detail_url(attempt)).status_code, 405)

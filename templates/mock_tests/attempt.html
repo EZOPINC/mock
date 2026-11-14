@@ -1,18 +1,18 @@
 {% extends "base.html" %}{% load static revision_tags %}
 {% block title %}{{ attempt.configuration.name }} attempt | Mock Exam Platform{% endblock %}
-{% block body_class %} ui-exam-page{% endblock %}{% block site_header %}{% endblock %}{% block site_footer %}{% endblock %}
+{% block body_class %} ui-exam-page exam-session-page{% endblock %}{% block site_header %}{% endblock %}{% block site_footer %}{% endblock %}
 {% block extra_head %}<script src="{% static 'js/bookmarks.js' %}" defer></script><link rel="stylesheet" href="{% static 'css/mock-test.css' %}"><script src="{% static 'js/mock-test.js' %}" defer></script>{% endblock %}
 {% block content %}
 <div class="mock-execution ui-mock-exam" data-save-url="{% url 'mock_tests:save_answer' attempt.pk %}" data-status-url="{% url 'mock_tests:attempt_status' attempt.pk %}" data-confirm-url="{% url 'mock_tests:submit' attempt.pk %}">
 {% csrf_token %}{{ clock|json_script:"attempt-clock" }}
 {{ preferred_language|json_script:"mock-preferred-language" }}
-<script src="{% static 'js/mock-language.js' %}" defer></script>
+
 <header class="mock-exam-heading"><div><p class="eyebrow">{% include "components/icon.html" with name="clock" %} MOCK EXAM</p><h1>{{ attempt.configuration.name }}</h1><p>{{ attempt.configuration.exam_name }} &middot; {{ attempt.configuration.total_questions }} questions &middot; {{ attempt.configuration.total_marks }} marks</p></div><a class="text-link" href="{% url 'mock_tests:index' %}">Exit to Mock Tests {% include "components/icon.html" with name="arrow" %}</a></header>
 <noscript><p class="form-errors">Enable JavaScript to save answers and use the countdown. Your deadline continues while this page is closed.</p></noscript>
 <section class="mock-toolbar" aria-label="Test status">
   <div class="mock-time-block"><span class="mock-status-label">{% include "components/icon.html" with name="clock" %} Time remaining</span><strong id="mock-timer" role="timer" aria-label="Time remaining">Loading...</strong></div>
   <div class="mock-progress-block"><p id="mock-question-counter">Question {{ attempt.last_position }} of {{ rows|length }}</p><label for="mock-progress"><span id="mock-answered-count">0</span> of {{ rows|length }} answered</label><progress id="mock-progress" max="{{ rows|length }}" value="0">0 answered</progress></div>
-  <div class="mock-save-block"><p id="mock-save-status" role="status" aria-live="polite">Saved answers restored.</p><p id="mock-clock-status" role="status"></p><div class="mock-status-actions"><button type="button" id="mock-retry" hidden>Retry saving</button><a href="">Reload saved state</a><button type="button" data-palette-toggle aria-controls="mock-palette-panel" aria-expanded="true">Question palette</button></div></div>
+  <div class="mock-save-block"><p id="mock-save-status" role="status" aria-live="polite">Saved answers restored.</p><p id="mock-clock-status" role="status"></p><div class="mock-status-actions"><button type="button" id="mock-retry" hidden>Retry saving</button><a href="">Reload saved state</a><button type="button" data-palette-toggle aria-controls="mock-palette-panel" aria-expanded="true">Questions</button></div></div>
 </section>
 <div class="mock-workspace">
 <aside class="mock-sidebar" aria-label="Test navigation">
@@ -27,10 +27,10 @@
 </div></details></aside>
 <div class="question-list">{% for row in rows %}<article class="paper-question mock-question" id="question-{{ row.display_order }}" data-order="{{ row.display_order }}" data-row-id="{{ row.pk }}" data-section-id="{{ row.section_snapshot.id }}" tabindex="-1" aria-labelledby="mock-heading-{{ row.pk }}">
 <div class="question-card-header"><h2 id="mock-heading-{{ row.pk }}">Question {{ row.display_order }}</h2><span class="badge badge-outline">{{ row.question.subject.name }}</span><label class="mock-review"><input type="checkbox" data-review{% if row.marked_for_review %} checked{% endif %}> Mark for review</label>{% bookmark_control row row.bookmark_anchor %}</div>
-{% include "questions/translations.html" with revision=row.question_revision show_solutions=False hide_answers=True selectable=True mock_selection=True hide_language_heading=True %}
+{% include "questions/reading_question.html" with revision=row.question_revision show_solutions=False hide_answers=True selectable=True mock_selection=True reading_language=preferred_language %}
 <fieldset class="mock-answer"><legend class="visually-hidden">Answer tools for question {{ row.display_order }}</legend><div class="mock-answer-tools"><button type="button" data-clear>Clear answer</button></div></fieldset>
 <nav class="mock-question-nav" aria-label="Question {{ row.display_order }} navigation">{% if not forloop.first %}<button type="button" data-goto="{{ row.display_order|add:'-1' }}">{% include "components/icon.html" with name="arrow" icon_class="ui-back-icon" %} Previous</button>{% endif %}{% if not forloop.last %}<button type="button" data-goto="{{ row.display_order|add:'1' }}">Next {% include "components/icon.html" with name="arrow" %}</button>{% endif %}</nav>
 </article>{% endfor %}</div>
 </div>
-<nav class="mock-action-bar" aria-label="Test actions"><div class="mock-step-actions"><button type="button" data-current-prev>{% include "components/icon.html" with name="arrow" icon_class="ui-back-icon" %} Previous</button><button type="button" data-current-next>Next {% include "components/icon.html" with name="arrow" %}</button></div><a class="button button-primary" id="mock-finish" href="{% url 'mock_tests:submit' attempt.pk %}">Review and submit {% include "components/icon.html" with name="check" %}</a></nav>
+<nav class="mock-action-bar" aria-label="Test actions"><div class="mock-step-actions"><button type="button" data-current-prev>{% include "components/icon.html" with name="arrow" icon_class="ui-back-icon" %} Previous</button><button type="button" data-current-review aria-pressed="false">Mark for review</button><button type="button" data-current-next>Next {% include "components/icon.html" with name="arrow" %}</button></div><a class="button button-primary" id="mock-finish" href="{% url 'mock_tests:submit' attempt.pk %}">Review and submit {% include "components/icon.html" with name="check" %}</a></nav>
 </div>{% endblock %}

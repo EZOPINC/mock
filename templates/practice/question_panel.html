@@ -1,3 +1,4 @@
+{% if is_revision %}
 {% load revision_tags %}
 <article class="paper-question practice-question-card"{% if row.selected_answer %} data-selected-answer="{{ row.selected_answer }}" data-feedback-correct="{{ row.is_correct|yesno:'true,false' }}"{% endif %} id="practice-question" tabindex="-1" aria-labelledby="practice-question-heading"><div class="question-card-header"><h2 id="practice-question-heading">Question {{ row.display_order }} of {{ progress.total }}</h2><span class="badge badge-outline">{% if row.selected_answer %}Answer locked{% else %}Choose your answer{% endif %}</span>{% bookmark_control row "practice-question" %}</div>
 {% if not row.selected_answer and session.status == 'in_progress' %}
@@ -9,3 +10,4 @@
 {% if not row.selected_answer %}<p class="practice-closed-note">This session is closed. No answer was submitted for this question.</p>{% endif %}
 {% endif %}
 </article>
+{% else %}{% include "practice/reading_panel.html" %}{% endif %}

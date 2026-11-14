@@ -15,6 +15,7 @@ Use `docs/architecture.md` for architecture context and `docs/DEVELOPMENT_RULES.
 | `config/asgi.py`, `config/wsgi.py` | Server entry points; deployment is not specified |
 | `templates/base.html`, `templates/components/header.html` | Asset order, shell and account dropdown |
 | `templates/components/icon.html`, `templates/questions/translations.html` | Shared SVGs and revision-bound bilingual rendering |
+| `templates/questions/reading_question.html`, `reading_option.html`, `reading_explanations.html`, `questions/templatetags/reading.py` | Paired bilingual stems/options for timed attempts, finalized mock reviews, Practice and previous-year reader; one native radio per answer choice |
 | `assets/tailwind.css`, `tools/build_css.py`, `tools/tailwind-lock.json` | CSS source, standalone build and pinned checksums |
 | `static/css/site.css`, `static/css/bookmarks.css` | Fallback styles and submit-button-specific bookmark overrides |
 
@@ -119,11 +120,14 @@ Explore routes/helpers remain; per-question explore_control calls were removed f
 | Account/header nav | `templates/components/header.html`, `templates/accounts/account_navigation.html`, `static/js/navigation.js`; bank is under My account |
 | Bilingual options/solutions | `templates/questions/translations.html`, `templates/questions/selectable_option.html`; no active-mock keys |
 | Practice/Revision question panel | `templates/practice/question_panel.html`; keep shared answer/bookmark forms unnested |
+| Practice reading and feedback | `templates/practice/reading_panel.html`; question_panel keeps Revision on its legacy markup; `tools/verify_exam_ui.py` checks the student journeys |
 | Mock execution | `templates/mock_tests/attempt.html`, `static/js/mock-test.js`, `static/css/mock-test.css`; save/version/timer contracts |
 | Practice setup | `templates/practice/subjects.html`, `templates/practice/configure.html`, `templates/practice/difficulty.html`; subject then module then difficulty/language |
 | Practice feedback | `templates/practice/session.html`, `static/js/practice-ui.js`, `static/css/practice.css` |
 | Revision AJAX feedback | `templates/revision/session_body.html`, `static/js/revision-session.js`; native POST fallback |
 | Paper modes/feedback | `templates/previous_year/paper_detail.html`, `static/js/paper-practice.js`, `static/css/paper-modes.css` |
+| Paper reading/navigation | `templates/previous_year/reading_solutions.html`, `static/js/paper-reader.js`; opt-in browser check: `tools/verify_exam_ui.py` |
+| General Questions translation inspection | `templates/general_question/collection.html`, `solution.html`; shared reading helper's opt-in `reserve_editions` keeps empty English/Bengali slots in public collections and staff working-revision review |
 | Import preview/edit | `templates/imports/preview.html`, `static/js/import-preview.js`, `static/js/import-upload.js`, `static/css/imports.css` |
 | Shared icon/style | `templates/components/icon.html`, `assets/tailwind.css`; do not hand-edit compiled Tailwind |
 | Bookmark labels/status | `templates/revision/bookmark.html`, `static/js/bookmarks.js`; success announcements currently commented out |

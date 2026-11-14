@@ -8,13 +8,32 @@ from .tests import PaperFixture
 
 
 class PaperModesTests(PaperFixture):
+    def test_bilingual_choices_share_four_radios_and_never_expose_solutions(self):
+        unpublish_paper(self.paper)
+        question = self.question(question_text="Which statement describes the Permanent Settlement?")
+        add_translation(question, language="bn", question_text="চিরস্থায়ী বন্দোবস্ত সম্পর্কে কোন বক্তব্যটি সঠিক?",
+                        option_a="প্রথম বক্তব্য", option_b="দ্বিতীয় বক্তব্য", option_c="তৃতীয় বক্তব্য",
+                        option_d="চতুর্থ বক্তব্য", explanation="গোপন ব্যাখ্যা")
+        question = publish_question(mark_reviewed(question))
+        row = PaperQuestion.objects.create(paper=self.paper, question_revision=question.published_revision,
+                                          question_number="99", display_order=3)
+        publish_paper(self.paper)
+        response = self.client.get(self.detail_url(), {"mode": "practice"})
+        self.assertContains(response, 'type="radio"', count=12)
+        self.assertContains(response, "Both languages refer to the same choice.", count=1)
+        self.assertNotContains(response, "গোপন ব্যাখ্যা")
+        feedback = self.client.post(self.answer_url(row), {"answer": "B"}, HTTP_X_REQUESTED_WITH="XMLHttpRequest")
+        self.assertContains(feedback, "গোপন ব্যাখ্যা")
+        self.assertContains(feedback, 'class="correct-option"', count=1)
+        self.assertNotContains(feedback, 'type="radio"')
+
     def test_options_embedded_in_paper_form_and_removed_after_feedback(self):
         response = self.client.get(self.detail_url(), {"mode": "practice"})
-        self.assertContains(response, 'class="embedded-option"', count=8)
+        self.assertContains(response, 'class="exam-option"', count=8)
         self.assertNotContains(response, 'Your answer for question')
         feedback = self.client.post(self.answer_url(), {"answer": "B"}, HTTP_X_REQUESTED_WITH="XMLHttpRequest")
         self.assertContains(feedback, 'Correct.')
-        self.assertNotContains(feedback, 'class="embedded-option"')
+        self.assertNotContains(feedback, 'type="radio"')
 
     def test_mode_and_subject_filter_survive_navigation(self):
         response = self.client.get(self.detail_url(), {"mode": "practice", "subject": self.subject.pk})

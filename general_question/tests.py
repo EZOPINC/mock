@@ -12,10 +12,38 @@ from .models import GeneralQuestionBatch
 from imports.models import ImportBatch
 from imports.tests import ImportFixture, values
 from questions.models import Question
-from questions.services import create_revision, mark_reviewed, publish_question
+from questions.services import add_translation, create_revision, mark_reviewed, publish_question
 
 
 class GeneralModuleTests(ImportFixture):
+    def test_fixed_edition_slots_for_single_language_and_bilingual_questions(self):
+        self.publish()
+        url = reverse("general_questions:collection", args=[self.batch.pk])
+        response = self.client.get(url)
+        self.assertContains(response, 'data-missing-edition="en"', count=1)
+        self.assertContains(response, 'data-missing-edition="bn"', count=1)
+        self.assertContains(response, 'class="exam-option"', count=8)
+        self.assertContains(response, 'aria-label="English version"', count=2)
+        self.assertContains(response, 'aria-label="Bengali version"', count=2)
+        question = batch_questions(self.batch).order_by('pk').first()
+        add_translation(question, language="bn", question_text="চিরস্থায়ী বন্দোবস্ত কত সালে চালু হয়?",
+                        option_a="১৭৯৩", option_b="১৮৫৭", option_c="১৯০৫", option_d="১৯৪৭", explanation="বাংলা ব্যাখ্যা")
+        publish_question(mark_reviewed(question))
+        response = self.client.get(url)
+        self.assertNotContains(response, 'data-missing-edition="bn"')
+        self.assertContains(response, 'data-missing-edition="en"', count=1)
+        self.assertContains(response, "বাংলা ব্যাখ্যা")
+        filtered = self.client.get(url, {'language': 'en'})
+        self.assertContains(filtered, "চিরস্থায়ী বন্দোবস্ত কত সালে চালু হয়?")
+        self.assertNotContains(filtered, 'data-missing-edition=')
+
+    def test_staff_review_keeps_empty_slots_for_missing_working_translations(self):
+        self.client.force_login(self.user)
+        response = self.client.get(reverse('general_questions:manage_batch', args=[self.batch.pk]))
+        self.assertContains(response, 'data-missing-edition="en"', count=1)
+        self.assertContains(response, 'data-missing-edition="bn"', count=1)
+        self.assertContains(response, 'name="snapshot"')
+
     def setUp(self):
         super().setUp()
         data = self.data([values(question_number="1", question_text="Original live content", source_document="private-file.pdf"),

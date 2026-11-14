@@ -2,6 +2,6 @@
 
 /* Applies to both direct answers and previous-year paper practice. */
 @media (max-width: 48rem) {
-  .ui-paper-reader .question-navigator { display: none; }
+  .ui-paper-reader:not(.exam-paper-reader) .question-navigator { display: none; }
   .ui-paper-reader .reading-layout { grid-template-columns: minmax(0, 1fr); }
 }

@@ -20,7 +20,9 @@
       const response = await fetch(form.action, {method: 'POST', body, credentials: 'same-origin',
         headers: {'X-Requested-With': 'XMLHttpRequest'}, signal: controller.signal, cache: 'no-store'});
       if (!response.ok) throw new Error('Unable to check answer');
-      form.closest('.paper-practice-question').innerHTML = await response.text();
+      const container = form.closest('.paper-practice-question');
+      container.innerHTML = await response.text();
+      container.querySelector('[role=status]')?.focus({preventScroll: true});
     } catch (_) {
       status.textContent = 'Unable to check your answer. Select an option to try again, or reload the paper if it is no longer available.';
       controls.forEach(control => { control.disabled = false; });

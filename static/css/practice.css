@@ -19,7 +19,7 @@
 
 /* Keep mobile sessions focused on the question and session controls. */
 @media (max-width: 48rem) {
-  .ui-practice .practice-palette-panel { display: none; }
+  .ui-practice:not(.exam-practice-reader) .practice-palette-panel { display: none; }
 }
 
 /* Two-step module and difficulty setup. */

@@ -41,10 +41,11 @@ class NavigationTests(TestCase):
                 response = self.client.get(reverse(route))
                 self.assertEqual(response.status_code, 200)
                 visible_text = " ".join(strip_tags(response.content.decode()).split())
-                for label in ("Home", "Exam Authorities", "Previous Year Papers", "Mock Tests", "Practice Sets", "Login", "Register"):
+                for label in ("Question Library", "Exam Authorities", "Previous Year Papers", "Mock Tests", "Practice Sets", "Login", "Register"):
                     self.assertIn(label, visible_text)
                 self.assertNotContains(response, '>Logout<')
                 self.assertNotContains(response, '>Profile<')
+                self.assertNotContains(response, 'href="#"')
 
     def test_protected_routes_preserve_next_with_query(self):
         for route in ("mock_tests:index", "practice:index", "accounts:profile"):

@@ -21,6 +21,7 @@
   const paletteToggle = root.querySelector('[data-palette-toggle]');
   const previousButton = root.querySelector('[data-current-prev]');
   const nextButton = root.querySelector('[data-current-next]');
+  const reviewButton = root.querySelector('[data-current-review]');
   const compact = window.matchMedia('(max-width: 64rem)');
   let version = initial.version, position = initial.position, queue = [], saving = false;
   let failed = false, conflict = false, expired = false, leaving = false;
@@ -54,6 +55,11 @@
     }
     if (previousButton) previousButton.disabled = expired || conflict || position <= 1;
     if (nextButton) nextButton.disabled = expired || conflict || position >= cards.length;
+    if (reviewButton && current) {
+      const marked = current.querySelector('[data-review]').checked;
+      reviewButton.setAttribute('aria-pressed', String(marked));
+      reviewButton.textContent = marked ? '✓ Marked for review' : 'Mark for review';
+    }
   }
   function setCurrent(order, persist = true) {
     const changed = position !== order;
@@ -126,6 +132,14 @@
   }));
   previousButton?.addEventListener('click', () => show(position - 1));
   nextButton?.addEventListener('click', () => show(position + 1));
+  reviewButton?.addEventListener('click', () => {
+    const card = cards.find(card => Number(card.dataset.order) === position);
+    const checkbox = card?.querySelector('[data-review]');
+    if (!checkbox) return;
+    checkbox.checked = !checkbox.checked;
+    checkbox.dispatchEvent(new Event('change', {bubbles: true}));
+    indicators();
+  });
   sectionSelect?.addEventListener('change', () => {
     const target = cards.find(card => card.dataset.sectionId === sectionSelect.value);
     if (target) {
@@ -147,6 +161,12 @@
       palettePanel.open = !palettePanel.open;
       palettePanel.scrollIntoView({block: 'start'});
       palettePanel.querySelector('summary').focus({preventScroll: true});
+    });
+    palettePanel.addEventListener('keydown', event => {
+      if (event.key === 'Escape' && compact.matches) {
+        palettePanel.open = false;
+        paletteToggle?.focus();
+      }
     });
   }
   const toolbar = root.querySelector('.mock-toolbar');

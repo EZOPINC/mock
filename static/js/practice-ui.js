@@ -28,7 +28,18 @@
     });
   }
   const panel = page.querySelector('.practice-palette-panel');
-  if (panel && window.matchMedia('(max-width: 64rem)').matches) panel.open = false;
+  if (panel) {
+    const compact = window.matchMedia('(max-width: 64rem)');
+    const adapt = () => { panel.open = !compact.matches; };
+    adapt();
+    compact.addEventListener('change', adapt);
+    panel.addEventListener('keydown', event => {
+      if (event.key === 'Escape' && compact.matches) {
+        panel.open = false;
+        panel.querySelector('summary').focus();
+      }
+    });
+  }
   if (new URLSearchParams(window.location.search).has('question')) {
     const question = page.querySelector('#practice-question');
     if (question) {

@@ -1,8 +1,8 @@
-{% extends "base.html" %}{% load static revision_tags %}
+{% extends "base.html" %}{% block body_class %} student-flow-page{% endblock %}{% load static revision_tags %}
 {% block title %}{{ attempt.configuration.name }} results | Mock Exam Platform{% endblock %}
 {% block extra_head %}<script src="{% static 'js/bookmarks.js' %}" defer></script>{% endblock %}
 {% block content %}
-<div class="mock-hub mock-results">
+<div class="mock-hub mock-results exam-paper-reader">
   <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="{% url 'home' %}">Home</a>{% include "components/icon.html" with name="chevron" %}<a href="{% url 'mock_tests:index' %}">Mock Tests</a>{% include "components/icon.html" with name="chevron" %}<span aria-current="page">Results</span></nav>
   <header class="mock-hub-heading"><div><p class="eyebrow">REFLECT. LEARN. MOVE FORWARD.</p><h1>{{ attempt.configuration.name }} results</h1><p>{{ attempt.configuration.exam_name }} <span aria-hidden="true">&middot;</span> {{ attempt.get_status_display }}</p></div><span class="mock-hub-heading-icon" aria-hidden="true">{% include "components/icon.html" with name="check" %}</span></header>
 
@@ -28,7 +28,7 @@
       <article class="paper-question mock-results-question" data-selected-answer="{{ row.selected_answer }}"{% if row.selected_answer and row.selected_answer != row.question_revision.correct_answer %} data-incorrect="true"{% endif %} id="question-{{ row.display_order }}" aria-labelledby="result-question-{{ row.pk }}">
         <div class="question-card-header"><h3 id="result-question-{{ row.pk }}">Question {{ row.display_order }}</h3><span class="badge badge-outline">{{ row.question.subject.name }}</span><span class="mock-results-outcome {% if not row.selected_answer %}is-unanswered{% elif row.selected_answer == row.question_revision.correct_answer %}is-correct{% else %}is-incorrect{% endif %}">{% if not row.selected_answer %}Unanswered{% elif row.selected_answer == row.question_revision.correct_answer %}{% include "components/icon.html" with name="check" %} Correct{% else %}{% include "components/icon.html" with name="alert" %} Incorrect{% endif %}</span>{% bookmark_control row row.bookmark_anchor %}</div>
         <div class="mock-results-answer"><span>Your answer: <strong>{{ row.selected_answer|default:"Unanswered" }}</strong></span><span>Awarded marks: <strong>{{ row.awarded_marks }}</strong></span></div>
-        {% include "questions/translations.html" with revision=row.question_revision show_solutions=True hide_answers=False verified_only=True %}
+        {% include "questions/reading_question.html" with revision=row.question_revision selectable=False show_solutions=True hide_answers=False %}<div class="exam-paper-solutions"><p class="correct-answer"><strong>Correct answer: {{ row.question_revision.correct_answer }}</strong></p><details class="solution" open><summary>Explanation &amp; solution</summary>{% include "questions/reading_explanations.html" with revision=row.question_revision %}</details></div>
       </article>
     {% endfor %}</div>
   </section>

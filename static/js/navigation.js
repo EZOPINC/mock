@@ -38,3 +38,23 @@ if (menuButton && navigation) {
   mobile.addEventListener('change', synchronize);
   synchronize();
 }
+
+// Native account and library disclosures share dismissal and focus behavior.
+const headerMenus = [...document.querySelectorAll('.ui-header .profile-menu, .ui-header .library-menu')];
+headerMenus.forEach(menu => {
+  menu.addEventListener('toggle', () => {
+    if (menu.open) headerMenus.forEach(other => { if (other !== menu) other.open = false; });
+  });
+  menu.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && menu.open) {
+      event.stopPropagation();
+      menu.open = false;
+      menu.querySelector('summary').focus();
+    }
+  });
+});
+document.addEventListener('click', event => {
+  headerMenus.forEach(menu => {
+    if (menu.open && !menu.contains(event.target)) menu.open = false;
+  });
+});

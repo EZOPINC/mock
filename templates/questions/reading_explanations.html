@@ -1,0 +1,2 @@
+{% load reading %}{% reading_translations revision as explanation_translations %}
+<div class="exam-language-pair">{% for translation in explanation_translations %}<section lang="{{ translation.language }}"><h3 class="exam-language-label">{{ translation.get_language_display }}</h3><div>{% if translation.explanation.strip %}{{ translation.explanation|linebreaksbr }}{% else %}Explanation unavailable.{% endif %}</div></section>{% endfor %}</div>

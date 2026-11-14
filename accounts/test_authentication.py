@@ -97,7 +97,7 @@ class StudentAuthenticationTests(TestCase):
         response = self.client.get(reverse("accounts:profile"), {"user": other.pk})
         self.assertContains(response, self.user.username)
         self.assertContains(response, self.user.email)
-        self.assertContains(response, "Account created")
+        self.assertContains(response, "Member since")
         self.assertNotContains(response, other.email)
         self.assertNotContains(response, self.user.password)
         self.assertIn("no-store", response.headers["Cache-Control"])

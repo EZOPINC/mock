@@ -1,0 +1,6 @@
+{% load reading %}
+<span class="exam-option-letter" aria-hidden="true">{{ letter }}</span>
+<span class="exam-language-pair exam-option-copy">
+  {% for translation in translations %}<span lang="{{ translation.language }}"><span class="visually-hidden">{{ translation.get_language_display }}, option {{ letter }}: </span>{{ translation|option_text:letter|linebreaksbr }}</span>{% endfor %}
+</span>
+{% if selectable %}<span class="exam-selected-label" aria-hidden="true">✓ Selected</span>{% endif %}

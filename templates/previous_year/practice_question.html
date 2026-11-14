@@ -1,10 +1,12 @@
 {% if row.practice_answer %}
 {% if row.practice_answer != revision.correct_answer %}<span hidden data-incorrect-answer="{{ row.practice_answer }}"></span>{% endif %}
-{% include "questions/translations.html" with show_solutions=True hide_answers=False verified_only=True hide_language_heading=True %}
+<p class="ui-answer-feedback{% if row.practice_answer != revision.correct_answer %} ui-feedback-incorrect{% endif %}" role="status" tabindex="-1">{% if row.practice_answer == revision.correct_answer %}Correct.{% else %}Incorrect.{% endif %} Your answer: {{ row.practice_answer }}. Correct answer: {{ revision.correct_answer }}.</p>
+{% include "questions/reading_question.html" with selectable=False show_solutions=True hide_answers=False %}
+{% include "previous_year/reading_solutions.html" with hide_answers=False verified_only=True %}
 {% else %}
 <form method="post" class="paper-practice-form embedded-answer-form" action="{% url 'previous_year:paper_answer' exam.authority.slug exam.slug paper.year paper.pk row.pk %}?mode=practice{% if selected_subject %}&amp;subject={{ selected_subject }}{% endif %}">
 {% csrf_token %}
-{% include "questions/translations.html" with show_solutions=False hide_answers=True verified_only=True selectable=True mock_selection=False hide_language_heading=True %}
+{% include "questions/reading_question.html" with show_solutions=False hide_answers=True selectable=True mock_selection=False %}
 <div class="question-content">
 <noscript><button type="submit">Check answer</button></noscript><p role="status" class="paper-practice-status">{% if row.practice_error %}{{ row.practice_error }}{% else %}Select an answer to see its explanation.{% endif %}</p></div></form>
 {% endif %}

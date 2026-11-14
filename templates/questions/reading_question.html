@@ -1,0 +1,31 @@
+{% load reading %}
+{% reading_translations revision reading_language reserve_editions as translations %}
+<div class="exam-reading">
+  <div class="exam-language-pair exam-stems">
+    {% for translation in translations %}
+    <section lang="{{ translation.language }}" aria-label="{{ translation.get_language_display }} version"{% if translation.missing_translation %} data-missing-edition="{{ translation.language }}"{% endif %}>
+      <h3 class="exam-language-label">{{ translation.get_language_display }}</h3>
+      <div class="exam-stem">{{ translation.question_text|linebreaksbr }}</div>
+      {% if translation.missing_translation %}<span class="visually-hidden">{{ translation.get_language_display }} translation unavailable.</span>{% endif %}
+    </section>
+    {% empty %}<p class="form-errors">No translation content is available.</p>{% endfor %}
+  </div>
+  {% if selectable %}
+  <fieldset class="exam-answers"><legend>Choose one answer{% if translations|length > 1 %} <span>Both languages refer to the same choice.</span>{% endif %}</legend>
+    {% for letter in "ABCD" %}
+    <label class="exam-option" data-option="{{ letter }}">
+      <input type="radio" name="{% if mock_selection %}answer-{{ row.pk }}{% else %}answer{% endif %}" value="{{ letter }}"{% if mock_selection %}{% if row.selected_answer == letter %} checked{% endif %}{% else %} required{% endif %}>
+      {% include "questions/reading_option.html" %}
+    </label>
+    {% endfor %}
+  </fieldset>
+  {% else %}
+  <ol class="exam-answers exam-static-answers" aria-label="Answer options">
+    {% for letter in "ABCD" %}
+    <li{% if show_solutions and not hide_answers and revision.correct_answer == letter %} class="correct-option"{% endif %}>
+      <div class="exam-option">{% include "questions/reading_option.html" %}{% if show_solutions and not hide_answers and revision.correct_answer == letter %}<span class="exam-correct-label">✓ Correct answer{% if row.selected_answer == letter %} · Your answer{% endif %}</span>{% elif show_solutions and row.selected_answer == letter %}<span class="exam-response-label">Your answer</span>{% endif %}</div>
+    </li>
+    {% endfor %}
+  </ol>
+  {% endif %}
+</div>

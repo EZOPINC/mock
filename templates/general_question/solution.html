@@ -1,4 +1,10 @@
-<article class="paper-question" aria-labelledby="question-{{ question.pk }}">
-  <div class="question-card-header"><h2 id="question-{{ question.pk }}">Question {{ question.pk }}</h2><span class="badge">{{ question.subject.name }} · {{ revision.get_language_display }}</span></div>
-  {% include "questions/translations.html" with show_solutions=True %}
-</article>
+{% load reading %}
+<div class="exam-paper-reader general-edition-reader">
+<article class="paper-question" id="general-question-{{ question.pk }}" data-question-index="{{ forloop.counter }}" aria-labelledby="general-heading-{{ question.pk }}" tabindex="-1">
+  <div class="question-card-header"><h2 id="general-heading-{{ question.pk }}">Question {{ question.pk }}</h2><span class="badge badge-outline">{{ question.subject.name }}</span>{% reading_translations revision as available %}<span class="badge badge-outline">{% for edition in available %}{{ edition.get_language_display }}{% if not forloop.last %} + {% endif %}{% endfor %}</span></div>
+  {% include "questions/reading_question.html" with selectable=False show_solutions=True hide_answers=False reserve_editions=True %}
+  <div class="exam-paper-solutions"><p class="correct-answer"><strong>Correct answer: {{ revision.correct_answer }}</strong></p><details class="solution" open><summary>Explanation &amp; solution</summary>
+    {% reading_translations revision "both" True as editions %}
+    <div class="exam-language-pair">{% for edition in editions %}<section lang="{{ edition.language }}"><h3 class="exam-language-label">{{ edition.get_language_display }}</h3>{% if not edition.missing_translation %}<div>{% if edition.explanation.strip %}{{ edition.explanation|linebreaksbr }}{% else %}Explanation unavailable.{% endif %}</div>{% endif %}</section>{% endfor %}</div>
+  </details></div>
+</article></div>
