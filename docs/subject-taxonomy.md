@@ -28,7 +28,21 @@ never automatically assigned to chapters. Codes are unique within each record
 type across all subjects, so question spreadsheets can resolve topic_code alone.
 Display-name updates preserve codes, slugs, IDs and links. Missing fields on
 existing records preserve name, order and notes; omission of a parent reference
-means a direct subject path, and a changed parent path is rejected.
+means a direct subject path. Changed established parent paths are rejected.
+
+Optional `parts` records use `code`, `subject_code`, `name`/`title` and
+`sort_order`, just like modules. A module may supply `part_code` referencing an
+existing Part or a Part declared in the same file. `schema_version: 1` is also
+accepted as the version field. `scope` remains descriptive and never creates a Part.
+Use the actual existing Part code when a named Part already exists; a new code
+does not rename or replace that record.
+
+Migration `0006_module_initial_part_assignment` permits one narrow correction:
+a module directly under a Subject may receive its first Part in that same Subject.
+An explicit `part_code` imports this as an update, and Admin also permits it.
+Subject, code and IDs remain fixed; existing chapter/topic links and historical
+snapshots are untouched. Once assigned, the Part cannot be removed or changed.
+Cross-subject assignments remain blocked by model validation and PostgreSQL.
 
 The original single-subject format is also accepted: omit version (defaults to 1),
 use `"subject": {"code": "HI", "name": "History"}` (or a subject code string),
@@ -57,6 +71,11 @@ Blank topic_code preserves existing behavior. Practice discovery already walks
 both direct-subject chapters and module chapters and includes legacy topic tags.
 Admin module filters include topics through chapters; chapter choices narrow by
 the selected subject and module.
+
+Large taxonomy admin forms omit inline lists that would exceed Django's request
+field budget, exposing filtered "Manage" links instead. Small lists retain inline
+editing. This applies to Subject, Part, Module and Chapter screens and leaves the
+global `DATA_UPLOAD_MAX_NUMBER_FIELDS` limit unchanged.
 
 The supplied workspace `ancient_india_taxonomy.json` is an incomplete JSON fragment
 (starts inside a topic and ends inside a topic). It must be replaced with the

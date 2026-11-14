@@ -7,7 +7,7 @@
   "scope": "India",
   "parts": [
     {
-      "code": "hist-india",
+      "code": "PART-06e2389eb1be43e79a18b4e1f8632318",
       "subject_code": "history",
       "title": "India"
     }
@@ -16,7 +16,7 @@
     {
       "code": "hist-mod",
       "subject_code": "history",
-      "part_code": "hist-india",
+      "part_code": "PART-06e2389eb1be43e79a18b4e1f8632318",
       "title": "Modern History"
     }
   ],

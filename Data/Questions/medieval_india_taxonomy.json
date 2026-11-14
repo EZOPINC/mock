@@ -4,167 +4,201 @@
     "code": "history",
     "title": "History"
   },
-  "scope": "Medieval India",
+  "modules": [
+    {
+      "code": "hist-med",
+      "subject_code": "history",
+      "part_code": "PART-06e2389eb1be43e79a18b4e1f8632318",
+      "title": "Medieval History"
+    }
+  ],
   "chapters": [
     {
       "code": "hist-med-c01",
       "subject_code": "history",
+      "module_code": "hist-med",
       "title": "Arab and Turkish Invasions of India",
       "sort_order": 1
     },
     {
       "code": "hist-med-c02",
       "subject_code": "history",
+      "module_code": "hist-med",
       "title": "Mamluk (Slave) Dynasty: Aibak to Balban",
       "sort_order": 2
     },
     {
       "code": "hist-med-c03",
       "subject_code": "history",
+      "module_code": "hist-med",
       "title": "Khalji Dynasty: Alauddin’s Conquests and Reforms",
       "sort_order": 3
     },
     {
       "code": "hist-med-c04",
       "subject_code": "history",
+      "module_code": "hist-med",
       "title": "Tughluq Dynasty: Experiments, Reforms and Decline",
       "sort_order": 4
     },
     {
       "code": "hist-med-c05",
       "subject_code": "history",
+      "module_code": "hist-med",
       "title": "Sayyid and Lodi Dynasties: End of the Sultanate",
       "sort_order": 5
     },
     {
       "code": "hist-med-c06",
       "subject_code": "history",
+      "module_code": "hist-med",
       "title": "Sultanate Administration, Economy and Society",
       "sort_order": 6
     },
     {
       "code": "hist-med-c07",
       "subject_code": "history",
+      "module_code": "hist-med",
       "title": "Sultanate Art and Architecture",
       "sort_order": 7
     },
     {
       "code": "hist-med-c08",
       "subject_code": "history",
+      "module_code": "hist-med",
       "title": "Sultanate Literature and Historians",
       "sort_order": 8
     },
     {
       "code": "hist-med-c09",
       "subject_code": "history",
+      "module_code": "hist-med",
       "title": "Sultanate Miscellaneous (Mixed Revision)",
       "sort_order": 9
     },
     {
       "code": "hist-med-c10",
       "subject_code": "history",
+      "module_code": "hist-med",
       "title": "Regional Kingdoms: Provincial Dynasties of North India and the Deccan",
       "sort_order": 10
     },
     {
       "code": "hist-med-c11",
       "subject_code": "history",
+      "module_code": "hist-med",
       "title": "Vijayanagara Empire",
       "sort_order": 11
     },
     {
       "code": "hist-med-c12",
       "subject_code": "history",
+      "module_code": "hist-med",
       "title": "Bhakti and Sufi Movements",
       "sort_order": 12
     },
     {
       "code": "hist-med-c13",
       "subject_code": "history",
+      "module_code": "hist-med",
       "title": "Sikh Religion: Gurus and the Khalsa",
       "sort_order": 13
     },
     {
       "code": "hist-med-c14",
       "subject_code": "history",
+      "module_code": "hist-med",
       "title": "Babur and the Foundation of Mughal Rule",
       "sort_order": 14
     },
     {
       "code": "hist-med-c15",
       "subject_code": "history",
+      "module_code": "hist-med",
       "title": "Humayun: Struggle and Restoration",
       "sort_order": 15
     },
     {
       "code": "hist-med-c16",
       "subject_code": "history",
+      "module_code": "hist-med",
       "title": "Sur Dynasty: Sher Shah and His Reforms",
       "sort_order": 16
     },
     {
       "code": "hist-med-c17",
       "subject_code": "history",
+      "module_code": "hist-med",
       "title": "Akbar: Expansion, Policies and Administration",
       "sort_order": 17
     },
     {
       "code": "hist-med-c18",
       "subject_code": "history",
+      "module_code": "hist-med",
       "title": "Jahangir and Nur Jahan",
       "sort_order": 18
     },
     {
       "code": "hist-med-c19",
       "subject_code": "history",
+      "module_code": "hist-med",
       "title": "Shah Jahan: Golden Age of Architecture",
       "sort_order": 19
     },
     {
       "code": "hist-med-c20",
       "subject_code": "history",
+      "module_code": "hist-med",
       "title": "Aurangzeb: Empire at Its Peak and Decline",
       "sort_order": 20
     },
     {
       "code": "hist-med-c21",
       "subject_code": "history",
+      "module_code": "hist-med",
       "title": "Mughal Administration, Mansabdari and Revenue",
       "sort_order": 21
     },
     {
       "code": "hist-med-c22",
       "subject_code": "history",
+      "module_code": "hist-med",
       "title": "Mughal Painting and Music",
       "sort_order": 22
     },
     {
       "code": "hist-med-c23",
       "subject_code": "history",
+      "module_code": "hist-med",
       "title": "Mughal Literature and Historians",
       "sort_order": 23
     },
     {
       "code": "hist-med-c24",
       "subject_code": "history",
+      "module_code": "hist-med",
       "title": "Mughal Period Miscellaneous (Mixed Revision)",
       "sort_order": 24
     },
     {
       "code": "hist-med-c25",
       "subject_code": "history",
+      "module_code": "hist-med",
       "title": "Marathas: Shivaji, Peshwas and the Confederacy",
       "sort_order": 25
     },
     {
       "code": "hist-med-c26",
       "subject_code": "history",
+      "module_code": "hist-med",
       "title": "Decline and Disintegration of the Mughal Empire",
       "sort_order": 26
     },
     {
       "code": "hist-med-c27",
       "subject_code": "history",
+      "module_code": "hist-med",
       "title": "Medieval India Miscellaneous (Mixed Revision)",
       "sort_order": 27
     }

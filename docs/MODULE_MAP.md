@@ -98,7 +98,7 @@ Use `docs/architecture.md` for architecture context and `docs/DEVELOPMENT_RULES.
 |---|---|
 | `core` | `core/views.py`: home/health; `core/urls.py`; `templates/core/home.html` |
 | `accounts` | `accounts/views.py`: RegisterView/ProfileView/LearningSpaceView; `accounts/forms.py`: RegistrationForm; `accounts/urls.py`, `accounts/admin.py`; `templates/accounts/` |
-| `exams` | `exams/views.py`: authorities/exam_list/exam_detail; `exams/urls.py`, `exams/admin.py`; SubjectAdmin lists PartInline/ModuleInline/ChapterInline/TopicInline using standard Django Admin; `templates/exams/` |
+| `exams` | `exams/views.py`: authorities/exam_list/exam_detail; `exams/urls.py`, `exams/admin.py`; taxonomy inlines use a request-field budget and filtered overflow links in `templates/admin/exams/taxonomy_change_form.html`; `templates/exams/` |
 | `questions` | `questions/admin.py`: QuestionAdmin/QuestionRevisionAdmin; `questions/forms.py`: RevisionForm/TranslationForm/QuestionAdminForm/NewQuestionAdminForm; `templates/questions/` |
 | `imports` | `imports/views.py`: upload/preview/confirm/cancel/complete; `imports/forms.py`: UploadForm/ImportSubjectForm/ImportTopicForm; `imports/urls.py`, `imports/admin.py`; `templates/imports/` |
 | `previous_year` | `previous_year/views.py`: paper_list/paper_year/paper_context/paper_detail/paper_answer; `previous_year/forms.py`: PaperSelectionForm; `previous_year/urls.py`, `previous_year/admin.py`; `templates/previous_year/` |
@@ -163,6 +163,7 @@ Explore uses kind/node ID with from_question, exam and prefixed difficulty param
 | Concern | Migration or command path |
 |---|---|
 | Flexible paths/parent guards | `exams/migrations/0004_flexible_academic_taxonomy.py` |
+| Initial Module Part assignment | `exams/migrations/0006_module_initial_part_assignment.py`; same-subject null-to-Part only |
 | Translation backfill | `questions/migrations/0003_backfill_translations.py` |
 | Deferred primary-tag checks | `questions/migrations/0005_primary_topic_compatibility.py` |
 | Import context/audit compatibility | `imports/migrations/0002_unified_import.py` |

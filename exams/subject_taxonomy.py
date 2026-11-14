@@ -5,7 +5,7 @@ from hashlib import sha256
 from django.core.exceptions import ValidationError
 from django.utils.text import slugify
 
-from .models import Subject, Module, Chapter, Topic
+from .models import Subject, Part, Module, Chapter, Topic
 
 
 def key(code):
@@ -13,7 +13,7 @@ def key(code):
 
 
 def plan_taxonomy(data, *, create_subjects=False):
-    if not isinstance(data, dict) or data.get("version", 1) != 1:
+    if not isinstance(data, dict) or data.get("version", data.get("schema_version", 1)) != 1:
         raise ValidationError("Expected a version 1 taxonomy object.")
     data = deepcopy(data)
     # Original single-subject format; scope is descriptive, never a module.
@@ -24,10 +24,10 @@ def plan_taxonomy(data, *, create_subjects=False):
         if not isinstance(subject, dict):
             raise ValidationError("subject must be a code or object.")
         data["subjects"] = [subject]
-        for kind in ("modules", "chapters", "topics"):
+        for kind in ("parts", "modules", "chapters", "topics"):
             for row in data.get(kind, []):
                 row.setdefault("subject_code", subject.get("code"))
-    models = {"subjects": Subject, "modules": Module, "chapters": Chapter, "topics": Topic}
+    models = {"subjects": Subject, "parts": Part, "modules": Module, "chapters": Chapter, "topics": Topic}
     catalogue = {kind: {key(obj.code): obj for obj in model.objects.all()} for kind, model in models.items()}
     plan, counts = [], {kind: dict(create=0, update=0, unchanged=0) for kind in models}
     for kind, model in models.items():
@@ -52,7 +52,7 @@ def plan_taxonomy(data, *, create_subjects=False):
                     raise ValidationError(f"Unknown subject_code for {code}: {subject_code}.")
                 subject = catalogue["subjects"][key(subject_code)]
                 parents = {"subject": subject}
-                parent_kind = {"chapters": "module", "topics": "chapter"}.get(kind)
+                parent_kind = {"modules": "part", "chapters": "module", "topics": "chapter"}.get(kind)
                 if parent_kind:
                     parent_code = row.get(parent_kind + "_code")
                     if kind == "topics" and not parent_code:
@@ -70,7 +70,8 @@ def plan_taxonomy(data, *, create_subjects=False):
                     for field in ("subject", *obj.parent_fields):
                         old = getattr(existing, field, None)
                         new = parents.get(field)
-                        if getattr(old, "code", None) != getattr(new, "code", None):
+                        initial_module_part = kind == "modules" and field == "part" and old is None and new is not None
+                        if getattr(old, "code", None) != getattr(new, "code", None) and not initial_module_part:
                             raise ValidationError(f"Implicit reparenting rejected for {code}.")
                 for field, parent in parents.items():
                     setattr(obj, field, parent)
@@ -92,7 +93,9 @@ def plan_taxonomy(data, *, create_subjects=False):
             for field in ("code", "name", "slug", "display_order"):
                 obj._meta.get_field(field).clean(getattr(obj, field), obj)
             mutable = ("name", "display_order") + (("notes",) if kind == "topics" else ())
-            action = "create" if existing is None else ("update" if any(getattr(obj, f) != getattr(existing, f) for f in mutable) else "unchanged")
+            parent_changed = kind == "modules" and existing and (
+                getattr(obj.part, "code", None) != getattr(existing.part, "code", None))
+            action = "create" if existing is None else ("update" if parent_changed or any(getattr(obj, f) != getattr(existing, f) for f in mutable) else "unchanged")
             counts[kind][action] += 1
             catalogue[kind][key(code)] = obj
             plan.append((obj, action))

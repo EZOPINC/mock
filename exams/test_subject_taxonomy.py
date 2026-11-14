@@ -7,10 +7,41 @@ from django.core.management import call_command
 from django.core.management.base import CommandError
 from django.test import TestCase
 
-from .models import Subject, Module, Chapter, Topic
+from .models import Subject, Part, Module, Chapter, Topic
 
 
 class SubjectTaxonomyTests(TestCase):
+    def test_parts_import_and_first_module_assignment_preserve_ids(self):
+        module = Module.objects.create(subject=self.subject, code="M", name="Module", slug="module")
+        self.data['parts'] = [{'code': 'P', 'title': 'India'}]
+        self.data['modules'] = [{'code': 'M', 'name': 'Module', 'part_code': 'P'}]
+        self.data['chapters'][0]['module_code'] = 'M'
+        self.assertIn('modules: create=0, update=1', self.run_import('--dry-run'))
+        self.assertFalse(Part.objects.exists())
+        module.refresh_from_db()
+        self.assertIsNone(module.part_id)
+        self.run_import()
+        module.refresh_from_db()
+        self.assertEqual(module.part.code, 'P')
+        self.assertEqual(Topic.objects.get(code='T').chapter.module_id, module.pk)
+        self.assertIn('modules: create=0, update=0, unchanged=1', self.run_import())
+        self.data['parts'].append({'code': 'P2', 'name': 'Other Part'})
+        self.data['modules'][0]['part_code'] = 'P2'
+        with self.assertRaisesMessage(CommandError, 'reparenting'):
+            self.run_import()
+        self.assertFalse(Part.objects.filter(code='P2').exists())
+
+    def test_missing_and_foreign_module_part_rejected_before_writes(self):
+        self.data['modules'] = [{'code': 'M', 'name': 'Module', 'part_code': 'missing'}]
+        with self.assertRaisesMessage(CommandError, 'Missing part'):
+            self.run_import()
+        other = Subject.objects.create(code='O', name='Other', slug='other')
+        Part.objects.create(subject=other, code='P', name='Foreign', slug='foreign')
+        self.data['modules'][0]['part_code'] = 'P'
+        with self.assertRaisesMessage(CommandError, 'Cross-subject'):
+            self.run_import()
+        self.assertFalse(Module.objects.exists())
+
     def setUp(self):
         self.subject = Subject.objects.create(code="HI", name="History", slug="history")
         self.legacy = Topic.objects.create(subject=self.subject, name="Legacy", slug="legacy")

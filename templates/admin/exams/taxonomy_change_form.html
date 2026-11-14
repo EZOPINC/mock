@@ -1,0 +1,10 @@
+{% extends "admin/change_form.html" %}
+{% block after_related_objects %}
+{{ block.super }}
+{% if taxonomy_overflow_links %}
+<fieldset class="module aligned"><h2>Large taxonomy lists</h2>
+<div class="form-row"><p>These lists have too many fields to submit safely on this page. Edit their records in the filtered lists below, then return here. Existing records are preserved.</p>
+<ul>{% for item in taxonomy_overflow_links %}<li><a href="{{ item.url }}">Manage {{ item.count }} {{ item.label }}</a></li>{% endfor %}</ul></div>
+</fieldset>
+{% endif %}
+{% endblock %}

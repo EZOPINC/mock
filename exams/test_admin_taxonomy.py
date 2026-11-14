@@ -6,6 +6,28 @@ from .models import Chapter, Module, Part, Subject, Topic
 
 
 class SubjectInlineTests(TestCase):
+    def test_large_subject_uses_filtered_lists_and_can_still_be_saved(self):
+        for n in range(110):
+            Topic.objects.create(subject=self.subject, name=f'Extra {n}', slug=f'extra-{n}')
+        response = self.client.get(self.url)
+        self.assertNotContains(response, 'name="topics-TOTAL_FORMS"')
+        self.assertContains(response, 'Large taxonomy lists')
+        self.assertContains(response, reverse('admin:exams_topic_changelist') + '?subject__id__exact=' + str(self.subject.pk))
+        data = {'name': 'Science renamed', 'slug': self.subject.slug, 'display_order': '0'}
+        for item in response.context['inline_admin_formsets']:
+            formset = item.formset
+            for field in formset.management_form:
+                data[field.html_name] = field.value()
+            for form in formset.forms:
+                for field in form:
+                    if field.name != 'DELETE' and field.value() is not None:
+                        data[field.html_name] = field.value()
+        result = self.client.post(self.url, data)
+        self.assertEqual(result.status_code, 302)
+        self.assertEqual(Topic.objects.filter(subject=self.subject).count(), 111)
+        self.subject.refresh_from_db()
+        self.assertEqual(self.subject.name, 'Science renamed')
+
     @classmethod
     def setUpTestData(cls):
         cls.user = get_user_model().objects.create_superuser(username="taxonomy-admin", email="admin@example.test")

@@ -1,0 +1,1301 @@
+{
+  "schema_version": 1,
+  "subject": {
+    "code": "economics",
+    "title": "Economics"
+  },
+  "modules": [
+    {
+      "code": "econ-m01",
+      "subject_code": "economics",
+      "title": "Foundations Of The Indian Economy",
+      "sort_order": 1
+    },
+    {
+      "code": "econ-m02",
+      "subject_code": "economics",
+      "title": "Money, Banking And Prices",
+      "sort_order": 2
+    },
+    {
+      "code": "econ-m03",
+      "subject_code": "economics",
+      "title": "Financial Markets",
+      "sort_order": 3
+    },
+    {
+      "code": "econ-m04",
+      "subject_code": "economics",
+      "title": "Public Finance",
+      "sort_order": 4
+    },
+    {
+      "code": "econ-m05",
+      "subject_code": "economics",
+      "title": "External Sector And Economic Reforms",
+      "sort_order": 5
+    },
+    {
+      "code": "econ-m06",
+      "subject_code": "economics",
+      "title": "International And Economic Institutions",
+      "sort_order": 6
+    },
+    {
+      "code": "econ-m07",
+      "subject_code": "economics",
+      "title": "Social Development",
+      "sort_order": 7
+    }
+  ],
+  "chapters": [
+    {
+      "code": "econ-c01",
+      "subject_code": "economics",
+      "module_code": "econ-m01",
+      "title": "Indian Economy: Features and Structure",
+      "sort_order": 1
+    },
+    {
+      "code": "econ-c02",
+      "subject_code": "economics",
+      "module_code": "econ-m01",
+      "title": "National Income and Its Measurement",
+      "sort_order": 2
+    },
+    {
+      "code": "econ-c03",
+      "subject_code": "economics",
+      "module_code": "econ-m01",
+      "title": "Sectors of the Indian Economy",
+      "sort_order": 3
+    },
+    {
+      "code": "econ-c04",
+      "subject_code": "economics",
+      "module_code": "econ-m01",
+      "title": "Economic Planning and NITI Aayog",
+      "sort_order": 4
+    },
+    {
+      "code": "econ-c05",
+      "subject_code": "economics",
+      "module_code": "econ-m02",
+      "title": "Money and the Banking System",
+      "sort_order": 5
+    },
+    {
+      "code": "econ-c06",
+      "subject_code": "economics",
+      "module_code": "econ-m02",
+      "title": "Inflation, Price Indices and Business Cycles",
+      "sort_order": 6
+    },
+    {
+      "code": "econ-c07",
+      "subject_code": "economics",
+      "module_code": "econ-m03",
+      "title": "Stock Exchange and Capital Market",
+      "sort_order": 7
+    },
+    {
+      "code": "econ-c08",
+      "subject_code": "economics",
+      "module_code": "econ-m03",
+      "title": "Securities Market, Insurance and Regulators",
+      "sort_order": 8
+    },
+    {
+      "code": "econ-c09",
+      "subject_code": "economics",
+      "module_code": "econ-m04",
+      "title": "Union Budget",
+      "sort_order": 9
+    },
+    {
+      "code": "econ-c10",
+      "subject_code": "economics",
+      "module_code": "econ-m04",
+      "title": "Fiscal Policy and Public Debt",
+      "sort_order": 10
+    },
+    {
+      "code": "econ-c11",
+      "subject_code": "economics",
+      "module_code": "econ-m04",
+      "title": "Taxation and Public Revenue",
+      "sort_order": 11
+    },
+    {
+      "code": "econ-c12",
+      "subject_code": "economics",
+      "module_code": "econ-m04",
+      "title": "Finance Commission and Fiscal Federalism",
+      "sort_order": 12
+    },
+    {
+      "code": "econ-c13",
+      "subject_code": "economics",
+      "module_code": "econ-m05",
+      "title": "Economic Reforms: LPG (1991)",
+      "sort_order": 13
+    },
+    {
+      "code": "econ-c14",
+      "subject_code": "economics",
+      "module_code": "econ-m05",
+      "title": "Foreign Exchange Market and Exchange Rates",
+      "sort_order": 14
+    },
+    {
+      "code": "econ-c15",
+      "subject_code": "economics",
+      "module_code": "econ-m05",
+      "title": "Balance of Payments and Foreign Trade",
+      "sort_order": 15
+    },
+    {
+      "code": "econ-c16",
+      "subject_code": "economics",
+      "module_code": "econ-m05",
+      "title": "Foreign Investment and FDI",
+      "sort_order": 16
+    },
+    {
+      "code": "econ-c17",
+      "subject_code": "economics",
+      "module_code": "econ-m06",
+      "title": "World Bank, IMF, WTO and BRICS",
+      "sort_order": 17
+    },
+    {
+      "code": "econ-c18",
+      "subject_code": "economics",
+      "module_code": "econ-m06",
+      "title": "Other International and National Economic Institutions",
+      "sort_order": 18
+    },
+    {
+      "code": "econ-c19",
+      "subject_code": "economics",
+      "module_code": "econ-m07",
+      "title": "Human Development and Social Indices",
+      "sort_order": 19
+    },
+    {
+      "code": "econ-c20",
+      "subject_code": "economics",
+      "module_code": "econ-m07",
+      "title": "Population and Poverty",
+      "sort_order": 20
+    },
+    {
+      "code": "econ-c21",
+      "subject_code": "economics",
+      "module_code": "econ-m07",
+      "title": "Employment and Welfare Schemes",
+      "sort_order": 21
+    },
+    {
+      "code": "econ-c22",
+      "subject_code": "economics",
+      "module_code": "econ-m07",
+      "title": "Economics Miscellaneous",
+      "sort_order": 22
+    }
+  ],
+  "topics": [
+    {
+      "code": "econ-c01-t01",
+      "chapter_code": "econ-c01",
+      "title": "Basic economic concepts",
+      "notes": "needs, wants, goods and services, micro and macro economics.",
+      "sort_order": 1
+    },
+    {
+      "code": "econ-c01-t02",
+      "chapter_code": "econ-c01",
+      "title": "Types of economies",
+      "notes": "capitalist, socialist, mixed; India as a mixed economy.",
+      "sort_order": 2
+    },
+    {
+      "code": "econ-c01-t03",
+      "chapter_code": "econ-c01",
+      "title": "Features of the Indian economy",
+      "notes": "developing, agrarian base, mixed, planned.",
+      "sort_order": 3
+    },
+    {
+      "code": "econ-c01-t04",
+      "chapter_code": "econ-c01",
+      "title": "Economic and non-economic activities",
+      "notes": "production, distribution, consumption.",
+      "sort_order": 4
+    },
+    {
+      "code": "econ-c01-t05",
+      "chapter_code": "econ-c01",
+      "title": "Economic history",
+      "notes": "colonial economy, drain of wealth, 1947 inheritance.",
+      "sort_order": 5
+    },
+    {
+      "code": "econ-c01-t06",
+      "chapter_code": "econ-c01",
+      "title": "Development vs growth",
+      "notes": "indicators, GDP, per capita income.",
+      "sort_order": 6
+    },
+    {
+      "code": "econ-c01-t07",
+      "chapter_code": "econ-c01",
+      "title": "Economic Survey and key data",
+      "notes": "major indicators.",
+      "sort_order": 7
+    },
+    {
+      "code": "econ-c02-t01",
+      "chapter_code": "econ-c02",
+      "title": "Concepts",
+      "notes": "GDP, GNP, NDP, NNP, GVA; market price vs factor cost.",
+      "sort_order": 1
+    },
+    {
+      "code": "econ-c02-t02",
+      "chapter_code": "econ-c02",
+      "title": "Methods of measurement",
+      "notes": "product, income and expenditure methods.",
+      "sort_order": 2
+    },
+    {
+      "code": "econ-c02-t03",
+      "chapter_code": "econ-c02",
+      "title": "Real vs nominal GDP",
+      "notes": "GDP deflator, base year.",
+      "sort_order": 3
+    },
+    {
+      "code": "econ-c02-t04",
+      "chapter_code": "econ-c02",
+      "title": "Per capita income",
+      "notes": "meaning and use.",
+      "sort_order": 4
+    },
+    {
+      "code": "econ-c02-t05",
+      "chapter_code": "econ-c02",
+      "title": "Agencies",
+      "notes": "CSO / NSO, MoSPI; revisions of base year.",
+      "sort_order": 5
+    },
+    {
+      "code": "econ-c02-t06",
+      "chapter_code": "econ-c02",
+      "title": "Circular flow of income",
+      "notes": "basic idea.",
+      "sort_order": 6
+    },
+    {
+      "code": "econ-c02-t07",
+      "chapter_code": "econ-c02",
+      "title": "Difficulties in estimation",
+      "notes": "black money, informal sector.",
+      "sort_order": 7
+    },
+    {
+      "code": "econ-c03-t01",
+      "chapter_code": "econ-c03",
+      "title": "Primary, secondary, tertiary sectors",
+      "notes": "share in GDP and employment.",
+      "sort_order": 1
+    },
+    {
+      "code": "econ-c03-t02",
+      "chapter_code": "econ-c03",
+      "title": "Agriculture",
+      "notes": "Green Revolution, Operation Flood, MSP, land reforms, agricultural credit.",
+      "sort_order": 2
+    },
+    {
+      "code": "econ-c03-t03",
+      "chapter_code": "econ-c03",
+      "title": "Industry",
+      "notes": "industrial policies (1948, 1956, 1991), MSMEs, Make in India.",
+      "sort_order": 3
+    },
+    {
+      "code": "econ-c03-t04",
+      "chapter_code": "econ-c03",
+      "title": "Services",
+      "notes": "IT, banking, tourism, growth of tertiary sector.",
+      "sort_order": 4
+    },
+    {
+      "code": "econ-c03-t05",
+      "chapter_code": "econ-c03",
+      "title": "Public and private sector",
+      "notes": "PSUs, disinvestment.",
+      "sort_order": 5
+    },
+    {
+      "code": "econ-c03-t06",
+      "chapter_code": "econ-c03",
+      "title": "Infrastructure",
+      "notes": "energy, transport, communication.",
+      "sort_order": 6
+    },
+    {
+      "code": "econ-c03-t07",
+      "chapter_code": "econ-c03",
+      "title": "Organised vs unorganised sector",
+      "notes": "features.",
+      "sort_order": 7
+    },
+    {
+      "code": "econ-c04-t01",
+      "chapter_code": "econ-c04",
+      "title": "Meaning and objectives of planning",
+      "notes": "growth, equity, self-reliance, modernisation.",
+      "sort_order": 1
+    },
+    {
+      "code": "econ-c04-t02",
+      "chapter_code": "econ-c04",
+      "title": "Planning Commission",
+      "notes": "history, structure.",
+      "sort_order": 2
+    },
+    {
+      "code": "econ-c04-t03",
+      "chapter_code": "econ-c04",
+      "title": "Five Year Plans",
+      "notes": "models and priorities (Harrod-Domar, Mahalanobis, etc.); plan-wise review.",
+      "sort_order": 3
+    },
+    {
+      "code": "econ-c04-t04",
+      "chapter_code": "econ-c04",
+      "title": "Plan holiday and annual plans",
+      "notes": "1966–69, 1990–92.",
+      "sort_order": 4
+    },
+    {
+      "code": "econ-c04-t05",
+      "chapter_code": "econ-c04",
+      "title": "12th Plan and end of planning",
+      "notes": "2017.",
+      "sort_order": 5
+    },
+    {
+      "code": "econ-c04-t06",
+      "chapter_code": "econ-c04",
+      "title": "NITI Aayog",
+      "notes": "composition, functions, differences from Planning Commission.",
+      "sort_order": 6
+    },
+    {
+      "code": "econ-c04-t07",
+      "chapter_code": "econ-c04",
+      "title": "Other approaches",
+      "notes": "rolling plan, Gadgil formula.",
+      "sort_order": 7
+    },
+    {
+      "code": "econ-c05-t01",
+      "chapter_code": "econ-c05",
+      "title": "Money",
+      "notes": "functions, types, M1 to M4, high-powered money.",
+      "sort_order": 1
+    },
+    {
+      "code": "econ-c05-t02",
+      "chapter_code": "econ-c05",
+      "title": "Structure of Indian banking",
+      "notes": "RBI, commercial banks, cooperative banks, RRBs, SFBs, payment banks.",
+      "sort_order": 2
+    },
+    {
+      "code": "econ-c05-t03",
+      "chapter_code": "econ-c05",
+      "title": "RBI",
+      "notes": "functions, monetary policy, CRR, SLR, repo, reverse repo, MSF, bank rate.",
+      "sort_order": 3
+    },
+    {
+      "code": "econ-c05-t04",
+      "chapter_code": "econ-c05",
+      "title": "Bank nationalisation",
+      "notes": "1969, 1980; mergers (2020).",
+      "sort_order": 4
+    },
+    {
+      "code": "econ-c05-t05",
+      "chapter_code": "econ-c05",
+      "title": "Credit and banking reforms",
+      "notes": "Narasimham committee, NPAs, IBC, SARFAESI.",
+      "sort_order": 5
+    },
+    {
+      "code": "econ-c05-t06",
+      "chapter_code": "econ-c05",
+      "title": "Financial inclusion",
+      "notes": "Jan Dhan, UPI, digital payments, NABARD.",
+      "sort_order": 6
+    },
+    {
+      "code": "econ-c05-t07",
+      "chapter_code": "econ-c05",
+      "title": "Non-banking financial institutions",
+      "notes": "NBFCs, development banks.",
+      "sort_order": 7
+    },
+    {
+      "code": "econ-c05-t08",
+      "chapter_code": "econ-c05",
+      "title": "Monetary policy committee",
+      "notes": "composition and inflation targeting.",
+      "sort_order": 8
+    },
+    {
+      "code": "econ-c06-t01",
+      "chapter_code": "econ-c06",
+      "title": "Inflation",
+      "notes": "types (demand-pull, cost-push), effects, control measures.",
+      "sort_order": 1
+    },
+    {
+      "code": "econ-c06-t02",
+      "chapter_code": "econ-c06",
+      "title": "Deflation, disinflation, stagflation, reflation",
+      "notes": "meanings.",
+      "sort_order": 2
+    },
+    {
+      "code": "econ-c06-t03",
+      "chapter_code": "econ-c06",
+      "title": "Price indices",
+      "notes": "WPI, CPI, base year, differences.",
+      "sort_order": 3
+    },
+    {
+      "code": "econ-c06-t04",
+      "chapter_code": "econ-c06",
+      "title": "Measures to control inflation",
+      "notes": "fiscal and monetary.",
+      "sort_order": 4
+    },
+    {
+      "code": "econ-c06-t05",
+      "chapter_code": "econ-c06",
+      "title": "Phillips curve",
+      "notes": "basic idea.",
+      "sort_order": 5
+    },
+    {
+      "code": "econ-c06-t06",
+      "chapter_code": "econ-c06",
+      "title": "Business cycles",
+      "notes": "phases, recession, depression.",
+      "sort_order": 6
+    },
+    {
+      "code": "econ-c06-t07",
+      "chapter_code": "econ-c06",
+      "title": "Inflation targeting in India",
+      "notes": "4% (+/- 2%).",
+      "sort_order": 7
+    },
+    {
+      "code": "econ-c07-t01",
+      "chapter_code": "econ-c07",
+      "title": "Financial markets",
+      "notes": "money market and capital market.",
+      "sort_order": 1
+    },
+    {
+      "code": "econ-c07-t02",
+      "chapter_code": "econ-c07",
+      "title": "Stock exchanges",
+      "notes": "BSE (Asia’s oldest), NSE; Sensex and Nifty.",
+      "sort_order": 2
+    },
+    {
+      "code": "econ-c07-t03",
+      "chapter_code": "econ-c07",
+      "title": "Primary and secondary markets",
+      "notes": "IPO, FPO, OFS.",
+      "sort_order": 3
+    },
+    {
+      "code": "econ-c07-t04",
+      "chapter_code": "econ-c07",
+      "title": "Bull and bear markets",
+      "notes": "terms, circuit breakers.",
+      "sort_order": 4
+    },
+    {
+      "code": "econ-c07-t05",
+      "chapter_code": "econ-c07",
+      "title": "Instruments",
+      "notes": "shares, debentures, bonds, mutual funds, derivatives.",
+      "sort_order": 5
+    },
+    {
+      "code": "econ-c07-t06",
+      "chapter_code": "econ-c07",
+      "title": "Participants",
+      "notes": "FII, FPI, brokers, depositories (NSDL, CDSL).",
+      "sort_order": 6
+    },
+    {
+      "code": "econ-c07-t07",
+      "chapter_code": "econ-c07",
+      "title": "Indices and market terms",
+      "notes": "market capitalisation, listing.",
+      "sort_order": 7
+    },
+    {
+      "code": "econ-c08-t01",
+      "chapter_code": "econ-c08",
+      "title": "SEBI",
+      "notes": "establishment, functions, powers.",
+      "sort_order": 1
+    },
+    {
+      "code": "econ-c08-t02",
+      "chapter_code": "econ-c08",
+      "title": "Mutual funds and commodity markets",
+      "notes": "SIP, NAV; MCX, NCDEX.",
+      "sort_order": 2
+    },
+    {
+      "code": "econ-c08-t03",
+      "chapter_code": "econ-c08",
+      "title": "Insurance in India",
+      "notes": "life and general, LIC, GIC, nationalisation.",
+      "sort_order": 3
+    },
+    {
+      "code": "econ-c08-t04",
+      "chapter_code": "econ-c08",
+      "title": "IRDAI",
+      "notes": "regulator; FDI limit in insurance.",
+      "sort_order": 4
+    },
+    {
+      "code": "econ-c08-t05",
+      "chapter_code": "econ-c08",
+      "title": "Pension system",
+      "notes": "PFRDA, NPS, EPFO, Atal Pension Yojana.",
+      "sort_order": 5
+    },
+    {
+      "code": "econ-c08-t06",
+      "chapter_code": "econ-c08",
+      "title": "Other regulators",
+      "notes": "RBI, SEBI, IRDAI, PFRDA, FMC.",
+      "sort_order": 6
+    },
+    {
+      "code": "econ-c08-t07",
+      "chapter_code": "econ-c08",
+      "title": "Government insurance schemes",
+      "notes": "PMJJBY, PMSBY, PMFBY.",
+      "sort_order": 7
+    },
+    {
+      "code": "econ-c09-t01",
+      "chapter_code": "econ-c09",
+      "title": "Meaning and constitutional provisions",
+      "notes": "Article 112 (annual financial statement).",
+      "sort_order": 1
+    },
+    {
+      "code": "econ-c09-t02",
+      "chapter_code": "econ-c09",
+      "title": "Budget process",
+      "notes": "preparation, presentation, passing; Money Bill, Appropriation Bill, Finance Bill.",
+      "sort_order": 2
+    },
+    {
+      "code": "econ-c09-t03",
+      "chapter_code": "econ-c09",
+      "title": "Revenue and capital budget",
+      "notes": "receipts and expenditure.",
+      "sort_order": 3
+    },
+    {
+      "code": "econ-c09-t04",
+      "chapter_code": "econ-c09",
+      "title": "Deficits",
+      "notes": "fiscal, revenue, primary, effective revenue deficit.",
+      "sort_order": 4
+    },
+    {
+      "code": "econ-c09-t05",
+      "chapter_code": "econ-c09",
+      "title": "Types of budget",
+      "notes": "zero-based, outcome, gender, performance, green.",
+      "sort_order": 5
+    },
+    {
+      "code": "econ-c09-t06",
+      "chapter_code": "econ-c09",
+      "title": "Railway budget merger (2017)",
+      "notes": "changes.",
+      "sort_order": 6
+    },
+    {
+      "code": "econ-c09-t07",
+      "chapter_code": "econ-c09",
+      "title": "Vote on account, supplementary and cut motions",
+      "notes": "parliamentary control.",
+      "sort_order": 7
+    },
+    {
+      "code": "econ-c09-t08",
+      "chapter_code": "econ-c09",
+      "title": "FRBM Act",
+      "notes": "targets and escape clause.",
+      "sort_order": 8
+    },
+    {
+      "code": "econ-c10-t01",
+      "chapter_code": "econ-c10",
+      "title": "Meaning and objectives",
+      "notes": "growth, stability, redistribution.",
+      "sort_order": 1
+    },
+    {
+      "code": "econ-c10-t02",
+      "chapter_code": "econ-c10",
+      "title": "Instruments",
+      "notes": "taxation, public expenditure, public debt.",
+      "sort_order": 2
+    },
+    {
+      "code": "econ-c10-t03",
+      "chapter_code": "econ-c10",
+      "title": "Expansionary and contractionary fiscal policy",
+      "notes": "effects.",
+      "sort_order": 3
+    },
+    {
+      "code": "econ-c10-t04",
+      "chapter_code": "econ-c10",
+      "title": "Fiscal deficit financing",
+      "notes": "borrowing, market stabilisation scheme.",
+      "sort_order": 4
+    },
+    {
+      "code": "econ-c10-t05",
+      "chapter_code": "econ-c10",
+      "title": "Public debt",
+      "notes": "internal and external, debt-GDP ratio.",
+      "sort_order": 5
+    },
+    {
+      "code": "econ-c10-t06",
+      "chapter_code": "econ-c10",
+      "title": "Subsidies",
+      "notes": "direct benefit transfer.",
+      "sort_order": 6
+    },
+    {
+      "code": "econ-c10-t07",
+      "chapter_code": "econ-c10",
+      "title": "Fiscal vs monetary policy",
+      "notes": "coordination.",
+      "sort_order": 7
+    },
+    {
+      "code": "econ-c11-t01",
+      "chapter_code": "econ-c11",
+      "title": "Direct and indirect taxes",
+      "notes": "examples, canons of taxation.",
+      "sort_order": 1
+    },
+    {
+      "code": "econ-c11-t02",
+      "chapter_code": "econ-c11",
+      "title": "Direct taxes",
+      "notes": "income tax, corporate tax, capital gains.",
+      "sort_order": 2
+    },
+    {
+      "code": "econ-c11-t03",
+      "chapter_code": "econ-c11",
+      "title": "Indirect taxes",
+      "notes": "excise, customs, service tax, VAT.",
+      "sort_order": 3
+    },
+    {
+      "code": "econ-c11-t04",
+      "chapter_code": "econ-c11",
+      "title": "GST",
+      "notes": "101st Amendment, GST Council, slabs, dual structure, subsumed taxes.",
+      "sort_order": 4
+    },
+    {
+      "code": "econ-c11-t05",
+      "chapter_code": "econ-c11",
+      "title": "Tax structure",
+      "notes": "progressive, regressive, proportional.",
+      "sort_order": 5
+    },
+    {
+      "code": "econ-c11-t06",
+      "chapter_code": "econ-c11",
+      "title": "Non-tax revenue",
+      "notes": "fees, fines, dividends.",
+      "sort_order": 6
+    },
+    {
+      "code": "econ-c11-t07",
+      "chapter_code": "econ-c11",
+      "title": "Tax reforms",
+      "notes": "Kelkar and Chelliah committees; black money and tax evasion.",
+      "sort_order": 7
+    },
+    {
+      "code": "econ-c12-t01",
+      "chapter_code": "econ-c12",
+      "title": "Constitutional basis",
+      "notes": "Article 280, quasi-judicial body, every five years.",
+      "sort_order": 1
+    },
+    {
+      "code": "econ-c12-t02",
+      "chapter_code": "econ-c12",
+      "title": "Composition and functions",
+      "notes": "chairman and four members.",
+      "sort_order": 2
+    },
+    {
+      "code": "econ-c12-t03",
+      "chapter_code": "econ-c12",
+      "title": "Recommendations",
+      "notes": "devolution of taxes, grants-in-aid.",
+      "sort_order": 3
+    },
+    {
+      "code": "econ-c12-t04",
+      "chapter_code": "econ-c12",
+      "title": "List of Finance Commissions",
+      "notes": "chairmen and key shares (14th: 42%, 15th: 41%).",
+      "sort_order": 4
+    },
+    {
+      "code": "econ-c12-t05",
+      "chapter_code": "econ-c12",
+      "title": "Other bodies",
+      "notes": "GST Council, Inter-State Council, State Finance Commission.",
+      "sort_order": 5
+    },
+    {
+      "code": "econ-c12-t06",
+      "chapter_code": "econ-c12",
+      "title": "Centre-state financial relations",
+      "notes": "Articles 268 to 293.",
+      "sort_order": 6
+    },
+    {
+      "code": "econ-c12-t07",
+      "chapter_code": "econ-c12",
+      "title": "Cesses and surcharges",
+      "notes": "outside divisible pool.",
+      "sort_order": 7
+    },
+    {
+      "code": "econ-c13-t01",
+      "chapter_code": "econ-c13",
+      "title": "Background of the 1991 crisis",
+      "notes": "balance of payments, gold pledge.",
+      "sort_order": 1
+    },
+    {
+      "code": "econ-c13-t02",
+      "chapter_code": "econ-c13",
+      "title": "Liberalisation",
+      "notes": "industrial licensing abolished, trade reforms.",
+      "sort_order": 2
+    },
+    {
+      "code": "econ-c13-t03",
+      "chapter_code": "econ-c13",
+      "title": "Privatisation",
+      "notes": "disinvestment, strategic sale.",
+      "sort_order": 3
+    },
+    {
+      "code": "econ-c13-t04",
+      "chapter_code": "econ-c13",
+      "title": "Globalisation",
+      "notes": "meaning, merits and demerits.",
+      "sort_order": 4
+    },
+    {
+      "code": "econ-c13-t05",
+      "chapter_code": "econ-c13",
+      "title": "Structural adjustment",
+      "notes": "stabilisation and structural measures.",
+      "sort_order": 5
+    },
+    {
+      "code": "econ-c13-t06",
+      "chapter_code": "econ-c13",
+      "title": "Impact",
+      "notes": "growth, poverty, inequality.",
+      "sort_order": 6
+    },
+    {
+      "code": "econ-c13-t07",
+      "chapter_code": "econ-c13",
+      "title": "Second generation reforms",
+      "notes": "GST, IBC, labour codes.",
+      "sort_order": 7
+    },
+    {
+      "code": "econ-c14-t01",
+      "chapter_code": "econ-c14",
+      "title": "Foreign exchange",
+      "notes": "meaning, forex reserves composition.",
+      "sort_order": 1
+    },
+    {
+      "code": "econ-c14-t02",
+      "chapter_code": "econ-c14",
+      "title": "Exchange rate systems",
+      "notes": "fixed, floating, managed float.",
+      "sort_order": 2
+    },
+    {
+      "code": "econ-c14-t03",
+      "chapter_code": "econ-c14",
+      "title": "Convertibility",
+      "notes": "current and capital account.",
+      "sort_order": 3
+    },
+    {
+      "code": "econ-c14-t04",
+      "chapter_code": "econ-c14",
+      "title": "Depreciation, devaluation and appreciation",
+      "notes": "effects.",
+      "sort_order": 4
+    },
+    {
+      "code": "econ-c14-t05",
+      "chapter_code": "econ-c14",
+      "title": "FERA to FEMA",
+      "notes": "1973, 1999.",
+      "sort_order": 5
+    },
+    {
+      "code": "econ-c14-t06",
+      "chapter_code": "econ-c14",
+      "title": "Reserves",
+      "notes": "India’s reserves, RBI role.",
+      "sort_order": 6
+    },
+    {
+      "code": "econ-c14-t07",
+      "chapter_code": "econ-c14",
+      "title": "Currency terms",
+      "notes": "hedging, spot, forward, SDR.",
+      "sort_order": 7
+    },
+    {
+      "code": "econ-c15-t01",
+      "chapter_code": "econ-c15",
+      "title": "BoP components",
+      "notes": "current account, capital account.",
+      "sort_order": 1
+    },
+    {
+      "code": "econ-c15-t02",
+      "chapter_code": "econ-c15",
+      "title": "Balance of trade vs BoP",
+      "notes": "differences, trade deficit.",
+      "sort_order": 2
+    },
+    {
+      "code": "econ-c15-t03",
+      "chapter_code": "econ-c15",
+      "title": "Current account deficit",
+      "notes": "causes and remedies.",
+      "sort_order": 3
+    },
+    {
+      "code": "econ-c15-t04",
+      "chapter_code": "econ-c15",
+      "title": "India’s foreign trade",
+      "notes": "major exports and imports, trading partners.",
+      "sort_order": 4
+    },
+    {
+      "code": "econ-c15-t05",
+      "chapter_code": "econ-c15",
+      "title": "Trade policy",
+      "notes": "Foreign Trade Policy, SEZs, EOUs.",
+      "sort_order": 5
+    },
+    {
+      "code": "econ-c15-t06",
+      "chapter_code": "econ-c15",
+      "title": "Tariff and non-tariff barriers",
+      "notes": "customs duty.",
+      "sort_order": 6
+    },
+    {
+      "code": "econ-c15-t07",
+      "chapter_code": "econ-c15",
+      "title": "Free trade agreements",
+      "notes": "CEPA, FTA, RCEP.",
+      "sort_order": 7
+    },
+    {
+      "code": "econ-c16-t01",
+      "chapter_code": "econ-c16",
+      "title": "Types of foreign investment",
+      "notes": "FDI, FPI, FII.",
+      "sort_order": 1
+    },
+    {
+      "code": "econ-c16-t02",
+      "chapter_code": "econ-c16",
+      "title": "FDI in India",
+      "notes": "routes (automatic, government), prohibited sectors.",
+      "sort_order": 2
+    },
+    {
+      "code": "econ-c16-t03",
+      "chapter_code": "econ-c16",
+      "title": "FDI limits by sector",
+      "notes": "defence, insurance, retail.",
+      "sort_order": 3
+    },
+    {
+      "code": "econ-c16-t04",
+      "chapter_code": "econ-c16",
+      "title": "FIPB and Foreign Investment Facilitation",
+      "notes": "approvals.",
+      "sort_order": 4
+    },
+    {
+      "code": "econ-c16-t05",
+      "chapter_code": "econ-c16",
+      "title": "Policy initiatives",
+      "notes": "Make in India, Invest India.",
+      "sort_order": 5
+    },
+    {
+      "code": "econ-c16-t06",
+      "chapter_code": "econ-c16",
+      "title": "External commercial borrowings",
+      "notes": "ECB.",
+      "sort_order": 6
+    },
+    {
+      "code": "econ-c16-t07",
+      "chapter_code": "econ-c16",
+      "title": "Merits and demerits",
+      "notes": "technology, employment.",
+      "sort_order": 7
+    },
+    {
+      "code": "econ-c17-t01",
+      "chapter_code": "econ-c17",
+      "title": "Bretton Woods institutions",
+      "notes": "IMF and World Bank (1944), headquarters, functions.",
+      "sort_order": 1
+    },
+    {
+      "code": "econ-c17-t02",
+      "chapter_code": "econ-c17",
+      "title": "World Bank group",
+      "notes": "IBRD, IDA, IFC, MIGA, ICSID.",
+      "sort_order": 2
+    },
+    {
+      "code": "econ-c17-t03",
+      "chapter_code": "econ-c17",
+      "title": "IMF",
+      "notes": "SDR, quotas, India’s role.",
+      "sort_order": 3
+    },
+    {
+      "code": "econ-c17-t04",
+      "chapter_code": "econ-c17",
+      "title": "GATT to WTO",
+      "notes": "1995, Geneva, ministerial conferences, agreements (TRIPS, TRIMS, GATS).",
+      "sort_order": 4
+    },
+    {
+      "code": "econ-c17-t05",
+      "chapter_code": "econ-c17",
+      "title": "BRICS",
+      "notes": "members, New Development Bank (NDB), Contingent Reserve Arrangement.",
+      "sort_order": 5
+    },
+    {
+      "code": "econ-c17-t06",
+      "chapter_code": "econ-c17",
+      "title": "Other regional groups",
+      "notes": "SAARC, ASEAN, G20, G7, OPEC, APEC, AIIB.",
+      "sort_order": 6
+    },
+    {
+      "code": "econ-c17-t07",
+      "chapter_code": "econ-c17",
+      "title": "Reports and indices",
+      "notes": "Doing Business, Global Hunger Index, etc.",
+      "sort_order": 7
+    },
+    {
+      "code": "econ-c18-t01",
+      "chapter_code": "econ-c18",
+      "title": "UN economic bodies",
+      "notes": "UNCTAD, UNDP, UNIDO, FAO.",
+      "sort_order": 1
+    },
+    {
+      "code": "econ-c18-t02",
+      "chapter_code": "econ-c18",
+      "title": "Development banks",
+      "notes": "ADB, AIIB, NDB.",
+      "sort_order": 2
+    },
+    {
+      "code": "econ-c18-t03",
+      "chapter_code": "econ-c18",
+      "title": "Indian institutions",
+      "notes": "NABARD, SIDBI, EXIM Bank, NHB, IFCI.",
+      "sort_order": 3
+    },
+    {
+      "code": "econ-c18-t04",
+      "chapter_code": "econ-c18",
+      "title": "Commissions and boards",
+      "notes": "CCI, TRAI, FSDC.",
+      "sort_order": 4
+    },
+    {
+      "code": "econ-c18-t05",
+      "chapter_code": "econ-c18",
+      "title": "Organisations and reports",
+      "notes": "matching of body and headquarters.",
+      "sort_order": 5
+    },
+    {
+      "code": "econ-c18-t06",
+      "chapter_code": "econ-c18",
+      "title": "Major economic publications",
+      "notes": "Economic Survey, Reports.",
+      "sort_order": 6
+    },
+    {
+      "code": "econ-c18-t07",
+      "chapter_code": "econ-c18",
+      "title": "Economic terms",
+      "notes": "quick revision.",
+      "sort_order": 7
+    },
+    {
+      "code": "econ-c19-t01",
+      "chapter_code": "econ-c19",
+      "title": "Human Development Index",
+      "notes": "UNDP, Mahbub ul Haq and Amartya Sen; dimensions.",
+      "sort_order": 1
+    },
+    {
+      "code": "econ-c19-t02",
+      "chapter_code": "econ-c19",
+      "title": "Related indices",
+      "notes": "GDI, GII, MPI, HPI, Gini coefficient.",
+      "sort_order": 2
+    },
+    {
+      "code": "econ-c19-t03",
+      "chapter_code": "econ-c19",
+      "title": "India’s HDI rank",
+      "notes": "trends.",
+      "sort_order": 3
+    },
+    {
+      "code": "econ-c19-t04",
+      "chapter_code": "econ-c19",
+      "title": "Education indicators",
+      "notes": "literacy rate, RTE, NEP 2020.",
+      "sort_order": 4
+    },
+    {
+      "code": "econ-c19-t05",
+      "chapter_code": "econ-c19",
+      "title": "Health indicators",
+      "notes": "IMR, MMR, life expectancy, National Health Mission.",
+      "sort_order": 5
+    },
+    {
+      "code": "econ-c19-t06",
+      "chapter_code": "econ-c19",
+      "title": "Gender and social inclusion",
+      "notes": "SC, ST, women schemes.",
+      "sort_order": 6
+    },
+    {
+      "code": "econ-c19-t07",
+      "chapter_code": "econ-c19",
+      "title": "Sustainable Development Goals",
+      "notes": "17 goals, SDG India Index.",
+      "sort_order": 7
+    },
+    {
+      "code": "econ-c20-t01",
+      "chapter_code": "econ-c20",
+      "title": "Census",
+      "notes": "2011 key figures, decennial census, sex ratio, density, literacy.",
+      "sort_order": 1
+    },
+    {
+      "code": "econ-c20-t02",
+      "chapter_code": "econ-c20",
+      "title": "Demographic concepts",
+      "notes": "birth rate, death rate, fertility rate, demographic dividend.",
+      "sort_order": 2
+    },
+    {
+      "code": "econ-c20-t03",
+      "chapter_code": "econ-c20",
+      "title": "Population policy",
+      "notes": "National Population Policy 2000.",
+      "sort_order": 3
+    },
+    {
+      "code": "econ-c20-t04",
+      "chapter_code": "econ-c20",
+      "title": "Poverty",
+      "notes": "absolute vs relative, poverty line.",
+      "sort_order": 4
+    },
+    {
+      "code": "econ-c20-t05",
+      "chapter_code": "econ-c20",
+      "title": "Committees on poverty",
+      "notes": "Lakdawala, Tendulkar, Rangarajan.",
+      "sort_order": 5
+    },
+    {
+      "code": "econ-c20-t06",
+      "chapter_code": "econ-c20",
+      "title": "Multidimensional poverty",
+      "notes": "NITI Aayog MPI.",
+      "sort_order": 6
+    },
+    {
+      "code": "econ-c20-t07",
+      "chapter_code": "econ-c20",
+      "title": "Inequality",
+      "notes": "Lorenz curve, Gini coefficient.",
+      "sort_order": 7
+    },
+    {
+      "code": "econ-c20-t08",
+      "chapter_code": "econ-c20",
+      "title": "Urbanisation and migration",
+      "notes": "trends.",
+      "sort_order": 8
+    },
+    {
+      "code": "econ-c21-t01",
+      "chapter_code": "econ-c21",
+      "title": "Employment concepts",
+      "notes": "unemployment types (structural, frictional, disguised, seasonal).",
+      "sort_order": 1
+    },
+    {
+      "code": "econ-c21-t02",
+      "chapter_code": "econ-c21",
+      "title": "Labour force indicators",
+      "notes": "PLFS, labour force participation rate.",
+      "sort_order": 2
+    },
+    {
+      "code": "econ-c21-t03",
+      "chapter_code": "econ-c21",
+      "title": "Employment schemes",
+      "notes": "MGNREGA, PMEGP, Skill India, DDU-GKY.",
+      "sort_order": 3
+    },
+    {
+      "code": "econ-c21-t04",
+      "chapter_code": "econ-c21",
+      "title": "Poverty alleviation programmes",
+      "notes": "NRLM, PMAY, PM Garib Kalyan.",
+      "sort_order": 4
+    },
+    {
+      "code": "econ-c21-t05",
+      "chapter_code": "econ-c21",
+      "title": "Social security",
+      "notes": "PDS, NFSA, pensions, Ayushman Bharat.",
+      "sort_order": 5
+    },
+    {
+      "code": "econ-c21-t06",
+      "chapter_code": "econ-c21",
+      "title": "Rural development",
+      "notes": "PMGSY, Swachh Bharat.",
+      "sort_order": 6
+    },
+    {
+      "code": "econ-c21-t07",
+      "chapter_code": "econ-c21",
+      "title": "Labour laws",
+      "notes": "labour codes, minimum wages, ESI, EPF.",
+      "sort_order": 7
+    },
+    {
+      "code": "econ-c22-t01",
+      "chapter_code": "econ-c22",
+      "title": "Economic terms and definitions",
+      "notes": "quick revision.",
+      "sort_order": 1
+    },
+    {
+      "code": "econ-c22-t02",
+      "chapter_code": "econ-c22",
+      "title": "Famous economists and their works",
+      "notes": "Adam Smith, Keynes, Marshall, Amartya Sen.",
+      "sort_order": 2
+    },
+    {
+      "code": "econ-c22-t03",
+      "chapter_code": "econ-c22",
+      "title": "Nobel Prize in Economics (Indian connections)",
+      "notes": "Sen, Banerjee, Duflo.",
+      "sort_order": 3
+    },
+    {
+      "code": "econ-c22-t04",
+      "chapter_code": "econ-c22",
+      "title": "Mixed one-liners",
+      "notes": "matching.",
+      "sort_order": 4
+    },
+    {
+      "code": "econ-c22-t05",
+      "chapter_code": "econ-c22",
+      "title": "Important economic data and rankings",
+      "notes": "recent.",
+      "sort_order": 5
+    },
+    {
+      "code": "econ-c22-t06",
+      "chapter_code": "econ-c22",
+      "title": "Current affairs links",
+      "notes": "annual reports and schemes.",
+      "sort_order": 6
+    }
+  ]
+}

@@ -6,6 +6,26 @@ from .models import Chapter, Module, Part, Subject, Topic
 
 
 class FlexibleTaxonomyTests(TestCase):
+    def test_module_can_receive_first_same_subject_part_but_cannot_move(self):
+        module = Module.objects.create(subject=self.subject, name='Direct module', slug='direct-module')
+        chapter = Chapter.objects.create(module=module, name='Child', slug='child')
+        topic = Topic.objects.create(subject=self.subject, chapter=chapter, name='Leaf', slug='leaf')
+        identity = (module.pk, module.code, chapter.pk, topic.pk)
+        module.part = self.part
+        module.save()
+        self.assertEqual(identity, (module.pk, module.code, chapter.pk, topic.pk))
+        with self.assertRaises(ValidationError):
+            module.part = None
+            module.save()
+        with self.assertRaises(IntegrityError), transaction.atomic():
+            Module.objects.filter(pk=module.pk).update(part=None)
+        second = Part.objects.create(subject=self.subject, name='Other Part', slug='other-part')
+        with self.assertRaises(IntegrityError), transaction.atomic():
+            Module.objects.filter(pk=module.pk).update(part=second)
+        foreign = Module.objects.create(subject=self.other, name='Foreign direct', slug='foreign-direct')
+        with self.assertRaises(IntegrityError), transaction.atomic():
+            Module.objects.filter(pk=foreign.pk).update(part=self.part)
+
     @classmethod
     def setUpTestData(cls):
         cls.subject = Subject.objects.create(name="History", code="HISTORY", slug="history")

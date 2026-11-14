@@ -4,6 +4,14 @@
         "code": "history",
         "title": "History"
     },
+    "modules": [
+        {
+            "code": "hist-anc",
+            "subject_code": "history",
+            "part_code": "PART-06e2389eb1be43e79a18b4e1f8632318",
+            "title": "Ancient History"
+        }
+    ],
     "scope": "Ancient India",
     "chapters": [
         {

@@ -1,5 +1,8 @@
 from django.contrib import admin
+from django.conf import settings
 from django.db.models import Q
+from django.urls import reverse
+from urllib.parse import urlencode
 
 from .models import Chapter, Exam, ExamAuthority, ExamStage, Module, Part, Subject, Topic
 
@@ -87,7 +90,41 @@ class TopicInline(admin.TabularInline):
     readonly_fields = ("code",)
 
 
-class TaxonomyCodeAdmin:
+class TaxonomyInlineBudgetAdmin:
+    change_form_template = "admin/exams/taxonomy_change_form.html"
+
+    def get_inline_instances(self, request, obj=None):
+        instances = super().get_inline_instances(request, obj)
+        request.taxonomy_overflow_links = []
+        limit = settings.DATA_UPLOAD_MAX_NUMBER_FIELDS
+        if limit is None or obj is None:
+            return instances
+        # Reserve the parent form, CSRF/save controls and related-widget fields.
+        remaining = max(0, limit - 64)
+        visible = []
+        for inline in instances:
+            formset = inline.get_formset(request, obj)
+            count = inline.get_queryset(request).filter(**{formset.fk.name: obj.pk}).count()
+            # Per-row model fields, hidden identity/delete controls, the empty
+            # add-row template and the four formset management inputs.
+            needed = (count + inline.get_extra(request, obj) + 1) * (len(formset.form.base_fields) + 3) + 4
+            if needed <= remaining:
+                visible.append(inline)
+                remaining -= needed
+            else:
+                opts = inline.model._meta
+                request.taxonomy_overflow_links.append({
+                    "label": str(opts.verbose_name_plural), "count": count,
+                    "url": reverse(f"admin:{opts.app_label}_{opts.model_name}_changelist") + "?" + urlencode({f"{formset.fk.name}__id__exact": obj.pk}),
+                })
+        return visible
+
+    def render_change_form(self, request, context, *args, **kwargs):
+        context["taxonomy_overflow_links"] = getattr(request, "taxonomy_overflow_links", [])
+        return super().render_change_form(request, context, *args, **kwargs)
+
+
+class TaxonomyCodeAdmin(TaxonomyInlineBudgetAdmin):
     def get_readonly_fields(self, request, obj=None):
         fields = super().get_readonly_fields(request, obj)
         return (*fields, "code") if obj else fields
@@ -152,6 +189,10 @@ class ModuleAdmin(TaxonomyCodeAdmin, admin.ModelAdmin):
     autocomplete_fields = ("subject", "part")
     prepopulated_fields = {"slug": ("name",)}
     inlines = (ChapterInline, TopicInline)
+
+    def get_readonly_fields(self, request, obj=None):
+        fields = super().get_readonly_fields(request, obj)
+        return (*fields, "part") if obj and obj.part_id is not None else fields
 
 
 @admin.register(Chapter)
