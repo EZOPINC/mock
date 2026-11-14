@@ -1,0 +1,849 @@
+{
+  "schema_version": 1,
+  "subject": {
+    "code": "environment-and-ecology",
+    "title": "Environment and Ecology"
+  },
+  "modules": [
+    {
+      "code": "env-m01",
+      "subject_code": "environment-and-ecology",
+      "title": "Fundamentals Of Environment and Ecology",
+      "sort_order": 1
+    },
+    {
+      "code": "env-m02",
+      "subject_code": "environment-and-ecology",
+      "title": "Biodiversity and Conservation",
+      "sort_order": 2
+    },
+    {
+      "code": "env-m03",
+      "subject_code": "environment-and-ecology",
+      "title": "Environmental Problems",
+      "sort_order": 3
+    },
+    {
+      "code": "env-m04",
+      "subject_code": "environment-and-ecology",
+      "title": "Resources, Solutions and Revision",
+      "sort_order": 4
+    }
+  ],
+  "chapters": [
+    {
+      "code": "env-c01",
+      "subject_code": "environment-and-ecology",
+      "module_code": "env-m01",
+      "title": "Environment and Sustainable Development",
+      "sort_order": 1
+    },
+    {
+      "code": "env-c02",
+      "subject_code": "environment-and-ecology",
+      "module_code": "env-m01",
+      "title": "Ecology and Ecosystems",
+      "sort_order": 2
+    },
+    {
+      "code": "env-c03",
+      "subject_code": "environment-and-ecology",
+      "module_code": "env-m02",
+      "title": "Biodiversity",
+      "sort_order": 3
+    },
+    {
+      "code": "env-c04",
+      "subject_code": "environment-and-ecology",
+      "module_code": "env-m02",
+      "title": "Forests and Forest Wildlife",
+      "sort_order": 4
+    },
+    {
+      "code": "env-c05",
+      "subject_code": "environment-and-ecology",
+      "module_code": "env-m02",
+      "title": "Protected Areas: Sanctuaries, National Parks and Biosphere Reserves",
+      "sort_order": 5
+    },
+    {
+      "code": "env-c06",
+      "subject_code": "environment-and-ecology",
+      "module_code": "env-m03",
+      "title": "Pollution",
+      "sort_order": 6
+    },
+    {
+      "code": "env-c07",
+      "subject_code": "environment-and-ecology",
+      "module_code": "env-m03",
+      "title": "Ozone Layer Depletion",
+      "sort_order": 7
+    },
+    {
+      "code": "env-c08",
+      "subject_code": "environment-and-ecology",
+      "module_code": "env-m03",
+      "title": "Greenhouse Effect and Climate Change",
+      "sort_order": 8
+    },
+    {
+      "code": "env-c09",
+      "subject_code": "environment-and-ecology",
+      "module_code": "env-m04",
+      "title": "Non-Conventional (Renewable) Energy",
+      "sort_order": 9
+    },
+    {
+      "code": "env-c10",
+      "subject_code": "environment-and-ecology",
+      "module_code": "env-m04",
+      "title": "Water Conservation",
+      "sort_order": 10
+    },
+    {
+      "code": "env-c11",
+      "subject_code": "environment-and-ecology",
+      "module_code": "env-m04",
+      "title": "Environment Miscellaneous",
+      "sort_order": 11
+    }
+  ],
+  "topics": [
+    {
+      "code": "env-c01-t01",
+      "chapter_code": "env-c01",
+      "title": "Meaning and components of environment",
+      "notes": "biotic and abiotic, natural and man-made.",
+      "sort_order": 1
+    },
+    {
+      "code": "env-c01-t02",
+      "chapter_code": "env-c01",
+      "title": "Environmental movements",
+      "notes": "Chipko, Appiko, Silent Valley, Narmada Bachao Andolan, Bishnoi movement.",
+      "sort_order": 2
+    },
+    {
+      "code": "env-c01-t03",
+      "chapter_code": "env-c01",
+      "title": "Sustainable development",
+      "notes": "Brundtland Report (Our Common Future, 1987), definition, three pillars.",
+      "sort_order": 3
+    },
+    {
+      "code": "env-c01-t04",
+      "chapter_code": "env-c01",
+      "title": "Global conferences",
+      "notes": "Stockholm (1972), Rio Earth Summit (1992), Johannesburg (2002), Rio+20 (2012), Paris (2015).",
+      "sort_order": 4
+    },
+    {
+      "code": "env-c01-t05",
+      "chapter_code": "env-c01",
+      "title": "Sustainable Development Goals",
+      "notes": "17 goals, 2030 Agenda.",
+      "sort_order": 5
+    },
+    {
+      "code": "env-c01-t06",
+      "chapter_code": "env-c01",
+      "title": "Environmental laws in India",
+      "notes": "Wildlife Protection Act 1972, Water Act 1974, Forest Conservation Act 1980, Air Act 1981, Environment Protection Act 1986, Biological Diversity Act 2002, NGT Act 2010.",
+      "sort_order": 6
+    },
+    {
+      "code": "env-c01-t07",
+      "chapter_code": "env-c01",
+      "title": "Institutions",
+      "notes": "Ministry of Environment, Forest and Climate Change (MoEFCC), CPCB, SPCB, NGT, Wildlife Institute of India.",
+      "sort_order": 7
+    },
+    {
+      "code": "env-c01-t08",
+      "chapter_code": "env-c01",
+      "title": "Constitutional provisions",
+      "notes": "Articles 48A, 51A(g), 21.",
+      "sort_order": 8
+    },
+    {
+      "code": "env-c01-t09",
+      "chapter_code": "env-c01",
+      "title": "International organisations and conventions",
+      "notes": "UNEP, IUCN, WWF, Ramsar, CITES, CBD, Bonn.",
+      "sort_order": 9
+    },
+    {
+      "code": "env-c01-t10",
+      "chapter_code": "env-c01",
+      "title": "Environmental Impact Assessment",
+      "notes": "meaning, process.",
+      "sort_order": 10
+    },
+    {
+      "code": "env-c02-t01",
+      "chapter_code": "env-c02",
+      "title": "Ecology",
+      "notes": "meaning, branches (autecology, synecology), Ernst Haeckel.",
+      "sort_order": 1
+    },
+    {
+      "code": "env-c02-t02",
+      "chapter_code": "env-c02",
+      "title": "Levels of organisation",
+      "notes": "organism, population, community, ecosystem, biome, biosphere.",
+      "sort_order": 2
+    },
+    {
+      "code": "env-c02-t03",
+      "chapter_code": "env-c02",
+      "title": "Types of ecosystems",
+      "notes": "forest, grassland, desert, aquatic, wetland, mangrove.",
+      "sort_order": 3
+    },
+    {
+      "code": "env-c02-t04",
+      "chapter_code": "env-c02",
+      "title": "Components",
+      "notes": "producers, consumers, decomposers.",
+      "sort_order": 4
+    },
+    {
+      "code": "env-c02-t05",
+      "chapter_code": "env-c02",
+      "title": "Food chain and food web",
+      "notes": "grazing and detritus chains, trophic levels.",
+      "sort_order": 5
+    },
+    {
+      "code": "env-c02-t06",
+      "chapter_code": "env-c02",
+      "title": "Ecological pyramids",
+      "notes": "numbers, biomass, energy; 10% law (Lindeman).",
+      "sort_order": 6
+    },
+    {
+      "code": "env-c02-t07",
+      "chapter_code": "env-c02",
+      "title": "Energy flow and nutrient cycles",
+      "notes": "carbon, nitrogen, oxygen, phosphorus, water cycles.",
+      "sort_order": 7
+    },
+    {
+      "code": "env-c02-t08",
+      "chapter_code": "env-c02",
+      "title": "Ecological succession",
+      "notes": "primary and secondary, pioneer and climax community.",
+      "sort_order": 8
+    },
+    {
+      "code": "env-c02-t09",
+      "chapter_code": "env-c02",
+      "title": "Ecological terms",
+      "notes": "habitat, niche, ecotone, edge effect, keystone species, indicator species, flagship species.",
+      "sort_order": 9
+    },
+    {
+      "code": "env-c02-t10",
+      "chapter_code": "env-c02",
+      "title": "Biomes of the world",
+      "notes": "tundra, taiga, tropical rainforest, savanna.",
+      "sort_order": 10
+    },
+    {
+      "code": "env-c02-t11",
+      "chapter_code": "env-c02",
+      "title": "Population interactions",
+      "notes": "symbiosis, mutualism, commensalism, parasitism, competition, predation.",
+      "sort_order": 11
+    },
+    {
+      "code": "env-c03-t01",
+      "chapter_code": "env-c03",
+      "title": "Levels",
+      "notes": "genetic, species, ecosystem diversity.",
+      "sort_order": 1
+    },
+    {
+      "code": "env-c03-t02",
+      "chapter_code": "env-c03",
+      "title": "Biodiversity hotspots",
+      "notes": "criteria (Norman Myers); 36 worldwide; India’s four (Himalaya, Indo-Burma, Western Ghats and Sri Lanka, Sundaland / Nicobar).",
+      "sort_order": 2
+    },
+    {
+      "code": "env-c03-t03",
+      "chapter_code": "env-c03",
+      "title": "Mega-diverse countries",
+      "notes": "India among them.",
+      "sort_order": 3
+    },
+    {
+      "code": "env-c03-t04",
+      "chapter_code": "env-c03",
+      "title": "Threats to biodiversity",
+      "notes": "habitat loss, poaching, invasive alien species, human-wildlife conflict, pollution.",
+      "sort_order": 4
+    },
+    {
+      "code": "env-c03-t05",
+      "chapter_code": "env-c03",
+      "title": "IUCN Red List categories",
+      "notes": "extinct, extinct in the wild, critically endangered, endangered, vulnerable, near threatened, least concern.",
+      "sort_order": 5
+    },
+    {
+      "code": "env-c03-t06",
+      "chapter_code": "env-c03",
+      "title": "Conservation methods",
+      "notes": "in situ (national parks, sanctuaries, biosphere reserves) and ex situ (zoos, botanical gardens, gene banks, seed banks).",
+      "sort_order": 6
+    },
+    {
+      "code": "env-c03-t07",
+      "chapter_code": "env-c03",
+      "title": "Endemic species",
+      "notes": "of India.",
+      "sort_order": 7
+    },
+    {
+      "code": "env-c03-t08",
+      "chapter_code": "env-c03",
+      "title": "Endangered species and projects",
+      "notes": "Project Tiger (1973), Project Elephant (1992), Project Snow Leopard, crocodile project.",
+      "sort_order": 8
+    },
+    {
+      "code": "env-c03-t09",
+      "chapter_code": "env-c03",
+      "title": "Biodiversity Act 2002 and National Biodiversity Authority",
+      "notes": "access and benefit sharing.",
+      "sort_order": 9
+    },
+    {
+      "code": "env-c03-t10",
+      "chapter_code": "env-c03",
+      "title": "International efforts",
+      "notes": "Convention on Biological Diversity (1992), Cartagena and Nagoya Protocols, Aichi targets.",
+      "sort_order": 10
+    },
+    {
+      "code": "env-c04-t01",
+      "chapter_code": "env-c04",
+      "title": "Types of forests in India",
+      "notes": "tropical evergreen, tropical deciduous, thorn, montane, mangrove.",
+      "sort_order": 1
+    },
+    {
+      "code": "env-c04-t02",
+      "chapter_code": "env-c04",
+      "title": "Forest cover",
+      "notes": "India State of Forest Report (ISFR), forest-cover percentage, states with highest area and percentage.",
+      "sort_order": 2
+    },
+    {
+      "code": "env-c04-t03",
+      "chapter_code": "env-c04",
+      "title": "Forest policy",
+      "notes": "National Forest Policy 1952 and 1988 (33% target).",
+      "sort_order": 3
+    },
+    {
+      "code": "env-c04-t04",
+      "chapter_code": "env-c04",
+      "title": "Forest laws",
+      "notes": "Indian Forest Act 1927, Forest Conservation Act 1980, Forest Rights Act 2006.",
+      "sort_order": 4
+    },
+    {
+      "code": "env-c04-t05",
+      "chapter_code": "env-c04",
+      "title": "Deforestation and afforestation",
+      "notes": "causes, programmes, Compensatory Afforestation Fund.",
+      "sort_order": 5
+    },
+    {
+      "code": "env-c04-t06",
+      "chapter_code": "env-c04",
+      "title": "Social forestry and joint forest management",
+      "notes": "types.",
+      "sort_order": 6
+    },
+    {
+      "code": "env-c04-t07",
+      "chapter_code": "env-c04",
+      "title": "Wildlife of India",
+      "notes": "important species of mammals, birds, reptiles.",
+      "sort_order": 7
+    },
+    {
+      "code": "env-c04-t08",
+      "chapter_code": "env-c04",
+      "title": "Wildlife Protection Act 1972",
+      "notes": "schedules, hunting ban.",
+      "sort_order": 8
+    },
+    {
+      "code": "env-c04-t09",
+      "chapter_code": "env-c04",
+      "title": "Mangroves and coral reefs",
+      "notes": "distribution, importance.",
+      "sort_order": 9
+    },
+    {
+      "code": "env-c04-t10",
+      "chapter_code": "env-c04",
+      "title": "Forest products",
+      "notes": "major and minor forest produce.",
+      "sort_order": 10
+    },
+    {
+      "code": "env-c05-t01",
+      "chapter_code": "env-c05",
+      "title": "Categories of protected areas",
+      "notes": "national parks, wildlife sanctuaries, conservation and community reserves, tiger and elephant reserves.",
+      "sort_order": 1
+    },
+    {
+      "code": "env-c05-t02",
+      "chapter_code": "env-c05",
+      "title": "National parks",
+      "notes": "Jim Corbett (first, 1936), Kaziranga, Gir, Ranthambore, Sundarbans, Bandipur, Periyar; state-wise list.",
+      "sort_order": 2
+    },
+    {
+      "code": "env-c05-t03",
+      "chapter_code": "env-c05",
+      "title": "Wildlife sanctuaries",
+      "notes": "major ones by state.",
+      "sort_order": 3
+    },
+    {
+      "code": "env-c05-t04",
+      "chapter_code": "env-c05",
+      "title": "Biosphere reserves",
+      "notes": "concept, MAB programme; core, buffer, transition zones; Nilgiri (first, 1986), Sundarbans, Nanda Devi, Gulf of Mannar, others.",
+      "sort_order": 4
+    },
+    {
+      "code": "env-c05-t05",
+      "chapter_code": "env-c05",
+      "title": "Tiger reserves",
+      "notes": "Project Tiger, NTCA, number of reserves.",
+      "sort_order": 5
+    },
+    {
+      "code": "env-c05-t06",
+      "chapter_code": "env-c05",
+      "title": "Wetlands and Ramsar sites",
+      "notes": "Chilika, Keoladeo, Loktak, Wular.",
+      "sort_order": 6
+    },
+    {
+      "code": "env-c05-t07",
+      "chapter_code": "env-c05",
+      "title": "World Heritage natural sites",
+      "notes": "Kaziranga, Manas, Sundarbans, Western Ghats, Great Himalayan National Park.",
+      "sort_order": 7
+    },
+    {
+      "code": "env-c05-t08",
+      "chapter_code": "env-c05",
+      "title": "Matching: park–state–species",
+      "notes": "all question related to this.",
+      "sort_order": 8
+    },
+    {
+      "code": "env-c06-t01",
+      "chapter_code": "env-c06",
+      "title": "Air pollution",
+      "notes": "pollutants (SO2, NOx, CO, particulate matter), sources, effects, smog, acid rain.",
+      "sort_order": 1
+    },
+    {
+      "code": "env-c06-t02",
+      "chapter_code": "env-c06",
+      "title": "Air Quality Index",
+      "notes": "categories, PM2.5, PM10.",
+      "sort_order": 2
+    },
+    {
+      "code": "env-c06-t03",
+      "chapter_code": "env-c06",
+      "title": "Water pollution",
+      "notes": "sources, BOD, eutrophication, arsenic and fluoride contamination, Ganga Action Plan, Namami Gange.",
+      "sort_order": 3
+    },
+    {
+      "code": "env-c06-t04",
+      "chapter_code": "env-c06",
+      "title": "Soil pollution",
+      "notes": "fertilisers, pesticides, heavy metals.",
+      "sort_order": 4
+    },
+    {
+      "code": "env-c06-t05",
+      "chapter_code": "env-c06",
+      "title": "Noise pollution",
+      "notes": "decibel levels, permissible limits.",
+      "sort_order": 5
+    },
+    {
+      "code": "env-c06-t06",
+      "chapter_code": "env-c06",
+      "title": "Radioactive and thermal pollution",
+      "notes": "sources and effects.",
+      "sort_order": 6
+    },
+    {
+      "code": "env-c06-t07",
+      "chapter_code": "env-c06",
+      "title": "Solid waste and e-waste",
+      "notes": "types, plastic waste management, Swachh Bharat.",
+      "sort_order": 7
+    },
+    {
+      "code": "env-c06-t08",
+      "chapter_code": "env-c06",
+      "title": "Bioremediation and control technologies",
+      "notes": "phytoremediation, catalytic converters, BS norms.",
+      "sort_order": 8
+    },
+    {
+      "code": "env-c06-t09",
+      "chapter_code": "env-c06",
+      "title": "Diseases linked to pollution",
+      "notes": "Minamata, Itai-Itai, Bhopal gas tragedy, blue baby syndrome.",
+      "sort_order": 9
+    },
+    {
+      "code": "env-c06-t10",
+      "chapter_code": "env-c06",
+      "title": "Rules",
+      "notes": "Solid Waste Management Rules, E-waste Rules, Plastic Waste Rules.",
+      "sort_order": 10
+    },
+    {
+      "code": "env-c07-t01",
+      "chapter_code": "env-c07",
+      "title": "Ozone layer",
+      "notes": "stratosphere, location (15 to 35 km), Dobson unit.",
+      "sort_order": 1
+    },
+    {
+      "code": "env-c07-t02",
+      "chapter_code": "env-c07",
+      "title": "Functions",
+      "notes": "absorbs ultraviolet-B radiation.",
+      "sort_order": 2
+    },
+    {
+      "code": "env-c07-t03",
+      "chapter_code": "env-c07",
+      "title": "Ozone depleting substances",
+      "notes": "CFCs, halons, carbon tetrachloride, HCFCs, methyl bromide.",
+      "sort_order": 3
+    },
+    {
+      "code": "env-c07-t04",
+      "chapter_code": "env-c07",
+      "title": "Ozone hole",
+      "notes": "Antarctica, discovery (Farman 1985), causes, polar stratospheric clouds.",
+      "sort_order": 4
+    },
+    {
+      "code": "env-c07-t05",
+      "chapter_code": "env-c07",
+      "title": "Effects",
+      "notes": "skin cancer, cataract, damage to crops and marine life.",
+      "sort_order": 5
+    },
+    {
+      "code": "env-c07-t06",
+      "chapter_code": "env-c07",
+      "title": "Vienna Convention (1985) and Montreal Protocol (1987)",
+      "notes": "phase-out; Kigali Amendment (2016, HFCs).",
+      "sort_order": 6
+    },
+    {
+      "code": "env-c07-t07",
+      "chapter_code": "env-c07",
+      "title": "International Ozone Day",
+      "notes": "16 September.",
+      "sort_order": 7
+    },
+    {
+      "code": "env-c07-t08",
+      "chapter_code": "env-c07",
+      "title": "Ozone and troposphere",
+      "notes": "good ozone vs bad ozone.",
+      "sort_order": 8
+    },
+    {
+      "code": "env-c08-t01",
+      "chapter_code": "env-c08",
+      "title": "Greenhouse effect",
+      "notes": "natural and enhanced; greenhouse gases (CO2, CH4, N2O, CFCs, water vapour).",
+      "sort_order": 1
+    },
+    {
+      "code": "env-c08-t02",
+      "chapter_code": "env-c08",
+      "title": "Global warming potential",
+      "notes": "relative strength of gases.",
+      "sort_order": 2
+    },
+    {
+      "code": "env-c08-t03",
+      "chapter_code": "env-c08",
+      "title": "Causes",
+      "notes": "fossil fuels, deforestation, agriculture, industry.",
+      "sort_order": 3
+    },
+    {
+      "code": "env-c08-t04",
+      "chapter_code": "env-c08",
+      "title": "Effects",
+      "notes": "sea-level rise, melting glaciers, extreme weather, coral bleaching, ocean acidification.",
+      "sort_order": 4
+    },
+    {
+      "code": "env-c08-t05",
+      "chapter_code": "env-c08",
+      "title": "IPCC",
+      "notes": "reports, role, Assessment Reports.",
+      "sort_order": 5
+    },
+    {
+      "code": "env-c08-t06",
+      "chapter_code": "env-c08",
+      "title": "International agreements",
+      "notes": "UNFCCC (1992), Kyoto Protocol (1997), Paris Agreement (2015), COP conferences.",
+      "sort_order": 6
+    },
+    {
+      "code": "env-c08-t07",
+      "chapter_code": "env-c08",
+      "title": "Carbon credits and mechanisms",
+      "notes": "CDM, carbon trading, carbon sinks, carbon footprint.",
+      "sort_order": 7
+    },
+    {
+      "code": "env-c08-t08",
+      "chapter_code": "env-c08",
+      "title": "India’s actions",
+      "notes": "NAPCC, eight national missions, NDCs, net-zero target (2070), International Solar Alliance.",
+      "sort_order": 8
+    },
+    {
+      "code": "env-c08-t09",
+      "chapter_code": "env-c08",
+      "title": "El Nino and La Nina",
+      "notes": "impacts.",
+      "sort_order": 9
+    },
+    {
+      "code": "env-c08-t10",
+      "chapter_code": "env-c08",
+      "title": "Adaptation and mitigation",
+      "notes": "meanings.",
+      "sort_order": 10
+    },
+    {
+      "code": "env-c09-t01",
+      "chapter_code": "env-c09",
+      "title": "Conventional vs non-conventional energy",
+      "notes": "meaning.",
+      "sort_order": 1
+    },
+    {
+      "code": "env-c09-t02",
+      "chapter_code": "env-c09",
+      "title": "Solar energy",
+      "notes": "photovoltaic and thermal; National Solar Mission, ISA.",
+      "sort_order": 2
+    },
+    {
+      "code": "env-c09-t03",
+      "chapter_code": "env-c09",
+      "title": "Wind energy",
+      "notes": "potential in India (Tamil Nadu, Gujarat), onshore and offshore.",
+      "sort_order": 3
+    },
+    {
+      "code": "env-c09-t04",
+      "chapter_code": "env-c09",
+      "title": "Hydro and tidal energy",
+      "notes": "small hydro; tidal sites (Gulf of Khambhat, Kutch).",
+      "sort_order": 4
+    },
+    {
+      "code": "env-c09-t05",
+      "chapter_code": "env-c09",
+      "title": "Biomass and biogas",
+      "notes": "gobar gas, biofuels (ethanol blending, biodiesel).",
+      "sort_order": 5
+    },
+    {
+      "code": "env-c09-t06",
+      "chapter_code": "env-c09",
+      "title": "Geothermal energy",
+      "notes": "Puga Valley (Ladakh), Manikaran.",
+      "sort_order": 6
+    },
+    {
+      "code": "env-c09-t07",
+      "chapter_code": "env-c09",
+      "title": "Wave and ocean thermal energy",
+      "notes": "OTEC.",
+      "sort_order": 7
+    },
+    {
+      "code": "env-c09-t08",
+      "chapter_code": "env-c09",
+      "title": "Nuclear energy",
+      "notes": "as a clean energy source.",
+      "sort_order": 8
+    },
+    {
+      "code": "env-c09-t09",
+      "chapter_code": "env-c09",
+      "title": "Green hydrogen",
+      "notes": "National Green Hydrogen Mission.",
+      "sort_order": 9
+    },
+    {
+      "code": "env-c09-t10",
+      "chapter_code": "env-c09",
+      "title": "Institutions and schemes",
+      "notes": "MNRE, PM-KUSUM, rooftop solar.",
+      "sort_order": 10
+    },
+    {
+      "code": "env-c09-t11",
+      "chapter_code": "env-c09",
+      "title": "Installed capacity",
+      "notes": "India’s renewable target (500 GW by 2030).",
+      "sort_order": 11
+    },
+    {
+      "code": "env-c10-t01",
+      "chapter_code": "env-c10",
+      "title": "Water resources of India",
+      "notes": "surface and groundwater.",
+      "sort_order": 1
+    },
+    {
+      "code": "env-c10-t02",
+      "chapter_code": "env-c10",
+      "title": "Water scarcity and groundwater depletion",
+      "notes": "causes.",
+      "sort_order": 2
+    },
+    {
+      "code": "env-c10-t03",
+      "chapter_code": "env-c10",
+      "title": "Rainwater harvesting",
+      "notes": "methods.",
+      "sort_order": 3
+    },
+    {
+      "code": "env-c10-t04",
+      "chapter_code": "env-c10",
+      "title": "Watershed management",
+      "notes": "concept.",
+      "sort_order": 4
+    },
+    {
+      "code": "env-c10-t05",
+      "chapter_code": "env-c10",
+      "title": "Traditional systems",
+      "notes": "johads, baolis, tankas, kunds, kuhls.",
+      "sort_order": 5
+    },
+    {
+      "code": "env-c10-t06",
+      "chapter_code": "env-c10",
+      "title": "Irrigation methods",
+      "notes": "drip and sprinkler.",
+      "sort_order": 6
+    },
+    {
+      "code": "env-c10-t07",
+      "chapter_code": "env-c10",
+      "title": "Water conservation schemes",
+      "notes": "Jal Shakti Abhiyan, Jal Jeevan Mission, Atal Bhujal Yojana, Namami Gange, National Water Mission.",
+      "sort_order": 7
+    },
+    {
+      "code": "env-c10-t08",
+      "chapter_code": "env-c10",
+      "title": "Water-related laws and disputes",
+      "notes": "inter-state river disputes.",
+      "sort_order": 8
+    },
+    {
+      "code": "env-c10-t09",
+      "chapter_code": "env-c10",
+      "title": "Dams and displacement",
+      "notes": "debate.",
+      "sort_order": 9
+    },
+    {
+      "code": "env-c10-t10",
+      "chapter_code": "env-c10",
+      "title": "World Water Day",
+      "notes": "22 March.",
+      "sort_order": 10
+    },
+    {
+      "code": "env-c11-t01",
+      "chapter_code": "env-c11",
+      "title": "Important days",
+      "notes": "World Environment Day (5 June), Earth Day (22 April), Wildlife Week.",
+      "sort_order": 1
+    },
+    {
+      "code": "env-c11-t02",
+      "chapter_code": "env-c11",
+      "title": "Environmental awards and reports",
+      "notes": "Earth Hour, Living Planet Report, Environmental Performance Index.",
+      "sort_order": 2
+    },
+    {
+      "code": "env-c11-t03",
+      "chapter_code": "env-c11",
+      "title": "International conventions",
+      "notes": "list with year and place.",
+      "sort_order": 3
+    },
+    {
+      "code": "env-c11-t04",
+      "chapter_code": "env-c11",
+      "title": "Environment-related organisations",
+      "notes": "headquarters and year.",
+      "sort_order": 4
+    },
+    {
+      "code": "env-c11-t05",
+      "chapter_code": "env-c11",
+      "title": "Species and their protection status",
+      "notes": "one-liners.",
+      "sort_order": 5
+    },
+    {
+      "code": "env-c11-t06",
+      "chapter_code": "env-c11",
+      "title": "Current affairs links",
+      "notes": "recent policies and campaigns.",
+      "sort_order": 6
+    },
+    {
+      "code": "env-c11-t07",
+      "chapter_code": "env-c11",
+      "title": "Mixed one-liners",
+      "notes": "matching.",
+      "sort_order": 7
+    }
+  ]
+}
