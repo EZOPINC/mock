@@ -1,0 +1,2099 @@
+{
+  "schema_version": 1,
+  "subject": {
+    "code": "current-affairs",
+    "title": "Current Affairs"
+  },
+  "modules": [
+    {
+      "code": "ca-m01",
+      "subject_code": "current-affairs",
+      "title": "Government, Politics and Appointments",
+      "sort_order": 1
+    },
+    {
+      "code": "ca-m02",
+      "subject_code": "current-affairs",
+      "title": "Policy, Schemes and Economy",
+      "sort_order": 2
+    },
+    {
+      "code": "ca-m03",
+      "subject_code": "current-affairs",
+      "title": "International Affairs and Summits",
+      "sort_order": 3
+    },
+    {
+      "code": "ca-m04",
+      "subject_code": "current-affairs",
+      "title": "Defence, Science, Space and Environment",
+      "sort_order": 4
+    },
+    {
+      "code": "ca-m05",
+      "subject_code": "current-affairs",
+      "title": "Indexes, Awards, Sports, Books and People",
+      "sort_order": 5
+    },
+    {
+      "code": "ca-m06",
+      "subject_code": "current-affairs",
+      "title": "Days, Themes and Abbreviations",
+      "sort_order": 6
+    },
+    {
+      "code": "ca-m07",
+      "subject_code": "current-affairs",
+      "title": "Revision and Practice",
+      "sort_order": 7
+    }
+  ],
+  "chapters": [
+    {
+      "code": "ca-c01",
+      "subject_code": "current-affairs",
+      "module_code": "ca-m01",
+      "title": "Union Council of Ministers",
+      "sort_order": 1
+    },
+    {
+      "code": "ca-c02",
+      "subject_code": "current-affairs",
+      "module_code": "ca-m01",
+      "title": "Appointments: Who, What, Where",
+      "sort_order": 2
+    },
+    {
+      "code": "ca-c03",
+      "subject_code": "current-affairs",
+      "module_code": "ca-m01",
+      "title": "States: Capitals, Governors and Chief Ministers",
+      "sort_order": 3
+    },
+    {
+      "code": "ca-c04",
+      "subject_code": "current-affairs",
+      "module_code": "ca-m01",
+      "title": "High Courts of India",
+      "sort_order": 4
+    },
+    {
+      "code": "ca-c05",
+      "subject_code": "current-affairs",
+      "module_code": "ca-m01",
+      "title": "State Assembly and General Elections",
+      "sort_order": 5
+    },
+    {
+      "code": "ca-c06",
+      "subject_code": "current-affairs",
+      "module_code": "ca-m01",
+      "title": "State Government Schemes",
+      "sort_order": 6
+    },
+    {
+      "code": "ca-c07",
+      "subject_code": "current-affairs",
+      "module_code": "ca-m02",
+      "title": "Central Government Schemes",
+      "sort_order": 7
+    },
+    {
+      "code": "ca-c08",
+      "subject_code": "current-affairs",
+      "module_code": "ca-m02",
+      "title": "Major Reports of the Government of India",
+      "sort_order": 8
+    },
+    {
+      "code": "ca-c09",
+      "subject_code": "current-affairs",
+      "module_code": "ca-m02",
+      "title": "Economic Survey",
+      "sort_order": 9
+    },
+    {
+      "code": "ca-c10",
+      "subject_code": "current-affairs",
+      "module_code": "ca-m02",
+      "title": "Union Budget",
+      "sort_order": 10
+    },
+    {
+      "code": "ca-c11",
+      "subject_code": "current-affairs",
+      "module_code": "ca-m02",
+      "title": "Economic Scenario",
+      "sort_order": 11
+    },
+    {
+      "code": "ca-c12",
+      "subject_code": "current-affairs",
+      "module_code": "ca-m03",
+      "title": "Countries of the World: Who, What, Where",
+      "sort_order": 12
+    },
+    {
+      "code": "ca-c13",
+      "subject_code": "current-affairs",
+      "module_code": "ca-m03",
+      "title": "International Organisations at a Glance",
+      "sort_order": 13
+    },
+    {
+      "code": "ca-c14",
+      "subject_code": "current-affairs",
+      "module_code": "ca-m03",
+      "title": "International Summits",
+      "sort_order": 14
+    },
+    {
+      "code": "ca-c15",
+      "subject_code": "current-affairs",
+      "module_code": "ca-m03",
+      "title": "National Summits",
+      "sort_order": 15
+    },
+    {
+      "code": "ca-c16",
+      "subject_code": "current-affairs",
+      "module_code": "ca-m03",
+      "title": "Important Conferences and Summits",
+      "sort_order": 16
+    },
+    {
+      "code": "ca-c17",
+      "subject_code": "current-affairs",
+      "module_code": "ca-m03",
+      "title": "Major MoUs and Agreements",
+      "sort_order": 17
+    },
+    {
+      "code": "ca-c18",
+      "subject_code": "current-affairs",
+      "module_code": "ca-m04",
+      "title": "Defence and Security",
+      "sort_order": 18
+    },
+    {
+      "code": "ca-c19",
+      "subject_code": "current-affairs",
+      "module_code": "ca-m04",
+      "title": "Joint Military Exercises",
+      "sort_order": 19
+    },
+    {
+      "code": "ca-c20",
+      "subject_code": "current-affairs",
+      "module_code": "ca-m04",
+      "title": "Major Operations",
+      "sort_order": 20
+    },
+    {
+      "code": "ca-c21",
+      "subject_code": "current-affairs",
+      "module_code": "ca-m04",
+      "title": "Science and Technology",
+      "sort_order": 21
+    },
+    {
+      "code": "ca-c22",
+      "subject_code": "current-affairs",
+      "module_code": "ca-m04",
+      "title": "Space Technology",
+      "sort_order": 22
+    },
+    {
+      "code": "ca-c23",
+      "subject_code": "current-affairs",
+      "module_code": "ca-m04",
+      "title": "Major Mobile Apps and Portals",
+      "sort_order": 23
+    },
+    {
+      "code": "ca-c24",
+      "subject_code": "current-affairs",
+      "module_code": "ca-m04",
+      "title": "Environment and Ecology",
+      "sort_order": 24
+    },
+    {
+      "code": "ca-c25",
+      "subject_code": "current-affairs",
+      "module_code": "ca-m05",
+      "title": "Indexes and Reports",
+      "sort_order": 25
+    },
+    {
+      "code": "ca-c26",
+      "subject_code": "current-affairs",
+      "module_code": "ca-m05",
+      "title": "National and International Awards",
+      "sort_order": 26
+    },
+    {
+      "code": "ca-c27",
+      "subject_code": "current-affairs",
+      "module_code": "ca-m05",
+      "title": "National Sports Awards",
+      "sort_order": 27
+    },
+    {
+      "code": "ca-c28",
+      "subject_code": "current-affairs",
+      "module_code": "ca-m05",
+      "title": "Sports Panorama",
+      "sort_order": 28
+    },
+    {
+      "code": "ca-c29",
+      "subject_code": "current-affairs",
+      "module_code": "ca-m05",
+      "title": "Books and Authors",
+      "sort_order": 29
+    },
+    {
+      "code": "ca-c30",
+      "subject_code": "current-affairs",
+      "module_code": "ca-m05",
+      "title": "Brand Ambassadors",
+      "sort_order": 30
+    },
+    {
+      "code": "ca-c31",
+      "subject_code": "current-affairs",
+      "module_code": "ca-m05",
+      "title": "Firsts in India and the World",
+      "sort_order": 31
+    },
+    {
+      "code": "ca-c32",
+      "subject_code": "current-affairs",
+      "module_code": "ca-m06",
+      "title": "Important Days",
+      "sort_order": 32
+    },
+    {
+      "code": "ca-c33",
+      "subject_code": "current-affairs",
+      "module_code": "ca-m06",
+      "title": "Important Days and Themes",
+      "sort_order": 33
+    },
+    {
+      "code": "ca-c34",
+      "subject_code": "current-affairs",
+      "module_code": "ca-m06",
+      "title": "Latest Abbreviations",
+      "sort_order": 34
+    },
+    {
+      "code": "ca-c35",
+      "subject_code": "current-affairs",
+      "module_code": "ca-m07",
+      "title": "Current Affairs Miscellaneous",
+      "sort_order": 35
+    }
+  ],
+  "topics": [
+    {
+      "code": "ca-c01-t01",
+      "chapter_code": "ca-c01",
+      "title": "Prime Minister and oath",
+      "notes": "date of oath, term, Prime Minister’s portfolio.",
+      "sort_order": 1
+    },
+    {
+      "code": "ca-c01-t02",
+      "chapter_code": "ca-c01",
+      "title": "Cabinet ministers and portfolios",
+      "notes": "list of ministries with ministers.",
+      "sort_order": 2
+    },
+    {
+      "code": "ca-c01-t03",
+      "chapter_code": "ca-c01",
+      "title": "Ministers of State (independent charge) and Ministers of State",
+      "notes": "list.",
+      "sort_order": 3
+    },
+    {
+      "code": "ca-c01-t04",
+      "chapter_code": "ca-c01",
+      "title": "Key ministries",
+      "notes": "Home, Finance, Defence, External Affairs.",
+      "sort_order": 4
+    },
+    {
+      "code": "ca-c01-t05",
+      "chapter_code": "ca-c01",
+      "title": "Allies and coalition partners",
+      "notes": "parties with ministers.",
+      "sort_order": 5
+    },
+    {
+      "code": "ca-c01-t06",
+      "chapter_code": "ca-c01",
+      "title": "Changes and reshuffles",
+      "notes": "additions, resignations, change of portfolio.",
+      "sort_order": 6
+    },
+    {
+      "code": "ca-c01-t07",
+      "chapter_code": "ca-c01",
+      "title": "Matching: minister–ministry",
+      "notes": "quick revision.",
+      "sort_order": 7
+    },
+    {
+      "code": "ca-c02-t01",
+      "chapter_code": "ca-c02",
+      "title": "Constitutional posts",
+      "notes": "President, Vice-President, Governors, Chief Justice of India, CAG, Chief Election Commissioner, Attorney General.",
+      "sort_order": 1
+    },
+    {
+      "code": "ca-c02-t02",
+      "chapter_code": "ca-c02",
+      "title": "Heads of government bodies",
+      "notes": "NITI Aayog, RBI, SEBI, UPSC, ISRO, DRDO.",
+      "sort_order": 2
+    },
+    {
+      "code": "ca-c02-t03",
+      "chapter_code": "ca-c02",
+      "title": "Chiefs of armed forces",
+      "notes": "Army, Navy, Air Force, CDS.",
+      "sort_order": 3
+    },
+    {
+      "code": "ca-c02-t04",
+      "chapter_code": "ca-c02",
+      "title": "Heads of international organisations",
+      "notes": "UN, IMF, World Bank, WHO, WTO.",
+      "sort_order": 4
+    },
+    {
+      "code": "ca-c02-t05",
+      "chapter_code": "ca-c02",
+      "title": "Ambassadors and high commissioners",
+      "notes": "new appointments.",
+      "sort_order": 5
+    },
+    {
+      "code": "ca-c02-t06",
+      "chapter_code": "ca-c02",
+      "title": "Corporate and institutional heads",
+      "notes": "CEOs and chairpersons.",
+      "sort_order": 6
+    },
+    {
+      "code": "ca-c02-t07",
+      "chapter_code": "ca-c02",
+      "title": "Resignations, retirements and obituaries",
+      "notes": "persons of the year.",
+      "sort_order": 7
+    },
+    {
+      "code": "ca-c02-t08",
+      "chapter_code": "ca-c02",
+      "title": "Matching: person–post–organisation",
+      "notes": "quick revision.",
+      "sort_order": 8
+    },
+    {
+      "code": "ca-c03-t01",
+      "chapter_code": "ca-c03",
+      "title": "Current list of states and Union Territories",
+      "notes": "capitals (including winter and summer capitals).",
+      "sort_order": 1
+    },
+    {
+      "code": "ca-c03-t02",
+      "chapter_code": "ca-c03",
+      "title": "Governors and Lieutenant Governors",
+      "notes": "current list, recent changes.",
+      "sort_order": 2
+    },
+    {
+      "code": "ca-c03-t03",
+      "chapter_code": "ca-c03",
+      "title": "Chief Ministers",
+      "notes": "current list, with party, new CMs, longest-serving.",
+      "sort_order": 3
+    },
+    {
+      "code": "ca-c03-t04",
+      "chapter_code": "ca-c03",
+      "title": "Deputy CMs and notable ministers",
+      "notes": "quick revision.",
+      "sort_order": 4
+    },
+    {
+      "code": "ca-c03-t05",
+      "chapter_code": "ca-c03",
+      "title": "Ruling parties and coalition alliances",
+      "notes": "by state.",
+      "sort_order": 5
+    },
+    {
+      "code": "ca-c03-t06",
+      "chapter_code": "ca-c03",
+      "title": "Women Chief Ministers and other records",
+      "notes": "firsts.",
+      "sort_order": 6
+    },
+    {
+      "code": "ca-c03-t07",
+      "chapter_code": "ca-c03",
+      "title": "Matching: state–CM–Governor–party",
+      "notes": "quick revision.",
+      "sort_order": 7
+    },
+    {
+      "code": "ca-c04-t01",
+      "chapter_code": "ca-c04",
+      "title": "Number of High Courts and benches",
+      "notes": "seats, jurisdiction.",
+      "sort_order": 1
+    },
+    {
+      "code": "ca-c04-t02",
+      "chapter_code": "ca-c04",
+      "title": "Chief Justices of High Courts",
+      "notes": "current list.",
+      "sort_order": 2
+    },
+    {
+      "code": "ca-c04-t03",
+      "chapter_code": "ca-c04",
+      "title": "Newest and oldest High Courts",
+      "notes": "Calcutta, Bombay, Madras (1862), recent additions.",
+      "sort_order": 3
+    },
+    {
+      "code": "ca-c04-t04",
+      "chapter_code": "ca-c04",
+      "title": "Territorial jurisdiction",
+      "notes": "states and UTs covered.",
+      "sort_order": 4
+    },
+    {
+      "code": "ca-c04-t05",
+      "chapter_code": "ca-c04",
+      "title": "Important recent judgements",
+      "notes": "topics and bench.",
+      "sort_order": 5
+    },
+    {
+      "code": "ca-c04-t06",
+      "chapter_code": "ca-c04",
+      "title": "Appointments and collegium",
+      "notes": "recent elevation to the Supreme Court.",
+      "sort_order": 6
+    },
+    {
+      "code": "ca-c04-t07",
+      "chapter_code": "ca-c04",
+      "title": "Matching: High Court–seat–state",
+      "notes": "quick revision.",
+      "sort_order": 7
+    },
+    {
+      "code": "ca-c05-t01",
+      "chapter_code": "ca-c05",
+      "title": "Election schedule and phases",
+      "notes": "dates, number of phases, number of seats.",
+      "sort_order": 1
+    },
+    {
+      "code": "ca-c05-t02",
+      "chapter_code": "ca-c05",
+      "title": "Contesting parties and alliances",
+      "notes": "major parties, coalitions.",
+      "sort_order": 2
+    },
+    {
+      "code": "ca-c05-t03",
+      "chapter_code": "ca-c05",
+      "title": "Results",
+      "notes": "seats by party, winning party or alliance, vote share.",
+      "sort_order": 3
+    },
+    {
+      "code": "ca-c05-t04",
+      "chapter_code": "ca-c05",
+      "title": "Chief Minister and Deputy Chief Ministers",
+      "notes": "oath, cabinet formation.",
+      "sort_order": 4
+    },
+    {
+      "code": "ca-c05-t05",
+      "chapter_code": "ca-c05",
+      "title": "Key candidates and constituencies",
+      "notes": "prominent seats and results.",
+      "sort_order": 5
+    },
+    {
+      "code": "ca-c05-t06",
+      "chapter_code": "ca-c05",
+      "title": "Voter turnout and electoral rolls",
+      "notes": "turnout figures, women’s turnout, revision of rolls.",
+      "sort_order": 6
+    },
+    {
+      "code": "ca-c05-t07",
+      "chapter_code": "ca-c05",
+      "title": "Comparison with the previous election",
+      "notes": "change in seats and vote share.",
+      "sort_order": 7
+    },
+    {
+      "code": "ca-c05-t08",
+      "chapter_code": "ca-c05",
+      "title": "Election-related institutions and rules",
+      "notes": "Election Commission, Model Code of Conduct, EVM and VVPAT, NOTA.",
+      "sort_order": 8
+    },
+    {
+      "code": "ca-c05-t09",
+      "chapter_code": "ca-c05",
+      "title": "Records and firsts",
+      "notes": "youngest or oldest winner, highest margin, women winners.",
+      "sort_order": 9
+    },
+    {
+      "code": "ca-c06-t01",
+      "chapter_code": "ca-c06",
+      "title": "Welfare schemes by state",
+      "notes": "women, farmers, students, youth.",
+      "sort_order": 1
+    },
+    {
+      "code": "ca-c06-t02",
+      "chapter_code": "ca-c06",
+      "title": "Health and insurance schemes",
+      "notes": "state-level.",
+      "sort_order": 2
+    },
+    {
+      "code": "ca-c06-t03",
+      "chapter_code": "ca-c06",
+      "title": "Employment and skill schemes",
+      "notes": "state-level.",
+      "sort_order": 3
+    },
+    {
+      "code": "ca-c06-t04",
+      "chapter_code": "ca-c06",
+      "title": "Agriculture and irrigation schemes",
+      "notes": "state-level.",
+      "sort_order": 4
+    },
+    {
+      "code": "ca-c06-t05",
+      "chapter_code": "ca-c06",
+      "title": "Housing and rural development",
+      "notes": "state-level.",
+      "sort_order": 5
+    },
+    {
+      "code": "ca-c06-t06",
+      "chapter_code": "ca-c06",
+      "title": "Newly launched schemes",
+      "notes": "name, launch date, beneficiary.",
+      "sort_order": 6
+    },
+    {
+      "code": "ca-c06-t07",
+      "chapter_code": "ca-c06",
+      "title": "Matching: scheme–state",
+      "notes": "quick revision.",
+      "sort_order": 7
+    },
+    {
+      "code": "ca-c07-t01",
+      "chapter_code": "ca-c07",
+      "title": "Financial inclusion",
+      "notes": "Jan Dhan, Mudra, Stand-Up India, Atal Pension.",
+      "sort_order": 1
+    },
+    {
+      "code": "ca-c07-t02",
+      "chapter_code": "ca-c07",
+      "title": "Social security and health",
+      "notes": "Ayushman Bharat, PM-JAY, Jeevan Jyoti, Suraksha Bima.",
+      "sort_order": 2
+    },
+    {
+      "code": "ca-c07-t03",
+      "chapter_code": "ca-c07",
+      "title": "Rural and agriculture",
+      "notes": "PM-KISAN, PM Fasal Bima, PMAY-G, MGNREGA, e-NAM.",
+      "sort_order": 3
+    },
+    {
+      "code": "ca-c07-t04",
+      "chapter_code": "ca-c07",
+      "title": "Urban and housing",
+      "notes": "Smart Cities, AMRUT, PMAY-U, Swachh Bharat.",
+      "sort_order": 4
+    },
+    {
+      "code": "ca-c07-t05",
+      "chapter_code": "ca-c07",
+      "title": "Education and skill",
+      "notes": "NEP 2020, Skill India, PM-POSHAN, PM SHRI.",
+      "sort_order": 5
+    },
+    {
+      "code": "ca-c07-t06",
+      "chapter_code": "ca-c07",
+      "title": "Industry and startup",
+      "notes": "Make in India, Startup India, PLI.",
+      "sort_order": 6
+    },
+    {
+      "code": "ca-c07-t07",
+      "chapter_code": "ca-c07",
+      "title": "Energy and environment",
+      "notes": "Ujjwala, UJALA, solar missions.",
+      "sort_order": 7
+    },
+    {
+      "code": "ca-c07-t08",
+      "chapter_code": "ca-c07",
+      "title": "Digital India and technology",
+      "notes": "Digital India, UPI, DigiLocker.",
+      "sort_order": 8
+    },
+    {
+      "code": "ca-c07-t09",
+      "chapter_code": "ca-c07",
+      "title": "Women and children",
+      "notes": "Beti Bachao Beti Padhao, Sukanya Samriddhi.",
+      "sort_order": 9
+    },
+    {
+      "code": "ca-c07-t10",
+      "chapter_code": "ca-c07",
+      "title": "Launch year, ministry and objective",
+      "notes": "matching.",
+      "sort_order": 10
+    },
+    {
+      "code": "ca-c08-t01",
+      "chapter_code": "ca-c08",
+      "title": "Annual reports",
+      "notes": "Economic Survey, RBI Report on Currency and Finance, NITI Aayog reports.",
+      "sort_order": 1
+    },
+    {
+      "code": "ca-c08-t02",
+      "chapter_code": "ca-c08",
+      "title": "Ministry reports",
+      "notes": "Ministry of Home Affairs, Finance, Environment.",
+      "sort_order": 2
+    },
+    {
+      "code": "ca-c08-t03",
+      "chapter_code": "ca-c08",
+      "title": "Statistical releases",
+      "notes": "NSO, PLFS, Census-related.",
+      "sort_order": 3
+    },
+    {
+      "code": "ca-c08-t04",
+      "chapter_code": "ca-c08",
+      "title": "Committee and commission reports",
+      "notes": "newly released.",
+      "sort_order": 4
+    },
+    {
+      "code": "ca-c08-t05",
+      "chapter_code": "ca-c08",
+      "title": "Audit reports",
+      "notes": "CAG reports.",
+      "sort_order": 5
+    },
+    {
+      "code": "ca-c08-t06",
+      "chapter_code": "ca-c08",
+      "title": "Report–publisher matching",
+      "notes": "quick revision.",
+      "sort_order": 6
+    },
+    {
+      "code": "ca-c08-t07",
+      "chapter_code": "ca-c08",
+      "title": "Latest edition and key finding",
+      "notes": "recent reports.",
+      "sort_order": 7
+    },
+    {
+      "code": "ca-c09-t01",
+      "chapter_code": "ca-c09",
+      "title": "Presentation",
+      "notes": "date, who presented, chief economic adviser.",
+      "sort_order": 1
+    },
+    {
+      "code": "ca-c09-t02",
+      "chapter_code": "ca-c09",
+      "title": "GDP growth",
+      "notes": "estimates, sector-wise growth.",
+      "sort_order": 2
+    },
+    {
+      "code": "ca-c09-t03",
+      "chapter_code": "ca-c09",
+      "title": "Inflation and fiscal numbers",
+      "notes": "deficits, debt.",
+      "sort_order": 3
+    },
+    {
+      "code": "ca-c09-t04",
+      "chapter_code": "ca-c09",
+      "title": "Sector highlights",
+      "notes": "agriculture, industry, services.",
+      "sort_order": 4
+    },
+    {
+      "code": "ca-c09-t05",
+      "chapter_code": "ca-c09",
+      "title": "External sector",
+      "notes": "exports, imports, forex reserves.",
+      "sort_order": 5
+    },
+    {
+      "code": "ca-c09-t06",
+      "chapter_code": "ca-c09",
+      "title": "Theme and key recommendations",
+      "notes": "focus areas.",
+      "sort_order": 6
+    },
+    {
+      "code": "ca-c09-t07",
+      "chapter_code": "ca-c09",
+      "title": "Social-sector and employment data",
+      "notes": "key figures.",
+      "sort_order": 7
+    },
+    {
+      "code": "ca-c09-t08",
+      "chapter_code": "ca-c09",
+      "title": "Comparison with previous Survey",
+      "notes": "key changes.",
+      "sort_order": 8
+    },
+    {
+      "code": "ca-c10-t01",
+      "chapter_code": "ca-c10",
+      "title": "Presentation",
+      "notes": "date, Finance Minister, consecutive Budget number.",
+      "sort_order": 1
+    },
+    {
+      "code": "ca-c10-t02",
+      "chapter_code": "ca-c10",
+      "title": "Key figures",
+      "notes": "total expenditure, fiscal deficit target, receipts.",
+      "sort_order": 2
+    },
+    {
+      "code": "ca-c10-t03",
+      "chapter_code": "ca-c10",
+      "title": "Tax changes",
+      "notes": "income tax slabs, GST, customs duty changes.",
+      "sort_order": 3
+    },
+    {
+      "code": "ca-c10-t04",
+      "chapter_code": "ca-c10",
+      "title": "Major allocations by ministry",
+      "notes": "defence, health, education, infrastructure.",
+      "sort_order": 4
+    },
+    {
+      "code": "ca-c10-t05",
+      "chapter_code": "ca-c10",
+      "title": "New schemes announced",
+      "notes": "names and purpose.",
+      "sort_order": 5
+    },
+    {
+      "code": "ca-c10-t06",
+      "chapter_code": "ca-c10",
+      "title": "Capital expenditure",
+      "notes": "target and sectors.",
+      "sort_order": 6
+    },
+    {
+      "code": "ca-c10-t07",
+      "chapter_code": "ca-c10",
+      "title": "Budget themes and focus",
+      "notes": "key words.",
+      "sort_order": 7
+    },
+    {
+      "code": "ca-c10-t08",
+      "chapter_code": "ca-c10",
+      "title": "Comparison with the previous Budget",
+      "notes": "key changes.",
+      "sort_order": 8
+    },
+    {
+      "code": "ca-c10-t09",
+      "chapter_code": "ca-c10",
+      "title": "Budget terms",
+      "notes": "types of deficit, Finance Bill.",
+      "sort_order": 9
+    },
+    {
+      "code": "ca-c11-t01",
+      "chapter_code": "ca-c11",
+      "title": "GDP growth and rank",
+      "notes": "India’s position among world economies.",
+      "sort_order": 1
+    },
+    {
+      "code": "ca-c11-t02",
+      "chapter_code": "ca-c11",
+      "title": "Inflation and interest rates",
+      "notes": "RBI policy, repo rate.",
+      "sort_order": 2
+    },
+    {
+      "code": "ca-c11-t03",
+      "chapter_code": "ca-c11",
+      "title": "Foreign exchange reserves and rupee",
+      "notes": "latest levels.",
+      "sort_order": 3
+    },
+    {
+      "code": "ca-c11-t04",
+      "chapter_code": "ca-c11",
+      "title": "Trade and FDI",
+      "notes": "exports, imports, major trade deals.",
+      "sort_order": 4
+    },
+    {
+      "code": "ca-c11-t05",
+      "chapter_code": "ca-c11",
+      "title": "Stock market and banking",
+      "notes": "Sensex, Nifty, bank mergers, NPAs.",
+      "sort_order": 5
+    },
+    {
+      "code": "ca-c11-t06",
+      "chapter_code": "ca-c11",
+      "title": "Taxation and GST collection",
+      "notes": "monthly figures.",
+      "sort_order": 6
+    },
+    {
+      "code": "ca-c11-t07",
+      "chapter_code": "ca-c11",
+      "title": "Employment and poverty",
+      "notes": "latest data.",
+      "sort_order": 7
+    },
+    {
+      "code": "ca-c11-t08",
+      "chapter_code": "ca-c11",
+      "title": "International ratings",
+      "notes": "rating agencies, outlook.",
+      "sort_order": 8
+    },
+    {
+      "code": "ca-c11-t09",
+      "chapter_code": "ca-c11",
+      "title": "Important economic terms and data",
+      "notes": "quick revision.",
+      "sort_order": 9
+    },
+    {
+      "code": "ca-c12-t01",
+      "chapter_code": "ca-c12",
+      "title": "New heads of state and government",
+      "notes": "presidents, prime ministers.",
+      "sort_order": 1
+    },
+    {
+      "code": "ca-c12-t02",
+      "chapter_code": "ca-c12",
+      "title": "Countries in news",
+      "notes": "elections, conflicts, agreements.",
+      "sort_order": 2
+    },
+    {
+      "code": "ca-c12-t03",
+      "chapter_code": "ca-c12",
+      "title": "Capitals, currencies and changes",
+      "notes": "new names, relocations.",
+      "sort_order": 3
+    },
+    {
+      "code": "ca-c12-t04",
+      "chapter_code": "ca-c12",
+      "title": "India’s neighbours",
+      "notes": "recent political developments.",
+      "sort_order": 4
+    },
+    {
+      "code": "ca-c12-t05",
+      "chapter_code": "ca-c12",
+      "title": "Wars and conflicts",
+      "notes": "ongoing, ceasefires.",
+      "sort_order": 5
+    },
+    {
+      "code": "ca-c12-t06",
+      "chapter_code": "ca-c12",
+      "title": "Countries and their leaders",
+      "notes": "matching.",
+      "sort_order": 6
+    },
+    {
+      "code": "ca-c12-t07",
+      "chapter_code": "ca-c12",
+      "title": "Newly joined members and groupings",
+      "notes": "BRICS, NATO, others.",
+      "sort_order": 7
+    },
+    {
+      "code": "ca-c13-t01",
+      "chapter_code": "ca-c13",
+      "title": "United Nations",
+      "notes": "principal organs, specialised agencies, Secretary-General.",
+      "sort_order": 1
+    },
+    {
+      "code": "ca-c13-t02",
+      "chapter_code": "ca-c13",
+      "title": "Economic organisations",
+      "notes": "IMF, World Bank, WTO, OECD, G20, G7.",
+      "sort_order": 2
+    },
+    {
+      "code": "ca-c13-t03",
+      "chapter_code": "ca-c13",
+      "title": "Regional organisations",
+      "notes": "SAARC, ASEAN, BIMSTEC, SCO, EU, African Union.",
+      "sort_order": 3
+    },
+    {
+      "code": "ca-c13-t04",
+      "chapter_code": "ca-c13",
+      "title": "Strategic groupings",
+      "notes": "BRICS, QUAD, AUKUS, NATO.",
+      "sort_order": 4
+    },
+    {
+      "code": "ca-c13-t05",
+      "chapter_code": "ca-c13",
+      "title": "Headquarters, formation year and head",
+      "notes": "matching.",
+      "sort_order": 5
+    },
+    {
+      "code": "ca-c13-t06",
+      "chapter_code": "ca-c13",
+      "title": "Membership numbers",
+      "notes": "recent changes.",
+      "sort_order": 6
+    },
+    {
+      "code": "ca-c13-t07",
+      "chapter_code": "ca-c13",
+      "title": "India’s role",
+      "notes": "membership and leadership.",
+      "sort_order": 7
+    },
+    {
+      "code": "ca-c14-t01",
+      "chapter_code": "ca-c14",
+      "title": "G20 and G7",
+      "notes": "host, theme, outcomes.",
+      "sort_order": 1
+    },
+    {
+      "code": "ca-c14-t02",
+      "chapter_code": "ca-c14",
+      "title": "BRICS, SCO, ASEAN, QUAD",
+      "notes": "host, theme, outcomes.",
+      "sort_order": 2
+    },
+    {
+      "code": "ca-c14-t03",
+      "chapter_code": "ca-c14",
+      "title": "UN and climate summits",
+      "notes": "COP, UNGA.",
+      "sort_order": 3
+    },
+    {
+      "code": "ca-c14-t04",
+      "chapter_code": "ca-c14",
+      "title": "Bilateral summits and visits",
+      "notes": "Indian PM’s foreign visits, state visits to India.",
+      "sort_order": 4
+    },
+    {
+      "code": "ca-c14-t05",
+      "chapter_code": "ca-c14",
+      "title": "Host country, city and theme",
+      "notes": "matching.",
+      "sort_order": 5
+    },
+    {
+      "code": "ca-c14-t06",
+      "chapter_code": "ca-c14",
+      "title": "Declarations and agreements",
+      "notes": "key decisions.",
+      "sort_order": 6
+    },
+    {
+      "code": "ca-c14-t07",
+      "chapter_code": "ca-c14",
+      "title": "Upcoming hosts",
+      "notes": "next summit venues.",
+      "sort_order": 7
+    },
+    {
+      "code": "ca-c15-t01",
+      "chapter_code": "ca-c15",
+      "title": "Economic and investor summits",
+      "notes": "host state, theme.",
+      "sort_order": 1
+    },
+    {
+      "code": "ca-c15-t02",
+      "chapter_code": "ca-c15",
+      "title": "Technology and innovation summits",
+      "notes": "host, theme.",
+      "sort_order": 2
+    },
+    {
+      "code": "ca-c15-t03",
+      "chapter_code": "ca-c15",
+      "title": "Political and administrative conferences",
+      "notes": "NITI Aayog Governing Council, Chief Ministers’ meets.",
+      "sort_order": 3
+    },
+    {
+      "code": "ca-c15-t04",
+      "chapter_code": "ca-c15",
+      "title": "Sector summits",
+      "notes": "health, education, agriculture.",
+      "sort_order": 4
+    },
+    {
+      "code": "ca-c15-t05",
+      "chapter_code": "ca-c15",
+      "title": "Sports and cultural conclaves",
+      "notes": "national events.",
+      "sort_order": 5
+    },
+    {
+      "code": "ca-c15-t06",
+      "chapter_code": "ca-c15",
+      "title": "Host city and theme",
+      "notes": "matching.",
+      "sort_order": 6
+    },
+    {
+      "code": "ca-c16-t01",
+      "chapter_code": "ca-c16",
+      "title": "Recurring conferences",
+      "notes": "annual, biennial, dates.",
+      "sort_order": 1
+    },
+    {
+      "code": "ca-c16-t02",
+      "chapter_code": "ca-c16",
+      "title": "International conferences hosted in India",
+      "notes": "recent.",
+      "sort_order": 2
+    },
+    {
+      "code": "ca-c16-t03",
+      "chapter_code": "ca-c16",
+      "title": "Climate conferences",
+      "notes": "UNFCCC COP series, host countries.",
+      "sort_order": 3
+    },
+    {
+      "code": "ca-c16-t04",
+      "chapter_code": "ca-c16",
+      "title": "Economic and trade conferences",
+      "notes": "WEF Davos, others.",
+      "sort_order": 4
+    },
+    {
+      "code": "ca-c16-t05",
+      "chapter_code": "ca-c16",
+      "title": "Health and science conferences",
+      "notes": "WHO assembly.",
+      "sort_order": 5
+    },
+    {
+      "code": "ca-c16-t06",
+      "chapter_code": "ca-c16",
+      "title": "Host city, year and theme",
+      "notes": "matching.",
+      "sort_order": 6
+    },
+    {
+      "code": "ca-c16-t07",
+      "chapter_code": "ca-c16",
+      "title": "Quick revision table",
+      "notes": "conference, venue, year.",
+      "sort_order": 7
+    },
+    {
+      "code": "ca-c17-t01",
+      "chapter_code": "ca-c17",
+      "title": "India–foreign government MoUs",
+      "notes": "country, sector.",
+      "sort_order": 1
+    },
+    {
+      "code": "ca-c17-t02",
+      "chapter_code": "ca-c17",
+      "title": "MoUs between ministries and organisations",
+      "notes": "partner, purpose.",
+      "sort_order": 2
+    },
+    {
+      "code": "ca-c17-t03",
+      "chapter_code": "ca-c17",
+      "title": "MoUs with states and companies",
+      "notes": "investment MoUs.",
+      "sort_order": 3
+    },
+    {
+      "code": "ca-c17-t04",
+      "chapter_code": "ca-c17",
+      "title": "Trade and economic agreements",
+      "notes": "FTAs, CEPA, bilateral trade pacts.",
+      "sort_order": 4
+    },
+    {
+      "code": "ca-c17-t05",
+      "chapter_code": "ca-c17",
+      "title": "Defence and technology MoUs",
+      "notes": "partner, scope.",
+      "sort_order": 5
+    },
+    {
+      "code": "ca-c17-t06",
+      "chapter_code": "ca-c17",
+      "title": "MoU–partner–purpose matching",
+      "notes": "quick revision.",
+      "sort_order": 6
+    },
+    {
+      "code": "ca-c17-t07",
+      "chapter_code": "ca-c17",
+      "title": "Date and place of signing",
+      "notes": "memory aids.",
+      "sort_order": 7
+    },
+    {
+      "code": "ca-c18-t01",
+      "chapter_code": "ca-c18",
+      "title": "Defence acquisitions",
+      "notes": "new weapons, aircraft, ships, submarines, missiles.",
+      "sort_order": 1
+    },
+    {
+      "code": "ca-c18-t02",
+      "chapter_code": "ca-c18",
+      "title": "Defence reforms and policy",
+      "notes": "CDS, theatre commands, indigenisation, Atmanirbhar Bharat.",
+      "sort_order": 2
+    },
+    {
+      "code": "ca-c18-t03",
+      "chapter_code": "ca-c18",
+      "title": "Defence budget and exports",
+      "notes": "figures, targets.",
+      "sort_order": 3
+    },
+    {
+      "code": "ca-c18-t04",
+      "chapter_code": "ca-c18",
+      "title": "DRDO tests",
+      "notes": "missile and system launches.",
+      "sort_order": 4
+    },
+    {
+      "code": "ca-c18-t05",
+      "chapter_code": "ca-c18",
+      "title": "Border and internal security",
+      "notes": "developments, paramilitary forces.",
+      "sort_order": 5
+    },
+    {
+      "code": "ca-c18-t06",
+      "chapter_code": "ca-c18",
+      "title": "Defence days and anniversaries",
+      "notes": "Kargil Vijay Diwas, Army Day, Navy Day, Air Force Day.",
+      "sort_order": 6
+    },
+    {
+      "code": "ca-c18-t07",
+      "chapter_code": "ca-c18",
+      "title": "Appointments and new chiefs",
+      "notes": "service chiefs.",
+      "sort_order": 7
+    },
+    {
+      "code": "ca-c18-t08",
+      "chapter_code": "ca-c18",
+      "title": "Matching: weapon–type–developer",
+      "notes": "quick revision.",
+      "sort_order": 8
+    },
+    {
+      "code": "ca-c19-t01",
+      "chapter_code": "ca-c19",
+      "title": "Bilateral army exercises",
+      "notes": "partner country, venue.",
+      "sort_order": 1
+    },
+    {
+      "code": "ca-c19-t02",
+      "chapter_code": "ca-c19",
+      "title": "Naval exercises",
+      "notes": "partner, location (Malabar, Varuna, etc.).",
+      "sort_order": 2
+    },
+    {
+      "code": "ca-c19-t03",
+      "chapter_code": "ca-c19",
+      "title": "Air force exercises",
+      "notes": "partner, venue.",
+      "sort_order": 3
+    },
+    {
+      "code": "ca-c19-t04",
+      "chapter_code": "ca-c19",
+      "title": "Multilateral exercises",
+      "notes": "participants, host.",
+      "sort_order": 4
+    },
+    {
+      "code": "ca-c19-t05",
+      "chapter_code": "ca-c19",
+      "title": "Exercise–country–year matching",
+      "notes": "quick revision.",
+      "sort_order": 5
+    },
+    {
+      "code": "ca-c19-t06",
+      "chapter_code": "ca-c19",
+      "title": "Edition number",
+      "notes": "recurring series.",
+      "sort_order": 6
+    },
+    {
+      "code": "ca-c19-t07",
+      "chapter_code": "ca-c19",
+      "title": "Theme and focus",
+      "notes": "counter-terror, disaster relief.",
+      "sort_order": 7
+    },
+    {
+      "code": "ca-c20-t01",
+      "chapter_code": "ca-c20",
+      "title": "Military operations",
+      "notes": "name, year, purpose.",
+      "sort_order": 1
+    },
+    {
+      "code": "ca-c20-t02",
+      "chapter_code": "ca-c20",
+      "title": "Anti-terror and internal security operations",
+      "notes": "recent ones.",
+      "sort_order": 2
+    },
+    {
+      "code": "ca-c20-t03",
+      "chapter_code": "ca-c20",
+      "title": "Rescue and evacuation operations",
+      "notes": "Operation Ganga, others.",
+      "sort_order": 3
+    },
+    {
+      "code": "ca-c20-t04",
+      "chapter_code": "ca-c20",
+      "title": "Police and enforcement drives",
+      "notes": "cyber-crime, narcotics.",
+      "sort_order": 4
+    },
+    {
+      "code": "ca-c20-t05",
+      "chapter_code": "ca-c20",
+      "title": "Disaster relief operations",
+      "notes": "recent.",
+      "sort_order": 5
+    },
+    {
+      "code": "ca-c20-t06",
+      "chapter_code": "ca-c20",
+      "title": "Operation–purpose–year matching",
+      "notes": "quick revision.",
+      "sort_order": 6
+    },
+    {
+      "code": "ca-c20-t07",
+      "chapter_code": "ca-c20",
+      "title": "Historical operations for comparison",
+      "notes": "Vijay, Meghdoot.",
+      "sort_order": 7
+    },
+    {
+      "code": "ca-c21-t01",
+      "chapter_code": "ca-c21",
+      "title": "Artificial intelligence and emerging technology",
+      "notes": "AI Mission, new models, regulations.",
+      "sort_order": 1
+    },
+    {
+      "code": "ca-c21-t02",
+      "chapter_code": "ca-c21",
+      "title": "Semiconductors and electronics",
+      "notes": "India Semiconductor Mission.",
+      "sort_order": 2
+    },
+    {
+      "code": "ca-c21-t03",
+      "chapter_code": "ca-c21",
+      "title": "Health and biotechnology",
+      "notes": "new vaccines, drugs, gene therapy.",
+      "sort_order": 3
+    },
+    {
+      "code": "ca-c21-t04",
+      "chapter_code": "ca-c21",
+      "title": "Energy and green technology",
+      "notes": "green hydrogen, batteries, nuclear projects.",
+      "sort_order": 4
+    },
+    {
+      "code": "ca-c21-t05",
+      "chapter_code": "ca-c21",
+      "title": "Telecom and digital",
+      "notes": "5G, 6G, quantum, cybersecurity.",
+      "sort_order": 5
+    },
+    {
+      "code": "ca-c21-t06",
+      "chapter_code": "ca-c21",
+      "title": "Scientific discoveries worldwide",
+      "notes": "recent.",
+      "sort_order": 6
+    },
+    {
+      "code": "ca-c21-t07",
+      "chapter_code": "ca-c21",
+      "title": "Nobel Prizes in science",
+      "notes": "latest winners.",
+      "sort_order": 7
+    },
+    {
+      "code": "ca-c21-t08",
+      "chapter_code": "ca-c21",
+      "title": "Indian research institutions’ achievements",
+      "notes": "ISRO, DRDO, CSIR.",
+      "sort_order": 8
+    },
+    {
+      "code": "ca-c22-t01",
+      "chapter_code": "ca-c22",
+      "title": "ISRO missions",
+      "notes": "recent launches and dates.",
+      "sort_order": 1
+    },
+    {
+      "code": "ca-c22-t02",
+      "chapter_code": "ca-c22",
+      "title": "Chandrayaan, Aditya, Gaganyaan",
+      "notes": "status.",
+      "sort_order": 2
+    },
+    {
+      "code": "ca-c22-t03",
+      "chapter_code": "ca-c22",
+      "title": "Launch vehicles",
+      "notes": "PSLV, GSLV, LVM3, SSLV; new rockets.",
+      "sort_order": 3
+    },
+    {
+      "code": "ca-c22-t04",
+      "chapter_code": "ca-c22",
+      "title": "Satellites",
+      "notes": "NavIC, communication, earth observation.",
+      "sort_order": 4
+    },
+    {
+      "code": "ca-c22-t05",
+      "chapter_code": "ca-c22",
+      "title": "Private space sector",
+      "notes": "IN-SPACe, start-ups.",
+      "sort_order": 5
+    },
+    {
+      "code": "ca-c22-t06",
+      "chapter_code": "ca-c22",
+      "title": "Global space missions",
+      "notes": "NASA, ESA, China, others.",
+      "sort_order": 6
+    },
+    {
+      "code": "ca-c22-t07",
+      "chapter_code": "ca-c22",
+      "title": "Space terms",
+      "notes": "rover, lander, orbiter.",
+      "sort_order": 7
+    },
+    {
+      "code": "ca-c22-t08",
+      "chapter_code": "ca-c22",
+      "title": "Mission–launch date–vehicle matching",
+      "notes": "quick revision.",
+      "sort_order": 8
+    },
+    {
+      "code": "ca-c23-t01",
+      "chapter_code": "ca-c23",
+      "title": "Government apps",
+      "notes": "launched by ministries.",
+      "sort_order": 1
+    },
+    {
+      "code": "ca-c23-t02",
+      "chapter_code": "ca-c23",
+      "title": "Portals and online platforms",
+      "notes": "for citizens and businesses.",
+      "sort_order": 2
+    },
+    {
+      "code": "ca-c23-t03",
+      "chapter_code": "ca-c23",
+      "title": "Digital initiatives",
+      "notes": "UPI, DigiLocker, e-governance.",
+      "sort_order": 3
+    },
+    {
+      "code": "ca-c23-t04",
+      "chapter_code": "ca-c23",
+      "title": "Apps for farmers, students and health",
+      "notes": "sector-wise.",
+      "sort_order": 4
+    },
+    {
+      "code": "ca-c23-t05",
+      "chapter_code": "ca-c23",
+      "title": "Launch date and launcher",
+      "notes": "who launched.",
+      "sort_order": 5
+    },
+    {
+      "code": "ca-c23-t06",
+      "chapter_code": "ca-c23",
+      "title": "App–purpose–ministry matching",
+      "notes": "quick revision.",
+      "sort_order": 6
+    },
+    {
+      "code": "ca-c24-t01",
+      "chapter_code": "ca-c24",
+      "title": "Climate conferences and agreements",
+      "notes": "COP results.",
+      "sort_order": 1
+    },
+    {
+      "code": "ca-c24-t02",
+      "chapter_code": "ca-c24",
+      "title": "Wildlife and protected areas",
+      "notes": "new tiger reserves, Ramsar sites, national parks.",
+      "sort_order": 2
+    },
+    {
+      "code": "ca-c24-t03",
+      "chapter_code": "ca-c24",
+      "title": "Species in news",
+      "notes": "endangered species, conservation programmes.",
+      "sort_order": 3
+    },
+    {
+      "code": "ca-c24-t04",
+      "chapter_code": "ca-c24",
+      "title": "Environmental laws and policies",
+      "notes": "amendments, new rules.",
+      "sort_order": 4
+    },
+    {
+      "code": "ca-c24-t05",
+      "chapter_code": "ca-c24",
+      "title": "Renewable energy",
+      "notes": "capacity, solar and wind.",
+      "sort_order": 5
+    },
+    {
+      "code": "ca-c24-t06",
+      "chapter_code": "ca-c24",
+      "title": "Pollution and air quality",
+      "notes": "measures.",
+      "sort_order": 6
+    },
+    {
+      "code": "ca-c24-t07",
+      "chapter_code": "ca-c24",
+      "title": "Environmental indexes and reports",
+      "notes": "India’s rank.",
+      "sort_order": 7
+    },
+    {
+      "code": "ca-c24-t08",
+      "chapter_code": "ca-c24",
+      "title": "Environmental days and campaigns",
+      "notes": "themes.",
+      "sort_order": 8
+    },
+    {
+      "code": "ca-c25-t01",
+      "chapter_code": "ca-c25",
+      "title": "Economic indexes",
+      "notes": "Ease of Doing Business successors, Global Innovation Index.",
+      "sort_order": 1
+    },
+    {
+      "code": "ca-c25-t02",
+      "chapter_code": "ca-c25",
+      "title": "Development indexes",
+      "notes": "Human Development Index, SDG India Index, Global Hunger Index.",
+      "sort_order": 2
+    },
+    {
+      "code": "ca-c25-t03",
+      "chapter_code": "ca-c25",
+      "title": "Governance and democracy indexes",
+      "notes": "press freedom, corruption perceptions.",
+      "sort_order": 3
+    },
+    {
+      "code": "ca-c25-t04",
+      "chapter_code": "ca-c25",
+      "title": "Environmental indexes",
+      "notes": "Climate Change Performance Index, Environmental Performance Index.",
+      "sort_order": 4
+    },
+    {
+      "code": "ca-c25-t05",
+      "chapter_code": "ca-c25",
+      "title": "Technology and competitiveness",
+      "notes": "others.",
+      "sort_order": 5
+    },
+    {
+      "code": "ca-c25-t06",
+      "chapter_code": "ca-c25",
+      "title": "Global and national rankings",
+      "notes": "India’s rank in each.",
+      "sort_order": 6
+    },
+    {
+      "code": "ca-c25-t07",
+      "chapter_code": "ca-c25",
+      "title": "Index–publisher–rank matching",
+      "notes": "quick revision.",
+      "sort_order": 7
+    },
+    {
+      "code": "ca-c26-t01",
+      "chapter_code": "ca-c26",
+      "title": "Bharat Ratna and Padma awards",
+      "notes": "latest recipients.",
+      "sort_order": 1
+    },
+    {
+      "code": "ca-c26-t02",
+      "chapter_code": "ca-c26",
+      "title": "Gallantry awards",
+      "notes": "Param Vir Chakra, Ashoka Chakra, Kirti Chakra.",
+      "sort_order": 2
+    },
+    {
+      "code": "ca-c26-t03",
+      "chapter_code": "ca-c26",
+      "title": "Nobel Prizes",
+      "notes": "latest winners in each field.",
+      "sort_order": 3
+    },
+    {
+      "code": "ca-c26-t04",
+      "chapter_code": "ca-c26",
+      "title": "Literary and film awards",
+      "notes": "Booker, Jnanpith, Oscars, National Film Awards.",
+      "sort_order": 4
+    },
+    {
+      "code": "ca-c26-t05",
+      "chapter_code": "ca-c26",
+      "title": "International awards to Indians",
+      "notes": "highest honours conferred.",
+      "sort_order": 5
+    },
+    {
+      "code": "ca-c26-t06",
+      "chapter_code": "ca-c26",
+      "title": "Peace and humanitarian awards",
+      "notes": "recent.",
+      "sort_order": 6
+    },
+    {
+      "code": "ca-c26-t07",
+      "chapter_code": "ca-c26",
+      "title": "Award–winner–field matching",
+      "notes": "quick revision.",
+      "sort_order": 7
+    },
+    {
+      "code": "ca-c27-t01",
+      "chapter_code": "ca-c27",
+      "title": "Major Dhyan Chand Khel Ratna",
+      "notes": "winners.",
+      "sort_order": 1
+    },
+    {
+      "code": "ca-c27-t02",
+      "chapter_code": "ca-c27",
+      "title": "Arjuna Awards",
+      "notes": "winners by sport.",
+      "sort_order": 2
+    },
+    {
+      "code": "ca-c27-t03",
+      "chapter_code": "ca-c27",
+      "title": "Dronacharya Awards",
+      "notes": "coaches.",
+      "sort_order": 3
+    },
+    {
+      "code": "ca-c27-t04",
+      "chapter_code": "ca-c27",
+      "title": "Dhyan Chand Award for lifetime achievement",
+      "notes": "winners.",
+      "sort_order": 4
+    },
+    {
+      "code": "ca-c27-t05",
+      "chapter_code": "ca-c27",
+      "title": "Rashtriya Khel Protsahan Puraskar",
+      "notes": "institutions.",
+      "sort_order": 5
+    },
+    {
+      "code": "ca-c27-t06",
+      "chapter_code": "ca-c27",
+      "title": "Maulana Abul Kalam Azad (MAKA) Trophy",
+      "notes": "winner.",
+      "sort_order": 6
+    },
+    {
+      "code": "ca-c27-t07",
+      "chapter_code": "ca-c27",
+      "title": "Previous winners",
+      "notes": "comparisons.",
+      "sort_order": 7
+    },
+    {
+      "code": "ca-c27-t08",
+      "chapter_code": "ca-c27",
+      "title": "Award–winner–sport matching",
+      "notes": "quick revision.",
+      "sort_order": 8
+    },
+    {
+      "code": "ca-c28-t01",
+      "chapter_code": "ca-c28",
+      "title": "Olympics and Paralympics",
+      "notes": "recent edition, India’s medals, next host.",
+      "sort_order": 1
+    },
+    {
+      "code": "ca-c28-t02",
+      "chapter_code": "ca-c28",
+      "title": "Cricket",
+      "notes": "world cups, IPL, WPL, Test records, major trophies.",
+      "sort_order": 2
+    },
+    {
+      "code": "ca-c28-t03",
+      "chapter_code": "ca-c28",
+      "title": "Football, hockey, tennis, badminton",
+      "notes": "tournaments, winners, finalists.",
+      "sort_order": 3
+    },
+    {
+      "code": "ca-c28-t04",
+      "chapter_code": "ca-c28",
+      "title": "Athletics and shooting",
+      "notes": "world and national records.",
+      "sort_order": 4
+    },
+    {
+      "code": "ca-c28-t05",
+      "chapter_code": "ca-c28",
+      "title": "Chess, wrestling, boxing, archery",
+      "notes": "recent champions.",
+      "sort_order": 5
+    },
+    {
+      "code": "ca-c28-t06",
+      "chapter_code": "ca-c28",
+      "title": "Commonwealth and Asian Games",
+      "notes": "hosts, medals.",
+      "sort_order": 6
+    },
+    {
+      "code": "ca-c28-t07",
+      "chapter_code": "ca-c28",
+      "title": "Sports administration",
+      "notes": "federations, new rules.",
+      "sort_order": 7
+    },
+    {
+      "code": "ca-c28-t08",
+      "chapter_code": "ca-c28",
+      "title": "Trophies and venues",
+      "notes": "matching.",
+      "sort_order": 8
+    },
+    {
+      "code": "ca-c29-t01",
+      "chapter_code": "ca-c29",
+      "title": "Recently published books",
+      "notes": "title, author, subject.",
+      "sort_order": 1
+    },
+    {
+      "code": "ca-c29-t02",
+      "chapter_code": "ca-c29",
+      "title": "Autobiographies and biographies",
+      "notes": "political and sports.",
+      "sort_order": 2
+    },
+    {
+      "code": "ca-c29-t03",
+      "chapter_code": "ca-c29",
+      "title": "Awards for books",
+      "notes": "Booker, Sahitya Akademi, Jnanpith, Pulitzer winners.",
+      "sort_order": 3
+    },
+    {
+      "code": "ca-c29-t04",
+      "chapter_code": "ca-c29",
+      "title": "Books by leaders and officials",
+      "notes": "newly released.",
+      "sort_order": 4
+    },
+    {
+      "code": "ca-c29-t05",
+      "chapter_code": "ca-c29",
+      "title": "Book–author–publisher matching",
+      "notes": "quick revision.",
+      "sort_order": 5
+    },
+    {
+      "code": "ca-c29-t06",
+      "chapter_code": "ca-c29",
+      "title": "Book release events",
+      "notes": "who released.",
+      "sort_order": 6
+    },
+    {
+      "code": "ca-c30-t01",
+      "chapter_code": "ca-c30",
+      "title": "Government campaigns",
+      "notes": "ambassadors of schemes and campaigns.",
+      "sort_order": 1
+    },
+    {
+      "code": "ca-c30-t02",
+      "chapter_code": "ca-c30",
+      "title": "Corporate brand ambassadors",
+      "notes": "companies and the people they appoint.",
+      "sort_order": 2
+    },
+    {
+      "code": "ca-c30-t03",
+      "chapter_code": "ca-c30",
+      "title": "UN and international ambassadors",
+      "notes": "goodwill ambassadors.",
+      "sort_order": 3
+    },
+    {
+      "code": "ca-c30-t04",
+      "chapter_code": "ca-c30",
+      "title": "Sports ambassadors",
+      "notes": "tournaments and leagues.",
+      "sort_order": 4
+    },
+    {
+      "code": "ca-c30-t05",
+      "chapter_code": "ca-c30",
+      "title": "Election ambassadors",
+      "notes": "Election Commission’s icons.",
+      "sort_order": 5
+    },
+    {
+      "code": "ca-c30-t06",
+      "chapter_code": "ca-c30",
+      "title": "State ambassadors",
+      "notes": "state tourism and campaigns.",
+      "sort_order": 6
+    },
+    {
+      "code": "ca-c30-t07",
+      "chapter_code": "ca-c30",
+      "title": "Campaign–ambassador matching",
+      "notes": "quick revision.",
+      "sort_order": 7
+    },
+    {
+      "code": "ca-c31-t01",
+      "chapter_code": "ca-c31",
+      "title": "First in India",
+      "notes": "person, post, achievement, year.",
+      "sort_order": 1
+    },
+    {
+      "code": "ca-c31-t02",
+      "chapter_code": "ca-c31",
+      "title": "First in the world",
+      "notes": "achievements.",
+      "sort_order": 2
+    },
+    {
+      "code": "ca-c31-t03",
+      "chapter_code": "ca-c31",
+      "title": "First woman / first person from a state",
+      "notes": "offices and sports.",
+      "sort_order": 3
+    },
+    {
+      "code": "ca-c31-t04",
+      "chapter_code": "ca-c31",
+      "title": "First in technology and science",
+      "notes": "recent achievements.",
+      "sort_order": 4
+    },
+    {
+      "code": "ca-c31-t05",
+      "chapter_code": "ca-c31",
+      "title": "First in sports",
+      "notes": "records.",
+      "sort_order": 5
+    },
+    {
+      "code": "ca-c31-t06",
+      "chapter_code": "ca-c31",
+      "title": "First state or city to do something",
+      "notes": "policy and scheme firsts.",
+      "sort_order": 6
+    },
+    {
+      "code": "ca-c31-t07",
+      "chapter_code": "ca-c31",
+      "title": "Matching: first–person–field",
+      "notes": "quick revision.",
+      "sort_order": 7
+    },
+    {
+      "code": "ca-c32-t01",
+      "chapter_code": "ca-c32",
+      "title": "National days",
+      "notes": "date-wise list (Republic Day, Independence Day, Teachers’ Day, Children’s Day, etc.).",
+      "sort_order": 1
+    },
+    {
+      "code": "ca-c32-t02",
+      "chapter_code": "ca-c32",
+      "title": "International days",
+      "notes": "date-wise list (Environment, Yoga, Women’s, Water, Health days).",
+      "sort_order": 2
+    },
+    {
+      "code": "ca-c32-t03",
+      "chapter_code": "ca-c32",
+      "title": "Defence and service days",
+      "notes": "Army, Navy, Air Force, Veterans.",
+      "sort_order": 3
+    },
+    {
+      "code": "ca-c32-t04",
+      "chapter_code": "ca-c32",
+      "title": "Birth and death anniversaries",
+      "notes": "leaders and scientists.",
+      "sort_order": 4
+    },
+    {
+      "code": "ca-c32-t05",
+      "chapter_code": "ca-c32",
+      "title": "Month-wise calendar",
+      "notes": "January to December.",
+      "sort_order": 5
+    },
+    {
+      "code": "ca-c32-t06",
+      "chapter_code": "ca-c32",
+      "title": "Matching: date–day",
+      "notes": "quick revision.",
+      "sort_order": 6
+    },
+    {
+      "code": "ca-c33-t01",
+      "chapter_code": "ca-c33",
+      "title": "UN theme of the year",
+      "notes": "for the main international days.",
+      "sort_order": 1
+    },
+    {
+      "code": "ca-c33-t02",
+      "chapter_code": "ca-c33",
+      "title": "WHO health days",
+      "notes": "Health Day, TB Day, AIDS Day.",
+      "sort_order": 2
+    },
+    {
+      "code": "ca-c33-t03",
+      "chapter_code": "ca-c33",
+      "title": "Environment days",
+      "notes": "theme, host country.",
+      "sort_order": 3
+    },
+    {
+      "code": "ca-c33-t04",
+      "chapter_code": "ca-c33",
+      "title": "Education, labour and human rights days",
+      "notes": "themes.",
+      "sort_order": 4
+    },
+    {
+      "code": "ca-c33-t05",
+      "chapter_code": "ca-c33",
+      "title": "Host country of the year",
+      "notes": "which country hosts the main event.",
+      "sort_order": 5
+    },
+    {
+      "code": "ca-c33-t06",
+      "chapter_code": "ca-c33",
+      "title": "Theme-of-the-year table",
+      "notes": "day, date, theme.",
+      "sort_order": 6
+    },
+    {
+      "code": "ca-c34-t01",
+      "chapter_code": "ca-c34",
+      "title": "Government and ministry abbreviations",
+      "notes": "full forms.",
+      "sort_order": 1
+    },
+    {
+      "code": "ca-c34-t02",
+      "chapter_code": "ca-c34",
+      "title": "Defence and space abbreviations",
+      "notes": "ISRO, DRDO, CDS.",
+      "sort_order": 2
+    },
+    {
+      "code": "ca-c34-t03",
+      "chapter_code": "ca-c34",
+      "title": "Economy and banking abbreviations",
+      "notes": "UPI, NPCI, GST, FDI.",
+      "sort_order": 3
+    },
+    {
+      "code": "ca-c34-t04",
+      "chapter_code": "ca-c34",
+      "title": "Technology abbreviations",
+      "notes": "AI, IoT, 5G, blockchain.",
+      "sort_order": 4
+    },
+    {
+      "code": "ca-c34-t05",
+      "chapter_code": "ca-c34",
+      "title": "International organisation abbreviations",
+      "notes": "UNESCO, WTO.",
+      "sort_order": 5
+    },
+    {
+      "code": "ca-c34-t06",
+      "chapter_code": "ca-c34",
+      "title": "Schemes and missions",
+      "notes": "full forms.",
+      "sort_order": 6
+    },
+    {
+      "code": "ca-c34-t07",
+      "chapter_code": "ca-c34",
+      "title": "Alphabetical list",
+      "notes": "A to Z quick revision.",
+      "sort_order": 7
+    },
+    {
+      "code": "ca-c35-t01",
+      "chapter_code": "ca-c35",
+      "title": "Short topics of the year",
+      "notes": "events not covered elsewhere.",
+      "sort_order": 1
+    },
+    {
+      "code": "ca-c35-t02",
+      "chapter_code": "ca-c35",
+      "title": "Obituaries",
+      "notes": "persons who passed away in the year.",
+      "sort_order": 2
+    },
+    {
+      "code": "ca-c35-t03",
+      "chapter_code": "ca-c35",
+      "title": "Important places in news",
+      "notes": "locations and reasons.",
+      "sort_order": 3
+    },
+    {
+      "code": "ca-c35-t04",
+      "chapter_code": "ca-c35",
+      "title": "Festivals, fairs and cultural events",
+      "notes": "recent.",
+      "sort_order": 4
+    },
+    {
+      "code": "ca-c35-t05",
+      "chapter_code": "ca-c35",
+      "title": "Court judgments and legal events",
+      "notes": "brief.",
+      "sort_order": 5
+    },
+    {
+      "code": "ca-c35-t06",
+      "chapter_code": "ca-c35",
+      "title": "New releases and launches",
+      "notes": "policy and technology.",
+      "sort_order": 6
+    },
+    {
+      "code": "ca-c35-t07",
+      "chapter_code": "ca-c35",
+      "title": "Mixed matching",
+      "notes": "quick revision.",
+      "sort_order": 7
+    }
+  ]
+}

@@ -1,0 +1,2284 @@
+{
+  "schema_version": 1,
+  "subject": {
+    "code": "static-gk",
+    "title": "Static GK"
+  },
+  "modules": [
+    {
+      "code": "gk-m01",
+      "subject_code": "static-gk",
+      "title": "Firsts, Superlatives and Records",
+      "sort_order": 1
+    },
+    {
+      "code": "gk-m02",
+      "subject_code": "static-gk",
+      "title": "World Facts: Countries, Symbols and Institutions",
+      "sort_order": 2
+    },
+    {
+      "code": "gk-m03",
+      "subject_code": "static-gk",
+      "title": "Discoveries, Books, Media and Great Works",
+      "sort_order": 3
+    },
+    {
+      "code": "gk-m04",
+      "subject_code": "static-gk",
+      "title": "United Nations and International Organisations",
+      "sort_order": 4
+    },
+    {
+      "code": "gk-m05",
+      "subject_code": "static-gk",
+      "title": "India: States, Heritage and Places",
+      "sort_order": 5
+    },
+    {
+      "code": "gk-m06",
+      "subject_code": "static-gk",
+      "title": "India: Defence, Security, Research and Industry",
+      "sort_order": 6
+    },
+    {
+      "code": "gk-m07",
+      "subject_code": "static-gk",
+      "title": "Art, Music and Culture",
+      "sort_order": 7
+    },
+    {
+      "code": "gk-m08",
+      "subject_code": "static-gk",
+      "title": "Eminent Persons",
+      "sort_order": 8
+    },
+    {
+      "code": "gk-m09",
+      "subject_code": "static-gk",
+      "title": "Awards and Honours",
+      "sort_order": 9
+    },
+    {
+      "code": "gk-m10",
+      "subject_code": "static-gk",
+      "title": "Sports, Games and Youth Affairs",
+      "sort_order": 10
+    },
+    {
+      "code": "gk-m11",
+      "subject_code": "static-gk",
+      "title": "Miscellaneous",
+      "sort_order": 11
+    }
+  ],
+  "chapters": [
+    {
+      "code": "gk-c01",
+      "subject_code": "static-gk",
+      "module_code": "gk-m01",
+      "title": "First Indians: Men",
+      "sort_order": 1
+    },
+    {
+      "code": "gk-c02",
+      "subject_code": "static-gk",
+      "module_code": "gk-m01",
+      "title": "First Indians: Women",
+      "sort_order": 2
+    },
+    {
+      "code": "gk-c03",
+      "subject_code": "static-gk",
+      "module_code": "gk-m01",
+      "title": "Firsts in the World",
+      "sort_order": 3
+    },
+    {
+      "code": "gk-c04",
+      "subject_code": "static-gk",
+      "module_code": "gk-m01",
+      "title": "Superlatives of India",
+      "sort_order": 4
+    },
+    {
+      "code": "gk-c05",
+      "subject_code": "static-gk",
+      "module_code": "gk-m01",
+      "title": "Superlatives of the World",
+      "sort_order": 5
+    },
+    {
+      "code": "gk-c06",
+      "subject_code": "static-gk",
+      "module_code": "gk-m02",
+      "title": "National Emblems of Countries",
+      "sort_order": 6
+    },
+    {
+      "code": "gk-c07",
+      "subject_code": "static-gk",
+      "module_code": "gk-m02",
+      "title": "National Animals of Countries",
+      "sort_order": 7
+    },
+    {
+      "code": "gk-c08",
+      "subject_code": "static-gk",
+      "module_code": "gk-m02",
+      "title": "Coastlines of the World",
+      "sort_order": 8
+    },
+    {
+      "code": "gk-c09",
+      "subject_code": "static-gk",
+      "module_code": "gk-m02",
+      "title": "Water Area of the World",
+      "sort_order": 9
+    },
+    {
+      "code": "gk-c10",
+      "subject_code": "static-gk",
+      "module_code": "gk-m02",
+      "title": "Monuments and Structures of the World",
+      "sort_order": 10
+    },
+    {
+      "code": "gk-c11",
+      "subject_code": "static-gk",
+      "module_code": "gk-m02",
+      "title": "Parliaments of Countries",
+      "sort_order": 11
+    },
+    {
+      "code": "gk-c12",
+      "subject_code": "static-gk",
+      "module_code": "gk-m02",
+      "title": "Political Parties of the World",
+      "sort_order": 12
+    },
+    {
+      "code": "gk-c13",
+      "subject_code": "static-gk",
+      "module_code": "gk-m02",
+      "title": "Intelligence Agencies of the World",
+      "sort_order": 13
+    },
+    {
+      "code": "gk-c14",
+      "subject_code": "static-gk",
+      "module_code": "gk-m02",
+      "title": "International Airlines",
+      "sort_order": 14
+    },
+    {
+      "code": "gk-c15",
+      "subject_code": "static-gk",
+      "module_code": "gk-m02",
+      "title": "Signs and Symbols",
+      "sort_order": 15
+    },
+    {
+      "code": "gk-c16",
+      "subject_code": "static-gk",
+      "module_code": "gk-m03",
+      "title": "Important Discoveries",
+      "sort_order": 16
+    },
+    {
+      "code": "gk-c17",
+      "subject_code": "static-gk",
+      "module_code": "gk-m03",
+      "title": "Important Books and Authors",
+      "sort_order": 17
+    },
+    {
+      "code": "gk-c18",
+      "subject_code": "static-gk",
+      "module_code": "gk-m03",
+      "title": "Official and Sacred Books of the World",
+      "sort_order": 18
+    },
+    {
+      "code": "gk-c19",
+      "subject_code": "static-gk",
+      "module_code": "gk-m03",
+      "title": "Great Works Associated with Famous Persons",
+      "sort_order": 19
+    },
+    {
+      "code": "gk-c20",
+      "subject_code": "static-gk",
+      "module_code": "gk-m03",
+      "title": "News Agencies of the World",
+      "sort_order": 20
+    },
+    {
+      "code": "gk-c21",
+      "subject_code": "static-gk",
+      "module_code": "gk-m03",
+      "title": "Newspapers and Places of Publication",
+      "sort_order": 21
+    },
+    {
+      "code": "gk-c22",
+      "subject_code": "static-gk",
+      "module_code": "gk-m04",
+      "title": "United Nations: Structure and Agencies",
+      "sort_order": 22
+    },
+    {
+      "code": "gk-c23",
+      "subject_code": "static-gk",
+      "module_code": "gk-m04",
+      "title": "Secretary-Generals of the UN",
+      "sort_order": 23
+    },
+    {
+      "code": "gk-c24",
+      "subject_code": "static-gk",
+      "module_code": "gk-m04",
+      "title": "World Organisations and Headquarters",
+      "sort_order": 24
+    },
+    {
+      "code": "gk-c25",
+      "subject_code": "static-gk",
+      "module_code": "gk-m04",
+      "title": "UN International Decades",
+      "sort_order": 25
+    },
+    {
+      "code": "gk-c26",
+      "subject_code": "static-gk",
+      "module_code": "gk-m04",
+      "title": "UN International Years",
+      "sort_order": 26
+    },
+    {
+      "code": "gk-c27",
+      "subject_code": "static-gk",
+      "module_code": "gk-m04",
+      "title": "UN International Weeks",
+      "sort_order": 27
+    },
+    {
+      "code": "gk-c28",
+      "subject_code": "static-gk",
+      "module_code": "gk-m04",
+      "title": "SAARC Designated Years",
+      "sort_order": 28
+    },
+    {
+      "code": "gk-c29",
+      "subject_code": "static-gk",
+      "module_code": "gk-m04",
+      "title": "Important Days: India and World",
+      "sort_order": 29
+    },
+    {
+      "code": "gk-c30",
+      "subject_code": "static-gk",
+      "module_code": "gk-m05",
+      "title": "Foundation Days of States",
+      "sort_order": 30
+    },
+    {
+      "code": "gk-c31",
+      "subject_code": "static-gk",
+      "module_code": "gk-m05",
+      "title": "UNESCO World Heritage Sites in India",
+      "sort_order": 31
+    },
+    {
+      "code": "gk-c32",
+      "subject_code": "static-gk",
+      "module_code": "gk-m05",
+      "title": "Famous Tourist Spots of India",
+      "sort_order": 32
+    },
+    {
+      "code": "gk-c33",
+      "subject_code": "static-gk",
+      "module_code": "gk-m05",
+      "title": "National Parks (Established After 1998)",
+      "sort_order": 33
+    },
+    {
+      "code": "gk-c34",
+      "subject_code": "static-gk",
+      "module_code": "gk-m06",
+      "title": "Defence of India",
+      "sort_order": 34
+    },
+    {
+      "code": "gk-c35",
+      "subject_code": "static-gk",
+      "module_code": "gk-m06",
+      "title": "Internal Security of India",
+      "sort_order": 35
+    },
+    {
+      "code": "gk-c36",
+      "subject_code": "static-gk",
+      "module_code": "gk-m06",
+      "title": "Defence Training Institutions of India",
+      "sort_order": 36
+    },
+    {
+      "code": "gk-c37",
+      "subject_code": "static-gk",
+      "module_code": "gk-m06",
+      "title": "Research Centres of India",
+      "sort_order": 37
+    },
+    {
+      "code": "gk-c38",
+      "subject_code": "static-gk",
+      "module_code": "gk-m06",
+      "title": "Nuclear and Space Research Centres",
+      "sort_order": 38
+    },
+    {
+      "code": "gk-c39",
+      "subject_code": "static-gk",
+      "module_code": "gk-m06",
+      "title": "Health and Medical Research Centres",
+      "sort_order": 39
+    },
+    {
+      "code": "gk-c40",
+      "subject_code": "static-gk",
+      "module_code": "gk-m06",
+      "title": "Government Industrial Undertakings",
+      "sort_order": 40
+    },
+    {
+      "code": "gk-c41",
+      "subject_code": "static-gk",
+      "module_code": "gk-m07",
+      "title": "Classical Dances and Dancers",
+      "sort_order": 41
+    },
+    {
+      "code": "gk-c42",
+      "subject_code": "static-gk",
+      "module_code": "gk-m07",
+      "title": "Musical Instruments and Musicians",
+      "sort_order": 42
+    },
+    {
+      "code": "gk-c43",
+      "subject_code": "static-gk",
+      "module_code": "gk-m07",
+      "title": "Folk Dances of States",
+      "sort_order": 43
+    },
+    {
+      "code": "gk-c44",
+      "subject_code": "static-gk",
+      "module_code": "gk-m07",
+      "title": "Cultural Organisations of India",
+      "sort_order": 44
+    },
+    {
+      "code": "gk-c45",
+      "subject_code": "static-gk",
+      "module_code": "gk-m08",
+      "title": "Nicknames of Eminent Persons",
+      "sort_order": 45
+    },
+    {
+      "code": "gk-c46",
+      "subject_code": "static-gk",
+      "module_code": "gk-m08",
+      "title": "Places Associated with Eminent Persons (World)",
+      "sort_order": 46
+    },
+    {
+      "code": "gk-c47",
+      "subject_code": "static-gk",
+      "module_code": "gk-m08",
+      "title": "Memorials and Samadhis of Indian Leaders",
+      "sort_order": 47
+    },
+    {
+      "code": "gk-c48",
+      "subject_code": "static-gk",
+      "module_code": "gk-m09",
+      "title": "Awards and Honours: Overview",
+      "sort_order": 48
+    },
+    {
+      "code": "gk-c49",
+      "subject_code": "static-gk",
+      "module_code": "gk-m09",
+      "title": "National and Padma Awards",
+      "sort_order": 49
+    },
+    {
+      "code": "gk-c50",
+      "subject_code": "static-gk",
+      "module_code": "gk-m09",
+      "title": "Gallantry Awards",
+      "sort_order": 50
+    },
+    {
+      "code": "gk-c51",
+      "subject_code": "static-gk",
+      "module_code": "gk-m09",
+      "title": "Bharatiya Jnanpith Award",
+      "sort_order": 51
+    },
+    {
+      "code": "gk-c52",
+      "subject_code": "static-gk",
+      "module_code": "gk-m09",
+      "title": "Dadasaheb Phalke Award",
+      "sort_order": 52
+    },
+    {
+      "code": "gk-c53",
+      "subject_code": "static-gk",
+      "module_code": "gk-m09",
+      "title": "Nobel Prize",
+      "sort_order": 53
+    },
+    {
+      "code": "gk-c54",
+      "subject_code": "static-gk",
+      "module_code": "gk-m09",
+      "title": "Oscar / Academy Awards",
+      "sort_order": 54
+    },
+    {
+      "code": "gk-c55",
+      "subject_code": "static-gk",
+      "module_code": "gk-m09",
+      "title": "Grammy Awards",
+      "sort_order": 55
+    },
+    {
+      "code": "gk-c56",
+      "subject_code": "static-gk",
+      "module_code": "gk-m09",
+      "title": "Booker Prize",
+      "sort_order": 56
+    },
+    {
+      "code": "gk-c57",
+      "subject_code": "static-gk",
+      "module_code": "gk-m09",
+      "title": "Ramon Magsaysay Award",
+      "sort_order": 57
+    },
+    {
+      "code": "gk-c58",
+      "subject_code": "static-gk",
+      "module_code": "gk-m09",
+      "title": "Pulitzer Prize",
+      "sort_order": 58
+    },
+    {
+      "code": "gk-c59",
+      "subject_code": "static-gk",
+      "module_code": "gk-m09",
+      "title": "Gandhi Peace Award",
+      "sort_order": 59
+    },
+    {
+      "code": "gk-c60",
+      "subject_code": "static-gk",
+      "module_code": "gk-m09",
+      "title": "Gandhi Peace Prize",
+      "sort_order": 60
+    },
+    {
+      "code": "gk-c61",
+      "subject_code": "static-gk",
+      "module_code": "gk-m09",
+      "title": "Kalinga Prize",
+      "sort_order": 61
+    },
+    {
+      "code": "gk-c62",
+      "subject_code": "static-gk",
+      "module_code": "gk-m09",
+      "title": "Jawaharlal Nehru Award for International Understanding",
+      "sort_order": 62
+    },
+    {
+      "code": "gk-c63",
+      "subject_code": "static-gk",
+      "module_code": "gk-m10",
+      "title": "Youth Affairs, Games and Sports (India)",
+      "sort_order": 63
+    },
+    {
+      "code": "gk-c64",
+      "subject_code": "static-gk",
+      "module_code": "gk-m10",
+      "title": "Olympic Games",
+      "sort_order": 64
+    },
+    {
+      "code": "gk-c65",
+      "subject_code": "static-gk",
+      "module_code": "gk-m10",
+      "title": "Paralympics and Winter Olympics",
+      "sort_order": 65
+    },
+    {
+      "code": "gk-c66",
+      "subject_code": "static-gk",
+      "module_code": "gk-m10",
+      "title": "Commonwealth Games",
+      "sort_order": 66
+    },
+    {
+      "code": "gk-c67",
+      "subject_code": "static-gk",
+      "module_code": "gk-m10",
+      "title": "Asian Games",
+      "sort_order": 67
+    },
+    {
+      "code": "gk-c68",
+      "subject_code": "static-gk",
+      "module_code": "gk-m10",
+      "title": "SAF Games",
+      "sort_order": 68
+    },
+    {
+      "code": "gk-c69",
+      "subject_code": "static-gk",
+      "module_code": "gk-m10",
+      "title": "Important Sports Facts",
+      "sort_order": 69
+    },
+    {
+      "code": "gk-c70",
+      "subject_code": "static-gk",
+      "module_code": "gk-m10",
+      "title": "Cups and Trophies",
+      "sort_order": 70
+    },
+    {
+      "code": "gk-c71",
+      "subject_code": "static-gk",
+      "module_code": "gk-m10",
+      "title": "Famous Stadiums and Sports",
+      "sort_order": 71
+    },
+    {
+      "code": "gk-c72",
+      "subject_code": "static-gk",
+      "module_code": "gk-m10",
+      "title": "National Games and Sports of Countries",
+      "sort_order": 72
+    },
+    {
+      "code": "gk-c73",
+      "subject_code": "static-gk",
+      "module_code": "gk-m10",
+      "title": "Court, Ground and Field Terms",
+      "sort_order": 73
+    },
+    {
+      "code": "gk-c74",
+      "subject_code": "static-gk",
+      "module_code": "gk-m10",
+      "title": "Number of Players in Popular Sports",
+      "sort_order": 74
+    },
+    {
+      "code": "gk-c75",
+      "subject_code": "static-gk",
+      "module_code": "gk-m10",
+      "title": "Nicknames of Eminent Players",
+      "sort_order": 75
+    },
+    {
+      "code": "gk-c76",
+      "subject_code": "static-gk",
+      "module_code": "gk-m10",
+      "title": "Eminent Sportspersons of India",
+      "sort_order": 76
+    },
+    {
+      "code": "gk-c77",
+      "subject_code": "static-gk",
+      "module_code": "gk-m10",
+      "title": "Eminent International Players: Women",
+      "sort_order": 77
+    },
+    {
+      "code": "gk-c78",
+      "subject_code": "static-gk",
+      "module_code": "gk-m10",
+      "title": "Eminent International Players: Men",
+      "sort_order": 78
+    },
+    {
+      "code": "gk-c79",
+      "subject_code": "static-gk",
+      "module_code": "gk-m11",
+      "title": "Static GK Miscellaneous",
+      "sort_order": 79
+    }
+  ],
+  "topics": [
+    {
+      "code": "gk-c01-t01",
+      "chapter_code": "gk-c01",
+      "title": "First man in each post, field and event",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "gk-c01-t02",
+      "chapter_code": "gk-c01",
+      "title": "First Indian in politics, science, sports, arts",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "gk-c01-t03",
+      "chapter_code": "gk-c01",
+      "title": "First in the world by an Indian man",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "gk-c01-t04",
+      "chapter_code": "gk-c01",
+      "title": "Year and field matching",
+      "notes": "",
+      "sort_order": 4
+    },
+    {
+      "code": "gk-c02-t01",
+      "chapter_code": "gk-c02",
+      "title": "First woman in each post, field and event",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "gk-c02-t02",
+      "chapter_code": "gk-c02",
+      "title": "First woman Prime Minister, President, Governor, Chief Minister",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "gk-c02-t03",
+      "chapter_code": "gk-c02",
+      "title": "First woman in sports, space, armed forces",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "gk-c02-t04",
+      "chapter_code": "gk-c02",
+      "title": "Year and field matching",
+      "notes": "",
+      "sort_order": 4
+    },
+    {
+      "code": "gk-c03-t01",
+      "chapter_code": "gk-c03",
+      "title": "First man and first woman to achieve something",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "gk-c03-t02",
+      "chapter_code": "gk-c03",
+      "title": "First in exploration, space, science and sports",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "gk-c03-t03",
+      "chapter_code": "gk-c03",
+      "title": "First to win major prizes",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "gk-c03-t04",
+      "chapter_code": "gk-c03",
+      "title": "Year and country matching",
+      "notes": "",
+      "sort_order": 4
+    },
+    {
+      "code": "gk-c04-t01",
+      "chapter_code": "gk-c04",
+      "title": "Largest, longest, highest, smallest",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "gk-c04-t02",
+      "chapter_code": "gk-c04",
+      "title": "Rivers, lakes, dams, bridges, states, cities",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "gk-c04-t03",
+      "chapter_code": "gk-c04",
+      "title": "Tallest, oldest and busiest",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "gk-c04-t04",
+      "chapter_code": "gk-c04",
+      "title": "Matching: superlative–place",
+      "notes": "",
+      "sort_order": 4
+    },
+    {
+      "code": "gk-c05-t01",
+      "chapter_code": "gk-c05",
+      "title": "Largest, longest, highest, smallest",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "gk-c05-t02",
+      "chapter_code": "gk-c05",
+      "title": "Countries, rivers, mountains, oceans, deserts, lakes",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "gk-c05-t03",
+      "chapter_code": "gk-c05",
+      "title": "Tallest buildings, longest bridges and tunnels",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "gk-c05-t04",
+      "chapter_code": "gk-c05",
+      "title": "Matching: superlative–place",
+      "notes": "",
+      "sort_order": 4
+    },
+    {
+      "code": "gk-c06-t01",
+      "chapter_code": "gk-c06",
+      "title": "Emblem or flower of countries",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "gk-c06-t02",
+      "chapter_code": "gk-c06",
+      "title": "National symbols and flags",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "gk-c06-t03",
+      "chapter_code": "gk-c06",
+      "title": "Country–symbol matching",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "gk-c07-t01",
+      "chapter_code": "gk-c07",
+      "title": "National animals and birds",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "gk-c07-t02",
+      "chapter_code": "gk-c07",
+      "title": "India’s national symbols",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "gk-c07-t03",
+      "chapter_code": "gk-c07",
+      "title": "Country–animal matching",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "gk-c08-t01",
+      "chapter_code": "gk-c08",
+      "title": "Countries with the longest coastline",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "gk-c08-t02",
+      "chapter_code": "gk-c08",
+      "title": "India’s coastline length",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "gk-c08-t03",
+      "chapter_code": "gk-c08",
+      "title": "Ranking list",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "gk-c09-t01",
+      "chapter_code": "gk-c09",
+      "title": "Countries with the largest water (aquatic) area",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "gk-c09-t02",
+      "chapter_code": "gk-c09",
+      "title": "Largest lakes and seas",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "gk-c09-t03",
+      "chapter_code": "gk-c09",
+      "title": "Ranking list",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "gk-c10-t01",
+      "chapter_code": "gk-c10",
+      "title": "Famous monuments and their countries",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "gk-c10-t02",
+      "chapter_code": "gk-c10",
+      "title": "Wonders of the world (ancient and new)",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "gk-c10-t03",
+      "chapter_code": "gk-c10",
+      "title": "Architects and years",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "gk-c11-t01",
+      "chapter_code": "gk-c11",
+      "title": "Names of parliaments (Lok Sabha, Congress, Diet, Knesset, Duma, Majlis, etc.)",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "gk-c11-t02",
+      "chapter_code": "gk-c11",
+      "title": "Upper and lower houses",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "gk-c11-t03",
+      "chapter_code": "gk-c11",
+      "title": "Country–parliament matching",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "gk-c12-t01",
+      "chapter_code": "gk-c12",
+      "title": "Important parties of major countries",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "gk-c12-t02",
+      "chapter_code": "gk-c12",
+      "title": "Party symbols and founders",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "gk-c12-t03",
+      "chapter_code": "gk-c12",
+      "title": "Country–party matching",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "gk-c13-t01",
+      "chapter_code": "gk-c13",
+      "title": "RAW, CIA, MI6, Mossad, ISI, KGB / FSB, ASIO and others",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "gk-c13-t02",
+      "chapter_code": "gk-c13",
+      "title": "Country and headquarters",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "gk-c13-t03",
+      "chapter_code": "gk-c13",
+      "title": "Agency–country matching",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "gk-c14-t01",
+      "chapter_code": "gk-c14",
+      "title": "National airlines of countries",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "gk-c14-t02",
+      "chapter_code": "gk-c14",
+      "title": "Airline headquarters",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "gk-c14-t03",
+      "chapter_code": "gk-c14",
+      "title": "Airline–country matching",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "gk-c15-t01",
+      "chapter_code": "gk-c15",
+      "title": "International signs and symbols",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "gk-c15-t02",
+      "chapter_code": "gk-c15",
+      "title": "Symbols of organisations and movements",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "gk-c15-t03",
+      "chapter_code": "gk-c15",
+      "title": "Sign–meaning matching",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "gk-c16-t01",
+      "chapter_code": "gk-c16",
+      "title": "Discoveries in science and geography",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "gk-c16-t02",
+      "chapter_code": "gk-c16",
+      "title": "Discoverer, country and year",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "gk-c16-t03",
+      "chapter_code": "gk-c16",
+      "title": "Matching: discovery–discoverer",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "gk-c17-t01",
+      "chapter_code": "gk-c17",
+      "title": "Famous books and their authors",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "gk-c17-t02",
+      "chapter_code": "gk-c17",
+      "title": "Autobiographies and classics",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "gk-c17-t03",
+      "chapter_code": "gk-c17",
+      "title": "Indian and world literature",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "gk-c17-t04",
+      "chapter_code": "gk-c17",
+      "title": "Matching: book–author",
+      "notes": "",
+      "sort_order": 4
+    },
+    {
+      "code": "gk-c18-t01",
+      "chapter_code": "gk-c18",
+      "title": "Holy books of religions",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "gk-c18-t02",
+      "chapter_code": "gk-c18",
+      "title": "Official books of countries and organisations",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "gk-c18-t03",
+      "chapter_code": "gk-c18",
+      "title": "Matching: book–religion or country",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "gk-c19-t01",
+      "chapter_code": "gk-c19",
+      "title": "Works by famous scientists, writers, artists",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "gk-c19-t02",
+      "chapter_code": "gk-c19",
+      "title": "Paintings, music and architecture",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "gk-c19-t03",
+      "chapter_code": "gk-c19",
+      "title": "Matching: work–creator",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "gk-c20-t01",
+      "chapter_code": "gk-c20",
+      "title": "News agencies and countries",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "gk-c20-t02",
+      "chapter_code": "gk-c20",
+      "title": "Headquarters and founding year",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "gk-c20-t03",
+      "chapter_code": "gk-c20",
+      "title": "Matching: agency–country",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "gk-c21-t01",
+      "chapter_code": "gk-c21",
+      "title": "Famous newspapers and magazines of the world",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "gk-c21-t02",
+      "chapter_code": "gk-c21",
+      "title": "Place of publication",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "gk-c21-t03",
+      "chapter_code": "gk-c21",
+      "title": "Indian newspapers and founders",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "gk-c21-t04",
+      "chapter_code": "gk-c21",
+      "title": "Matching: paper–place",
+      "notes": "",
+      "sort_order": 4
+    },
+    {
+      "code": "gk-c22-t01",
+      "chapter_code": "gk-c22",
+      "title": "Founding, charter, headquarters",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "gk-c22-t02",
+      "chapter_code": "gk-c22",
+      "title": "Principal organs",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "gk-c22-t03",
+      "chapter_code": "gk-c22",
+      "title": "Specialised agencies",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "gk-c22-t04",
+      "chapter_code": "gk-c22",
+      "title": "Membership and flag",
+      "notes": "",
+      "sort_order": 4
+    },
+    {
+      "code": "gk-c23-t01",
+      "chapter_code": "gk-c23",
+      "title": "List of Secretary-Generals with country",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "gk-c23-t02",
+      "chapter_code": "gk-c23",
+      "title": "Tenure and term",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "gk-c23-t03",
+      "chapter_code": "gk-c23",
+      "title": "Matching: name–country",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "gk-c24-t01",
+      "chapter_code": "gk-c24",
+      "title": "Organisation–headquarters–formation year",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "gk-c24-t02",
+      "chapter_code": "gk-c24",
+      "title": "Regional and economic organisations",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "gk-c24-t03",
+      "chapter_code": "gk-c24",
+      "title": "Matching: organisation–headquarters",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "gk-c25-t01",
+      "chapter_code": "gk-c25",
+      "title": "Decades declared by the UN with themes",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "gk-c25-t02",
+      "chapter_code": "gk-c25",
+      "title": "Matching: decade–theme",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "gk-c26-t01",
+      "chapter_code": "gk-c26",
+      "title": "Years declared by the UN with themes",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "gk-c26-t02",
+      "chapter_code": "gk-c26",
+      "title": "Matching: year–theme",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "gk-c27-t01",
+      "chapter_code": "gk-c27",
+      "title": "Weeks declared by the UN",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "gk-c27-t02",
+      "chapter_code": "gk-c27",
+      "title": "Dates and themes",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "gk-c27-t03",
+      "chapter_code": "gk-c27",
+      "title": "Matching: week–theme",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "gk-c28-t01",
+      "chapter_code": "gk-c28",
+      "title": "Years designated by SAARC",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "gk-c28-t02",
+      "chapter_code": "gk-c28",
+      "title": "SAARC members and headquarters",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "gk-c28-t03",
+      "chapter_code": "gk-c28",
+      "title": "Matching: year–theme",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "gk-c29-t01",
+      "chapter_code": "gk-c29",
+      "title": "National and international days by date",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "gk-c29-t02",
+      "chapter_code": "gk-c29",
+      "title": "Themes and purposes",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "gk-c29-t03",
+      "chapter_code": "gk-c29",
+      "title": "Month-wise calendar",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "gk-c29-t04",
+      "chapter_code": "gk-c29",
+      "title": "Matching: date–day",
+      "notes": "",
+      "sort_order": 4
+    },
+    {
+      "code": "gk-c30-t01",
+      "chapter_code": "gk-c30",
+      "title": "State formation dates",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "gk-c30-t02",
+      "chapter_code": "gk-c30",
+      "title": "New states and creation years",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "gk-c30-t03",
+      "chapter_code": "gk-c30",
+      "title": "State–foundation day matching",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "gk-c31-t01",
+      "chapter_code": "gk-c31",
+      "title": "Cultural and natural sites",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "gk-c31-t02",
+      "chapter_code": "gk-c31",
+      "title": "State and year of inscription",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "gk-c31-t03",
+      "chapter_code": "gk-c31",
+      "title": "Matching: site–state",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "gk-c32-t01",
+      "chapter_code": "gk-c32",
+      "title": "Tourist places by state",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "gk-c32-t02",
+      "chapter_code": "gk-c32",
+      "title": "Hill stations, beaches and pilgrimage sites",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "gk-c32-t03",
+      "chapter_code": "gk-c32",
+      "title": "Matching: place–state",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "gk-c33-t01",
+      "chapter_code": "gk-c33",
+      "title": "New national parks by year",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "gk-c33-t02",
+      "chapter_code": "gk-c33",
+      "title": "State and notable species",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "gk-c33-t03",
+      "chapter_code": "gk-c33",
+      "title": "Matching: park–state",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "gk-c34-t01",
+      "chapter_code": "gk-c34",
+      "title": "Army, navy and air force structure",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "gk-c34-t02",
+      "chapter_code": "gk-c34",
+      "title": "Commands and headquarters",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "gk-c34-t03",
+      "chapter_code": "gk-c34",
+      "title": "Missiles and equipment",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "gk-c35-t01",
+      "chapter_code": "gk-c35",
+      "title": "Paramilitary forces",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "gk-c35-t02",
+      "chapter_code": "gk-c35",
+      "title": "Founding years and headquarters",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "gk-c35-t03",
+      "chapter_code": "gk-c35",
+      "title": "Police and intelligence organisations",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "gk-c36-t01",
+      "chapter_code": "gk-c36",
+      "title": "NDA, IMA, OTA and others",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "gk-c36-t02",
+      "chapter_code": "gk-c36",
+      "title": "Location of institutions",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "gk-c36-t03",
+      "chapter_code": "gk-c36",
+      "title": "Matching: institute–place",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "gk-c37-t01",
+      "chapter_code": "gk-c37",
+      "title": "CSIR labs, agricultural, scientific research centres",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "gk-c37-t02",
+      "chapter_code": "gk-c37",
+      "title": "Location and specialisation",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "gk-c37-t03",
+      "chapter_code": "gk-c37",
+      "title": "Matching: centre–place",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "gk-c38-t01",
+      "chapter_code": "gk-c38",
+      "title": "BARC, ISRO centres, nuclear power plants",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "gk-c38-t02",
+      "chapter_code": "gk-c38",
+      "title": "Location",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "gk-c38-t03",
+      "chapter_code": "gk-c38",
+      "title": "Matching: centre–place",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "gk-c39-t01",
+      "chapter_code": "gk-c39",
+      "title": "AIIMS, ICMR, NIV, PGIMER and others",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "gk-c39-t02",
+      "chapter_code": "gk-c39",
+      "title": "Location",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "gk-c39-t03",
+      "chapter_code": "gk-c39",
+      "title": "Matching: institute–place",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "gk-c40-t01",
+      "chapter_code": "gk-c40",
+      "title": "Public-sector units (steel plants, SAIL, BHEL, ONGC, NTPC and others)",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "gk-c40-t02",
+      "chapter_code": "gk-c40",
+      "title": "Location of plants",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "gk-c40-t03",
+      "chapter_code": "gk-c40",
+      "title": "Matching: PSU–place",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "gk-c41-t01",
+      "chapter_code": "gk-c41",
+      "title": "Eight classical dances",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "gk-c41-t02",
+      "chapter_code": "gk-c41",
+      "title": "States and exponents",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "gk-c41-t03",
+      "chapter_code": "gk-c41",
+      "title": "Matching: dance–state–dancer",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "gk-c42-t01",
+      "chapter_code": "gk-c42",
+      "title": "Famous instruments and exponents",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "gk-c42-t02",
+      "chapter_code": "gk-c42",
+      "title": "Hindustani and Carnatic",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "gk-c42-t03",
+      "chapter_code": "gk-c42",
+      "title": "Matching: instrument–musician",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "gk-c43-t01",
+      "chapter_code": "gk-c43",
+      "title": "Folk dances by state",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "gk-c43-t02",
+      "chapter_code": "gk-c43",
+      "title": "Festivals and tribal dances",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "gk-c43-t03",
+      "chapter_code": "gk-c43",
+      "title": "Matching: dance–state",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "gk-c44-t01",
+      "chapter_code": "gk-c44",
+      "title": "Sangeet Natak Akademi, Sahitya Akademi, Lalit Kala Akademi and others",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "gk-c44-t02",
+      "chapter_code": "gk-c44",
+      "title": "Headquarters and year",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "gk-c44-t03",
+      "chapter_code": "gk-c44",
+      "title": "Matching: organisation–purpose",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "gk-c45-t01",
+      "chapter_code": "gk-c45",
+      "title": "Nicknames of Indian and world leaders",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "gk-c45-t02",
+      "chapter_code": "gk-c45",
+      "title": "Matching: nickname–person",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "gk-c46-t01",
+      "chapter_code": "gk-c46",
+      "title": "Birthplaces and memorials",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "gk-c46-t02",
+      "chapter_code": "gk-c46",
+      "title": "Matching: person–place",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "gk-c47-t01",
+      "chapter_code": "gk-c47",
+      "title": "Samadhi names and places",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "gk-c47-t02",
+      "chapter_code": "gk-c47",
+      "title": "Raj Ghat, Shakti Sthal, Vir Bhumi, Shanti Van and others",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "gk-c47-t03",
+      "chapter_code": "gk-c47",
+      "title": "Matching: person–memorial",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "gk-c48-t01",
+      "chapter_code": "gk-c48",
+      "title": "National and international awards",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "gk-c48-t02",
+      "chapter_code": "gk-c48",
+      "title": "Award–field matching",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "gk-c49-t01",
+      "chapter_code": "gk-c49",
+      "title": "Bharat Ratna, Padma Vibhushan, Padma Bhushan, Padma Shri",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "gk-c49-t02",
+      "chapter_code": "gk-c49",
+      "title": "Year of institution and recipients",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "gk-c49-t03",
+      "chapter_code": "gk-c49",
+      "title": "Recent awardees",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "gk-c50-t01",
+      "chapter_code": "gk-c50",
+      "title": "Param Vir Chakra, Maha Vir Chakra, Vir Chakra",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "gk-c50-t02",
+      "chapter_code": "gk-c50",
+      "title": "Ashoka Chakra, Kirti Chakra, Shaurya Chakra",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "gk-c50-t03",
+      "chapter_code": "gk-c50",
+      "title": "Recipients",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "gk-c51-t01",
+      "chapter_code": "gk-c51",
+      "title": "Year of institution",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "gk-c51-t02",
+      "chapter_code": "gk-c51",
+      "title": "Recipients and languages",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "gk-c51-t03",
+      "chapter_code": "gk-c51",
+      "title": "First and latest winners",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "gk-c52-t01",
+      "chapter_code": "gk-c52",
+      "title": "Film field",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "gk-c52-t02",
+      "chapter_code": "gk-c52",
+      "title": "Recipients and years",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "gk-c52-t03",
+      "chapter_code": "gk-c52",
+      "title": "First winner",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "gk-c53-t01",
+      "chapter_code": "gk-c53",
+      "title": "Fields",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "gk-c53-t02",
+      "chapter_code": "gk-c53",
+      "title": "Indian and world winners",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "gk-c53-t03",
+      "chapter_code": "gk-c53",
+      "title": "Year and country matching",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "gk-c54-t01",
+      "chapter_code": "gk-c54",
+      "title": "Categories",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "gk-c54-t02",
+      "chapter_code": "gk-c54",
+      "title": "Indian winners",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "gk-c54-t03",
+      "chapter_code": "gk-c54",
+      "title": "Recent winners",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "gk-c55-t01",
+      "chapter_code": "gk-c55",
+      "title": "Music",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "gk-c55-t02",
+      "chapter_code": "gk-c55",
+      "title": "Indian winners",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "gk-c55-t03",
+      "chapter_code": "gk-c55",
+      "title": "Recent winners",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "gk-c56-t01",
+      "chapter_code": "gk-c56",
+      "title": "Literary award",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "gk-c56-t02",
+      "chapter_code": "gk-c56",
+      "title": "Indian-origin winners",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "gk-c56-t03",
+      "chapter_code": "gk-c56",
+      "title": "Recent winners",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "gk-c57-t01",
+      "chapter_code": "gk-c57",
+      "title": "Asia’s top award",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "gk-c57-t02",
+      "chapter_code": "gk-c57",
+      "title": "Indian winners",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "gk-c57-t03",
+      "chapter_code": "gk-c57",
+      "title": "Recent winners",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "gk-c58-t01",
+      "chapter_code": "gk-c58",
+      "title": "Journalism and literature categories",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "gk-c58-t02",
+      "chapter_code": "gk-c58",
+      "title": "Indian-origin winners",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "gk-c58-t03",
+      "chapter_code": "gk-c58",
+      "title": "Recent winners",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "gk-c59-t01",
+      "chapter_code": "gk-c59",
+      "title": "Institution and recipients",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "gk-c59-t02",
+      "chapter_code": "gk-c59",
+      "title": "Recent winners",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "gk-c60-t01",
+      "chapter_code": "gk-c60",
+      "title": "Institution",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "gk-c60-t02",
+      "chapter_code": "gk-c60",
+      "title": "Recipients and countries",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "gk-c60-t03",
+      "chapter_code": "gk-c60",
+      "title": "Recent winners",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "gk-c61-t01",
+      "chapter_code": "gk-c61",
+      "title": "UNESCO prize",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "gk-c61-t02",
+      "chapter_code": "gk-c61",
+      "title": "Recipients and field",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "gk-c61-t03",
+      "chapter_code": "gk-c61",
+      "title": "Indian winners",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "gk-c62-t01",
+      "chapter_code": "gk-c62",
+      "title": "Institution and recipients",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "gk-c62-t02",
+      "chapter_code": "gk-c62",
+      "title": "Country matching",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "gk-c63-t01",
+      "chapter_code": "gk-c63",
+      "title": "Ministry and bodies",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "gk-c63-t02",
+      "chapter_code": "gk-c63",
+      "title": "National youth schemes",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "gk-c63-t03",
+      "chapter_code": "gk-c63",
+      "title": "Sports federations",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "gk-c64-t01",
+      "chapter_code": "gk-c64",
+      "title": "Host cities by year",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "gk-c64-t02",
+      "chapter_code": "gk-c64",
+      "title": "Indian medallists",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "gk-c64-t03",
+      "chapter_code": "gk-c64",
+      "title": "Motto, rings, symbols, anthem",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "gk-c65-t01",
+      "chapter_code": "gk-c65",
+      "title": "Host cities by year",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "gk-c65-t02",
+      "chapter_code": "gk-c65",
+      "title": "India’s performance",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "gk-c65-t03",
+      "chapter_code": "gk-c65",
+      "title": "Symbols and facts",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "gk-c66-t01",
+      "chapter_code": "gk-c66",
+      "title": "Host cities by year",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "gk-c66-t02",
+      "chapter_code": "gk-c66",
+      "title": "India’s medals",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "gk-c66-t03",
+      "chapter_code": "gk-c66",
+      "title": "Symbols and facts",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "gk-c67-t01",
+      "chapter_code": "gk-c67",
+      "title": "Host cities by year",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "gk-c67-t02",
+      "chapter_code": "gk-c67",
+      "title": "India’s performance",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "gk-c67-t03",
+      "chapter_code": "gk-c67",
+      "title": "Symbols and facts",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "gk-c68-t01",
+      "chapter_code": "gk-c68",
+      "title": "Host cities",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "gk-c68-t02",
+      "chapter_code": "gk-c68",
+      "title": "Member countries",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "gk-c68-t03",
+      "chapter_code": "gk-c68",
+      "title": "India’s performance",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "gk-c69-t01",
+      "chapter_code": "gk-c69",
+      "title": "Firsts and records",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "gk-c69-t02",
+      "chapter_code": "gk-c69",
+      "title": "Important rules and terms",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "gk-c69-t03",
+      "chapter_code": "gk-c69",
+      "title": "Matching: fact–sport",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "gk-c70-t01",
+      "chapter_code": "gk-c70",
+      "title": "Trophy–sport matching",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "gk-c70-t02",
+      "chapter_code": "gk-c70",
+      "title": "Cricket, football, hockey, tennis, badminton cups",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "gk-c70-t03",
+      "chapter_code": "gk-c70",
+      "title": "Matching: cup–sport",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "gk-c71-t01",
+      "chapter_code": "gk-c71",
+      "title": "Stadiums by city and country",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "gk-c71-t02",
+      "chapter_code": "gk-c71",
+      "title": "India’s stadiums",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "gk-c71-t03",
+      "chapter_code": "gk-c71",
+      "title": "Matching: stadium–city",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "gk-c72-t01",
+      "chapter_code": "gk-c72",
+      "title": "National sport of countries",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "gk-c72-t02",
+      "chapter_code": "gk-c72",
+      "title": "Matching: country–sport",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "gk-c73-t01",
+      "chapter_code": "gk-c73",
+      "title": "Playing area and terms by sport",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "gk-c73-t02",
+      "chapter_code": "gk-c73",
+      "title": "Matching: term–sport",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "gk-c74-t01",
+      "chapter_code": "gk-c74",
+      "title": "Team sizes",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "gk-c74-t02",
+      "chapter_code": "gk-c74",
+      "title": "Match durations",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "gk-c74-t03",
+      "chapter_code": "gk-c74",
+      "title": "Matching: sport–players",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "gk-c75-t01",
+      "chapter_code": "gk-c75",
+      "title": "Cricket, football and other players",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "gk-c75-t02",
+      "chapter_code": "gk-c75",
+      "title": "Matching: nickname–player",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "gk-c76-t01",
+      "chapter_code": "gk-c76",
+      "title": "Indian champions by sport",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "gk-c76-t02",
+      "chapter_code": "gk-c76",
+      "title": "Awards and records",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "gk-c76-t03",
+      "chapter_code": "gk-c76",
+      "title": "Matching: person–sport",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "gk-c77-t01",
+      "chapter_code": "gk-c77",
+      "title": "World champions in tennis, athletics, other sports",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "gk-c77-t02",
+      "chapter_code": "gk-c77",
+      "title": "Records",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "gk-c77-t03",
+      "chapter_code": "gk-c77",
+      "title": "Matching: player–sport",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "gk-c78-t01",
+      "chapter_code": "gk-c78",
+      "title": "World champions in cricket, football, tennis, other sports",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "gk-c78-t02",
+      "chapter_code": "gk-c78",
+      "title": "Records",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "gk-c78-t03",
+      "chapter_code": "gk-c78",
+      "title": "Matching: player–sport",
+      "notes": "",
+      "sort_order": 3
+    },
+    {
+      "code": "gk-c79-t01",
+      "chapter_code": "gk-c79",
+      "title": "Mixed one-liners",
+      "notes": "",
+      "sort_order": 1
+    },
+    {
+      "code": "gk-c79-t02",
+      "chapter_code": "gk-c79",
+      "title": "Quick revision",
+      "notes": "",
+      "sort_order": 2
+    },
+    {
+      "code": "gk-c79-t03",
+      "chapter_code": "gk-c79",
+      "title": "Matching and recall",
+      "notes": "",
+      "sort_order": 3
+    }
+  ]
+}
