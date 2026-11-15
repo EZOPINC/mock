@@ -2,6 +2,7 @@ from django import forms
 from django.core.exceptions import ValidationError
 
 from exams.models import Exam, ExamAuthority, ExamStage, Subject, Topic
+from exams.selectors import topics_with_ancestry
 from previous_year.models import PreviousYearPaper
 
 DEFAULT_PAPER_NAME = "Previous Year Paper"
@@ -46,13 +47,13 @@ class UploadForm(forms.Form):
     exams = forms.ModelMultipleChoiceField(queryset=Exam.objects.select_related("authority"), required=False, label="Exams (required for General Question Bank)", widget=forms.SelectMultiple(attrs={"size": 6}))
     exam_mapping = forms.ChoiceField(choices=(("selected", "Use selected exams for every row"), ("rows", "Resolve row exam_categories; use selected exams when blank")), initial="selected", required=False)
     year = forms.IntegerField(min_value=1, required=False, label="Year (required for Previous Year)")
-    stage = forms.ModelChoiceField(queryset=ExamStage.objects.select_related("exam"), required=False)
-    paper = forms.ModelChoiceField(queryset=PreviousYearPaper.objects.filter(is_published=False).select_related("exam"), required=False, label="Existing draft paper (optional)")
+    stage = forms.ModelChoiceField(queryset=ExamStage.objects.select_related("exam__authority"), required=False)
+    paper = forms.ModelChoiceField(queryset=PreviousYearPaper.objects.filter(is_published=False).select_related("exam__authority"), required=False, label="Existing draft paper (optional)")
     paper_name = forms.CharField(max_length=200, required=False, help_text="Optional; defaults to Previous Year Paper. Matching draft identities are reused.")
     part = forms.CharField(max_length=100, required=False)
     session = forms.CharField(max_length=100, required=False)
     subject = forms.ModelChoiceField(queryset=Subject.objects.all(), required=False, label="Default subject (optional)", help_text="Used only when a row has no subject.")
-    topic = forms.ModelChoiceField(queryset=Topic.objects.select_related("subject"), required=False, label="Default topic (optional)", help_text="Used only when a row has no topic; it must match the resolved subject.")
+    topic = forms.ModelChoiceField(queryset=topics_with_ancestry(), required=False, label="Default topic (optional)", help_text="Used only when a row has no topic; it must match the resolved subject.")
     language = forms.ChoiceField(choices=(("", "Auto-detect English/Bengali from question text"), ("en", "English"), ("bn", "Bengali")), required=False, label="Default language (optional)", help_text="Explicit row language takes priority, then this default. Otherwise infer en/bn from question/options characters; ambiguous text needs correction.")
     acknowledge_existing = forms.BooleanField(required=False, label="I reviewed existing imports in this paper and intend to append new, nonconflicting numbers.")
 

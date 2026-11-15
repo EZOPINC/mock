@@ -1,7 +1,16 @@
 """Public taxonomy reads shared by HTML views and future adapters."""
 from django.db.models import Prefetch
 
-from .models import Exam, ExamAuthority, Subject
+from .models import Exam, ExamAuthority, Subject, Topic
+
+
+def topics_with_ancestry():
+    """Load every supported label path without per-topic parent queries."""
+    return Topic.objects.select_related(
+        "subject", "part__subject", "module__subject", "module__part__subject",
+        "chapter__subject", "chapter__part__subject", "chapter__module__subject",
+        "chapter__module__part__subject",
+    )
 
 
 def subjects_for_exam(exam_id):
