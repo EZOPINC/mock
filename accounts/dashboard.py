@@ -4,6 +4,7 @@ from decimal import Decimal
 from django.db.models import Count, Q
 from mock_tests.models import MockAttempt
 from practice.models import PracticeQuestion, PracticeSession
+from revision.selectors import bank_counts
 
 
 def dashboard_context(user):
@@ -19,6 +20,9 @@ def dashboard_context(user):
     accuracy = (Decimal(answer_stats["correct"]) * 100 / answer_stats["answered"]).quantize(Decimal("0.01")) if answer_stats["answered"] else None
     return {
         "mock_stats": mock_stats, "practice_stats": practice_stats,
+        "saved_stats": bank_counts(user),
+        "resume_mock_attempts": list(attempts.filter(status__in=["created", "in_progress"]).order_by("-created_at", "-pk")[:2]),
+        "resume_practice_sessions": list(sessions.filter(status="in_progress").order_by("-started_at", "-pk")[:2]),
         "practice_answer_stats": answer_stats, "practice_accuracy": accuracy,
         "recent_mock_attempts": list(attempts.annotate(question_count=Count("questions"),
             answered_count=Count("questions", filter=Q(questions__selected_answer__in=["A", "B", "C", "D"]))).order_by("-created_at", "-pk")[:5]),

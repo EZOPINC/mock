@@ -37,6 +37,7 @@ if (menuButton && navigation) {
   });
   mobile.addEventListener('change', synchronize);
   synchronize();
+  navigation.dataset.navigationReady = 'true';
 }
 
 // Native account and library disclosures share dismissal and focus behavior.

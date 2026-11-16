@@ -40,8 +40,7 @@
         button.title = actionLabel;
         item.querySelector("[data-bookmark-status]").classList.add("visually-hidden");
         item.querySelector("[data-bookmark-status]").textContent = "";
-        // Uncomment below to restore saved/removed confirmation messages.
-        // item.querySelector("[data-bookmark-status]").textContent = state.saved ? "Saved for revision." : "Removed from saved questions.";
+        item.querySelector("[data-bookmark-status]").textContent = state.saved ? "Saved for revision." : "Removed from saved questions.";
       });
     } catch (error) {
       status.classList.remove("visually-hidden");

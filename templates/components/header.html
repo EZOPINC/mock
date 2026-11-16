@@ -12,6 +12,7 @@
               hidden>{% include "components/icon.html" with name="menu" %}<span>Menu</span></button>
       <nav id="primary-navigation" aria-label="Main navigation">
         <ul class="nav-links">
+          <li><a href="{% url 'home' %}"{% if current == 'home' %} aria-current="page"{% endif %}>Home</a></li>
           <li><a href="{% url 'previous_year:index' %}"{% if area == 'previous_year' %} aria-current="{% if current == 'index' %}page{% else %}true{% endif %}"{% endif %}>Previous-Year Questions</a></li>
           <li><a href="{% url 'mock_tests:index' %}"{% if area == 'mock_tests' %} aria-current="page"{% endif %}>Mock Tests</a></li>
           <li><a href="{% url 'practice:index' %}"{% if area == 'practice' %} aria-current="page"{% endif %}>Practice Sets</a></li>
@@ -20,6 +21,7 @@
             <li class="account-nav"><details class="profile-menu"><summary{% if area == 'accounts' or area == 'revision' %} class="active"{% endif %}><span class="header-avatar" aria-hidden="true">{{ user.username|first|upper }}</span> My account <span class="ui-account-chevron">{% include "components/icon.html" with name="chevron" %}</span></summary><div class="profile-dropdown"><a href="{% url 'accounts:profile' %}">Profile</a><a href="{% url 'accounts:learning_space' %}">Learning Space</a><a href="{% url 'revision:dashboard' %}"{% if area == 'revision' %} aria-current="page"{% endif %}>My Revision Bank</a><form action="{% url 'accounts:logout' %}" method="post">{% csrf_token %}<button class="nav-button" type="submit">Logout</button></form></div></details></li>
 {% else %}<li class="account-nav"><a href="{% url 'accounts:login' %}"{% if current == 'login' %} aria-current="page"{% endif %}>Login</a></li><li><a class="button button-primary button-small"
                                                                                                                                                       href="{% url 'accounts:register' %}">Register</a></li>{% endif %}
+          <li class="appearance-control"><label for="reading-theme">Appearance</label><select id="reading-theme" data-theme-select disabled><option value="system">System</option><option value="light">Light</option><option value="dark">Dark</option><option value="sepia">Sepia</option></select></li>
   </ul>
   </nav>
   </div>

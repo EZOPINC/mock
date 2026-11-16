@@ -4,6 +4,9 @@
 @import "tailwindcss/theme.css" layer(theme) prefix(tw);
 @import "tailwindcss/utilities.css" layer(utilities) prefix(tw) source(none);
 @source "../templates";
+@import "./design-system.css";
+@import "./learning.css";
+@import "./student.css";
 
 @theme {
   --color-exam-canvas: #f8fafc;
@@ -81,23 +84,9 @@
 .ui-account-chevron .ui-icon { width: 1rem; height: 1rem; }
 .ui-header .profile-menu[open] .ui-account-chevron { transform: rotate(-90deg); }
 .ui-header .profile-dropdown a:hover, .ui-header .profile-dropdown .nav-button:hover { background: var(--tw-color-accent-50); color: var(--tw-color-accent-700); }
-.ui-home .ui-home-hero { @apply tw:gap-10 tw:py-12 tw:lg:py-16; min-height: auto; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); }
-.ui-home-hero h1 { font-size: clamp(2.4rem, 4.5vw, 4.1rem); line-height: 1.12; }
-.ui-home-hero .lead { @apply tw:leading-relaxed tw:text-muted; }
 .ui-home .button, .ui-home-cta .button { @apply tw:rounded-lg tw:px-5 tw:py-3 tw:font-semibold; }
 .ui-home .button-primary { @apply tw:bg-brand-900 tw:text-white; }
 .ui-home .button-primary:hover { @apply tw:bg-accent-700; }
-.ui-hero-points { @apply tw:mt-6 tw:mb-4 tw:flex tw:flex-wrap tw:gap-x-6 tw:gap-y-2 tw:p-0 tw:text-sm tw:text-muted; list-style: none; }
-.ui-hero-points li { display: flex; align-items: center; gap: .5rem; }
-.ui-hero-points .ui-icon { @apply tw:text-accent-700; width: 1rem; height: 1rem; }
-.ui-learning-path { @apply tw:rounded-3xl tw:border tw:border-line tw:p-5 tw:sm:p-7 tw:shadow-card; background: linear-gradient(145deg, #e8f5f1, #f0f5fc); min-width: 0; }
-.ui-learning-path h2 { @apply tw:mb-2 tw:text-2xl tw:font-bold; }
-.ui-learning-path > p:not(.eyebrow) { @apply tw:mb-6 tw:text-sm tw:text-muted; }
-.ui-learning-path > a { @apply tw:mb-3 tw:flex tw:items-center tw:gap-3 tw:rounded-xl tw:border tw:border-line tw:bg-surface tw:p-4 tw:no-underline; transition: transform .18s, border-color .18s; }
-.ui-learning-path > a:last-child { margin-bottom: 0; }
-.ui-learning-path > a > .ui-icon { margin-left: auto; width: 1rem; height: 1rem; }
-.ui-learning-path strong { @apply tw:block tw:text-sm tw:text-brand-900; }
-.ui-learning-path small { @apply tw:mt-1 tw:block tw:text-xs tw:text-muted; }
 .ui-path-icon, .ui-category-icon { @apply tw:flex tw:shrink-0 tw:items-center tw:justify-center tw:rounded-xl tw:bg-accent-50 tw:text-accent-700; width: 2.75rem; height: 2.75rem; }
 .ui-home .section-block { @apply tw:py-12; }
 .ui-home .section-heading { @apply tw:mb-6 tw:gap-6; }
@@ -141,7 +130,6 @@
 .ui-shell :is(.breadcrumbs, nav[aria-label="Breadcrumb"]) .ui-icon { width: .85rem; height: .85rem; color: var(--tw-color-muted); }
 @media (hover: hover) and (prefers-reduced-motion: no-preference) {
   .ui-card:hover, .ui-authority-card:hover { transform: translateY(-3px); border-color: #9bc8c0; box-shadow: 0 14px 32px #142d4510; }
-  .ui-learning-path > a:hover { transform: translateX(3px); border-color: #9bc8c0; }
 }
 @media (max-width: 70rem) {
   .ui-header .nav-links { gap: .25rem; }
@@ -150,18 +138,15 @@
   .ui-home .module-grid, .ui-authorities { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 48rem) {
-  .ui-home .ui-home-hero { grid-template-columns: minmax(0, 1fr); padding-top: 2rem; }
   .ui-home .section-heading, .ui-home-cta { align-items: flex-start; flex-direction: column; }
   .ui-footer .footer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 40rem) {
   .ui-home .module-grid, .ui-authorities { grid-template-columns: minmax(0, 1fr); }
   .ui-home-cta { padding: 1.5rem; }
-  .ui-home-hero .button-row .button { width: 100%; }
   .ui-footer .footer-grid { grid-template-columns: minmax(0, 1fr); }
 }
 @media (prefers-reduced-motion: reduce) {
-  .ui-card, .ui-authority-card, .ui-learning-path > a { transition: none; }
 }
 
 /* UI Phase 1.3: discovery and the published-paper reader. */
@@ -700,31 +685,6 @@
 @media (max-width: 40rem) { .ui-paper-next-links { grid-template-columns: minmax(0, 1fr); } }
 
 /* Homepage modernization: all rules stay inside the homepage boundary. */
-.home-modern .home-hero { display: grid; grid-template-columns: minmax(0,1.25fr) minmax(0,1fr); gap: clamp(2rem,5vw,4.5rem); align-items: center; padding: 2.5rem 0 3rem; }
-.home-modern .home-kicker { display: inline-flex; align-items: center; gap: .6rem; color: #06665f; font-size: .7rem; font-weight: 750; letter-spacing: .1em; line-height: 1.8; }
-.home-modern .home-kicker > span { width: .5rem; height: .5rem; border-radius: 50%; background: #087f79; box-shadow: 0 0 0 5px #e8f5f1; }
-.home-modern .home-hero h1 { font-size: clamp(2.35rem,4.7vw,3.85rem); line-height: 1.13; letter-spacing: -.045em; margin: 1.15rem 0 1.5rem; }
-.home-modern .home-hero h1 > span { color: #087f79; }
-.home-modern .home-hero-description { max-width: 56ch; font-size: 1.05rem; line-height: 1.9; color: #5c6d7c; }
-.home-modern .home-hero-actions { display: flex; flex-wrap: wrap; gap: .75rem; margin: 1.75rem 0 1.5rem; }
-.home-modern .home-hero-actions .button { min-height: 50px; font-size: .9rem; }
-.home-modern .home-paper-link { display: inline-flex; align-items: center; gap: .6rem; min-height: 46px; padding: .5rem 0; font-size: .9rem; font-weight: 650; text-decoration: none; flex-basis: 100%; }
-.home-modern .home-hero-features { display: flex; flex-wrap: wrap; gap: .6rem 1.25rem; margin: 0; padding: 0; list-style: none; color: #5c6d7c; font-size: .75rem; }
-.home-modern .home-hero-features li { display: flex; align-items: center; gap: .4rem; }
-.home-modern .home-hero-features .ui-icon { color: #087f79; width: 1rem; height: 1rem; }
-.home-modern .home-path { position: relative; padding: clamp(1.25rem,3vw,2rem); border: 1px solid #c5ded5; border-radius: 1.5rem; background: linear-gradient(145deg,#edf8f3,#fff 75%); box-shadow: 0 20px 55px #142d4509; }
-.home-modern .home-path-top { display: flex; align-items: center; gap: .75rem; margin-bottom: 1.5rem; color: #06665f; font-size: .65rem; font-weight: 750; letter-spacing: .08em; }
-.home-modern .home-path-mark { display: grid; place-items: center; width: 2.5rem; height: 2.5rem; border-radius: .75rem; background: #087f79; color: #fff; }
-.home-modern .home-path h2 { font-size: 1.5rem; letter-spacing: -.025em; margin-bottom: .6rem; }
-.home-modern .home-path > p { color: #5c6d7c; font-size: .85rem; line-height: 1.8; }
-.home-modern .home-path ol { list-style: none; padding: 0; margin: 1.5rem 0; display: grid; gap: .75rem; }
-.home-modern .home-path li { display: flex; align-items: center; gap: .9rem; padding: 1rem; border: 1px solid #e1e9e6; border-radius: .85rem; background: #fff; }
-.home-modern .home-path li > div { flex: 1; min-width: 0; }
-.home-modern .home-path-number { color: #087f79; font-weight: 750; font-size: .8rem; }
-.home-modern .home-path li h3 { font-size: .88rem; margin: 0 0 .35rem; letter-spacing: normal; }
-.home-modern .home-path li p { font-size: .75rem; line-height: 1.7; color: #5c6d7c; margin: 0; }
-.home-modern .home-path li > .ui-icon { flex-shrink: 0; color: #78978c; }
-.home-modern .home-path-link { display: flex; align-items: center; justify-content: space-between; min-height: 44px; font-size: .85rem; font-weight: 700; text-decoration: none; }
 .home-modern .home-academic-quote { background: transparent; box-shadow: none; border: 0; border-left: 3px solid #9dcab8; border-radius: 0; padding: .5rem 1.25rem; margin: 1rem 0 0; align-items: center; }
 .home-modern .home-academic-quote blockquote p { font-size: clamp(1rem,1.6vw,1.2rem); margin-bottom: .35rem; }
 .home-modern .home-academic-quote figcaption { font-size: .85rem; }
@@ -748,16 +708,7 @@
 .home-modern .module-card .badge { font-size: .6rem; }
 .home-modern .module-card .button { font-size: .78rem; padding: .75rem; min-height: 46px; width: 100%; }
 .home-modern .ui-home-cta { margin-top: 1rem; border-color: #c5ded5; background: linear-gradient(110deg,#e8f5f1,#f5faf7); }
-@media (max-width:64rem) { .home-modern .home-hero { grid-template-columns: minmax(0,1fr); gap: 2rem; padding-top: 1.25rem; } .home-modern .home-hero-copy { max-width: 44rem; } .home-modern .home-path { max-width: 44rem; width: 100%; } }
-@media (max-width:40rem) { .home-modern .home-hero { padding-top: .5rem; padding-bottom: 1.5rem; } .home-modern .home-hero-actions { flex-direction: column; align-items: stretch; } .home-modern .home-paper-link { justify-content: center; } .home-modern .home-hero-description { font-size: 1rem; } .home-modern .section-block { padding: 2.25rem 0; } .home-modern .home-path li { padding: .8rem; } .home-modern .home-path li > .ui-icon { display: none; } .home-modern .home-academic-quote { margin-top: 1.5rem; } }
-@media (prefers-reduced-motion:no-preference) {
-  .home-modern .home-hero-copy, .home-modern .home-path { animation: home-modern-enter .45s ease-out both; }
-  .home-modern .home-path { animation-delay: .08s; }
-  .home-modern .ui-authority-card, .home-modern .module-card { transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease; }
-  .home-modern .ui-authority-card:hover, .home-modern .module-card:hover { transform: translateY(-3px); }
-}
-@media (prefers-reduced-motion:reduce) { .home-modern *, .home-modern *::before, .home-modern *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; } }
-@keyframes home-modern-enter { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+.home-modern .section-block { scroll-margin-top: 7rem; }
 
 /* Shared mock/practice landing cards; execution screens keep their existing controls. */
 .mock-hub .mock-hub-heading { display: flex; justify-content: space-between; align-items: center; gap: 1.5rem; padding: clamp(1.25rem,3vw,2rem); border: 1px solid #dce4e9; border-radius: 1.25rem; background: linear-gradient(120deg,#fff,#e8f5f1); }

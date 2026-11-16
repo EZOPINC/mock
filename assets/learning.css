@@ -1,0 +1,149 @@
+/* UI-2. Shared learning surfaces; state, identity and persistence stay server-owned.
+   Specificity supersedes feature fallbacks loaded after the compiled stylesheet. */
+:root { --ui-correct: #246545; --ui-correct-bg: #edf5ee; --ui-incorrect: #a13843; --ui-incorrect-bg: #fbeef0; --ui-review: #745b25; --ui-review-bg: #f6efdd; --ui-chart-2: #819c9c; --ui-chart-3: #b8aaa0; --ui-chart-4: #727d88; --ui-chart-5: #c6bdab; --ui-chart-6: #a0a6ad; }
+:root[data-theme="dark"] { --ui-correct: #a0d4ad; --ui-correct-bg: #253c2d; --ui-incorrect: #f0b0b8; --ui-incorrect-bg: #442e34; --ui-review: #dfc58b; --ui-review-bg: #3c3829; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) { --ui-correct: #a0d4ad; --ui-correct-bg: #253c2d; --ui-incorrect: #f0b0b8; --ui-incorrect-bg: #442e34; --ui-review: #dfc58b; --ui-review-bg: #3c3829; }
+}
+html body.calm-shell.learning-ui {
+  --exam-accent: var(--ui-accent); --exam-line: var(--ui-line);
+  --tw-color-brand-900: var(--ui-ink); --tw-color-brand-950: var(--ui-ink);
+  --tw-color-accent-50: var(--ui-tint); --tw-color-accent-600: var(--ui-accent); --tw-color-accent-700: var(--ui-accent);
+  --tw-color-canvas: var(--ui-canvas); --tw-color-surface: var(--ui-surface); --tw-color-ink: var(--ui-ink);
+  --tw-color-muted: var(--ui-muted); --tw-color-line: var(--ui-line);
+  --tw-color-exam-canvas: var(--ui-canvas); --tw-color-exam-surface: var(--ui-surface);
+  --tw-color-exam-ink: var(--ui-ink); --tw-color-exam-muted: var(--ui-muted);
+  --tw-color-exam-accent: var(--ui-accent); --tw-color-exam-line: var(--ui-line);
+  color: var(--ui-ink); background: var(--ui-canvas);
+}
+html .calm-shell.learning-ui :is(.ui-mock-exam, .exam-paper-reader) { color: var(--ui-ink); --exam-accent: var(--ui-accent); --exam-line: var(--ui-line); }
+html .calm-shell.learning-ui :is(h1, h2, h3, legend, .question-text, .exam-stem) { color: var(--ui-ink); }
+html .calm-shell.learning-ui :is(.mock-hub-heading, .mock-hub-card, .mock-hub-category, .mock-hub-empty, .mock-toolbar, .mock-palette-panel, .paper-question, .question-card-header, .question-navigator, .practice-palette-panel, .practice-sidebar-actions, .practice-module-card, .practice-difficulty-card, .practice-progress-card, .practice-performance-card, .practice-summary-hero, .practice-complete-note, .practice-abandon-card, .ui-paper-summary, .stage-panel, .ui-filter-panel, .ui-discovery-filter, .discovery-card, .paper-card, .ui-paper-next-card, .dashboard-stat-card, .ui-empty) {
+  background: var(--ui-surface); color: var(--ui-ink); border-color: var(--ui-line);
+  border-radius: var(--ui-radius-card); box-shadow: none;
+}
+html .calm-shell.learning-ui :is(.mock-hub-card:hover, .practice-module-card:hover, .discovery-card:hover, .paper-card:hover) { transform: none; border-color: var(--ui-accent); box-shadow: none; }
+html .calm-shell.learning-ui :is(.mock-hub-heading p, .mock-hub-card p, .mock-hub-section-note, .mock-palette-note, .mock-palette-counts, .mock-current-section, .mock-status-label, .practice-page-heading p, .practice-sidebar-actions p, .practice-module-card p, .practice-difficulty-card fieldset > p, .practice-summary-hero p, .practice-performance-card li, .practice-progress-label, .revision-card-heading time, .exam-language-label, .exam-answers legend, .exam-answers legend span, .paper-questions-panel > summary > span, .navigator-note, .revision-taxonomy-path a span) { color: var(--ui-muted); }
+html .calm-shell.learning-ui :is(.ui-main a:not(.button), .eyebrow, .practice-module-cta, .mock-status-actions button) { color: var(--ui-accent); }
+html .calm-shell.learning-ui :is(.mock-hub-heading-icon, .ui-card-icon, .practice-summary-icon, .practice-session-tools-icon, .paper-overview-stat-icon) { background: var(--ui-tint); color: var(--ui-accent); }
+html .calm-shell.learning-ui :is(.mock-hub-exam-count, .mock-submission-summary > span, .practice-selection-status, .practice-closed-note, .question-pagination, .mock-results-answer) { background: var(--ui-soft); color: var(--ui-muted); border-color: var(--ui-line); }
+html .calm-shell.learning-ui .ui-main :is(select, textarea, input:not([type="hidden"]):not([type="radio"]):not([type="checkbox"])) { background: var(--ui-surface); color: var(--ui-ink); border: 1px solid var(--ui-control-line, var(--ui-line)); border-radius: var(--ui-radius-control); min-height: 44px; max-width: 100%; font: inherit; }
+html .calm-shell.learning-ui .ui-main :is(input[type="radio"], input[type="checkbox"]) { accent-color: var(--ui-accent); }
+html .calm-shell.learning-ui .ui-main :is(.button-primary, .practice-summary-button, #mock-finish, [data-current-next]) { background: var(--ui-accent); color: var(--ui-on-accent); border-color: var(--ui-accent); }
+html .calm-shell.learning-ui .ui-main :is(.button-primary, .practice-summary-button, #mock-finish, [data-current-next]):hover { background: var(--ui-hover); }
+html .calm-shell.learning-ui .ui-main button[type="submit"]:not(.revision-bookmark-button):not(.button-secondary) { background: var(--ui-accent); color: var(--ui-on-accent); border-color: var(--ui-accent); }
+html .calm-shell.learning-ui :is(.mock-question-nav button, .mock-action-bar button, .mock-answer-tools button, .mock-status-actions button, .ui-search-control button) { min-height: 44px; background: var(--ui-surface); color: var(--ui-accent); border: 1px solid var(--ui-line); border-radius: var(--ui-radius-control); padding: .65rem .85rem; font: inherit; }
+html .calm-shell.learning-ui :focus-visible { outline: 3px solid var(--ui-focus); outline-offset: 4px; }
+html .calm-shell.learning-ui :is(button:disabled, input:disabled, [aria-disabled="true"]) { opacity: .6; cursor: not-allowed; }
+
+/* Long-form reading: one row per choice, paired translations, one native input. */
+html .calm-shell.learning-ui .paper-question { overflow: visible; }
+html .calm-shell.learning-ui .paper-question > .question-card-header { padding: 1rem 1.5rem; border-bottom: 1px solid var(--ui-line); border-radius: var(--ui-radius-card) var(--ui-radius-card) 0 0; display: flex; flex-wrap: wrap; align-items: center; gap: .75rem; min-height: 0; }
+html .calm-shell.learning-ui .question-card-header :is(h2, h3) { font-size: 1rem; margin: 0; }
+html .calm-shell.learning-ui .question-card-header .revision-bookmark-control { position: static; margin-inline-start: auto; }
+html .calm-shell.learning-ui .exam-stem { font-size: 1.125rem; line-height: 1.85; max-width: 70ch; }
+html .calm-shell.learning-ui .exam-language-label { letter-spacing: .035em; font-size: .8rem; color: var(--ui-muted); }
+html .calm-shell.learning-ui .exam-language-pair { grid-template-columns: minmax(0, 1fr); gap: 1.5rem; }
+html .calm-shell.learning-ui .exam-language-pair > :nth-child(2) { border: 0; padding-inline-start: 0; }
+html .calm-shell.learning-ui .exam-answers { display: grid; gap: .75rem; padding: 0; border: 0; margin: 0; min-width: 0; }
+html .calm-shell.learning-ui .exam-option { display: flex; flex-wrap: wrap; align-items: flex-start; gap: .75rem; width: 100%; min-width: 0; min-height: 56px; padding: 1rem; margin: 0; border: 1px solid var(--ui-line); border-radius: var(--ui-radius-control); background: var(--ui-surface); color: var(--ui-ink); font-size: 1.0625rem; font-weight: 400; line-height: 1.85; box-shadow: none; }
+html .calm-shell.learning-ui .exam-option:has(input) { cursor: pointer; }
+html .calm-shell.learning-ui .exam-option input[type="radio"] { accent-color: var(--ui-accent); width: 1.2rem; height: 1.2rem; min-width: 1.2rem; margin: .3rem 0 0; padding: 0; flex-shrink: 0; }
+html .calm-shell.learning-ui .exam-option-letter { background: var(--ui-soft); color: var(--ui-muted); }
+html .calm-shell.learning-ui .exam-option:hover { border-color: var(--ui-accent); }
+html .calm-shell.learning-ui .exam-option:has(input:checked) { border-color: var(--ui-accent); background: var(--ui-tint); box-shadow: inset 0 0 0 1px var(--ui-accent); }
+html .calm-shell.learning-ui .exam-option:has(input:focus-visible) { outline: 3px solid var(--ui-focus); outline-offset: 4px; }
+html .calm-shell.learning-ui .exam-selected-label { color: var(--ui-accent); }
+html .calm-shell.learning-ui :is(.exam-paper-solutions .solution, .solution) { background: var(--ui-soft); border: 1px solid var(--ui-line); border-radius: var(--ui-radius-control); color: var(--ui-ink); }
+html .calm-shell.learning-ui .solution summary { color: var(--ui-accent); min-height: 48px; }
+html .calm-shell.learning-ui .exam-paper-solutions .exam-language-pair { padding: 1rem; line-height: 1.85; }
+html .calm-shell.learning-ui :is(.exam-option, .exam-stem, .solution, .revision-stem) :lang(bn) { line-height: 1.95; letter-spacing: normal; }
+html .calm-shell.learning-ui .revision-stem { font-size: 1.0625rem; line-height: 1.85; }
+
+/* Correctness is only painted after the server renders feedback/review markup. */
+html .calm-shell.learning-ui :is(.correct-option .exam-option, .practice-reading-feedback.is-correct, .ui-answer-feedback:not(.ui-feedback-incorrect), .practice-palette .practice-correct) { background: var(--ui-correct-bg); border-color: var(--ui-correct); color: var(--ui-correct); }
+html .calm-shell.learning-ui :is(.practice-reading-feedback.is-incorrect, .ui-feedback-incorrect, .practice-palette .practice-incorrect) { background: var(--ui-incorrect-bg); border-color: var(--ui-incorrect); color: var(--ui-incorrect); }
+html .calm-shell.learning-ui :is(.practice-reading-feedback.is-correct h3, .exam-correct-label, .correct-answer, .practice-stat-correct, .practice-result-correct, .mock-results-outcome.is-correct, .mock-results-count.is-correct p) { color: var(--ui-correct); }
+html .calm-shell.learning-ui :is(.practice-reading-feedback.is-incorrect h3, .exam-response-label, .practice-stat-incorrect, .practice-result-incorrect, .mock-results-outcome.is-incorrect, .mock-results-count.is-incorrect p) { color: var(--ui-incorrect); }
+html .calm-shell.learning-ui .practice-reading-feedback { border: 1px solid; border-inline-start-width: 4px; border-radius: var(--ui-radius-control); }
+html .calm-shell.learning-ui .exam-static-answers > li { background: transparent; border: 0; }
+html .calm-shell.learning-ui .exam-static-answers > li.correct-option .exam-option { background: var(--ui-correct-bg); border-color: var(--ui-correct); }
+html .calm-shell.learning-ui .exam-option:has(> .exam-response-label),
+html .calm-shell.learning-ui .paper-viewer:has([data-incorrect-answer="A"]) .exam-static-answers > li:nth-child(1) .exam-option,
+html .calm-shell.learning-ui .paper-viewer:has([data-incorrect-answer="B"]) .exam-static-answers > li:nth-child(2) .exam-option,
+html .calm-shell.learning-ui .paper-viewer:has([data-incorrect-answer="C"]) .exam-static-answers > li:nth-child(3) .exam-option,
+html .calm-shell.learning-ui .paper-viewer:has([data-incorrect-answer="D"]) .exam-static-answers > li:nth-child(4) .exam-option { background: var(--ui-incorrect-bg); border-color: var(--ui-incorrect); }
+
+/* Examination chrome: sticky time/status and bottom actions use existing hooks. */
+html .calm-shell.learning-ui .mock-exam-heading { padding-block: 1rem; }
+html .calm-shell.learning-ui .mock-exam-heading h1 { font-size: clamp(1.2rem, 2vw, 1.6rem); }
+html .calm-shell.learning-ui .mock-toolbar { border: 1px solid var(--ui-line); box-shadow: none; }
+html .calm-shell.learning-ui #mock-timer { font-size: clamp(1.7rem, 4vw, 2.2rem); font-variant-numeric: tabular-nums; color: var(--ui-ink); line-height: 1.2; }
+html .calm-shell.learning-ui #mock-save-status { color: var(--ui-accent); }
+html .calm-shell.learning-ui .mock-autosave-note { font-size: .75rem; color: var(--ui-muted); margin: .25rem 0; }
+html .calm-shell.learning-ui .ui-mock-exam .exam-option { scroll-margin-top: calc(var(--mock-toolbar-height) + 1rem); scroll-margin-bottom: 9rem; }
+html .calm-shell.learning-ui .mock-time-block { border-color: var(--ui-line); }
+html .calm-shell.learning-ui .mock-action-bar { background: var(--ui-surface); border: 1px solid var(--ui-line); border-radius: var(--ui-radius-card); box-shadow: none; padding-bottom: max(.75rem, env(safe-area-inset-bottom)); }
+html .calm-shell.learning-ui :is(.mock-palette button, .mock-state-sample, .practice-palette a, .question-jumps a) { background: var(--ui-surface); border: 1px solid var(--ui-line); color: var(--ui-ink); }
+html .calm-shell.learning-ui :is(.mock-palette .is-answered, .mock-state-sample.is-answered) { background: var(--ui-tint); color: var(--ui-accent); }
+html .calm-shell.learning-ui :is(.mock-palette .is-review, .mock-state-sample.is-review, [data-current-review][aria-pressed="true"]) { background: var(--ui-review-bg); color: var(--ui-review); box-shadow: inset 0 0 0 2px var(--ui-review); }
+html .calm-shell.learning-ui :is(.mock-palette [aria-current], .mock-state-sample.is-current, .practice-palette [aria-current], .question-jumps [aria-current]) { outline: 2px solid var(--ui-focus); outline-offset: 2px; text-decoration: underline; text-underline-offset: .2rem; }
+html .calm-shell.learning-ui :is(.mock-palette-panel, .practice-palette-panel, .question-navigator) { border: 1px solid var(--ui-line); }
+html .calm-shell.learning-ui :is(.mock-question-nav, .practice-step-nav, .question-pagination, .paper-reader-actions) { border-color: var(--ui-line); }
+html .calm-shell.learning-ui .practice-difficulty-options label { border-color: var(--ui-line); }
+html .calm-shell.learning-ui .practice-difficulty-options label:has(input:checked) { background: var(--ui-tint); border-color: var(--ui-accent); }
+
+/* Results, paper modes, lists and bookmark controls share the same surfaces. */
+html .calm-shell.learning-ui :is(.mock-results-score, .mock-results-count, .practice-review-list li, .paper-overview-stats > div) { background: var(--ui-surface); color: var(--ui-ink); border-color: var(--ui-line); box-shadow: none; }
+html .calm-shell.learning-ui .mock-results-score { border: 1px solid var(--ui-line); border-inline-start: 4px solid var(--ui-accent); }
+html .calm-shell.learning-ui :is(.mock-results-score strong, .mock-results-score-label, .mock-results-score small, .mock-results-score p span, .mock-results-percentage, .practice-performance-accuracy, .dashboard-stat-number) { color: var(--ui-ink); background: transparent; }
+html .calm-shell.learning-ui :is(.mock-results-section-counts, .mock-hub-card-footer, .mock-results-meta, .paper-subject-breakdown, .revision-topic-path + .revision-topic-path) { border-color: var(--ui-line); }
+html .calm-shell.learning-ui .practice-review-list a { color: var(--ui-ink); min-height: 56px; flex-wrap: wrap; }
+html .calm-shell.learning-ui .practice-review-list a:hover { background: var(--ui-tint); }
+html .calm-shell.learning-ui .ui-view-modes { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; }
+html .calm-shell.learning-ui .ui-view-modes a { padding: .65rem 1rem; min-height: 44px; border: 1px solid var(--ui-line); border-radius: var(--ui-radius-control); background: var(--ui-surface); text-decoration: none; }
+html .calm-shell.learning-ui .ui-view-modes a[aria-current] { background: var(--ui-tint); border-color: var(--ui-accent); font-weight: 700; }
+html .calm-shell.learning-ui .revision-bookmark-control .revision-bookmark-button { color: var(--ui-accent); background: transparent; border: 0; box-shadow: none; }
+html .calm-shell.learning-ui .revision-bookmark-check { background: var(--ui-surface); border-color: var(--ui-muted); }
+html .calm-shell.learning-ui .revision-bookmark-button[aria-pressed="true"] .revision-bookmark-check { background: var(--ui-accent); border-color: var(--ui-accent); color: var(--ui-on-accent); }
+html .calm-shell.learning-ui .revision-bookmark-control [data-bookmark-status]:not(.visually-hidden) { background: var(--ui-surface); color: var(--ui-ink); border-color: var(--ui-line); }
+html .calm-shell.learning-ui progress { accent-color: var(--ui-accent); background: var(--ui-soft); border-radius: 1rem; overflow: hidden; }
+html .calm-shell.learning-ui progress::-webkit-progress-bar { background: var(--ui-soft); }
+html .calm-shell.learning-ui progress::-webkit-progress-value { background: var(--ui-accent); }
+html .calm-shell.learning-ui progress::-moz-progress-bar { background: var(--ui-accent); }
+html .calm-shell.learning-ui .practice-performance-card ul { color: var(--ui-muted); }
+html .calm-shell.learning-ui :is(.mock-start-stats > div, .mock-start-guidance, .mock-submission-summary, .practice-selection-overview, .practice-selection-topics > div, .mock-start-setup, .paper-selector) { background: var(--ui-surface); color: var(--ui-ink); border-color: var(--ui-line); }
+html .calm-shell.learning-ui :is(.mock-pattern-sections li, .mock-pattern-section-count, .practice-performance-card ul, .paper-subject-donut > div) { background: var(--ui-soft); color: var(--ui-ink); }
+html .calm-shell.learning-ui :is(.mock-start-stats dd, .mock-results-count p, .mock-results-answer strong, .mock-results-section-counts dd, .mock-pattern-stats dd, .mock-pattern-sections strong, .paper-subject-name, .paper-overview-stats strong) { color: var(--ui-ink); }
+html .calm-shell.learning-ui :is(.mock-start-stats dt, .mock-start-stats dd span, .mock-results-count small, .mock-results-section-counts dt, .mock-pattern-stats dt, .mock-pattern-sections div > span, .mock-hub-category span, .paper-subject-percent, .practice-performance-accuracy span) { color: var(--ui-muted); }
+html .calm-shell.learning-ui :is(.mock-pattern-stats, .mock-hub-card-top, .mock-hub-section-heading, .paper-subject-legend li) { border-color: var(--ui-line); }
+html .calm-shell.learning-ui .mock-results-outcome.is-correct { background: var(--ui-correct-bg); }
+html .calm-shell.learning-ui .mock-results-outcome.is-incorrect { background: var(--ui-incorrect-bg); }
+html .calm-shell.learning-ui .mock-results-outcome.is-unanswered { background: var(--ui-soft); color: var(--ui-muted); }
+html .calm-shell.learning-ui .paper-premium-link { background: var(--ui-tint); color: var(--ui-accent); border-color: var(--ui-line); }
+html .calm-shell.learning-ui .ui-year-promo .button { background: var(--ui-tint); color: var(--ui-accent); border-color: var(--ui-line); }
+html .calm-shell.learning-ui .ui-year-promo .button:hover { background: var(--ui-soft); }
+html .calm-shell.learning-ui :is(.paper-subject-legend li, .practice-review-result) { background: var(--ui-soft); }
+html .calm-shell.learning-ui :is(.practice-review-list a > span:first-child, .paper-subject-donut strong, .paper-overview-stats p, .mock-hub-score strong) { color: var(--ui-ink); }
+html .calm-shell.learning-ui :is(.paper-subject-donut div > span, .mock-hub-metadata, .mock-hub-date, .mock-hub-score span, .mock-hub-empty small) { color: var(--ui-muted); }
+html .calm-shell.learning-ui .practice-review-result.practice-result-correct { background: var(--ui-correct-bg); }
+html .calm-shell.learning-ui .practice-review-result.practice-result-incorrect { background: var(--ui-incorrect-bg); }
+@media (min-width: 64.01rem) {
+  html .calm-shell.learning-ui .exam-language-pair:has(> :nth-child(2)) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  html .calm-shell.learning-ui .exam-language-pair > :nth-child(2) { border-inline-start: 1px solid var(--ui-line); padding-inline-start: 1.5rem; }
+}
+@media (max-width: 64rem) {
+  html .calm-shell.learning-ui .exam-paper-reader .reading-layout { grid-template-columns: minmax(0, 1fr); }
+  html .calm-shell.learning-ui .exam-paper-reader .question-navigator, html .calm-shell.learning-ui .exam-paper-reader .reading-layout > .question-list { grid-column: 1; grid-row: auto; position: static; }
+  html .calm-shell.learning-ui .practice-palette-panel { display: block; }
+  html .calm-shell.learning-ui .practice-step-nav { flex-wrap: wrap; }
+}
+@media (max-width: 40rem) {
+  html .calm-shell.learning-ui .paper-question > .question-card-header { padding: .85rem; }
+  html .calm-shell.learning-ui .exam-option { padding: .85rem .75rem; gap: .5rem; font-size: 1rem; }
+  html .calm-shell.learning-ui .mock-step-actions { width: 100%; display: grid; grid-template-columns: 1fr 1.2fr 1.1fr; gap: .5rem; }
+  html .calm-shell.learning-ui .mock-step-actions button { padding-inline: .25rem; font-size: .75rem; }
+  html .calm-shell.learning-ui .mock-step-actions .ui-icon { display: none; }
+  html .calm-shell.learning-ui .mock-workspace { padding-top: .75rem; }
+  html .calm-shell.learning-ui .mock-status-actions { flex-wrap: wrap; }
+}

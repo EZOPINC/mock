@@ -22,7 +22,7 @@ class FormParser(HTMLParser):
 
 class NavigationTests(TestCase):
     def test_home_keeps_dynamic_categories_and_active_exam_links(self):
-        authority = ExamAuthority.objects.create(name="Public Commission", code="PC", slug="public-commission")
+        authority = ExamAuthority.objects.create(name="WBPSC", code="PC", slug="public-commission")
         exam = Exam.objects.create(authority=authority, name="Clerkship", code="CL", slug="clerkship")
         Exam.objects.create(authority=authority, name="Hidden Exam", code="H", slug="hidden", is_active=False)
         ExamAuthority.objects.create(name="Hidden Authority", code="HA", slug="hidden-authority", is_active=False)
@@ -87,4 +87,19 @@ class NavigationTests(TestCase):
     def test_previous_year_browsing_does_not_offer_test_controls(self):
         response = self.client.get(reverse("previous_year:index"))
         self.assertContains(response, "No published papers are available yet.")
-        self.assertNotContains(response, "<select")
+        # The shared appearance selector is unrelated to paper/test configuration.
+        self.assertContains(response, '<select id="reading-theme"', count=1)
+        self.assertNotContains(response, '<select name=')
+
+    def test_theme_and_bilingual_homepage_contract(self):
+        response = self.client.get(reverse("home"))
+        html = response.content.decode()
+        self.assertLess(html.index('src="/static/js/theme.js"'), html.index('href="/static/css/site.css"'))
+        for theme in ("system", "light", "dark", "sepia"):
+            self.assertContains(response, f'<option value="{theme}">')
+        self.assertContains(response, 'lang="bn"')
+        self.assertContains(response, "নিজের গতিতে শিখুন")
+        self.assertNotContains(response, "Continue learning")
+        user = get_user_model().objects.create_user(username="resume-learner")
+        self.client.force_login(user)
+        self.assertContains(self.client.get(reverse("home")), "Continue learning")
