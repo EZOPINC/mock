@@ -4,82 +4,73 @@
     "code": "geography",
     "title": "Geography"
   },
-  "scope": "Indian Geography",
-  "parts": [
-    {
-      "code": "geo-india",
-      "subject_code": "geography",
-      "title": "Indian Geography"
-    }
-  ],
   "modules": [
     {
-      "code": "geo-india-m01",
+      "code": "geo-india-mod01",
       "subject_code": "geography",
-      "part_code": "geo-india",
+      "title": "Total India",
+      "sort_order": 1,
+      "part_code": "geo-india"
+    }
+  ],
+  "sub_modules": [
+    {
+      "code": "geo-india-mod01-sub01",
+      "module_code": "geo-india-mod01",
       "title": "Location, Size and Political Divisions",
       "sort_order": 1
     },
     {
-      "code": "geo-india-m02",
-      "subject_code": "geography",
-      "part_code": "geo-india",
-      "title": "Physiography: The Land of India",
+      "code": "geo-india-mod01-sub02",
+      "module_code": "geo-india-mod01",
+      "title": "Physiography",
       "sort_order": 2
     },
     {
-      "code": "geo-india-m03",
-      "subject_code": "geography",
-      "part_code": "geo-india",
+      "code": "geo-india-mod01-sub03",
+      "module_code": "geo-india-mod01",
       "title": "Drainage: Rivers, Lakes and Waterfalls",
       "sort_order": 3
     },
     {
-      "code": "geo-india-m04",
-      "subject_code": "geography",
-      "part_code": "geo-india",
+      "code": "geo-india-mod01-sub04",
+      "module_code": "geo-india-mod01",
       "title": "Climate, Monsoon and Disasters",
       "sort_order": 4
     },
     {
-      "code": "geo-india-m05",
-      "subject_code": "geography",
-      "part_code": "geo-india",
+      "code": "geo-india-mod01-sub05",
+      "module_code": "geo-india-mod01",
       "title": "Soils, Vegetation, Wildlife and People",
       "sort_order": 5
     },
     {
-      "code": "geo-india-m06",
-      "subject_code": "geography",
-      "part_code": "geo-india",
+      "code": "geo-india-mod01-sub06",
+      "module_code": "geo-india-mod01",
       "title": "Water Resources and Irrigation",
       "sort_order": 6
     },
     {
-      "code": "geo-india-m07",
-      "subject_code": "geography",
-      "part_code": "geo-india",
+      "code": "geo-india-mod01-sub07",
+      "module_code": "geo-india-mod01",
       "title": "Agriculture and Allied Sectors",
       "sort_order": 7
     },
     {
-      "code": "geo-india-m08",
-      "subject_code": "geography",
-      "part_code": "geo-india",
+      "code": "geo-india-mod01-sub08",
+      "module_code": "geo-india-mod01",
       "title": "Minerals, Energy, Industry and Research",
       "sort_order": 8
     },
     {
-      "code": "geo-india-m09",
-      "subject_code": "geography",
-      "part_code": "geo-india",
+      "code": "geo-india-mod01-sub09",
+      "module_code": "geo-india-mod01",
       "title": "Transport and Tourism",
       "sort_order": 9
     },
     {
-      "code": "geo-india-m10",
-      "subject_code": "geography",
-      "part_code": "geo-india",
+      "code": "geo-india-mod01-sub10",
+      "module_code": "geo-india-mod01",
       "title": "Miscellaneous",
       "sort_order": 10
     }
@@ -88,359 +79,410 @@
     {
       "code": "geo-india-c01",
       "subject_code": "geography",
-      "module_code": "geo-india-m01",
+      "module_code": "geo-india-mod01",
       "title": "Size and Area of India",
-      "sort_order": 1
+      "sort_order": 1,
+      "sub_module_code": "geo-india-mod01-sub01"
     },
     {
       "code": "geo-india-c02",
       "subject_code": "geography",
-      "module_code": "geo-india-m01",
+      "module_code": "geo-india-mod01",
       "title": "Latitudinal and Longitudinal Extent",
-      "sort_order": 2
+      "sort_order": 2,
+      "sub_module_code": "geo-india-mod01-sub01"
     },
     {
       "code": "geo-india-c03",
       "subject_code": "geography",
-      "module_code": "geo-india-m01",
+      "module_code": "geo-india-mod01",
       "title": "Tropic of Cancer",
-      "sort_order": 3
+      "sort_order": 3,
+      "sub_module_code": "geo-india-mod01-sub01"
     },
     {
       "code": "geo-india-c04",
       "subject_code": "geography",
-      "module_code": "geo-india-m01",
+      "module_code": "geo-india-mod01",
       "title": "Indian Standard Time and Time Zones",
-      "sort_order": 4
+      "sort_order": 4,
+      "sub_module_code": "geo-india-mod01-sub01"
     },
     {
       "code": "geo-india-c05",
       "subject_code": "geography",
-      "module_code": "geo-india-m01",
+      "module_code": "geo-india-mod01",
       "title": "Extreme Points of India",
-      "sort_order": 5
+      "sort_order": 5,
+      "sub_module_code": "geo-india-mod01-sub01"
     },
     {
       "code": "geo-india-c06",
       "subject_code": "geography",
-      "module_code": "geo-india-m01",
+      "module_code": "geo-india-mod01",
       "title": "Neighbouring Countries and Borders",
-      "sort_order": 6
+      "sort_order": 6,
+      "sub_module_code": "geo-india-mod01-sub01"
     },
     {
       "code": "geo-india-c07",
       "subject_code": "geography",
-      "module_code": "geo-india-m01",
+      "module_code": "geo-india-mod01",
       "title": "States of India",
-      "sort_order": 7
+      "sort_order": 7,
+      "sub_module_code": "geo-india-mod01-sub01"
     },
     {
       "code": "geo-india-c08",
       "subject_code": "geography",
-      "module_code": "geo-india-m01",
+      "module_code": "geo-india-mod01",
       "title": "Union Territories of India",
-      "sort_order": 8
+      "sort_order": 8,
+      "sub_module_code": "geo-india-mod01-sub01"
     },
     {
       "code": "geo-india-c09",
       "subject_code": "geography",
-      "module_code": "geo-india-m02",
+      "module_code": "geo-india-mod01",
       "title": "Physiographic Divisions of India",
-      "sort_order": 9
+      "sort_order": 9,
+      "sub_module_code": "geo-india-mod01-sub02"
     },
     {
       "code": "geo-india-c10",
       "subject_code": "geography",
-      "module_code": "geo-india-m02",
+      "module_code": "geo-india-mod01",
       "title": "The Himalayas and Northern Mountains",
-      "sort_order": 10
+      "sort_order": 10,
+      "sub_module_code": "geo-india-mod01-sub02"
     },
     {
       "code": "geo-india-c11",
       "subject_code": "geography",
-      "module_code": "geo-india-m02",
+      "module_code": "geo-india-mod01",
       "title": "Peninsular and Central Indian Hills",
-      "sort_order": 11
+      "sort_order": 11,
+      "sub_module_code": "geo-india-mod01-sub02"
     },
     {
       "code": "geo-india-c12",
       "subject_code": "geography",
-      "module_code": "geo-india-m02",
+      "module_code": "geo-india-mod01",
       "title": "Important Mountain Peaks",
-      "sort_order": 12
+      "sort_order": 12,
+      "sub_module_code": "geo-india-mod01-sub02"
     },
     {
       "code": "geo-india-c13",
       "subject_code": "geography",
-      "module_code": "geo-india-m02",
+      "module_code": "geo-india-mod01",
       "title": "Valleys",
-      "sort_order": 13
+      "sort_order": 13,
+      "sub_module_code": "geo-india-mod01-sub02"
     },
     {
       "code": "geo-india-c14",
       "subject_code": "geography",
-      "module_code": "geo-india-m02",
+      "module_code": "geo-india-mod01",
       "title": "Mountain Passes",
-      "sort_order": 14
+      "sort_order": 14,
+      "sub_module_code": "geo-india-mod01-sub02"
     },
     {
       "code": "geo-india-c15",
       "subject_code": "geography",
-      "module_code": "geo-india-m02",
+      "module_code": "geo-india-mod01",
       "title": "Snow Line and Glaciers",
-      "sort_order": 15
+      "sort_order": 15,
+      "sub_module_code": "geo-india-mod01-sub02"
     },
     {
       "code": "geo-india-c16",
       "subject_code": "geography",
-      "module_code": "geo-india-m02",
+      "module_code": "geo-india-mod01",
       "title": "Plateaus of India",
-      "sort_order": 16
+      "sort_order": 16,
+      "sub_module_code": "geo-india-mod01-sub02"
     },
     {
       "code": "geo-india-c17",
       "subject_code": "geography",
-      "module_code": "geo-india-m02",
+      "module_code": "geo-india-mod01",
       "title": "Coastal Plains and Coastline",
-      "sort_order": 17
+      "sort_order": 17,
+      "sub_module_code": "geo-india-mod01-sub02"
     },
     {
       "code": "geo-india-c18",
       "subject_code": "geography",
-      "module_code": "geo-india-m02",
+      "module_code": "geo-india-mod01",
       "title": "Islands of India",
-      "sort_order": 18
+      "sort_order": 18,
+      "sub_module_code": "geo-india-mod01-sub02"
     },
     {
       "code": "geo-india-c19",
       "subject_code": "geography",
-      "module_code": "geo-india-m03",
+      "module_code": "geo-india-mod01",
       "title": "Ganga River System",
-      "sort_order": 19
+      "sort_order": 19,
+      "sub_module_code": "geo-india-mod01-sub03"
     },
     {
       "code": "geo-india-c20",
       "subject_code": "geography",
-      "module_code": "geo-india-m03",
+      "module_code": "geo-india-mod01",
       "title": "Brahmaputra River System",
-      "sort_order": 20
+      "sort_order": 20,
+      "sub_module_code": "geo-india-mod01-sub03"
     },
     {
       "code": "geo-india-c21",
       "subject_code": "geography",
-      "module_code": "geo-india-m03",
+      "module_code": "geo-india-mod01",
       "title": "Peninsular (South Indian) Rivers",
-      "sort_order": 21
+      "sort_order": 21,
+      "sub_module_code": "geo-india-mod01-sub03"
     },
     {
       "code": "geo-india-c22",
       "subject_code": "geography",
-      "module_code": "geo-india-m03",
+      "module_code": "geo-india-mod01",
       "title": "Other Rivers and Inland Drainage",
-      "sort_order": 22
+      "sort_order": 22,
+      "sub_module_code": "geo-india-mod01-sub03"
     },
     {
       "code": "geo-india-c23",
       "subject_code": "geography",
-      "module_code": "geo-india-m03",
+      "module_code": "geo-india-mod01",
       "title": "Waterfalls and Lakes",
-      "sort_order": 23
+      "sort_order": 23,
+      "sub_module_code": "geo-india-mod01-sub03"
     },
     {
       "code": "geo-india-c24",
       "subject_code": "geography",
-      "module_code": "geo-india-m03",
+      "module_code": "geo-india-mod01",
       "title": "River-Bank Cities",
-      "sort_order": 24
+      "sort_order": 24,
+      "sub_module_code": "geo-india-mod01-sub03"
     },
     {
       "code": "geo-india-c25",
       "subject_code": "geography",
-      "module_code": "geo-india-m04",
+      "module_code": "geo-india-mod01",
       "title": "Indian Monsoon",
-      "sort_order": 25
+      "sort_order": 25,
+      "sub_module_code": "geo-india-mod01-sub04"
     },
     {
       "code": "geo-india-c26",
       "subject_code": "geography",
-      "module_code": "geo-india-m04",
+      "module_code": "geo-india-mod01",
       "title": "Rainfall Distribution",
-      "sort_order": 26
+      "sort_order": 26,
+      "sub_module_code": "geo-india-mod01-sub04"
     },
     {
       "code": "geo-india-c27",
       "subject_code": "geography",
-      "module_code": "geo-india-m04",
+      "module_code": "geo-india-mod01",
       "title": "Winter Rainfall and Western Disturbances",
-      "sort_order": 27
+      "sort_order": 27,
+      "sub_module_code": "geo-india-mod01-sub04"
     },
     {
       "code": "geo-india-c28",
       "subject_code": "geography",
-      "module_code": "geo-india-m04",
+      "module_code": "geo-india-mod01",
       "title": "Natural Disasters",
-      "sort_order": 28
+      "sort_order": 28,
+      "sub_module_code": "geo-india-mod01-sub04"
     },
     {
       "code": "geo-india-c29",
       "subject_code": "geography",
-      "module_code": "geo-india-m05",
+      "module_code": "geo-india-mod01",
       "title": "Soils of India",
-      "sort_order": 29
+      "sort_order": 29,
+      "sub_module_code": "geo-india-mod01-sub05"
     },
     {
       "code": "geo-india-c30",
       "subject_code": "geography",
-      "module_code": "geo-india-m05",
+      "module_code": "geo-india-mod01",
       "title": "Natural Vegetation and Forests",
-      "sort_order": 30
+      "sort_order": 30,
+      "sub_module_code": "geo-india-mod01-sub05"
     },
     {
       "code": "geo-india-c31",
       "subject_code": "geography",
-      "module_code": "geo-india-m05",
+      "module_code": "geo-india-mod01",
       "title": "Wildlife Species and Tribal Groups",
-      "sort_order": 31
+      "sort_order": 31,
+      "sub_module_code": "geo-india-mod01-sub05"
     },
     {
       "code": "geo-india-c32",
       "subject_code": "geography",
-      "module_code": "geo-india-m05",
+      "module_code": "geo-india-mod01",
       "title": "Languages of India",
-      "sort_order": 32
+      "sort_order": 32,
+      "sub_module_code": "geo-india-mod01-sub05"
     },
     {
       "code": "geo-india-c33",
       "subject_code": "geography",
-      "module_code": "geo-india-m06",
+      "module_code": "geo-india-mod01",
       "title": "Irrigation and Canals",
-      "sort_order": 33
+      "sort_order": 33,
+      "sub_module_code": "geo-india-mod01-sub06"
     },
     {
       "code": "geo-india-c34",
       "subject_code": "geography",
-      "module_code": "geo-india-m06",
+      "module_code": "geo-india-mod01",
       "title": "Multi-Purpose River Valley Projects",
-      "sort_order": 34
+      "sort_order": 34,
+      "sub_module_code": "geo-india-mod01-sub06"
     },
     {
       "code": "geo-india-c35",
       "subject_code": "geography",
-      "module_code": "geo-india-m07",
+      "module_code": "geo-india-mod01",
       "title": "Agriculture: Types, Seasons and Land Use",
-      "sort_order": 35
+      "sort_order": 35,
+      "sub_module_code": "geo-india-mod01-sub07"
     },
     {
       "code": "geo-india-c36",
       "subject_code": "geography",
-      "module_code": "geo-india-m07",
+      "module_code": "geo-india-mod01",
       "title": "Green Revolution and Other Agricultural Revolutions",
-      "sort_order": 36
+      "sort_order": 36,
+      "sub_module_code": "geo-india-mod01-sub07"
     },
     {
       "code": "geo-india-c37",
       "subject_code": "geography",
-      "module_code": "geo-india-m07",
+      "module_code": "geo-india-mod01",
       "title": "Food Grain Crops",
-      "sort_order": 37
+      "sort_order": 37,
+      "sub_module_code": "geo-india-mod01-sub07"
     },
     {
       "code": "geo-india-c38",
       "subject_code": "geography",
-      "module_code": "geo-india-m07",
+      "module_code": "geo-india-mod01",
       "title": "Pulses",
-      "sort_order": 38
+      "sort_order": 38,
+      "sub_module_code": "geo-india-mod01-sub07"
     },
     {
       "code": "geo-india-c39",
       "subject_code": "geography",
-      "module_code": "geo-india-m07",
+      "module_code": "geo-india-mod01",
       "title": "Oilseeds",
-      "sort_order": 39
+      "sort_order": 39,
+      "sub_module_code": "geo-india-mod01-sub07"
     },
     {
       "code": "geo-india-c40",
       "subject_code": "geography",
-      "module_code": "geo-india-m07",
+      "module_code": "geo-india-mod01",
       "title": "Cash and Fibre Crops",
-      "sort_order": 40
+      "sort_order": 40,
+      "sub_module_code": "geo-india-mod01-sub07"
     },
     {
       "code": "geo-india-c41",
       "subject_code": "geography",
-      "module_code": "geo-india-m07",
+      "module_code": "geo-india-mod01",
       "title": "Plantation Crops",
-      "sort_order": 41
+      "sort_order": 41,
+      "sub_module_code": "geo-india-mod01-sub07"
     },
     {
       "code": "geo-india-c42",
       "subject_code": "geography",
-      "module_code": "geo-india-m07",
+      "module_code": "geo-india-mod01",
       "title": "Horticulture and Other Crops",
-      "sort_order": 42
+      "sort_order": 42,
+      "sub_module_code": "geo-india-mod01-sub07"
     },
     {
       "code": "geo-india-c43",
       "subject_code": "geography",
-      "module_code": "geo-india-m07",
+      "module_code": "geo-india-mod01",
       "title": "Sericulture and Silk",
-      "sort_order": 43
+      "sort_order": 43,
+      "sub_module_code": "geo-india-mod01-sub07"
     },
     {
       "code": "geo-india-c44",
       "subject_code": "geography",
-      "module_code": "geo-india-m07",
+      "module_code": "geo-india-mod01",
       "title": "Animal Husbandry and Dairying",
-      "sort_order": 44
+      "sort_order": 44,
+      "sub_module_code": "geo-india-mod01-sub07"
     },
     {
       "code": "geo-india-c45",
       "subject_code": "geography",
-      "module_code": "geo-india-m08",
+      "module_code": "geo-india-mod01",
       "title": "Mineral Resources",
-      "sort_order": 45
+      "sort_order": 45,
+      "sub_module_code": "geo-india-mod01-sub08"
     },
     {
       "code": "geo-india-c46",
       "subject_code": "geography",
-      "module_code": "geo-india-m08",
+      "module_code": "geo-india-mod01",
       "title": "Energy Resources",
-      "sort_order": 46
+      "sort_order": 46,
+      "sub_module_code": "geo-india-mod01-sub08"
     },
     {
       "code": "geo-india-c47",
       "subject_code": "geography",
-      "module_code": "geo-india-m08",
+      "module_code": "geo-india-mod01",
       "title": "Industries of India",
-      "sort_order": 47
+      "sort_order": 47,
+      "sub_module_code": "geo-india-mod01-sub08"
     },
     {
       "code": "geo-india-c48",
       "subject_code": "geography",
-      "module_code": "geo-india-m08",
+      "module_code": "geo-india-mod01",
       "title": "Research Centres and Institutes",
-      "sort_order": 48
+      "sort_order": 48,
+      "sub_module_code": "geo-india-mod01-sub08"
     },
     {
       "code": "geo-india-c49",
       "subject_code": "geography",
-      "module_code": "geo-india-m09",
+      "module_code": "geo-india-mod01",
       "title": "Transport and Communication",
-      "sort_order": 49
+      "sort_order": 49,
+      "sub_module_code": "geo-india-mod01-sub09"
     },
     {
       "code": "geo-india-c50",
       "subject_code": "geography",
-      "module_code": "geo-india-m09",
+      "module_code": "geo-india-mod01",
       "title": "Tourist Places and Heritage Sites",
-      "sort_order": 50
+      "sort_order": 50,
+      "sub_module_code": "geo-india-mod01-sub09"
     },
     {
       "code": "geo-india-c51",
       "subject_code": "geography",
-      "module_code": "geo-india-m10",
+      "module_code": "geo-india-mod01",
       "title": "Miscellaneous (Mixed Geography)",
-      "sort_order": 51
+      "sort_order": 51,
+      "sub_module_code": "geo-india-mod01-sub10"
     }
   ],
   "topics": [
@@ -2655,6 +2697,13 @@
       "title": "Environmental issues and agreements",
       "notes": "climate change, biodiversity.",
       "sort_order": 6
+    }
+  ],
+  "parts": [
+    {
+      "code": "geo-india",
+      "subject_code": "geography",
+      "title": "India"
     }
   ]
 }

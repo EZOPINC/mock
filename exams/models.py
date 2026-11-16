@@ -79,13 +79,21 @@ class HierarchyNode(models.Model):
                 fields += [field + "_id" for field in self.parent_fields]
             previous = type(self).objects.filter(pk=self.pk).values(*fields).first()
             initial_module_part = type(self).__name__ == "Module" and previous and previous.get("part_id") is None and self.part_id is not None
+            explicit_module_part_move = (type(self).__name__ == "Module" and getattr(self, "_part_reassignment", False)
+                                         and previous and previous.get("part_id") is not None and self.part_id is not None)
             initial_chapter_module = (type(self).__name__ == "Chapter" and previous
                                       and previous.get("module_id") is None and previous.get("part_id") is None
                                       and previous.get("submodule_id") is None and self.submodule_id is None
                                       and self.module_id is not None and self.part_id is None)
+            initial_chapter_submodule = (type(self).__name__ == "Chapter" and previous
+                                         and previous.get("submodule_id") is None and previous.get("part_id") is None
+                                         and previous.get("module_id") is not None and self.submodule_id is not None
+                                         and self.module_id is None and self.part_id is None
+                                         and self.submodule.module_id == previous["module_id"])
             if previous and any(previous[field] != getattr(self, field)
-                                for field in fields if not ((initial_module_part and field == "part_id")
-                                                           or (initial_chapter_module and field == "module_id"))):
+                                for field in fields if not (((initial_module_part or explicit_module_part_move) and field == "part_id")
+                                                           or (initial_chapter_module and field == "module_id")
+                                                           or (initial_chapter_submodule and field in ("module_id", "submodule_id")))):
                 raise ValidationError("Existing parent paths and taxonomy codes cannot change; create a new node instead.")
 
     def save(self, *args, **kwargs):

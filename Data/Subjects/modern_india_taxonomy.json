@@ -4,393 +4,495 @@
     "code": "history",
     "title": "History"
   },
-  "scope": "India",
-  "parts": [
-    {
-      "code": "PART-06e2389eb1be43e79a18b4e1f8632318",
-      "subject_code": "history",
-      "title": "India"
-    }
-  ],
   "modules": [
     {
-      "code": "hist-mod",
+      "code": "hist-mod-mod01",
       "subject_code": "history",
-      "part_code": "PART-06e2389eb1be43e79a18b4e1f8632318",
-      "title": "Modern History"
+      "title": "Modern History",
+      "sort_order": 3,
+      "part_code": "hist-india"
+    }
+  ],
+  "sub_modules": [
+    {
+      "code": "hist-mod-mod01-sub01",
+      "module_code": "hist-mod-mod01",
+      "title": "Europeans in India and Expansion of Company Rule",
+      "sort_order": 1
+    },
+    {
+      "code": "hist-mod-mod01-sub02",
+      "module_code": "hist-mod-mod01",
+      "title": "The Colonial Economy",
+      "sort_order": 2
+    },
+    {
+      "code": "hist-mod-mod01-sub03",
+      "module_code": "hist-mod-mod01",
+      "title": "Early Resistance and the Revolt of 1857",
+      "sort_order": 3
+    },
+    {
+      "code": "hist-mod-mod01-sub04",
+      "module_code": "hist-mod-mod01",
+      "title": "Reform, Education and the Press",
+      "sort_order": 4
+    },
+    {
+      "code": "hist-mod-mod01-sub05",
+      "module_code": "hist-mod-mod01",
+      "title": "Rise of Nationalism (1885–1919)",
+      "sort_order": 5
+    },
+    {
+      "code": "hist-mod-mod01-sub06",
+      "module_code": "hist-mod-mod01",
+      "title": "The Gandhian Era (1919–1939)",
+      "sort_order": 6
+    },
+    {
+      "code": "hist-mod-mod01-sub07",
+      "module_code": "hist-mod-mod01",
+      "title": "Provincial Autonomy to the War Years (1937–1945)",
+      "sort_order": 7
+    },
+    {
+      "code": "hist-mod-mod01-sub08",
+      "module_code": "hist-mod-mod01",
+      "title": "The Road to Independence (1946–1947)",
+      "sort_order": 8
+    },
+    {
+      "code": "hist-mod-mod01-sub09",
+      "module_code": "hist-mod-mod01",
+      "title": "Miscellaneous",
+      "sort_order": 9
     }
   ],
   "chapters": [
     {
       "code": "hist-mod-c01",
       "subject_code": "history",
-      "module_code": "hist-mod",
+      "module_code": "hist-mod-mod01",
       "title": "European Trading Companies and Anglo-French Rivalry",
-      "sort_order": 1
+      "sort_order": 1,
+      "sub_module_code": "hist-mod-mod01-sub01"
     },
     {
       "code": "hist-mod-c02",
       "subject_code": "history",
-      "module_code": "hist-mod",
+      "module_code": "hist-mod-mod01",
       "title": "Bengal: Plassey, Buxar and the Dual Government",
-      "sort_order": 2
+      "sort_order": 2,
+      "sub_module_code": "hist-mod-mod01-sub01"
     },
     {
       "code": "hist-mod-c03",
       "subject_code": "history",
-      "module_code": "hist-mod",
+      "module_code": "hist-mod-mod01",
       "title": "Mysore, Punjab and Other Resisting States",
-      "sort_order": 3
+      "sort_order": 3,
+      "sub_module_code": "hist-mod-mod01-sub01"
     },
     {
       "code": "hist-mod-c04",
       "subject_code": "history",
-      "module_code": "hist-mod",
+      "module_code": "hist-mod-mod01",
       "title": "Governors-General and Viceroys: Policies and Reforms",
-      "sort_order": 4
+      "sort_order": 4,
+      "sub_module_code": "hist-mod-mod01-sub01"
     },
     {
       "code": "hist-mod-c05",
       "subject_code": "history",
-      "module_code": "hist-mod",
+      "module_code": "hist-mod-mod01",
       "title": "Constitutional Development: Acts from 1773 to 1947",
-      "sort_order": 5
+      "sort_order": 5,
+      "sub_module_code": "hist-mod-mod01-sub01"
     },
     {
       "code": "hist-mod-c06",
       "subject_code": "history",
-      "module_code": "hist-mod",
+      "module_code": "hist-mod-mod01",
       "title": "Colonial Economy: Impact of British Rule",
-      "sort_order": 6
+      "sort_order": 6,
+      "sub_module_code": "hist-mod-mod01-sub02"
     },
     {
       "code": "hist-mod-c07",
       "subject_code": "history",
-      "module_code": "hist-mod",
+      "module_code": "hist-mod-mod01",
       "title": "The Revolt of 1857",
-      "sort_order": 7
+      "sort_order": 7,
+      "sub_module_code": "hist-mod-mod01-sub03"
     },
     {
       "code": "hist-mod-c08",
       "subject_code": "history",
-      "module_code": "hist-mod",
+      "module_code": "hist-mod-mod01",
       "title": "Tribal, Peasant and Other Early Uprisings",
-      "sort_order": 8
+      "sort_order": 8,
+      "sub_module_code": "hist-mod-mod01-sub03"
     },
     {
       "code": "hist-mod-c09",
       "subject_code": "history",
-      "module_code": "hist-mod",
+      "module_code": "hist-mod-mod01",
       "title": "Socio-Religious Reform Movements",
-      "sort_order": 9
+      "sort_order": 9,
+      "sub_module_code": "hist-mod-mod01-sub04"
     },
     {
       "code": "hist-mod-c10",
       "subject_code": "history",
-      "module_code": "hist-mod",
+      "module_code": "hist-mod-mod01",
       "title": "Growth of Modern Education",
-      "sort_order": 10
+      "sort_order": 10,
+      "sub_module_code": "hist-mod-mod01-sub04"
     },
     {
       "code": "hist-mod-c11",
       "subject_code": "history",
-      "module_code": "hist-mod",
+      "module_code": "hist-mod-mod01",
       "title": "Growth of the Press",
-      "sort_order": 11
+      "sort_order": 11,
+      "sub_module_code": "hist-mod-mod01-sub04"
     },
     {
       "code": "hist-mod-c12",
       "subject_code": "history",
-      "module_code": "hist-mod",
+      "module_code": "hist-mod-mod01",
       "title": "Political Associations before the Congress",
-      "sort_order": 12
+      "sort_order": 12,
+      "sub_module_code": "hist-mod-mod01-sub05"
     },
     {
       "code": "hist-mod-c13",
       "subject_code": "history",
-      "module_code": "hist-mod",
+      "module_code": "hist-mod-mod01",
       "title": "Foundation and Early Phase of the Indian National Congress",
-      "sort_order": 13
+      "sort_order": 13,
+      "sub_module_code": "hist-mod-mod01-sub05"
     },
     {
       "code": "hist-mod-c14",
       "subject_code": "history",
-      "module_code": "hist-mod",
+      "module_code": "hist-mod-mod01",
       "title": "Moderates and Extremists",
-      "sort_order": 14
+      "sort_order": 14,
+      "sub_module_code": "hist-mod-mod01-sub05"
     },
     {
       "code": "hist-mod-c15",
       "subject_code": "history",
-      "module_code": "hist-mod",
+      "module_code": "hist-mod-mod01",
       "title": "Partition of Bengal and the Swadeshi Movement",
-      "sort_order": 15
+      "sort_order": 15,
+      "sub_module_code": "hist-mod-mod01-sub05"
     },
     {
       "code": "hist-mod-c16",
       "subject_code": "history",
-      "module_code": "hist-mod",
+      "module_code": "hist-mod-mod01",
       "title": "Congress Sessions: Banaras, Calcutta and Surat",
-      "sort_order": 16
+      "sort_order": 16,
+      "sub_module_code": "hist-mod-mod01-sub05"
     },
     {
       "code": "hist-mod-c17",
       "subject_code": "history",
-      "module_code": "hist-mod",
+      "module_code": "hist-mod-mod01",
       "title": "Formation of the Muslim League (1906)",
-      "sort_order": 17
+      "sort_order": 17,
+      "sub_module_code": "hist-mod-mod01-sub05"
     },
     {
       "code": "hist-mod-c18",
       "subject_code": "history",
-      "module_code": "hist-mod",
+      "module_code": "hist-mod-mod01",
       "title": "Morley-Minto Reforms (1909)",
-      "sort_order": 18
+      "sort_order": 18,
+      "sub_module_code": "hist-mod-mod01-sub05"
     },
     {
       "code": "hist-mod-c19",
       "subject_code": "history",
-      "module_code": "hist-mod",
+      "module_code": "hist-mod-mod01",
       "title": "Delhi Durbar (1911) and Shifting of the Capital",
-      "sort_order": 19
+      "sort_order": 19,
+      "sub_module_code": "hist-mod-mod01-sub05"
     },
     {
       "code": "hist-mod-c20",
       "subject_code": "history",
-      "module_code": "hist-mod",
+      "module_code": "hist-mod-mod01",
       "title": "Revolutionary Movement in India",
-      "sort_order": 20
+      "sort_order": 20,
+      "sub_module_code": "hist-mod-mod01-sub05"
     },
     {
       "code": "hist-mod-c21",
       "subject_code": "history",
-      "module_code": "hist-mod",
+      "module_code": "hist-mod-mod01",
       "title": "Revolutionary Activities Outside India",
-      "sort_order": 21
+      "sort_order": 21,
+      "sub_module_code": "hist-mod-mod01-sub05"
     },
     {
       "code": "hist-mod-c22",
       "subject_code": "history",
-      "module_code": "hist-mod",
+      "module_code": "hist-mod-mod01",
       "title": "Lucknow Pact (1916)",
-      "sort_order": 22
+      "sort_order": 22,
+      "sub_module_code": "hist-mod-mod01-sub05"
     },
     {
       "code": "hist-mod-c23",
       "subject_code": "history",
-      "module_code": "hist-mod",
+      "module_code": "hist-mod-mod01",
       "title": "Home Rule League Movement",
-      "sort_order": 23
+      "sort_order": 23,
+      "sub_module_code": "hist-mod-mod01-sub05"
     },
     {
       "code": "hist-mod-c24",
       "subject_code": "history",
-      "module_code": "hist-mod",
+      "module_code": "hist-mod-mod01",
       "title": "Gandhi’s Entry and Early Satyagrahas",
-      "sort_order": 24
+      "sort_order": 24,
+      "sub_module_code": "hist-mod-mod01-sub06"
     },
     {
       "code": "hist-mod-c25",
       "subject_code": "history",
-      "module_code": "hist-mod",
+      "module_code": "hist-mod-mod01",
       "title": "Rowlatt Act and Jallianwala Bagh (1919)",
-      "sort_order": 25
+      "sort_order": 25,
+      "sub_module_code": "hist-mod-mod01-sub06"
     },
     {
       "code": "hist-mod-c26",
       "subject_code": "history",
-      "module_code": "hist-mod",
+      "module_code": "hist-mod-mod01",
       "title": "Khilafat Movement",
-      "sort_order": 26
+      "sort_order": 26,
+      "sub_module_code": "hist-mod-mod01-sub06"
     },
     {
       "code": "hist-mod-c27",
       "subject_code": "history",
-      "module_code": "hist-mod",
+      "module_code": "hist-mod-mod01",
       "title": "Non-Cooperation Movement",
-      "sort_order": 27
+      "sort_order": 27,
+      "sub_module_code": "hist-mod-mod01-sub06"
     },
     {
       "code": "hist-mod-c28",
       "subject_code": "history",
-      "module_code": "hist-mod",
+      "module_code": "hist-mod-mod01",
       "title": "Swaraj Party (1923)",
-      "sort_order": 28
+      "sort_order": 28,
+      "sub_module_code": "hist-mod-mod01-sub06"
     },
     {
       "code": "hist-mod-c29",
       "subject_code": "history",
-      "module_code": "hist-mod",
+      "module_code": "hist-mod-mod01",
       "title": "Peasant Movements and the Kisan Sabha",
-      "sort_order": 29
+      "sort_order": 29,
+      "sub_module_code": "hist-mod-mod01-sub06"
     },
     {
       "code": "hist-mod-c30",
       "subject_code": "history",
-      "module_code": "hist-mod",
+      "module_code": "hist-mod-mod01",
       "title": "Trade Union Movement and the Communist Party",
-      "sort_order": 30
+      "sort_order": 30,
+      "sub_module_code": "hist-mod-mod01-sub06"
     },
     {
       "code": "hist-mod-c31",
       "subject_code": "history",
-      "module_code": "hist-mod",
+      "module_code": "hist-mod-mod01",
       "title": "Simon Commission (1927)",
-      "sort_order": 31
+      "sort_order": 31,
+      "sub_module_code": "hist-mod-mod01-sub06"
     },
     {
       "code": "hist-mod-c32",
       "subject_code": "history",
-      "module_code": "hist-mod",
+      "module_code": "hist-mod-mod01",
       "title": "Lahore Congress and Poorna Swaraj (1929)",
-      "sort_order": 32
+      "sort_order": 32,
+      "sub_module_code": "hist-mod-mod01-sub06"
     },
     {
       "code": "hist-mod-c33",
       "subject_code": "history",
-      "module_code": "hist-mod",
+      "module_code": "hist-mod-mod01",
       "title": "Civil Disobedience Movement",
-      "sort_order": 33
+      "sort_order": 33,
+      "sub_module_code": "hist-mod-mod01-sub06"
     },
     {
       "code": "hist-mod-c34",
       "subject_code": "history",
-      "module_code": "hist-mod",
+      "module_code": "hist-mod-mod01",
       "title": "Gandhi-Irwin Pact (1931)",
-      "sort_order": 34
+      "sort_order": 34,
+      "sub_module_code": "hist-mod-mod01-sub06"
     },
     {
       "code": "hist-mod-c35",
       "subject_code": "history",
-      "module_code": "hist-mod",
+      "module_code": "hist-mod-mod01",
       "title": "Karachi Congress (1931)",
-      "sort_order": 35
+      "sort_order": 35,
+      "sub_module_code": "hist-mod-mod01-sub06"
     },
     {
       "code": "hist-mod-c36",
       "subject_code": "history",
-      "module_code": "hist-mod",
+      "module_code": "hist-mod-mod01",
       "title": "Round Table Conferences",
-      "sort_order": 36
+      "sort_order": 36,
+      "sub_module_code": "hist-mod-mod01-sub06"
     },
     {
       "code": "hist-mod-c37",
       "subject_code": "history",
-      "module_code": "hist-mod",
+      "module_code": "hist-mod-mod01",
       "title": "Communal Award and Poona Pact (1932)",
-      "sort_order": 37
+      "sort_order": 37,
+      "sub_module_code": "hist-mod-mod01-sub06"
     },
     {
       "code": "hist-mod-c38",
       "subject_code": "history",
-      "module_code": "hist-mod",
+      "module_code": "hist-mod-mod01",
       "title": "Congress Socialist Party (1934)",
-      "sort_order": 38
+      "sort_order": 38,
+      "sub_module_code": "hist-mod-mod01-sub06"
     },
     {
       "code": "hist-mod-c39",
       "subject_code": "history",
-      "module_code": "hist-mod",
+      "module_code": "hist-mod-mod01",
       "title": "Provincial Elections and Congress Ministries (1937)",
-      "sort_order": 39
+      "sort_order": 39,
+      "sub_module_code": "hist-mod-mod01-sub07"
     },
     {
       "code": "hist-mod-c40",
       "subject_code": "history",
-      "module_code": "hist-mod",
+      "module_code": "hist-mod-mod01",
       "title": "Tripuri Crisis (1939)",
-      "sort_order": 40
+      "sort_order": 40,
+      "sub_module_code": "hist-mod-mod01-sub07"
     },
     {
       "code": "hist-mod-c41",
       "subject_code": "history",
-      "module_code": "hist-mod",
+      "module_code": "hist-mod-mod01",
       "title": "Princely States and the National Movement",
-      "sort_order": 41
+      "sort_order": 41,
+      "sub_module_code": "hist-mod-mod01-sub07"
     },
     {
       "code": "hist-mod-c42",
       "subject_code": "history",
-      "module_code": "hist-mod",
+      "module_code": "hist-mod-mod01",
       "title": "Second World War and India",
-      "sort_order": 42
+      "sort_order": 42,
+      "sub_module_code": "hist-mod-mod01-sub07"
     },
     {
       "code": "hist-mod-c43",
       "subject_code": "history",
-      "module_code": "hist-mod",
+      "module_code": "hist-mod-mod01",
       "title": "Demand for Pakistan",
-      "sort_order": 43
+      "sort_order": 43,
+      "sub_module_code": "hist-mod-mod01-sub07"
     },
     {
       "code": "hist-mod-c44",
       "subject_code": "history",
-      "module_code": "hist-mod",
+      "module_code": "hist-mod-mod01",
       "title": "Individual Satyagraha (1940)",
-      "sort_order": 44
+      "sort_order": 44,
+      "sub_module_code": "hist-mod-mod01-sub07"
     },
     {
       "code": "hist-mod-c45",
       "subject_code": "history",
-      "module_code": "hist-mod",
+      "module_code": "hist-mod-mod01",
       "title": "Cripps Mission (1942)",
-      "sort_order": 45
+      "sort_order": 45,
+      "sub_module_code": "hist-mod-mod01-sub07"
     },
     {
       "code": "hist-mod-c46",
       "subject_code": "history",
-      "module_code": "hist-mod",
+      "module_code": "hist-mod-mod01",
       "title": "Quit India Movement (1942)",
-      "sort_order": 46
+      "sort_order": 46,
+      "sub_module_code": "hist-mod-mod01-sub07"
     },
     {
       "code": "hist-mod-c47",
       "subject_code": "history",
-      "module_code": "hist-mod",
+      "module_code": "hist-mod-mod01",
       "title": "Subhas Chandra Bose and the Azad Hind Fauj",
-      "sort_order": 47
+      "sort_order": 47,
+      "sub_module_code": "hist-mod-mod01-sub07"
     },
     {
       "code": "hist-mod-c48",
       "subject_code": "history",
-      "module_code": "hist-mod",
+      "module_code": "hist-mod-mod01",
       "title": "Cabinet Mission Plan (1946)",
-      "sort_order": 48
+      "sort_order": 48,
+      "sub_module_code": "hist-mod-mod01-sub08"
     },
     {
       "code": "hist-mod-c49",
       "subject_code": "history",
-      "module_code": "hist-mod",
+      "module_code": "hist-mod-mod01",
       "title": "Constituent Assembly (1946)",
-      "sort_order": 49
+      "sort_order": 49,
+      "sub_module_code": "hist-mod-mod01-sub08"
     },
     {
       "code": "hist-mod-c50",
       "subject_code": "history",
-      "module_code": "hist-mod",
+      "module_code": "hist-mod-mod01",
       "title": "Interim Government (1946)",
-      "sort_order": 50
+      "sort_order": 50,
+      "sub_module_code": "hist-mod-mod01-sub08"
     },
     {
       "code": "hist-mod-c51",
       "subject_code": "history",
-      "module_code": "hist-mod",
+      "module_code": "hist-mod-mod01",
       "title": "Partition and Independence (1947)",
-      "sort_order": 51
+      "sort_order": 51,
+      "sub_module_code": "hist-mod-mod01-sub08"
     },
     {
       "code": "hist-mod-c52",
       "subject_code": "history",
-      "module_code": "hist-mod",
+      "module_code": "hist-mod-mod01",
       "title": "Modern History Miscellaneous (Mixed Revision)",
-      "sort_order": 52
+      "sort_order": 52,
+      "sub_module_code": "hist-mod-mod01-sub09"
     },
     {
       "code": "hist-mod-c53",
       "subject_code": "history",
-      "module_code": "hist-mod",
+      "module_code": "hist-mod-mod01",
       "title": "Indian National Movement Miscellaneous (Mixed Revision)",
-      "sort_order": 53
+      "sort_order": 53,
+      "sub_module_code": "hist-mod-mod01-sub09"
     }
   ],
   "topics": [
@@ -3165,6 +3267,13 @@
       "title": "Mixed matching and one-liners",
       "notes": "who said what, who founded what, which year.",
       "sort_order": 9
+    }
+  ],
+  "parts": [
+    {
+      "code": "hist-india",
+      "subject_code": "history",
+      "title": "India"
     }
   ]
 }

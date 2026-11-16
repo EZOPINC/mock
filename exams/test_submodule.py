@@ -72,9 +72,60 @@ class SubmoduleTests(TestCase):
             plan_taxonomy(data)
         self.assertEqual(Chapter.objects.get(code='C').pk, chapter.pk)
         data['chapters'][0]['submodule_code'] = 'NEW'
-        data['chapters'][0]['module_code'] = 'M'
+        data['chapters'][0]['module_code'] = 'OTHER-MODULE'
         with self.assertRaisesMessage(ValidationError, 'one immediate parent'):
             plan_taxonomy(data)
+
+    def test_aliases_and_explicit_same_module_repair_preserve_identity(self):
+        chapter = Chapter.objects.create(module=self.module, code='OLD', name='Old', slug='old')
+        topic = Topic.objects.create(subject=self.subject, chapter=chapter, code='LINK', name='Link', slug='link')
+        data = {'subject': {'code': 'H'}, 'sub_modules': [
+            {'code': 'NEW-S', 'module_code': 'M', 'title': 'New sub'}],
+            'chapters': [{'code': 'OLD', 'module_code': 'M', 'sub_module_code': 'NEW-S', 'name': 'Old'}]}
+        with self.assertRaisesMessage(ValidationError, 'reparenting'):
+            plan_taxonomy(data)
+        plan, counts = plan_taxonomy(data, attach_submodules=True)
+        self.assertEqual(counts['submodules']['create'], 1)
+        self.assertEqual(counts['chapters']['update'], 1)
+        self.assertFalse(Submodule.objects.filter(code='NEW-S').exists())
+        with transaction.atomic():
+            persist_taxonomy(plan)
+        chapter.refresh_from_db()
+        topic.refresh_from_db()
+        self.assertEqual(chapter.submodule.code, 'NEW-S')
+        self.assertIsNone(chapter.module_id)
+        self.assertEqual(topic.chapter_id, chapter.pk)
+        self.assertEqual(plan_taxonomy(data)[1]['chapters']['unchanged'], 1)
+        data['chapters'][0]['sub_module_code'] = 'SM'
+        with self.assertRaisesMessage(ValidationError, 'reparenting'):
+            plan_taxonomy(data, attach_submodules=True)
+
+    def test_initial_submodule_db_assignment_cannot_change_modules(self):
+        chapter = Chapter.objects.create(module=self.module, name='Direct', slug='direct')
+        chapter.module = None
+        chapter.submodule = self.submodule
+        chapter.save()
+        with self.assertRaises(IntegrityError), transaction.atomic():
+            Chapter.objects.filter(pk=chapter.pk).update(submodule=None, module=self.module)
+        other_module = Module.objects.create(subject=self.subject, name='Other module', slug='other-module')
+        other_submodule = Submodule.objects.create(module=other_module, name='Other sub', slug='other-sub')
+        direct = Chapter.objects.create(module=self.module, name='Still direct', slug='still-direct')
+        with self.assertRaises(IntegrityError), transaction.atomic():
+            Chapter.objects.filter(pk=direct.pk).update(module=None, submodule=other_submodule)
+
+    def test_unknown_fields_and_conflicting_aliases_are_rejected(self):
+        for data in ({'submoduls': []}, {'sub_modules': [], 'submodules': []},
+                     {'chapters': [{'code': 'C', 'name': 'Chapter', 'submodul_code': 'SM'}]},
+                     {'chapters': [{'submodule_code': 'A', 'sub_module_code': 'B'}]}):
+            with self.subTest(data=data), self.assertRaises(ValidationError):
+                plan_taxonomy(data)
+
+    def test_parent_resolution_uses_loaded_catalogue_without_n_plus_one(self):
+        chapter = Chapter.objects.create(submodule=self.submodule, code='CACHED', name='Cached', slug='cached')
+        for index in range(5):
+            Topic.objects.create(subject=self.subject, chapter=chapter, code=f'CACHE-{index}', name=f'Cache {index}', slug=f'cache-{index}')
+        with self.assertNumQueries(6):
+            plan_taxonomy({'subject': {'code': 'H'}})
 
     def test_admin_module_and_submodule_filters_include_descendants(self):
         from django.contrib import admin

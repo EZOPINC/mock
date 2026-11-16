@@ -6,388 +6,440 @@
   },
   "modules": [
     {
-      "code": "reas-m01",
+      "code": "reas-mod01",
       "subject_code": "reasoning",
-      "title": "Verbal Reasoning: Patterns and Relationships",
+      "title": "Verbal Reasoning",
       "sort_order": 1
     },
     {
-      "code": "reas-m02",
+      "code": "reas-mod02",
       "subject_code": "reasoning",
-      "title": "Verbal Reasoning: Coding, Alphabet and Sequence Tests",
+      "title": "Logical Deduction",
       "sort_order": 2
     },
     {
-      "code": "reas-m03",
+      "code": "reas-mod03",
       "subject_code": "reasoning",
-      "title": "Verbal Reasoning: Relations, Directions and Arrangements",
+      "title": "Non-Verbal Reasoning",
+      "sort_order": 3
+    }
+  ],
+  "sub_modules": [
+    {
+      "code": "reas-mod01-sub01",
+      "module_code": "reas-mod01",
+      "title": "Patterns and Relationships",
+      "sort_order": 1
+    },
+    {
+      "code": "reas-mod01-sub02",
+      "module_code": "reas-mod01",
+      "title": "Coding, Alphabet and Sequence Tests",
+      "sort_order": 2
+    },
+    {
+      "code": "reas-mod01-sub03",
+      "module_code": "reas-mod01",
+      "title": "Relations, Directions and Arrangements",
       "sort_order": 3
     },
     {
-      "code": "reas-m04",
-      "subject_code": "reasoning",
-      "title": "Verbal Reasoning: Mathematical Reasoning",
+      "code": "reas-mod01-sub04",
+      "module_code": "reas-mod01",
+      "title": "Mathematical Reasoning",
       "sort_order": 4
     },
     {
-      "code": "reas-m05",
-      "subject_code": "reasoning",
-      "title": "Verbal Reasoning: Decision Making and Judgement",
+      "code": "reas-mod01-sub05",
+      "module_code": "reas-mod01",
+      "title": "Decision Making and Judgement",
       "sort_order": 5
     },
     {
-      "code": "reas-m06",
-      "subject_code": "reasoning",
-      "title": "Logical Deduction",
-      "sort_order": 6
+      "code": "reas-mod03-sub01",
+      "module_code": "reas-mod03",
+      "title": "Series, Analogy and Classification",
+      "sort_order": 1
     },
     {
-      "code": "reas-m07",
-      "subject_code": "reasoning",
-      "title": "Non-Verbal Reasoning: Series, Analogy and Classification",
-      "sort_order": 7
+      "code": "reas-mod03-sub02",
+      "module_code": "reas-mod03",
+      "title": "Patterns and Analysis",
+      "sort_order": 2
     },
     {
-      "code": "reas-m08",
-      "subject_code": "reasoning",
-      "title": "Non-Verbal Reasoning: Patterns and Analysis",
-      "sort_order": 8
+      "code": "reas-mod03-sub03",
+      "module_code": "reas-mod03",
+      "title": "Images and Figure Manipulation",
+      "sort_order": 3
     },
     {
-      "code": "reas-m09",
-      "subject_code": "reasoning",
-      "title": "Non-Verbal Reasoning: Images and Figure Manipulation",
-      "sort_order": 9
-    },
-    {
-      "code": "reas-m10",
-      "subject_code": "reasoning",
-      "title": "Non-Verbal Reasoning: Cubes, Dice and Figure Construction",
-      "sort_order": 10
+      "code": "reas-mod03-sub04",
+      "module_code": "reas-mod03",
+      "title": "Cubes, Dice and Figure Construction",
+      "sort_order": 4
     }
   ],
   "chapters": [
     {
       "code": "reas-c01",
       "subject_code": "reasoning",
-      "module_code": "reas-m01",
-      "title": "Series Completion (Verbal)",
-      "sort_order": 1
+      "module_code": "reas-mod01",
+      "title": "Series Completion",
+      "sort_order": 1,
+      "sub_module_code": "reas-mod01-sub01"
     },
     {
       "code": "reas-c02",
       "subject_code": "reasoning",
-      "module_code": "reas-m01",
-      "title": "Analogy (Verbal)",
-      "sort_order": 2
+      "module_code": "reas-mod01",
+      "title": "Analogy",
+      "sort_order": 2,
+      "sub_module_code": "reas-mod01-sub01"
     },
     {
       "code": "reas-c03",
       "subject_code": "reasoning",
-      "module_code": "reas-m01",
-      "title": "Classification (Odd One Out, Verbal)",
-      "sort_order": 3
+      "module_code": "reas-mod01",
+      "title": "Classification",
+      "sort_order": 3,
+      "sub_module_code": "reas-mod01-sub01"
     },
     {
       "code": "reas-c04",
       "subject_code": "reasoning",
-      "module_code": "reas-m01",
+      "module_code": "reas-mod01",
       "title": "Inserting the Missing Character",
-      "sort_order": 4
+      "sort_order": 4,
+      "sub_module_code": "reas-mod01-sub01"
     },
     {
       "code": "reas-c05",
       "subject_code": "reasoning",
-      "module_code": "reas-m01",
+      "module_code": "reas-mod01",
       "title": "Alpha-Numeric Sequence Puzzle",
-      "sort_order": 5
+      "sort_order": 5,
+      "sub_module_code": "reas-mod01-sub01"
     },
     {
       "code": "reas-c06",
       "subject_code": "reasoning",
-      "module_code": "reas-m02",
+      "module_code": "reas-mod01",
       "title": "Coding-Decoding",
-      "sort_order": 6
+      "sort_order": 6,
+      "sub_module_code": "reas-mod01-sub02"
     },
     {
       "code": "reas-c07",
       "subject_code": "reasoning",
-      "module_code": "reas-m02",
+      "module_code": "reas-mod01",
       "title": "Alphabet Test",
-      "sort_order": 7
+      "sort_order": 7,
+      "sub_module_code": "reas-mod01-sub02"
     },
     {
       "code": "reas-c08",
       "subject_code": "reasoning",
-      "module_code": "reas-m02",
+      "module_code": "reas-mod01",
       "title": "Number, Ranking and Time Sequence Test",
-      "sort_order": 8
+      "sort_order": 8,
+      "sub_module_code": "reas-mod01-sub02"
     },
     {
       "code": "reas-c09",
       "subject_code": "reasoning",
-      "module_code": "reas-m02",
+      "module_code": "reas-mod01",
       "title": "Logical Sequence of Words",
-      "sort_order": 9
+      "sort_order": 9,
+      "sub_module_code": "reas-mod01-sub02"
     },
     {
       "code": "reas-c10",
       "subject_code": "reasoning",
-      "module_code": "reas-m03",
+      "module_code": "reas-mod01",
       "title": "Blood Relations",
-      "sort_order": 10
+      "sort_order": 10,
+      "sub_module_code": "reas-mod01-sub03"
     },
     {
       "code": "reas-c11",
       "subject_code": "reasoning",
-      "module_code": "reas-m03",
+      "module_code": "reas-mod01",
       "title": "Direction Sense Test",
-      "sort_order": 11
+      "sort_order": 11,
+      "sub_module_code": "reas-mod01-sub03"
     },
     {
       "code": "reas-c12",
       "subject_code": "reasoning",
-      "module_code": "reas-m03",
+      "module_code": "reas-mod01",
       "title": "Puzzle Test",
-      "sort_order": 12
+      "sort_order": 12,
+      "sub_module_code": "reas-mod01-sub03"
     },
     {
       "code": "reas-c13",
       "subject_code": "reasoning",
-      "module_code": "reas-m03",
+      "module_code": "reas-mod01",
       "title": "Sequential Output Tracing",
-      "sort_order": 13
+      "sort_order": 13,
+      "sub_module_code": "reas-mod01-sub03"
     },
     {
       "code": "reas-c14",
       "subject_code": "reasoning",
-      "module_code": "reas-m03",
+      "module_code": "reas-mod01",
       "title": "Logical Venn Diagrams",
-      "sort_order": 14
+      "sort_order": 14,
+      "sub_module_code": "reas-mod01-sub03"
     },
     {
       "code": "reas-c15",
       "subject_code": "reasoning",
-      "module_code": "reas-m04",
+      "module_code": "reas-mod01",
       "title": "Mathematical Operations",
-      "sort_order": 15
+      "sort_order": 15,
+      "sub_module_code": "reas-mod01-sub04"
     },
     {
       "code": "reas-c16",
       "subject_code": "reasoning",
-      "module_code": "reas-m04",
+      "module_code": "reas-mod01",
       "title": "Arithmetical Reasoning",
-      "sort_order": 16
+      "sort_order": 16,
+      "sub_module_code": "reas-mod01-sub04"
     },
     {
       "code": "reas-c17",
       "subject_code": "reasoning",
-      "module_code": "reas-m04",
+      "module_code": "reas-mod01",
       "title": "Data Sufficiency",
-      "sort_order": 17
+      "sort_order": 17,
+      "sub_module_code": "reas-mod01-sub04"
     },
     {
       "code": "reas-c18",
       "subject_code": "reasoning",
-      "module_code": "reas-m05",
+      "module_code": "reas-mod01",
       "title": "Eligibility Test",
-      "sort_order": 18
+      "sort_order": 18,
+      "sub_module_code": "reas-mod01-sub05"
     },
     {
       "code": "reas-c19",
       "subject_code": "reasoning",
-      "module_code": "reas-m05",
+      "module_code": "reas-mod01",
       "title": "Assertion and Reason",
-      "sort_order": 19
+      "sort_order": 19,
+      "sub_module_code": "reas-mod01-sub05"
     },
     {
       "code": "reas-c20",
       "subject_code": "reasoning",
-      "module_code": "reas-m05",
+      "module_code": "reas-mod01",
       "title": "Situation Reaction Test",
-      "sort_order": 20
+      "sort_order": 20,
+      "sub_module_code": "reas-mod01-sub05"
     },
     {
       "code": "reas-c21",
       "subject_code": "reasoning",
-      "module_code": "reas-m05",
+      "module_code": "reas-mod01",
       "title": "Verification of Truth of the Statement",
-      "sort_order": 21
+      "sort_order": 21,
+      "sub_module_code": "reas-mod01-sub05"
     },
     {
       "code": "reas-c22",
       "subject_code": "reasoning",
-      "module_code": "reas-m06",
-      "title": "Logic: Syllogism",
+      "module_code": "reas-mod02",
+      "title": "Syllogism",
       "sort_order": 22
     },
     {
       "code": "reas-c23",
       "subject_code": "reasoning",
-      "module_code": "reas-m06",
+      "module_code": "reas-mod02",
       "title": "Statement and Arguments",
       "sort_order": 23
     },
     {
       "code": "reas-c24",
       "subject_code": "reasoning",
-      "module_code": "reas-m06",
+      "module_code": "reas-mod02",
       "title": "Statement and Assumptions",
       "sort_order": 24
     },
     {
       "code": "reas-c25",
       "subject_code": "reasoning",
-      "module_code": "reas-m06",
+      "module_code": "reas-mod02",
       "title": "Statement and Courses of Action",
       "sort_order": 25
     },
     {
       "code": "reas-c26",
       "subject_code": "reasoning",
-      "module_code": "reas-m06",
+      "module_code": "reas-mod02",
       "title": "Statement and Conclusions",
       "sort_order": 26
     },
     {
       "code": "reas-c27",
       "subject_code": "reasoning",
-      "module_code": "reas-m06",
+      "module_code": "reas-mod02",
       "title": "Deriving Conclusions from Passages",
       "sort_order": 27
     },
     {
       "code": "reas-c28",
       "subject_code": "reasoning",
-      "module_code": "reas-m06",
+      "module_code": "reas-mod02",
       "title": "Theme Detection",
       "sort_order": 28
     },
     {
       "code": "reas-c29",
       "subject_code": "reasoning",
-      "module_code": "reas-m06",
+      "module_code": "reas-mod02",
       "title": "Cause and Effect Reasoning",
       "sort_order": 29
     },
     {
       "code": "reas-c30",
       "subject_code": "reasoning",
-      "module_code": "reas-m07",
+      "module_code": "reas-mod03",
       "title": "Series (Figures)",
-      "sort_order": 30
+      "sort_order": 30,
+      "sub_module_code": "reas-mod03-sub01"
     },
     {
       "code": "reas-c31",
       "subject_code": "reasoning",
-      "module_code": "reas-m07",
+      "module_code": "reas-mod03",
       "title": "Analogy (Figures)",
-      "sort_order": 31
+      "sort_order": 31,
+      "sub_module_code": "reas-mod03-sub01"
     },
     {
       "code": "reas-c32",
       "subject_code": "reasoning",
-      "module_code": "reas-m07",
+      "module_code": "reas-mod03",
       "title": "Classification (Figures)",
-      "sort_order": 32
+      "sort_order": 32,
+      "sub_module_code": "reas-mod03-sub01"
     },
     {
       "code": "reas-c33",
       "subject_code": "reasoning",
-      "module_code": "reas-m08",
+      "module_code": "reas-mod03",
       "title": "Analytical Reasoning (Figures)",
-      "sort_order": 33
+      "sort_order": 33,
+      "sub_module_code": "reas-mod03-sub02"
     },
     {
       "code": "reas-c34",
       "subject_code": "reasoning",
-      "module_code": "reas-m08",
+      "module_code": "reas-mod03",
       "title": "Completion of Incomplete Pattern",
-      "sort_order": 34
+      "sort_order": 34,
+      "sub_module_code": "reas-mod03-sub02"
     },
     {
       "code": "reas-c35",
       "subject_code": "reasoning",
-      "module_code": "reas-m08",
+      "module_code": "reas-mod03",
       "title": "Figure Matrix",
-      "sort_order": 35
+      "sort_order": 35,
+      "sub_module_code": "reas-mod03-sub02"
     },
     {
       "code": "reas-c36",
       "subject_code": "reasoning",
-      "module_code": "reas-m08",
+      "module_code": "reas-mod03",
       "title": "Rule Detection",
-      "sort_order": 36
+      "sort_order": 36,
+      "sub_module_code": "reas-mod03-sub02"
     },
     {
       "code": "reas-c37",
       "subject_code": "reasoning",
-      "module_code": "reas-m08",
+      "module_code": "reas-mod03",
       "title": "Dot Situation",
-      "sort_order": 37
+      "sort_order": 37,
+      "sub_module_code": "reas-mod03-sub02"
     },
     {
       "code": "reas-c38",
       "subject_code": "reasoning",
-      "module_code": "reas-m09",
+      "module_code": "reas-mod03",
       "title": "Mirror Images",
-      "sort_order": 38
+      "sort_order": 38,
+      "sub_module_code": "reas-mod03-sub03"
     },
     {
       "code": "reas-c39",
       "subject_code": "reasoning",
-      "module_code": "reas-m09",
+      "module_code": "reas-mod03",
       "title": "Water Images",
-      "sort_order": 39
+      "sort_order": 39,
+      "sub_module_code": "reas-mod03-sub03"
     },
     {
       "code": "reas-c40",
       "subject_code": "reasoning",
-      "module_code": "reas-m09",
+      "module_code": "reas-mod03",
       "title": "Spotting Out the Embedded Figure",
-      "sort_order": 40
+      "sort_order": 40,
+      "sub_module_code": "reas-mod03-sub03"
     },
     {
       "code": "reas-c41",
       "subject_code": "reasoning",
-      "module_code": "reas-m09",
+      "module_code": "reas-mod03",
       "title": "Paper Folding",
-      "sort_order": 41
+      "sort_order": 41,
+      "sub_module_code": "reas-mod03-sub03"
     },
     {
       "code": "reas-c42",
       "subject_code": "reasoning",
-      "module_code": "reas-m09",
+      "module_code": "reas-mod03",
       "title": "Paper Cutting",
-      "sort_order": 42
+      "sort_order": 42,
+      "sub_module_code": "reas-mod03-sub03"
     },
     {
       "code": "reas-c43",
       "subject_code": "reasoning",
-      "module_code": "reas-m09",
+      "module_code": "reas-mod03",
       "title": "Grouping of Identical Figures",
-      "sort_order": 43
+      "sort_order": 43,
+      "sub_module_code": "reas-mod03-sub03"
     },
     {
       "code": "reas-c44",
       "subject_code": "reasoning",
-      "module_code": "reas-m10",
+      "module_code": "reas-mod03",
       "title": "Cubes and Dice",
-      "sort_order": 44
+      "sort_order": 44,
+      "sub_module_code": "reas-mod03-sub04"
     },
     {
       "code": "reas-c45",
       "subject_code": "reasoning",
-      "module_code": "reas-m10",
+      "module_code": "reas-mod03",
       "title": "Construction of Squares and Triangles",
-      "sort_order": 45
+      "sort_order": 45,
+      "sub_module_code": "reas-mod03-sub04"
     },
     {
       "code": "reas-c46",
       "subject_code": "reasoning",
-      "module_code": "reas-m10",
+      "module_code": "reas-mod03",
       "title": "Figure Formation and Analysis",
-      "sort_order": 46
+      "sort_order": 46,
+      "sub_module_code": "reas-mod03-sub04"
     }
   ],
   "topics": [

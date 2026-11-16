@@ -6,45 +6,53 @@
   },
   "modules": [
     {
-      "code": "ca-m01",
+      "code": "ca-mod01",
       "subject_code": "current-affairs",
+      "title": "CA",
+      "sort_order": 1
+    }
+  ],
+  "sub_modules": [
+    {
+      "code": "ca-mod01-sub01",
+      "module_code": "ca-mod01",
       "title": "Government, Politics and Appointments",
       "sort_order": 1
     },
     {
-      "code": "ca-m02",
-      "subject_code": "current-affairs",
+      "code": "ca-mod01-sub02",
+      "module_code": "ca-mod01",
       "title": "Policy, Schemes and Economy",
       "sort_order": 2
     },
     {
-      "code": "ca-m03",
-      "subject_code": "current-affairs",
+      "code": "ca-mod01-sub03",
+      "module_code": "ca-mod01",
       "title": "International Affairs and Summits",
       "sort_order": 3
     },
     {
-      "code": "ca-m04",
-      "subject_code": "current-affairs",
+      "code": "ca-mod01-sub04",
+      "module_code": "ca-mod01",
       "title": "Defence, Science, Space and Environment",
       "sort_order": 4
     },
     {
-      "code": "ca-m05",
-      "subject_code": "current-affairs",
+      "code": "ca-mod01-sub05",
+      "module_code": "ca-mod01",
       "title": "Indexes, Awards, Sports, Books and People",
       "sort_order": 5
     },
     {
-      "code": "ca-m06",
-      "subject_code": "current-affairs",
+      "code": "ca-mod01-sub06",
+      "module_code": "ca-mod01",
       "title": "Days, Themes and Abbreviations",
       "sort_order": 6
     },
     {
-      "code": "ca-m07",
-      "subject_code": "current-affairs",
-      "title": "Revision and Practice",
+      "code": "ca-mod01-sub07",
+      "module_code": "ca-mod01",
+      "title": "Miscellaneous",
       "sort_order": 7
     }
   ],
@@ -52,247 +60,282 @@
     {
       "code": "ca-c01",
       "subject_code": "current-affairs",
-      "module_code": "ca-m01",
+      "module_code": "ca-mod01",
       "title": "Union Council of Ministers",
-      "sort_order": 1
+      "sort_order": 1,
+      "sub_module_code": "ca-mod01-sub01"
     },
     {
       "code": "ca-c02",
       "subject_code": "current-affairs",
-      "module_code": "ca-m01",
+      "module_code": "ca-mod01",
       "title": "Appointments: Who, What, Where",
-      "sort_order": 2
+      "sort_order": 2,
+      "sub_module_code": "ca-mod01-sub01"
     },
     {
       "code": "ca-c03",
       "subject_code": "current-affairs",
-      "module_code": "ca-m01",
+      "module_code": "ca-mod01",
       "title": "States: Capitals, Governors and Chief Ministers",
-      "sort_order": 3
+      "sort_order": 3,
+      "sub_module_code": "ca-mod01-sub01"
     },
     {
       "code": "ca-c04",
       "subject_code": "current-affairs",
-      "module_code": "ca-m01",
+      "module_code": "ca-mod01",
       "title": "High Courts of India",
-      "sort_order": 4
+      "sort_order": 4,
+      "sub_module_code": "ca-mod01-sub01"
     },
     {
       "code": "ca-c05",
       "subject_code": "current-affairs",
-      "module_code": "ca-m01",
+      "module_code": "ca-mod01",
       "title": "State Assembly and General Elections",
-      "sort_order": 5
+      "sort_order": 5,
+      "sub_module_code": "ca-mod01-sub01"
     },
     {
       "code": "ca-c06",
       "subject_code": "current-affairs",
-      "module_code": "ca-m01",
+      "module_code": "ca-mod01",
       "title": "State Government Schemes",
-      "sort_order": 6
+      "sort_order": 6,
+      "sub_module_code": "ca-mod01-sub01"
     },
     {
       "code": "ca-c07",
       "subject_code": "current-affairs",
-      "module_code": "ca-m02",
+      "module_code": "ca-mod01",
       "title": "Central Government Schemes",
-      "sort_order": 7
+      "sort_order": 7,
+      "sub_module_code": "ca-mod01-sub02"
     },
     {
       "code": "ca-c08",
       "subject_code": "current-affairs",
-      "module_code": "ca-m02",
+      "module_code": "ca-mod01",
       "title": "Major Reports of the Government of India",
-      "sort_order": 8
+      "sort_order": 8,
+      "sub_module_code": "ca-mod01-sub02"
     },
     {
       "code": "ca-c09",
       "subject_code": "current-affairs",
-      "module_code": "ca-m02",
+      "module_code": "ca-mod01",
       "title": "Economic Survey",
-      "sort_order": 9
+      "sort_order": 9,
+      "sub_module_code": "ca-mod01-sub02"
     },
     {
       "code": "ca-c10",
       "subject_code": "current-affairs",
-      "module_code": "ca-m02",
+      "module_code": "ca-mod01",
       "title": "Union Budget",
-      "sort_order": 10
+      "sort_order": 10,
+      "sub_module_code": "ca-mod01-sub02"
     },
     {
       "code": "ca-c11",
       "subject_code": "current-affairs",
-      "module_code": "ca-m02",
+      "module_code": "ca-mod01",
       "title": "Economic Scenario",
-      "sort_order": 11
+      "sort_order": 11,
+      "sub_module_code": "ca-mod01-sub02"
     },
     {
       "code": "ca-c12",
       "subject_code": "current-affairs",
-      "module_code": "ca-m03",
+      "module_code": "ca-mod01",
       "title": "Countries of the World: Who, What, Where",
-      "sort_order": 12
+      "sort_order": 12,
+      "sub_module_code": "ca-mod01-sub03"
     },
     {
       "code": "ca-c13",
       "subject_code": "current-affairs",
-      "module_code": "ca-m03",
+      "module_code": "ca-mod01",
       "title": "International Organisations at a Glance",
-      "sort_order": 13
+      "sort_order": 13,
+      "sub_module_code": "ca-mod01-sub03"
     },
     {
       "code": "ca-c14",
       "subject_code": "current-affairs",
-      "module_code": "ca-m03",
+      "module_code": "ca-mod01",
       "title": "International Summits",
-      "sort_order": 14
+      "sort_order": 14,
+      "sub_module_code": "ca-mod01-sub03"
     },
     {
       "code": "ca-c15",
       "subject_code": "current-affairs",
-      "module_code": "ca-m03",
+      "module_code": "ca-mod01",
       "title": "National Summits",
-      "sort_order": 15
+      "sort_order": 15,
+      "sub_module_code": "ca-mod01-sub03"
     },
     {
       "code": "ca-c16",
       "subject_code": "current-affairs",
-      "module_code": "ca-m03",
+      "module_code": "ca-mod01",
       "title": "Important Conferences and Summits",
-      "sort_order": 16
+      "sort_order": 16,
+      "sub_module_code": "ca-mod01-sub03"
     },
     {
       "code": "ca-c17",
       "subject_code": "current-affairs",
-      "module_code": "ca-m03",
+      "module_code": "ca-mod01",
       "title": "Major MoUs and Agreements",
-      "sort_order": 17
+      "sort_order": 17,
+      "sub_module_code": "ca-mod01-sub03"
     },
     {
       "code": "ca-c18",
       "subject_code": "current-affairs",
-      "module_code": "ca-m04",
+      "module_code": "ca-mod01",
       "title": "Defence and Security",
-      "sort_order": 18
+      "sort_order": 18,
+      "sub_module_code": "ca-mod01-sub04"
     },
     {
       "code": "ca-c19",
       "subject_code": "current-affairs",
-      "module_code": "ca-m04",
+      "module_code": "ca-mod01",
       "title": "Joint Military Exercises",
-      "sort_order": 19
+      "sort_order": 19,
+      "sub_module_code": "ca-mod01-sub04"
     },
     {
       "code": "ca-c20",
       "subject_code": "current-affairs",
-      "module_code": "ca-m04",
+      "module_code": "ca-mod01",
       "title": "Major Operations",
-      "sort_order": 20
+      "sort_order": 20,
+      "sub_module_code": "ca-mod01-sub04"
     },
     {
       "code": "ca-c21",
       "subject_code": "current-affairs",
-      "module_code": "ca-m04",
+      "module_code": "ca-mod01",
       "title": "Science and Technology",
-      "sort_order": 21
+      "sort_order": 21,
+      "sub_module_code": "ca-mod01-sub04"
     },
     {
       "code": "ca-c22",
       "subject_code": "current-affairs",
-      "module_code": "ca-m04",
+      "module_code": "ca-mod01",
       "title": "Space Technology",
-      "sort_order": 22
+      "sort_order": 22,
+      "sub_module_code": "ca-mod01-sub04"
     },
     {
       "code": "ca-c23",
       "subject_code": "current-affairs",
-      "module_code": "ca-m04",
+      "module_code": "ca-mod01",
       "title": "Major Mobile Apps and Portals",
-      "sort_order": 23
+      "sort_order": 23,
+      "sub_module_code": "ca-mod01-sub04"
     },
     {
       "code": "ca-c24",
       "subject_code": "current-affairs",
-      "module_code": "ca-m04",
+      "module_code": "ca-mod01",
       "title": "Environment and Ecology",
-      "sort_order": 24
+      "sort_order": 24,
+      "sub_module_code": "ca-mod01-sub04"
     },
     {
       "code": "ca-c25",
       "subject_code": "current-affairs",
-      "module_code": "ca-m05",
+      "module_code": "ca-mod01",
       "title": "Indexes and Reports",
-      "sort_order": 25
+      "sort_order": 25,
+      "sub_module_code": "ca-mod01-sub05"
     },
     {
       "code": "ca-c26",
       "subject_code": "current-affairs",
-      "module_code": "ca-m05",
+      "module_code": "ca-mod01",
       "title": "National and International Awards",
-      "sort_order": 26
+      "sort_order": 26,
+      "sub_module_code": "ca-mod01-sub05"
     },
     {
       "code": "ca-c27",
       "subject_code": "current-affairs",
-      "module_code": "ca-m05",
+      "module_code": "ca-mod01",
       "title": "National Sports Awards",
-      "sort_order": 27
+      "sort_order": 27,
+      "sub_module_code": "ca-mod01-sub05"
     },
     {
       "code": "ca-c28",
       "subject_code": "current-affairs",
-      "module_code": "ca-m05",
+      "module_code": "ca-mod01",
       "title": "Sports Panorama",
-      "sort_order": 28
+      "sort_order": 28,
+      "sub_module_code": "ca-mod01-sub05"
     },
     {
       "code": "ca-c29",
       "subject_code": "current-affairs",
-      "module_code": "ca-m05",
+      "module_code": "ca-mod01",
       "title": "Books and Authors",
-      "sort_order": 29
+      "sort_order": 29,
+      "sub_module_code": "ca-mod01-sub05"
     },
     {
       "code": "ca-c30",
       "subject_code": "current-affairs",
-      "module_code": "ca-m05",
+      "module_code": "ca-mod01",
       "title": "Brand Ambassadors",
-      "sort_order": 30
+      "sort_order": 30,
+      "sub_module_code": "ca-mod01-sub05"
     },
     {
       "code": "ca-c31",
       "subject_code": "current-affairs",
-      "module_code": "ca-m05",
+      "module_code": "ca-mod01",
       "title": "Firsts in India and the World",
-      "sort_order": 31
+      "sort_order": 31,
+      "sub_module_code": "ca-mod01-sub05"
     },
     {
       "code": "ca-c32",
       "subject_code": "current-affairs",
-      "module_code": "ca-m06",
+      "module_code": "ca-mod01",
       "title": "Important Days",
-      "sort_order": 32
+      "sort_order": 32,
+      "sub_module_code": "ca-mod01-sub06"
     },
     {
       "code": "ca-c33",
       "subject_code": "current-affairs",
-      "module_code": "ca-m06",
+      "module_code": "ca-mod01",
       "title": "Important Days and Themes",
-      "sort_order": 33
+      "sort_order": 33,
+      "sub_module_code": "ca-mod01-sub06"
     },
     {
       "code": "ca-c34",
       "subject_code": "current-affairs",
-      "module_code": "ca-m06",
+      "module_code": "ca-mod01",
       "title": "Latest Abbreviations",
-      "sort_order": 34
+      "sort_order": 34,
+      "sub_module_code": "ca-mod01-sub06"
     },
     {
       "code": "ca-c35",
       "subject_code": "current-affairs",
-      "module_code": "ca-m07",
+      "module_code": "ca-mod01",
       "title": "Current Affairs Miscellaneous",
-      "sort_order": 35
+      "sort_order": 35,
+      "sub_module_code": "ca-mod01-sub07"
     }
   ],
   "topics": [

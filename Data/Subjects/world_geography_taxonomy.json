@@ -4,75 +4,67 @@
     "code": "geography",
     "title": "Geography"
   },
-  "scope": "World Geography",
-  "parts": [
-    {
-      "code": "geo-world",
-      "subject_code": "geography",
-      "title": "World Geography"
-    }
-  ],
   "modules": [
     {
-      "code": "geo-world-m01",
+      "code": "geo-world-mod01",
       "subject_code": "geography",
-      "part_code": "geo-world",
+      "title": "World Geography",
+      "sort_order": 1,
+      "part_code": "geo-world"
+    }
+  ],
+  "sub_modules": [
+    {
+      "code": "geo-world-mod01-sub01",
+      "module_code": "geo-world-mod01",
       "title": "Universe, Earth and Maps",
       "sort_order": 1
     },
     {
-      "code": "geo-world-m02",
-      "subject_code": "geography",
-      "part_code": "geo-world",
+      "code": "geo-world-mod01-sub02",
+      "module_code": "geo-world-mod01",
       "title": "Lithosphere: Rocks and Landforms",
       "sort_order": 2
     },
     {
-      "code": "geo-world-m03",
-      "subject_code": "geography",
-      "part_code": "geo-world",
+      "code": "geo-world-mod01-sub03",
+      "module_code": "geo-world-mod01",
       "title": "Atmosphere, Weather and Climate",
       "sort_order": 3
     },
     {
-      "code": "geo-world-m04",
-      "subject_code": "geography",
-      "part_code": "geo-world",
+      "code": "geo-world-mod01-sub04",
+      "module_code": "geo-world-mod01",
       "title": "Hydrosphere: Oceans, Rivers and Water Bodies",
       "sort_order": 4
     },
     {
-      "code": "geo-world-m05",
-      "subject_code": "geography",
-      "part_code": "geo-world",
+      "code": "geo-world-mod01-sub05",
+      "module_code": "geo-world-mod01",
       "title": "Soils and Natural Vegetation",
       "sort_order": 5
     },
     {
-      "code": "geo-world-m06",
-      "subject_code": "geography",
-      "part_code": "geo-world",
+      "code": "geo-world-mod01-sub06",
+      "module_code": "geo-world-mod01",
       "title": "Political Geography: Countries, Borders and Cities",
       "sort_order": 6
     },
     {
-      "code": "geo-world-m07",
-      "subject_code": "geography",
-      "part_code": "geo-world",
+      "code": "geo-world-mod01-sub07",
+      "module_code": "geo-world-mod01",
       "title": "People: Races, Tribes and Languages",
       "sort_order": 7
     },
     {
-      "code": "geo-world-m08",
-      "subject_code": "geography",
-      "part_code": "geo-world",
+      "code": "geo-world-mod01-sub08",
+      "module_code": "geo-world-mod01",
       "title": "Economic Geography",
       "sort_order": 8
     },
     {
-      "code": "geo-world-m09",
-      "subject_code": "geography",
-      "part_code": "geo-world",
+      "code": "geo-world-mod01-sub09",
+      "module_code": "geo-world-mod01",
       "title": "Miscellaneous",
       "sort_order": 9
     }
@@ -81,380 +73,434 @@
     {
       "code": "geo-world-c01",
       "subject_code": "geography",
-      "module_code": "geo-world-m01",
+      "module_code": "geo-world-mod01",
       "title": "The Universe and Solar System",
-      "sort_order": 1
+      "sort_order": 1,
+      "sub_module_code": "geo-world-mod01-sub01"
     },
     {
       "code": "geo-world-c02",
       "subject_code": "geography",
-      "module_code": "geo-world-m01",
+      "module_code": "geo-world-mod01",
       "title": "The Earth: Structure, Motions and Latitudes",
-      "sort_order": 2
+      "sort_order": 2,
+      "sub_module_code": "geo-world-mod01-sub01"
     },
     {
       "code": "geo-world-c03",
       "subject_code": "geography",
-      "module_code": "geo-world-m01",
+      "module_code": "geo-world-mod01",
       "title": "Maps, Projections and Map Skills",
-      "sort_order": 3
+      "sort_order": 3,
+      "sub_module_code": "geo-world-mod01-sub01"
     },
     {
       "code": "geo-world-c04",
       "subject_code": "geography",
-      "module_code": "geo-world-m02",
+      "module_code": "geo-world-mod01",
       "title": "Rocks and Rock Types",
-      "sort_order": 4
+      "sort_order": 4,
+      "sub_module_code": "geo-world-mod01-sub02"
     },
     {
       "code": "geo-world-c05",
       "subject_code": "geography",
-      "module_code": "geo-world-m02",
+      "module_code": "geo-world-mod01",
       "title": "Volcanoes",
-      "sort_order": 5
+      "sort_order": 5,
+      "sub_module_code": "geo-world-mod01-sub02"
     },
     {
       "code": "geo-world-c06",
       "subject_code": "geography",
-      "module_code": "geo-world-m02",
+      "module_code": "geo-world-mod01",
       "title": "Earthquakes",
-      "sort_order": 6
+      "sort_order": 6,
+      "sub_module_code": "geo-world-mod01-sub02"
     },
     {
       "code": "geo-world-c07",
       "subject_code": "geography",
-      "module_code": "geo-world-m02",
+      "module_code": "geo-world-mod01",
       "title": "Continents of the World",
-      "sort_order": 7
+      "sort_order": 7,
+      "sub_module_code": "geo-world-mod01-sub02"
     },
     {
       "code": "geo-world-c08",
       "subject_code": "geography",
-      "module_code": "geo-world-m02",
+      "module_code": "geo-world-mod01",
       "title": "Major Mountain Ranges of the World",
-      "sort_order": 8
+      "sort_order": 8,
+      "sub_module_code": "geo-world-mod01-sub02"
     },
     {
       "code": "geo-world-c09",
       "subject_code": "geography",
-      "module_code": "geo-world-m02",
+      "module_code": "geo-world-mod01",
       "title": "Plateaus of the World",
-      "sort_order": 9
+      "sort_order": 9,
+      "sub_module_code": "geo-world-mod01-sub02"
     },
     {
       "code": "geo-world-c10",
       "subject_code": "geography",
-      "module_code": "geo-world-m02",
+      "module_code": "geo-world-mod01",
       "title": "Valleys of the World",
-      "sort_order": 10
+      "sort_order": 10,
+      "sub_module_code": "geo-world-mod01-sub02"
     },
     {
       "code": "geo-world-c11",
       "subject_code": "geography",
-      "module_code": "geo-world-m02",
+      "module_code": "geo-world-mod01",
       "title": "River-Made Landforms",
-      "sort_order": 11
+      "sort_order": 11,
+      "sub_module_code": "geo-world-mod01-sub02"
     },
     {
       "code": "geo-world-c12",
       "subject_code": "geography",
-      "module_code": "geo-world-m02",
+      "module_code": "geo-world-mod01",
       "title": "Deserts of the World",
-      "sort_order": 12
+      "sort_order": 12,
+      "sub_module_code": "geo-world-mod01-sub02"
     },
     {
       "code": "geo-world-c13",
       "subject_code": "geography",
-      "module_code": "geo-world-m02",
+      "module_code": "geo-world-mod01",
       "title": "Grasslands of the World",
-      "sort_order": 13
+      "sort_order": 13,
+      "sub_module_code": "geo-world-mod01-sub02"
     },
     {
       "code": "geo-world-c14",
       "subject_code": "geography",
-      "module_code": "geo-world-m03",
+      "module_code": "geo-world-mod01",
       "title": "Structure and Composition of the Atmosphere",
-      "sort_order": 14
+      "sort_order": 14,
+      "sub_module_code": "geo-world-mod01-sub03"
     },
     {
       "code": "geo-world-c15",
       "subject_code": "geography",
-      "module_code": "geo-world-m03",
+      "module_code": "geo-world-mod01",
       "title": "Insolation and Heat Budget",
-      "sort_order": 15
+      "sort_order": 15,
+      "sub_module_code": "geo-world-mod01-sub03"
     },
     {
       "code": "geo-world-c16",
       "subject_code": "geography",
-      "module_code": "geo-world-m03",
+      "module_code": "geo-world-mod01",
       "title": "Air Pressure and Pressure Belts",
-      "sort_order": 16
+      "sort_order": 16,
+      "sub_module_code": "geo-world-mod01-sub03"
     },
     {
       "code": "geo-world-c17",
       "subject_code": "geography",
-      "module_code": "geo-world-m03",
+      "module_code": "geo-world-mod01",
       "title": "Planetary and Periodic Winds",
-      "sort_order": 17
+      "sort_order": 17,
+      "sub_module_code": "geo-world-mod01-sub03"
     },
     {
       "code": "geo-world-c18",
       "subject_code": "geography",
-      "module_code": "geo-world-m03",
+      "module_code": "geo-world-mod01",
       "title": "Local Winds",
-      "sort_order": 18
+      "sort_order": 18,
+      "sub_module_code": "geo-world-mod01-sub03"
     },
     {
       "code": "geo-world-c19",
       "subject_code": "geography",
-      "module_code": "geo-world-m03",
+      "module_code": "geo-world-mod01",
       "title": "Humidity and Precipitation",
-      "sort_order": 19
+      "sort_order": 19,
+      "sub_module_code": "geo-world-mod01-sub03"
     },
     {
       "code": "geo-world-c20",
       "subject_code": "geography",
-      "module_code": "geo-world-m03",
+      "module_code": "geo-world-mod01",
       "title": "Clouds",
-      "sort_order": 20
+      "sort_order": 20,
+      "sub_module_code": "geo-world-mod01-sub03"
     },
     {
       "code": "geo-world-c21",
       "subject_code": "geography",
-      "module_code": "geo-world-m03",
+      "module_code": "geo-world-mod01",
       "title": "Cyclones and Storms",
-      "sort_order": 21
+      "sort_order": 21,
+      "sub_module_code": "geo-world-mod01-sub03"
     },
     {
       "code": "geo-world-c22",
       "subject_code": "geography",
-      "module_code": "geo-world-m03",
+      "module_code": "geo-world-mod01",
       "title": "Climate and Climatic Regions",
-      "sort_order": 22
+      "sort_order": 22,
+      "sub_module_code": "geo-world-mod01-sub03"
     },
     {
       "code": "geo-world-c23",
       "subject_code": "geography",
-      "module_code": "geo-world-m04",
+      "module_code": "geo-world-mod01",
       "title": "The Hydrosphere",
-      "sort_order": 23
+      "sort_order": 23,
+      "sub_module_code": "geo-world-mod01-sub04"
     },
     {
       "code": "geo-world-c24",
       "subject_code": "geography",
-      "module_code": "geo-world-m04",
+      "module_code": "geo-world-mod01",
       "title": "Major Oceans of the World",
-      "sort_order": 24
+      "sort_order": 24,
+      "sub_module_code": "geo-world-mod01-sub04"
     },
     {
       "code": "geo-world-c25",
       "subject_code": "geography",
-      "module_code": "geo-world-m04",
+      "module_code": "geo-world-mod01",
       "title": "Ocean Relief and Oceanic Trenches",
-      "sort_order": 25
+      "sort_order": 25,
+      "sub_module_code": "geo-world-mod01-sub04"
     },
     {
       "code": "geo-world-c26",
       "subject_code": "geography",
-      "module_code": "geo-world-m04",
+      "module_code": "geo-world-mod01",
       "title": "Salinity of Ocean Water",
-      "sort_order": 26
+      "sort_order": 26,
+      "sub_module_code": "geo-world-mod01-sub04"
     },
     {
       "code": "geo-world-c27",
       "subject_code": "geography",
-      "module_code": "geo-world-m04",
+      "module_code": "geo-world-mod01",
       "title": "Oceanic Currents",
-      "sort_order": 27
+      "sort_order": 27,
+      "sub_module_code": "geo-world-mod01-sub04"
     },
     {
       "code": "geo-world-c28",
       "subject_code": "geography",
-      "module_code": "geo-world-m04",
+      "module_code": "geo-world-mod01",
       "title": "Tides: High Tide and Low Tide",
-      "sort_order": 28
+      "sort_order": 28,
+      "sub_module_code": "geo-world-mod01-sub04"
     },
     {
       "code": "geo-world-c29",
       "subject_code": "geography",
-      "module_code": "geo-world-m04",
+      "module_code": "geo-world-mod01",
       "title": "Coral Reefs",
-      "sort_order": 29
+      "sort_order": 29,
+      "sub_module_code": "geo-world-mod01-sub04"
     },
     {
       "code": "geo-world-c30",
       "subject_code": "geography",
-      "module_code": "geo-world-m04",
+      "module_code": "geo-world-mod01",
       "title": "Islands of the World",
-      "sort_order": 30
+      "sort_order": 30,
+      "sub_module_code": "geo-world-mod01-sub04"
     },
     {
       "code": "geo-world-c31",
       "subject_code": "geography",
-      "module_code": "geo-world-m04",
+      "module_code": "geo-world-mod01",
       "title": "Straits of the World",
-      "sort_order": 31
+      "sort_order": 31,
+      "sub_module_code": "geo-world-mod01-sub04"
     },
     {
       "code": "geo-world-c32",
       "subject_code": "geography",
-      "module_code": "geo-world-m04",
+      "module_code": "geo-world-mod01",
       "title": "Rivers of the World",
-      "sort_order": 32
+      "sort_order": 32,
+      "sub_module_code": "geo-world-mod01-sub04"
     },
     {
       "code": "geo-world-c33",
       "subject_code": "geography",
-      "module_code": "geo-world-m04",
+      "module_code": "geo-world-mod01",
       "title": "Lakes and Waterfalls of the World",
-      "sort_order": 33
+      "sort_order": 33,
+      "sub_module_code": "geo-world-mod01-sub04"
     },
     {
       "code": "geo-world-c34",
       "subject_code": "geography",
-      "module_code": "geo-world-m04",
+      "module_code": "geo-world-mod01",
       "title": "Canals of the World",
-      "sort_order": 34
+      "sort_order": 34,
+      "sub_module_code": "geo-world-mod01-sub04"
     },
     {
       "code": "geo-world-c35",
       "subject_code": "geography",
-      "module_code": "geo-world-m04",
+      "module_code": "geo-world-mod01",
       "title": "Dams of the World",
-      "sort_order": 35
+      "sort_order": 35,
+      "sub_module_code": "geo-world-mod01-sub04"
     },
     {
       "code": "geo-world-c36",
       "subject_code": "geography",
-      "module_code": "geo-world-m04",
+      "module_code": "geo-world-mod01",
       "title": "Cities Along the Banks of Rivers",
-      "sort_order": 36
+      "sort_order": 36,
+      "sub_module_code": "geo-world-mod01-sub04"
     },
     {
       "code": "geo-world-c37",
       "subject_code": "geography",
-      "module_code": "geo-world-m05",
+      "module_code": "geo-world-mod01",
       "title": "Soils of the World",
-      "sort_order": 37
+      "sort_order": 37,
+      "sub_module_code": "geo-world-mod01-sub05"
     },
     {
       "code": "geo-world-c38",
       "subject_code": "geography",
-      "module_code": "geo-world-m05",
+      "module_code": "geo-world-mod01",
       "title": "Forests and Natural Vegetation",
-      "sort_order": 38
+      "sort_order": 38,
+      "sub_module_code": "geo-world-mod01-sub05"
     },
     {
       "code": "geo-world-c39",
       "subject_code": "geography",
-      "module_code": "geo-world-m06",
+      "module_code": "geo-world-mod01",
       "title": "Countries of the World and Their Borders",
-      "sort_order": 39
+      "sort_order": 39,
+      "sub_module_code": "geo-world-mod01-sub06"
     },
     {
       "code": "geo-world-c40",
       "subject_code": "geography",
-      "module_code": "geo-world-m06",
+      "module_code": "geo-world-mod01",
       "title": "International Boundary Lines",
-      "sort_order": 40
+      "sort_order": 40,
+      "sub_module_code": "geo-world-mod01-sub06"
     },
     {
       "code": "geo-world-c41",
       "subject_code": "geography",
-      "module_code": "geo-world-m06",
+      "module_code": "geo-world-mod01",
       "title": "Land-Locked Countries",
-      "sort_order": 41
+      "sort_order": 41,
+      "sub_module_code": "geo-world-mod01-sub06"
     },
     {
       "code": "geo-world-c42",
       "subject_code": "geography",
-      "module_code": "geo-world-m06",
+      "module_code": "geo-world-mod01",
       "title": "Dependent Territories",
-      "sort_order": 42
+      "sort_order": 42,
+      "sub_module_code": "geo-world-mod01-sub06"
     },
     {
       "code": "geo-world-c43",
       "subject_code": "geography",
-      "module_code": "geo-world-m06",
+      "module_code": "geo-world-mod01",
       "title": "Former and Old Names of Countries",
-      "sort_order": 43
+      "sort_order": 43,
+      "sub_module_code": "geo-world-mod01-sub06"
     },
     {
       "code": "geo-world-c44",
       "subject_code": "geography",
-      "module_code": "geo-world-m06",
+      "module_code": "geo-world-mod01",
       "title": "Capitals of Countries",
-      "sort_order": 44
+      "sort_order": 44,
+      "sub_module_code": "geo-world-mod01-sub06"
     },
     {
       "code": "geo-world-c45",
       "subject_code": "geography",
-      "module_code": "geo-world-m06",
+      "module_code": "geo-world-mod01",
       "title": "Important Cities of the World",
-      "sort_order": 45
+      "sort_order": 45,
+      "sub_module_code": "geo-world-mod01-sub06"
     },
     {
       "code": "geo-world-c46",
       "subject_code": "geography",
-      "module_code": "geo-world-m06",
+      "module_code": "geo-world-mod01",
       "title": "Geographical Nicknames",
-      "sort_order": 46
+      "sort_order": 46,
+      "sub_module_code": "geo-world-mod01-sub06"
     },
     {
       "code": "geo-world-c47",
       "subject_code": "geography",
-      "module_code": "geo-world-m07",
+      "module_code": "geo-world-mod01",
       "title": "Races and Tribes of the World",
-      "sort_order": 47
+      "sort_order": 47,
+      "sub_module_code": "geo-world-mod01-sub07"
     },
     {
       "code": "geo-world-c48",
       "subject_code": "geography",
-      "module_code": "geo-world-m07",
+      "module_code": "geo-world-mod01",
       "title": "Languages of the World",
-      "sort_order": 48
+      "sort_order": 48,
+      "sub_module_code": "geo-world-mod01-sub07"
     },
     {
       "code": "geo-world-c49",
       "subject_code": "geography",
-      "module_code": "geo-world-m08",
+      "module_code": "geo-world-mod01",
       "title": "World Agriculture",
-      "sort_order": 49
+      "sort_order": 49,
+      "sub_module_code": "geo-world-mod01-sub08"
     },
     {
       "code": "geo-world-c50",
       "subject_code": "geography",
-      "module_code": "geo-world-m08",
+      "module_code": "geo-world-mod01",
       "title": "Mineral Resources of the World",
-      "sort_order": 50
+      "sort_order": 50,
+      "sub_module_code": "geo-world-mod01-sub08"
     },
     {
       "code": "geo-world-c51",
       "subject_code": "geography",
-      "module_code": "geo-world-m08",
+      "module_code": "geo-world-mod01",
       "title": "Industrial Cities and Industries",
-      "sort_order": 51
+      "sort_order": 51,
+      "sub_module_code": "geo-world-mod01-sub08"
     },
     {
       "code": "geo-world-c52",
       "subject_code": "geography",
-      "module_code": "geo-world-m08",
+      "module_code": "geo-world-mod01",
       "title": "Transport Systems of the World",
-      "sort_order": 52
+      "sort_order": 52,
+      "sub_module_code": "geo-world-mod01-sub08"
     },
     {
       "code": "geo-world-c53",
       "subject_code": "geography",
-      "module_code": "geo-world-m08",
+      "module_code": "geo-world-mod01",
       "title": "Ports and Harbours",
-      "sort_order": 53
+      "sort_order": 53,
+      "sub_module_code": "geo-world-mod01-sub08"
     },
     {
       "code": "geo-world-c54",
       "subject_code": "geography",
-      "module_code": "geo-world-m09",
+      "module_code": "geo-world-mod01",
       "title": "Miscellaneous (Mixed World Geography)",
-      "sort_order": 54
+      "sort_order": 54,
+      "sub_module_code": "geo-world-mod01-sub09"
     }
   ],
   "topics": [
@@ -2704,6 +2750,13 @@
       "title": "Map-based facts",
       "notes": "locating features on outline maps.",
       "sort_order": 5
+    }
+  ],
+  "parts": [
+    {
+      "code": "geo-world",
+      "subject_code": "geography",
+      "title": "World"
     }
   ]
 }

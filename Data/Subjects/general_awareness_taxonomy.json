@@ -6,84 +6,99 @@
   },
   "modules": [
     {
-      "code": "ga-m01",
+      "code": "ga-mod01",
       "subject_code": "general-awareness",
+      "title": "GA",
+      "sort_order": 1
+    },
+    {
+      "code": "ga-mod02",
+      "subject_code": "general-awareness",
+      "title": "Revision",
+      "sort_order": 4
+    }
+  ],
+  "sub_modules": [
+    {
+      "code": "ga-mod01-sub01",
+      "module_code": "ga-mod01",
       "title": "Science, Space and Defence",
       "sort_order": 1
     },
     {
-      "code": "ga-m02",
-      "subject_code": "general-awareness",
+      "code": "ga-mod01-sub02",
+      "module_code": "ga-mod01",
       "title": "Art, Culture and Literature",
       "sort_order": 2
     },
     {
-      "code": "ga-m03",
-      "subject_code": "general-awareness",
+      "code": "ga-mod01-sub03",
+      "module_code": "ga-mod01",
       "title": "Awards and Sports",
       "sort_order": 3
-    },
-    {
-      "code": "ga-m04",
-      "subject_code": "general-awareness",
-      "title": "Revision",
-      "sort_order": 4
     }
   ],
   "chapters": [
     {
       "code": "ga-c01",
       "subject_code": "general-awareness",
-      "module_code": "ga-m01",
+      "module_code": "ga-mod01",
       "title": "Scientists and Inventions",
-      "sort_order": 1
+      "sort_order": 1,
+      "sub_module_code": "ga-mod01-sub01"
     },
     {
       "code": "ga-c02",
       "subject_code": "general-awareness",
-      "module_code": "ga-m01",
+      "module_code": "ga-mod01",
       "title": "Space and Satellites",
-      "sort_order": 2
+      "sort_order": 2,
+      "sub_module_code": "ga-mod01-sub01"
     },
     {
       "code": "ga-c03",
       "subject_code": "general-awareness",
-      "module_code": "ga-m01",
+      "module_code": "ga-mod01",
       "title": "Defence and Armed Forces",
-      "sort_order": 3
+      "sort_order": 3,
+      "sub_module_code": "ga-mod01-sub01"
     },
     {
       "code": "ga-c04",
       "subject_code": "general-awareness",
-      "module_code": "ga-m02",
+      "module_code": "ga-mod01",
       "title": "Indian Art and Culture",
-      "sort_order": 4
+      "sort_order": 4,
+      "sub_module_code": "ga-mod01-sub02"
     },
     {
       "code": "ga-c05",
       "subject_code": "general-awareness",
-      "module_code": "ga-m02",
+      "module_code": "ga-mod01",
       "title": "Books and Authors",
-      "sort_order": 5
+      "sort_order": 5,
+      "sub_module_code": "ga-mod01-sub02"
     },
     {
       "code": "ga-c06",
       "subject_code": "general-awareness",
-      "module_code": "ga-m03",
+      "module_code": "ga-mod01",
       "title": "Awards and Honours",
-      "sort_order": 6
+      "sort_order": 6,
+      "sub_module_code": "ga-mod01-sub03"
     },
     {
       "code": "ga-c07",
       "subject_code": "general-awareness",
-      "module_code": "ga-m03",
+      "module_code": "ga-mod01",
       "title": "Sports",
-      "sort_order": 7
+      "sort_order": 7,
+      "sub_module_code": "ga-mod01-sub03"
     },
     {
       "code": "ga-c08",
       "subject_code": "general-awareness",
-      "module_code": "ga-m04",
+      "module_code": "ga-mod02",
       "title": "General Awareness Miscellaneous",
       "sort_order": 8
     }

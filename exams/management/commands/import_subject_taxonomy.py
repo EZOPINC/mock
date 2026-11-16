@@ -15,6 +15,8 @@ class Command(BaseCommand):
         parser.add_argument("file")
         parser.add_argument("--dry-run", action="store_true")
         parser.add_argument("--create-subjects", action="store_true")
+        parser.add_argument("--attach-submodules", action="store_true",
+                            help="Explicitly attach a Module chapter to its first Submodule within the same Module.")
         parser.add_argument("--attach-unassigned-chapters", action="store_true",
                             help="Explicitly attach direct-subject chapters to their first same-subject module; never move an existing parent.")
 
@@ -23,7 +25,8 @@ class Command(BaseCommand):
             data = json.loads(Path(options["file"]).read_text(encoding="utf-8-sig"))
             with transaction.atomic():
                 plan, counts = plan_taxonomy(data, create_subjects=options["create_subjects"],
-                                             attach_unassigned_chapters=options["attach_unassigned_chapters"])
+                                             attach_unassigned_chapters=options["attach_unassigned_chapters"],
+                                             attach_submodules=options["attach_submodules"])
                 if not options["dry_run"]:
                     persist_taxonomy(plan)
         except (OSError, ValueError, TypeError, ValidationError, IntegrityError) as error:

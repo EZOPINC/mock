@@ -4,40 +4,45 @@
     "code": "geography",
     "title": "Geography"
   },
-  "scope": "West Bengal Geography",
   "parts": [
     {
       "code": "geo-west-bengal",
       "subject_code": "geography",
-      "title": "West Bengal Geography"
+      "title": "West Bengal",
+      "sort_order": 2
     }
   ],
   "modules": [
     {
-      "code": "geo-west-bengal-m01",
+      "code": "geo-west-bengal-mod01",
       "subject_code": "geography",
-      "part_code": "geo-west-bengal",
+      "title": "West Bengal Geography",
+      "sort_order": 2,
+      "part_code": "geo-west-bengal"
+    }
+  ],
+  "sub_modules": [
+    {
+      "code": "geo-west-bengal-mod01-sub01",
+      "module_code": "geo-west-bengal-mod01",
       "title": "Location and Physical Setting",
       "sort_order": 1
     },
     {
-      "code": "geo-west-bengal-m02",
-      "subject_code": "geography",
-      "part_code": "geo-west-bengal",
+      "code": "geo-west-bengal-mod01-sub02",
+      "module_code": "geo-west-bengal-mod01",
       "title": "Climate, Soil and Vegetation",
       "sort_order": 2
     },
     {
-      "code": "geo-west-bengal-m03",
-      "subject_code": "geography",
-      "part_code": "geo-west-bengal",
+      "code": "geo-west-bengal-mod01-sub03",
+      "module_code": "geo-west-bengal-mod01",
       "title": "Resources and Economic Activities",
       "sort_order": 3
     },
     {
-      "code": "geo-west-bengal-m04",
-      "subject_code": "geography",
-      "part_code": "geo-west-bengal",
+      "code": "geo-west-bengal-mod01-sub04",
+      "module_code": "geo-west-bengal-mod01",
       "title": "Population",
       "sort_order": 4
     }
@@ -46,86 +51,98 @@
     {
       "code": "geo-west-bengal-c01",
       "subject_code": "geography",
-      "module_code": "geo-west-bengal-m01",
+      "module_code": "geo-west-bengal-mod01",
       "title": "Introduction: Location and Administrative Divisions",
-      "sort_order": 1
+      "sort_order": 1,
+      "sub_module_code": "geo-west-bengal-mod01-sub01"
     },
     {
       "code": "geo-west-bengal-c02",
       "subject_code": "geography",
-      "module_code": "geo-west-bengal-m01",
+      "module_code": "geo-west-bengal-mod01",
       "title": "Physiographic Divisions",
-      "sort_order": 2
+      "sort_order": 2,
+      "sub_module_code": "geo-west-bengal-mod01-sub01"
     },
     {
       "code": "geo-west-bengal-c03",
       "subject_code": "geography",
-      "module_code": "geo-west-bengal-m01",
+      "module_code": "geo-west-bengal-mod01",
       "title": "Rivers and Multipurpose Projects",
-      "sort_order": 3
+      "sort_order": 3,
+      "sub_module_code": "geo-west-bengal-mod01-sub01"
     },
     {
       "code": "geo-west-bengal-c04",
       "subject_code": "geography",
-      "module_code": "geo-west-bengal-m01",
+      "module_code": "geo-west-bengal-mod01",
       "title": "Lakes and Waterfalls",
-      "sort_order": 4
+      "sort_order": 4,
+      "sub_module_code": "geo-west-bengal-mod01-sub01"
     },
     {
       "code": "geo-west-bengal-c05",
       "subject_code": "geography",
-      "module_code": "geo-west-bengal-m02",
+      "module_code": "geo-west-bengal-mod01",
       "title": "Climate",
-      "sort_order": 5
+      "sort_order": 5,
+      "sub_module_code": "geo-west-bengal-mod01-sub02"
     },
     {
       "code": "geo-west-bengal-c06",
       "subject_code": "geography",
-      "module_code": "geo-west-bengal-m02",
+      "module_code": "geo-west-bengal-mod01",
       "title": "Soils",
-      "sort_order": 6
+      "sort_order": 6,
+      "sub_module_code": "geo-west-bengal-mod01-sub02"
     },
     {
       "code": "geo-west-bengal-c07",
       "subject_code": "geography",
-      "module_code": "geo-west-bengal-m02",
+      "module_code": "geo-west-bengal-mod01",
       "title": "Natural Vegetation",
-      "sort_order": 7
+      "sort_order": 7,
+      "sub_module_code": "geo-west-bengal-mod01-sub02"
     },
     {
       "code": "geo-west-bengal-c08",
       "subject_code": "geography",
-      "module_code": "geo-west-bengal-m03",
+      "module_code": "geo-west-bengal-mod01",
       "title": "Agriculture",
-      "sort_order": 8
+      "sort_order": 8,
+      "sub_module_code": "geo-west-bengal-mod01-sub03"
     },
     {
       "code": "geo-west-bengal-c09",
       "subject_code": "geography",
-      "module_code": "geo-west-bengal-m03",
+      "module_code": "geo-west-bengal-mod01",
       "title": "Mineral Resources",
-      "sort_order": 9
+      "sort_order": 9,
+      "sub_module_code": "geo-west-bengal-mod01-sub03"
     },
     {
       "code": "geo-west-bengal-c10",
       "subject_code": "geography",
-      "module_code": "geo-west-bengal-m03",
+      "module_code": "geo-west-bengal-mod01",
       "title": "Industries",
-      "sort_order": 10
+      "sort_order": 10,
+      "sub_module_code": "geo-west-bengal-mod01-sub03"
     },
     {
       "code": "geo-west-bengal-c11",
       "subject_code": "geography",
-      "module_code": "geo-west-bengal-m03",
+      "module_code": "geo-west-bengal-mod01",
       "title": "Transport and Communication",
-      "sort_order": 11
+      "sort_order": 11,
+      "sub_module_code": "geo-west-bengal-mod01-sub03"
     },
     {
       "code": "geo-west-bengal-c12",
       "subject_code": "geography",
-      "module_code": "geo-west-bengal-m04",
+      "module_code": "geo-west-bengal-mod01",
       "title": "Population and Census",
-      "sort_order": 12
+      "sort_order": 12,
+      "sub_module_code": "geo-west-bengal-mod01-sub04"
     }
   ],
   "topics": [

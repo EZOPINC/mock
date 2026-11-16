@@ -6,2857 +6,2925 @@
   },
   "modules": [
     {
-      "code": "sci-m01",
+      "code": "sci-mod01",
       "subject_code": "general-science",
-      "title": "Physics: Measurement and Mechanics",
+      "title": "Physics",
       "sort_order": 1
     },
     {
-      "code": "sci-m02",
+      "code": "sci-mod02",
       "subject_code": "general-science",
-      "title": "Physics: Heat, Waves, Sound and Light",
+      "title": "Chemistry",
       "sort_order": 2
     },
     {
-      "code": "sci-m03",
+      "code": "sci-mod03",
       "subject_code": "general-science",
-      "title": "Physics: Electricity and Nuclear Physics",
+      "title": "Biology",
       "sort_order": 3
     },
     {
-      "code": "sci-m04",
+      "code": "sci-mod04",
       "subject_code": "general-science",
-      "title": "Chemistry: Basic Concepts",
+      "title": "Computer and Information Technology",
+      "sort_order": 4
+    }
+  ],
+  "sub_modules": [
+    {
+      "code": "sci-mod01-sub01",
+      "module_code": "sci-mod01",
+      "title": "Measurement and Mechanics",
+      "sort_order": 1
+    },
+    {
+      "code": "sci-mod01-sub02",
+      "module_code": "sci-mod01",
+      "title": "Heat, Waves, Sound and Light",
+      "sort_order": 2
+    },
+    {
+      "code": "sci-mod01-sub03",
+      "module_code": "sci-mod01",
+      "title": "Electricity and Nuclear Physics",
+      "sort_order": 3
+    },
+    {
+      "code": "sci-mod02-sub01",
+      "module_code": "sci-mod02",
+      "title": "Basic Concepts",
+      "sort_order": 1
+    },
+    {
+      "code": "sci-mod02-sub02",
+      "module_code": "sci-mod02",
+      "title": "Elements, Metals and Materials",
+      "sort_order": 2
+    },
+    {
+      "code": "sci-mod02-sub03",
+      "module_code": "sci-mod02",
+      "title": "Organic Chemistry",
+      "sort_order": 3
+    },
+    {
+      "code": "sci-mod02-sub04",
+      "module_code": "sci-mod02",
+      "title": "Applied and Everyday Chemistry",
       "sort_order": 4
     },
     {
-      "code": "sci-m05",
-      "subject_code": "general-science",
-      "title": "Chemistry: Elements, Metals and Materials",
-      "sort_order": 5
+      "code": "sci-mod03-sub01",
+      "module_code": "sci-mod03",
+      "title": "The Living World",
+      "sort_order": 1
     },
     {
-      "code": "sci-m06",
-      "subject_code": "general-science",
-      "title": "Chemistry: Organic Chemistry",
-      "sort_order": 6
+      "code": "sci-mod03-sub02",
+      "module_code": "sci-mod03",
+      "title": "Plant and Human Physiology",
+      "sort_order": 2
     },
     {
-      "code": "sci-m07",
-      "subject_code": "general-science",
-      "title": "Chemistry: Applied and Everyday Chemistry",
-      "sort_order": 7
-    },
-    {
-      "code": "sci-m08",
-      "subject_code": "general-science",
-      "title": "Biology: The Living World",
-      "sort_order": 8
-    },
-    {
-      "code": "sci-m09",
-      "subject_code": "general-science",
-      "title": "Biology: Plant and Human Physiology",
-      "sort_order": 9
-    },
-    {
-      "code": "sci-m10",
-      "subject_code": "general-science",
-      "title": "Biology: Health, Biotechnology and Applications",
-      "sort_order": 10
-    },
-    {
-      "code": "sci-m11",
-      "subject_code": "general-science",
-      "title": "Computer and Information Technology",
-      "sort_order": 11
+      "code": "sci-mod03-sub03",
+      "module_code": "sci-mod03",
+      "title": "Health, Biotechnology and Applications",
+      "sort_order": 3
     }
   ],
   "chapters": [
     {
-      "code": "sci-c01",
+      "code": "sci-mod01-c01",
       "subject_code": "general-science",
-      "module_code": "sci-m01",
+      "module_code": "sci-mod01",
       "title": "Units and Measurement",
+      "sort_order": 1,
+      "sub_module_code": "sci-mod01-sub01"
+    },
+    {
+      "code": "sci-mod01-c02",
+      "subject_code": "general-science",
+      "module_code": "sci-mod01",
+      "title": "Measuring Instruments and Scales",
+      "sort_order": 2,
+      "sub_module_code": "sci-mod01-sub01"
+    },
+    {
+      "code": "sci-mod01-c03",
+      "subject_code": "general-science",
+      "module_code": "sci-mod01",
+      "title": "Motion, Force, Work, Energy and Momentum",
+      "sort_order": 3,
+      "sub_module_code": "sci-mod01-sub01"
+    },
+    {
+      "code": "sci-mod01-c04",
+      "subject_code": "general-science",
+      "module_code": "sci-mod01",
+      "title": "Gravitation and Motion Under Gravity",
+      "sort_order": 4,
+      "sub_module_code": "sci-mod01-sub01"
+    },
+    {
+      "code": "sci-mod01-c05",
+      "subject_code": "general-science",
+      "module_code": "sci-mod01",
+      "title": "Physical Properties of Matter",
+      "sort_order": 5,
+      "sub_module_code": "sci-mod01-sub01"
+    },
+    {
+      "code": "sci-mod01-c06",
+      "subject_code": "general-science",
+      "module_code": "sci-mod01",
+      "title": "Heat and Thermodynamics",
+      "sort_order": 6,
+      "sub_module_code": "sci-mod01-sub02"
+    },
+    {
+      "code": "sci-mod01-c07",
+      "subject_code": "general-science",
+      "module_code": "sci-mod01",
+      "title": "Wave Motion",
+      "sort_order": 7,
+      "sub_module_code": "sci-mod01-sub02"
+    },
+    {
+      "code": "sci-mod01-c08",
+      "subject_code": "general-science",
+      "module_code": "sci-mod01",
+      "title": "Sound",
+      "sort_order": 8,
+      "sub_module_code": "sci-mod01-sub02"
+    },
+    {
+      "code": "sci-mod01-c09",
+      "subject_code": "general-science",
+      "module_code": "sci-mod01",
+      "title": "Light and Optics",
+      "sort_order": 9,
+      "sub_module_code": "sci-mod01-sub02"
+    },
+    {
+      "code": "sci-mod01-c10",
+      "subject_code": "general-science",
+      "module_code": "sci-mod01",
+      "title": "Electric Current and Circuits",
+      "sort_order": 10,
+      "sub_module_code": "sci-mod01-sub03"
+    },
+    {
+      "code": "sci-mod01-c11",
+      "subject_code": "general-science",
+      "module_code": "sci-mod01",
+      "title": "Conductors, Insulators and Superconductivity",
+      "sort_order": 11,
+      "sub_module_code": "sci-mod01-sub03"
+    },
+    {
+      "code": "sci-mod01-c12",
+      "subject_code": "general-science",
+      "module_code": "sci-mod01",
+      "title": "Nuclear Physics",
+      "sort_order": 12,
+      "sub_module_code": "sci-mod01-sub03"
+    },
+    {
+      "code": "sci-mod01-c13",
+      "subject_code": "general-science",
+      "module_code": "sci-mod01",
+      "title": "Physics Miscellaneous: Instruments, Laws and Scientists",
+      "sort_order": 13,
+      "sub_module_code": "sci-mod01-sub03"
+    },
+    {
+      "code": "sci-mod02-c01",
+      "subject_code": "general-science",
+      "module_code": "sci-mod02",
+      "title": "Atomic Structure",
+      "sort_order": 1,
+      "sub_module_code": "sci-mod02-sub01"
+    },
+    {
+      "code": "sci-mod02-c02",
+      "subject_code": "general-science",
+      "module_code": "sci-mod02",
+      "title": "Physical and Chemical Changes",
+      "sort_order": 2,
+      "sub_module_code": "sci-mod02-sub01"
+    },
+    {
+      "code": "sci-mod02-c03",
+      "subject_code": "general-science",
+      "module_code": "sci-mod02",
+      "title": "Acids, Bases and Salts",
+      "sort_order": 3,
+      "sub_module_code": "sci-mod02-sub01"
+    },
+    {
+      "code": "sci-mod02-c04",
+      "subject_code": "general-science",
+      "module_code": "sci-mod02",
+      "title": "Inorganic Chemistry: Periodic Table and Bonding",
+      "sort_order": 4,
+      "sub_module_code": "sci-mod02-sub01"
+    },
+    {
+      "code": "sci-mod02-c05",
+      "subject_code": "general-science",
+      "module_code": "sci-mod02",
+      "title": "Hydrogen and Its Compounds",
+      "sort_order": 5,
+      "sub_module_code": "sci-mod02-sub02"
+    },
+    {
+      "code": "sci-mod02-c06",
+      "subject_code": "general-science",
+      "module_code": "sci-mod02",
+      "title": "Carbon and Its Allotropes",
+      "sort_order": 6,
+      "sub_module_code": "sci-mod02-sub02"
+    },
+    {
+      "code": "sci-mod02-c07",
+      "subject_code": "general-science",
+      "module_code": "sci-mod02",
+      "title": "Sulphur, Nitrogen, Halogens and Inert Gases",
+      "sort_order": 7,
+      "sub_module_code": "sci-mod02-sub02"
+    },
+    {
+      "code": "sci-mod02-c08",
+      "subject_code": "general-science",
+      "module_code": "sci-mod02",
+      "title": "Metals, Minerals and Ores",
+      "sort_order": 8,
+      "sub_module_code": "sci-mod02-sub02"
+    },
+    {
+      "code": "sci-mod02-c09",
+      "subject_code": "general-science",
+      "module_code": "sci-mod02",
+      "title": "Alloys",
+      "sort_order": 9,
+      "sub_module_code": "sci-mod02-sub02"
+    },
+    {
+      "code": "sci-mod02-c10",
+      "subject_code": "general-science",
+      "module_code": "sci-mod02",
+      "title": "Hydrocarbons",
+      "sort_order": 10,
+      "sub_module_code": "sci-mod02-sub03"
+    },
+    {
+      "code": "sci-mod02-c11",
+      "subject_code": "general-science",
+      "module_code": "sci-mod02",
+      "title": "Alcohols",
+      "sort_order": 11,
+      "sub_module_code": "sci-mod02-sub03"
+    },
+    {
+      "code": "sci-mod02-c12",
+      "subject_code": "general-science",
+      "module_code": "sci-mod02",
+      "title": "Organic Acids",
+      "sort_order": 12,
+      "sub_module_code": "sci-mod02-sub03"
+    },
+    {
+      "code": "sci-mod02-c13",
+      "subject_code": "general-science",
+      "module_code": "sci-mod02",
+      "title": "Polymers and Plastics",
+      "sort_order": 13,
+      "sub_module_code": "sci-mod02-sub03"
+    },
+    {
+      "code": "sci-mod02-c14",
+      "subject_code": "general-science",
+      "module_code": "sci-mod02",
+      "title": "Fuels",
+      "sort_order": 14,
+      "sub_module_code": "sci-mod02-sub04"
+    },
+    {
+      "code": "sci-mod02-c15",
+      "subject_code": "general-science",
+      "module_code": "sci-mod02",
+      "title": "Explosives",
+      "sort_order": 15,
+      "sub_module_code": "sci-mod02-sub04"
+    },
+    {
+      "code": "sci-mod02-c16",
+      "subject_code": "general-science",
+      "module_code": "sci-mod02",
+      "title": "Fertilizers",
+      "sort_order": 16,
+      "sub_module_code": "sci-mod02-sub04"
+    },
+    {
+      "code": "sci-mod02-c17",
+      "subject_code": "general-science",
+      "module_code": "sci-mod02",
+      "title": "Detergents and Soaps",
+      "sort_order": 17,
+      "sub_module_code": "sci-mod02-sub04"
+    },
+    {
+      "code": "sci-mod02-c18",
+      "subject_code": "general-science",
+      "module_code": "sci-mod02",
+      "title": "Food Preservation, Nutrition and Medicines (Chemistry)",
+      "sort_order": 18,
+      "sub_module_code": "sci-mod02-sub04"
+    },
+    {
+      "code": "sci-mod02-c19",
+      "subject_code": "general-science",
+      "module_code": "sci-mod02",
+      "title": "Chemistry Miscellaneous",
+      "sort_order": 19,
+      "sub_module_code": "sci-mod02-sub04"
+    },
+    {
+      "code": "sci-mod03-c01",
+      "subject_code": "general-science",
+      "module_code": "sci-mod03",
+      "title": "Branches of Biology",
+      "sort_order": 1,
+      "sub_module_code": "sci-mod03-sub01"
+    },
+    {
+      "code": "sci-mod03-c02",
+      "subject_code": "general-science",
+      "module_code": "sci-mod03",
+      "title": "Taxonomy: Classification of Living Organisms",
+      "sort_order": 2,
+      "sub_module_code": "sci-mod03-sub01"
+    },
+    {
+      "code": "sci-mod03-c03",
+      "subject_code": "general-science",
+      "module_code": "sci-mod03",
+      "title": "The Cell: Structure and Division",
+      "sort_order": 3,
+      "sub_module_code": "sci-mod03-sub01"
+    },
+    {
+      "code": "sci-mod03-c04",
+      "subject_code": "general-science",
+      "module_code": "sci-mod03",
+      "title": "Evolution of Life",
+      "sort_order": 4,
+      "sub_module_code": "sci-mod03-sub01"
+    },
+    {
+      "code": "sci-mod03-c05",
+      "subject_code": "general-science",
+      "module_code": "sci-mod03",
+      "title": "Heredity and Genetics",
+      "sort_order": 5,
+      "sub_module_code": "sci-mod03-sub01"
+    },
+    {
+      "code": "sci-mod03-c06",
+      "subject_code": "general-science",
+      "module_code": "sci-mod03",
+      "title": "Photosynthesis and Plant Physiology",
+      "sort_order": 6,
+      "sub_module_code": "sci-mod03-sub02"
+    },
+    {
+      "code": "sci-mod03-c07",
+      "subject_code": "general-science",
+      "module_code": "sci-mod03",
+      "title": "Human Anatomy: Organ Systems",
+      "sort_order": 7,
+      "sub_module_code": "sci-mod03-sub02"
+    },
+    {
+      "code": "sci-mod03-c08",
+      "subject_code": "general-science",
+      "module_code": "sci-mod03",
+      "title": "Blood and the Circulatory System",
+      "sort_order": 8,
+      "sub_module_code": "sci-mod03-sub02"
+    },
+    {
+      "code": "sci-mod03-c09",
+      "subject_code": "general-science",
+      "module_code": "sci-mod03",
+      "title": "Digestion and Excretion",
+      "sort_order": 9,
+      "sub_module_code": "sci-mod03-sub02"
+    },
+    {
+      "code": "sci-mod03-c10",
+      "subject_code": "general-science",
+      "module_code": "sci-mod03",
+      "title": "Endocrine Glands and Hormones",
+      "sort_order": 10,
+      "sub_module_code": "sci-mod03-sub02"
+    },
+    {
+      "code": "sci-mod03-c11",
+      "subject_code": "general-science",
+      "module_code": "sci-mod03",
+      "title": "Human Physiology: Nervous, Respiratory and Sense Organs",
+      "sort_order": 11,
+      "sub_module_code": "sci-mod03-sub02"
+    },
+    {
+      "code": "sci-mod03-c12",
+      "subject_code": "general-science",
+      "module_code": "sci-mod03",
+      "title": "Vitamins and Nutrition",
+      "sort_order": 12,
+      "sub_module_code": "sci-mod03-sub02"
+    },
+    {
+      "code": "sci-mod03-c13",
+      "subject_code": "general-science",
+      "module_code": "sci-mod03",
+      "title": "Diseases and Their Treatment",
+      "sort_order": 13,
+      "sub_module_code": "sci-mod03-sub03"
+    },
+    {
+      "code": "sci-mod03-c14",
+      "subject_code": "general-science",
+      "module_code": "sci-mod03",
+      "title": "Genetic Engineering and Biotechnology",
+      "sort_order": 14,
+      "sub_module_code": "sci-mod03-sub03"
+    },
+    {
+      "code": "sci-mod03-c15",
+      "subject_code": "general-science",
+      "module_code": "sci-mod03",
+      "title": "Biofertilizers",
+      "sort_order": 15,
+      "sub_module_code": "sci-mod03-sub03"
+    },
+    {
+      "code": "sci-mod03-c16",
+      "subject_code": "general-science",
+      "module_code": "sci-mod03",
+      "title": "Biology Miscellaneous",
+      "sort_order": 16,
+      "sub_module_code": "sci-mod03-sub03"
+    },
+    {
+      "code": "sci-mod04-c01",
+      "subject_code": "general-science",
+      "module_code": "sci-mod04",
+      "title": "Computer and Information Technology",
       "sort_order": 1
     },
     {
-      "code": "sci-c02",
+      "code": "sci-mod04-c02",
       "subject_code": "general-science",
-      "module_code": "sci-m01",
-      "title": "Measuring Instruments and Scales",
-      "sort_order": 2
-    },
-    {
-      "code": "sci-c03",
-      "subject_code": "general-science",
-      "module_code": "sci-m01",
-      "title": "Motion, Force, Work, Energy and Momentum",
-      "sort_order": 3
-    },
-    {
-      "code": "sci-c04",
-      "subject_code": "general-science",
-      "module_code": "sci-m01",
-      "title": "Gravitation and Motion Under Gravity",
-      "sort_order": 4
-    },
-    {
-      "code": "sci-c05",
-      "subject_code": "general-science",
-      "module_code": "sci-m01",
-      "title": "Physical Properties of Matter",
-      "sort_order": 5
-    },
-    {
-      "code": "sci-c06",
-      "subject_code": "general-science",
-      "module_code": "sci-m02",
-      "title": "Heat and Thermodynamics",
-      "sort_order": 6
-    },
-    {
-      "code": "sci-c07",
-      "subject_code": "general-science",
-      "module_code": "sci-m02",
-      "title": "Wave Motion",
-      "sort_order": 7
-    },
-    {
-      "code": "sci-c08",
-      "subject_code": "general-science",
-      "module_code": "sci-m02",
-      "title": "Sound",
-      "sort_order": 8
-    },
-    {
-      "code": "sci-c09",
-      "subject_code": "general-science",
-      "module_code": "sci-m02",
-      "title": "Light and Optics",
-      "sort_order": 9
-    },
-    {
-      "code": "sci-c10",
-      "subject_code": "general-science",
-      "module_code": "sci-m03",
-      "title": "Electric Current and Circuits",
-      "sort_order": 10
-    },
-    {
-      "code": "sci-c11",
-      "subject_code": "general-science",
-      "module_code": "sci-m03",
-      "title": "Conductors, Insulators and Superconductivity",
-      "sort_order": 11
-    },
-    {
-      "code": "sci-c12",
-      "subject_code": "general-science",
-      "module_code": "sci-m03",
-      "title": "Nuclear Physics",
-      "sort_order": 12
-    },
-    {
-      "code": "sci-c13",
-      "subject_code": "general-science",
-      "module_code": "sci-m03",
-      "title": "Physics Miscellaneous: Instruments, Laws and Scientists",
-      "sort_order": 13
-    },
-    {
-      "code": "sci-c14",
-      "subject_code": "general-science",
-      "module_code": "sci-m04",
-      "title": "Atomic Structure",
-      "sort_order": 14
-    },
-    {
-      "code": "sci-c15",
-      "subject_code": "general-science",
-      "module_code": "sci-m04",
-      "title": "Physical and Chemical Changes",
-      "sort_order": 15
-    },
-    {
-      "code": "sci-c16",
-      "subject_code": "general-science",
-      "module_code": "sci-m04",
-      "title": "Acids, Bases and Salts",
-      "sort_order": 16
-    },
-    {
-      "code": "sci-c17",
-      "subject_code": "general-science",
-      "module_code": "sci-m04",
-      "title": "Inorganic Chemistry: Periodic Table and Bonding",
-      "sort_order": 17
-    },
-    {
-      "code": "sci-c18",
-      "subject_code": "general-science",
-      "module_code": "sci-m05",
-      "title": "Hydrogen and Its Compounds",
-      "sort_order": 18
-    },
-    {
-      "code": "sci-c19",
-      "subject_code": "general-science",
-      "module_code": "sci-m05",
-      "title": "Carbon and Its Allotropes",
-      "sort_order": 19
-    },
-    {
-      "code": "sci-c20",
-      "subject_code": "general-science",
-      "module_code": "sci-m05",
-      "title": "Sulphur, Nitrogen, Halogens and Inert Gases",
-      "sort_order": 20
-    },
-    {
-      "code": "sci-c21",
-      "subject_code": "general-science",
-      "module_code": "sci-m05",
-      "title": "Metals, Minerals and Ores",
-      "sort_order": 21
-    },
-    {
-      "code": "sci-c22",
-      "subject_code": "general-science",
-      "module_code": "sci-m05",
-      "title": "Alloys",
-      "sort_order": 22
-    },
-    {
-      "code": "sci-c23",
-      "subject_code": "general-science",
-      "module_code": "sci-m06",
-      "title": "Hydrocarbons",
-      "sort_order": 23
-    },
-    {
-      "code": "sci-c24",
-      "subject_code": "general-science",
-      "module_code": "sci-m06",
-      "title": "Alcohols",
-      "sort_order": 24
-    },
-    {
-      "code": "sci-c25",
-      "subject_code": "general-science",
-      "module_code": "sci-m06",
-      "title": "Organic Acids",
-      "sort_order": 25
-    },
-    {
-      "code": "sci-c26",
-      "subject_code": "general-science",
-      "module_code": "sci-m06",
-      "title": "Polymers and Plastics",
-      "sort_order": 26
-    },
-    {
-      "code": "sci-c27",
-      "subject_code": "general-science",
-      "module_code": "sci-m07",
-      "title": "Fuels",
-      "sort_order": 27
-    },
-    {
-      "code": "sci-c28",
-      "subject_code": "general-science",
-      "module_code": "sci-m07",
-      "title": "Explosives",
-      "sort_order": 28
-    },
-    {
-      "code": "sci-c29",
-      "subject_code": "general-science",
-      "module_code": "sci-m07",
-      "title": "Fertilizers",
-      "sort_order": 29
-    },
-    {
-      "code": "sci-c30",
-      "subject_code": "general-science",
-      "module_code": "sci-m07",
-      "title": "Detergents and Soaps",
-      "sort_order": 30
-    },
-    {
-      "code": "sci-c31",
-      "subject_code": "general-science",
-      "module_code": "sci-m07",
-      "title": "Food Preservation, Nutrition and Medicines (Chemistry)",
-      "sort_order": 31
-    },
-    {
-      "code": "sci-c32",
-      "subject_code": "general-science",
-      "module_code": "sci-m07",
-      "title": "Chemistry Miscellaneous",
-      "sort_order": 32
-    },
-    {
-      "code": "sci-c33",
-      "subject_code": "general-science",
-      "module_code": "sci-m08",
-      "title": "Branches of Biology",
-      "sort_order": 33
-    },
-    {
-      "code": "sci-c34",
-      "subject_code": "general-science",
-      "module_code": "sci-m08",
-      "title": "Taxonomy: Classification of Living Organisms",
-      "sort_order": 34
-    },
-    {
-      "code": "sci-c35",
-      "subject_code": "general-science",
-      "module_code": "sci-m08",
-      "title": "The Cell: Structure and Division",
-      "sort_order": 35
-    },
-    {
-      "code": "sci-c36",
-      "subject_code": "general-science",
-      "module_code": "sci-m08",
-      "title": "Evolution of Life",
-      "sort_order": 36
-    },
-    {
-      "code": "sci-c37",
-      "subject_code": "general-science",
-      "module_code": "sci-m08",
-      "title": "Heredity and Genetics",
-      "sort_order": 37
-    },
-    {
-      "code": "sci-c38",
-      "subject_code": "general-science",
-      "module_code": "sci-m09",
-      "title": "Photosynthesis and Plant Physiology",
-      "sort_order": 38
-    },
-    {
-      "code": "sci-c39",
-      "subject_code": "general-science",
-      "module_code": "sci-m09",
-      "title": "Human Anatomy: Organ Systems",
-      "sort_order": 39
-    },
-    {
-      "code": "sci-c40",
-      "subject_code": "general-science",
-      "module_code": "sci-m09",
-      "title": "Blood and the Circulatory System",
-      "sort_order": 40
-    },
-    {
-      "code": "sci-c41",
-      "subject_code": "general-science",
-      "module_code": "sci-m09",
-      "title": "Digestion and Excretion",
-      "sort_order": 41
-    },
-    {
-      "code": "sci-c42",
-      "subject_code": "general-science",
-      "module_code": "sci-m09",
-      "title": "Endocrine Glands and Hormones",
-      "sort_order": 42
-    },
-    {
-      "code": "sci-c43",
-      "subject_code": "general-science",
-      "module_code": "sci-m09",
-      "title": "Human Physiology: Nervous, Respiratory and Sense Organs",
-      "sort_order": 43
-    },
-    {
-      "code": "sci-c44",
-      "subject_code": "general-science",
-      "module_code": "sci-m09",
-      "title": "Vitamins and Nutrition",
-      "sort_order": 44
-    },
-    {
-      "code": "sci-c45",
-      "subject_code": "general-science",
-      "module_code": "sci-m10",
-      "title": "Diseases and Their Treatment",
-      "sort_order": 45
-    },
-    {
-      "code": "sci-c46",
-      "subject_code": "general-science",
-      "module_code": "sci-m10",
-      "title": "Genetic Engineering and Biotechnology",
-      "sort_order": 46
-    },
-    {
-      "code": "sci-c47",
-      "subject_code": "general-science",
-      "module_code": "sci-m10",
-      "title": "Biofertilizers",
-      "sort_order": 47
-    },
-    {
-      "code": "sci-c48",
-      "subject_code": "general-science",
-      "module_code": "sci-m10",
-      "title": "Biology Miscellaneous",
-      "sort_order": 48
-    },
-    {
-      "code": "sci-c49",
-      "subject_code": "general-science",
-      "module_code": "sci-m11",
-      "title": "Computer and Information Technology",
-      "sort_order": 49
-    },
-    {
-      "code": "sci-c50",
-      "subject_code": "general-science",
-      "module_code": "sci-m11",
+      "module_code": "sci-mod04",
       "title": "Computer Miscellaneous: Abbreviations and Shortcuts",
-      "sort_order": 50
+      "sort_order": 2
     }
   ],
   "topics": [
     {
-      "code": "sci-c01-t01",
-      "chapter_code": "sci-c01",
+      "code": "sci-mod01-c01-t01",
+      "chapter_code": "sci-mod01-c01",
       "title": "Physical quantities",
       "notes": "fundamental and derived; scalar and vector.",
       "sort_order": 1
     },
     {
-      "code": "sci-c01-t02",
-      "chapter_code": "sci-c01",
+      "code": "sci-mod01-c01-t02",
+      "chapter_code": "sci-mod01-c01",
       "title": "SI system",
       "notes": "seven base units: metre, kilogram, second, ampere, kelvin, mole, candela.",
       "sort_order": 2
     },
     {
-      "code": "sci-c01-t03",
-      "chapter_code": "sci-c01",
+      "code": "sci-mod01-c01-t03",
+      "chapter_code": "sci-mod01-c01",
       "title": "Derived units and their symbols",
       "notes": "newton, joule, watt, pascal, hertz, coulomb, volt, ohm.",
       "sort_order": 3
     },
     {
-      "code": "sci-c01-t04",
-      "chapter_code": "sci-c01",
+      "code": "sci-mod01-c01-t04",
+      "chapter_code": "sci-mod01-c01",
       "title": "Dimensions of quantities",
       "notes": "dimensional formulae and uses.",
       "sort_order": 4
     },
     {
-      "code": "sci-c01-t05",
-      "chapter_code": "sci-c01",
+      "code": "sci-mod01-c01-t05",
+      "chapter_code": "sci-mod01-c01",
       "title": "Other unit systems",
       "notes": "CGS, FPS, MKS.",
       "sort_order": 5
     },
     {
-      "code": "sci-c01-t06",
-      "chapter_code": "sci-c01",
+      "code": "sci-mod01-c01-t06",
+      "chapter_code": "sci-mod01-c01",
       "title": "Special units",
       "notes": "light year, astronomical unit, parsec, fermi, angstrom; conversions.",
       "sort_order": 6
     },
     {
-      "code": "sci-c01-t07",
-      "chapter_code": "sci-c01",
+      "code": "sci-mod01-c01-t07",
+      "chapter_code": "sci-mod01-c01",
       "title": "Precision and errors",
       "notes": "significant figures, least count.",
       "sort_order": 7
     },
     {
-      "code": "sci-c02-t01",
-      "chapter_code": "sci-c02",
+      "code": "sci-mod01-c02-t01",
+      "chapter_code": "sci-mod01-c02",
       "title": "Length and area instruments",
       "notes": "vernier callipers, screw gauge, odometer.",
       "sort_order": 1
     },
     {
-      "code": "sci-c02-t02",
-      "chapter_code": "sci-c02",
+      "code": "sci-mod01-c02-t02",
+      "chapter_code": "sci-mod01-c02",
       "title": "Time, mass and weight",
       "notes": "chronometer, balance, spring balance.",
       "sort_order": 2
     },
     {
-      "code": "sci-c02-t03",
-      "chapter_code": "sci-c02",
+      "code": "sci-mod01-c02-t03",
+      "chapter_code": "sci-mod01-c02",
       "title": "Pressure and temperature",
       "notes": "barometer, manometer, thermometer, pyrometer.",
       "sort_order": 3
     },
     {
-      "code": "sci-c02-t04",
-      "chapter_code": "sci-c02",
+      "code": "sci-mod01-c02-t04",
+      "chapter_code": "sci-mod01-c02",
       "title": "Electrical instruments",
       "notes": "ammeter, voltmeter, galvanometer, multimeter.",
       "sort_order": 4
     },
     {
-      "code": "sci-c02-t05",
-      "chapter_code": "sci-c02",
+      "code": "sci-mod01-c02-t05",
+      "chapter_code": "sci-mod01-c02",
       "title": "Weather and atmosphere instruments",
       "notes": "hygrometer, anemometer, rain gauge, seismograph.",
       "sort_order": 5
     },
     {
-      "code": "sci-c02-t06",
-      "chapter_code": "sci-c02",
+      "code": "sci-mod01-c02-t06",
+      "chapter_code": "sci-mod01-c02",
       "title": "Optical and other instruments",
       "notes": "spectrometer, lactometer, hydrometer, altimeter.",
       "sort_order": 6
     },
     {
-      "code": "sci-c02-t07",
-      "chapter_code": "sci-c02",
+      "code": "sci-mod01-c02-t07",
+      "chapter_code": "sci-mod01-c02",
       "title": "Scales",
       "notes": "Richter, Mohs, Beaufort, Mercalli, pH scale; temperature scales.",
       "sort_order": 7
     },
     {
-      "code": "sci-c03-t01",
-      "chapter_code": "sci-c03",
+      "code": "sci-mod01-c03-t01",
+      "chapter_code": "sci-mod01-c03",
       "title": "Basic motion terms",
       "notes": "distance, displacement, speed, velocity, acceleration.",
       "sort_order": 1
     },
     {
-      "code": "sci-c03-t02",
-      "chapter_code": "sci-c03",
+      "code": "sci-mod01-c03-t02",
+      "chapter_code": "sci-mod01-c03",
       "title": "Equations of motion",
       "notes": "uniform acceleration, graphs.",
       "sort_order": 2
     },
     {
-      "code": "sci-c03-t03",
-      "chapter_code": "sci-c03",
+      "code": "sci-mod01-c03-t03",
+      "chapter_code": "sci-mod01-c03",
       "title": "Newton’s laws of motion",
       "notes": "inertia, F = ma, action-reaction.",
       "sort_order": 3
     },
     {
-      "code": "sci-c03-t04",
-      "chapter_code": "sci-c03",
+      "code": "sci-mod01-c03-t04",
+      "chapter_code": "sci-mod01-c03",
       "title": "Momentum and impulse",
       "notes": "conservation of momentum; rocket and recoil.",
       "sort_order": 4
     },
     {
-      "code": "sci-c03-t05",
-      "chapter_code": "sci-c03",
+      "code": "sci-mod01-c03-t05",
+      "chapter_code": "sci-mod01-c03",
       "title": "Circular motion",
       "notes": "centripetal and centrifugal force.",
       "sort_order": 5
     },
     {
-      "code": "sci-c03-t06",
-      "chapter_code": "sci-c03",
+      "code": "sci-mod01-c03-t06",
+      "chapter_code": "sci-mod01-c03",
       "title": "Work, energy and power",
       "notes": "kinetic and potential energy, work-energy theorem, conservation of energy; units (joule, watt, horsepower).",
       "sort_order": 6
     },
     {
-      "code": "sci-c03-t07",
-      "chapter_code": "sci-c03",
+      "code": "sci-mod01-c03-t07",
+      "chapter_code": "sci-mod01-c03",
       "title": "Friction",
       "notes": "types, advantages and disadvantages.",
       "sort_order": 7
     },
     {
-      "code": "sci-c03-t08",
-      "chapter_code": "sci-c03",
+      "code": "sci-mod01-c03-t08",
+      "chapter_code": "sci-mod01-c03",
       "title": "Simple machines",
       "notes": "lever, pulley, inclined plane; mechanical advantage.",
       "sort_order": 8
     },
     {
-      "code": "sci-c03-t09",
-      "chapter_code": "sci-c03",
+      "code": "sci-mod01-c03-t09",
+      "chapter_code": "sci-mod01-c03",
       "title": "Collisions and elasticity",
       "notes": "elastic and inelastic.",
       "sort_order": 9
     },
     {
-      "code": "sci-c04-t01",
-      "chapter_code": "sci-c04",
+      "code": "sci-mod01-c04-t01",
+      "chapter_code": "sci-mod01-c04",
       "title": "Universal law of gravitation",
       "notes": "Newton, G and g.",
       "sort_order": 1
     },
     {
-      "code": "sci-c04-t02",
-      "chapter_code": "sci-c04",
+      "code": "sci-mod01-c04-t02",
+      "chapter_code": "sci-mod01-c04",
       "title": "Acceleration due to gravity",
       "notes": "variation with height, depth, latitude.",
       "sort_order": 2
     },
     {
-      "code": "sci-c04-t03",
-      "chapter_code": "sci-c04",
+      "code": "sci-mod01-c04-t03",
+      "chapter_code": "sci-mod01-c04",
       "title": "Free fall and projectile motion",
       "notes": "equations, range, time of flight.",
       "sort_order": 3
     },
     {
-      "code": "sci-c04-t04",
-      "chapter_code": "sci-c04",
+      "code": "sci-mod01-c04-t04",
+      "chapter_code": "sci-mod01-c04",
       "title": "Mass and weight",
       "notes": "weightlessness, apparent weight in a lift.",
       "sort_order": 4
     },
     {
-      "code": "sci-c04-t05",
-      "chapter_code": "sci-c04",
+      "code": "sci-mod01-c04-t05",
+      "chapter_code": "sci-mod01-c04",
       "title": "Escape velocity and orbital velocity",
       "notes": "satellites, geostationary satellites.",
       "sort_order": 5
     },
     {
-      "code": "sci-c04-t06",
-      "chapter_code": "sci-c04",
+      "code": "sci-mod01-c04-t06",
+      "chapter_code": "sci-mod01-c04",
       "title": "Kepler’s laws",
       "notes": "planetary motion.",
       "sort_order": 6
     },
     {
-      "code": "sci-c04-t07",
-      "chapter_code": "sci-c04",
+      "code": "sci-mod01-c04-t07",
+      "chapter_code": "sci-mod01-c04",
       "title": "Centre of mass and gravity",
       "notes": "stability.",
       "sort_order": 7
     },
     {
-      "code": "sci-c05-t01",
-      "chapter_code": "sci-c05",
+      "code": "sci-mod01-c05-t01",
+      "chapter_code": "sci-mod01-c05",
       "title": "States of matter",
       "notes": "solid, liquid, gas, plasma, Bose-Einstein condensate.",
       "sort_order": 1
     },
     {
-      "code": "sci-c05-t02",
-      "chapter_code": "sci-c05",
+      "code": "sci-mod01-c05-t02",
+      "chapter_code": "sci-mod01-c05",
       "title": "Elasticity",
       "notes": "Hooke’s law, Young’s modulus, stress and strain.",
       "sort_order": 2
     },
     {
-      "code": "sci-c05-t03",
-      "chapter_code": "sci-c05",
+      "code": "sci-mod01-c05-t03",
+      "chapter_code": "sci-mod01-c05",
       "title": "Pressure in fluids",
       "notes": "Pascal’s law, hydraulic press.",
       "sort_order": 3
     },
     {
-      "code": "sci-c05-t04",
-      "chapter_code": "sci-c05",
+      "code": "sci-mod01-c05-t04",
+      "chapter_code": "sci-mod01-c05",
       "title": "Buoyancy",
       "notes": "Archimedes’ principle, floating and sinking, density and relative density.",
       "sort_order": 4
     },
     {
-      "code": "sci-c05-t05",
-      "chapter_code": "sci-c05",
+      "code": "sci-mod01-c05-t05",
+      "chapter_code": "sci-mod01-c05",
       "title": "Surface tension and capillarity",
       "notes": "cohesion and adhesion.",
       "sort_order": 5
     },
     {
-      "code": "sci-c05-t06",
-      "chapter_code": "sci-c05",
+      "code": "sci-mod01-c05-t06",
+      "chapter_code": "sci-mod01-c05",
       "title": "Viscosity",
       "notes": "Stokes’ law, terminal velocity.",
       "sort_order": 6
     },
     {
-      "code": "sci-c05-t07",
-      "chapter_code": "sci-c05",
+      "code": "sci-mod01-c05-t07",
+      "chapter_code": "sci-mod01-c05",
       "title": "Bernoulli’s principle",
       "notes": "applications (aeroplane wing, atomiser).",
       "sort_order": 7
     },
     {
-      "code": "sci-c05-t08",
-      "chapter_code": "sci-c05",
+      "code": "sci-mod01-c05-t08",
+      "chapter_code": "sci-mod01-c05",
       "title": "Density and specific gravity",
       "notes": "hydrometer, lactometer.",
       "sort_order": 8
     },
     {
-      "code": "sci-c06-t01",
-      "chapter_code": "sci-c06",
+      "code": "sci-mod01-c06-t01",
+      "chapter_code": "sci-mod01-c06",
       "title": "Heat and temperature",
       "notes": "units (calorie, joule), scales (Celsius, Fahrenheit, Kelvin), absolute zero.",
       "sort_order": 1
     },
     {
-      "code": "sci-c06-t02",
-      "chapter_code": "sci-c06",
+      "code": "sci-mod01-c06-t02",
+      "chapter_code": "sci-mod01-c06",
       "title": "Specific heat and latent heat",
       "notes": "calorimetry.",
       "sort_order": 2
     },
     {
-      "code": "sci-c06-t03",
-      "chapter_code": "sci-c06",
+      "code": "sci-mod01-c06-t03",
+      "chapter_code": "sci-mod01-c06",
       "title": "Thermal expansion",
       "notes": "linear, area, volume; anomalous expansion of water.",
       "sort_order": 3
     },
     {
-      "code": "sci-c06-t04",
-      "chapter_code": "sci-c06",
+      "code": "sci-mod01-c06-t04",
+      "chapter_code": "sci-mod01-c06",
       "title": "Heat transfer",
       "notes": "conduction, convection, radiation; Stefan’s law, Newton’s law of cooling.",
       "sort_order": 4
     },
     {
-      "code": "sci-c06-t05",
-      "chapter_code": "sci-c06",
+      "code": "sci-mod01-c06-t05",
+      "chapter_code": "sci-mod01-c06",
       "title": "Laws of thermodynamics",
       "notes": "zeroth, first, second and third laws; entropy.",
       "sort_order": 5
     },
     {
-      "code": "sci-c06-t06",
-      "chapter_code": "sci-c06",
+      "code": "sci-mod01-c06-t06",
+      "chapter_code": "sci-mod01-c06",
       "title": "Heat engines and refrigerators",
       "notes": "Carnot engine, efficiency.",
       "sort_order": 6
     },
     {
-      "code": "sci-c06-t07",
-      "chapter_code": "sci-c06",
+      "code": "sci-mod01-c06-t07",
+      "chapter_code": "sci-mod01-c06",
       "title": "Change of state",
       "notes": "melting, boiling, sublimation; humidity.",
       "sort_order": 7
     },
     {
-      "code": "sci-c06-t08",
-      "chapter_code": "sci-c06",
+      "code": "sci-mod01-c06-t08",
+      "chapter_code": "sci-mod01-c06",
       "title": "Applications",
       "notes": "thermos flask, pressure cooker, greenhouse.",
       "sort_order": 8
     },
     {
-      "code": "sci-c07-t01",
-      "chapter_code": "sci-c07",
+      "code": "sci-mod01-c07-t01",
+      "chapter_code": "sci-mod01-c07",
       "title": "Types of waves",
       "notes": "mechanical and electromagnetic; transverse and longitudinal.",
       "sort_order": 1
     },
     {
-      "code": "sci-c07-t02",
-      "chapter_code": "sci-c07",
+      "code": "sci-mod01-c07-t02",
+      "chapter_code": "sci-mod01-c07",
       "title": "Wave properties",
       "notes": "wavelength, frequency, time period, amplitude, speed (v = f lambda).",
       "sort_order": 2
     },
     {
-      "code": "sci-c07-t03",
-      "chapter_code": "sci-c07",
+      "code": "sci-mod01-c07-t03",
+      "chapter_code": "sci-mod01-c07",
       "title": "Superposition and interference",
       "notes": "constructive, destructive.",
       "sort_order": 3
     },
     {
-      "code": "sci-c07-t04",
-      "chapter_code": "sci-c07",
+      "code": "sci-mod01-c07-t04",
+      "chapter_code": "sci-mod01-c07",
       "title": "Stationary waves and resonance",
       "notes": "nodes and antinodes.",
       "sort_order": 4
     },
     {
-      "code": "sci-c07-t05",
-      "chapter_code": "sci-c07",
+      "code": "sci-mod01-c07-t05",
+      "chapter_code": "sci-mod01-c07",
       "title": "Electromagnetic spectrum",
       "notes": "radio, microwave, infrared, visible, ultraviolet, X-ray, gamma; uses.",
       "sort_order": 5
     },
     {
-      "code": "sci-c07-t06",
-      "chapter_code": "sci-c07",
+      "code": "sci-mod01-c07-t06",
+      "chapter_code": "sci-mod01-c07",
       "title": "Doppler effect",
       "notes": "sound and light.",
       "sort_order": 6
     },
     {
-      "code": "sci-c08-t01",
-      "chapter_code": "sci-c08",
+      "code": "sci-mod01-c08-t01",
+      "chapter_code": "sci-mod01-c08",
       "title": "Nature of sound",
       "notes": "requires a medium, speed in solids, liquids and gases.",
       "sort_order": 1
     },
     {
-      "code": "sci-c08-t02",
-      "chapter_code": "sci-c08",
+      "code": "sci-mod01-c08-t02",
+      "chapter_code": "sci-mod01-c08",
       "title": "Characteristics",
       "notes": "pitch, loudness, quality (timbre); decibel.",
       "sort_order": 2
     },
     {
-      "code": "sci-c08-t03",
-      "chapter_code": "sci-c08",
+      "code": "sci-mod01-c08-t03",
+      "chapter_code": "sci-mod01-c08",
       "title": "Ranges",
       "notes": "infrasonic, audible (20 Hz to 20 kHz), ultrasonic; uses (SONAR, ultrasound).",
       "sort_order": 3
     },
     {
-      "code": "sci-c08-t04",
-      "chapter_code": "sci-c08",
+      "code": "sci-mod01-c08-t04",
+      "chapter_code": "sci-mod01-c08",
       "title": "Reflection of sound",
       "notes": "echo, reverberation; acoustics.",
       "sort_order": 4
     },
     {
-      "code": "sci-c08-t05",
-      "chapter_code": "sci-c08",
+      "code": "sci-mod01-c08-t05",
+      "chapter_code": "sci-mod01-c08",
       "title": "Musical sound",
       "notes": "harmonics, beats.",
       "sort_order": 5
     },
     {
-      "code": "sci-c08-t06",
-      "chapter_code": "sci-c08",
+      "code": "sci-mod01-c08-t06",
+      "chapter_code": "sci-mod01-c08",
       "title": "Noise pollution",
       "notes": "permissible limits, effects.",
       "sort_order": 6
     },
     {
-      "code": "sci-c08-t07",
-      "chapter_code": "sci-c08",
+      "code": "sci-mod01-c08-t07",
+      "chapter_code": "sci-mod01-c08",
       "title": "Applications",
       "notes": "SONAR, medical ultrasound, loudspeaker.",
       "sort_order": 7
     },
     {
-      "code": "sci-c09-t01",
-      "chapter_code": "sci-c09",
+      "code": "sci-mod01-c09-t01",
+      "chapter_code": "sci-mod01-c09",
       "title": "Nature of light",
       "notes": "speed of light, wave and particle (duality).",
       "sort_order": 1
     },
     {
-      "code": "sci-c09-t02",
-      "chapter_code": "sci-c09",
+      "code": "sci-mod01-c09-t02",
+      "chapter_code": "sci-mod01-c09",
       "title": "Reflection",
       "notes": "laws, plane and spherical mirrors, mirror formula; uses of concave and convex mirrors.",
       "sort_order": 2
     },
     {
-      "code": "sci-c09-t03",
-      "chapter_code": "sci-c09",
+      "code": "sci-mod01-c09-t03",
+      "chapter_code": "sci-mod01-c09",
       "title": "Refraction",
       "notes": "laws, refractive index, total internal reflection (mirage, optical fibre, diamond).",
       "sort_order": 3
     },
     {
-      "code": "sci-c09-t04",
-      "chapter_code": "sci-c09",
+      "code": "sci-mod01-c09-t04",
+      "chapter_code": "sci-mod01-c09",
       "title": "Lenses",
       "notes": "convex and concave, lens formula, power (dioptre).",
       "sort_order": 4
     },
     {
-      "code": "sci-c09-t05",
-      "chapter_code": "sci-c09",
+      "code": "sci-mod01-c09-t05",
+      "chapter_code": "sci-mod01-c09",
       "title": "Dispersion and colours",
       "notes": "prism, rainbow, scattering (blue sky, red sunset), primary colours.",
       "sort_order": 5
     },
     {
-      "code": "sci-c09-t06",
-      "chapter_code": "sci-c09",
+      "code": "sci-mod01-c09-t06",
+      "chapter_code": "sci-mod01-c09",
       "title": "The human eye and defects",
       "notes": "myopia, hypermetropia, presbyopia, astigmatism, cataract.",
       "sort_order": 6
     },
     {
-      "code": "sci-c09-t07",
-      "chapter_code": "sci-c09",
+      "code": "sci-mod01-c09-t07",
+      "chapter_code": "sci-mod01-c09",
       "title": "Optical instruments",
       "notes": "microscope, telescope, camera, periscope.",
       "sort_order": 7
     },
     {
-      "code": "sci-c09-t08",
-      "chapter_code": "sci-c09",
+      "code": "sci-mod01-c09-t08",
+      "chapter_code": "sci-mod01-c09",
       "title": "Interference, diffraction and polarisation",
       "notes": "wave nature of light.",
       "sort_order": 8
     },
     {
-      "code": "sci-c09-t09",
-      "chapter_code": "sci-c09",
+      "code": "sci-mod01-c09-t09",
+      "chapter_code": "sci-mod01-c09",
       "title": "Photoelectric effect and lasers",
       "notes": "Einstein, uses of lasers.",
       "sort_order": 9
     },
     {
-      "code": "sci-c10-t01",
-      "chapter_code": "sci-c10",
+      "code": "sci-mod01-c10-t01",
+      "chapter_code": "sci-mod01-c10",
       "title": "Electric charge and field",
       "notes": "Coulomb’s law, electric potential.",
       "sort_order": 1
     },
     {
-      "code": "sci-c10-t02",
-      "chapter_code": "sci-c10",
+      "code": "sci-mod01-c10-t02",
+      "chapter_code": "sci-mod01-c10",
       "title": "Current, voltage and resistance",
       "notes": "Ohm’s law, units.",
       "sort_order": 2
     },
     {
-      "code": "sci-c10-t03",
-      "chapter_code": "sci-c10",
+      "code": "sci-mod01-c10-t03",
+      "chapter_code": "sci-mod01-c10",
       "title": "Series and parallel circuits",
       "notes": "equivalent resistance.",
       "sort_order": 3
     },
     {
-      "code": "sci-c10-t04",
-      "chapter_code": "sci-c10",
+      "code": "sci-mod01-c10-t04",
+      "chapter_code": "sci-mod01-c10",
       "title": "Electric power and energy",
       "notes": "kilowatt-hour, heating effect, fuse, electric bulb.",
       "sort_order": 4
     },
     {
-      "code": "sci-c10-t05",
-      "chapter_code": "sci-c10",
+      "code": "sci-mod01-c10-t05",
+      "chapter_code": "sci-mod01-c10",
       "title": "Magnetic effects of current",
       "notes": "Oersted, electromagnet, Fleming’s rules, electric motor.",
       "sort_order": 5
     },
     {
-      "code": "sci-c10-t06",
-      "chapter_code": "sci-c10",
+      "code": "sci-mod01-c10-t06",
+      "chapter_code": "sci-mod01-c10",
       "title": "Electromagnetic induction",
       "notes": "Faraday’s law, Lenz’s law, generator, transformer.",
       "sort_order": 6
     },
     {
-      "code": "sci-c10-t07",
-      "chapter_code": "sci-c10",
+      "code": "sci-mod01-c10-t07",
+      "chapter_code": "sci-mod01-c10",
       "title": "AC and DC",
       "notes": "frequency, household supply (220 V, 50 Hz).",
       "sort_order": 7
     },
     {
-      "code": "sci-c10-t08",
-      "chapter_code": "sci-c10",
+      "code": "sci-mod01-c10-t08",
+      "chapter_code": "sci-mod01-c10",
       "title": "Cells and batteries",
       "notes": "primary, secondary, lead-acid, dry cell.",
       "sort_order": 8
     },
     {
-      "code": "sci-c10-t09",
-      "chapter_code": "sci-c10",
+      "code": "sci-mod01-c10-t09",
+      "chapter_code": "sci-mod01-c10",
       "title": "Magnetism",
       "notes": "bar magnet, Earth’s magnetism.",
       "sort_order": 9
     },
     {
-      "code": "sci-c11-t01",
-      "chapter_code": "sci-c11",
+      "code": "sci-mod01-c11-t01",
+      "chapter_code": "sci-mod01-c11",
       "title": "Conductors and insulators",
       "notes": "examples, resistivity.",
       "sort_order": 1
     },
     {
-      "code": "sci-c11-t02",
-      "chapter_code": "sci-c11",
+      "code": "sci-mod01-c11-t02",
+      "chapter_code": "sci-mod01-c11",
       "title": "Semiconductors",
       "notes": "silicon, germanium, p-type and n-type, diode, transistor.",
       "sort_order": 2
     },
     {
-      "code": "sci-c11-t03",
-      "chapter_code": "sci-c11",
+      "code": "sci-mod01-c11-t03",
+      "chapter_code": "sci-mod01-c11",
       "title": "Superconductors",
       "notes": "critical temperature, Meissner effect, uses (MRI, maglev).",
       "sort_order": 3
     },
     {
-      "code": "sci-c11-t04",
-      "chapter_code": "sci-c11",
+      "code": "sci-mod01-c11-t04",
+      "chapter_code": "sci-mod01-c11",
       "title": "Factors affecting resistance",
       "notes": "length, area, temperature.",
       "sort_order": 4
     },
     {
-      "code": "sci-c11-t05",
-      "chapter_code": "sci-c11",
+      "code": "sci-mod01-c11-t05",
+      "chapter_code": "sci-mod01-c11",
       "title": "Thermal conductivity",
       "notes": "good and bad conductors of heat.",
       "sort_order": 5
     },
     {
-      "code": "sci-c11-t06",
-      "chapter_code": "sci-c11",
+      "code": "sci-mod01-c11-t06",
+      "chapter_code": "sci-mod01-c11",
       "title": "Applications",
       "notes": "LEDs, solar cells, integrated circuits.",
       "sort_order": 6
     },
     {
-      "code": "sci-c12-t01",
-      "chapter_code": "sci-c12",
+      "code": "sci-mod01-c12-t01",
+      "chapter_code": "sci-mod01-c12",
       "title": "Structure of nucleus",
       "notes": "protons, neutrons, isotopes, isobars, isotones.",
       "sort_order": 1
     },
     {
-      "code": "sci-c12-t02",
-      "chapter_code": "sci-c12",
+      "code": "sci-mod01-c12-t02",
+      "chapter_code": "sci-mod01-c12",
       "title": "Radioactivity",
       "notes": "alpha, beta, gamma rays, half-life, decay.",
       "sort_order": 2
     },
     {
-      "code": "sci-c12-t03",
-      "chapter_code": "sci-c12",
+      "code": "sci-mod01-c12-t03",
+      "chapter_code": "sci-mod01-c12",
       "title": "Nuclear fission",
       "notes": "chain reaction, atom bomb, nuclear reactors (moderator, control rods).",
       "sort_order": 3
     },
     {
-      "code": "sci-c12-t04",
-      "chapter_code": "sci-c12",
+      "code": "sci-mod01-c12-t04",
+      "chapter_code": "sci-mod01-c12",
       "title": "Nuclear fusion",
       "notes": "hydrogen bomb, stars.",
       "sort_order": 4
     },
     {
-      "code": "sci-c12-t05",
-      "chapter_code": "sci-c12",
+      "code": "sci-mod01-c12-t05",
+      "chapter_code": "sci-mod01-c12",
       "title": "Mass-energy relation",
       "notes": "E = mc squared, binding energy.",
       "sort_order": 5
     },
     {
-      "code": "sci-c12-t06",
-      "chapter_code": "sci-c12",
+      "code": "sci-mod01-c12-t06",
+      "chapter_code": "sci-mod01-c12",
       "title": "Uses and hazards",
       "notes": "nuclear medicine, carbon dating, radiation units (becquerel, sievert).",
       "sort_order": 6
     },
     {
-      "code": "sci-c12-t07",
-      "chapter_code": "sci-c12",
+      "code": "sci-mod01-c12-t07",
+      "chapter_code": "sci-mod01-c12",
       "title": "Nuclear power in India",
       "notes": "Bhabha, Tarapur, Kudankulam, thorium.",
       "sort_order": 7
     },
     {
-      "code": "sci-c13-t01",
-      "chapter_code": "sci-c13",
+      "code": "sci-mod01-c13-t01",
+      "chapter_code": "sci-mod01-c13",
       "title": "Famous scientists and discoveries",
       "notes": "Newton, Einstein, Faraday, Maxwell, Rutherford, Curie, Raman, Bose, Chandrasekhar.",
       "sort_order": 1
     },
     {
-      "code": "sci-c13-t02",
-      "chapter_code": "sci-c13",
+      "code": "sci-mod01-c13-t02",
+      "chapter_code": "sci-mod01-c13",
       "title": "Inventions and inventors",
       "notes": "telephone, radio, television, X-rays.",
       "sort_order": 2
     },
     {
-      "code": "sci-c13-t03",
-      "chapter_code": "sci-c13",
+      "code": "sci-mod01-c13-t03",
+      "chapter_code": "sci-mod01-c13",
       "title": "Important laws and principles",
       "notes": "matching.",
       "sort_order": 3
     },
     {
-      "code": "sci-c13-t04",
-      "chapter_code": "sci-c13",
+      "code": "sci-mod01-c13-t04",
+      "chapter_code": "sci-mod01-c13",
       "title": "Instruments and their uses",
       "notes": "quick revision.",
       "sort_order": 4
     },
     {
-      "code": "sci-c13-t05",
-      "chapter_code": "sci-c13",
+      "code": "sci-mod01-c13-t05",
+      "chapter_code": "sci-mod01-c13",
       "title": "Units and conversions",
       "notes": "mixed one-liners.",
       "sort_order": 5
     },
     {
-      "code": "sci-c13-t06",
-      "chapter_code": "sci-c13",
+      "code": "sci-mod01-c13-t06",
+      "chapter_code": "sci-mod01-c13",
       "title": "Nobel Prize in Physics (Indian connections)",
       "notes": "Raman, Chandrasekhar.",
       "sort_order": 6
     },
     {
-      "code": "sci-c14-t01",
-      "chapter_code": "sci-c14",
+      "code": "sci-mod02-c01-t01",
+      "chapter_code": "sci-mod02-c01",
       "title": "Atomic theories",
       "notes": "Dalton, Thomson, Rutherford, Bohr, quantum model.",
       "sort_order": 1
     },
     {
-      "code": "sci-c14-t02",
-      "chapter_code": "sci-c14",
+      "code": "sci-mod02-c01-t02",
+      "chapter_code": "sci-mod02-c01",
       "title": "Subatomic particles",
       "notes": "electron, proton, neutron; charge and mass.",
       "sort_order": 2
     },
     {
-      "code": "sci-c14-t03",
-      "chapter_code": "sci-c14",
+      "code": "sci-mod02-c01-t03",
+      "chapter_code": "sci-mod02-c01",
       "title": "Atomic number, mass number, isotopes and isobars",
       "notes": "examples (C-14, H isotopes).",
       "sort_order": 3
     },
     {
-      "code": "sci-c14-t04",
-      "chapter_code": "sci-c14",
+      "code": "sci-mod02-c01-t04",
+      "chapter_code": "sci-mod02-c01",
       "title": "Electronic configuration",
       "notes": "shells and subshells, Aufbau principle, Pauli exclusion, Hund’s rule.",
       "sort_order": 4
     },
     {
-      "code": "sci-c14-t05",
-      "chapter_code": "sci-c14",
+      "code": "sci-mod02-c01-t05",
+      "chapter_code": "sci-mod02-c01",
       "title": "Quantum numbers and orbitals",
       "notes": "s, p, d, f.",
       "sort_order": 5
     },
     {
-      "code": "sci-c14-t06",
-      "chapter_code": "sci-c14",
+      "code": "sci-mod02-c01-t06",
+      "chapter_code": "sci-mod02-c01",
       "title": "Valency",
       "notes": "valence electrons, octet rule.",
       "sort_order": 6
     },
     {
-      "code": "sci-c14-t07",
-      "chapter_code": "sci-c14",
+      "code": "sci-mod02-c01-t07",
+      "chapter_code": "sci-mod02-c01",
       "title": "Molecules and mole concept",
       "notes": "Avogadro number, atomic and molecular mass.",
       "sort_order": 7
     },
     {
-      "code": "sci-c15-t01",
-      "chapter_code": "sci-c15",
+      "code": "sci-mod02-c02-t01",
+      "chapter_code": "sci-mod02-c02",
       "title": "Physical vs chemical change",
       "notes": "examples.",
       "sort_order": 1
     },
     {
-      "code": "sci-c15-t02",
-      "chapter_code": "sci-c15",
+      "code": "sci-mod02-c02-t02",
+      "chapter_code": "sci-mod02-c02",
       "title": "Types of chemical reactions",
       "notes": "combination, decomposition, displacement, double displacement, redox, exothermic and endothermic.",
       "sort_order": 2
     },
     {
-      "code": "sci-c15-t03",
-      "chapter_code": "sci-c15",
+      "code": "sci-mod02-c02-t03",
+      "chapter_code": "sci-mod02-c02",
       "title": "Laws of chemical combination",
       "notes": "conservation of mass, definite proportions, multiple proportions.",
       "sort_order": 3
     },
     {
-      "code": "sci-c15-t04",
-      "chapter_code": "sci-c15",
+      "code": "sci-mod02-c02-t04",
+      "chapter_code": "sci-mod02-c02",
       "title": "Catalysis",
       "notes": "catalysts and inhibitors, enzymes.",
       "sort_order": 4
     },
     {
-      "code": "sci-c15-t05",
-      "chapter_code": "sci-c15",
+      "code": "sci-mod02-c02-t05",
+      "chapter_code": "sci-mod02-c02",
       "title": "Rate of reaction",
       "notes": "factors.",
       "sort_order": 5
     },
     {
-      "code": "sci-c15-t06",
-      "chapter_code": "sci-c15",
+      "code": "sci-mod02-c02-t06",
+      "chapter_code": "sci-mod02-c02",
       "title": "Chemical equations",
       "notes": "balancing.",
       "sort_order": 6
     },
     {
-      "code": "sci-c15-t07",
-      "chapter_code": "sci-c15",
+      "code": "sci-mod02-c02-t07",
+      "chapter_code": "sci-mod02-c02",
       "title": "Everyday changes",
       "notes": "rusting, burning, fermentation, photosynthesis.",
       "sort_order": 7
     },
     {
-      "code": "sci-c16-t01",
-      "chapter_code": "sci-c16",
+      "code": "sci-mod02-c03-t01",
+      "chapter_code": "sci-mod02-c03",
       "title": "Acids",
       "notes": "properties, examples (HCl, H2SO4, HNO3), natural acids.",
       "sort_order": 1
     },
     {
-      "code": "sci-c16-t02",
-      "chapter_code": "sci-c16",
+      "code": "sci-mod02-c03-t02",
+      "chapter_code": "sci-mod02-c03",
       "title": "Bases and alkalis",
       "notes": "properties, examples (NaOH, KOH, Ca(OH)2).",
       "sort_order": 2
     },
     {
-      "code": "sci-c16-t03",
-      "chapter_code": "sci-c16",
+      "code": "sci-mod02-c03-t03",
+      "chapter_code": "sci-mod02-c03",
       "title": "pH scale",
       "notes": "acidic, neutral, basic; indicators (litmus, phenolphthalein, methyl orange).",
       "sort_order": 3
     },
     {
-      "code": "sci-c16-t04",
-      "chapter_code": "sci-c16",
+      "code": "sci-mod02-c03-t04",
+      "chapter_code": "sci-mod02-c03",
       "title": "Neutralisation",
       "notes": "antacids.",
       "sort_order": 4
     },
     {
-      "code": "sci-c16-t05",
-      "chapter_code": "sci-c16",
+      "code": "sci-mod02-c03-t05",
+      "chapter_code": "sci-mod02-c03",
       "title": "Salts",
       "notes": "types, common salt, baking soda, washing soda, bleaching powder, plaster of Paris.",
       "sort_order": 5
     },
     {
-      "code": "sci-c16-t06",
-      "chapter_code": "sci-c16",
+      "code": "sci-mod02-c03-t06",
+      "chapter_code": "sci-mod02-c03",
       "title": "Industrial preparation",
       "notes": "Solvay process, chlor-alkali process, Contact process.",
       "sort_order": 6
     },
     {
-      "code": "sci-c16-t07",
-      "chapter_code": "sci-c16",
+      "code": "sci-mod02-c03-t07",
+      "chapter_code": "sci-mod02-c03",
       "title": "Uses of acids, bases and salts",
       "notes": "everyday chemistry.",
       "sort_order": 7
     },
     {
-      "code": "sci-c17-t01",
-      "chapter_code": "sci-c17",
+      "code": "sci-mod02-c04-t01",
+      "chapter_code": "sci-mod02-c04",
       "title": "Periodic table",
       "notes": "Mendeleev, modern periodic law, groups and periods.",
       "sort_order": 1
     },
     {
-      "code": "sci-c17-t02",
-      "chapter_code": "sci-c17",
+      "code": "sci-mod02-c04-t02",
+      "chapter_code": "sci-mod02-c04",
       "title": "Periodic trends",
       "notes": "atomic size, ionisation energy, electronegativity.",
       "sort_order": 2
     },
     {
-      "code": "sci-c17-t03",
-      "chapter_code": "sci-c17",
+      "code": "sci-mod02-c04-t03",
+      "chapter_code": "sci-mod02-c04",
       "title": "Chemical bonding",
       "notes": "ionic, covalent, coordinate, metallic, hydrogen bonds.",
       "sort_order": 3
     },
     {
-      "code": "sci-c17-t04",
-      "chapter_code": "sci-c17",
+      "code": "sci-mod02-c04-t04",
+      "chapter_code": "sci-mod02-c04",
       "title": "Important element groups",
       "notes": "alkali metals, alkaline earth metals, halogens, noble gases.",
       "sort_order": 4
     },
     {
-      "code": "sci-c17-t05",
-      "chapter_code": "sci-c17",
+      "code": "sci-mod02-c04-t05",
+      "chapter_code": "sci-mod02-c04",
       "title": "Transition elements",
       "notes": "properties.",
       "sort_order": 5
     },
     {
-      "code": "sci-c17-t06",
-      "chapter_code": "sci-c17",
+      "code": "sci-mod02-c04-t06",
+      "chapter_code": "sci-mod02-c04",
       "title": "Radioactive and heavy elements",
       "notes": "actinides, lanthanides.",
       "sort_order": 6
     },
     {
-      "code": "sci-c17-t07",
-      "chapter_code": "sci-c17",
+      "code": "sci-mod02-c04-t07",
+      "chapter_code": "sci-mod02-c04",
       "title": "Matter classification",
       "notes": "elements, compounds, mixtures; separation techniques.",
       "sort_order": 7
     },
     {
-      "code": "sci-c18-t01",
-      "chapter_code": "sci-c18",
+      "code": "sci-mod02-c05-t01",
+      "chapter_code": "sci-mod02-c05",
       "title": "Properties of hydrogen",
       "notes": "isotopes (protium, deuterium, tritium), lightest gas.",
       "sort_order": 1
     },
     {
-      "code": "sci-c18-t02",
-      "chapter_code": "sci-c18",
+      "code": "sci-mod02-c05-t02",
+      "chapter_code": "sci-mod02-c05",
       "title": "Preparation and uses",
       "notes": "fuel, hydrogenation, Haber process.",
       "sort_order": 2
     },
     {
-      "code": "sci-c18-t03",
-      "chapter_code": "sci-c18",
+      "code": "sci-mod02-c05-t03",
+      "chapter_code": "sci-mod02-c05",
       "title": "Water",
       "notes": "hard and soft water, removal of hardness.",
       "sort_order": 3
     },
     {
-      "code": "sci-c18-t04",
-      "chapter_code": "sci-c18",
+      "code": "sci-mod02-c05-t04",
+      "chapter_code": "sci-mod02-c05",
       "title": "Heavy water",
       "notes": "D2O, nuclear reactors.",
       "sort_order": 4
     },
     {
-      "code": "sci-c18-t05",
-      "chapter_code": "sci-c18",
+      "code": "sci-mod02-c05-t05",
+      "chapter_code": "sci-mod02-c05",
       "title": "Hydrogen peroxide",
       "notes": "uses, bleaching.",
       "sort_order": 5
     },
     {
-      "code": "sci-c18-t06",
-      "chapter_code": "sci-c18",
+      "code": "sci-mod02-c05-t06",
+      "chapter_code": "sci-mod02-c05",
       "title": "Hydrides",
       "notes": "types.",
       "sort_order": 6
     },
     {
-      "code": "sci-c18-t07",
-      "chapter_code": "sci-c18",
+      "code": "sci-mod02-c05-t07",
+      "chapter_code": "sci-mod02-c05",
       "title": "Hydrogen economy",
       "notes": "green hydrogen, fuel cells.",
       "sort_order": 7
     },
     {
-      "code": "sci-c19-t01",
-      "chapter_code": "sci-c19",
+      "code": "sci-mod02-c06-t01",
+      "chapter_code": "sci-mod02-c06",
       "title": "Allotropes of carbon",
       "notes": "diamond, graphite, fullerene (C60), graphene, carbon nanotubes.",
       "sort_order": 1
     },
     {
-      "code": "sci-c19-t02",
-      "chapter_code": "sci-c19",
+      "code": "sci-mod02-c06-t02",
+      "chapter_code": "sci-mod02-c06",
       "title": "Properties and uses",
       "notes": "hardness of diamond, graphite as lubricant and electrode.",
       "sort_order": 2
     },
     {
-      "code": "sci-c19-t03",
-      "chapter_code": "sci-c19",
+      "code": "sci-mod02-c06-t03",
+      "chapter_code": "sci-mod02-c06",
       "title": "Carbon compounds",
       "notes": "catenation, tetravalency.",
       "sort_order": 3
     },
     {
-      "code": "sci-c19-t04",
-      "chapter_code": "sci-c19",
+      "code": "sci-mod02-c06-t04",
+      "chapter_code": "sci-mod02-c06",
       "title": "Oxides of carbon",
       "notes": "CO, CO2; dry ice, carbon monoxide poisoning.",
       "sort_order": 4
     },
     {
-      "code": "sci-c19-t05",
-      "chapter_code": "sci-c19",
+      "code": "sci-mod02-c06-t05",
+      "chapter_code": "sci-mod02-c06",
       "title": "Amorphous carbon",
       "notes": "coal, coke, charcoal, lamp black.",
       "sort_order": 5
     },
     {
-      "code": "sci-c19-t06",
-      "chapter_code": "sci-c19",
+      "code": "sci-mod02-c06-t06",
+      "chapter_code": "sci-mod02-c06",
       "title": "Coal types",
       "notes": "peat, lignite, bituminous, anthracite.",
       "sort_order": 6
     },
     {
-      "code": "sci-c19-t07",
-      "chapter_code": "sci-c19",
+      "code": "sci-mod02-c06-t07",
+      "chapter_code": "sci-mod02-c06",
       "title": "Carbon cycle and footprint",
       "notes": "environmental links.",
       "sort_order": 7
     },
     {
-      "code": "sci-c20-t01",
-      "chapter_code": "sci-c20",
+      "code": "sci-mod02-c07-t01",
+      "chapter_code": "sci-mod02-c07",
       "title": "Nitrogen",
       "notes": "properties, nitrogen cycle, compounds (ammonia, nitric acid, nitrous oxide).",
       "sort_order": 1
     },
     {
-      "code": "sci-c20-t02",
-      "chapter_code": "sci-c20",
+      "code": "sci-mod02-c07-t02",
+      "chapter_code": "sci-mod02-c07",
       "title": "Sulphur",
       "notes": "allotropes, sulphur dioxide, sulphuric acid (“king of chemicals”).",
       "sort_order": 2
     },
     {
-      "code": "sci-c20-t03",
-      "chapter_code": "sci-c20",
+      "code": "sci-mod02-c07-t03",
+      "chapter_code": "sci-mod02-c07",
       "title": "Oxygen and ozone",
       "notes": "properties, uses.",
       "sort_order": 3
     },
     {
-      "code": "sci-c20-t04",
-      "chapter_code": "sci-c20",
+      "code": "sci-mod02-c07-t04",
+      "chapter_code": "sci-mod02-c07",
       "title": "Halogens",
       "notes": "fluorine, chlorine, bromine, iodine; properties and uses.",
       "sort_order": 4
     },
     {
-      "code": "sci-c20-t05",
-      "chapter_code": "sci-c20",
+      "code": "sci-mod02-c07-t05",
+      "chapter_code": "sci-mod02-c07",
       "title": "Noble (inert) gases",
       "notes": "He, Ne, Ar, Kr, Xe, Rn; uses.",
       "sort_order": 5
     },
     {
-      "code": "sci-c20-t06",
-      "chapter_code": "sci-c20",
+      "code": "sci-mod02-c07-t06",
+      "chapter_code": "sci-mod02-c07",
       "title": "Phosphorus",
       "notes": "allotropes (white, red), uses in matches.",
       "sort_order": 6
     },
     {
-      "code": "sci-c20-t07",
-      "chapter_code": "sci-c20",
+      "code": "sci-mod02-c07-t07",
+      "chapter_code": "sci-mod02-c07",
       "title": "Air pollutants",
       "notes": "acid rain, smog.",
       "sort_order": 7
     },
     {
-      "code": "sci-c21-t01",
-      "chapter_code": "sci-c21",
+      "code": "sci-mod02-c08-t01",
+      "chapter_code": "sci-mod02-c08",
       "title": "Metals vs non-metals",
       "notes": "physical and chemical properties.",
       "sort_order": 1
     },
     {
-      "code": "sci-c21-t02",
-      "chapter_code": "sci-c21",
+      "code": "sci-mod02-c08-t02",
+      "chapter_code": "sci-mod02-c08",
       "title": "Reactivity series",
       "notes": "displacement reactions.",
       "sort_order": 2
     },
     {
-      "code": "sci-c21-t03",
-      "chapter_code": "sci-c21",
+      "code": "sci-mod02-c08-t03",
+      "chapter_code": "sci-mod02-c08",
       "title": "Metallurgy",
       "notes": "concentration, roasting, calcination, reduction, refining.",
       "sort_order": 3
     },
     {
-      "code": "sci-c21-t04",
-      "chapter_code": "sci-c21",
+      "code": "sci-mod02-c08-t04",
+      "chapter_code": "sci-mod02-c08",
       "title": "Ores of important metals",
       "notes": "bauxite (Al), haematite (Fe), cinnabar (Hg), galena (Pb), copper pyrite.",
       "sort_order": 4
     },
     {
-      "code": "sci-c21-t05",
-      "chapter_code": "sci-c21",
+      "code": "sci-mod02-c08-t05",
+      "chapter_code": "sci-mod02-c08",
       "title": "Corrosion and rusting",
       "notes": "prevention, galvanisation.",
       "sort_order": 5
     },
     {
-      "code": "sci-c21-t06",
-      "chapter_code": "sci-c21",
+      "code": "sci-mod02-c08-t06",
+      "chapter_code": "sci-mod02-c08",
       "title": "Special metals",
       "notes": "gold, silver, platinum, mercury, sodium, uses.",
       "sort_order": 6
     },
     {
-      "code": "sci-c21-t07",
-      "chapter_code": "sci-c21",
+      "code": "sci-mod02-c08-t07",
+      "chapter_code": "sci-mod02-c08",
       "title": "Extraction of metals",
       "notes": "Hall-Heroult process, blast furnace.",
       "sort_order": 7
     },
     {
-      "code": "sci-c22-t01",
-      "chapter_code": "sci-c22",
+      "code": "sci-mod02-c09-t01",
+      "chapter_code": "sci-mod02-c09",
       "title": "Meaning and purpose",
       "notes": "properties improved.",
       "sort_order": 1
     },
     {
-      "code": "sci-c22-t02",
-      "chapter_code": "sci-c22",
+      "code": "sci-mod02-c09-t02",
+      "chapter_code": "sci-mod02-c09",
       "title": "Common alloys of iron",
       "notes": "steel, stainless steel (Fe, Cr, Ni).",
       "sort_order": 2
     },
     {
-      "code": "sci-c22-t03",
-      "chapter_code": "sci-c22",
+      "code": "sci-mod02-c09-t03",
+      "chapter_code": "sci-mod02-c09",
       "title": "Copper alloys",
       "notes": "brass (Cu, Zn), bronze (Cu, Sn), German silver.",
       "sort_order": 3
     },
     {
-      "code": "sci-c22-t04",
-      "chapter_code": "sci-c22",
+      "code": "sci-mod02-c09-t04",
+      "chapter_code": "sci-mod02-c09",
       "title": "Other alloys",
       "notes": "solder (Pb, Sn), duralumin, magnalium, gunmetal, amalgam.",
       "sort_order": 4
     },
     {
-      "code": "sci-c22-t05",
-      "chapter_code": "sci-c22",
+      "code": "sci-mod02-c09-t05",
+      "chapter_code": "sci-mod02-c09",
       "title": "Gold purity",
       "notes": "carats.",
       "sort_order": 5
     },
     {
-      "code": "sci-c22-t06",
-      "chapter_code": "sci-c22",
+      "code": "sci-mod02-c09-t06",
+      "chapter_code": "sci-mod02-c09",
       "title": "Matching: alloy–composition–use",
       "notes": ".",
       "sort_order": 6
     },
     {
-      "code": "sci-c23-t01",
-      "chapter_code": "sci-c23",
+      "code": "sci-mod02-c10-t01",
+      "chapter_code": "sci-mod02-c10",
       "title": "Classification",
       "notes": "alkanes, alkenes, alkynes, aromatic.",
       "sort_order": 1
     },
     {
-      "code": "sci-c23-t02",
-      "chapter_code": "sci-c23",
+      "code": "sci-mod02-c10-t02",
+      "chapter_code": "sci-mod02-c10",
       "title": "Methane, ethane, ethene, ethyne",
       "notes": "properties and uses.",
       "sort_order": 2
     },
     {
-      "code": "sci-c23-t03",
-      "chapter_code": "sci-c23",
+      "code": "sci-mod02-c10-t03",
+      "chapter_code": "sci-mod02-c10",
       "title": "Isomerism",
       "notes": "types.",
       "sort_order": 3
     },
     {
-      "code": "sci-c23-t04",
-      "chapter_code": "sci-c23",
+      "code": "sci-mod02-c10-t04",
+      "chapter_code": "sci-mod02-c10",
       "title": "Natural gas, LPG, CNG",
       "notes": "composition.",
       "sort_order": 4
     },
     {
-      "code": "sci-c23-t05",
-      "chapter_code": "sci-c23",
+      "code": "sci-mod02-c10-t05",
+      "chapter_code": "sci-mod02-c10",
       "title": "Petroleum refining",
       "notes": "fractional distillation, products.",
       "sort_order": 5
     },
     {
-      "code": "sci-c23-t06",
-      "chapter_code": "sci-c23",
+      "code": "sci-mod02-c10-t06",
+      "chapter_code": "sci-mod02-c10",
       "title": "Benzene and aromatic compounds",
       "notes": "properties.",
       "sort_order": 6
     },
     {
-      "code": "sci-c23-t07",
-      "chapter_code": "sci-c23",
+      "code": "sci-mod02-c10-t07",
+      "chapter_code": "sci-mod02-c10",
       "title": "Cracking and polymerisation",
       "notes": "products.",
       "sort_order": 7
     },
     {
-      "code": "sci-c24-t01",
-      "chapter_code": "sci-c24",
+      "code": "sci-mod02-c11-t01",
+      "chapter_code": "sci-mod02-c11",
       "title": "Methanol and ethanol",
       "notes": "properties, uses.",
       "sort_order": 1
     },
     {
-      "code": "sci-c24-t02",
-      "chapter_code": "sci-c24",
+      "code": "sci-mod02-c11-t02",
+      "chapter_code": "sci-mod02-c11",
       "title": "Fermentation",
       "notes": "ethanol production, yeast.",
       "sort_order": 2
     },
     {
-      "code": "sci-c24-t03",
-      "chapter_code": "sci-c24",
+      "code": "sci-mod02-c11-t03",
+      "chapter_code": "sci-mod02-c11",
       "title": "Denatured and absolute alcohol",
       "notes": "rectified spirit.",
       "sort_order": 3
     },
     {
-      "code": "sci-c24-t04",
-      "chapter_code": "sci-c24",
+      "code": "sci-mod02-c11-t04",
+      "chapter_code": "sci-mod02-c11",
       "title": "Methanol poisoning",
       "notes": "effects.",
       "sort_order": 4
     },
     {
-      "code": "sci-c24-t05",
-      "chapter_code": "sci-c24",
+      "code": "sci-mod02-c11-t05",
+      "chapter_code": "sci-mod02-c11",
       "title": "Fuel ethanol",
       "notes": "blending in petrol.",
       "sort_order": 5
     },
     {
-      "code": "sci-c24-t06",
-      "chapter_code": "sci-c24",
+      "code": "sci-mod02-c11-t06",
+      "chapter_code": "sci-mod02-c11",
       "title": "Functional groups",
       "notes": "hydroxyl, aldehyde, ketone.",
       "sort_order": 6
     },
     {
-      "code": "sci-c25-t01",
-      "chapter_code": "sci-c25",
+      "code": "sci-mod02-c12-t01",
+      "chapter_code": "sci-mod02-c12",
       "title": "Acetic acid (vinegar)",
       "notes": "formation, uses.",
       "sort_order": 1
     },
     {
-      "code": "sci-c25-t02",
-      "chapter_code": "sci-c25",
+      "code": "sci-mod02-c12-t02",
+      "chapter_code": "sci-mod02-c12",
       "title": "Formic acid",
       "notes": "ant and nettle stings.",
       "sort_order": 2
     },
     {
-      "code": "sci-c25-t03",
-      "chapter_code": "sci-c25",
+      "code": "sci-mod02-c12-t03",
+      "chapter_code": "sci-mod02-c12",
       "title": "Natural organic acids",
       "notes": "citric (citrus), lactic (curd), tartaric (grapes), malic (apple), oxalic (spinach), tannic.",
       "sort_order": 3
     },
     {
-      "code": "sci-c25-t04",
-      "chapter_code": "sci-c25",
+      "code": "sci-mod02-c12-t04",
+      "chapter_code": "sci-mod02-c12",
       "title": "Fatty acids",
       "notes": "oleic, stearic, palmitic.",
       "sort_order": 4
     },
     {
-      "code": "sci-c25-t05",
-      "chapter_code": "sci-c25",
+      "code": "sci-mod02-c12-t05",
+      "chapter_code": "sci-mod02-c12",
       "title": "Amino acids",
       "notes": "building blocks of proteins.",
       "sort_order": 5
     },
     {
-      "code": "sci-c25-t06",
-      "chapter_code": "sci-c25",
+      "code": "sci-mod02-c12-t06",
+      "chapter_code": "sci-mod02-c12",
       "title": "Matching: acid–source",
       "notes": "all question related to this .",
       "sort_order": 6
     },
     {
-      "code": "sci-c26-t01",
-      "chapter_code": "sci-c26",
+      "code": "sci-mod02-c13-t01",
+      "chapter_code": "sci-mod02-c13",
       "title": "Natural polymers",
       "notes": "cellulose, starch, proteins, rubber.",
       "sort_order": 1
     },
     {
-      "code": "sci-c26-t02",
-      "chapter_code": "sci-c26",
+      "code": "sci-mod02-c13-t02",
+      "chapter_code": "sci-mod02-c13",
       "title": "Synthetic polymers",
       "notes": "polythene, PVC, nylon, polyester, Bakelite, Teflon.",
       "sort_order": 2
     },
     {
-      "code": "sci-c26-t03",
-      "chapter_code": "sci-c26",
+      "code": "sci-mod02-c13-t03",
+      "chapter_code": "sci-mod02-c13",
       "title": "Thermoplastics and thermosetting",
       "notes": "examples.",
       "sort_order": 3
     },
     {
-      "code": "sci-c26-t04",
-      "chapter_code": "sci-c26",
+      "code": "sci-mod02-c13-t04",
+      "chapter_code": "sci-mod02-c13",
       "title": "Rubber",
       "notes": "natural, vulcanisation, synthetic (neoprene, Buna-S).",
       "sort_order": 4
     },
     {
-      "code": "sci-c26-t05",
-      "chapter_code": "sci-c26",
+      "code": "sci-mod02-c13-t05",
+      "chapter_code": "sci-mod02-c13",
       "title": "Fibres",
       "notes": "natural and synthetic.",
       "sort_order": 5
     },
     {
-      "code": "sci-c26-t06",
-      "chapter_code": "sci-c26",
+      "code": "sci-mod02-c13-t06",
+      "chapter_code": "sci-mod02-c13",
       "title": "Plastic pollution and recycling",
       "notes": "biodegradable plastics.",
       "sort_order": 6
     },
     {
-      "code": "sci-c27-t01",
-      "chapter_code": "sci-c27",
+      "code": "sci-mod02-c14-t01",
+      "chapter_code": "sci-mod02-c14",
       "title": "Types of fuel",
       "notes": "solid, liquid, gaseous.",
       "sort_order": 1
     },
     {
-      "code": "sci-c27-t02",
-      "chapter_code": "sci-c27",
+      "code": "sci-mod02-c14-t02",
+      "chapter_code": "sci-mod02-c14",
       "title": "Calorific value",
       "notes": "high for hydrogen.",
       "sort_order": 2
     },
     {
-      "code": "sci-c27-t03",
-      "chapter_code": "sci-c27",
+      "code": "sci-mod02-c14-t03",
+      "chapter_code": "sci-mod02-c14",
       "title": "Coal, petrol, diesel, kerosene",
       "notes": "composition.",
       "sort_order": 3
     },
     {
-      "code": "sci-c27-t04",
-      "chapter_code": "sci-c27",
+      "code": "sci-mod02-c14-t04",
+      "chapter_code": "sci-mod02-c14",
       "title": "LPG, CNG, producer gas, water gas, gobar gas (biogas)",
       "notes": "composition.",
       "sort_order": 4
     },
     {
-      "code": "sci-c27-t05",
-      "chapter_code": "sci-c27",
+      "code": "sci-mod02-c14-t05",
+      "chapter_code": "sci-mod02-c14",
       "title": "Octane and cetane numbers",
       "notes": "knocking.",
       "sort_order": 5
     },
     {
-      "code": "sci-c27-t06",
-      "chapter_code": "sci-c27",
+      "code": "sci-mod02-c14-t06",
+      "chapter_code": "sci-mod02-c14",
       "title": "Ideal fuel and alternatives",
       "notes": "ethanol, biodiesel, hydrogen.",
       "sort_order": 6
     },
     {
-      "code": "sci-c27-t07",
-      "chapter_code": "sci-c27",
+      "code": "sci-mod02-c14-t07",
+      "chapter_code": "sci-mod02-c14",
       "title": "Fuel and pollution",
       "notes": "Bharat Stage norms.",
       "sort_order": 7
     },
     {
-      "code": "sci-c28-t01",
-      "chapter_code": "sci-c28",
+      "code": "sci-mod02-c15-t01",
+      "chapter_code": "sci-mod02-c15",
       "title": "Chemical nature",
       "notes": "exothermic reactions, rapid gas release.",
       "sort_order": 1
     },
     {
-      "code": "sci-c28-t02",
-      "chapter_code": "sci-c28",
+      "code": "sci-mod02-c15-t02",
+      "chapter_code": "sci-mod02-c15",
       "title": "TNT, dynamite, RDX, gunpowder, nitroglycerine, picric acid",
       "notes": "composition, inventors (Alfred Nobel).",
       "sort_order": 2
     },
     {
-      "code": "sci-c28-t03",
-      "chapter_code": "sci-c28",
+      "code": "sci-mod02-c15-t03",
+      "chapter_code": "sci-mod02-c15",
       "title": "Low and high explosives",
       "notes": "examples.",
       "sort_order": 3
     },
     {
-      "code": "sci-c28-t04",
-      "chapter_code": "sci-c28",
+      "code": "sci-mod02-c15-t04",
+      "chapter_code": "sci-mod02-c15",
       "title": "Fireworks and colours",
       "notes": "metal salts.",
       "sort_order": 4
     },
     {
-      "code": "sci-c28-t05",
-      "chapter_code": "sci-c28",
+      "code": "sci-mod02-c15-t05",
+      "chapter_code": "sci-mod02-c15",
       "title": "Safety and uses",
       "notes": "mining, demolition.",
       "sort_order": 5
     },
     {
-      "code": "sci-c29-t01",
-      "chapter_code": "sci-c29",
+      "code": "sci-mod02-c16-t01",
+      "chapter_code": "sci-mod02-c16",
       "title": "NPK nutrients",
       "notes": "primary, secondary, micronutrients.",
       "sort_order": 1
     },
     {
-      "code": "sci-c29-t02",
-      "chapter_code": "sci-c29",
+      "code": "sci-mod02-c16-t02",
+      "chapter_code": "sci-mod02-c16",
       "title": "Nitrogenous fertilizers",
       "notes": "urea, ammonium sulphate, ammonium nitrate.",
       "sort_order": 2
     },
     {
-      "code": "sci-c29-t03",
-      "chapter_code": "sci-c29",
+      "code": "sci-mod02-c16-t03",
+      "chapter_code": "sci-mod02-c16",
       "title": "Phosphatic fertilizers",
       "notes": "superphosphate, DAP.",
       "sort_order": 3
     },
     {
-      "code": "sci-c29-t04",
-      "chapter_code": "sci-c29",
+      "code": "sci-mod02-c16-t04",
+      "chapter_code": "sci-mod02-c16",
       "title": "Potash fertilizers",
       "notes": "muriate of potash.",
       "sort_order": 4
     },
     {
-      "code": "sci-c29-t05",
-      "chapter_code": "sci-c29",
+      "code": "sci-mod02-c16-t05",
+      "chapter_code": "sci-mod02-c16",
       "title": "Organic manures",
       "notes": "compost, green manure.",
       "sort_order": 5
     },
     {
-      "code": "sci-c29-t06",
-      "chapter_code": "sci-c29",
+      "code": "sci-mod02-c16-t06",
+      "chapter_code": "sci-mod02-c16",
       "title": "Pesticides and insecticides",
       "notes": "DDT, BHC, harmful effects.",
       "sort_order": 6
     },
     {
-      "code": "sci-c29-t07",
-      "chapter_code": "sci-c29",
+      "code": "sci-mod02-c16-t07",
+      "chapter_code": "sci-mod02-c16",
       "title": "Fertilizer industry in India",
       "notes": "urea production.",
       "sort_order": 7
     },
     {
-      "code": "sci-c30-t01",
-      "chapter_code": "sci-c30",
+      "code": "sci-mod02-c17-t01",
+      "chapter_code": "sci-mod02-c17",
       "title": "Soap",
       "notes": "saponification, cleansing action, micelle.",
       "sort_order": 1
     },
     {
-      "code": "sci-c30-t02",
-      "chapter_code": "sci-c30",
+      "code": "sci-mod02-c17-t02",
+      "chapter_code": "sci-mod02-c17",
       "title": "Detergents",
       "notes": "synthetic, biodegradable and non-biodegradable.",
       "sort_order": 2
     },
     {
-      "code": "sci-c30-t03",
-      "chapter_code": "sci-c30",
+      "code": "sci-mod02-c17-t03",
+      "chapter_code": "sci-mod02-c17",
       "title": "Hard water and soap",
       "notes": "scum.",
       "sort_order": 3
     },
     {
-      "code": "sci-c30-t04",
-      "chapter_code": "sci-c30",
+      "code": "sci-mod02-c17-t04",
+      "chapter_code": "sci-mod02-c17",
       "title": "Cosmetics and toiletries",
       "notes": "components.",
       "sort_order": 4
     },
     {
-      "code": "sci-c30-t05",
-      "chapter_code": "sci-c30",
+      "code": "sci-mod02-c17-t05",
+      "chapter_code": "sci-mod02-c17",
       "title": "Environmental effects",
       "notes": "eutrophication.",
       "sort_order": 5
     },
     {
-      "code": "sci-c31-t01",
-      "chapter_code": "sci-c31",
+      "code": "sci-mod02-c18-t01",
+      "chapter_code": "sci-mod02-c18",
       "title": "Food preservation methods",
       "notes": "salting, sugar, pickling, refrigeration, pasteurisation, canning, irradiation.",
       "sort_order": 1
     },
     {
-      "code": "sci-c31-t02",
-      "chapter_code": "sci-c31",
+      "code": "sci-mod02-c18-t02",
+      "chapter_code": "sci-mod02-c18",
       "title": "Food preservatives",
       "notes": "sodium benzoate, citric acid, vinegar.",
       "sort_order": 2
     },
     {
-      "code": "sci-c31-t03",
-      "chapter_code": "sci-c31",
+      "code": "sci-mod02-c18-t03",
+      "chapter_code": "sci-mod02-c18",
       "title": "Food additives and adulterants",
       "notes": "colours, flavours, artificial sweeteners (saccharin, aspartame).",
       "sort_order": 3
     },
     {
-      "code": "sci-c31-t04",
-      "chapter_code": "sci-c31",
+      "code": "sci-mod02-c18-t04",
+      "chapter_code": "sci-mod02-c18",
       "title": "Medicines: classification",
       "notes": "analgesics, antipyretics, antibiotics (penicillin), antiseptics, antacids, tranquilisers.",
       "sort_order": 4
     },
     {
-      "code": "sci-c31-t05",
-      "chapter_code": "sci-c31",
+      "code": "sci-mod02-c18-t05",
+      "chapter_code": "sci-mod02-c18",
       "title": "Common drugs",
       "notes": "aspirin, paracetamol, chloroquine.",
       "sort_order": 5
     },
     {
-      "code": "sci-c31-t06",
-      "chapter_code": "sci-c31",
+      "code": "sci-mod02-c18-t06",
+      "chapter_code": "sci-mod02-c18",
       "title": "Nutrients: carbohydrates, proteins, fats",
       "notes": "chemistry of nutrients.",
       "sort_order": 6
     },
     {
-      "code": "sci-c31-t07",
-      "chapter_code": "sci-c31",
+      "code": "sci-mod02-c18-t07",
+      "chapter_code": "sci-mod02-c18",
       "title": "Substance abuse",
       "notes": "harmful drugs.",
       "sort_order": 7
     },
     {
-      "code": "sci-c32-t01",
-      "chapter_code": "sci-c32",
+      "code": "sci-mod02-c19-t01",
+      "chapter_code": "sci-mod02-c19",
       "title": "Important chemical names and formulae",
       "notes": "common names.",
       "sort_order": 1
     },
     {
-      "code": "sci-c32-t02",
-      "chapter_code": "sci-c32",
+      "code": "sci-mod02-c19-t02",
+      "chapter_code": "sci-mod02-c19",
       "title": "Chemical names of everyday compounds",
       "notes": "quick revision.",
       "sort_order": 2
     },
     {
-      "code": "sci-c32-t03",
-      "chapter_code": "sci-c32",
+      "code": "sci-mod02-c19-t03",
+      "chapter_code": "sci-mod02-c19",
       "title": "Chemicals in industry",
       "notes": "cement, glass, ceramics, paper.",
       "sort_order": 3
     },
     {
-      "code": "sci-c32-t04",
-      "chapter_code": "sci-c32",
+      "code": "sci-mod02-c19-t04",
+      "chapter_code": "sci-mod02-c19",
       "title": "Nobel Prize in Chemistry (selected)",
       "notes": "famous discoveries.",
       "sort_order": 4
     },
     {
-      "code": "sci-c32-t05",
-      "chapter_code": "sci-c32",
+      "code": "sci-mod02-c19-t05",
+      "chapter_code": "sci-mod02-c19",
       "title": "Mixed one-liners",
       "notes": "matching.",
       "sort_order": 5
     },
     {
-      "code": "sci-c33-t01",
-      "chapter_code": "sci-c33",
+      "code": "sci-mod03-c01-t01",
+      "chapter_code": "sci-mod03-c01",
       "title": "Main branches",
       "notes": "botany, zoology, microbiology, ecology.",
       "sort_order": 1
     },
     {
-      "code": "sci-c33-t02",
-      "chapter_code": "sci-c33",
+      "code": "sci-mod03-c01-t02",
+      "chapter_code": "sci-mod03-c01",
       "title": "Sub-branches and terms",
       "notes": "anatomy, physiology, morphology, histology, cytology, embryology, genetics, taxonomy, pathology, entomology, ornithology, ichthyology, herpetology, mycology, virology, bacteriology, pomology, sericulture, apiculture.",
       "sort_order": 2
     },
     {
-      "code": "sci-c33-t03",
-      "chapter_code": "sci-c33",
+      "code": "sci-mod03-c01-t03",
+      "chapter_code": "sci-mod03-c01",
       "title": "Fathers of branches",
       "notes": "Aristotle (Father of Biology and Zoology), Theophrastus (Botany), Hippocrates (Medicine), Mendel (Genetics).",
       "sort_order": 3
     },
     {
-      "code": "sci-c33-t04",
-      "chapter_code": "sci-c33",
+      "code": "sci-mod03-c01-t04",
+      "chapter_code": "sci-mod03-c01",
       "title": "Biologists and their contributions",
       "notes": "Darwin, Lamarck, Pasteur, Harvey, Hooke.",
       "sort_order": 4
     },
     {
-      "code": "sci-c33-t05",
-      "chapter_code": "sci-c33",
+      "code": "sci-mod03-c01-t05",
+      "chapter_code": "sci-mod03-c01",
       "title": "Matching: branch–study subject",
       "notes": "all question related to this.",
       "sort_order": 5
     },
     {
-      "code": "sci-c34-t01",
-      "chapter_code": "sci-c34",
+      "code": "sci-mod03-c02-t01",
+      "chapter_code": "sci-mod03-c02",
       "title": "Taxonomic hierarchy",
       "notes": "kingdom, phylum, class, order, family, genus, species.",
       "sort_order": 1
     },
     {
-      "code": "sci-c34-t02",
-      "chapter_code": "sci-c34",
+      "code": "sci-mod03-c02-t02",
+      "chapter_code": "sci-mod03-c02",
       "title": "Binomial nomenclature",
       "notes": "Linnaeus, scientific names.",
       "sort_order": 2
     },
     {
-      "code": "sci-c34-t03",
-      "chapter_code": "sci-c34",
+      "code": "sci-mod03-c02-t03",
+      "chapter_code": "sci-mod03-c02",
       "title": "Five-kingdom classification",
       "notes": "Monera, Protista, Fungi, Plantae, Animalia (Whittaker).",
       "sort_order": 3
     },
     {
-      "code": "sci-c34-t04",
-      "chapter_code": "sci-c34",
+      "code": "sci-mod03-c02-t04",
+      "chapter_code": "sci-mod03-c02",
       "title": "Plant kingdom",
       "notes": "algae, bryophytes, pteridophytes, gymnosperms, angiosperms (monocot and dicot).",
       "sort_order": 4
     },
     {
-      "code": "sci-c34-t05",
-      "chapter_code": "sci-c34",
+      "code": "sci-mod03-c02-t05",
+      "chapter_code": "sci-mod03-c02",
       "title": "Animal kingdom",
       "notes": "invertebrate phyla (Porifera to Echinodermata), vertebrate classes (fish, amphibia, reptilia, aves, mammalia).",
       "sort_order": 5
     },
     {
-      "code": "sci-c34-t06",
-      "chapter_code": "sci-c34",
+      "code": "sci-mod03-c02-t06",
+      "chapter_code": "sci-mod03-c02",
       "title": "Viruses, bacteria and fungi",
       "notes": "features.",
       "sort_order": 6
     },
     {
-      "code": "sci-c34-t07",
-      "chapter_code": "sci-c34",
+      "code": "sci-mod03-c02-t07",
+      "chapter_code": "sci-mod03-c02",
       "title": "Matching: animal–class, plant–family",
       "notes": "all question related to this.",
       "sort_order": 7
     },
     {
-      "code": "sci-c35-t01",
-      "chapter_code": "sci-c35",
+      "code": "sci-mod03-c03-t01",
+      "chapter_code": "sci-mod03-c03",
       "title": "Cell theory",
       "notes": "Schleiden and Schwann, Virchow.",
       "sort_order": 1
     },
     {
-      "code": "sci-c35-t02",
-      "chapter_code": "sci-c35",
+      "code": "sci-mod03-c03-t02",
+      "chapter_code": "sci-mod03-c03",
       "title": "Prokaryotic and eukaryotic cells",
       "notes": "differences.",
       "sort_order": 2
     },
     {
-      "code": "sci-c35-t03",
-      "chapter_code": "sci-c35",
+      "code": "sci-mod03-c03-t03",
+      "chapter_code": "sci-mod03-c03",
       "title": "Cell organelles",
       "notes": "nucleus, mitochondria (powerhouse), ribosome, ER, Golgi, lysosome, plastids, vacuole.",
       "sort_order": 3
     },
     {
-      "code": "sci-c35-t04",
-      "chapter_code": "sci-c35",
+      "code": "sci-mod03-c03-t04",
+      "chapter_code": "sci-mod03-c03",
       "title": "Plant cell vs animal cell",
       "notes": "cell wall, chloroplast.",
       "sort_order": 4
     },
     {
-      "code": "sci-c35-t05",
-      "chapter_code": "sci-c35",
+      "code": "sci-mod03-c03-t05",
+      "chapter_code": "sci-mod03-c03",
       "title": "Cell division",
       "notes": "mitosis and meiosis, stages.",
       "sort_order": 5
     },
     {
-      "code": "sci-c35-t06",
-      "chapter_code": "sci-c35",
+      "code": "sci-mod03-c03-t06",
+      "chapter_code": "sci-mod03-c03",
       "title": "Chromosomes and DNA",
       "notes": "structure, number (humans 46).",
       "sort_order": 6
     },
     {
-      "code": "sci-c35-t07",
-      "chapter_code": "sci-c35",
+      "code": "sci-mod03-c03-t07",
+      "chapter_code": "sci-mod03-c03",
       "title": "Cell transport",
       "notes": "diffusion, osmosis, active transport.",
       "sort_order": 7
     },
     {
-      "code": "sci-c35-t08",
-      "chapter_code": "sci-c35",
+      "code": "sci-mod03-c03-t08",
+      "chapter_code": "sci-mod03-c03",
       "title": "Discoverers",
       "notes": "Robert Hooke (cell), Leeuwenhoek.",
       "sort_order": 8
     },
     {
-      "code": "sci-c36-t01",
-      "chapter_code": "sci-c36",
+      "code": "sci-mod03-c04-t01",
+      "chapter_code": "sci-mod03-c04",
       "title": "Origin of life",
       "notes": "Oparin-Haldane theory, Miller-Urey experiment.",
       "sort_order": 1
     },
     {
-      "code": "sci-c36-t02",
-      "chapter_code": "sci-c36",
+      "code": "sci-mod03-c04-t02",
+      "chapter_code": "sci-mod03-c04",
       "title": "Theories of evolution",
       "notes": "Lamarckism, Darwinism (natural selection), Neo-Darwinism, mutation theory (de Vries).",
       "sort_order": 2
     },
     {
-      "code": "sci-c36-t03",
-      "chapter_code": "sci-c36",
+      "code": "sci-mod03-c04-t03",
+      "chapter_code": "sci-mod03-c04",
       "title": "Evidences of evolution",
       "notes": "fossils, homologous and analogous organs, vestigial organs.",
       "sort_order": 3
     },
     {
-      "code": "sci-c36-t04",
-      "chapter_code": "sci-c36",
+      "code": "sci-mod03-c04-t04",
+      "chapter_code": "sci-mod03-c04",
       "title": "Human evolution",
       "notes": "Australopithecus, Homo habilis, Homo erectus, Neanderthal, Homo sapiens.",
       "sort_order": 4
     },
     {
-      "code": "sci-c36-t05",
-      "chapter_code": "sci-c36",
+      "code": "sci-mod03-c04-t05",
+      "chapter_code": "sci-mod03-c04",
       "title": "Geological time scale",
       "notes": "eras.",
       "sort_order": 5
     },
     {
-      "code": "sci-c36-t06",
-      "chapter_code": "sci-c36",
+      "code": "sci-mod03-c04-t06",
+      "chapter_code": "sci-mod03-c04",
       "title": "Adaptive radiation",
       "notes": "Darwin’s finches.",
       "sort_order": 6
     },
     {
-      "code": "sci-c36-t07",
-      "chapter_code": "sci-c36",
+      "code": "sci-mod03-c04-t07",
+      "chapter_code": "sci-mod03-c04",
       "title": "Species and speciation",
       "notes": "isolation.",
       "sort_order": 7
     },
     {
-      "code": "sci-c37-t01",
-      "chapter_code": "sci-c37",
+      "code": "sci-mod03-c05-t01",
+      "chapter_code": "sci-mod03-c05",
       "title": "Mendel’s laws",
       "notes": "dominance, segregation, independent assortment; pea experiments.",
       "sort_order": 1
     },
     {
-      "code": "sci-c37-t02",
-      "chapter_code": "sci-c37",
+      "code": "sci-mod03-c05-t02",
+      "chapter_code": "sci-mod03-c05",
       "title": "Genes and alleles",
       "notes": "genotype and phenotype, homozygous and heterozygous.",
       "sort_order": 2
     },
     {
-      "code": "sci-c37-t03",
-      "chapter_code": "sci-c37",
+      "code": "sci-mod03-c05-t03",
+      "chapter_code": "sci-mod03-c05",
       "title": "DNA and RNA",
       "notes": "structure (Watson and Crick), types of RNA.",
       "sort_order": 3
     },
     {
-      "code": "sci-c37-t04",
-      "chapter_code": "sci-c37",
+      "code": "sci-mod03-c05-t04",
+      "chapter_code": "sci-mod03-c05",
       "title": "Chromosomes and sex determination",
       "notes": "XX and XY.",
       "sort_order": 4
     },
     {
-      "code": "sci-c37-t05",
-      "chapter_code": "sci-c37",
+      "code": "sci-mod03-c05-t05",
+      "chapter_code": "sci-mod03-c05",
       "title": "Genetic disorders",
       "notes": "haemophilia, colour blindness, Down syndrome, sickle-cell anaemia, Turner’s and Klinefelter’s.",
       "sort_order": 5
     },
     {
-      "code": "sci-c37-t06",
-      "chapter_code": "sci-c37",
+      "code": "sci-mod03-c05-t06",
+      "chapter_code": "sci-mod03-c05",
       "title": "Mutations",
       "notes": "types.",
       "sort_order": 6
     },
     {
-      "code": "sci-c37-t07",
-      "chapter_code": "sci-c37",
+      "code": "sci-mod03-c05-t07",
+      "chapter_code": "sci-mod03-c05",
       "title": "Blood groups inheritance",
       "notes": "ABO and Rh.",
       "sort_order": 7
     },
     {
-      "code": "sci-c38-t01",
-      "chapter_code": "sci-c38",
+      "code": "sci-mod03-c06-t01",
+      "chapter_code": "sci-mod03-c06",
       "title": "Photosynthesis",
       "notes": "equation, light and dark reactions, chlorophyll.",
       "sort_order": 1
     },
     {
-      "code": "sci-c38-t02",
-      "chapter_code": "sci-c38",
+      "code": "sci-mod03-c06-t02",
+      "chapter_code": "sci-mod03-c06",
       "title": "Factors affecting photosynthesis",
       "notes": "light, CO2, temperature.",
       "sort_order": 2
     },
     {
-      "code": "sci-c38-t03",
-      "chapter_code": "sci-c38",
+      "code": "sci-mod03-c06-t03",
+      "chapter_code": "sci-mod03-c06",
       "title": "Respiration in plants",
       "notes": "aerobic, anaerobic.",
       "sort_order": 3
     },
     {
-      "code": "sci-c38-t04",
-      "chapter_code": "sci-c38",
+      "code": "sci-mod03-c06-t04",
+      "chapter_code": "sci-mod03-c06",
       "title": "Transpiration and stomata",
       "notes": "water transport.",
       "sort_order": 4
     },
     {
-      "code": "sci-c38-t05",
-      "chapter_code": "sci-c38",
+      "code": "sci-mod03-c06-t05",
+      "chapter_code": "sci-mod03-c06",
       "title": "Plant hormones",
       "notes": "auxin, gibberellin, cytokinin, ethylene, abscisic acid.",
       "sort_order": 5
     },
     {
-      "code": "sci-c38-t06",
-      "chapter_code": "sci-c38",
+      "code": "sci-mod03-c06-t06",
+      "chapter_code": "sci-mod03-c06",
       "title": "Plant tissues",
       "notes": "meristematic, permanent, xylem and phloem.",
       "sort_order": 6
     },
     {
-      "code": "sci-c38-t07",
-      "chapter_code": "sci-c38",
+      "code": "sci-mod03-c06-t07",
+      "chapter_code": "sci-mod03-c06",
       "title": "Reproduction in plants",
       "notes": "pollination, fertilisation, seed dispersal.",
       "sort_order": 7
     },
     {
-      "code": "sci-c38-t08",
-      "chapter_code": "sci-c38",
+      "code": "sci-mod03-c06-t08",
+      "chapter_code": "sci-mod03-c06",
       "title": "Plant movements",
       "notes": "tropisms.",
       "sort_order": 8
     },
     {
-      "code": "sci-c39-t01",
-      "chapter_code": "sci-c39",
+      "code": "sci-mod03-c07-t01",
+      "chapter_code": "sci-mod03-c07",
       "title": "Tissues",
       "notes": "epithelial, connective, muscular, nervous.",
       "sort_order": 1
     },
     {
-      "code": "sci-c39-t02",
-      "chapter_code": "sci-c39",
+      "code": "sci-mod03-c07-t02",
+      "chapter_code": "sci-mod03-c07",
       "title": "Skeletal system",
       "notes": "206 bones, types of joints.",
       "sort_order": 2
     },
     {
-      "code": "sci-c39-t03",
-      "chapter_code": "sci-c39",
+      "code": "sci-mod03-c07-t03",
+      "chapter_code": "sci-mod03-c07",
       "title": "Muscular system",
       "notes": "types of muscles.",
       "sort_order": 3
     },
     {
-      "code": "sci-c39-t04",
-      "chapter_code": "sci-c39",
+      "code": "sci-mod03-c07-t04",
+      "chapter_code": "sci-mod03-c07",
       "title": "Respiratory system",
       "notes": "lungs, breathing, gas exchange.",
       "sort_order": 4
     },
     {
-      "code": "sci-c39-t05",
-      "chapter_code": "sci-c39",
+      "code": "sci-mod03-c07-t05",
+      "chapter_code": "sci-mod03-c07",
       "title": "Nervous system",
       "notes": "brain, spinal cord, neurons.",
       "sort_order": 5
     },
     {
-      "code": "sci-c39-t06",
-      "chapter_code": "sci-c39",
+      "code": "sci-mod03-c07-t06",
+      "chapter_code": "sci-mod03-c07",
       "title": "Sense organs",
       "notes": "eye, ear, nose, tongue, skin.",
       "sort_order": 6
     },
     {
-      "code": "sci-c39-t07",
-      "chapter_code": "sci-c39",
+      "code": "sci-mod03-c07-t07",
+      "chapter_code": "sci-mod03-c07",
       "title": "Reproductive system",
       "notes": "male and female.",
       "sort_order": 7
     },
     {
-      "code": "sci-c39-t08",
-      "chapter_code": "sci-c39",
+      "code": "sci-mod03-c07-t08",
+      "chapter_code": "sci-mod03-c07",
       "title": "Important organs and their weights",
       "notes": "largest organ (skin), largest gland (liver), heart, brain.",
       "sort_order": 8
     },
     {
-      "code": "sci-c40-t01",
-      "chapter_code": "sci-c40",
+      "code": "sci-mod03-c08-t01",
+      "chapter_code": "sci-mod03-c08",
       "title": "Composition of blood",
       "notes": "plasma, RBC, WBC, platelets.",
       "sort_order": 1
     },
     {
-      "code": "sci-c40-t02",
-      "chapter_code": "sci-c40",
+      "code": "sci-mod03-c08-t02",
+      "chapter_code": "sci-mod03-c08",
       "title": "Blood groups",
       "notes": "ABO and Rh, universal donor and recipient.",
       "sort_order": 2
     },
     {
-      "code": "sci-c40-t03",
-      "chapter_code": "sci-c40",
+      "code": "sci-mod03-c08-t03",
+      "chapter_code": "sci-mod03-c08",
       "title": "The heart",
       "notes": "chambers, valves, heartbeat, pacemaker.",
       "sort_order": 3
     },
     {
-      "code": "sci-c40-t04",
-      "chapter_code": "sci-c40",
+      "code": "sci-mod03-c08-t04",
+      "chapter_code": "sci-mod03-c08",
       "title": "Blood vessels",
       "notes": "arteries, veins, capillaries.",
       "sort_order": 4
     },
     {
-      "code": "sci-c40-t05",
-      "chapter_code": "sci-c40",
+      "code": "sci-mod03-c08-t05",
+      "chapter_code": "sci-mod03-c08",
       "title": "Blood pressure and pulse",
       "notes": "sphygmomanometer.",
       "sort_order": 5
     },
     {
-      "code": "sci-c40-t06",
-      "chapter_code": "sci-c40",
+      "code": "sci-mod03-c08-t06",
+      "chapter_code": "sci-mod03-c08",
       "title": "Lymphatic system",
       "notes": "lymph.",
       "sort_order": 6
     },
     {
-      "code": "sci-c40-t07",
-      "chapter_code": "sci-c40",
+      "code": "sci-mod03-c08-t07",
+      "chapter_code": "sci-mod03-c08",
       "title": "Blood disorders",
       "notes": "anaemia, leukaemia, haemophilia, thalassemia.",
       "sort_order": 7
     },
     {
-      "code": "sci-c40-t08",
-      "chapter_code": "sci-c40",
+      "code": "sci-mod03-c08-t08",
+      "chapter_code": "sci-mod03-c08",
       "title": "Blood clotting and circulation",
       "notes": "double circulation.",
       "sort_order": 8
     },
     {
-      "code": "sci-c41-t01",
-      "chapter_code": "sci-c41",
+      "code": "sci-mod03-c09-t01",
+      "chapter_code": "sci-mod03-c09",
       "title": "Human digestive system",
       "notes": "mouth, oesophagus, stomach, small and large intestine.",
       "sort_order": 1
     },
     {
-      "code": "sci-c41-t02",
-      "chapter_code": "sci-c41",
+      "code": "sci-mod03-c09-t02",
+      "chapter_code": "sci-mod03-c09",
       "title": "Digestive glands and enzymes",
       "notes": "saliva (amylase), gastric juice (pepsin), bile, pancreatic juice.",
       "sort_order": 2
     },
     {
-      "code": "sci-c41-t03",
-      "chapter_code": "sci-c41",
+      "code": "sci-mod03-c09-t03",
+      "chapter_code": "sci-mod03-c09",
       "title": "Absorption of nutrients",
       "notes": "villi.",
       "sort_order": 3
     },
     {
-      "code": "sci-c41-t04",
-      "chapter_code": "sci-c41",
+      "code": "sci-mod03-c09-t04",
+      "chapter_code": "sci-mod03-c09",
       "title": "Excretory system",
       "notes": "kidneys, nephron, urine formation.",
       "sort_order": 4
     },
     {
-      "code": "sci-c41-t05",
-      "chapter_code": "sci-c41",
+      "code": "sci-mod03-c09-t05",
+      "chapter_code": "sci-mod03-c09",
       "title": "Dialysis and kidney disorders",
       "notes": "kidney stones.",
       "sort_order": 5
     },
     {
-      "code": "sci-c41-t06",
-      "chapter_code": "sci-c41",
+      "code": "sci-mod03-c09-t06",
+      "chapter_code": "sci-mod03-c09",
       "title": "Excretion in other organisms",
       "notes": "skin, lungs, liver.",
       "sort_order": 6
     },
     {
-      "code": "sci-c41-t07",
-      "chapter_code": "sci-c41",
+      "code": "sci-mod03-c09-t07",
+      "chapter_code": "sci-mod03-c09",
       "title": "Liver functions",
       "notes": "bile, urea formation.",
       "sort_order": 7
     },
     {
-      "code": "sci-c42-t01",
-      "chapter_code": "sci-c42",
+      "code": "sci-mod03-c10-t01",
+      "chapter_code": "sci-mod03-c10",
       "title": "Endocrine glands",
       "notes": "pituitary (master gland), thyroid, parathyroid, adrenal, pancreas, gonads, pineal.",
       "sort_order": 1
     },
     {
-      "code": "sci-c42-t02",
-      "chapter_code": "sci-c42",
+      "code": "sci-mod03-c10-t02",
+      "chapter_code": "sci-mod03-c10",
       "title": "Hormones and their functions",
       "notes": "thyroxine, insulin, glucagon, adrenaline, growth hormone, oestrogen, testosterone, ADH.",
       "sort_order": 2
     },
     {
-      "code": "sci-c42-t03",
-      "chapter_code": "sci-c42",
+      "code": "sci-mod03-c10-t03",
+      "chapter_code": "sci-mod03-c10",
       "title": "Disorders",
       "notes": "goitre, diabetes, gigantism, dwarfism, acromegaly, Addison’s disease, Cushing’s syndrome.",
       "sort_order": 3
     },
     {
-      "code": "sci-c42-t04",
-      "chapter_code": "sci-c42",
+      "code": "sci-mod03-c10-t04",
+      "chapter_code": "sci-mod03-c10",
       "title": "Endocrine vs exocrine glands",
       "notes": "examples.",
       "sort_order": 4
     },
     {
-      "code": "sci-c42-t05",
-      "chapter_code": "sci-c42",
+      "code": "sci-mod03-c10-t05",
+      "chapter_code": "sci-mod03-c10",
       "title": "Matching: gland–hormone–disorder",
       "notes": "all question related to this.",
       "sort_order": 5
     },
     {
-      "code": "sci-c43-t01",
-      "chapter_code": "sci-c43",
+      "code": "sci-mod03-c11-t01",
+      "chapter_code": "sci-mod03-c11",
       "title": "Nervous system",
       "notes": "central and peripheral, reflex action.",
       "sort_order": 1
     },
     {
-      "code": "sci-c43-t02",
-      "chapter_code": "sci-c43",
+      "code": "sci-mod03-c11-t02",
+      "chapter_code": "sci-mod03-c11",
       "title": "Brain parts",
       "notes": "cerebrum, cerebellum, medulla.",
       "sort_order": 2
     },
     {
-      "code": "sci-c43-t03",
-      "chapter_code": "sci-c43",
+      "code": "sci-mod03-c11-t03",
+      "chapter_code": "sci-mod03-c11",
       "title": "Respiration",
       "notes": "lungs, breathing rate, respiratory pigments.",
       "sort_order": 3
     },
     {
-      "code": "sci-c43-t04",
-      "chapter_code": "sci-c43",
+      "code": "sci-mod03-c11-t04",
+      "chapter_code": "sci-mod03-c11",
       "title": "Reproduction and development",
       "notes": "menstrual cycle, pregnancy.",
       "sort_order": 4
     },
     {
-      "code": "sci-c43-t05",
-      "chapter_code": "sci-c43",
+      "code": "sci-mod03-c11-t05",
+      "chapter_code": "sci-mod03-c11",
       "title": "Excretion and homeostasis",
       "notes": "temperature regulation.",
       "sort_order": 5
     },
     {
-      "code": "sci-c43-t06",
-      "chapter_code": "sci-c43",
+      "code": "sci-mod03-c11-t06",
+      "chapter_code": "sci-mod03-c11",
       "title": "Muscle and skeleton functions",
       "notes": "movement.",
       "sort_order": 6
     },
     {
-      "code": "sci-c43-t07",
-      "chapter_code": "sci-c43",
+      "code": "sci-mod03-c11-t07",
+      "chapter_code": "sci-mod03-c11",
       "title": "Immunity",
       "notes": "innate and acquired, antibodies, vaccines.",
       "sort_order": 7
     },
     {
-      "code": "sci-c43-t08",
-      "chapter_code": "sci-c43",
+      "code": "sci-mod03-c11-t08",
+      "chapter_code": "sci-mod03-c11",
       "title": "Sleep and senses",
       "notes": "eye and ear structure.",
       "sort_order": 8
     },
     {
-      "code": "sci-c44-t01",
-      "chapter_code": "sci-c44",
+      "code": "sci-mod03-c12-t01",
+      "chapter_code": "sci-mod03-c12",
       "title": "Nutrients",
       "notes": "carbohydrates, proteins, fats, vitamins, minerals, water, fibre.",
       "sort_order": 1
     },
     {
-      "code": "sci-c44-t02",
-      "chapter_code": "sci-c44",
+      "code": "sci-mod03-c12-t02",
+      "chapter_code": "sci-mod03-c12",
       "title": "Fat-soluble vitamins",
       "notes": "A, D, E, K; sources, deficiency (night blindness, rickets, bleeding).",
       "sort_order": 2
     },
     {
-      "code": "sci-c44-t03",
-      "chapter_code": "sci-c44",
+      "code": "sci-mod03-c12-t03",
+      "chapter_code": "sci-mod03-c12",
       "title": "Water-soluble vitamins",
       "notes": "B-complex (beri-beri, pellagra, anaemia), C (scurvy).",
       "sort_order": 3
     },
     {
-      "code": "sci-c44-t04",
-      "chapter_code": "sci-c44",
+      "code": "sci-mod03-c12-t04",
+      "chapter_code": "sci-mod03-c12",
       "title": "Minerals",
       "notes": "iron (anaemia), iodine (goitre), calcium (bones), fluorine.",
       "sort_order": 4
     },
     {
-      "code": "sci-c44-t05",
-      "chapter_code": "sci-c44",
+      "code": "sci-mod03-c12-t05",
+      "chapter_code": "sci-mod03-c12",
       "title": "Balanced diet",
       "notes": "calories, protein-energy malnutrition (kwashiorkor, marasmus).",
       "sort_order": 5
     },
     {
-      "code": "sci-c44-t06",
-      "chapter_code": "sci-c44",
+      "code": "sci-mod03-c12-t06",
+      "chapter_code": "sci-mod03-c12",
       "title": "Deficiency diseases",
       "notes": "quick matching.",
       "sort_order": 6
     },
     {
-      "code": "sci-c44-t07",
-      "chapter_code": "sci-c44",
+      "code": "sci-mod03-c12-t07",
+      "chapter_code": "sci-mod03-c12",
       "title": "Food sources",
       "notes": "all question related to this.",
       "sort_order": 7
     },
     {
-      "code": "sci-c45-t01",
-      "chapter_code": "sci-c45",
+      "code": "sci-mod03-c13-t01",
+      "chapter_code": "sci-mod03-c13",
       "title": "Communicable diseases: bacterial",
       "notes": "tuberculosis, cholera, typhoid, tetanus, plague, leprosy, diphtheria.",
       "sort_order": 1
     },
     {
-      "code": "sci-c45-t02",
-      "chapter_code": "sci-c45",
+      "code": "sci-mod03-c13-t02",
+      "chapter_code": "sci-mod03-c13",
       "title": "Viral diseases",
       "notes": "polio, measles, dengue, chikungunya, hepatitis, rabies, influenza, HIV/AIDS, COVID-19.",
       "sort_order": 2
     },
     {
-      "code": "sci-c45-t03",
-      "chapter_code": "sci-c45",
+      "code": "sci-mod03-c13-t03",
+      "chapter_code": "sci-mod03-c13",
       "title": "Protozoan and fungal diseases",
       "notes": "malaria, amoebiasis, sleeping sickness; ringworm.",
       "sort_order": 3
     },
     {
-      "code": "sci-c45-t04",
-      "chapter_code": "sci-c45",
+      "code": "sci-mod03-c13-t04",
+      "chapter_code": "sci-mod03-c13",
       "title": "Vector-borne diseases",
       "notes": "mosquitoes, flies.",
       "sort_order": 4
     },
     {
-      "code": "sci-c45-t05",
-      "chapter_code": "sci-c45",
+      "code": "sci-mod03-c13-t05",
+      "chapter_code": "sci-mod03-c13",
       "title": "Non-communicable diseases",
       "notes": "diabetes, cancer, heart disease, hypertension.",
       "sort_order": 5
     },
     {
-      "code": "sci-c45-t06",
-      "chapter_code": "sci-c45",
+      "code": "sci-mod03-c13-t06",
+      "chapter_code": "sci-mod03-c13",
       "title": "Vaccines and immunisation",
       "notes": "BCG, DPT, polio, MMR; national immunisation programme.",
       "sort_order": 6
     },
     {
-      "code": "sci-c45-t07",
-      "chapter_code": "sci-c45",
+      "code": "sci-mod03-c13-t07",
+      "chapter_code": "sci-mod03-c13",
       "title": "Antibiotics and treatment",
       "notes": "penicillin (Fleming), drug resistance.",
       "sort_order": 7
     },
     {
-      "code": "sci-c45-t08",
-      "chapter_code": "sci-c45",
+      "code": "sci-mod03-c13-t08",
+      "chapter_code": "sci-mod03-c13",
       "title": "Diagnostic tests",
       "notes": "Widal, ELISA, ECG, EEG, MRI.",
       "sort_order": 8
     },
     {
-      "code": "sci-c46-t01",
-      "chapter_code": "sci-c46",
+      "code": "sci-mod03-c14-t01",
+      "chapter_code": "sci-mod03-c14",
       "title": "Recombinant DNA technology",
       "notes": "restriction enzymes, vectors, plasmids.",
       "sort_order": 1
     },
     {
-      "code": "sci-c46-t02",
-      "chapter_code": "sci-c46",
+      "code": "sci-mod03-c14-t02",
+      "chapter_code": "sci-mod03-c14",
       "title": "Applications",
       "notes": "insulin production, genetically modified (GM) crops, Bt cotton, golden rice.",
       "sort_order": 2
     },
     {
-      "code": "sci-c46-t03",
-      "chapter_code": "sci-c46",
+      "code": "sci-mod03-c14-t03",
+      "chapter_code": "sci-mod03-c14",
       "title": "Cloning",
       "notes": "Dolly the sheep; reproductive and therapeutic cloning.",
       "sort_order": 3
     },
     {
-      "code": "sci-c46-t04",
-      "chapter_code": "sci-c46",
+      "code": "sci-mod03-c14-t04",
+      "chapter_code": "sci-mod03-c14",
       "title": "Stem cells",
       "notes": "types and uses.",
       "sort_order": 4
     },
     {
-      "code": "sci-c46-t05",
-      "chapter_code": "sci-c46",
+      "code": "sci-mod03-c14-t05",
+      "chapter_code": "sci-mod03-c14",
       "title": "DNA fingerprinting",
       "notes": "forensic uses.",
       "sort_order": 5
     },
     {
-      "code": "sci-c46-t06",
-      "chapter_code": "sci-c46",
+      "code": "sci-mod03-c14-t06",
+      "chapter_code": "sci-mod03-c14",
       "title": "Gene therapy and CRISPR",
       "notes": "principle.",
       "sort_order": 6
     },
     {
-      "code": "sci-c46-t07",
-      "chapter_code": "sci-c46",
+      "code": "sci-mod03-c14-t07",
+      "chapter_code": "sci-mod03-c14",
       "title": "Biotechnology in India",
       "notes": "Department of Biotechnology, GM crop policy.",
       "sort_order": 7
     },
     {
-      "code": "sci-c46-t08",
-      "chapter_code": "sci-c46",
+      "code": "sci-mod03-c14-t08",
+      "chapter_code": "sci-mod03-c14",
       "title": "Tissue culture",
       "notes": "micropropagation.",
       "sort_order": 8
     },
     {
-      "code": "sci-c47-t01",
-      "chapter_code": "sci-c47",
+      "code": "sci-mod03-c15-t01",
+      "chapter_code": "sci-mod03-c15",
       "title": "Meaning and importance",
       "notes": "eco-friendly, soil health.",
       "sort_order": 1
     },
     {
-      "code": "sci-c47-t02",
-      "chapter_code": "sci-c47",
+      "code": "sci-mod03-c15-t02",
+      "chapter_code": "sci-mod03-c15",
       "title": "Nitrogen-fixing biofertilizers",
       "notes": "Rhizobium (legumes), Azotobacter, Azospirillum, blue-green algae (Anabaena, Nostoc), Azolla.",
       "sort_order": 2
     },
     {
-      "code": "sci-c47-t03",
-      "chapter_code": "sci-c47",
+      "code": "sci-mod03-c15-t03",
+      "chapter_code": "sci-mod03-c15",
       "title": "Phosphate-solubilising microbes",
       "notes": "mycorrhiza.",
       "sort_order": 3
     },
     {
-      "code": "sci-c47-t04",
-      "chapter_code": "sci-c47",
+      "code": "sci-mod03-c15-t04",
+      "chapter_code": "sci-mod03-c15",
       "title": "Compost and vermicompost",
       "notes": "earthworms.",
       "sort_order": 4
     },
     {
-      "code": "sci-c47-t05",
-      "chapter_code": "sci-c47",
+      "code": "sci-mod03-c15-t05",
+      "chapter_code": "sci-mod03-c15",
       "title": "Biopesticides",
       "notes": "Bacillus thuringiensis, neem.",
       "sort_order": 5
     },
     {
-      "code": "sci-c47-t06",
-      "chapter_code": "sci-c47",
+      "code": "sci-mod03-c15-t06",
+      "chapter_code": "sci-mod03-c15",
       "title": "Advantages over chemical fertilizers",
       "notes": "sustainability.",
       "sort_order": 6
     },
     {
-      "code": "sci-c48-t01",
-      "chapter_code": "sci-c48",
+      "code": "sci-mod03-c16-t01",
+      "chapter_code": "sci-mod03-c16",
       "title": "Scientific names of common organisms",
       "notes": "matching.",
       "sort_order": 1
     },
     {
-      "code": "sci-c48-t02",
-      "chapter_code": "sci-c48",
+      "code": "sci-mod03-c16-t02",
+      "chapter_code": "sci-mod03-c16",
       "title": "Biology firsts and records",
       "notes": "largest, smallest, fastest.",
       "sort_order": 2
     },
     {
-      "code": "sci-c48-t03",
-      "chapter_code": "sci-c48",
+      "code": "sci-mod03-c16-t03",
+      "chapter_code": "sci-mod03-c16",
       "title": "Important organs, glands and weights",
       "notes": "quick revision.",
       "sort_order": 3
     },
     {
-      "code": "sci-c48-t04",
-      "chapter_code": "sci-c48",
+      "code": "sci-mod03-c16-t04",
+      "chapter_code": "sci-mod03-c16",
       "title": "Ecology basics",
       "notes": "ecosystem, food chain, biodiversity, conservation.",
       "sort_order": 4
     },
     {
-      "code": "sci-c48-t05",
-      "chapter_code": "sci-c48",
+      "code": "sci-mod03-c16-t05",
+      "chapter_code": "sci-mod03-c16",
       "title": "Animal behaviour and adaptation",
       "notes": "migration, hibernation.",
       "sort_order": 5
     },
     {
-      "code": "sci-c48-t06",
-      "chapter_code": "sci-c48",
+      "code": "sci-mod03-c16-t06",
+      "chapter_code": "sci-mod03-c16",
       "title": "Mixed one-liners",
       "notes": "matching.",
       "sort_order": 6
     },
     {
-      "code": "sci-c49-t01",
-      "chapter_code": "sci-c49",
+      "code": "sci-mod04-c01-t01",
+      "chapter_code": "sci-mod04-c01",
       "title": "History and generations of computers",
       "notes": "vacuum tubes to AI; Charles Babbage (father of computer), Ada Lovelace.",
       "sort_order": 1
     },
     {
-      "code": "sci-c49-t02",
-      "chapter_code": "sci-c49",
+      "code": "sci-mod04-c01-t02",
+      "chapter_code": "sci-mod04-c01",
       "title": "Types of computers",
       "notes": "micro, mini, mainframe, supercomputer (PARAM).",
       "sort_order": 2
     },
     {
-      "code": "sci-c49-t03",
-      "chapter_code": "sci-c49",
+      "code": "sci-mod04-c01-t03",
+      "chapter_code": "sci-mod04-c01",
       "title": "Hardware",
       "notes": "CPU, input and output devices, memory (RAM, ROM, cache), storage.",
       "sort_order": 3
     },
     {
-      "code": "sci-c49-t04",
-      "chapter_code": "sci-c49",
+      "code": "sci-mod04-c01-t04",
+      "chapter_code": "sci-mod04-c01",
       "title": "Software",
       "notes": "system and application software, operating systems (Windows, Linux, Android), compilers.",
       "sort_order": 4
     },
     {
-      "code": "sci-c49-t05",
-      "chapter_code": "sci-c49",
+      "code": "sci-mod04-c01-t05",
+      "chapter_code": "sci-mod04-c01",
       "title": "Programming languages",
       "notes": "machine, assembly, high-level (C, Java, Python).",
       "sort_order": 5
     },
     {
-      "code": "sci-c49-t06",
-      "chapter_code": "sci-c49",
+      "code": "sci-mod04-c01-t06",
+      "chapter_code": "sci-mod04-c01",
       "title": "Number systems",
       "notes": "binary, octal, decimal, hexadecimal; bits and bytes.",
       "sort_order": 6
     },
     {
-      "code": "sci-c49-t07",
-      "chapter_code": "sci-c49",
+      "code": "sci-mod04-c01-t07",
+      "chapter_code": "sci-mod04-c01",
       "title": "Networking and internet",
       "notes": "LAN, WAN, MAN, protocols (HTTP, FTP, TCP/IP), browsers, email, WWW.",
       "sort_order": 7
     },
     {
-      "code": "sci-c49-t08",
-      "chapter_code": "sci-c49",
+      "code": "sci-mod04-c01-t08",
+      "chapter_code": "sci-mod04-c01",
       "title": "Cyber security",
       "notes": "virus, malware, firewall, phishing, cybercrime laws (IT Act 2000).",
       "sort_order": 8
     },
     {
-      "code": "sci-c49-t09",
-      "chapter_code": "sci-c49",
+      "code": "sci-mod04-c01-t09",
+      "chapter_code": "sci-mod04-c01",
       "title": "Emerging technologies",
       "notes": "AI, cloud computing, IoT, blockchain.",
       "sort_order": 9
     },
     {
-      "code": "sci-c50-t01",
-      "chapter_code": "sci-c50",
+      "code": "sci-mod04-c02-t01",
+      "chapter_code": "sci-mod04-c02",
       "title": "Computer abbreviations",
       "notes": "full forms (ALU, CPU, RAM, ROM, BIOS, URL, HTML, WWW, USB, PDF, ISP).",
       "sort_order": 1
     },
     {
-      "code": "sci-c50-t02",
-      "chapter_code": "sci-c50",
+      "code": "sci-mod04-c02-t02",
+      "chapter_code": "sci-mod04-c02",
       "title": "Keyboard shortcuts",
       "notes": "Ctrl+C, Ctrl+V, Ctrl+Z, Ctrl+S, etc.",
       "sort_order": 2
     },
     {
-      "code": "sci-c50-t03",
-      "chapter_code": "sci-c50",
+      "code": "sci-mod04-c02-t03",
+      "chapter_code": "sci-mod04-c02",
       "title": "MS Office basics",
       "notes": "Word, Excel, PowerPoint features.",
       "sort_order": 3
     },
     {
-      "code": "sci-c50-t04",
-      "chapter_code": "sci-c50",
+      "code": "sci-mod04-c02-t04",
+      "chapter_code": "sci-mod04-c02",
       "title": "File extensions",
       "notes": ".doc, .xls, .pdf, .jpg, .exe.",
       "sort_order": 4
     },
     {
-      "code": "sci-c50-t05",
-      "chapter_code": "sci-c50",
+      "code": "sci-mod04-c02-t05",
+      "chapter_code": "sci-mod04-c02",
       "title": "Famous people and companies",
       "notes": "Bill Gates, Steve Jobs, Tim Berners-Lee.",
       "sort_order": 5
     },
     {
-      "code": "sci-c50-t06",
-      "chapter_code": "sci-c50",
+      "code": "sci-mod04-c02-t06",
+      "chapter_code": "sci-mod04-c02",
       "title": "Computer firsts",
       "notes": "first computer, first programmer.",
       "sort_order": 6
     },
     {
-      "code": "sci-c50-t07",
-      "chapter_code": "sci-c50",
+      "code": "sci-mod04-c02-t07",
+      "chapter_code": "sci-mod04-c02",
       "title": "Mixed one-liners",
       "notes": "matching.",
       "sort_order": 7

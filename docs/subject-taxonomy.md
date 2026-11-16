@@ -1,5 +1,78 @@
 # Subject taxonomy imports
 
+## Explicit Module-to-Part correction
+
+Normal imports/admin edits still protect established Module parents. For a
+reviewed classification correction within the same Subject, use
+`reassign_module_part`. It requires exact Subject, Module, expected source Part,
+and destination Part codes. Default is a zero-write preview; apply requires
+`--apply`. Explicit creation also requires `--create-part --part-name` and may
+supply `--part-order`. The Module and all descendants retain IDs/codes/links.
+
+```console
+python manage.py migrate
+python manage.py reassign_module_part --subject geography --module geo-west-bengal-mod01 --from-part geo-india --to-part geo-west-bengal --create-part --part-name "West Bengal" --part-order 2
+python manage.py reassign_module_part --subject geography --module geo-west-bengal-mod01 --from-part geo-india --to-part geo-west-bengal --create-part --part-name "West Bengal" --part-order 2 --apply
+```
+
+Migration `0010_explicit_module_part_reassignment` adds a transaction-local guard
+exception for exactly one Module ID/source Part ID/destination Part ID tuple.
+Subject/code changes, cross-subject moves and ordinary unapproved parent updates
+remain blocked. The command locks the selected Subject/Module, validates normal
+model constraints, creates the destination only when requested, and saves through
+the model in one transaction. Authorization is cleared after the operation.
+Reruns targeting the Module's current destination report unchanged; a different
+unexpected source aborts. Existing Part codes are never renamed.
+
+Update the original JSON too: declare the new Part in `parts` and change only the
+Module's `part_code`. Its Submodules keep their existing `module_code`; their
+Part ancestry follows the Module automatically. The West Bengal file now declares
+Part `geo-west-bengal` (West Bengal), preserving the shared `geo-india` (India)
+Part used by Indian Geography. Historic snapshots are untouched; future Part
+filters follow the corrected classification.
+
+## Import every subject file in a directory
+
+```console
+python manage.py import_subject_taxonomies --create-subjects --dry-run
+python manage.py import_subject_taxonomies --create-subjects
+```
+
+The default folder is `Data/Subjects` under the project root. To override it,
+supply the directory as a positional argument. Files with a `.json` extension
+are processed in case-insensitive filename order, without recursion. Every file
+uses the existing single-file importer planner and persistence workflow.
+`--create-subjects` is optional when all Subject codes already exist.
+
+Each file has its own transaction. Failure rolls back that file and is logged;
+the next file is still processed. Successful files remain committed even if a
+later file fails. The command exits nonzero if any file failed. There is no
+implicit reparenting or automatic inference/repair of missing relationships.
+The explicit `--attach-unassigned-chapters` repair option is also supported.
+
+Files marked `kind: "subject_taxonomy_backup"` are skipped by default, preventing
+an older combined backup from overwriting the newer subject-wise imports. Use
+`--include-backups` only when that behavior is intended. A dry run makes zero
+database writes: each file is checked independently against the current database,
+so dependencies created only by an earlier file in the same dry run are not
+available. Keep each subject file self-contained, or import its parent definitions
+first. Summary totals count per-file actions, not distinct nodes across files.
+
+A new UTF-8 JSON Lines log is created at
+`logs/taxonomy-import/bulk-<UTC timestamp>-<unique suffix>.jsonl`. Use
+`--log-file path/to/new-results.jsonl` to choose a different new file; existing
+logs are never overwritten. Each line is one JSON object: run settings, per-file
+status/counts/warnings/errors, or the final summary. The log is flushed after
+each file. A log failure stops further work; previously committed files remain.
+
+Missing/unknown parents, cross-subject links, missing required parent codes,
+duplicate codes, malformed JSON and forbidden parent changes are logged as errors
+by the authoritative importer. File-local relationship warnings identify valid
+direct-Subject Chapters and declared nodes with no children referencing them in
+that file. Such warnings are informational: links can exist in another file or
+the database, and skipped intermediate levels are valid. Validation reports the
+first blocking error in each file; correct it and rerun to reveal further issues.
+
 ## Back up and restore all subjects together
 
 ```console
@@ -115,7 +188,9 @@ change and retain their IDs and links; adding this level does not move records.
 Version 1 accepts a `submodules` array. Each record uses `code`, `module_code`,
 `subject_code`, `name`/`title`, and optional `sort_order`. In the single-subject
 format, `subject_code` is inherited. Chapters under this level supply only
-`submodule_code` as their immediate parent reference; omit `module_code` there.
+`submodule_code` as their immediate parent reference. An optional `module_code`
+or `part_code` on that chapter is validated as ancestor context and must match
+the Submodule's ancestry; only the Submodule FK is stored.
 Chapters that skip the level continue to use `module_code` or no parent code.
 
 ```json
@@ -134,11 +209,38 @@ Chapters that skip the level continue to use `module_code` or no parent code.
 
 Run `python manage.py migrate` before using these fields. The existing
 `import_subject_taxonomy <file.json> --dry-run` / apply commands are unchanged.
-Existing parent paths remain immutable: changing an established Chapter to a
-Submodule is rejected rather than silently moving its question classification.
+Existing parent paths remain protected. An explicit first same-Module Submodule
+assignment is supported as described below; moves to another Module or between
+established Submodules are rejected.
 Submodule codes are globally unique within their record type, just like Module
 codes. Model checks and PostgreSQL guards reject cross-subject and multi-parent
 assignments. Admin provides Sub-module management and ancestor-aware filters.
+
+Both `submodules` / `submodule_code` and `sub_modules` / `sub_module_code` spellings
+are accepted. The exporter writes the canonical spelling without the extra
+underscore. Supplying both arrays or conflicting parent aliases fails validation.
+Unknown top-level or taxonomy record fields now fail explicitly instead of being
+silently ignored. Bulk relationship diagnostics use the same normalization.
+
+If a previous import ignored Sub-module fields and placed chapters directly
+under their Module, migration `0009_chapter_initial_submodule_assignment` supports
+a narrow repair. Use `--attach-submodules` on either import command. It permits
+only a chapter with no Submodule/Part and an existing Module to receive its first
+Submodule belonging to that exact Module. IDs, codes, Topic links and effective
+Module ancestry remain fixed. Removing or changing an assigned Submodule, moving
+between Modules, and changing the Subject remain blocked by model/PostgreSQL
+guards. New Submodules can be declared in the same file.
+
+```console
+python manage.py migrate
+python manage.py import_subject_taxonomies --attach-submodules --dry-run
+python manage.py import_subject_taxonomies --attach-submodules
+```
+
+Ordinary repeat imports then work without the repair flag. Existing normal
+Module-parent chapters can still skip Submodules. The planner preloads the
+catalogue in six queries and reuses its objects for ancestor resolution rather
+than querying each parent separately for every file.
 
 ```json
 {

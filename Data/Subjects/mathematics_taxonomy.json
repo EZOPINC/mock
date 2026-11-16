@@ -6,540 +6,588 @@
   },
   "modules": [
     {
-      "code": "math-m01",
+      "code": "math-mod01",
       "subject_code": "mathematics",
-      "title": "Arithmetic: Numbers and Simplification",
+      "title": "Arithmetic",
       "sort_order": 1
     },
     {
-      "code": "math-m02",
+      "code": "math-mod02",
       "subject_code": "mathematics",
-      "title": "Arithmetic: Ratio, Percentage and Its Applications",
+      "title": "Algebra",
       "sort_order": 2
     },
     {
-      "code": "math-m03",
+      "code": "math-mod03",
       "subject_code": "mathematics",
-      "title": "Arithmetic: Business and Interest",
+      "title": "Geometry",
       "sort_order": 3
     },
     {
-      "code": "math-m04",
+      "code": "math-mod04",
       "subject_code": "mathematics",
-      "title": "Arithmetic: Time-Based Problems",
+      "title": "Mensuration",
       "sort_order": 4
     },
     {
-      "code": "math-m05",
+      "code": "math-mod05",
       "subject_code": "mathematics",
-      "title": "Arithmetic: Data and Statistics",
+      "title": "Trigonometry",
+      "sort_order": 5
+    }
+  ],
+  "sub_modules": [
+    {
+      "code": "math-mod01-sub01",
+      "module_code": "math-mod01",
+      "title": "Numbers and Simplification",
+      "sort_order": 1
+    },
+    {
+      "code": "math-mod01-sub02",
+      "module_code": "math-mod01",
+      "title": "Ratio, Percentage and Its Applications",
+      "sort_order": 2
+    },
+    {
+      "code": "math-mod01-sub03",
+      "module_code": "math-mod01",
+      "title": "Business and Interest",
+      "sort_order": 3
+    },
+    {
+      "code": "math-mod01-sub04",
+      "module_code": "math-mod01",
+      "title": "Time-Based Problems",
+      "sort_order": 4
+    },
+    {
+      "code": "math-mod01-sub05",
+      "module_code": "math-mod01",
+      "title": "Data and Statistics",
       "sort_order": 5
     },
     {
-      "code": "math-m06",
-      "subject_code": "mathematics",
-      "title": "Algebra",
-      "sort_order": 6
+      "code": "math-mod04-sub01",
+      "module_code": "math-mod04",
+      "title": "2D Figures",
+      "sort_order": 1
     },
     {
-      "code": "math-m07",
-      "subject_code": "mathematics",
-      "title": "Geometry",
-      "sort_order": 7
-    },
-    {
-      "code": "math-m08",
-      "subject_code": "mathematics",
-      "title": "Mensuration: 2D Figures",
-      "sort_order": 8
-    },
-    {
-      "code": "math-m09",
-      "subject_code": "mathematics",
-      "title": "Mensuration: 3D Solids",
-      "sort_order": 9
-    },
-    {
-      "code": "math-m10",
-      "subject_code": "mathematics",
-      "title": "Trigonometry",
-      "sort_order": 10
+      "code": "math-mod04-sub02",
+      "module_code": "math-mod04",
+      "title": "3D Solids",
+      "sort_order": 2
     }
   ],
   "chapters": [
     {
       "code": "math-c01",
       "subject_code": "mathematics",
-      "module_code": "math-m01",
+      "module_code": "math-mod01",
       "title": "Number System and Divisibility",
-      "sort_order": 1
+      "sort_order": 1,
+      "sub_module_code": "math-mod01-sub01"
     },
     {
       "code": "math-c02",
       "subject_code": "mathematics",
-      "module_code": "math-m01",
+      "module_code": "math-mod01",
       "title": "Fractions and Decimals",
-      "sort_order": 2
+      "sort_order": 2,
+      "sub_module_code": "math-mod01-sub01"
     },
     {
       "code": "math-c03",
       "subject_code": "mathematics",
-      "module_code": "math-m01",
+      "module_code": "math-mod01",
       "title": "HCF and LCM",
-      "sort_order": 3
+      "sort_order": 3,
+      "sub_module_code": "math-mod01-sub01"
     },
     {
       "code": "math-c04",
       "subject_code": "mathematics",
-      "module_code": "math-m01",
+      "module_code": "math-mod01",
       "title": "Simplification",
-      "sort_order": 4
+      "sort_order": 4,
+      "sub_module_code": "math-mod01-sub01"
     },
     {
       "code": "math-c05",
       "subject_code": "mathematics",
-      "module_code": "math-m01",
+      "module_code": "math-mod01",
       "title": "Square Root and Cube Root",
-      "sort_order": 5
+      "sort_order": 5,
+      "sub_module_code": "math-mod01-sub01"
     },
     {
       "code": "math-c06",
       "subject_code": "mathematics",
-      "module_code": "math-m02",
+      "module_code": "math-mod01",
       "title": "Ratio and Proportion",
-      "sort_order": 6
+      "sort_order": 6,
+      "sub_module_code": "math-mod01-sub02"
     },
     {
       "code": "math-c07",
       "subject_code": "mathematics",
-      "module_code": "math-m02",
+      "module_code": "math-mod01",
       "title": "Percentage",
-      "sort_order": 7
+      "sort_order": 7,
+      "sub_module_code": "math-mod01-sub02"
     },
     {
       "code": "math-c08",
       "subject_code": "mathematics",
-      "module_code": "math-m02",
+      "module_code": "math-mod01",
       "title": "Average",
-      "sort_order": 8
+      "sort_order": 8,
+      "sub_module_code": "math-mod01-sub02"
     },
     {
       "code": "math-c09",
       "subject_code": "mathematics",
-      "module_code": "math-m02",
+      "module_code": "math-mod01",
       "title": "Partnership",
-      "sort_order": 9
+      "sort_order": 9,
+      "sub_module_code": "math-mod01-sub02"
     },
     {
       "code": "math-c10",
       "subject_code": "mathematics",
-      "module_code": "math-m02",
+      "module_code": "math-mod01",
       "title": "Mixture and Alligation",
-      "sort_order": 10
+      "sort_order": 10,
+      "sub_module_code": "math-mod01-sub02"
     },
     {
       "code": "math-c11",
       "subject_code": "mathematics",
-      "module_code": "math-m02",
+      "module_code": "math-mod01",
       "title": "Ages",
-      "sort_order": 11
+      "sort_order": 11,
+      "sub_module_code": "math-mod01-sub02"
     },
     {
       "code": "math-c12",
       "subject_code": "mathematics",
-      "module_code": "math-m03",
+      "module_code": "math-mod01",
       "title": "Profit and Loss",
-      "sort_order": 12
+      "sort_order": 12,
+      "sub_module_code": "math-mod01-sub03"
     },
     {
       "code": "math-c13",
       "subject_code": "mathematics",
-      "module_code": "math-m03",
+      "module_code": "math-mod01",
       "title": "Simple Interest",
-      "sort_order": 13
+      "sort_order": 13,
+      "sub_module_code": "math-mod01-sub03"
     },
     {
       "code": "math-c14",
       "subject_code": "mathematics",
-      "module_code": "math-m03",
+      "module_code": "math-mod01",
       "title": "Compound Interest",
-      "sort_order": 14
+      "sort_order": 14,
+      "sub_module_code": "math-mod01-sub03"
     },
     {
       "code": "math-c15",
       "subject_code": "mathematics",
-      "module_code": "math-m04",
+      "module_code": "math-mod01",
       "title": "Time and Work",
-      "sort_order": 15
+      "sort_order": 15,
+      "sub_module_code": "math-mod01-sub04"
     },
     {
       "code": "math-c16",
       "subject_code": "mathematics",
-      "module_code": "math-m04",
+      "module_code": "math-mod01",
       "title": "Time, Speed and Distance",
-      "sort_order": 16
+      "sort_order": 16,
+      "sub_module_code": "math-mod01-sub04"
     },
     {
       "code": "math-c17",
       "subject_code": "mathematics",
-      "module_code": "math-m04",
+      "module_code": "math-mod01",
       "title": "Chain Rule",
-      "sort_order": 17
+      "sort_order": 17,
+      "sub_module_code": "math-mod01-sub04"
     },
     {
       "code": "math-c18",
       "subject_code": "mathematics",
-      "module_code": "math-m04",
+      "module_code": "math-mod01",
       "title": "Unitary Method",
-      "sort_order": 18
+      "sort_order": 18,
+      "sub_module_code": "math-mod01-sub04"
     },
     {
       "code": "math-c19",
       "subject_code": "mathematics",
-      "module_code": "math-m04",
+      "module_code": "math-mod01",
       "title": "Calendar",
-      "sort_order": 19
+      "sort_order": 19,
+      "sub_module_code": "math-mod01-sub04"
     },
     {
       "code": "math-c20",
       "subject_code": "mathematics",
-      "module_code": "math-m04",
+      "module_code": "math-mod01",
       "title": "Clock",
-      "sort_order": 20
+      "sort_order": 20,
+      "sub_module_code": "math-mod01-sub04"
     },
     {
       "code": "math-c21",
       "subject_code": "mathematics",
-      "module_code": "math-m05",
+      "module_code": "math-mod01",
       "title": "Data Interpretation",
-      "sort_order": 21
+      "sort_order": 21,
+      "sub_module_code": "math-mod01-sub05"
     },
     {
       "code": "math-c22",
       "subject_code": "mathematics",
-      "module_code": "math-m05",
+      "module_code": "math-mod01",
       "title": "Mean, Median and Mode",
-      "sort_order": 22
+      "sort_order": 22,
+      "sub_module_code": "math-mod01-sub05"
     },
     {
       "code": "math-c23",
       "subject_code": "mathematics",
-      "module_code": "math-m06",
+      "module_code": "math-mod02",
       "title": "Algebraic Identities",
       "sort_order": 23
     },
     {
       "code": "math-c24",
       "subject_code": "mathematics",
-      "module_code": "math-m06",
+      "module_code": "math-mod02",
       "title": "Polynomials",
       "sort_order": 24
     },
     {
       "code": "math-c25",
       "subject_code": "mathematics",
-      "module_code": "math-m06",
+      "module_code": "math-mod02",
       "title": "Linear Equations",
       "sort_order": 25
     },
     {
       "code": "math-c26",
       "subject_code": "mathematics",
-      "module_code": "math-m06",
+      "module_code": "math-mod02",
       "title": "Simultaneous Equations",
       "sort_order": 26
     },
     {
       "code": "math-c27",
       "subject_code": "mathematics",
-      "module_code": "math-m06",
+      "module_code": "math-mod02",
       "title": "Quadratic Equations",
       "sort_order": 27
     },
     {
       "code": "math-c28",
       "subject_code": "mathematics",
-      "module_code": "math-m06",
+      "module_code": "math-mod02",
       "title": "Surds and Indices (Algebra)",
       "sort_order": 28
     },
     {
       "code": "math-c29",
       "subject_code": "mathematics",
-      "module_code": "math-m06",
+      "module_code": "math-mod02",
       "title": "Inequalities",
       "sort_order": 29
     },
     {
       "code": "math-c30",
       "subject_code": "mathematics",
-      "module_code": "math-m06",
+      "module_code": "math-mod02",
       "title": "Logarithms",
       "sort_order": 30
     },
     {
       "code": "math-c31",
       "subject_code": "mathematics",
-      "module_code": "math-m06",
+      "module_code": "math-mod02",
       "title": "Sequence and Series",
       "sort_order": 31
     },
     {
       "code": "math-c32",
       "subject_code": "mathematics",
-      "module_code": "math-m06",
+      "module_code": "math-mod02",
       "title": "Permutation and Combination",
       "sort_order": 32
     },
     {
       "code": "math-c33",
       "subject_code": "mathematics",
-      "module_code": "math-m06",
+      "module_code": "math-mod02",
       "title": "Probability",
       "sort_order": 33
     },
     {
       "code": "math-c34",
       "subject_code": "mathematics",
-      "module_code": "math-m06",
+      "module_code": "math-mod02",
       "title": "Set Theory",
       "sort_order": 34
     },
     {
       "code": "math-c35",
       "subject_code": "mathematics",
-      "module_code": "math-m06",
+      "module_code": "math-mod02",
       "title": "Functions and Graphs",
       "sort_order": 35
     },
     {
       "code": "math-c36",
       "subject_code": "mathematics",
-      "module_code": "math-m06",
+      "module_code": "math-mod02",
       "title": "Maxima and Minima",
       "sort_order": 36
     },
     {
       "code": "math-c37",
       "subject_code": "mathematics",
-      "module_code": "math-m07",
+      "module_code": "math-mod03",
       "title": "Lines and Angles",
       "sort_order": 37
     },
     {
       "code": "math-c38",
       "subject_code": "mathematics",
-      "module_code": "math-m07",
+      "module_code": "math-mod03",
       "title": "Triangles",
       "sort_order": 38
     },
     {
       "code": "math-c39",
       "subject_code": "mathematics",
-      "module_code": "math-m07",
+      "module_code": "math-mod03",
       "title": "Centres of a Triangle",
       "sort_order": 39
     },
     {
       "code": "math-c40",
       "subject_code": "mathematics",
-      "module_code": "math-m07",
+      "module_code": "math-mod03",
       "title": "Pythagoras Theorem",
       "sort_order": 40
     },
     {
       "code": "math-c41",
       "subject_code": "mathematics",
-      "module_code": "math-m07",
+      "module_code": "math-mod03",
       "title": "Quadrilaterals",
       "sort_order": 41
     },
     {
       "code": "math-c42",
       "subject_code": "mathematics",
-      "module_code": "math-m07",
+      "module_code": "math-mod03",
       "title": "Polygons",
       "sort_order": 42
     },
     {
       "code": "math-c43",
       "subject_code": "mathematics",
-      "module_code": "math-m07",
+      "module_code": "math-mod03",
       "title": "Circles",
       "sort_order": 43
     },
     {
       "code": "math-c44",
       "subject_code": "mathematics",
-      "module_code": "math-m07",
+      "module_code": "math-mod03",
       "title": "Common Tangents and Alternate Segment Theorem",
       "sort_order": 44
     },
     {
       "code": "math-c45",
       "subject_code": "mathematics",
-      "module_code": "math-m07",
+      "module_code": "math-mod03",
       "title": "Coordinate Geometry",
       "sort_order": 45
     },
     {
       "code": "math-c46",
       "subject_code": "mathematics",
-      "module_code": "math-m08",
-      "title": "Triangle: Area and Perimeter (Old: Mensuration (2D) 1)",
-      "sort_order": 46
+      "module_code": "math-mod04",
+      "title": "Triangle: Area and Perimeter",
+      "sort_order": 46,
+      "sub_module_code": "math-mod04-sub01"
     },
     {
       "code": "math-c47",
       "subject_code": "mathematics",
-      "module_code": "math-m08",
-      "title": "Rectangle and Square (Old: Mensuration (2D) 2)",
-      "sort_order": 47
+      "module_code": "math-mod04",
+      "title": "Rectangle and Square",
+      "sort_order": 47,
+      "sub_module_code": "math-mod04-sub01"
     },
     {
       "code": "math-c48",
       "subject_code": "mathematics",
-      "module_code": "math-m08",
-      "title": "Parallelogram, Rhombus and Trapezium (Old: Mensuration (2D) 3)",
-      "sort_order": 48
+      "module_code": "math-mod04",
+      "title": "Parallelogram, Rhombus and Trapezium",
+      "sort_order": 48,
+      "sub_module_code": "math-mod04-sub01"
     },
     {
       "code": "math-c49",
       "subject_code": "mathematics",
-      "module_code": "math-m08",
-      "title": "Circle, Sector and Segment (Old: Mensuration (2D) 4)",
-      "sort_order": 49
+      "module_code": "math-mod04",
+      "title": "Circle, Sector and Segment",
+      "sort_order": 49,
+      "sub_module_code": "math-mod04-sub01"
     },
     {
       "code": "math-c50",
       "subject_code": "mathematics",
-      "module_code": "math-m08",
-      "title": "Regular Polygons (Old: Mensuration (2D) 5)",
-      "sort_order": 50
+      "module_code": "math-mod04",
+      "title": "Regular Polygons",
+      "sort_order": 50,
+      "sub_module_code": "math-mod04-sub01"
     },
     {
       "code": "math-c51",
       "subject_code": "mathematics",
-      "module_code": "math-m09",
-      "title": "Cube and Cuboid (Old: Mensuration (3D) 1)",
-      "sort_order": 51
+      "module_code": "math-mod04",
+      "title": "Cube and Cuboid",
+      "sort_order": 51,
+      "sub_module_code": "math-mod04-sub02"
     },
     {
       "code": "math-c52",
       "subject_code": "mathematics",
-      "module_code": "math-m09",
-      "title": "Cylinder (Old: Mensuration (3D) 2)",
-      "sort_order": 52
+      "module_code": "math-mod04",
+      "title": "Cylinder",
+      "sort_order": 52,
+      "sub_module_code": "math-mod04-sub02"
     },
     {
       "code": "math-c53",
       "subject_code": "mathematics",
-      "module_code": "math-m09",
-      "title": "Cone (Old: Mensuration (3D) 3)",
-      "sort_order": 53
+      "module_code": "math-mod04",
+      "title": "Cone",
+      "sort_order": 53,
+      "sub_module_code": "math-mod04-sub02"
     },
     {
       "code": "math-c54",
       "subject_code": "mathematics",
-      "module_code": "math-m09",
-      "title": "Sphere and Hemisphere (Old: Mensuration (3D) 4)",
-      "sort_order": 54
+      "module_code": "math-mod04",
+      "title": "Sphere and Hemisphere",
+      "sort_order": 54,
+      "sub_module_code": "math-mod04-sub02"
     },
     {
       "code": "math-c55",
       "subject_code": "mathematics",
-      "module_code": "math-m09",
-      "title": "Prism and Pyramid (Old: Mensuration (3D) 5)",
-      "sort_order": 55
+      "module_code": "math-mod04",
+      "title": "Prism and Pyramid",
+      "sort_order": 55,
+      "sub_module_code": "math-mod04-sub02"
     },
     {
       "code": "math-c56",
       "subject_code": "mathematics",
-      "module_code": "math-m09",
-      "title": "Frustum of a Cone (Old: Mensuration (3D) 6)",
-      "sort_order": 56
+      "module_code": "math-mod04",
+      "title": "Frustum of a Cone",
+      "sort_order": 56,
+      "sub_module_code": "math-mod04-sub02"
     },
     {
       "code": "math-c57",
       "subject_code": "mathematics",
-      "module_code": "math-m09",
-      "title": "Combination and Conversion of Solids (Old: Mensuration (3D) 7)",
-      "sort_order": 57
+      "module_code": "math-mod04",
+      "title": "Combination and Conversion of Solids",
+      "sort_order": 57,
+      "sub_module_code": "math-mod04-sub02"
     },
     {
       "code": "math-c58",
       "subject_code": "mathematics",
-      "module_code": "math-m10",
+      "module_code": "math-mod05",
       "title": "Radian and Degree Measure",
       "sort_order": 58
     },
     {
       "code": "math-c59",
       "subject_code": "mathematics",
-      "module_code": "math-m10",
+      "module_code": "math-mod05",
       "title": "Values of Standard Angles",
       "sort_order": 59
     },
     {
       "code": "math-c60",
       "subject_code": "mathematics",
-      "module_code": "math-m10",
+      "module_code": "math-mod05",
       "title": "Trigonometric Ratios",
       "sort_order": 60
     },
     {
       "code": "math-c61",
       "subject_code": "mathematics",
-      "module_code": "math-m10",
+      "module_code": "math-mod05",
       "title": "Trigonometric Identities",
       "sort_order": 61
     },
     {
       "code": "math-c62",
       "subject_code": "mathematics",
-      "module_code": "math-m10",
+      "module_code": "math-mod05",
       "title": "Complementary and Allied Angles",
       "sort_order": 62
     },
     {
       "code": "math-c63",
       "subject_code": "mathematics",
-      "module_code": "math-m10",
+      "module_code": "math-mod05",
       "title": "Heights and Distances",
       "sort_order": 63
     },
     {
       "code": "math-c64",
       "subject_code": "mathematics",
-      "module_code": "math-m10",
+      "module_code": "math-mod05",
       "title": "Compound Angles",
       "sort_order": 64
     },
     {
       "code": "math-c65",
       "subject_code": "mathematics",
-      "module_code": "math-m10",
+      "module_code": "math-mod05",
       "title": "Multiple and Sub-multiple Angles",
       "sort_order": 65
     },
     {
       "code": "math-c66",
       "subject_code": "mathematics",
-      "module_code": "math-m10",
+      "module_code": "math-mod05",
       "title": "Transformation Formulae",
       "sort_order": 66
     },
     {
       "code": "math-c67",
       "subject_code": "mathematics",
-      "module_code": "math-m10",
+      "module_code": "math-mod05",
       "title": "Maximum and Minimum Values of Trigonometric Expressions",
       "sort_order": 67
     },
     {
       "code": "math-c68",
       "subject_code": "mathematics",
-      "module_code": "math-m10",
+      "module_code": "math-mod05",
       "title": "Inverse Trigonometric Functions",
       "sort_order": 68
     }
@@ -709,23 +757,37 @@
     {
       "code": "math-c06-t02",
       "chapter_code": "math-c06",
-      "title": "Proportion",
+      "title": "Ratio based Sharing and Division of Quantities",
       "notes": "",
       "sort_order": 2
     },
     {
       "code": "math-c06-t03",
       "chapter_code": "math-c06",
-      "title": "Direct and inverse variation",
+      "title": "Ratio based on Coins, Money and Quantities",
       "notes": "",
       "sort_order": 3
     },
     {
       "code": "math-c06-t04",
       "chapter_code": "math-c06",
-      "title": "Dividing a quantity in a ratio",
+      "title": "Proportion",
       "notes": "",
       "sort_order": 4
+    },
+    {
+      "code": "math-c06-t05",
+      "chapter_code": "math-c06",
+      "title": "Direct and inverse variation",
+      "notes": "",
+      "sort_order": 5
+    },
+    {
+      "code": "math-c06-t06",
+      "chapter_code": "math-c06",
+      "title": "Dividing a quantity in a ratio",
+      "notes": "",
+      "sort_order": 6
     },
     {
       "code": "math-c07-t01",
@@ -751,9 +813,37 @@
     {
       "code": "math-c07-t04",
       "chapter_code": "math-c07",
-      "title": "Population and consumption problems",
+      "title": "Percentage based Population and consumption problems",
       "notes": "",
       "sort_order": 4
+    },
+    {
+      "code": "math-c07-t05",
+      "chapter_code": "math-c07",
+      "title": "Percentage based Income, Expenditure and Savings",
+      "notes": "",
+      "sort_order": 5
+    },
+    {
+      "code": "math-c07-t06",
+      "chapter_code": "math-c07",
+      "title": "Percentage based Population",
+      "notes": "",
+      "sort_order": 6
+    },
+    {
+      "code": "math-c07-t07",
+      "chapter_code": "math-c07",
+      "title": "Percentage based Elections, Exams and Results",
+      "notes": "",
+      "sort_order": 7
+    },
+    {
+      "code": "math-c07-t08",
+      "chapter_code": "math-c07",
+      "title": "Percentage based Miscellaneous Applications",
+      "notes": "",
+      "sort_order": 8
     },
     {
       "code": "math-c08-t01",
@@ -1164,30 +1254,93 @@
     {
       "code": "math-c23-t01",
       "chapter_code": "math-c23",
-      "title": "(a±b)² and (a±b)³",
+      "title": "Basic Terms and Operations",
       "notes": "",
       "sort_order": 1
     },
     {
       "code": "math-c23-t02",
       "chapter_code": "math-c23",
-      "title": "A³+b³+c³−3abc",
+      "title": "(a + b)², (a − b)², a² − b²",
       "notes": "",
       "sort_order": 2
     },
     {
       "code": "math-c23-t03",
       "chapter_code": "math-c23",
-      "title": "Applications and simplification",
+      "title": "(a + b)³, (a − b)³, a³ + b³, a³ − b³",
       "notes": "",
       "sort_order": 3
     },
     {
       "code": "math-c23-t04",
       "chapter_code": "math-c23",
-      "title": "Special cases",
+      "title": "(a + b + c)²",
       "notes": "",
       "sort_order": 4
+    },
+    {
+      "code": "math-c23-t05",
+      "chapter_code": "math-c23",
+      "title": "(x + a)(x + b) expansion",
+      "notes": "",
+      "sort_order": 5
+    },
+    {
+      "code": "math-c23-t06",
+      "chapter_code": "math-c23",
+      "title": "a³ + b³ + c³ − 3abc = (a + b + c)(a² + b² + c² − ab − bc − ca)",
+      "notes": "",
+      "sort_order": 6
+    },
+    {
+      "code": "math-c23-t07",
+      "chapter_code": "math-c23",
+      "title": "If a + b + c = 0, then a³ + b³ + c³ = 3abc",
+      "notes": "",
+      "sort_order": 7
+    },
+    {
+      "code": "math-c23-t08",
+      "chapter_code": "math-c23",
+      "title": "Identity-based shortcuts for numeric calculation (for example 99², 101³, 1001 × 999)",
+      "notes": "",
+      "sort_order": 8
+    },
+    {
+      "code": "math-c23-t09",
+      "chapter_code": "math-c23",
+      "title": "(a + b)² + (a − b)² = 2(a² + b²) and (a + b)² − (a − b)² = 4ab",
+      "notes": "",
+      "sort_order": 9
+    },
+    {
+      "code": "math-c23-t10",
+      "chapter_code": "math-c23",
+      "title": "Identities for a⁴ − b⁴ and a⁴ + a²b² + b⁴",
+      "notes": "",
+      "sort_order": 10
+    },
+    {
+      "code": "math-c23-t11",
+      "chapter_code": "math-c23",
+      "title": "a² + b² + c² − ab − bc − ca in terms of squares of differences",
+      "notes": "",
+      "sort_order": 11
+    },
+    {
+      "code": "math-c23-t12",
+      "chapter_code": "math-c23",
+      "title": "Applications and simplification",
+      "notes": "",
+      "sort_order": 12
+    },
+    {
+      "code": "math-c23-t13",
+      "chapter_code": "math-c23",
+      "title": "Special cases",
+      "notes": "",
+      "sort_order": 13
     },
     {
       "code": "math-c24-t01",

@@ -6,26 +6,34 @@
   },
   "modules": [
     {
-      "code": "env-m01",
+      "code": "env-mod01",
       "subject_code": "environment-and-ecology",
-      "title": "Fundamentals Of Environment and Ecology",
+      "title": "EVS",
+      "sort_order": 1
+    }
+  ],
+  "sub_modules": [
+    {
+      "code": "env-mod01-sub01",
+      "module_code": "env-mod01",
+      "title": "Fundamentals of Environment and Ecology",
       "sort_order": 1
     },
     {
-      "code": "env-m02",
-      "subject_code": "environment-and-ecology",
+      "code": "env-mod01-sub02",
+      "module_code": "env-mod01",
       "title": "Biodiversity and Conservation",
       "sort_order": 2
     },
     {
-      "code": "env-m03",
-      "subject_code": "environment-and-ecology",
+      "code": "env-mod01-sub03",
+      "module_code": "env-mod01",
       "title": "Environmental Problems",
       "sort_order": 3
     },
     {
-      "code": "env-m04",
-      "subject_code": "environment-and-ecology",
+      "code": "env-mod01-sub04",
+      "module_code": "env-mod01",
       "title": "Resources, Solutions and Revision",
       "sort_order": 4
     }
@@ -34,79 +42,90 @@
     {
       "code": "env-c01",
       "subject_code": "environment-and-ecology",
-      "module_code": "env-m01",
+      "module_code": "env-mod01",
       "title": "Environment and Sustainable Development",
-      "sort_order": 1
+      "sort_order": 1,
+      "sub_module_code": "env-mod01-sub01"
     },
     {
       "code": "env-c02",
       "subject_code": "environment-and-ecology",
-      "module_code": "env-m01",
+      "module_code": "env-mod01",
       "title": "Ecology and Ecosystems",
-      "sort_order": 2
+      "sort_order": 2,
+      "sub_module_code": "env-mod01-sub01"
     },
     {
       "code": "env-c03",
       "subject_code": "environment-and-ecology",
-      "module_code": "env-m02",
+      "module_code": "env-mod01",
       "title": "Biodiversity",
-      "sort_order": 3
+      "sort_order": 3,
+      "sub_module_code": "env-mod01-sub02"
     },
     {
       "code": "env-c04",
       "subject_code": "environment-and-ecology",
-      "module_code": "env-m02",
+      "module_code": "env-mod01",
       "title": "Forests and Forest Wildlife",
-      "sort_order": 4
+      "sort_order": 4,
+      "sub_module_code": "env-mod01-sub02"
     },
     {
       "code": "env-c05",
       "subject_code": "environment-and-ecology",
-      "module_code": "env-m02",
+      "module_code": "env-mod01",
       "title": "Protected Areas: Sanctuaries, National Parks and Biosphere Reserves",
-      "sort_order": 5
+      "sort_order": 5,
+      "sub_module_code": "env-mod01-sub02"
     },
     {
       "code": "env-c06",
       "subject_code": "environment-and-ecology",
-      "module_code": "env-m03",
+      "module_code": "env-mod01",
       "title": "Pollution",
-      "sort_order": 6
+      "sort_order": 6,
+      "sub_module_code": "env-mod01-sub03"
     },
     {
       "code": "env-c07",
       "subject_code": "environment-and-ecology",
-      "module_code": "env-m03",
+      "module_code": "env-mod01",
       "title": "Ozone Layer Depletion",
-      "sort_order": 7
+      "sort_order": 7,
+      "sub_module_code": "env-mod01-sub03"
     },
     {
       "code": "env-c08",
       "subject_code": "environment-and-ecology",
-      "module_code": "env-m03",
+      "module_code": "env-mod01",
       "title": "Greenhouse Effect and Climate Change",
-      "sort_order": 8
+      "sort_order": 8,
+      "sub_module_code": "env-mod01-sub03"
     },
     {
       "code": "env-c09",
       "subject_code": "environment-and-ecology",
-      "module_code": "env-m04",
+      "module_code": "env-mod01",
       "title": "Non-Conventional (Renewable) Energy",
-      "sort_order": 9
+      "sort_order": 9,
+      "sub_module_code": "env-mod01-sub04"
     },
     {
       "code": "env-c10",
       "subject_code": "environment-and-ecology",
-      "module_code": "env-m04",
+      "module_code": "env-mod01",
       "title": "Water Conservation",
-      "sort_order": 10
+      "sort_order": 10,
+      "sub_module_code": "env-mod01-sub04"
     },
     {
       "code": "env-c11",
       "subject_code": "environment-and-ecology",
-      "module_code": "env-m04",
+      "module_code": "env-mod01",
       "title": "Environment Miscellaneous",
-      "sort_order": 11
+      "sort_order": 11,
+      "sub_module_code": "env-mod01-sub04"
     }
   ],
   "topics": [

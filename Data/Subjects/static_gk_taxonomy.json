@@ -6,68 +6,76 @@
   },
   "modules": [
     {
-      "code": "gk-m01",
+      "code": "gk-mod01",
       "subject_code": "static-gk",
+      "title": "Static GK",
+      "sort_order": 1
+    }
+  ],
+  "sub_modules": [
+    {
+      "code": "gk-mod01-sub01",
+      "module_code": "gk-mod01",
       "title": "Firsts, Superlatives and Records",
       "sort_order": 1
     },
     {
-      "code": "gk-m02",
-      "subject_code": "static-gk",
-      "title": "World Facts: Countries, Symbols and Institutions",
+      "code": "gk-mod01-sub02",
+      "module_code": "gk-mod01",
+      "title": "Countries, Symbols and Institutions",
       "sort_order": 2
     },
     {
-      "code": "gk-m03",
-      "subject_code": "static-gk",
+      "code": "gk-mod01-sub03",
+      "module_code": "gk-mod01",
       "title": "Discoveries, Books, Media and Great Works",
       "sort_order": 3
     },
     {
-      "code": "gk-m04",
-      "subject_code": "static-gk",
+      "code": "gk-mod01-sub04",
+      "module_code": "gk-mod01",
       "title": "United Nations and International Organisations",
       "sort_order": 4
     },
     {
-      "code": "gk-m05",
-      "subject_code": "static-gk",
+      "code": "gk-mod01-sub05",
+      "module_code": "gk-mod01",
       "title": "India: States, Heritage and Places",
       "sort_order": 5
     },
     {
-      "code": "gk-m06",
-      "subject_code": "static-gk",
+      "code": "gk-mod01-sub06",
+      "module_code": "gk-mod01",
       "title": "India: Defence, Security, Research and Industry",
       "sort_order": 6
     },
     {
-      "code": "gk-m07",
-      "subject_code": "static-gk",
+      "code": "gk-mod01-sub07",
+      "module_code": "gk-mod01",
       "title": "Art, Music and Culture",
       "sort_order": 7
     },
     {
-      "code": "gk-m08",
-      "subject_code": "static-gk",
+      "code": "gk-mod01-sub08",
+      "module_code": "gk-mod01",
       "title": "Eminent Persons",
       "sort_order": 8
     },
     {
-      "code": "gk-m09",
-      "subject_code": "static-gk",
+      "code": "gk-mod01-sub09",
+      "module_code": "gk-mod01",
       "title": "Awards and Honours",
       "sort_order": 9
     },
     {
-      "code": "gk-m10",
-      "subject_code": "static-gk",
+      "code": "gk-mod01-sub10",
+      "module_code": "gk-mod01",
       "title": "Sports, Games and Youth Affairs",
       "sort_order": 10
     },
     {
-      "code": "gk-m11",
-      "subject_code": "static-gk",
+      "code": "gk-mod01-sub11",
+      "module_code": "gk-mod01",
       "title": "Miscellaneous",
       "sort_order": 11
     }
@@ -76,555 +84,634 @@
     {
       "code": "gk-c01",
       "subject_code": "static-gk",
-      "module_code": "gk-m01",
+      "module_code": "gk-mod01",
       "title": "First Indians: Men",
-      "sort_order": 1
+      "sort_order": 1,
+      "sub_module_code": "gk-mod01-sub01"
     },
     {
       "code": "gk-c02",
       "subject_code": "static-gk",
-      "module_code": "gk-m01",
+      "module_code": "gk-mod01",
       "title": "First Indians: Women",
-      "sort_order": 2
+      "sort_order": 2,
+      "sub_module_code": "gk-mod01-sub01"
     },
     {
       "code": "gk-c03",
       "subject_code": "static-gk",
-      "module_code": "gk-m01",
+      "module_code": "gk-mod01",
       "title": "Firsts in the World",
-      "sort_order": 3
+      "sort_order": 3,
+      "sub_module_code": "gk-mod01-sub01"
     },
     {
       "code": "gk-c04",
       "subject_code": "static-gk",
-      "module_code": "gk-m01",
+      "module_code": "gk-mod01",
       "title": "Superlatives of India",
-      "sort_order": 4
+      "sort_order": 4,
+      "sub_module_code": "gk-mod01-sub01"
     },
     {
       "code": "gk-c05",
       "subject_code": "static-gk",
-      "module_code": "gk-m01",
+      "module_code": "gk-mod01",
       "title": "Superlatives of the World",
-      "sort_order": 5
+      "sort_order": 5,
+      "sub_module_code": "gk-mod01-sub01"
     },
     {
       "code": "gk-c06",
       "subject_code": "static-gk",
-      "module_code": "gk-m02",
+      "module_code": "gk-mod01",
       "title": "National Emblems of Countries",
-      "sort_order": 6
+      "sort_order": 6,
+      "sub_module_code": "gk-mod01-sub02"
     },
     {
       "code": "gk-c07",
       "subject_code": "static-gk",
-      "module_code": "gk-m02",
+      "module_code": "gk-mod01",
       "title": "National Animals of Countries",
-      "sort_order": 7
+      "sort_order": 7,
+      "sub_module_code": "gk-mod01-sub02"
     },
     {
       "code": "gk-c08",
       "subject_code": "static-gk",
-      "module_code": "gk-m02",
+      "module_code": "gk-mod01",
       "title": "Coastlines of the World",
-      "sort_order": 8
+      "sort_order": 8,
+      "sub_module_code": "gk-mod01-sub02"
     },
     {
       "code": "gk-c09",
       "subject_code": "static-gk",
-      "module_code": "gk-m02",
+      "module_code": "gk-mod01",
       "title": "Water Area of the World",
-      "sort_order": 9
+      "sort_order": 9,
+      "sub_module_code": "gk-mod01-sub02"
     },
     {
       "code": "gk-c10",
       "subject_code": "static-gk",
-      "module_code": "gk-m02",
+      "module_code": "gk-mod01",
       "title": "Monuments and Structures of the World",
-      "sort_order": 10
+      "sort_order": 10,
+      "sub_module_code": "gk-mod01-sub02"
     },
     {
       "code": "gk-c11",
       "subject_code": "static-gk",
-      "module_code": "gk-m02",
+      "module_code": "gk-mod01",
       "title": "Parliaments of Countries",
-      "sort_order": 11
+      "sort_order": 11,
+      "sub_module_code": "gk-mod01-sub02"
     },
     {
       "code": "gk-c12",
       "subject_code": "static-gk",
-      "module_code": "gk-m02",
+      "module_code": "gk-mod01",
       "title": "Political Parties of the World",
-      "sort_order": 12
+      "sort_order": 12,
+      "sub_module_code": "gk-mod01-sub02"
     },
     {
       "code": "gk-c13",
       "subject_code": "static-gk",
-      "module_code": "gk-m02",
+      "module_code": "gk-mod01",
       "title": "Intelligence Agencies of the World",
-      "sort_order": 13
+      "sort_order": 13,
+      "sub_module_code": "gk-mod01-sub02"
     },
     {
       "code": "gk-c14",
       "subject_code": "static-gk",
-      "module_code": "gk-m02",
+      "module_code": "gk-mod01",
       "title": "International Airlines",
-      "sort_order": 14
+      "sort_order": 14,
+      "sub_module_code": "gk-mod01-sub02"
     },
     {
       "code": "gk-c15",
       "subject_code": "static-gk",
-      "module_code": "gk-m02",
+      "module_code": "gk-mod01",
       "title": "Signs and Symbols",
-      "sort_order": 15
+      "sort_order": 15,
+      "sub_module_code": "gk-mod01-sub02"
     },
     {
       "code": "gk-c16",
       "subject_code": "static-gk",
-      "module_code": "gk-m03",
+      "module_code": "gk-mod01",
       "title": "Important Discoveries",
-      "sort_order": 16
+      "sort_order": 16,
+      "sub_module_code": "gk-mod01-sub03"
     },
     {
       "code": "gk-c17",
       "subject_code": "static-gk",
-      "module_code": "gk-m03",
+      "module_code": "gk-mod01",
       "title": "Important Books and Authors",
-      "sort_order": 17
+      "sort_order": 17,
+      "sub_module_code": "gk-mod01-sub03"
     },
     {
       "code": "gk-c18",
       "subject_code": "static-gk",
-      "module_code": "gk-m03",
+      "module_code": "gk-mod01",
       "title": "Official and Sacred Books of the World",
-      "sort_order": 18
+      "sort_order": 18,
+      "sub_module_code": "gk-mod01-sub03"
     },
     {
       "code": "gk-c19",
       "subject_code": "static-gk",
-      "module_code": "gk-m03",
+      "module_code": "gk-mod01",
       "title": "Great Works Associated with Famous Persons",
-      "sort_order": 19
+      "sort_order": 19,
+      "sub_module_code": "gk-mod01-sub03"
     },
     {
       "code": "gk-c20",
       "subject_code": "static-gk",
-      "module_code": "gk-m03",
+      "module_code": "gk-mod01",
       "title": "News Agencies of the World",
-      "sort_order": 20
+      "sort_order": 20,
+      "sub_module_code": "gk-mod01-sub03"
     },
     {
       "code": "gk-c21",
       "subject_code": "static-gk",
-      "module_code": "gk-m03",
+      "module_code": "gk-mod01",
       "title": "Newspapers and Places of Publication",
-      "sort_order": 21
+      "sort_order": 21,
+      "sub_module_code": "gk-mod01-sub03"
     },
     {
       "code": "gk-c22",
       "subject_code": "static-gk",
-      "module_code": "gk-m04",
+      "module_code": "gk-mod01",
       "title": "United Nations: Structure and Agencies",
-      "sort_order": 22
+      "sort_order": 22,
+      "sub_module_code": "gk-mod01-sub04"
     },
     {
       "code": "gk-c23",
       "subject_code": "static-gk",
-      "module_code": "gk-m04",
+      "module_code": "gk-mod01",
       "title": "Secretary-Generals of the UN",
-      "sort_order": 23
+      "sort_order": 23,
+      "sub_module_code": "gk-mod01-sub04"
     },
     {
       "code": "gk-c24",
       "subject_code": "static-gk",
-      "module_code": "gk-m04",
+      "module_code": "gk-mod01",
       "title": "World Organisations and Headquarters",
-      "sort_order": 24
+      "sort_order": 24,
+      "sub_module_code": "gk-mod01-sub04"
     },
     {
       "code": "gk-c25",
       "subject_code": "static-gk",
-      "module_code": "gk-m04",
+      "module_code": "gk-mod01",
       "title": "UN International Decades",
-      "sort_order": 25
+      "sort_order": 25,
+      "sub_module_code": "gk-mod01-sub04"
     },
     {
       "code": "gk-c26",
       "subject_code": "static-gk",
-      "module_code": "gk-m04",
+      "module_code": "gk-mod01",
       "title": "UN International Years",
-      "sort_order": 26
+      "sort_order": 26,
+      "sub_module_code": "gk-mod01-sub04"
     },
     {
       "code": "gk-c27",
       "subject_code": "static-gk",
-      "module_code": "gk-m04",
+      "module_code": "gk-mod01",
       "title": "UN International Weeks",
-      "sort_order": 27
+      "sort_order": 27,
+      "sub_module_code": "gk-mod01-sub04"
     },
     {
       "code": "gk-c28",
       "subject_code": "static-gk",
-      "module_code": "gk-m04",
+      "module_code": "gk-mod01",
       "title": "SAARC Designated Years",
-      "sort_order": 28
+      "sort_order": 28,
+      "sub_module_code": "gk-mod01-sub04"
     },
     {
       "code": "gk-c29",
       "subject_code": "static-gk",
-      "module_code": "gk-m04",
+      "module_code": "gk-mod01",
       "title": "Important Days: India and World",
-      "sort_order": 29
+      "sort_order": 29,
+      "sub_module_code": "gk-mod01-sub04"
     },
     {
       "code": "gk-c30",
       "subject_code": "static-gk",
-      "module_code": "gk-m05",
+      "module_code": "gk-mod01",
       "title": "Foundation Days of States",
-      "sort_order": 30
+      "sort_order": 30,
+      "sub_module_code": "gk-mod01-sub05"
     },
     {
       "code": "gk-c31",
       "subject_code": "static-gk",
-      "module_code": "gk-m05",
+      "module_code": "gk-mod01",
       "title": "UNESCO World Heritage Sites in India",
-      "sort_order": 31
+      "sort_order": 31,
+      "sub_module_code": "gk-mod01-sub05"
     },
     {
       "code": "gk-c32",
       "subject_code": "static-gk",
-      "module_code": "gk-m05",
+      "module_code": "gk-mod01",
       "title": "Famous Tourist Spots of India",
-      "sort_order": 32
+      "sort_order": 32,
+      "sub_module_code": "gk-mod01-sub05"
     },
     {
       "code": "gk-c33",
       "subject_code": "static-gk",
-      "module_code": "gk-m05",
+      "module_code": "gk-mod01",
       "title": "National Parks (Established After 1998)",
-      "sort_order": 33
+      "sort_order": 33,
+      "sub_module_code": "gk-mod01-sub05"
     },
     {
       "code": "gk-c34",
       "subject_code": "static-gk",
-      "module_code": "gk-m06",
+      "module_code": "gk-mod01",
       "title": "Defence of India",
-      "sort_order": 34
+      "sort_order": 34,
+      "sub_module_code": "gk-mod01-sub06"
     },
     {
       "code": "gk-c35",
       "subject_code": "static-gk",
-      "module_code": "gk-m06",
+      "module_code": "gk-mod01",
       "title": "Internal Security of India",
-      "sort_order": 35
+      "sort_order": 35,
+      "sub_module_code": "gk-mod01-sub06"
     },
     {
       "code": "gk-c36",
       "subject_code": "static-gk",
-      "module_code": "gk-m06",
+      "module_code": "gk-mod01",
       "title": "Defence Training Institutions of India",
-      "sort_order": 36
+      "sort_order": 36,
+      "sub_module_code": "gk-mod01-sub06"
     },
     {
       "code": "gk-c37",
       "subject_code": "static-gk",
-      "module_code": "gk-m06",
+      "module_code": "gk-mod01",
       "title": "Research Centres of India",
-      "sort_order": 37
+      "sort_order": 37,
+      "sub_module_code": "gk-mod01-sub06"
     },
     {
       "code": "gk-c38",
       "subject_code": "static-gk",
-      "module_code": "gk-m06",
+      "module_code": "gk-mod01",
       "title": "Nuclear and Space Research Centres",
-      "sort_order": 38
+      "sort_order": 38,
+      "sub_module_code": "gk-mod01-sub06"
     },
     {
       "code": "gk-c39",
       "subject_code": "static-gk",
-      "module_code": "gk-m06",
+      "module_code": "gk-mod01",
       "title": "Health and Medical Research Centres",
-      "sort_order": 39
+      "sort_order": 39,
+      "sub_module_code": "gk-mod01-sub06"
     },
     {
       "code": "gk-c40",
       "subject_code": "static-gk",
-      "module_code": "gk-m06",
+      "module_code": "gk-mod01",
       "title": "Government Industrial Undertakings",
-      "sort_order": 40
+      "sort_order": 40,
+      "sub_module_code": "gk-mod01-sub06"
     },
     {
       "code": "gk-c41",
       "subject_code": "static-gk",
-      "module_code": "gk-m07",
+      "module_code": "gk-mod01",
       "title": "Classical Dances and Dancers",
-      "sort_order": 41
+      "sort_order": 41,
+      "sub_module_code": "gk-mod01-sub07"
     },
     {
       "code": "gk-c42",
       "subject_code": "static-gk",
-      "module_code": "gk-m07",
+      "module_code": "gk-mod01",
       "title": "Musical Instruments and Musicians",
-      "sort_order": 42
+      "sort_order": 42,
+      "sub_module_code": "gk-mod01-sub07"
     },
     {
       "code": "gk-c43",
       "subject_code": "static-gk",
-      "module_code": "gk-m07",
+      "module_code": "gk-mod01",
       "title": "Folk Dances of States",
-      "sort_order": 43
+      "sort_order": 43,
+      "sub_module_code": "gk-mod01-sub07"
     },
     {
       "code": "gk-c44",
       "subject_code": "static-gk",
-      "module_code": "gk-m07",
+      "module_code": "gk-mod01",
       "title": "Cultural Organisations of India",
-      "sort_order": 44
+      "sort_order": 44,
+      "sub_module_code": "gk-mod01-sub07"
     },
     {
       "code": "gk-c45",
       "subject_code": "static-gk",
-      "module_code": "gk-m08",
+      "module_code": "gk-mod01",
       "title": "Nicknames of Eminent Persons",
-      "sort_order": 45
+      "sort_order": 45,
+      "sub_module_code": "gk-mod01-sub08"
     },
     {
       "code": "gk-c46",
       "subject_code": "static-gk",
-      "module_code": "gk-m08",
+      "module_code": "gk-mod01",
       "title": "Places Associated with Eminent Persons (World)",
-      "sort_order": 46
+      "sort_order": 46,
+      "sub_module_code": "gk-mod01-sub08"
     },
     {
       "code": "gk-c47",
       "subject_code": "static-gk",
-      "module_code": "gk-m08",
+      "module_code": "gk-mod01",
       "title": "Memorials and Samadhis of Indian Leaders",
-      "sort_order": 47
+      "sort_order": 47,
+      "sub_module_code": "gk-mod01-sub08"
     },
     {
       "code": "gk-c48",
       "subject_code": "static-gk",
-      "module_code": "gk-m09",
+      "module_code": "gk-mod01",
       "title": "Awards and Honours: Overview",
-      "sort_order": 48
+      "sort_order": 48,
+      "sub_module_code": "gk-mod01-sub09"
     },
     {
       "code": "gk-c49",
       "subject_code": "static-gk",
-      "module_code": "gk-m09",
+      "module_code": "gk-mod01",
       "title": "National and Padma Awards",
-      "sort_order": 49
+      "sort_order": 49,
+      "sub_module_code": "gk-mod01-sub09"
     },
     {
       "code": "gk-c50",
       "subject_code": "static-gk",
-      "module_code": "gk-m09",
+      "module_code": "gk-mod01",
       "title": "Gallantry Awards",
-      "sort_order": 50
+      "sort_order": 50,
+      "sub_module_code": "gk-mod01-sub09"
     },
     {
       "code": "gk-c51",
       "subject_code": "static-gk",
-      "module_code": "gk-m09",
+      "module_code": "gk-mod01",
       "title": "Bharatiya Jnanpith Award",
-      "sort_order": 51
+      "sort_order": 51,
+      "sub_module_code": "gk-mod01-sub09"
     },
     {
       "code": "gk-c52",
       "subject_code": "static-gk",
-      "module_code": "gk-m09",
+      "module_code": "gk-mod01",
       "title": "Dadasaheb Phalke Award",
-      "sort_order": 52
+      "sort_order": 52,
+      "sub_module_code": "gk-mod01-sub09"
     },
     {
       "code": "gk-c53",
       "subject_code": "static-gk",
-      "module_code": "gk-m09",
+      "module_code": "gk-mod01",
       "title": "Nobel Prize",
-      "sort_order": 53
+      "sort_order": 53,
+      "sub_module_code": "gk-mod01-sub09"
     },
     {
       "code": "gk-c54",
       "subject_code": "static-gk",
-      "module_code": "gk-m09",
+      "module_code": "gk-mod01",
       "title": "Oscar / Academy Awards",
-      "sort_order": 54
+      "sort_order": 54,
+      "sub_module_code": "gk-mod01-sub09"
     },
     {
       "code": "gk-c55",
       "subject_code": "static-gk",
-      "module_code": "gk-m09",
+      "module_code": "gk-mod01",
       "title": "Grammy Awards",
-      "sort_order": 55
+      "sort_order": 55,
+      "sub_module_code": "gk-mod01-sub09"
     },
     {
       "code": "gk-c56",
       "subject_code": "static-gk",
-      "module_code": "gk-m09",
+      "module_code": "gk-mod01",
       "title": "Booker Prize",
-      "sort_order": 56
+      "sort_order": 56,
+      "sub_module_code": "gk-mod01-sub09"
     },
     {
       "code": "gk-c57",
       "subject_code": "static-gk",
-      "module_code": "gk-m09",
+      "module_code": "gk-mod01",
       "title": "Ramon Magsaysay Award",
-      "sort_order": 57
+      "sort_order": 57,
+      "sub_module_code": "gk-mod01-sub09"
     },
     {
       "code": "gk-c58",
       "subject_code": "static-gk",
-      "module_code": "gk-m09",
+      "module_code": "gk-mod01",
       "title": "Pulitzer Prize",
-      "sort_order": 58
+      "sort_order": 58,
+      "sub_module_code": "gk-mod01-sub09"
     },
     {
       "code": "gk-c59",
       "subject_code": "static-gk",
-      "module_code": "gk-m09",
+      "module_code": "gk-mod01",
       "title": "Gandhi Peace Award",
-      "sort_order": 59
+      "sort_order": 59,
+      "sub_module_code": "gk-mod01-sub09"
     },
     {
       "code": "gk-c60",
       "subject_code": "static-gk",
-      "module_code": "gk-m09",
+      "module_code": "gk-mod01",
       "title": "Gandhi Peace Prize",
-      "sort_order": 60
+      "sort_order": 60,
+      "sub_module_code": "gk-mod01-sub09"
     },
     {
       "code": "gk-c61",
       "subject_code": "static-gk",
-      "module_code": "gk-m09",
+      "module_code": "gk-mod01",
       "title": "Kalinga Prize",
-      "sort_order": 61
+      "sort_order": 61,
+      "sub_module_code": "gk-mod01-sub09"
     },
     {
       "code": "gk-c62",
       "subject_code": "static-gk",
-      "module_code": "gk-m09",
+      "module_code": "gk-mod01",
       "title": "Jawaharlal Nehru Award for International Understanding",
-      "sort_order": 62
+      "sort_order": 62,
+      "sub_module_code": "gk-mod01-sub09"
     },
     {
       "code": "gk-c63",
       "subject_code": "static-gk",
-      "module_code": "gk-m10",
+      "module_code": "gk-mod01",
       "title": "Youth Affairs, Games and Sports (India)",
-      "sort_order": 63
+      "sort_order": 63,
+      "sub_module_code": "gk-mod01-sub10"
     },
     {
       "code": "gk-c64",
       "subject_code": "static-gk",
-      "module_code": "gk-m10",
+      "module_code": "gk-mod01",
       "title": "Olympic Games",
-      "sort_order": 64
+      "sort_order": 64,
+      "sub_module_code": "gk-mod01-sub10"
     },
     {
       "code": "gk-c65",
       "subject_code": "static-gk",
-      "module_code": "gk-m10",
+      "module_code": "gk-mod01",
       "title": "Paralympics and Winter Olympics",
-      "sort_order": 65
+      "sort_order": 65,
+      "sub_module_code": "gk-mod01-sub10"
     },
     {
       "code": "gk-c66",
       "subject_code": "static-gk",
-      "module_code": "gk-m10",
+      "module_code": "gk-mod01",
       "title": "Commonwealth Games",
-      "sort_order": 66
+      "sort_order": 66,
+      "sub_module_code": "gk-mod01-sub10"
     },
     {
       "code": "gk-c67",
       "subject_code": "static-gk",
-      "module_code": "gk-m10",
+      "module_code": "gk-mod01",
       "title": "Asian Games",
-      "sort_order": 67
+      "sort_order": 67,
+      "sub_module_code": "gk-mod01-sub10"
     },
     {
       "code": "gk-c68",
       "subject_code": "static-gk",
-      "module_code": "gk-m10",
+      "module_code": "gk-mod01",
       "title": "SAF Games",
-      "sort_order": 68
+      "sort_order": 68,
+      "sub_module_code": "gk-mod01-sub10"
     },
     {
       "code": "gk-c69",
       "subject_code": "static-gk",
-      "module_code": "gk-m10",
+      "module_code": "gk-mod01",
       "title": "Important Sports Facts",
-      "sort_order": 69
+      "sort_order": 69,
+      "sub_module_code": "gk-mod01-sub10"
     },
     {
       "code": "gk-c70",
       "subject_code": "static-gk",
-      "module_code": "gk-m10",
+      "module_code": "gk-mod01",
       "title": "Cups and Trophies",
-      "sort_order": 70
+      "sort_order": 70,
+      "sub_module_code": "gk-mod01-sub10"
     },
     {
       "code": "gk-c71",
       "subject_code": "static-gk",
-      "module_code": "gk-m10",
+      "module_code": "gk-mod01",
       "title": "Famous Stadiums and Sports",
-      "sort_order": 71
+      "sort_order": 71,
+      "sub_module_code": "gk-mod01-sub10"
     },
     {
       "code": "gk-c72",
       "subject_code": "static-gk",
-      "module_code": "gk-m10",
+      "module_code": "gk-mod01",
       "title": "National Games and Sports of Countries",
-      "sort_order": 72
+      "sort_order": 72,
+      "sub_module_code": "gk-mod01-sub10"
     },
     {
       "code": "gk-c73",
       "subject_code": "static-gk",
-      "module_code": "gk-m10",
+      "module_code": "gk-mod01",
       "title": "Court, Ground and Field Terms",
-      "sort_order": 73
+      "sort_order": 73,
+      "sub_module_code": "gk-mod01-sub10"
     },
     {
       "code": "gk-c74",
       "subject_code": "static-gk",
-      "module_code": "gk-m10",
+      "module_code": "gk-mod01",
       "title": "Number of Players in Popular Sports",
-      "sort_order": 74
+      "sort_order": 74,
+      "sub_module_code": "gk-mod01-sub10"
     },
     {
       "code": "gk-c75",
       "subject_code": "static-gk",
-      "module_code": "gk-m10",
+      "module_code": "gk-mod01",
       "title": "Nicknames of Eminent Players",
-      "sort_order": 75
+      "sort_order": 75,
+      "sub_module_code": "gk-mod01-sub10"
     },
     {
       "code": "gk-c76",
       "subject_code": "static-gk",
-      "module_code": "gk-m10",
+      "module_code": "gk-mod01",
       "title": "Eminent Sportspersons of India",
-      "sort_order": 76
+      "sort_order": 76,
+      "sub_module_code": "gk-mod01-sub10"
     },
     {
       "code": "gk-c77",
       "subject_code": "static-gk",
-      "module_code": "gk-m10",
+      "module_code": "gk-mod01",
       "title": "Eminent International Players: Women",
-      "sort_order": 77
+      "sort_order": 77,
+      "sub_module_code": "gk-mod01-sub10"
     },
     {
       "code": "gk-c78",
       "subject_code": "static-gk",
-      "module_code": "gk-m10",
+      "module_code": "gk-mod01",
       "title": "Eminent International Players: Men",
-      "sort_order": 78
+      "sort_order": 78,
+      "sub_module_code": "gk-mod01-sub10"
     },
     {
       "code": "gk-c79",
       "subject_code": "static-gk",
-      "module_code": "gk-m11",
+      "module_code": "gk-mod01",
       "title": "Static GK Miscellaneous",
-      "sort_order": 79
+      "sort_order": 79,
+      "sub_module_code": "gk-mod01-sub11"
     }
   ],
   "topics": [

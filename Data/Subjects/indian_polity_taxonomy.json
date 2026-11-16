@@ -6,62 +6,71 @@
   },
   "modules": [
     {
-      "code": "pol-m01",
+      "code": "pol-mod01",
       "subject_code": "indian-polity",
+      "title": "Polity and Governance",
+      "sort_order": 1,
+      "part_code": "pol-india"
+    }
+  ],
+  "sub_modules": [
+    {
+      "code": "pol-mod01-sub01",
+      "module_code": "pol-mod01",
       "title": "Constitutional Foundations",
       "sort_order": 1
     },
     {
-      "code": "pol-m02",
-      "subject_code": "indian-polity",
+      "code": "pol-mod01-sub02",
+      "module_code": "pol-mod01",
       "title": "Territory, Citizenship and Symbols",
       "sort_order": 2
     },
     {
-      "code": "pol-m03",
-      "subject_code": "indian-polity",
+      "code": "pol-mod01-sub03",
+      "module_code": "pol-mod01",
       "title": "Rights and Duties",
       "sort_order": 3
     },
     {
-      "code": "pol-m04",
-      "subject_code": "indian-polity",
+      "code": "pol-mod01-sub04",
+      "module_code": "pol-mod01",
       "title": "The Union Executive",
       "sort_order": 4
     },
     {
-      "code": "pol-m05",
-      "subject_code": "indian-polity",
+      "code": "pol-mod01-sub05",
+      "module_code": "pol-mod01",
       "title": "The Union Legislature",
       "sort_order": 5
     },
     {
-      "code": "pol-m06",
-      "subject_code": "indian-polity",
+      "code": "pol-mod01-sub06",
+      "module_code": "pol-mod01",
       "title": "The Judiciary",
       "sort_order": 6
     },
     {
-      "code": "pol-m07",
-      "subject_code": "indian-polity",
+      "code": "pol-mod01-sub07",
+      "module_code": "pol-mod01",
       "title": "The State Government",
       "sort_order": 7
     },
     {
-      "code": "pol-m08",
-      "subject_code": "indian-polity",
+      "code": "pol-mod01-sub08",
+      "module_code": "pol-mod01",
       "title": "Federalism, Emergency and Special Provisions",
       "sort_order": 8
     },
     {
-      "code": "pol-m09",
-      "subject_code": "indian-polity",
+      "code": "pol-mod01-sub09",
+      "module_code": "pol-mod01",
       "title": "Constitutional Bodies, Elections and Political Parties",
       "sort_order": 9
     },
     {
-      "code": "pol-m10",
-      "subject_code": "indian-polity",
+      "code": "pol-mod01-sub10",
+      "module_code": "pol-mod01",
       "title": "Local Government and Revision",
       "sort_order": 10
     }
@@ -70,254 +79,290 @@
     {
       "code": "pol-c01",
       "subject_code": "indian-polity",
-      "module_code": "pol-m01",
+      "module_code": "pol-mod01",
       "title": "Constitutional Development Before 1950",
-      "sort_order": 1
+      "sort_order": 1,
+      "sub_module_code": "pol-mod01-sub01"
     },
     {
       "code": "pol-c02",
       "subject_code": "indian-polity",
-      "module_code": "pol-m01",
+      "module_code": "pol-mod01",
       "title": "Sources of the Constitution: Foreign Influences",
-      "sort_order": 2
+      "sort_order": 2,
+      "sub_module_code": "pol-mod01-sub01"
     },
     {
       "code": "pol-c03",
       "subject_code": "indian-polity",
-      "module_code": "pol-m01",
+      "module_code": "pol-mod01",
       "title": "The Preamble",
-      "sort_order": 3
+      "sort_order": 3,
+      "sub_module_code": "pol-mod01-sub01"
     },
     {
       "code": "pol-c04",
       "subject_code": "indian-polity",
-      "module_code": "pol-m01",
+      "module_code": "pol-mod01",
       "title": "Salient Features and the Governance System",
-      "sort_order": 4
+      "sort_order": 4,
+      "sub_module_code": "pol-mod01-sub01"
     },
     {
       "code": "pol-c05",
       "subject_code": "indian-polity",
-      "module_code": "pol-m01",
+      "module_code": "pol-mod01",
       "title": "Articles and Schedules of the Constitution",
-      "sort_order": 5
+      "sort_order": 5,
+      "sub_module_code": "pol-mod01-sub01"
     },
     {
       "code": "pol-c06",
       "subject_code": "indian-polity",
-      "module_code": "pol-m01",
+      "module_code": "pol-mod01",
       "title": "Amendment of the Constitution",
-      "sort_order": 6
+      "sort_order": 6,
+      "sub_module_code": "pol-mod01-sub01"
     },
     {
       "code": "pol-c07",
       "subject_code": "indian-polity",
-      "module_code": "pol-m02",
+      "module_code": "pol-mod01",
       "title": "States and Union Territories",
-      "sort_order": 7
+      "sort_order": 7,
+      "sub_module_code": "pol-mod01-sub02"
     },
     {
       "code": "pol-c08",
       "subject_code": "indian-polity",
-      "module_code": "pol-m02",
+      "module_code": "pol-mod01",
       "title": "Citizenship",
-      "sort_order": 8
+      "sort_order": 8,
+      "sub_module_code": "pol-mod01-sub02"
     },
     {
       "code": "pol-c09",
       "subject_code": "indian-polity",
-      "module_code": "pol-m02",
+      "module_code": "pol-mod01",
       "title": "National Symbols and Emblem",
-      "sort_order": 9
+      "sort_order": 9,
+      "sub_module_code": "pol-mod01-sub02"
     },
     {
       "code": "pol-c10",
       "subject_code": "indian-polity",
-      "module_code": "pol-m02",
+      "module_code": "pol-mod01",
       "title": "Official Language",
-      "sort_order": 10
+      "sort_order": 10,
+      "sub_module_code": "pol-mod01-sub02"
     },
     {
       "code": "pol-c11",
       "subject_code": "indian-polity",
-      "module_code": "pol-m03",
+      "module_code": "pol-mod01",
       "title": "Fundamental Rights",
-      "sort_order": 11
+      "sort_order": 11,
+      "sub_module_code": "pol-mod01-sub03"
     },
     {
       "code": "pol-c12",
       "subject_code": "indian-polity",
-      "module_code": "pol-m03",
+      "module_code": "pol-mod01",
       "title": "Directive Principles of State Policy",
-      "sort_order": 12
+      "sort_order": 12,
+      "sub_module_code": "pol-mod01-sub03"
     },
     {
       "code": "pol-c13",
       "subject_code": "indian-polity",
-      "module_code": "pol-m03",
+      "module_code": "pol-mod01",
       "title": "Fundamental Duties",
-      "sort_order": 13
+      "sort_order": 13,
+      "sub_module_code": "pol-mod01-sub03"
     },
     {
       "code": "pol-c14",
       "subject_code": "indian-polity",
-      "module_code": "pol-m04",
+      "module_code": "pol-mod01",
       "title": "The President",
-      "sort_order": 14
+      "sort_order": 14,
+      "sub_module_code": "pol-mod01-sub04"
     },
     {
       "code": "pol-c15",
       "subject_code": "indian-polity",
-      "module_code": "pol-m04",
+      "module_code": "pol-mod01",
       "title": "The Vice-President",
-      "sort_order": 15
+      "sort_order": 15,
+      "sub_module_code": "pol-mod01-sub04"
     },
     {
       "code": "pol-c16",
       "subject_code": "indian-polity",
-      "module_code": "pol-m04",
+      "module_code": "pol-mod01",
       "title": "Prime Minister and Council of Ministers",
-      "sort_order": 16
+      "sort_order": 16,
+      "sub_module_code": "pol-mod01-sub04"
     },
     {
       "code": "pol-c17",
       "subject_code": "indian-polity",
-      "module_code": "pol-m04",
+      "module_code": "pol-mod01",
       "title": "Attorney General and CAG",
-      "sort_order": 17
+      "sort_order": 17,
+      "sub_module_code": "pol-mod01-sub04"
     },
     {
       "code": "pol-c18",
       "subject_code": "indian-polity",
-      "module_code": "pol-m04",
+      "module_code": "pol-mod01",
       "title": "Order of Precedence",
-      "sort_order": 18
+      "sort_order": 18,
+      "sub_module_code": "pol-mod01-sub04"
     },
     {
       "code": "pol-c19",
       "subject_code": "indian-polity",
-      "module_code": "pol-m05",
+      "module_code": "pol-mod01",
       "title": "The Parliament",
-      "sort_order": 19
+      "sort_order": 19,
+      "sub_module_code": "pol-mod01-sub05"
     },
     {
       "code": "pol-c20",
       "subject_code": "indian-polity",
-      "module_code": "pol-m05",
+      "module_code": "pol-mod01",
       "title": "Lok Sabha",
-      "sort_order": 20
+      "sort_order": 20,
+      "sub_module_code": "pol-mod01-sub05"
     },
     {
       "code": "pol-c21",
       "subject_code": "indian-polity",
-      "module_code": "pol-m05",
+      "module_code": "pol-mod01",
       "title": "Rajya Sabha",
-      "sort_order": 21
+      "sort_order": 21,
+      "sub_module_code": "pol-mod01-sub05"
     },
     {
       "code": "pol-c22",
       "subject_code": "indian-polity",
-      "module_code": "pol-m06",
+      "module_code": "pol-mod01",
       "title": "The Supreme Court",
-      "sort_order": 22
+      "sort_order": 22,
+      "sub_module_code": "pol-mod01-sub06"
     },
     {
       "code": "pol-c23",
       "subject_code": "indian-polity",
-      "module_code": "pol-m06",
+      "module_code": "pol-mod01",
       "title": "High Courts and Subordinate Courts",
-      "sort_order": 23
+      "sort_order": 23,
+      "sub_module_code": "pol-mod01-sub06"
     },
     {
       "code": "pol-c24",
       "subject_code": "indian-polity",
-      "module_code": "pol-m07",
+      "module_code": "pol-mod01",
       "title": "The Governor",
-      "sort_order": 24
+      "sort_order": 24,
+      "sub_module_code": "pol-mod01-sub07"
     },
     {
       "code": "pol-c25",
       "subject_code": "indian-polity",
-      "module_code": "pol-m07",
+      "module_code": "pol-mod01",
       "title": "State Legislature",
-      "sort_order": 25
+      "sort_order": 25,
+      "sub_module_code": "pol-mod01-sub07"
     },
     {
       "code": "pol-c26",
       "subject_code": "indian-polity",
-      "module_code": "pol-m08",
+      "module_code": "pol-mod01",
       "title": "Centre-State Relations",
-      "sort_order": 26
+      "sort_order": 26,
+      "sub_module_code": "pol-mod01-sub08"
     },
     {
       "code": "pol-c27",
       "subject_code": "indian-polity",
-      "module_code": "pol-m08",
+      "module_code": "pol-mod01",
       "title": "Emergency Provisions",
-      "sort_order": 27
+      "sort_order": 27,
+      "sub_module_code": "pol-mod01-sub08"
     },
     {
       "code": "pol-c28",
       "subject_code": "indian-polity",
-      "module_code": "pol-m08",
+      "module_code": "pol-mod01",
       "title": "Finance Commission",
-      "sort_order": 28
+      "sort_order": 28,
+      "sub_module_code": "pol-mod01-sub08"
     },
     {
       "code": "pol-c29",
       "subject_code": "indian-polity",
-      "module_code": "pol-m08",
+      "module_code": "pol-mod01",
       "title": "Planning Commission and NITI Aayog",
-      "sort_order": 29
+      "sort_order": 29,
+      "sub_module_code": "pol-mod01-sub08"
     },
     {
       "code": "pol-c30",
       "subject_code": "indian-polity",
-      "module_code": "pol-m08",
+      "module_code": "pol-mod01",
       "title": "Temporary, Transitional and Special Provisions for States",
-      "sort_order": 30
+      "sort_order": 30,
+      "sub_module_code": "pol-mod01-sub08"
     },
     {
       "code": "pol-c31",
       "subject_code": "indian-polity",
-      "module_code": "pol-m08",
+      "module_code": "pol-mod01",
       "title": "Special Provisions for Certain Classes",
-      "sort_order": 31
+      "sort_order": 31,
+      "sub_module_code": "pol-mod01-sub08"
     },
     {
       "code": "pol-c32",
       "subject_code": "indian-polity",
-      "module_code": "pol-m09",
+      "module_code": "pol-mod01",
       "title": "Election Commission and Elections",
-      "sort_order": 32
+      "sort_order": 32,
+      "sub_module_code": "pol-mod01-sub09"
     },
     {
       "code": "pol-c33",
       "subject_code": "indian-polity",
-      "module_code": "pol-m09",
+      "module_code": "pol-mod01",
       "title": "Political Parties",
-      "sort_order": 33
+      "sort_order": 33,
+      "sub_module_code": "pol-mod01-sub09"
     },
     {
       "code": "pol-c34",
       "subject_code": "indian-polity",
-      "module_code": "pol-m09",
+      "module_code": "pol-mod01",
       "title": "Lokpal and Other Commissions",
-      "sort_order": 34
+      "sort_order": 34,
+      "sub_module_code": "pol-mod01-sub09"
     },
     {
       "code": "pol-c35",
       "subject_code": "indian-polity",
-      "module_code": "pol-m10",
+      "module_code": "pol-mod01",
       "title": "Panchayati Raj and Community Development",
-      "sort_order": 35
+      "sort_order": 35,
+      "sub_module_code": "pol-mod01-sub10"
     },
     {
       "code": "pol-c36",
       "subject_code": "indian-polity",
-      "module_code": "pol-m10",
+      "module_code": "pol-mod01",
       "title": "Polity Miscellaneous",
-      "sort_order": 36
+      "sort_order": 36,
+      "sub_module_code": "pol-mod01-sub10"
     }
   ],
   "topics": [
@@ -2371,6 +2416,13 @@
       "title": "Mixed one-liners",
       "notes": "matching.",
       "sort_order": 7
+    }
+  ],
+  "parts": [
+    {
+      "code": "pol-india",
+      "subject_code": "indian-polity",
+      "title": "India"
     }
   ]
 }

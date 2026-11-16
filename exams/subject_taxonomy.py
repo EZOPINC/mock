@@ -36,10 +36,45 @@ def export_taxonomy():
     return data
 
 
-def plan_taxonomy(data, *, create_subjects=False, attach_unassigned_chapters=False):
+def normalize_taxonomy(data):
+    """Normalize documented spelling aliases before validation or diagnostics."""
+    data = deepcopy(data)
+    if not isinstance(data, dict):
+        raise ValidationError("Expected a taxonomy object.")
+    if "sub_modules" in data:
+        if "submodules" in data:
+            raise ValidationError("Use either submodules or sub_modules, not both.")
+        data["submodules"] = data.pop("sub_modules")
+    allowed = {"version", "schema_version", "kind", "subject", "subjects", "scope",
+               "parts", "modules", "submodules", "chapters", "topics"}
+    if set(data) - allowed:
+        raise ValidationError("Unknown taxonomy fields: " + ", ".join(sorted(set(data) - allowed)))
+    for kind in ("subjects", "parts", "modules", "submodules", "chapters", "topics"):
+        rows = data.get(kind, [])
+        if not isinstance(rows, list):
+            raise ValidationError(f"{kind} must be an array.")
+        for row in rows:
+            if not isinstance(row, dict):
+                raise ValidationError(f"Each {kind} record must be an object.")
+            if "sub_module_code" in row:
+                if "submodule_code" in row and row["submodule_code"] != row["sub_module_code"]:
+                    raise ValidationError("Conflicting submodule_code and sub_module_code.")
+                row["submodule_code"] = row.pop("sub_module_code")
+            valid = {"code", "name", "title", "slug", "sort_order"}
+            if kind != "subjects":
+                valid.add("subject_code")
+            valid.update({"modules": {"part_code"}, "submodules": {"module_code"},
+                          "chapters": {"submodule_code", "module_code", "part_code"},
+                          "topics": {"chapter_code", "module_code", "part_code", "notes"}}.get(kind, set()))
+            if set(row) - valid:
+                raise ValidationError(f"Unknown {kind} fields: " + ", ".join(sorted(set(row) - valid)))
+    return data
+
+
+def plan_taxonomy(data, *, create_subjects=False, attach_unassigned_chapters=False, attach_submodules=False):
     if not isinstance(data, dict) or data.get("version", data.get("schema_version", 1)) != 1:
         raise ValidationError("Expected a version 1 taxonomy object.")
-    data = deepcopy(data)
+    data = normalize_taxonomy(data)
     backup = data.get("kind") == "subject_taxonomy_backup"
     # Original single-subject format; scope is descriptive, never a module.
     if "subject" in data:
@@ -54,6 +89,18 @@ def plan_taxonomy(data, *, create_subjects=False, attach_unassigned_chapters=Fal
                 row.setdefault("subject_code", subject.get("code"))
     models = {"subjects": Subject, "parts": Part, "modules": Module, "submodules": Submodule, "chapters": Chapter, "topics": Topic}
     catalogue = {kind: {key(obj.code): obj for obj in model.objects.all()} for kind, model in models.items()}
+    # Reuse the already loaded nodes for ancestry; avoid thousands of FK queries
+    # per file during bulk validation and collision checks.
+    by_id = {model: {obj.pk: obj for obj in catalogue[kind].values()} for kind, model in models.items()}
+    for kind in models:
+        if kind == "subjects":
+            continue
+        for obj in catalogue[kind].values():
+            obj.subject = by_id[Subject][obj.subject_id]
+            for field in obj.parent_fields:
+                parent_id = getattr(obj, field + "_id")
+                if parent_id is not None:
+                    setattr(obj, field, by_id[obj._meta.get_field(field).remote_field.model][parent_id])
     plan, counts = [], {kind: dict(create=0, update=0, unchanged=0) for kind in models}
     for kind, model in models.items():
         rows = data.get(kind, [])
@@ -80,6 +127,15 @@ def plan_taxonomy(data, *, create_subjects=False, attach_unassigned_chapters=Fal
                 parent_kind = {"modules": "part", "submodules": "module", "topics": "chapter"}.get(kind)
                 if kind == "chapters":
                     chapter_parents = [field for field in obj.parent_fields if row.get(field + "_code")]
+                    if row.get("submodule_code"):
+                        # Extra Module/Part codes describe ancestry, not additional FKs.
+                        submodule = catalogue["submodules"].get(key(row["submodule_code"])) if isinstance(row["submodule_code"], str) else None
+                        if submodule:
+                            for field, parent in (("module", submodule.module), ("part", submodule.module.part)):
+                                context = row.get(field + "_code")
+                                if context and (not isinstance(context, str) or parent is None or key(parent.code) != key(context)):
+                                    raise ValidationError(f"Conflicting {field}_code ancestry for {code}; select only one immediate parent.")
+                        chapter_parents = ["submodule"]
                     if len(chapter_parents) > 1:
                         raise ValidationError(f"Select only one immediate parent for {code}.")
                     parent_kind = chapter_parents[0] if chapter_parents else None
@@ -104,6 +160,10 @@ def plan_taxonomy(data, *, create_subjects=False, attach_unassigned_chapters=Fal
                             raise ValidationError(f"Cross-subject parent for {code}.")
                         parents[parent_kind] = parent
                 if existing:
+                    initial_submodule = (attach_submodules and kind == "chapters"
+                                         and existing.submodule_id is None and existing.part_id is None
+                                         and existing.module_id is not None and parents.get("submodule") is not None
+                                         and key(existing.module.code) == key(parents["submodule"].module.code))
                     for field in ("subject", *obj.parent_fields):
                         old = getattr(existing, field, None)
                         new = parents.get(field)
@@ -111,8 +171,10 @@ def plan_taxonomy(data, *, create_subjects=False, attach_unassigned_chapters=Fal
                         initial_chapter_module = (attach_unassigned_chapters and kind == "chapters"
                                                   and field == "module" and existing.module_id is None
                                                   and existing.part_id is None and existing.submodule_id is None and new is not None)
-                        if getattr(old, "code", None) != getattr(new, "code", None) and not (initial_module_part or initial_chapter_module):
+                        if getattr(old, "code", None) != getattr(new, "code", None) and not (initial_module_part or initial_chapter_module or (initial_submodule and field in ("module", "submodule"))):
                             raise ValidationError(f"Implicit reparenting rejected for {code}.")
+                for field in obj.parent_fields:
+                    setattr(obj, field, parents.get(field))
                 for field, parent in parents.items():
                     setattr(obj, field, parent)
             name = row.get("name", row.get("title", existing.name if existing else None))

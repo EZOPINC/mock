@@ -2,48 +2,57 @@
   "schema_version": 1,
   "subject": {
     "code": "economics",
-    "title": "Economics"
+    "title": "Economic and Social Development"
   },
   "modules": [
     {
-      "code": "econ-m01",
+      "code": "econ-mod01",
       "subject_code": "economics",
-      "title": "Foundations Of The Indian Economy",
+      "title": "Indian Economy",
+      "sort_order": 1,
+      "part_code": "econ-india"
+    }
+  ],
+  "sub_modules": [
+    {
+      "code": "econ-mod01-sub01",
+      "module_code": "econ-mod01",
+      "title": "Foundations of the Indian Economy",
       "sort_order": 1
     },
     {
-      "code": "econ-m02",
-      "subject_code": "economics",
-      "title": "Money, Banking And Prices",
+      "code": "econ-mod01-sub02",
+      "module_code": "econ-mod01",
+      "title": "Money, Banking and Prices",
       "sort_order": 2
     },
     {
-      "code": "econ-m03",
-      "subject_code": "economics",
+      "code": "econ-mod01-sub03",
+      "module_code": "econ-mod01",
       "title": "Financial Markets",
       "sort_order": 3
     },
     {
-      "code": "econ-m04",
-      "subject_code": "economics",
+      "code": "econ-mod01-sub04",
+      "module_code": "econ-mod01",
       "title": "Public Finance",
       "sort_order": 4
     },
     {
-      "code": "econ-m05",
-      "subject_code": "economics",
-      "title": "External Sector And Economic Reforms",
+      "code": "econ-mod01-sub05",
+      "module_code": "econ-mod01",
+      "title": "External Sector and Economic Reforms",
       "sort_order": 5
     },
     {
-      "code": "econ-m06",
-      "subject_code": "economics",
-      "title": "International And Economic Institutions",
+      "code": "econ-mod01-sub06",
+      "module_code": "econ-mod01",
+      "title": "International and Economic Institutions",
       "sort_order": 6
     },
     {
-      "code": "econ-m07",
-      "subject_code": "economics",
+      "code": "econ-mod01-sub07",
+      "module_code": "econ-mod01",
       "title": "Social Development",
       "sort_order": 7
     }
@@ -52,156 +61,178 @@
     {
       "code": "econ-c01",
       "subject_code": "economics",
-      "module_code": "econ-m01",
+      "module_code": "econ-mod01",
       "title": "Indian Economy: Features and Structure",
-      "sort_order": 1
+      "sort_order": 1,
+      "sub_module_code": "econ-mod01-sub01"
     },
     {
       "code": "econ-c02",
       "subject_code": "economics",
-      "module_code": "econ-m01",
+      "module_code": "econ-mod01",
       "title": "National Income and Its Measurement",
-      "sort_order": 2
+      "sort_order": 2,
+      "sub_module_code": "econ-mod01-sub01"
     },
     {
       "code": "econ-c03",
       "subject_code": "economics",
-      "module_code": "econ-m01",
+      "module_code": "econ-mod01",
       "title": "Sectors of the Indian Economy",
-      "sort_order": 3
+      "sort_order": 3,
+      "sub_module_code": "econ-mod01-sub01"
     },
     {
       "code": "econ-c04",
       "subject_code": "economics",
-      "module_code": "econ-m01",
+      "module_code": "econ-mod01",
       "title": "Economic Planning and NITI Aayog",
-      "sort_order": 4
+      "sort_order": 4,
+      "sub_module_code": "econ-mod01-sub01"
     },
     {
       "code": "econ-c05",
       "subject_code": "economics",
-      "module_code": "econ-m02",
+      "module_code": "econ-mod01",
       "title": "Money and the Banking System",
-      "sort_order": 5
+      "sort_order": 5,
+      "sub_module_code": "econ-mod01-sub02"
     },
     {
       "code": "econ-c06",
       "subject_code": "economics",
-      "module_code": "econ-m02",
+      "module_code": "econ-mod01",
       "title": "Inflation, Price Indices and Business Cycles",
-      "sort_order": 6
+      "sort_order": 6,
+      "sub_module_code": "econ-mod01-sub02"
     },
     {
       "code": "econ-c07",
       "subject_code": "economics",
-      "module_code": "econ-m03",
+      "module_code": "econ-mod01",
       "title": "Stock Exchange and Capital Market",
-      "sort_order": 7
+      "sort_order": 7,
+      "sub_module_code": "econ-mod01-sub03"
     },
     {
       "code": "econ-c08",
       "subject_code": "economics",
-      "module_code": "econ-m03",
+      "module_code": "econ-mod01",
       "title": "Securities Market, Insurance and Regulators",
-      "sort_order": 8
+      "sort_order": 8,
+      "sub_module_code": "econ-mod01-sub03"
     },
     {
       "code": "econ-c09",
       "subject_code": "economics",
-      "module_code": "econ-m04",
+      "module_code": "econ-mod01",
       "title": "Union Budget",
-      "sort_order": 9
+      "sort_order": 9,
+      "sub_module_code": "econ-mod01-sub04"
     },
     {
       "code": "econ-c10",
       "subject_code": "economics",
-      "module_code": "econ-m04",
+      "module_code": "econ-mod01",
       "title": "Fiscal Policy and Public Debt",
-      "sort_order": 10
+      "sort_order": 10,
+      "sub_module_code": "econ-mod01-sub04"
     },
     {
       "code": "econ-c11",
       "subject_code": "economics",
-      "module_code": "econ-m04",
+      "module_code": "econ-mod01",
       "title": "Taxation and Public Revenue",
-      "sort_order": 11
+      "sort_order": 11,
+      "sub_module_code": "econ-mod01-sub04"
     },
     {
       "code": "econ-c12",
       "subject_code": "economics",
-      "module_code": "econ-m04",
+      "module_code": "econ-mod01",
       "title": "Finance Commission and Fiscal Federalism",
-      "sort_order": 12
+      "sort_order": 12,
+      "sub_module_code": "econ-mod01-sub04"
     },
     {
       "code": "econ-c13",
       "subject_code": "economics",
-      "module_code": "econ-m05",
+      "module_code": "econ-mod01",
       "title": "Economic Reforms: LPG (1991)",
-      "sort_order": 13
+      "sort_order": 13,
+      "sub_module_code": "econ-mod01-sub05"
     },
     {
       "code": "econ-c14",
       "subject_code": "economics",
-      "module_code": "econ-m05",
+      "module_code": "econ-mod01",
       "title": "Foreign Exchange Market and Exchange Rates",
-      "sort_order": 14
+      "sort_order": 14,
+      "sub_module_code": "econ-mod01-sub05"
     },
     {
       "code": "econ-c15",
       "subject_code": "economics",
-      "module_code": "econ-m05",
+      "module_code": "econ-mod01",
       "title": "Balance of Payments and Foreign Trade",
-      "sort_order": 15
+      "sort_order": 15,
+      "sub_module_code": "econ-mod01-sub05"
     },
     {
       "code": "econ-c16",
       "subject_code": "economics",
-      "module_code": "econ-m05",
+      "module_code": "econ-mod01",
       "title": "Foreign Investment and FDI",
-      "sort_order": 16
+      "sort_order": 16,
+      "sub_module_code": "econ-mod01-sub05"
     },
     {
       "code": "econ-c17",
       "subject_code": "economics",
-      "module_code": "econ-m06",
+      "module_code": "econ-mod01",
       "title": "World Bank, IMF, WTO and BRICS",
-      "sort_order": 17
+      "sort_order": 17,
+      "sub_module_code": "econ-mod01-sub06"
     },
     {
       "code": "econ-c18",
       "subject_code": "economics",
-      "module_code": "econ-m06",
+      "module_code": "econ-mod01",
       "title": "Other International and National Economic Institutions",
-      "sort_order": 18
+      "sort_order": 18,
+      "sub_module_code": "econ-mod01-sub06"
     },
     {
       "code": "econ-c19",
       "subject_code": "economics",
-      "module_code": "econ-m07",
+      "module_code": "econ-mod01",
       "title": "Human Development and Social Indices",
-      "sort_order": 19
+      "sort_order": 19,
+      "sub_module_code": "econ-mod01-sub07"
     },
     {
       "code": "econ-c20",
       "subject_code": "economics",
-      "module_code": "econ-m07",
+      "module_code": "econ-mod01",
       "title": "Population and Poverty",
-      "sort_order": 20
+      "sort_order": 20,
+      "sub_module_code": "econ-mod01-sub07"
     },
     {
       "code": "econ-c21",
       "subject_code": "economics",
-      "module_code": "econ-m07",
+      "module_code": "econ-mod01",
       "title": "Employment and Welfare Schemes",
-      "sort_order": 21
+      "sort_order": 21,
+      "sub_module_code": "econ-mod01-sub07"
     },
     {
       "code": "econ-c22",
       "subject_code": "economics",
-      "module_code": "econ-m07",
+      "module_code": "econ-mod01",
       "title": "Economics Miscellaneous",
-      "sort_order": 22
+      "sort_order": 22,
+      "sub_module_code": "econ-mod01-sub07"
     }
   ],
   "topics": [
@@ -1296,6 +1327,13 @@
       "title": "Current affairs links",
       "notes": "annual reports and schemes.",
       "sort_order": 6
+    }
+  ],
+  "parts": [
+    {
+      "code": "econ-india",
+      "subject_code": "economics",
+      "title": "India"
     }
   ]
 }
