@@ -14,7 +14,8 @@ class FlexibleTaxonomyMigrationTests(TransactionTestCase):
         self.latest = executor.loader.graph.leaf_nodes()
         executor.migrate(OLD)
         # Include unchanged apps in the historical state to exercise real references.
-        self.old_apps = executor.loader.project_state([node for node in self.latest if node[0] != "exams"] + OLD).apps
+        executor = MigrationExecutor(connection)
+        self.old_apps = executor.loader.project_state(list(executor.loader.applied_migrations)).apps
 
     def tearDown(self):
         MigrationExecutor(connection).migrate(self.latest)
@@ -39,7 +40,8 @@ class FlexibleTaxonomyMigrationTests(TransactionTestCase):
     def migrate_new(self):
         executor = MigrationExecutor(connection)
         executor.migrate(NEW)
-        return executor.loader.project_state([node for node in self.latest if node[0] != "exams"] + NEW).apps
+        executor = MigrationExecutor(connection)
+        return executor.loader.project_state(list(executor.loader.applied_migrations)).apps
 
     def test_forward_backfill_preserves_ids_paths_names_and_revisions(self):
         subject, part, module, chapter, topic, flat, question, revision, no_topic = self.seed()

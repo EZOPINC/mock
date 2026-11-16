@@ -1,0 +1,108 @@
+erDiagram
+    questions_question {
+        bigint id PK "NOT_NULL"
+        character_varying_200_ source_question_id "NULL"
+        bigint subject_id FK "NOT_NULL"
+        bigint topic_id FK "NULL"
+        character_varying_12_ publication_status "NOT_NULL"
+        character_varying_14_ review_status "NOT_NULL"
+        character_varying_1_ correct_answer "NOT_NULL"
+        character_varying_100_ difficulty_level "NOT_NULL"
+        bigint current_revision_id FK "NULL"
+        bigint published_revision_id FK "NULL"
+        timestamp_with_time_zone created_at "NOT_NULL"
+        timestamp_with_time_zone updated_at "NOT_NULL"
+    }
+    questions_questiontopic {
+        bigint id PK "NOT_NULL"
+        bigint question_id FK "NOT_NULL"
+        bigint topic_id FK "NOT_NULL"
+        boolean is_primary "NOT_NULL"
+    }
+    questions_questionrevision {
+        bigint id PK "NOT_NULL"
+        bigint question_id FK "NOT_NULL"
+        integer revision_number "NOT_NULL"
+        character_varying_35_ language "NOT_NULL"
+        text question_text "NOT_NULL"
+        text option_a "NOT_NULL"
+        text option_b "NOT_NULL"
+        text option_c "NOT_NULL"
+        text option_d "NOT_NULL"
+        character_varying_1_ correct_answer "NOT_NULL"
+        character_varying_100_ difficulty_level "NOT_NULL"
+        text explanation "NOT_NULL"
+        timestamp_with_time_zone created_at "NOT_NULL"
+        timestamp_with_time_zone published_at "NULL"
+    }
+    questions_questiontranslation {
+        bigint id PK "NOT_NULL"
+        bigint question_id FK "NOT_NULL"
+        bigint revision_id FK "NOT_NULL"
+        character_varying_35_ language "NOT_NULL"
+        text question_text "NOT_NULL"
+        text option_a "NOT_NULL"
+        text option_b "NOT_NULL"
+        text option_c "NOT_NULL"
+        text option_d "NOT_NULL"
+        text explanation "NOT_NULL"
+    }
+    questions_questionexam {
+        bigint id PK "NOT_NULL"
+        bigint question_id FK "NOT_NULL"
+        bigint exam_id FK "NOT_NULL"
+    }
+    questions_questionsource {
+        bigint id PK "NOT_NULL"
+        character_varying_200_ source_name "NOT_NULL"
+        character_varying_500_ source_document "NOT_NULL"
+        timestamp_with_time_zone created_at "NOT_NULL"
+    }
+    questions_questionsourcereference {
+        bigint id PK "NOT_NULL"
+        bigint question_id FK "NOT_NULL"
+        bigint source_id FK "NOT_NULL"
+        character_varying_50_ source_page "NULL"
+        character_varying_100_ source_question_number "NULL"
+    }
+    exams_subject {
+        bigint id PK "NOT_NULL"
+        character_varying_200_ name "NOT_NULL"
+        character_varying_50_ code UK "NOT_NULL"
+        character_varying_200_ slug UK "NOT_NULL"
+        integer display_order "NOT_NULL"
+    }
+    exams_topic {
+        bigint id PK "NOT_NULL"
+        character_varying_200_ name "NOT_NULL"
+        character_varying_200_ slug "NOT_NULL"
+        integer display_order "NOT_NULL"
+        text notes "NOT_NULL"
+        bigint subject_id FK "NOT_NULL"
+        bigint chapter_id FK "NULL"
+        bigint module_id FK "NULL"
+        bigint part_id FK "NULL"
+        character_varying_50_ code UK "NOT_NULL"
+    }
+    exams_exam {
+        bigint id PK "NOT_NULL"
+        bigint authority_id FK "NOT_NULL"
+        character_varying_200_ name "NOT_NULL"
+        character_varying_50_ code "NOT_NULL"
+        character_varying_200_ slug "NOT_NULL"
+        boolean is_active "NOT_NULL"
+    }
+    exams_subject ||..o{ questions_question : "subject_id"
+    exams_topic o|..o{ questions_question : "topic_id"
+    questions_questionrevision o|..o{ questions_question : "current_revision_id"
+    questions_questionrevision o|..o{ questions_question : "published_revision_id"
+    questions_question ||..o{ questions_questiontopic : "question_id"
+    exams_topic ||..o{ questions_questiontopic : "topic_id"
+    questions_question ||..o{ questions_questionrevision : "question_id"
+    questions_question ||..o{ questions_questiontranslation : "question_id"
+    questions_questionrevision ||..o{ questions_questiontranslation : "revision_id"
+    questions_question ||..o{ questions_questionexam : "question_id"
+    exams_exam ||..o{ questions_questionexam : "exam_id"
+    questions_question ||..o{ questions_questionsourcereference : "question_id"
+    questions_questionsource ||..o{ questions_questionsourcereference : "source_id"
+    exams_subject ||..o{ exams_topic : "subject_id"

@@ -1,5 +1,101 @@
 # Subject taxonomy imports
 
+## Back up and restore all subjects together
+
+```console
+python manage.py export_subject_taxonomy Data/Subjects/subject_taxonomy_backup.json
+python manage.py import_subject_taxonomy Data/Subjects/subject_taxonomy_backup.json --create-subjects --dry-run
+python manage.py import_subject_taxonomy Data/Subjects/subject_taxonomy_backup.json --create-subjects
+```
+
+Export includes every Subject, Part, Module, Submodule, Chapter and Topic in one
+file. No per-subject runs are needed. To refresh an existing backup, add
+`--overwrite` to export; without it an existing file is protected. `--create-subjects`
+is needed on restore only if Subject codes are absent from the destination.
+
+Backups use schema version 1 plus `kind: "subject_taxonomy_backup"`. They preserve
+codes, names, slugs, ordering, notes, subject anchors and actual immediate parents,
+including skipped levels and legacy Topics directly under Subject, Part or Module.
+The backup marker explicitly enables restoring those existing legacy shapes;
+normal taxonomy imports continue to require a Topic's chapter. Optional `slug`
+values are accepted by the importer; omitted slugs retain existing behavior.
+
+Repeated restore preserves existing IDs/links for matching codes, rejects
+reparenting, and retains omitted records. This is a taxonomy backup only: it
+does not include questions/tags, papers, exam membership, users, or history, and
+does not restore original numeric IDs after records have been deleted. Use a
+database backup for those relationships and records. No migration is needed.
+
+## Purging unused old taxonomy records
+
+`purge_subject_taxonomy` preserves Subject rows and defaults to a zero-write
+preview. The taxonomy JSON importer does not persist per-node import ownership.
+Question import audit metadata proves usage, not ownership, so this command
+requires an explicit old-code manifest instead of guessing from names, prefixes,
+dates, or the current taxonomy files. Obtain this list from the actual old import
+files and review it; there is no automatic descendant expansion.
+
+Example `old-taxonomy-codes.json` (replace all example codes with actual old codes):
+
+```json
+{
+  "version": 1,
+  "parts": ["OLD-PART"],
+  "modules": ["OLD-MODULE"],
+  "submodules": ["OLD-SUBMODULE"],
+  "chapters": ["OLD-CHAPTER"],
+  "topics": ["OLD-TOPIC"]
+}
+```
+
+Empty/omitted record-type arrays select nothing. Unknown/duplicate codes, unknown
+subjects and any code outside the selected subjects fail closed. Subject codes
+are supplied separately, explicitly; repeat `--subject` to select multiple subjects.
+
+The original version 1 taxonomy import JSON may also be passed to `--old-codes`.
+`schema_version`, `subject`/`subjects`, and descriptive `scope` are accepted. For
+each taxonomy array, only explicitly listed `code` values are selected; labels and
+parent references do not select additional records. Declared subject codes must
+be within the command's explicit `--subject` selection, and every code is still
+checked against its actual subject in the database. Subject records in the file
+are never deleted. Use the actual old import file, not a replacement taxonomy
+whose codes you intend to keep.
+
+```console
+python manage.py purge_subject_taxonomy --subject history --old-codes old-taxonomy-codes.json
+python manage.py purge_subject_taxonomy --subject history --old-codes old-taxonomy-codes.json --apply
+```
+
+Preview reports counts by type/subject, affected internal/external FK links,
+M2M membership, deletion policies, cascade restrictions and preserved domain
+counts. An external reference blocks preview/apply with a nonzero exit status;
+it is never detached, nulled or cascaded away. For example, selecting a Chapter
+without its still-linked Topics is blocked. Include only independently reviewed
+old codes; do not expand the list to referenced questions/history to force deletion.
+
+Inbound relationship inspection covers the entire installed model registry,
+including explicit and automatic M2M through tables. Current taxonomy references:
+
+| Target | Inbound references |
+|---|---|
+| Subject (always preserved) | Part, Module, Submodule, Chapter, Topic, Question, PreviousYearPaper, ExamPatternSection, SectionSelectionRule, PracticeSession |
+| Part | Module, Chapter, Topic, SectionSelectionRule |
+| Module | Submodule, Chapter, Topic, SectionSelectionRule |
+| Submodule | Chapter |
+| Chapter | Topic, SectionSelectionRule |
+| Topic | Question.topic, QuestionTopic.topic (Question.topics M2M), ExamPatternSection, SectionSelectionRule, PracticeSession |
+
+All current inbound FKs above use PROTECT. Papers and attempts also link
+indirectly through questions/revisions/patterns; those records are never selected.
+Historical JSON snapshots and audit data remain untouched. They are not FKs or
+proof of taxonomy ownership.
+
+Apply uses one transaction, locks only selected Subjects/nodes, rechecks live
+references, and deletes child-to-parent through normal Django deletion. Unexpected
+cascades/deletion counts or any change in Subject, Exam, question/revision/tag,
+paper/association, pattern/section/rule, mock attempt/answer, Practice/revision or
+import-audit counts abort and roll back the operation. No migration is required.
+
 Taxonomy belongs to `exams`; existing Subject, Module, Chapter and Topic IDs,
 QuestionTopic links, exam associations and legacy unparented topics are retained.
 No question content or historical snapshots are modified. Migration
@@ -10,6 +106,39 @@ unique codes per record type (including case/outer-whitespace normalization),
 scoped names/slugs and consistent ancestry. Legacy Part paths remain supported.
 
 ## Version 1 format
+
+Optional Sub-modules are supported between Module and Chapter. A Submodule has
+one required Module and a same-subject anchor. A Chapter keeps exactly one
+immediate parent: Submodule, Module, Part, or Subject. Existing chapters need no
+change and retain their IDs and links; adding this level does not move records.
+
+Version 1 accepts a `submodules` array. Each record uses `code`, `module_code`,
+`subject_code`, `name`/`title`, and optional `sort_order`. In the single-subject
+format, `subject_code` is inherited. Chapters under this level supply only
+`submodule_code` as their immediate parent reference; omit `module_code` there.
+Chapters that skip the level continue to use `module_code` or no parent code.
+
+```json
+{
+  "version": 1,
+  "subject": {"code": "history"},
+  "modules": [{"code": "H-M", "name": "Example module"}],
+  "submodules": [{"code": "H-SM", "module_code": "H-M", "name": "Example sub-module"}],
+  "chapters": [
+    {"code": "H-C1", "submodule_code": "H-SM", "name": "Nested chapter"},
+    {"code": "H-C2", "module_code": "H-M", "name": "Direct module chapter"}
+  ],
+  "topics": [{"code": "H-T", "chapter_code": "H-C1", "name": "Example topic"}]
+}
+```
+
+Run `python manage.py migrate` before using these fields. The existing
+`import_subject_taxonomy <file.json> --dry-run` / apply commands are unchanged.
+Existing parent paths remain immutable: changing an established Chapter to a
+Submodule is rejected rather than silently moving its question classification.
+Submodule codes are globally unique within their record type, just like Module
+codes. Model checks and PostgreSQL guards reject cross-subject and multi-parent
+assignments. Admin provides Sub-module management and ancestor-aware filters.
 
 ```json
 {

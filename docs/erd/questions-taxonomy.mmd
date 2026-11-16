@@ -1,0 +1,94 @@
+erDiagram
+    exams_subject {
+        bigint id PK "NOT_NULL"
+        character_varying_200_ name "NOT_NULL"
+        character_varying_50_ code UK "NOT_NULL"
+        character_varying_200_ slug UK "NOT_NULL"
+        integer display_order "NOT_NULL"
+    }
+    exams_part {
+        bigint id PK "NOT_NULL"
+        character_varying_200_ name "NOT_NULL"
+        character_varying_200_ slug "NOT_NULL"
+        integer display_order "NOT_NULL"
+        bigint subject_id FK "NOT_NULL"
+        character_varying_50_ code UK "NOT_NULL"
+    }
+    exams_module {
+        bigint id PK "NOT_NULL"
+        character_varying_200_ name "NOT_NULL"
+        character_varying_200_ slug "NOT_NULL"
+        integer display_order "NOT_NULL"
+        bigint subject_id FK "NOT_NULL"
+        bigint part_id FK "NULL"
+        character_varying_50_ code UK "NOT_NULL"
+    }
+    exams_submodule {
+        bigint id PK "NOT_NULL"
+        character_varying_200_ name "NOT_NULL"
+        character_varying_200_ slug "NOT_NULL"
+        integer display_order "NOT_NULL"
+        bigint subject_id FK "NOT_NULL"
+        bigint module_id FK "NOT_NULL"
+        character_varying_50_ code UK "NOT_NULL"
+    }
+    exams_chapter {
+        bigint id PK "NOT_NULL"
+        character_varying_200_ name "NOT_NULL"
+        character_varying_200_ slug "NOT_NULL"
+        integer display_order "NOT_NULL"
+        bigint subject_id FK "NOT_NULL"
+        bigint part_id FK "NULL"
+        bigint module_id FK "NULL"
+        bigint submodule_id FK "NULL"
+        character_varying_50_ code UK "NOT_NULL"
+    }
+    exams_topic {
+        bigint id PK "NOT_NULL"
+        character_varying_200_ name "NOT_NULL"
+        character_varying_200_ slug "NOT_NULL"
+        integer display_order "NOT_NULL"
+        text notes "NOT_NULL"
+        bigint subject_id FK "NOT_NULL"
+        bigint chapter_id FK "NULL"
+        bigint module_id FK "NULL"
+        bigint part_id FK "NULL"
+        character_varying_50_ code UK "NOT_NULL"
+    }
+    exams_examauthority {
+        bigint id PK "NOT_NULL"
+        character_varying_200_ name "NOT_NULL"
+        character_varying_50_ code UK "NOT_NULL"
+        character_varying_200_ slug UK "NOT_NULL"
+        boolean is_active "NOT_NULL"
+    }
+    exams_exam {
+        bigint id PK "NOT_NULL"
+        bigint authority_id FK "NOT_NULL"
+        character_varying_200_ name "NOT_NULL"
+        character_varying_50_ code "NOT_NULL"
+        character_varying_200_ slug "NOT_NULL"
+        boolean is_active "NOT_NULL"
+    }
+    exams_examstage {
+        bigint id PK "NOT_NULL"
+        bigint exam_id FK "NOT_NULL"
+        character_varying_200_ name "NOT_NULL"
+        character_varying_50_ code "NOT_NULL"
+        integer display_order "NOT_NULL"
+    }
+    exams_subject ||..o{ exams_part : "subject_id"
+    exams_subject ||..o{ exams_module : "subject_id"
+    exams_part o|..o{ exams_module : "part_id"
+    exams_subject ||..o{ exams_submodule : "subject_id"
+    exams_module ||..o{ exams_submodule : "module_id"
+    exams_subject ||..o{ exams_chapter : "subject_id"
+    exams_part o|..o{ exams_chapter : "part_id"
+    exams_module o|..o{ exams_chapter : "module_id"
+    exams_submodule o|..o{ exams_chapter : "submodule_id"
+    exams_subject ||..o{ exams_topic : "subject_id"
+    exams_chapter o|..o{ exams_topic : "chapter_id"
+    exams_module o|..o{ exams_topic : "module_id"
+    exams_part o|..o{ exams_topic : "part_id"
+    exams_examauthority ||..o{ exams_exam : "authority_id"
+    exams_exam ||..o{ exams_examstage : "exam_id"

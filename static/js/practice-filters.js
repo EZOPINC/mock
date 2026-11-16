@@ -5,7 +5,7 @@
   const payload = document.getElementById("practice-taxonomy-options");
   if (!form || !payload) return;
   const catalogue = JSON.parse(payload.textContent);
-  const levels = ["part", "module", "chapter", "topic"];
+  const levels = ["part", "module", "submodule", "chapter", "topic"];
   const selects = levels.map((level) => form.elements.namedItem(level));
   const count = form.elements.namedItem("count");
   const status = form.querySelector("[data-practice-pool]");

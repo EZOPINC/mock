@@ -6,7 +6,7 @@ from django.core.exceptions import ValidationError
 from django.db import IntegrityError, transaction
 from django.urls import reverse
 
-from exams.models import Chapter, Module, Part, Topic
+from exams.models import Chapter, Module, Submodule, Part, Topic
 from questions.models import QuestionExam
 from questions.services import add_translation, create_question, create_revision, mark_reviewed, publish_question
 from questions.tagging import set_question_topics
@@ -18,6 +18,18 @@ from .test_attempts import AttemptFixture
 
 
 class AdvancedSelectionTests(AttemptFixture):
+    def test_module_rule_includes_submodule_chapters(self):
+        part = Part.objects.create(subject=self.subject, name='Part', slug='part')
+        module = Module.objects.create(part=part, name='Module', slug='module')
+        submodule = Submodule.objects.create(module=module, name='Sub', slug='sub')
+        chapter = Chapter.objects.create(submodule=submodule, name='Nested', slug='nested')
+        topic = Topic.objects.create(subject=self.subject, chapter=chapter, name='Leaf', slug='leaf')
+        question = self.question_at(topic)
+        rule = self.rule(module=module)
+        self.assertEqual(eligible_for_rule(rule), {question.pk})
+        rule.module, rule.part = None, part
+        self.assertEqual(eligible_for_rule(rule), {question.pk})
+
     def test_bilingual_rules_require_both_published_translations(self):
         self.section.language_mode = "mixed"
         self.section.save()

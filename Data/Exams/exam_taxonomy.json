@@ -1,0 +1,164 @@
+{
+  "schema_version": 1,
+  "kind": "exam_taxonomy",
+  "authorities": [
+    {
+      "code": "ssc",
+      "name": "School Service Commission",
+      "slug": "school-service-commission",
+      "is_active": true,
+      "exams": [
+        {
+          "code": "primary-tet",
+          "name": "Primary TET",
+          "slug": "primary-tet",
+          "is_active": true,
+          "stages": []
+        },
+        {
+          "code": "slst",
+          "name": "SLST",
+          "slug": "slst",
+          "is_active": true,
+          "stages": []
+        },
+        {
+          "code": "upper-primary-tet",
+          "name": "Upper Primary TET",
+          "slug": "upper-primary-tet",
+          "is_active": true,
+          "stages": []
+        },
+        {
+          "code": "written",
+          "name": "Written",
+          "slug": "written",
+          "is_active": true,
+          "stages": []
+        }
+      ]
+    },
+    {
+      "code": "wbp-kp",
+      "name": "WBP/KP",
+      "slug": "wbpkp",
+      "is_active": true,
+      "exams": [
+        {
+          "code": "excise",
+          "name": "Excise",
+          "slug": "excise",
+          "is_active": true,
+          "stages": []
+        },
+        {
+          "code": "kp-constable",
+          "name": "KP Constable",
+          "slug": "kp-constable",
+          "is_active": true,
+          "stages": []
+        },
+        {
+          "code": "kpsi",
+          "name": "KPSI",
+          "slug": "kpsi",
+          "is_active": true,
+          "stages": []
+        },
+        {
+          "code": "lady-constable",
+          "name": "Lady Constable",
+          "slug": "lady-constable",
+          "is_active": true,
+          "stages": []
+        },
+        {
+          "code": "wbp-constable",
+          "name": "WBP Constable",
+          "slug": "wbp-constable",
+          "is_active": true,
+          "stages": []
+        },
+        {
+          "code": "wbp-si",
+          "name": "WBPSI",
+          "slug": "wbpsi",
+          "is_active": true,
+          "stages": [
+            {
+              "code": "wbpsi-mains",
+              "name": "Mains",
+              "display_order": 0
+            },
+            {
+              "code": "wbpsi-prelims",
+              "name": "Prelims",
+              "display_order": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "wbpsc",
+      "name": "WBPSC",
+      "slug": "wbpsc",
+      "is_active": true,
+      "exams": [
+        {
+          "code": "clerkship",
+          "name": "Clerkship",
+          "slug": "clerkship",
+          "is_active": true,
+          "stages": []
+        },
+        {
+          "code": "food-si",
+          "name": "Food SI",
+          "slug": "food-si",
+          "is_active": true,
+          "stages": []
+        },
+        {
+          "code": "ido",
+          "name": "IDO",
+          "slug": "ido",
+          "is_active": true,
+          "stages": []
+        },
+        {
+          "code": "miscellaneous",
+          "name": "Miscellaneous",
+          "slug": "miscellaneous",
+          "is_active": true,
+          "stages": []
+        },
+        {
+          "code": "mvi",
+          "name": "MVI",
+          "slug": "mvi",
+          "is_active": true,
+          "stages": []
+        },
+        {
+          "code": "wbcs",
+          "name": "WBCS",
+          "slug": "wbcs",
+          "is_active": true,
+          "stages": [
+            {
+              "code": "mains",
+              "name": "Mains",
+              "display_order": 0
+            },
+            {
+              "code": "prelims",
+              "name": "Prelims",
+              "display_order": 0
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

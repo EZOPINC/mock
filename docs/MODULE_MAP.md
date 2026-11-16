@@ -55,6 +55,7 @@ Use `docs/architecture.md` for architecture context and `docs/DEVELOPMENT_RULES.
 | `accounts/models.py` | User(AbstractUser); AUTH_USER_MODEL |
 | `exams/models.py` | ExamAuthority, Exam, ExamStage, Subject, Part, Module, Chapter, Topic; HierarchyNode validates ancestry |
 | `questions/models.py` | Question, QuestionRevision, QuestionTranslation, QuestionTopic, QuestionExam, QuestionSource, QuestionSourceReference |
+| Questions ERD | `docs/erd/questions-erd.html` (offline interactive), `docs/erd/questions-erd.md` (Mermaid/column reference), `questions-schema.json` and `.mmd` sources in that directory; regenerate with `python tools/generate_questions_erd.py` using `tools/questions_erd_template.html` |
 | `imports/models.py` | ImportBatch, ImportedQuestion; contextual import uniqueness and row audit |
 | `previous_year/models.py` | PreviousYearPaper, PaperQuestion; revision/order and paper invariants |
 | `general_question/models.py` | GeneralQuestionBatch proxy over general ImportBatch rows |
@@ -71,6 +72,10 @@ Use `docs/architecture.md` for architecture context and `docs/DEVELOPMENT_RULES.
 | `questions/eligibility.py` | eligible_question_ids(exam_id, subject_id=..., topic_id=..., language_mode=..., question_ids=...) -> ID set |
 | `questions/selectors.py` | questions_by_topics(topic_ids, queryset=...) -> distinct masters |
 | `exams/selectors.py` | active_authorities, active_exams, subjects_for_exam; membership is not full eligibility |
+| Exam catalogue backup/restore | `exams/exam_taxonomy.py`, `exams/management/commands/export_exam_taxonomy.py`, `import_exam_taxonomy.py`; `docs/exam-taxonomy.md`, `Data/Exams/exam_taxonomy.json`; code-scoped Authority → Exam → Stage, separate from subjects |
+| All-subject taxonomy backup | `exams/subject_taxonomy.py`: export_taxonomy; `exams/management/commands/export_subject_taxonomy.py`; restore with existing import_subject_taxonomy and optional --create-subjects; `exams/test_subject_taxonomy_export.py`, `docs/subject-taxonomy.md` |
+| Optional Sub-module | `exams/models.py`: Submodule and Chapter.submodule; `exams/migrations/0008_optional_submodule.py` guards; JSON/CSV contracts in `docs/subject-taxonomy.md` and `docs/import-contract.md`; Practice/revision traversal and mock ancestor rules include this level |
+| Unused old taxonomy purge | `exams/taxonomy_purge.py`, `exams/management/commands/purge_subject_taxonomy.py`; explicit subjects + old-code manifest, preview default, block external references, transactional apply; `exams/test_taxonomy_purge.py` |
 | `exams/integrity.py` | taxonomy_integrity_counts; audit command consumes it |
 | `imports/parsing.py` | parse_upload, columns_for, preview_page_size; bounded CSV/XLSX |
 | `imports/translation_input.py`, `imports/language.py` | normalize_translations, normalize_language, infer_language |

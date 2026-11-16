@@ -6,7 +6,7 @@ from django.db import connection
 from django.test.utils import CaptureQueriesContext
 from django.urls import reverse
 
-from exams.models import Part, Module, Chapter, Topic
+from exams.models import Part, Module, Submodule, Chapter, Topic
 from questions.services import add_translation, create_revision, mark_reviewed, publish_question
 from questions.tagging import set_question_topics
 from .discovery import PracticeTaxonomy
@@ -17,6 +17,19 @@ from .tests import PracticeFixture
 
 
 class PracticeTaxonomyTests(PracticeFixture):
+    def test_submodule_descendants_inherit_module_and_part_scope(self):
+        submodule = Submodule.objects.create(module=self.module, name='Sub', slug='sub')
+        chapter = Chapter.objects.create(submodule=submodule, name='Nested', slug='nested')
+        topic = Topic.objects.create(subject=self.subject, chapter=chapter, name='Nested leaf', slug='nested-leaf')
+        question = self.question(topic=topic)
+        scope = PracticeTaxonomy(self.exam, self.subject)
+        for kind, node in (('part', self.part), ('module', self.module), ('submodule', submodule), ('chapter', chapter)):
+            self.assertEqual(scope.selected_ids({kind: node}), {question.pk})
+            self.assertEqual(set(self.session(**{kind: node}).questions.values_list('question_id', flat=True)), {question.pk})
+        from revision.selectors import topic_scope
+        for kind, node in (('part', self.part), ('module', self.module), ('submodule', submodule)):
+            self.assertIn(topic, topic_scope({kind: node}))
+
     @classmethod
     def setUpTestData(cls):
         super().setUpTestData()

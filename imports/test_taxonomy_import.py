@@ -5,7 +5,7 @@ from django.core.exceptions import ValidationError
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.urls import reverse
 
-from exams.models import Subject, Part, Module, Chapter, Topic
+from exams.models import Subject, Part, Module, Submodule, Chapter, Topic
 from previous_year.models import PaperQuestion
 from questions.models import Question, QuestionTopic
 from questions.tagging import set_question_topics
@@ -19,6 +19,23 @@ from .validation import validate
 
 
 class TaxonomyImportTests(ImportFixture):
+    def test_submodule_topic_code_preview_and_confirmation(self):
+        submodule = Submodule.objects.create(module=self.module, code='SM1', name='Sub', slug='sub')
+        chapter = Chapter.objects.create(submodule=submodule, code='SC1', name='Nested', slug='nested')
+        topic = Topic.objects.create(subject=self.subject, chapter=chapter, code='ST1', name='Leaf', slug='leaf')
+        row = values(subject='', topic='', topic_code='ST1')
+        catalogue = TaxonomyCatalogue()
+        with self.assertNumQueries(0):
+            resolved = catalogue.resolve(row, {}, {}, {})
+            self.assertFalse(resolved['taxonomy_errors'])
+            self.assertIn('SM1', catalogue.path('topic', topic))
+        data = self.data([row])
+        self.assertEqual(validate(data)['error_count'], 0)
+        batch = confirm_import(data, self.user)
+        self.assertEqual(batch.imported_questions.get().question.topic_id, topic.pk)
+        row['submodule_code'] = 'missing'
+        self.assertTrue(catalogue.resolve(row, {}, {}, {})['taxonomy_errors'])
+
     def test_topic_code_conflicts_with_form_subject(self):
         result = TaxonomyCatalogue().resolve(
             values(subject="", topic="", topic_code="TF"),
@@ -273,7 +290,7 @@ class TaxonomyImportTests(ImportFixture):
         self.assertEqual(parsed[0], parsed[1])
 
     def test_taxonomy_resolution_query_count_does_not_grow_per_row(self):
-        with self.assertNumQueries(5):
+        with self.assertNumQueries(6):
             catalogue = TaxonomyCatalogue()
         with self.assertNumQueries(0):
             for _ in range(30):

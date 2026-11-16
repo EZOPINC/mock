@@ -147,7 +147,7 @@ def validate(data, *, locked=False):
         row_errors.extend(taxonomy.pop("taxonomy_errors"))
         if paper is not None and paper.subject_id and subject is not None and subject.pk != paper.subject_id:
             row_errors.append("Resolved subject must match the selected paper's subject.")
-        if topic is None and any(values.get(kind + "_code", "").strip() or values.get(kind, "").strip() for kind in ("part", "module", "chapter")):
+        if topic is None and any(values.get(kind + "_code", "").strip() or values.get(kind, "").strip() for kind in ("part", "module", "submodule", "chapter")):
             warnings.append("Intermediate taxonomy values validate context only; no topic assignment is stored without a primary topic.")
         strategy = selected.get("exam_mapping", "selected") if mode(data) == "general" else "selected"
         resolved_exams, exam_errors = row_exams(values["exam_categories"], exams, strategy, exam_catalogue)

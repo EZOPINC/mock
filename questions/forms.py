@@ -62,7 +62,7 @@ class QuestionAdminForm(forms.ModelForm):
             existing_widget.widget = TopicSubjectSelect()
         else:
             self.fields["topic"].widget = TopicSubjectSelect()
-        catalogue = Topic.objects.select_related("subject", "part__subject", "module__subject", "module__part__subject", "chapter__subject", "chapter__part__subject", "chapter__module__subject", "chapter__module__part__subject")
+        catalogue = Topic.objects.select_related("subject", "part__subject", "module__subject", "module__part__subject", "chapter__subject", "chapter__part__subject", "chapter__module__subject", "chapter__module__part__subject", "chapter__submodule__subject", "chapter__submodule__module__subject", "chapter__submodule__module__part__subject")
         if self.is_bound:
             catalogue = catalogue.filter(subject_id=int(subject_id)) if str(subject_id).isdigit() else catalogue.none()
         for field in ("topic", "additional_topics"):

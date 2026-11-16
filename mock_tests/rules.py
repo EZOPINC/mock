@@ -48,10 +48,10 @@ def eligible_for_rule(rule, *, question_ids=None, cache=None):
         elif field == "chapter":
             topics = Topic.objects.filter(chapter_id=node_id)
         elif field == "module":
-            topics = Topic.objects.filter(Q(module_id=node_id) | Q(chapter__module_id=node_id))
+            topics = Topic.objects.filter(Q(module_id=node_id) | Q(chapter__module_id=node_id) | Q(chapter__submodule__module_id=node_id))
         else:
             topics = Topic.objects.filter(Q(part_id=node_id) | Q(module__part_id=node_id)
-                | Q(chapter__part_id=node_id) | Q(chapter__module__part_id=node_id))
+                | Q(chapter__part_id=node_id) | Q(chapter__module__part_id=node_id) | Q(chapter__submodule__module__part_id=node_id))
         questions = questions.filter(topic_associations__topic_id__in=topics.values("pk"))
     if rule.difficulty:
         questions = questions.annotate(_difficulty=Lower(Trim("published_revision__difficulty_level")))

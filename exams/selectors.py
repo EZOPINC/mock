@@ -9,7 +9,8 @@ def topics_with_ancestry():
     return Topic.objects.select_related(
         "subject", "part__subject", "module__subject", "module__part__subject",
         "chapter__subject", "chapter__part__subject", "chapter__module__subject",
-        "chapter__module__part__subject",
+        "chapter__module__part__subject", "chapter__submodule__subject",
+        "chapter__submodule__module__subject", "chapter__submodule__module__part__subject",
     )
 
 

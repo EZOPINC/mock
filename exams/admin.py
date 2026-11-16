@@ -4,7 +4,7 @@ from django.db.models import Q
 from django.urls import reverse
 from urllib.parse import urlencode
 
-from .models import Chapter, Exam, ExamAuthority, ExamStage, Module, Part, Subject, Topic
+from .models import Chapter, Exam, ExamAuthority, ExamStage, Module, Submodule, Part, Subject, Topic
 
 
 class ModulePathFilter(admin.SimpleListFilter):
@@ -12,7 +12,7 @@ class ModulePathFilter(admin.SimpleListFilter):
     parameter_name = "module_path"
 
     def lookups(self, request, model_admin):
-        nodes = Module.objects.select_related("subject")
+        nodes = Module.objects.select_related("subject", "part__subject")
         subject = request.GET.get("subject__id__exact")
         if subject and subject.isdecimal():
             nodes = nodes.filter(subject_id=subject)
@@ -21,9 +21,30 @@ class ModulePathFilter(admin.SimpleListFilter):
     def queryset(self, request, queryset):
         if self.value() and self.value().isdecimal():
             query = Q(module_id=self.value())
+            if queryset.model is Chapter:
+                query |= Q(submodule__module_id=self.value())
             if queryset.model is Topic:
-                query |= Q(chapter__module_id=self.value())
+                query |= Q(chapter__module_id=self.value()) | Q(chapter__submodule__module_id=self.value())
             return queryset.filter(query)
+        return queryset
+
+
+class SubmodulePathFilter(admin.SimpleListFilter):
+    title = "sub-module"
+    parameter_name = "submodule_path"
+
+    def lookups(self, request, model_admin):
+        nodes = Submodule.objects.select_related("subject", "module__subject", "module__part__subject")
+        for param, field in (("subject__id__exact", "subject_id"), ("module_path", "module_id")):
+            value = request.GET.get(param)
+            if value and value.isdecimal():
+                nodes = nodes.filter(**{field: value})
+        return [(str(node.pk), str(node)) for node in nodes]
+
+    def queryset(self, request, queryset):
+        if self.value() and self.value().isdecimal():
+            field = "chapter__submodule_id" if queryset.model is Topic else "submodule_id"
+            return queryset.filter(**{field: self.value()})
         return queryset
 
 
@@ -32,11 +53,14 @@ class ChapterPathFilter(admin.SimpleListFilter):
     parameter_name = "chapter_path"
 
     def lookups(self, request, model_admin):
-        nodes = Chapter.objects.select_related("subject", "module", "part")
+        nodes = Chapter.objects.select_related("subject", "module__part__subject", "module__subject", "part__subject", "submodule__module__part__subject", "submodule__module__subject", "submodule__subject")
         for param, field in (("subject__id__exact", "subject_id"), ("module_path", "module_id")):
             value = request.GET.get(param)
             if value and value.isdecimal():
-                nodes = nodes.filter(**{field: value})
+                nodes = nodes.filter(Q(module_id=value) | Q(submodule__module_id=value)) if field == "module_id" else nodes.filter(**{field: value})
+        submodule = request.GET.get("submodule_path")
+        if submodule and submodule.isdecimal():
+            nodes = nodes.filter(submodule_id=submodule)
         return [(str(node.pk), str(node)) for node in nodes]
 
     def queryset(self, request, queryset):
@@ -73,9 +97,19 @@ class ModuleInline(admin.TabularInline):
     readonly_fields = ("code",)
 
 
+class SubmoduleInline(admin.TabularInline):
+    model = Submodule
+    extra = 0
+    show_change_link = True
+    autocomplete_fields = ("module",)
+    readonly_fields = ("code",)
+    prepopulated_fields = {"slug": ("name",)}
+
+
 class ChapterInline(admin.TabularInline):
     show_change_link = True
     model = Chapter
+    autocomplete_fields = ("submodule", "module", "part")
     extra = 0
     prepopulated_fields = {"slug": ("name",)}
     readonly_fields = ("code",)
@@ -188,23 +222,34 @@ class ModuleAdmin(TaxonomyCodeAdmin, admin.ModelAdmin):
     list_select_related = ("subject", "part__subject")
     autocomplete_fields = ("subject", "part")
     prepopulated_fields = {"slug": ("name",)}
-    inlines = (ChapterInline, TopicInline)
+    inlines = (SubmoduleInline, ChapterInline, TopicInline)
 
     def get_readonly_fields(self, request, obj=None):
         fields = super().get_readonly_fields(request, obj)
         return (*fields, "part") if obj and obj.part_id is not None else fields
 
 
+@admin.register(Submodule)
+class SubmoduleAdmin(TaxonomyCodeAdmin, admin.ModelAdmin):
+    list_display = ("name", "code", "subject", "module", "display_order")
+    search_fields = ("name", "code", "subject__name", "module__name")
+    list_filter = ("subject", ModulePathFilter)
+    list_select_related = ("subject", "module__subject", "module__part__subject")
+    autocomplete_fields = ("subject", "module")
+    prepopulated_fields = {"slug": ("name",)}
+    inlines = (ChapterInline,)
+
+
 @admin.register(Chapter)
 class ChapterAdmin(TaxonomyCodeAdmin, admin.ModelAdmin):
     list_display = ("name", "code", "subject",
-                    "module", "part", "display_order")
+                    "submodule", "module", "part", "display_order")
     search_fields = ("name", "code", "subject__name",
-                     "module__name", "part__name")
-    list_filter = ("subject", "part", ModulePathFilter)
+                     "submodule__name", "module__name", "part__name")
+    list_filter = ("subject", "part", ModulePathFilter, SubmodulePathFilter)
     list_select_related = ("subject", "part__subject",
-                           "module__subject", "module__part__subject")
-    autocomplete_fields = ("subject", "module", "part")
+                           "module__subject", "module__part__subject", "submodule__subject", "submodule__module__subject", "submodule__module__part__subject")
+    autocomplete_fields = ("subject", "submodule", "module", "part")
     prepopulated_fields = {"slug": ("name",)}
     inlines = (TopicInline,)
 
@@ -214,10 +259,10 @@ class TopicAdmin(TaxonomyCodeAdmin, admin.ModelAdmin):
     list_display = ("name", "code", "subject",
                     "chapter", "module", "part", "slug")
     search_fields = ("name", "code", "subject__name", "subject__code",
-                     "chapter__name", "module__name", "part__name")
-    list_filter = ("subject", "part", ModulePathFilter, ChapterPathFilter)
+                     "chapter__name", "chapter__submodule__name", "module__name", "part__name")
+    list_filter = ("subject", "part", ModulePathFilter, SubmodulePathFilter, ChapterPathFilter)
     list_select_related = ("subject", "part__subject", "module__subject", "module__part__subject", "chapter__subject",
-                           "chapter__part__subject", "chapter__module__subject", "chapter__module__part__subject")
+                           "chapter__part__subject", "chapter__module__subject", "chapter__module__part__subject", "chapter__submodule__subject", "chapter__submodule__module__subject", "chapter__submodule__module__part__subject")
     autocomplete_fields = ("chapter", "module", "part")
     ordering = ("subject__name", "name")
     prepopulated_fields = {"slug": ("name",)}

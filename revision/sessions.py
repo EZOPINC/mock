@@ -13,7 +13,7 @@ from .forms import RevisionStartForm
 from .models import RevisionSession, SavedQuestion
 from .selectors import bank_rows, filter_bank, visible_questions
 
-FILTER_FIELDS = ("exam", "subject", "part", "module", "chapter", "topic", "mastery")
+FILTER_FIELDS = ("exam", "subject", "part", "module", "submodule", "chapter", "topic", "mastery")
 
 
 def request_spec(parameters):

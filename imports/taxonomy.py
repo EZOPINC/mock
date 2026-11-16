@@ -4,7 +4,7 @@ from hashlib import sha256
 from django.utils.text import slugify
 from django.core.exceptions import ValidationError
 
-from exams.models import Subject, Part, Module, Chapter, Topic
+from exams.models import Subject, Part, Module, Submodule, Chapter, Topic
 
 
 def normalized(value):
@@ -12,7 +12,7 @@ def normalized(value):
 
 
 class TaxonomyCatalogue:
-    models = {"subject": Subject, "part": Part, "module": Module, "chapter": Chapter, "topic": Topic}
+    models = {"subject": Subject, "part": Part, "module": Module, "submodule": Submodule, "chapter": Chapter, "topic": Topic}
 
     def __init__(self, *, locked=False):
         self.records, self.codes, self.ids = {}, {}, {}
@@ -69,7 +69,7 @@ class TaxonomyCatalogue:
         """Root-first nodes without following ORM relationships (no per-row queries)."""
         chain = [(kind, node)]
         while kind != "subject":
-            parent_kind = next((field for field in ("chapter", "module", "part")
+            parent_kind = next((field for field in ("chapter", "submodule", "module", "part")
                                 if getattr(node, field + "_id", None)), "subject")
             node = self.ids[parent_kind][getattr(node, parent_kind + "_id")]
             kind = parent_kind
@@ -130,7 +130,7 @@ class TaxonomyCatalogue:
                     errors.append(f"{kind}_code does not belong to the resolved subject.")
 
         # Names follow the same normalized hierarchy as codes, without fuzzy matches.
-        for kind in ("part", "module", "chapter"):
+        for kind in ("part", "module", "submodule", "chapter"):
             value = values.get(kind, "").strip()
             if not value:
                 continue

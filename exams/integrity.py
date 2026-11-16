@@ -1,7 +1,7 @@
 """Read-only audit of current taxonomy links; historical snapshots are untouched."""
 from django.db.models import Exists, F, OuterRef, Q, Subquery
 
-from .models import Chapter, Module, Topic
+from .models import Chapter, Module, Submodule, Topic
 
 
 def taxonomy_integrity_counts():
@@ -24,6 +24,8 @@ def taxonomy_integrity_counts():
         "question_tag_subject_mismatch": QuestionTopic.objects.exclude(topic__subject_id=F("question__subject_id")).count(),
         "question_primary_tag_mismatch": invalid_primary.count(),
         "module_part_subject_mismatch": Module.objects.filter(part__isnull=False).exclude(subject_id=F("part__subject_id")).count(),
+        "submodule_module_subject_mismatch": Submodule.objects.exclude(subject_id=F("module__subject_id")).count(),
+        "chapter_submodule_subject_mismatch": Chapter.objects.filter(submodule__isnull=False).exclude(subject_id=F("submodule__subject_id")).count(),
         "chapter_module_subject_mismatch": Chapter.objects.filter(module__isnull=False).exclude(subject_id=F("module__subject_id")).count(),
         "chapter_part_subject_mismatch": Chapter.objects.filter(part__isnull=False).exclude(subject_id=F("part__subject_id")).count(),
         "topic_chapter_subject_mismatch": Topic.objects.filter(chapter__isnull=False).exclude(

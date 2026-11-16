@@ -5,17 +5,42 @@ from hashlib import sha256
 from django.core.exceptions import ValidationError
 from django.utils.text import slugify
 
-from .models import Subject, Part, Module, Chapter, Topic
+from .models import Subject, Part, Module, Submodule, Chapter, Topic
 
 
 def key(code):
     return code.strip().casefold()
 
 
+def export_taxonomy():
+    """Export all nodes by code, including supported legacy immediate parents."""
+    models = {"subjects": Subject, "parts": Part, "modules": Module,
+              "submodules": Submodule, "chapters": Chapter, "topics": Topic}
+    records = {kind: list(model.objects.order_by("code")) for kind, model in models.items()}
+    codes = {model: {node.pk: node.code for node in records[kind]} for kind, model in models.items()}
+    data = {"schema_version": 1, "kind": "subject_taxonomy_backup"}
+    for kind, nodes in records.items():
+        data[kind] = []
+        for node in nodes:
+            row = {"code": node.code, "name": node.name, "slug": node.slug, "sort_order": node.display_order}
+            if kind != "subjects":
+                row["subject_code"] = codes[Subject][node.subject_id]
+                for field in node.parent_fields:
+                    parent_id = getattr(node, field + "_id")
+                    if parent_id is not None:
+                        parent_model = node._meta.get_field(field).remote_field.model
+                        row[field + "_code"] = codes[parent_model][parent_id]
+            if kind == "topics":
+                row["notes"] = node.notes
+            data[kind].append(row)
+    return data
+
+
 def plan_taxonomy(data, *, create_subjects=False, attach_unassigned_chapters=False):
     if not isinstance(data, dict) or data.get("version", data.get("schema_version", 1)) != 1:
         raise ValidationError("Expected a version 1 taxonomy object.")
     data = deepcopy(data)
+    backup = data.get("kind") == "subject_taxonomy_backup"
     # Original single-subject format; scope is descriptive, never a module.
     if "subject" in data:
         subject = data["subject"]
@@ -24,10 +49,10 @@ def plan_taxonomy(data, *, create_subjects=False, attach_unassigned_chapters=Fal
         if not isinstance(subject, dict):
             raise ValidationError("subject must be a code or object.")
         data["subjects"] = [subject]
-        for kind in ("parts", "modules", "chapters", "topics"):
+        for kind in ("parts", "modules", "submodules", "chapters", "topics"):
             for row in data.get(kind, []):
                 row.setdefault("subject_code", subject.get("code"))
-    models = {"subjects": Subject, "parts": Part, "modules": Module, "chapters": Chapter, "topics": Topic}
+    models = {"subjects": Subject, "parts": Part, "modules": Module, "submodules": Submodule, "chapters": Chapter, "topics": Topic}
     catalogue = {kind: {key(obj.code): obj for obj in model.objects.all()} for kind, model in models.items()}
     plan, counts = [], {kind: dict(create=0, update=0, unchanged=0) for kind in models}
     for kind, model in models.items():
@@ -52,10 +77,22 @@ def plan_taxonomy(data, *, create_subjects=False, attach_unassigned_chapters=Fal
                     raise ValidationError(f"Unknown subject_code for {code}: {subject_code}.")
                 subject = catalogue["subjects"][key(subject_code)]
                 parents = {"subject": subject}
-                parent_kind = {"modules": "part", "chapters": "module", "topics": "chapter"}.get(kind)
+                parent_kind = {"modules": "part", "submodules": "module", "topics": "chapter"}.get(kind)
+                if kind == "chapters":
+                    chapter_parents = [field for field in obj.parent_fields if row.get(field + "_code")]
+                    if len(chapter_parents) > 1:
+                        raise ValidationError(f"Select only one immediate parent for {code}.")
+                    parent_kind = chapter_parents[0] if chapter_parents else None
+                if kind == "topics" and backup:
+                    topic_parents = [field for field in obj.parent_fields if row.get(field + "_code")]
+                    if len(topic_parents) > 1:
+                        raise ValidationError(f"Select only one immediate parent for {code}.")
+                    parent_kind = topic_parents[0] if topic_parents else None
+                if kind == "submodules" and not row.get("module_code"):
+                    raise ValidationError(f"Sub-module {code} requires module_code.")
                 if parent_kind:
                     parent_code = row.get(parent_kind + "_code")
-                    if kind == "topics" and not parent_code:
+                    if kind == "topics" and not parent_code and not backup:
                         raise ValidationError(f"Topic {code} requires chapter_code.")
                     if parent_code:
                         if not isinstance(parent_code, str):
@@ -73,7 +110,7 @@ def plan_taxonomy(data, *, create_subjects=False, attach_unassigned_chapters=Fal
                         initial_module_part = kind == "modules" and field == "part" and old is None and new is not None
                         initial_chapter_module = (attach_unassigned_chapters and kind == "chapters"
                                                   and field == "module" and existing.module_id is None
-                                                  and existing.part_id is None and new is not None)
+                                                  and existing.part_id is None and existing.submodule_id is None and new is not None)
                         if getattr(old, "code", None) != getattr(new, "code", None) and not (initial_module_part or initial_chapter_module):
                             raise ValidationError(f"Implicit reparenting rejected for {code}.")
                 for field, parent in parents.items():
@@ -92,10 +129,14 @@ def plan_taxonomy(data, *, create_subjects=False, attach_unassigned_chapters=Fal
                     raise ValidationError(f"Invalid notes for {code}.")
             if not existing:
                 obj.slug = (slugify(obj.name)[:140] or "taxonomy") + "-" + sha256(code.encode()).hexdigest()[:16]
+            if "slug" in row:
+                if not isinstance(row["slug"], str) or not row["slug"]:
+                    raise ValidationError(f"Invalid slug for {code}.")
+                obj.slug = row["slug"]
             # Validate scalar fields even when parents are planned unsaved objects.
             for field in ("code", "name", "slug", "display_order"):
                 obj._meta.get_field(field).clean(getattr(obj, field), obj)
-            mutable = ("name", "display_order") + (("notes",) if kind == "topics" else ())
+            mutable = ("name", "display_order", "slug") + (("notes",) if kind == "topics" else ())
             parent_changed = existing and any(
                 getattr(getattr(obj, field, None), "code", None) != getattr(getattr(existing, field, None), "code", None)
                 for field in getattr(obj, "parent_fields", ()))

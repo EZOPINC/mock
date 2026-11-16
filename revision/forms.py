@@ -1,5 +1,5 @@
 from django import forms
-from exams.models import Exam, Subject, Part, Module, Chapter, Topic
+from exams.models import Exam, Subject, Part, Module, Submodule, Chapter, Topic
 from questions.models import QuestionTopic
 from .selectors import visible_questions
 from .models import SavedQuestion
@@ -10,6 +10,7 @@ class BankFilters(forms.Form):
     subject = forms.ModelChoiceField(queryset=Subject.objects.none(), required=False, empty_label="All subjects")
     part = forms.ModelChoiceField(queryset=Part.objects.none(), required=False, empty_label="All parts")
     module = forms.ModelChoiceField(queryset=Module.objects.none(), required=False, empty_label="All modules")
+    submodule = forms.ModelChoiceField(queryset=Submodule.objects.none(), required=False, empty_label="All sub-modules")
     chapter = forms.ModelChoiceField(queryset=Chapter.objects.none(), required=False, empty_label="All chapters")
     topic = forms.ModelChoiceField(queryset=Topic.objects.none(), required=False, empty_label="All topics")
     mastery = forms.ChoiceField(required=False, choices=[("", "All statuses"), ("mastered", "Mastered"), ("needs_revision", "Needs revision")])
@@ -22,10 +23,10 @@ class BankFilters(forms.Form):
         subjects = questions.values("subject_id")
         self.fields["exam"].queryset = Exam.objects.filter(question_associations__question__in=questions, is_active=True, authority__is_active=True).distinct().order_by("name", "pk")
         self.fields["subject"].queryset = Subject.objects.filter(pk__in=subjects).order_by("name", "pk")
-        for kind, model in (("part", Part), ("module", Module), ("chapter", Chapter)):
+        for kind, model in (("part", Part), ("module", Module), ("submodule", Submodule), ("chapter", Chapter)):
             self.fields[kind].queryset = model.objects.filter(subject_id__in=subjects).order_by("name", "pk")
         self.fields["topic"].queryset = Topic.objects.filter(pk__in=QuestionTopic.objects.filter(question__in=questions).values("topic_id")).order_by("name", "pk")
-        for kind in ("exam", "subject", "part", "module", "chapter", "topic"):
+        for kind in ("exam", "subject", "part", "module", "submodule", "chapter", "topic"):
             self.fields[kind].label_from_instance = lambda node: f"{node.name} [{node.code}]"
 
 

@@ -18,7 +18,7 @@ COUNTS = ("10", "20", "30", "50", "available")
 
 
 @transaction.atomic
-def start_session(user, *, exam, subject, topic=None, part=None, module=None, chapter=None, count="available", token, difficulty=None, language="both"):
+def start_session(user, *, exam, subject, topic=None, part=None, module=None, submodule=None, chapter=None, count="available", token, difficulty=None, language="both"):
     if not user.is_authenticated or not user.is_active:
         raise ValidationError("An active authenticated account is required.")
     if language not in {"en", "bn", "both"}:
@@ -32,7 +32,7 @@ def start_session(user, *, exam, subject, topic=None, part=None, module=None, ch
     except (ValueError, TypeError, AttributeError):
         raise ValidationError("A valid start token is required.")
     get_user_model().objects.select_for_update().get(pk=user.pk)
-    filters = {"part": part, "module": module, "chapter": chapter, "topic": topic}
+    filters = {"part": part, "module": module, "submodule": submodule, "chapter": chapter, "topic": topic}
     existing = PracticeSession.objects.filter(user=user, start_token=token).first()
     if existing:
         if not configuration_matches(existing, exam_id=exam.pk, subject_id=subject.pk, count=count, filters=filters, difficulty=difficulty):

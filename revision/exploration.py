@@ -6,16 +6,17 @@ from django.db.models.functions import Lower, Trim
 from django.http import Http404
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
-from exams.models import Subject, Part, Module, Chapter, Topic
+from exams.models import Subject, Part, Module, Submodule, Chapter, Topic
 from mock_tests.models import AttemptQuestion
 from questions.models import QuestionExam, QuestionTopic
 from .selectors import topic_scope, visible_questions
 
-MODELS = {"subject": Subject, "part": Part, "module": Module, "chapter": Chapter, "topic": Topic}
+MODELS = {"subject": Subject, "part": Part, "module": Module, "submodule": Submodule, "chapter": Chapter, "topic": Topic}
 # Bounded ancestor joins; only the requested node/path is loaded.
 PARENTS = {"subject": (), "part": ("subject",), "module": ("subject", "part"),
-    "chapter": ("subject", "module__part", "part"),
-    "topic": ("subject", "chapter__module__part", "chapter__part", "module__part", "part")}
+    "submodule": ("subject", "module__subject", "module__part__subject"),
+    "chapter": ("submodule__subject", "submodule__module__subject", "submodule__module__part__subject", "subject", "module__part", "part"),
+    "topic": ("chapter__submodule__subject", "chapter__submodule__module__subject", "chapter__submodule__module__part__subject", "subject", "chapter__module__part", "chapter__part", "module__part", "part")}
 
 
 def node_queryset(kind):

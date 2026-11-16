@@ -1,0 +1,136 @@
+erDiagram
+    questions_question {
+        bigint id PK "NOT_NULL"
+        character_varying_200_ source_question_id "NULL"
+        bigint subject_id FK "NOT_NULL"
+        bigint topic_id FK "NULL"
+        character_varying_12_ publication_status "NOT_NULL"
+        character_varying_14_ review_status "NOT_NULL"
+        character_varying_1_ correct_answer "NOT_NULL"
+        character_varying_100_ difficulty_level "NOT_NULL"
+        bigint current_revision_id FK "NULL"
+        bigint published_revision_id FK "NULL"
+        timestamp_with_time_zone created_at "NOT_NULL"
+        timestamp_with_time_zone updated_at "NOT_NULL"
+    }
+    questions_questionrevision {
+        bigint id PK "NOT_NULL"
+        bigint question_id FK "NOT_NULL"
+        integer revision_number "NOT_NULL"
+        character_varying_35_ language "NOT_NULL"
+        text question_text "NOT_NULL"
+        text option_a "NOT_NULL"
+        text option_b "NOT_NULL"
+        text option_c "NOT_NULL"
+        text option_d "NOT_NULL"
+        character_varying_1_ correct_answer "NOT_NULL"
+        character_varying_100_ difficulty_level "NOT_NULL"
+        text explanation "NOT_NULL"
+        timestamp_with_time_zone created_at "NOT_NULL"
+        timestamp_with_time_zone published_at "NULL"
+    }
+    imports_importedquestion {
+        bigint id PK "NOT_NULL"
+        bigint batch_id FK "NOT_NULL"
+        integer source_row_number "NOT_NULL"
+        bigint question_id FK "NOT_NULL"
+        character_varying_20_ action "NOT_NULL"
+        jsonb source_metadata "NOT_NULL"
+    }
+    mock_tests_attemptquestion {
+        bigint id PK "NOT_NULL"
+        bigint attempt_id FK "NOT_NULL"
+        bigint section_id FK "NOT_NULL"
+        bigint question_id FK "NOT_NULL"
+        bigint question_revision_id FK "NOT_NULL"
+        integer display_order "NOT_NULL"
+        numeric_8_2_ positive_marks "NOT_NULL"
+        numeric_8_2_ negative_marks "NOT_NULL"
+        character_varying_1_ selected_answer "NOT_NULL"
+        boolean marked_for_review "NOT_NULL"
+        timestamp_with_time_zone answered_at "NULL"
+        numeric_10_2_ awarded_marks "NULL"
+    }
+    mock_tests_manualrulequestion {
+        bigint id PK "NOT_NULL"
+        bigint rule_id FK "NOT_NULL"
+        bigint question_id FK "NOT_NULL"
+        integer display_order "NOT_NULL"
+    }
+    practice_practicequestion {
+        bigint id PK "NOT_NULL"
+        bigint session_id FK "NOT_NULL"
+        bigint question_id FK "NOT_NULL"
+        bigint question_revision_id FK "NOT_NULL"
+        integer display_order "NOT_NULL"
+        jsonb classification "NOT_NULL"
+        character_varying_1_ selected_answer "NOT_NULL"
+        boolean is_correct "NULL"
+        timestamp_with_time_zone answered_at "NULL"
+    }
+    previous_year_paperquestion {
+        bigint id PK "NOT_NULL"
+        bigint paper_id FK "NOT_NULL"
+        bigint question_revision_id FK "NOT_NULL"
+        bigint question_id FK "NOT_NULL"
+        character_varying_100_ question_number "NOT_NULL"
+        integer display_order "NOT_NULL"
+    }
+    revision_savedquestion {
+        bigint id PK "NOT_NULL"
+        bigint user_id FK "NOT_NULL"
+        bigint question_id FK "NOT_NULL"
+        timestamp_with_time_zone saved_at "NOT_NULL"
+        text personal_note "NOT_NULL"
+        timestamp_with_time_zone reviewed_at "NULL"
+        integer review_count "NOT_NULL"
+        boolean is_mastered "NOT_NULL"
+    }
+    accounts_user {
+        bigint id PK "BOUNDARY_ONLY"
+    }
+    exams_subject {
+        bigint id PK "BOUNDARY_ONLY"
+    }
+    exams_topic {
+        bigint id PK "BOUNDARY_ONLY"
+    }
+    imports_importbatch {
+        bigint id PK "BOUNDARY_ONLY"
+    }
+    mock_tests_exampatternsection {
+        bigint id PK "BOUNDARY_ONLY"
+    }
+    mock_tests_mockattempt {
+        bigint id PK "BOUNDARY_ONLY"
+    }
+    mock_tests_sectionselectionrule {
+        bigint id PK "BOUNDARY_ONLY"
+    }
+    practice_practicesession {
+        bigint id PK "BOUNDARY_ONLY"
+    }
+    previous_year_previousyearpaper {
+        bigint id PK "BOUNDARY_ONLY"
+    }
+    exams_subject ||..o{ questions_question : "subject_id"
+    exams_topic o|..o{ questions_question : "topic_id"
+    questions_questionrevision o|..o{ questions_question : "current_revision_id"
+    questions_questionrevision o|..o{ questions_question : "published_revision_id"
+    questions_question ||..o{ questions_questionrevision : "question_id"
+    imports_importbatch ||..o{ imports_importedquestion : "batch_id"
+    questions_question ||..o{ imports_importedquestion : "question_id"
+    mock_tests_mockattempt ||..o{ mock_tests_attemptquestion : "attempt_id"
+    mock_tests_exampatternsection ||..o{ mock_tests_attemptquestion : "section_id"
+    questions_question ||..o{ mock_tests_attemptquestion : "question_id"
+    questions_questionrevision ||..o{ mock_tests_attemptquestion : "question_revision_id"
+    mock_tests_sectionselectionrule ||..o{ mock_tests_manualrulequestion : "rule_id"
+    questions_question ||..o{ mock_tests_manualrulequestion : "question_id"
+    practice_practicesession ||..o{ practice_practicequestion : "session_id"
+    questions_question ||..o{ practice_practicequestion : "question_id"
+    questions_questionrevision ||..o{ practice_practicequestion : "question_revision_id"
+    previous_year_previousyearpaper ||..o{ previous_year_paperquestion : "paper_id"
+    questions_questionrevision ||..o{ previous_year_paperquestion : "question_revision_id"
+    questions_question ||..o{ previous_year_paperquestion : "question_id"
+    accounts_user ||..o{ revision_savedquestion : "user_id"
+    questions_question ||..o{ revision_savedquestion : "question_id"

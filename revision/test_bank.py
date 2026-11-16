@@ -243,7 +243,9 @@ class BookmarkMigrationTests(TransactionTestCase):
         latest = [("revision", "0002_savedquestion_is_mastered_and_more")]
         executor.migrate(old)
         try:
-            apps = executor.loader.project_state(old).apps
+            # Other apps remain at their applied schema when only revision rolls back.
+            executor = MigrationExecutor(connection)
+            apps = executor.loader.project_state(list(executor.loader.applied_migrations)).apps
             from django.conf import settings
             app, model = settings.AUTH_USER_MODEL.split(".")
             user = apps.get_model(app, model).objects.create(username="migration-user", password="!")

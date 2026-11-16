@@ -14,6 +14,10 @@ def module_code():
     return "MODULE-" + uuid4().hex
 
 
+def submodule_code():
+    return "SUBMODULE-" + uuid4().hex
+
+
 def chapter_code():
     return "CHAPTER-" + uuid4().hex
 
@@ -77,6 +81,7 @@ class HierarchyNode(models.Model):
             initial_module_part = type(self).__name__ == "Module" and previous and previous.get("part_id") is None and self.part_id is not None
             initial_chapter_module = (type(self).__name__ == "Chapter" and previous
                                       and previous.get("module_id") is None and previous.get("part_id") is None
+                                      and previous.get("submodule_id") is None and self.submodule_id is None
                                       and self.module_id is not None and self.part_id is None)
             if previous and any(previous[field] != getattr(self, field)
                                 for field in fields if not ((initial_module_part and field == "part_id")
@@ -177,20 +182,35 @@ class Module(HierarchyNode):
             + scoped_constraints("module", "subject", models.Q(part__isnull=True)) + code_constraints("module"))
 
 
+class Submodule(HierarchyNode):
+    subject = models.ForeignKey(Subject, on_delete=models.PROTECT, related_name="submodules", blank=True)
+    module = models.ForeignKey(Module, on_delete=models.PROTECT, related_name="submodules")
+    code = models.CharField(max_length=50, unique=True, default=submodule_code, blank=True)
+    parent_fields = ("module",)
+
+    class Meta:
+        verbose_name = "sub-module"
+        verbose_name_plural = "sub-modules"
+        ordering = ("subject_id", "display_order", "name", "pk")
+        constraints = scoped_constraints("submodule", "module") + code_constraints("submodule")
+
+
 class Chapter(HierarchyNode):
     subject = models.ForeignKey(Subject, on_delete=models.PROTECT, related_name="chapters", blank=True)
     part = models.ForeignKey(Part, on_delete=models.PROTECT, related_name="chapters", null=True, blank=True)
     module = models.ForeignKey(Module, on_delete=models.PROTECT, related_name="chapters", null=True, blank=True)
+    submodule = models.ForeignKey(Submodule, on_delete=models.PROTECT, related_name="chapters", null=True, blank=True)
     code = models.CharField(max_length=50, unique=True, default=chapter_code, blank=True)
-    parent_fields = ("module", "part")
+    parent_fields = ("submodule", "module", "part")
 
     class Meta:
         ordering = ("subject_id", "display_order", "name", "pk")
-        constraints = (scoped_constraints("chapter", "module", models.Q(module__isnull=False))
+        constraints = (scoped_constraints("chapter", "submodule", models.Q(submodule__isnull=False))
+            + scoped_constraints("chapter", "module", models.Q(module__isnull=False))
             + scoped_constraints("chapter", "part", models.Q(part__isnull=False))
-            + scoped_constraints("chapter", "subject", models.Q(module__isnull=True, part__isnull=True))
+            + scoped_constraints("chapter", "subject", models.Q(submodule__isnull=True, module__isnull=True, part__isnull=True))
             + code_constraints("chapter")
-            + [models.CheckConstraint(condition=~models.Q(module__isnull=False, part__isnull=False), name="d2_chapter_one_parent")])
+            + [models.CheckConstraint(condition=(models.Q(module__isnull=True, part__isnull=True) | models.Q(submodule__isnull=True, part__isnull=True) | models.Q(submodule__isnull=True, module__isnull=True)), name="d2_chapter_one_parent")])
 
 
 class Topic(HierarchyNode):

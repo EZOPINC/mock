@@ -45,8 +45,8 @@ def bank_counts(user):
 
 def topic_scope(values):
     topics = Topic.objects.all()
-    paths = {"part": ["part_id", "module__part_id", "chapter__part_id", "chapter__module__part_id"],
-             "module": ["module_id", "chapter__module_id"], "chapter": ["chapter_id"], "topic": ["pk"]}
+    paths = {"part": ["part_id", "module__part_id", "chapter__part_id", "chapter__module__part_id", "chapter__submodule__module__part_id"],
+             "module": ["module_id", "chapter__module_id", "chapter__submodule__module_id"], "submodule": ["chapter__submodule_id"], "chapter": ["chapter_id"], "topic": ["pk"]}
     for kind, fields in paths.items():
         if values.get(kind):
             match = Q()
@@ -63,7 +63,7 @@ def filter_bank(rows, values):
         rows = rows.filter(content_available=True, question__exam_associations__exam=values["exam"])
     if values.get("subject"):
         rows = rows.filter(content_available=True, question__subject=values["subject"])
-    if any(values.get(kind) for kind in ("part", "module", "chapter", "topic")):
+    if any(values.get(kind) for kind in ("part", "module", "submodule", "chapter", "topic")):
         tags = QuestionTopic.objects.filter(topic__in=topic_scope(values)).values("question_id")
         rows = rows.filter(content_available=True, question_id__in=tags)
     mastery = values.get("mastery")

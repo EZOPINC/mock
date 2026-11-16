@@ -1,13 +1,13 @@
 """Eligible master-question pools for hierarchical practice discovery."""
 from django.core.exceptions import ValidationError
 
-from exams.models import Part, Module, Chapter, Topic
+from exams.models import Part, Module, Submodule, Chapter, Topic
 from questions.eligibility import eligible_question_ids
 from questions.models import Question, QuestionTopic
 
 
-LEVELS = ("part", "module", "chapter", "topic")
-MODELS = dict(zip(LEVELS, (Part, Module, Chapter, Topic)))
+LEVELS = ("part", "module", "submodule", "chapter", "topic")
+MODELS = dict(zip(LEVELS, (Part, Module, Submodule, Chapter, Topic)))
 
 
 class PracticeTaxonomy:
@@ -29,7 +29,7 @@ class PracticeTaxonomy:
         if key not in self.paths:
             result = {kind: node_id}
             node = self.nodes[kind][node_id]
-            parent = next((field for field in ("chapter", "module", "part") if getattr(node, field + "_id", None)), None)
+            parent = next((field for field in ("chapter", "submodule", "module", "part") if getattr(node, field + "_id", None)), None)
             if parent:
                 result.update(self.ancestry(parent, getattr(node, parent + "_id")))
             self.paths[key] = result

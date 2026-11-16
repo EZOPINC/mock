@@ -18,6 +18,12 @@ POST action, not implicit permission for row-driven Subject creation.
 
 ## File and content bounds
 
+Taxonomy columns include optional `submodule_code` and `submodule` (display name)
+between Module and Chapter. `topic_code` resolves the full path through a
+Sub-module when present. Parent columns on question rows describe/validate the
+ancestry; they do not require redundant parent foreign keys on a Chapter. The
+CSV/XLSX taxonomy samples include these optional columns; older files remain valid.
+
 - UTF-8 CSV or selected XLSX worksheet; plain data only, not executable formulas/macros.
 - Defaults: 5 MB upload, 2,000 rows, 64 columns and 32,000 characters per cell.
 - XLSX expanded/archive limits and bounded row/staging JSON also apply.
