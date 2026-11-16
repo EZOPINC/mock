@@ -326,7 +326,9 @@ class ImportViewTests(ImportFixture):
         self.client.force_login(self.user)
         data = self.data([values(question_number=str(n), question_text="<script>unsafe</script>") for n in range(30)])
         response = self.client.get(reverse("imports:preview", args=[data["token"]]), {"page": 2})
-        self.assertEqual(len(response.context["page"]), 5)
+        # The current taxonomy columns allow 23 editable rows within the field
+        # budget, leaving seven of these 30 rows on page two.
+        self.assertEqual(len(response.context["page"]), 7)
         self.assertNotContains(response, "<script>unsafe</script>")
         self.assertContains(response, "&lt;script&gt;")
 

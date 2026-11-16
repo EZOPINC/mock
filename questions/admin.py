@@ -10,6 +10,43 @@ from .forms import CONTENT_FIELDS, NewQuestionAdminForm, QuestionAdminForm, Revi
 from .models import Question, QuestionExam, QuestionRevision, QuestionSource, QuestionSourceReference, QuestionTranslation
 
 
+def label_parent_paths(model):
+    """All FKs used by taxonomy/Exam __str__, including skipped parent levels."""
+    parents = list(getattr(model, "parent_fields", ()))
+    if any(field.name == "subject" for field in model._meta.fields):
+        parents.insert(0, "subject")
+    if model._meta.label == "exams.Exam":
+        parents.append("authority")
+    paths = []
+    for parent in parents:
+        paths.append(parent)
+        parent_model = model._meta.get_field(parent).remote_field.model
+        paths.extend(parent + "__" + path for path in label_parent_paths(parent_model))
+    return tuple(paths)
+
+
+class LabelLoadedRelatedFilter(admin.RelatedFieldListFilter):
+    """Keep Django's FK filter semantics without per-choice parent lookups."""
+    related_only = False
+
+    def field_choices(self, field, request, model_admin):
+        queryset = field.remote_field.model._default_manager.complex_filter(field.get_limit_choices_to())
+        if self.related_only:
+            referenced = model_admin.get_queryset(request).distinct().values_list(self.field_path + "__pk", flat=True)
+            queryset = queryset.filter(pk__in=referenced)
+        ordering = self.field_admin_ordering(field, request, model_admin)
+        if ordering:
+            queryset = queryset.order_by(*ordering)
+        paths = label_parent_paths(field.remote_field.model)
+        if paths:
+            queryset = queryset.select_related(*paths)
+        return [(getattr(node, field.target_field.attname), str(node)) for node in queryset]
+
+
+class LabelLoadedRelatedOnlyFilter(LabelLoadedRelatedFilter):
+    related_only = True
+
+
 class QuestionExamInline(admin.TabularInline):
     model = QuestionExam
     extra = 0
@@ -68,15 +105,20 @@ class QuestionAdmin(admin.ModelAdmin):
     change_list_template = "admin/questions/question/change_list.html"
     list_display = ("id", "subject", "topic", "language",
                     "publication_status", "review_status", "revision_number")
-    list_filter = ("subject", "topic__chapter__module__part", "topic__chapter__module", "topic__chapter__submodule", "topic__chapter", "topic", ("topic_associations__topic",
-                   admin.RelatedOnlyFieldListFilter), "current_revision__translations__language", "review_status", "publication_status", "exam_associations__exam")
+    list_filter = (
+        *((field, LabelLoadedRelatedFilter) for field in (
+            "subject", "topic__chapter__module__part", "topic__chapter__module", "topic__chapter__submodule",
+            "topic__chapter", "topic")),
+        ("topic_associations__topic", LabelLoadedRelatedOnlyFilter),
+        "current_revision__translations__language", "review_status", "publication_status",
+        ("exam_associations__exam", LabelLoadedRelatedFilter),
+    )
     search_fields = ("current_revision__translations__question_text", "published_revision__translations__question_text", "source_question_id",
                      "source_references__source__source_name", "source_references__source__source_document", "source_references__source_question_number")
     readonly_fields = ("publication_status", "review_status",
                        "current_revision", "published_revision", "created_at", "updated_at")
-    list_select_related = (
-        "subject", "topic__chapter__module__part__subject", "topic__chapter__submodule__subject",
-        "topic__chapter__submodule__module__subject", "topic__chapter__submodule__module__part__subject", "current_revision")
+    list_select_related = ("subject", "current_revision", "topic", *(
+        "topic__" + path for path in label_parent_paths(Question._meta.get_field("topic").remote_field.model)))
     inlines = (RevisionInline, QuestionExamInline,
                QuestionSourceReferenceInline, QuestionTranslationInline)
     actions = ("review_questions", "publish_questions")

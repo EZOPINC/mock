@@ -11,6 +11,11 @@ def normalized(value):
     return " ".join(str(value).split()).casefold()
 
 
+def code_key(value):
+    """Match taxonomy code uniqueness without changing display names or stored codes."""
+    return value.strip().casefold()
+
+
 class TaxonomyCatalogue:
     models = {"subject": Subject, "part": Part, "module": Module, "submodule": Submodule, "chapter": Chapter, "topic": Topic}
 
@@ -22,7 +27,7 @@ class TaxonomyCatalogue:
             if locked:
                 queryset = queryset.select_for_update()
             self.records[kind] = list(queryset)
-            self.codes[kind] = {node.code: node for node in self.records[kind]}
+            self.codes[kind] = {code_key(node.code): node for node in self.records[kind]}
             self.ids[kind] = {node.pk: node for node in self.records[kind]}
 
     def propose(self, kind, value, code, subject, nodes, errors):
@@ -31,11 +36,17 @@ class TaxonomyCatalogue:
             return None
         model = self.models[kind]
         parent_kind = next((field for field in model.parent_fields if field in nodes), None)
+        if kind == "submodule" and parent_kind != "module":
+            errors.append("A new Sub-module requires a Module parent; supply module_code or module.")
+            return None
+        if kind == "topic" and "submodule" in nodes and "chapter" not in nodes:
+            errors.append("A Topic under a Sub-module requires a Chapter; supply chapter_code or chapter.")
+            return None
         parent = nodes[parent_kind] if parent_kind else subject
         key = f"{kind}:{parent_kind or 'subject'}:{parent.pk}:{normalized(value)}"
         digest = sha256(key.encode()).hexdigest()
         code = code or f"{kind.upper()}-{digest[:32]}"
-        if any(normalized(node.code) == normalized(code) for node in self.records[kind]):
+        if code_key(code) in self.codes[kind]:
             errors.append(f"{kind.title()} code conflicts with an existing record.")
             return None
         node = model(name=value, code=code, subject=subject,
@@ -51,7 +62,7 @@ class TaxonomyCatalogue:
         node.pk = -int(digest[:15], 16)
         self.pending.append((kind, node))
         self.records[kind].append(node)
-        self.codes[kind][code] = node
+        self.codes[kind][code_key(code)] = node
         self.ids[kind][node.pk] = node
         return node
 
@@ -84,7 +95,7 @@ class TaxonomyCatalogue:
         for kind in self.models:
             code = values.get(kind + "_code", "").strip()
             if code:
-                node = self.codes[kind].get(code)
+                node = self.codes[kind].get(code_key(code))
                 if node is None and (kind == "subject" or not values.get(kind, "").strip()):
                     errors.append(f"Unknown {kind}_code: {code}. Select an existing taxonomy code.")
                 elif node is not None:
@@ -144,7 +155,7 @@ class TaxonomyCatalogue:
             named = name_match(value, candidates, {}, code_node=nodes.get(kind))
             if named is None and kind not in nodes and not any(normalized(node.name) == normalized(value) for node in candidates):
                 named = self.propose(kind, value, values.get(kind + "_code", "").strip(), subject, nodes, errors)
-            if named is not None and values.get(kind + "_code", "").strip() and named.code != values[kind + "_code"].strip():
+            if named is not None and values.get(kind + "_code", "").strip() and code_key(named.code) != code_key(values[kind + "_code"]):
                 errors.append(f"{kind}_code conflicts with the {kind} name.")
             if named is None:
                 errors.append(f"{kind.title()} is unresolved or ambiguous within the selected subject/ancestry. Use an existing name or stable code.")
@@ -166,7 +177,7 @@ class TaxonomyCatalogue:
             named = name_match(raw_topic, candidates, aliases, code_node=topic)
             if named is None and topic is None and not aliases and not any(normalized(node.name) == normalized(raw_topic) for node in candidates):
                 named = self.propose("topic", raw_topic, values.get("topic_code", "").strip(), subject, nodes, errors)
-            if named is not None and values.get("topic_code", "").strip() and named.code != values["topic_code"].strip():
+            if named is not None and values.get("topic_code", "").strip() and code_key(named.code) != code_key(values["topic_code"]):
                 errors.append("topic_code conflicts with the topic name/mapping.")
             if named is None:
                 errors.append("Topic is unresolved or ambiguous, or does not belong to the selected subject/ancestry. Select an existing topic mapping.")
@@ -183,7 +194,7 @@ class TaxonomyCatalogue:
             if subject is None or topic.subject_id != subject.pk:
                 errors.append("Primary topic must belong to the resolved subject.")
         if context:
-            deepest_kind = next(kind for kind in ("topic", "chapter", "module", "part") if kind in context)
+            deepest_kind = next(kind for kind in ("topic", "chapter", "submodule", "module", "part") if kind in context)
             chain = {(kind, node.pk) for kind, node in self.lineage(deepest_kind, context[deepest_kind])}
             if any((kind, node.pk) not in chain for kind, node in context.items()):
                 errors.append("Taxonomy codes do not form a valid ancestor path (skipped levels are allowed).")
@@ -195,7 +206,7 @@ class TaxonomyCatalogue:
             code = code.strip()
             if not code:
                 continue
-            node = self.codes["topic"].get(code)
+            node = self.codes["topic"].get(code_key(code))
             if node is None:
                 errors.append(f"Unknown additional topic code: {code}.")
             elif subject is None or node.subject_id != subject.pk:

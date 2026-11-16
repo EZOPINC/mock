@@ -43,8 +43,8 @@ CSV/XLSX taxonomy samples include these optional columns; older files remain val
 | correct_answer, difficulty_level | Shared versioned answer/difficulty; difficulty is used by existing selection/filter flows |
 | language | Configured language; normalization/inference rules live in imports/language.py |
 | subject, topic | Existing Subject resolution and optional primary Topic name/mapping |
-| part, module, chapter | Named hierarchy scoped to resolved Subject/ancestors |
-| subject_code, part_code, module_code, chapter_code, topic_code | Stable taxonomy codes; conflicts/invalid ancestry block confirmation |
+| part, module, submodule, chapter | Named hierarchy scoped to resolved Subject/ancestors; sub_module aliases submodule |
+| subject_code, part_code, module_code, submodule_code, chapter_code, topic_code | Stable taxonomy codes; conflicts/invalid ancestry block confirmation; sub_module_code aliases submodule_code |
 | additional_topic_codes | Secondary topics, separated by semicolon/comma/pipe; deduplicated within the same Subject |
 | exam_categories | Existing-exam resolution only when row mapping is selected; otherwise preserved metadata |
 | previous_year_tags | Audit metadata; never overrides the form-selected paper |
@@ -57,6 +57,37 @@ CSV/XLSX taxonomy samples include these optional columns; older files remain val
 The original 22-column format remains a supported subset, not an exhaustive current schema.
 HEADER_ALIASES in imports/parsing.py defines accepted alternate names, including review_flag,
 review_notes, source_doc, source_pg and source_row_id. Keep only one header per canonical key.
+
+The upload page now contains an expandable complete field reference. The simplest
+recommended single-language CSV header is:
+
+```csv
+question_number,question_text,option_a,option_b,option_c,option_d,correct_answer,topic_code,language
+```
+
+`correct_answer` is technically an optional upload header so a missing answer can
+be corrected in preview, but a verified A/B/C/D value is mandatory to confirm.
+Question content and options cannot be blank. Subject must resolve from a row
+name/code, the Topic/ancestor codes, an explicit mapping, the form default, or an
+existing unique Unidentified fallback; it is never silently created. Language
+must resolve from row/form/inference. Taxonomy tagging is optional for legacy
+imports, but existing `topic_code` is recommended for reliable classification.
+The Topic's whole stored ancestry is resolved automatically; ancestor columns
+need not be repeated. If supplied they must agree with the current path, including
+the corrected West Bengal Part. Row identifiers are not database Question IDs.
+
+Wide bilingual rows instead need question_number (or its source-number header
+fallback), shared correct_answer, and at least one complete language block:
+question_text_en, option_a_en, option_b_en, option_c_en, option_d_en and/or the
+equivalent `_bn` fields. Explanation suffix fields are optional. Generic content
+columns may be omitted when complete language headers are present. Both language
+editions inherit the one master Question's primary and secondary tags.
+
+Form fields are separate from CSV requirements: choose General or Previous Year;
+General requires selected Exams and a mapping strategy; Previous Year requires
+one Exam and Year, with optional Stage/draft Paper/name/Part/Session. CSV `part`
+means taxonomy Part; form Part means the paper identity component. Worksheet
+selection is needed by name for a workbook containing multiple sheets.
 
 ## Multilingual normalization and pairing
 
@@ -78,10 +109,18 @@ Partial blocks fail. Extraction marks remain metadata even when the correct answ
 
 - Row values/codes take precedence over batch defaults; mappings resolve ambiguity explicitly.
 - Subject must already exist. Only an existing uniquely resolved fallback/default may be reused.
-- Missing named Parts/Modules/Chapters/Topics can be proposed under that Subject in preview.
+- Missing named Parts/Modules/Submodules/Chapters/Topics can be proposed under that Subject in preview.
 - Confirmation creates proposed nodes atomically; preview resolution itself writes no domain rows.
 - A new code needs its corresponding name; omitted child codes can be generated.
 - Existing code/name conflicts and inconsistent ancestry are rejected, not silently rewritten.
+- Taxonomy codes ignore case and outer whitespace, matching normalized database
+  uniqueness; stored codes/names are not rewritten. Header aliases are normalized
+  before duplicate detection, so both submodule_code and sub_module_code cannot
+  appear together. Unknown headers remain errors.
+- New named Submodules require a resolved Module parent in preview. A new Topic
+  beneath a Submodule requires a Chapter; the importer does not invent unsupported
+  direct Submodule/Topic foreign keys. A Submodule alone is valid ancestor context
+  and gives a path/warning without silently attaching a Topic tag.
 - Skipped levels are valid. The selected primary Topic and secondary tags must share Subject.
 - Secondary tags require an explicit primary Topic.
 - Parent-only metadata is context; without a primary Topic it creates no new question classification field.
@@ -107,5 +146,5 @@ source_question_id is not globally unique and no automatic source-identity merge
 ## Verification references
 
 Targeted tests: imports.tests, imports.test_unified, imports.test_multilingual,
-imports.test_wide_format and imports.test_taxonomy_import. These are test entry points,
+imports.test_wide_format, imports.test_taxonomy_import and imports.test_taxonomy_integrity. These are test entry points,
 not a claim that a historical test count validates today's checkout.

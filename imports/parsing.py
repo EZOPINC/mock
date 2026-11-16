@@ -25,7 +25,8 @@ MAX_CELL = 32000
 MAX_COLUMNS = 64
 SUPPORTED_COLUMNS = COLUMNS + LANGUAGE_COLUMNS + EXTRA_METADATA
 HEADER_ALIASES = {"review_flag": "review_status", "review_notes": "verification_notes", "created": "created_date", "updated": "updated_date",
-                  "updated_by_user": "updated_by", "source_doc": "source_document", "source_pg": "source_page", "prev_year_tags": "previous_year_tags", "source_row_id": "source_row"}
+                  "updated_by_user": "updated_by", "source_doc": "source_document", "source_pg": "source_page", "prev_year_tags": "previous_year_tags", "source_row_id": "source_row",
+                  "sub_module": "submodule", "sub_module_code": "submodule_code"}
 
 
 def text(value):
@@ -112,7 +113,7 @@ def parse_upload(upload, worksheet=""):
     named = [header for header in headers if header]
     if len(set(named)) != len(named):
         raise ValidationError(
-            "Duplicate column headers are not allowed, including aliases (review_flag maps to review_status). Keep only one of review_flag or review_status.")
+            "Duplicate column headers are not allowed after alias normalization. Keep only one spelling for each field (for example submodule_code/sub_module_code or review_flag/review_status).")
     wide_header = any(all(f"{field}_{code}" in headers for field in REQUIRED_TEXT) for code, label in settings.QUESTION_LANGUAGES)
     missing = ({"question_number"} if wide_header else set(REQUIRED)) - set(headers)
     if "source_question_number" in headers:

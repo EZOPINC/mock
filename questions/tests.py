@@ -326,6 +326,7 @@ class QuestionAdminTests(QuestionFixture):
         source = QuestionSource.objects.create(source_name="Book", source_document="book.pdf")
         data = {"subject": self.subject.pk, "topic": self.topic.pk, **content(),
                 "revisions-TOTAL_FORMS": "0", "revisions-INITIAL_FORMS": "0",
+                "translations-TOTAL_FORMS": "0", "translations-INITIAL_FORMS": "0",
                 "exam_associations-TOTAL_FORMS": "1", "exam_associations-INITIAL_FORMS": "0",
                 "exam_associations-0-exam": self.exam.pk,
                 "source_references-TOTAL_FORMS": "1", "source_references-INITIAL_FORMS": "0",

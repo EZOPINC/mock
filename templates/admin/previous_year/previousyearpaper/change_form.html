@@ -3,3 +3,15 @@
   <li><a href="{% url 'admin:previous_year_previousyearpaper_preview' original.pk %}">Review complete paper</a></li>
   {{ block.super }}
 {% endblock %}
+{% block after_related_objects %}
+  {{ block.super }}
+  {% if paper_question_overflow %}
+    <fieldset class="module aligned">
+      <h2>Paper questions</h2>
+      <div class="form-row">
+        <p>This paper has {{ paper_question_overflow.count }} question associations. Edit them in the paginated list to keep this form within the request-field limit. Saving this page preserves all existing associations.</p>
+        <p><a href="{{ paper_question_overflow.url }}">Manage {{ paper_question_overflow.count }} paper questions</a></p>
+      </div>
+    </fieldset>
+  {% endif %}
+{% endblock %}

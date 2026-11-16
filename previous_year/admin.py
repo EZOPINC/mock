@@ -1,14 +1,25 @@
 from django.contrib import admin, messages
-from django.core.exceptions import PermissionDenied, ValidationError
+from django import forms
+from django.conf import settings
+from django.core.exceptions import NON_FIELD_ERRORS, PermissionDenied, ValidationError
 from django.db.models import Count, F, Q
 from django.forms.models import BaseInlineFormSet
 from django.http import Http404
 from django.shortcuts import render
-from django.urls import path
+from django.urls import path, reverse
+from urllib.parse import urlencode
 
 from questions.models import QuestionRevision
 from .models import PaperQuestion, PreviousYearPaper
 from .services import publish_paper, unpublish_paper
+
+
+def selectable_revisions(paper=None):
+    valid = Q(published_at__isnull=False, pk=F("question__published_revision_id"), question__publication_status="published")
+    if paper:
+        valid &= Q(question__exam_associations__exam_id=paper.exam_id)
+        valid |= Q(pk__in=paper.paper_questions.values("question_revision_id"))
+    return QuestionRevision.objects.filter(valid).distinct()
 
 
 class PaperQuestionFormSet(BaseInlineFormSet):
@@ -39,6 +50,7 @@ class PaperQuestionInline(admin.TabularInline):
     formset = PaperQuestionFormSet
     fields = ("question_revision", "question_number", "display_order")
     extra = 0
+    show_change_link = True
 
     def has_add_permission(self, request, obj=None):
         return not (obj and obj.is_published) and super().has_add_permission(request, obj)
@@ -51,13 +63,9 @@ class PaperQuestionInline(admin.TabularInline):
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if db_field.name == "question_revision":
-            valid = Q(published_at__isnull=False, pk=F("question__published_revision_id"), question__publication_status="published")
             object_id = request.resolver_match.kwargs.get("object_id") if request.resolver_match else None
             paper = PreviousYearPaper.objects.filter(pk=object_id).first() if object_id and str(object_id).isdigit() else None
-            if paper:
-                valid &= Q(question__exam_associations__exam_id=paper.exam_id)
-                valid |= Q(pk__in=paper.paper_questions.values("question_revision_id"))
-            kwargs["queryset"] = QuestionRevision.objects.filter(valid).distinct()
+            kwargs["queryset"] = selectable_revisions(paper)
         return super().formfield_for_foreignkey(db_field, request, **kwargs)
 
 
@@ -77,6 +85,32 @@ class PreviousYearPaperAdmin(admin.ModelAdmin):
         ("Optional paper configuration", {"fields": ("subject", "duration_minutes", "total_marks", "instructions", "expected_question_count", "question_count_status")}),
         ("Publication", {"fields": ("is_published", "created_at")}),
     )
+
+    def get_inline_instances(self, request, obj=None):
+        instances = super().get_inline_instances(request, obj)
+        request.paper_question_overflow = None
+        limit = settings.DATA_UPLOAD_MAX_NUMBER_FIELDS
+        if obj is None or limit is None:
+            return instances
+        visible = []
+        for inline in instances:
+            formset = inline.get_formset(request, obj)
+            count = inline.get_queryset(request).filter(**{formset.fk.name: obj.pk}).count()
+            # Parent/CSRF/save controls reserve 64 fields. Include hidden ID/FK/
+            # deletion fields, the add-row template and management inputs.
+            needed = (count + inline.get_extra(request, obj) + 1) * (len(formset.form.base_fields) + 3) + 4
+            if needed <= max(0, limit - 64):
+                visible.append(inline)
+            else:
+                request.paper_question_overflow = {
+                    "count": count,
+                    "url": reverse("admin:previous_year_paperquestion_changelist") + "?" + urlencode({"paper__id__exact": obj.pk}),
+                }
+        return visible
+
+    def render_change_form(self, request, context, *args, **kwargs):
+        context["paper_question_overflow"] = getattr(request, "paper_question_overflow", None)
+        return super().render_change_form(request, context, *args, **kwargs)
 
     def get_readonly_fields(self, request, obj=None):
         fields = super().get_readonly_fields(request, obj)
@@ -127,3 +161,67 @@ class PreviousYearPaperAdmin(admin.ModelAdmin):
         if not self.has_view_or_change_permission(request, paper):
             raise PermissionDenied
         return render(request, "previous_year/paper_detail.html", {"paper": paper, "exam": paper.exam, "is_preview": True})
+
+
+class PaperQuestionAdminForm(forms.ModelForm):
+    class Meta:
+        model = PaperQuestion
+        fields = ("paper", "question_revision", "question_number", "display_order")
+
+    def _update_errors(self, errors):
+        # Paper-level validators can name expected_question_count, which is not
+        # an association field. Keep that validation visible as a form error.
+        if hasattr(errors, "error_dict"):
+            mapped = {}
+            for field, messages in errors.error_dict.items():
+                target = field if field in self.fields else NON_FIELD_ERRORS
+                mapped.setdefault(target, []).extend(messages)
+            errors = ValidationError(mapped)
+        super()._update_errors(errors)
+
+
+@admin.register(PaperQuestion)
+class PaperQuestionAdmin(admin.ModelAdmin):
+    form = PaperQuestionAdminForm
+    list_display = ("question_number", "paper", "question", "question_revision", "display_order")
+    list_filter = ("paper",)
+    list_select_related = ("paper__exam__authority", "question", "question_revision")
+    search_fields = ("question_number", "paper__paper_name", "question_revision__question_text")
+    fields = ("paper", "question_revision", "question", "question_number", "display_order")
+    readonly_fields = ("question",)
+    list_per_page = 25
+    actions = None
+
+    def parent_admin(self):
+        return self.admin_site.get_model_admin(PreviousYearPaper)
+
+    def has_view_permission(self, request, obj=None):
+        return super().has_view_permission(request, obj) and self.parent_admin().has_view_or_change_permission(request, obj.paper if obj else None)
+
+    def has_add_permission(self, request):
+        return super().has_add_permission(request) and self.parent_admin().has_change_permission(request)
+
+    def has_change_permission(self, request, obj=None):
+        return (super().has_change_permission(request, obj) and not (obj and obj.paper.is_published)
+                and self.parent_admin().has_change_permission(request, obj.paper if obj else None))
+
+    def has_delete_permission(self, request, obj=None):
+        return (super().has_delete_permission(request, obj) and not (obj and obj.paper.is_published)
+                and self.parent_admin().has_change_permission(request, obj.paper if obj else None))
+
+    def get_readonly_fields(self, request, obj=None):
+        fields = super().get_readonly_fields(request, obj)
+        return (*fields, "paper") if obj else fields
+
+    def get_form(self, request, obj=None, **kwargs):
+        paper_id = request.POST.get("paper") if request.method == "POST" else request.GET.get("paper")
+        request.paper_question_parent = obj.paper if obj else (
+            PreviousYearPaper.objects.filter(pk=paper_id).first() if paper_id and str(paper_id).isdigit() else None)
+        return super().get_form(request, obj, **kwargs)
+
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        if db_field.name == "question_revision":
+            kwargs["queryset"] = selectable_revisions(getattr(request, "paper_question_parent", None))
+        elif db_field.name == "paper":
+            kwargs["queryset"] = PreviousYearPaper.objects.filter(is_published=False).select_related("exam__authority")
+        return super().formfield_for_foreignkey(db_field, request, **kwargs)
