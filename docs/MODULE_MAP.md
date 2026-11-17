@@ -17,6 +17,7 @@ Use `docs/architecture.md` for architecture context and `docs/DEVELOPMENT_RULES.
 | `templates/components/icon.html`, `templates/questions/translations.html` | Shared SVGs and revision-bound bilingual rendering |
 | `templates/questions/reading_question.html`, `reading_option.html`, `reading_explanations.html`, `questions/templatetags/reading.py` | Paired bilingual stems/options for timed attempts, finalized mock reviews, Practice and previous-year reader; one native radio per answer choice |
 | `assets/tailwind.css`, `tools/build_css.py`, `tools/tailwind-lock.json` | CSS source, standalone build and pinned checksums |
+| `assets/shell.css`, `tools/verify_membership_ui.py` | Shared membership navigation, home/auth/billing presentation; opt-in desktop/mobile Edge checks |
 | `assets/design-system.css`, `assets/learning.css`, `assets/student.css`, `static/js/theme.js` | Semantic light/dark/sepia tokens, learning/account/public presentation and local appearance preference; `docs/DESIGN_SYSTEM.md`, `docs/UI_REGRESSION_CHECKLIST.md` |
 | `static/css/site.css`, `static/css/bookmarks.css` | Fallback styles and submit-button-specific bookmark overrides |
 

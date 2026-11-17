@@ -11,6 +11,7 @@ from django.utils import timezone
 from .models import PaymentOrder, RefundApproval, SubscriptionPlan
 from .payments import create_order, replay_payment_event, simulate_payment
 from .providers import require_simulator, simulation_enabled
+from .services import subscription_for
 
 
 def can_simulate(user):
@@ -21,8 +22,10 @@ def can_simulate(user):
 @never_cache
 @require_safe
 def pricing(request):
+    plans = list(SubscriptionPlan.objects.filter(is_active=True).prefetch_related("entitlements").order_by("tier", "duration_days"))
     return render(request, "billing/pricing.html", {
-        "plans": SubscriptionPlan.objects.filter(is_active=True).prefetch_related("entitlements").order_by("tier", "duration_days"),
+        "plans": plans, "premium_available": any(plan.tier == "premium" for plan in plans),
+        "membership": subscription_for(request.user) if request.user.is_authenticated else None,
         "checkout_available": simulation_enabled(), "checkout_key": uuid4(),
         "orders": PaymentOrder.objects.filter(user=request.user).order_by("-created_at", "-pk")[:10]
                   if request.user.is_authenticated else []})

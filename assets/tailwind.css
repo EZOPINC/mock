@@ -7,6 +7,7 @@
 @import "./design-system.css";
 @import "./learning.css";
 @import "./student.css";
+@import "./shell.css";
 
 @theme {
   --color-exam-canvas: #f8fafc;

@@ -6,6 +6,20 @@ Previous-Year and Revision; their domain workflows remain unchanged.
 
 ## Tokens and build
 
+`assets/shell.css` adds the membership shell: navy navigation/footer, cobalt actions,
+responsive home/account layouts and plan/checkout cards. Its `--app-*` tokens
+support light, dark and sepia independently of the existing learning `--ui-*`
+tokens. Question, answer and timer components retain their existing presentation.
+The shared header/footer expose Plans and pricing; purchase forms use the existing
+server-side checkout route and remain unavailable when checkout is disabled.
+Registration uses explicit labels, empty fields and new-password autocomplete;
+password validation remains Django-owned.
+
+Run `python manage.py test core.test_membership_ui --noinput` for presentation
+contracts. On Windows with Edge, run `python manage.py test tools.verify_membership_ui
+--noinput` for desktop/mobile layout, navigation and theme checks against disposable
+test data. Captures go to `docs/screenshots/membership/`.
+
 `assets/design-system.css` defines semantic `--ui-*` tokens and is imported by
 `assets/tailwind.css`. Run `python tools/build_css.py`; commit generated
 `static/css/tailwind.css`. The existing prefixed Tailwind utilities remain available.

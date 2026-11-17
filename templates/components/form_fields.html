@@ -4,7 +4,7 @@
 <div class="form-field ui-form-field">
   {{ field.label_tag }}
   {{ field }}
-  {% if field.help_text %}<div class="help-text" id="{{ field.auto_id }}_helptext">{{ field.help_text|safe }}</div>{% endif %}
+  {% if field.help_text %}{% if field.name == 'password1' %}<details class="help-text password-requirements" id="{{ field.auto_id }}_helptext"><summary>Password requirements</summary>{{ field.help_text|safe }}</details>{% else %}<div class="help-text" id="{{ field.auto_id }}_helptext">{{ field.help_text|safe }}</div>{% endif %}{% endif %}
   {% if field.errors %}<div id="{{ field.auto_id }}_error" class="form-errors" role="alert">{{ field.errors }}</div>{% endif %}
 </div>
 {% endif %}

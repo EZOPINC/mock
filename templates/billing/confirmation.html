@@ -1,9 +1,2 @@
-{% extends "base.html" %}
-{% block title %}Subscription confirmation | Mock Exam Platform{% endblock %}
-{% block content %}
-<h1>Premium subscription confirmed</h1><p>{{ order.plan_snapshot.name }}</p>
-<p>Term status: {{ term_state }}</p>
-<p>Your Premium term runs from {{ order.subscription.starts_at }} until {{ order.subscription.ends_at }}. Renewals extend your previously allocated validity.</p>
-<p>Premium covers all supported exams and available Mock and Practice sets.</p>
-<a href="{% url 'mock_tests:index' %}">Open Mock Tests</a> <a href="{% url 'practice:index' %}">Open Practice</a>
-{% endblock %}
+{% extends "base.html" %}{% block title %}Subscription confirmation | Mock Exam Platform{% endblock %}
+{% block content %}<div class="checkout-page"><section class="checkout-card"><span class="checkout-icon">{% include "components/icon.html" with name="check" %}</span><p class="eyebrow">YOUR NEXT CHAPTER</p><h1>Premium subscription confirmed</h1><p>{{ order.plan_snapshot.name }}</p><span class="order-state">Term status: {{ term_state }}</span><dl class="checkout-details"><div><dt>Starts</dt><dd>{{ order.subscription.starts_at }}</dd></div><div><dt>Valid until</dt><dd>{{ order.subscription.ends_at }}</dd></div></dl><p>Premium covers all supported exams and available Mock and Practice sets. Renewals extend your previously allocated validity.</p><div class="button-row"><a class="button button-primary" href="{% url 'mock_tests:index' %}">Open Mock Tests</a><a class="button button-secondary" href="{% url 'practice:index' %}">Open Practice</a></div><a class="checkout-back" href="{% url 'billing:pricing' %}">Manage membership &amp; orders</a></section></div>{% endblock %}

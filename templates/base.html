@@ -14,7 +14,7 @@
   {% block navigation_script %}<script src="{% static 'js/navigation.js' %}" defer></script>{% endblock %}
   {% if request.resolver_match.app_name == 'accounts' or request.resolver_match.app_name == 'previous_year' or request.resolver_match.app_name == 'general_questions' %}<script src="{% static 'js/student.js' %}" defer></script>{% endif %}
 </head>
-<body class="ui-shell calm-shell tw:min-h-screen{% if request.resolver_match.app_name == 'mock_tests' or request.resolver_match.app_name == 'practice' or request.resolver_match.app_name == 'previous_year' or request.resolver_match.app_name == 'revision' or request.resolver_match.app_name == 'general_questions' %} learning-ui{% endif %}{% block body_class %}{% endblock %}">
+<body class="ui-shell calm-shell app-shell tw:min-h-screen{% if request.resolver_match.app_name == 'mock_tests' or request.resolver_match.app_name == 'practice' or request.resolver_match.app_name == 'previous_year' or request.resolver_match.app_name == 'revision' or request.resolver_match.app_name == 'general_questions' %} learning-ui{% endif %}{% block body_class %}{% endblock %}">
   <a class="skip-link" href="#main-content">Skip to content</a>
   {% block site_header %}{% include "components/header.html" %}{% endblock %}
   <main id="main-content" class="ui-main" tabindex="-1">
