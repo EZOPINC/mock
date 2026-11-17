@@ -322,7 +322,7 @@ class LifecycleLearningTests(LifecycleFixture, practice_tests.PracticeFixture):
         self.question(exam=self.other_exam)
         free_session = self.session()
         submit_answer(self.user, free_session.pk, free_session.questions.get().pk, "A")
-        pattern = make_pattern(self.exam, "Original free set")
+        pattern = make_pattern(self.exam, "Original free set", free_demo=True)
         free_mock = start_attempt(self.user, pattern)
         submit_attempt(self.user, free_mock.pk)
         set_saved(self.user, question.pk, saved=True)

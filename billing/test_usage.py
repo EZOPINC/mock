@@ -34,10 +34,10 @@ def free_configuration():
                                              defaults={"usage_limit": limit})
 
 
-def make_pattern(exam, name):
+def make_pattern(exam, name, *, free_demo=False):
     from exams.models import ExamStage
     stage = ExamStage.objects.create(exam=exam, name=name, code=name.replace(" ", "-"))
-    pattern = ExamPattern.objects.create(exam=exam, stage=stage, name=name, duration_minutes=60,
+    pattern = ExamPattern.objects.create(exam=exam, stage=stage, name=name, duration_minutes=60, is_free_demo=free_demo,
                                         total_questions=1, total_marks=1)
     ExamPatternSection.objects.create(pattern=pattern, name="Section", language_mode="en",
                                       question_count=1, display_order=1)
@@ -62,9 +62,9 @@ class FreeUsageTests(practice_tests.PracticeFixture):
         cls.easy = [difficulty_question(cls, "easy") for _ in range(50)]
         cls.hard = difficulty_question(cls, "hard")
         cls.other_question = cls.question(cls, exam=cls.other_exam)
-        cls.pattern = make_pattern(cls.exam, "First set")
+        cls.pattern = make_pattern(cls.exam, "First set", free_demo=True)
         cls.second_pattern = make_pattern(cls.exam, "Second set")
-        cls.other_pattern = make_pattern(cls.other_exam, "Other exam set")
+        cls.other_pattern = make_pattern(cls.other_exam, "Other exam set", free_demo=True)
 
     def premium(self):
         plan = SubscriptionPlan.objects.get(code="premium-30")
@@ -74,21 +74,21 @@ class FreeUsageTests(practice_tests.PracticeFixture):
             starts_at=timezone.now() - timedelta(days=1), ends_at=timezone.now() + timedelta(days=29))
 
     def test_fifty_distinct_then_fifty_first_blocked_and_revisits_free(self):
-        first = self.session(difficulty="easy")
+        first = self.session(difficulty="easy", count="50")
         self.assertEqual(first.questions.count(), 50)
         self.assertEqual(FreeQuestionUsage.objects.filter(user=self.user).count(), 50)
         with self.assertRaisesMessage(ValidationError, "Premium"):
             self.session(difficulty="hard")
-        revisit = self.session(difficulty="easy")
+        revisit = self.session(difficulty="easy", count="50")
         self.assertEqual(revisit.questions.count(), 50)
         self.assertEqual(FreeQuestionUsage.objects.filter(user=self.user).count(), 50)
         self.assertEqual(PracticeSession.objects.count(), 2)
 
-    def test_available_pool_caps_before_allocation(self):
+    def test_available_pool_allocates_only_the_default_first_batch(self):
         session = self.session()
-        self.assertEqual(session.questions.count(), 50)
-        self.assertEqual(session.configuration["total_questions"], 50)
-        self.assertEqual(FreeQuestionUsage.objects.count(), 50)
+        self.assertEqual(session.questions.count(), 10)
+        self.assertEqual(session.configuration["total_questions"], 10)
+        self.assertEqual(FreeQuestionUsage.objects.count(), 10)
 
     def test_oversized_numeric_request_rolls_back_exam_and_usage(self):
         PlanEntitlement.objects.filter(plan__tier="free", feature="practice").update(usage_limit=9)
@@ -135,7 +135,8 @@ class FreeUsageTests(practice_tests.PracticeFixture):
         start_attempt(self.user, self.pattern)
         with self.assertRaisesMessage(ValidationError, "Premium"):
             start_attempt(self.user, self.second_pattern)
-        self.assertEqual(FreeMockSelection.objects.get(user=self.user).pattern, self.pattern)
+        self.assertEqual(MockAttempt.objects.filter(user=self.user, mock_set=self.pattern.published_set).count(), 3)
+        self.assertFalse(FreeMockSelection.objects.exists())
         self.assertEqual(MockAttempt.objects.count(), 3)
 
     def test_shared_exam_lock_in_both_directions(self):
@@ -157,7 +158,7 @@ class FreeUsageTests(practice_tests.PracticeFixture):
         self.assertFalse(FreeQuestionUsage.objects.exists())
 
     def test_expiry_preserves_free_usage_and_premium_history(self):
-        self.session(difficulty="easy")
+        self.session(difficulty="easy", count="50")
         free_mock = start_attempt(self.user, self.pattern)
         submit_attempt(self.user, free_mock.pk)
         subscription = self.premium()
@@ -181,7 +182,7 @@ class FreeUsageTests(practice_tests.PracticeFixture):
         with patch("practice.services.assemble_session", side_effect=ValidationError("failed")):
             with self.assertRaises(ValidationError):
                 self.session()
-        with patch("mock_tests.services.select_questions", side_effect=ValidationError("failed")):
+        with patch("mock_tests.services.AttemptQuestion.save", side_effect=ValidationError("failed")):
             with self.assertRaises(ValidationError):
                 start_attempt(self.user, self.pattern)
         self.assertFalse(FreeExamSelection.objects.exists())
@@ -199,7 +200,7 @@ class FreeUsageTests(practice_tests.PracticeFixture):
         self.assertFalse(FreeExamSelection.objects.exists())
 
     def test_upgrade_prompt_from_both_post_views(self):
-        self.session(difficulty="easy")
+        self.session(difficulty="easy", count="50")
         start_attempt(self.user, self.pattern)
         self.client.force_login(self.user)
         response = self.client.post(reverse("mock_tests:start", args=[self.second_pattern.pk]))
@@ -215,6 +216,7 @@ class FreeUsageTests(practice_tests.PracticeFixture):
         with self.assertRaises(IntegrityError), transaction.atomic():
             FreeExamSelection.objects.create(user=self.user, exam=self.other_exam)
         start_attempt(self.user, self.pattern)
+        FreeMockSelection.objects.create(user=self.user, pattern=self.pattern)
         with self.assertRaises(IntegrityError), transaction.atomic():
             FreeMockSelection.objects.create(user=self.user, pattern=self.second_pattern)
         request = RequestFactory().get("/admin/")
@@ -230,7 +232,7 @@ class FreeUsageTests(practice_tests.PracticeFixture):
         # Simulate pre-B2 delivery without a ledger, using the unchanged assembler.
         with patch("billing.usage.practice_pool", side_effect=lambda user, exam, ids, **kw: (ids, False)):
             legacy = self.session(difficulty="easy")
-        with patch("billing.usage.reserve_mock"):
+        with patch("billing.usage.reserve_mock", return_value=False):
             start_attempt(self.user, self.pattern)
         from practice.services import assemble_session
         assemble_session(self.user, questions=[self.hard], configuration={"kind": "revision"}, token=uuid4(), kind="revision")
@@ -255,7 +257,7 @@ class ConcurrentFreeUsageTests(TransactionTestCase):
         practice_tests.PracticeFixture.setUpTestData.__func__(type(self))
         practice_tests.PracticeFixture.question(self)
         practice_tests.PracticeFixture.question(self, exam=self.other_exam)
-        self.pattern = make_pattern(self.exam, "Set one")
+        self.pattern = make_pattern(self.exam, "Set one", free_demo=True)
         self.second_pattern = make_pattern(self.exam, "Set two")
 
     def race(self, functions):
@@ -279,7 +281,7 @@ class ConcurrentFreeUsageTests(TransactionTestCase):
                             lambda: start_attempt(self.user, self.second_pattern)])
         self.assertEqual(sorted(result), ["allowed", "blocked"])
         self.assertEqual(MockAttempt.objects.count(), 1)
-        self.assertEqual(FreeMockSelection.objects.count(), 1)
+        self.assertEqual(FreeMockSelection.objects.count(), 0)
 
     def test_different_exams_cannot_both_be_selected(self):
         result = self.race([lambda: start_attempt(self.user, self.pattern),

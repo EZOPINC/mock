@@ -33,7 +33,7 @@ The tracked filename is `docs/architecture.md`; retain its casing in links.
 | `imports` | Bounded ingestion, staged correction/pairing, confirmation and audit | Staff UI; General collections |
 | `previous_year` | Papers, ordered approved-revision associations, public reader | Imports, admin, students |
 | `general_question` | General-import collections and whole-batch review/publication | Staff/public collections |
-| `mock_tests` | Pattern/rule configuration, timed attempts, autosave and scoring | Authenticated exams |
+| `mock_tests` | Pattern/rule configuration, immutable shared demo publications, timed attempts, autosave and scoring | Authenticated exams |
 | `practice` | Untimed snapshots, answer locking, feedback and progress | Practice and Revision sessions |
 | `revision` | Bookmarks/notes/mastery, bank, revision selection, topic exploration | Registered students |
 | `billing` | Configurable plans, feature entitlements and subscription terms | Central read-only access policy; staff admin |
@@ -102,8 +102,8 @@ Account dashboard excludes revision-kind sessions from ordinary Practice statist
 - `evaluate_access`, `mock_access`, `practice_access`, `revision_access` and `require_access` provide centralized decisions. Anonymous/inactive accounts, missing/inactive Free configuration and missing/disabled entitlements fail closed. Premium entitlements replace rather than merge with Free entitlements.
 - Generic `evaluate_access` accepts trusted `used`/`requested` units; it does not reserve usage. Mock/Practice starts use `billing.usage` for actual allocation. Existing content eligibility, ownership, selection rules, scoring, timers and snapshots remain authoritative.
 - `billing.providers.SubscriptionProvider` retains the earlier subscription-verification contract. B4 adds `PaymentProvider` with server-side order creation/event verification and a local simulated implementation. Future Razorpay/Cashfree adapters must authenticate confirmations; no real provider or credentials are configured.
-- The first successful Free Mock/Practice start persistently selects the account's exam (`FreeExamSelection`). The first successful Free Mock start selects its `ExamPattern` (`FreeMockSelection`), which is the existing set identity. Retakes of that pattern remain unlimited and use existing selection rules; another pattern requires Premium. No billing check changes existing question randomization.
-- Free Practice allocates distinct master Question IDs in `FreeQuestionUsage` at session assembly, including unanswered questions. It does not count answers, refreshes, translated versions or later revisions again. The existing sampler receives eligible revisits plus at most the remaining new allowance. `available` starts cap the session to that pool; oversized numeric requests fail with an upgrade prompt. Exhausted users can still allocate sessions containing eligible revisits.
+- The first successful Free Mock/Practice start persistently selects the account's exam (`FreeExamSelection`). M1 replaces per-user Mock pattern selection with the exam's designated shared Free Demo. Legacy `FreeMockSelection` records remain stored but do not restrict the designated demo. New Free starts copy its immutable MockSet; Premium starts retain per-attempt random/manual selection.
+- Free Practice records distinct master Question IDs in `FreeQuestionUsage` before session assembly, including unanswered questions. P1 `available` starts prioritize unseen masters in batches controlled by `PRACTICE_FREE_SESSION_SIZE` (default 10), capped by the configured lifetime allowance (initially 50). A quota-limited final batch is partial; small scopes may include allocated revisits without extra usage. Allocated-only scopes and historical sessions remain revisitable, while a request needing new questions after quota exhaustion gets the existing upgrade prompt. Registration, answers, refreshes, translations and later revisions do not allocate another unit. Premium and explicit numeric count behavior remain unchanged. See `docs/practice-sessions.md`.
 - Start transactions lock the account before checking policy/ledgers. One-to-one exam/mock choices and a unique user/master constraint backstop the locks. Ledger writes commit with attempts/sessions; failed starts roll back all allocations. Admin exposes ledgers for permission-gated inspection only, with no add/change/delete operations.
 - Effective Premium bypasses Free exam/set/question limits but still requires an enabled feature. Premium starts neither consume nor reset Free ledgers. After expiry, Free selections and remaining allowance persist. Existing unfinished attempts, idempotent start tokens, owned sessions and history remain accessible, including those created during Premium. New Free starts for questions delivered only during Premium consume Free allowance; those historical sessions remain revisitable without a new allocation.
 - B2 backfills pre-existing non-Premium Mock/Practice delivery: earliest start selects the Free exam; earliest Mock in that exam selects the set; distinct Practice master IDs across earlier Free sessions consume lifetime usage. Legacy use over 50 is retained, with zero new allowance. Recorded Premium term dates identify historical Premium delivery regardless of current cancellation or plan activity, since past status transitions were not recorded. Revision-kind sessions are excluded. No historical rows are rewritten.
@@ -182,6 +182,8 @@ Import does not silently publish questions; review/publication remain explicit.
 
 ## Mock Test workflow
 
+M1 adds `ExamPattern.is_free_demo` and immutable `MockSet`/`MockSetQuestion` publications. Publishing draws once through the existing selector and freezes pattern configuration, question/revision IDs, sequence and marks. A conditional database constraint permits one active demo per exam across stages. Free users copy this publication into separate attempts and can retake it without limit; Premium keeps selecting through the existing rules. New starts recheck publication/exam membership without substituting other questions. Nullable `MockAttempt.mock_set` links new Free attempts; old attempts/subscriptions remain unchanged. See `docs/shared-free-mock.md` for Admin workflow, replacement/retirement, database guards and upgrade tests.
+
 1. Admin configures ExamPattern, sections, totals, duration and marking defaults.
 2. Optional SectionSelectionRule selects exactly one taxonomy scope and a quota.
 3. Rules support normalized difficulty and random/manual choices with descendant tags.
@@ -207,7 +209,7 @@ History uses frozen revisions/marking, not current taxonomy or mutable master an
 - Eligible module cards replace the old hierarchy-dropdown setup.
 - Subjects without eligible modules can continue with the whole subject.
 - Difficulty uses published values; unspecified difficulty is an explicit choice.
-- The current UI uses all questions at that level; service counts/filter support remains.
+- The current UI defaults to up to ten questions per Free session (configurable), within the remaining lifetime quota; Premium retains all eligible questions at that level. Service counts/filter support remains.
 - PracticeSession/PracticeQuestion persist revisions/order, answers and classification.
 - submit_answer gives immediate feedback, locks the answer and auto-completes the last row.
 - A repeated identical answer is safe; changing an answered row is rejected.

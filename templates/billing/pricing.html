@@ -7,7 +7,7 @@
 {% if checkout_available %}<p role="status">Test checkout only. No real payment is collected. An authorized test operator must confirm the simulated outcome.</p>{% else %}<p>Purchases are currently unavailable.</p>{% endif %}
 {% for plan in plans %}
 <section class="card"><h2>{{ plan.name }}</h2><p>{{ plan.currency }} {{ plan.price }}{% if plan.duration_days %} for {{ plan.duration_days }} days{% endif %}</p>
-{% if plan.tier == "free" %}<p>One selected exam. Retake your selected Mock set without limits and revisit previously delivered Practice questions without using more allowance.</p>{% endif %}
+{% if plan.tier == "free" %}<p>One selected exam. Retake that exam’s shared Free Demo without limits and revisit previously delivered Practice questions without using more allowance.</p>{% endif %}
 <ul>{% for entitlement in plan.entitlements.all %}{% if entitlement.is_enabled %}<li>{{ entitlement.get_feature_display }}{% if plan.tier == "free" and entitlement.usage_limit != None %}: {{ entitlement.usage_limit }} {% if entitlement.feature == "practice" %}distinct questions over your account lifetime{% elif entitlement.feature == "mock" %}distinct set{{ entitlement.usage_limit|pluralize }}{% endif %}{% endif %}</li>{% endif %}{% endfor %}</ul>
 {% if plan.tier == "premium" and checkout_available %}
 {% if user.is_authenticated %}<form method="post" action="{% url 'billing:checkout' plan.pk %}">{% csrf_token %}<input type="hidden" name="checkout_key" value="{{ checkout_key }}"><button type="submit" class="button button-primary">Start test checkout</button></form>{% else %}<a href="{% url 'accounts:login' %}?next={% url 'billing:pricing' %}">Sign in to choose a plan</a>{% endif %}

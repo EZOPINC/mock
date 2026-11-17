@@ -22,6 +22,9 @@ class AttemptFixture(TestCase):
         test_patterns.PatternTests.setUpTestData.__func__(cls)
         cls.user = get_user_model().objects.create_user(username="student", password="student-password")
         cls.other_user = get_user_model().objects.create_user(username="other")
+        from .testing import premium_user
+        premium_user(cls.user)
+        premium_user(cls.other_user)
 
     def setUp(self):
         test_patterns.PatternTests.setUp(self)
@@ -65,6 +68,8 @@ class AttemptLanguageTests(AttemptFixture):
         for language in ("en", "bn", "both"):
             with self.subTest(language=language):
                 user = get_user_model().objects.create_user(username="language_" + language)
+                from .testing import premium_user
+                premium_user(user)
                 self.client.force_login(user)
                 attempt = start_attempt(user, self.pattern, language=language)
                 response = self.client.get(self.detail_url(attempt))
@@ -341,6 +346,8 @@ class ConcurrentStartTests(TransactionTestCase):
         test_patterns.PatternTests.setUpTestData.__func__(type(self))
         test_patterns.PatternTests.setUp(self)
         self.user = get_user_model().objects.create_user(username="concurrent")
+        from .testing import premium_user
+        premium_user(self.user)
         test_patterns.PatternTests.question(self)
         activate_pattern(self.pattern)
 

@@ -7,8 +7,11 @@ from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
 from django.db import transaction
 
-from .models import FreeExamSelection, FreeMockSelection, FreeQuestionUsage, SubscriptionPlan
+from .models import FreeExamSelection, FreeQuestionUsage, SubscriptionPlan
 from .services import plan_for
+
+
+PRACTICE_UPGRADE_MESSAGE = "Your Free Practice allowance cannot provide new questions for this selection. Revisit previously delivered questions, choose a smaller set, or upgrade to Premium for unlimited Practice."
 
 
 def _policy(user, feature):
@@ -34,18 +37,24 @@ def _select_exam(user, exam_id):
 def reserve_mock(user, pattern):
     premium, entitlement = _policy(user, "mock")
     if premium:
-        return
+        return False
     if entitlement.usage_limit == 0:
         raise ValidationError("Free Mock access is unavailable. Upgrade to Premium for more Mock Tests.")
     _select_exam(user, pattern.exam_id)
-    selection, _ = FreeMockSelection.objects.get_or_create(user=user, defaults={"pattern": pattern})
-    if selection.pattern_id != pattern.pk:
-        raise ValidationError("Your Free Mock Test set is already selected. Retake that set without limits, or upgrade to Premium for other sets.")
+    if not pattern.is_active or not pattern.is_free_demo or not pattern.has_frozen_set:
+        raise ValidationError("Free access is limited to this exam's published shared Free Demo; upgrade to Premium for other Mock Tests.")
+    # Legacy per-user Mock selections are retained for audit/history, but no
+    # longer choose or restrict the shared demo. Exam selection still persists.
+    return True
 
 
 @transaction.atomic
-def practice_pool(user, exam_id, candidate_ids, *, sampler):
-    """Return eligible revisits plus at most the remaining allowance of new IDs.
+def practice_pool(user, exam_id, candidate_ids, *, sampler, session_size=None):
+    """Bound the eligible pool by lifetime allowance and optional batch size.
+
+    Batches prefer unseen masters, then eligible revisits only if the scope ran
+    out of unseen content without exhausting quota. No new-question capacity
+    raises the existing upgrade prompt; an allocated-only scope is revisitable.
 
     The learning app retains its sampler and all content eligibility rules.
     This pool alone is not a reservation: record_practice must run in the same
@@ -59,6 +68,23 @@ def practice_pool(user, exam_id, candidate_ids, *, sampler):
     revisits = set(usage.filter(question_id__in=candidate_ids).values_list("question_id", flat=True))
     new = set(candidate_ids) - revisits
     remaining = len(new) if entitlement.usage_limit is None else max(0, entitlement.usage_limit - usage.count())
+    if session_size is not None:
+        if type(session_size) is not int or session_size <= 0:
+            raise ValueError("Practice session size must be a positive integer.")
+        if new:
+            if not remaining:
+                raise ValidationError(PRACTICE_UPGRADE_MESSAGE)
+            quota_limited = remaining < len(new)
+            # Prioritize unseen masters. A quota-limited final batch consumes
+            # only the remaining slots rather than filling from old questions.
+            new = set(sampler.sample(sorted(new), min(session_size, remaining, len(new))))
+            # Small language/taxonomy scopes can include allocated questions.
+            # Fill from those only when the scope, rather than lifetime quota,
+            # ran out of unseen questions; never displace an eligible new unit.
+            if not quota_limited and len(new) < session_size:
+                new |= set(sampler.sample(sorted(revisits), min(session_size - len(new), len(revisits))))
+            return new, True
+        return set(sampler.sample(sorted(revisits), min(session_size, len(revisits)))), True
     if len(new) > remaining:
         new = set(sampler.sample(sorted(new), remaining))
     return revisits | new, True

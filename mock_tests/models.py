@@ -45,12 +45,14 @@ class ExamPattern(models.Model):
     default_positive_marks = models.DecimalField(max_digits=8, decimal_places=2, default=1, validators=[MinValueValidator(Decimal("0.01"))])
     default_negative_marks = models.DecimalField(max_digits=8, decimal_places=2, default=0, validators=[MinValueValidator(0)])
     status = models.CharField(max_length=10, choices=Status, default=Status.DRAFT, editable=False)
+    is_free_demo = models.BooleanField(default=False, help_text="Activation publishes one fixed shared question set. Only one active Free Demo is allowed per exam.")
     created_at = models.DateTimeField(auto_now_add=True)
     objects = ConfigurationQuerySet.as_manager()
 
     class Meta:
         ordering = ("exam", "name", "version", "pk")
         constraints = [
+            models.UniqueConstraint(fields=("exam",), condition=Q(status="active", is_free_demo=True), name="mock_one_active_free_demo"),
             models.UniqueConstraint(fields=("exam", "stage"), condition=Q(status="active", stage__isnull=False), name="mock_active_stage_unique"),
             models.UniqueConstraint(fields=("exam",), condition=Q(status="active", stage__isnull=True), name="mock_active_exam_unique"),
             models.CheckConstraint(condition=Q(duration_minutes__gt=0, total_questions__gt=0, version__gt=0, total_marks__gt=0, default_positive_marks__gt=0, default_negative_marks__gte=0), name="mock_pattern_values_valid"),
@@ -60,6 +62,14 @@ class ExamPattern(models.Model):
     @property
     def is_active(self):
         return self.status == self.Status.ACTIVE
+
+    @property
+    def has_frozen_set(self):
+        return bool(self.pk and MockSet.objects.filter(pattern_id=self.pk).exists())
+
+    @property
+    def configuration_locked(self):
+        return self.is_active or self.attempts.exists() or self.has_frozen_set
 
     def __str__(self):
         return f"{self.exam}: {self.name} (v{self.version})"
@@ -74,17 +84,19 @@ class ExamPattern(models.Model):
     def save(self, *args, _transition=False, **kwargs):
         from exams.models import Exam
         with transaction.atomic():
-            Exam.objects.select_for_update().get(pk=self.exam_id)
+            Exam.objects.select_for_update(no_key=True).get(pk=self.exam_id)
             previous = type(self).objects.select_for_update().filter(pk=self.pk).first() if self.pk else None
-            if previous and previous.attempts.exists() and any(
+            if previous and (previous.attempts.exists() or previous.has_frozen_set) and any(
                 getattr(self, field.attname) != getattr(previous, field.attname)
-                for field in self._meta.concrete_fields if field.name not in {"status"}
+                for field in self._meta.concrete_fields if field.name not in {"status", "is_free_demo"}
             ):
-                raise ValidationError("This pattern has attempts. Create a new pattern version to change configuration.")
+                raise ValidationError("This pattern has attempts or a published set. Create a new pattern version to change configuration.")
             if not _transition and (self.is_active or (previous and previous.is_active)):
                 raise ValidationError("Deactivate the pattern before editing. Use the activation service to activate.")
             if not _transition and self.status != (previous.status if previous else self.Status.DRAFT):
                 raise ValidationError("Use the pattern status services.")
+            if self.is_active and self.is_free_demo and not self.has_frozen_set:
+                raise ValidationError("Publish the shared question set before activating a Free Demo.")
             self.full_clean()
             return super().save(*args, **kwargs)
 
@@ -133,7 +145,7 @@ class ExamPatternSection(models.Model):
             ids = {self.pattern_id}
             if self.pk:
                 ids.add(type(self).objects.get(pk=self.pk).pattern_id)
-            if any(pattern.is_active or pattern.attempts.exists() for pattern in ExamPattern.objects.select_for_update().filter(pk__in=ids).order_by("pk")):
+            if any(pattern.configuration_locked for pattern in ExamPattern.objects.select_for_update().filter(pk__in=ids).order_by("pk")):
                 raise ValidationError("Active or previously used patterns cannot change sections. Create a new pattern version.")
             self.full_clean()
             return super().save(*args, **kwargs)
@@ -141,7 +153,7 @@ class ExamPatternSection(models.Model):
     def delete(self, *args, **kwargs):
         with transaction.atomic():
             pattern = ExamPattern.objects.select_for_update().get(pk=self.pattern_id)
-            if pattern.is_active or pattern.attempts.exists():
+            if pattern.configuration_locked:
                 raise ValidationError("Active or previously used patterns cannot delete sections.")
             return super().delete(*args, **kwargs)
 
@@ -192,7 +204,7 @@ class SectionSelectionRule(models.Model):
             raise ValidationError("Save an existing section before configuring its rules.")
         pattern_id = ExamPatternSection.objects.values_list("pattern_id", flat=True).get(pk=self.section_id)
         pattern = ExamPattern.objects.select_for_update().get(pk=pattern_id)
-        if pattern.is_active or pattern.attempts.exists():
+        if pattern.configuration_locked:
             raise ValidationError("Active or previously used patterns cannot change rules. Create a new pattern version.")
         return pattern
 
@@ -258,6 +270,75 @@ class AttemptQuerySet(ConfigurationQuerySet):
         raise ValidationError("Attempts and their fixed question sets must be retained.")
 
 
+class PublishedSetQuerySet(models.QuerySet):
+    def update(self, **kwargs):
+        raise ValidationError("Published Mock sets are immutable.")
+
+    def delete(self):
+        raise ValidationError("Published Mock sets must be retained.")
+
+    def bulk_create(self, *args, **kwargs):
+        raise ValidationError("Use Mock set publication services.")
+
+    def bulk_update(self, *args, **kwargs):
+        raise ValidationError("Published Mock sets are immutable.")
+
+
+class MockSet(models.Model):
+    """One immutable, reusable publication of an existing exam pattern."""
+    pattern = models.OneToOneField(ExamPattern, on_delete=models.PROTECT, related_name="published_set")
+    configuration = models.JSONField()
+    published_at = models.DateTimeField(auto_now_add=True)
+    objects = PublishedSetQuerySet.as_manager()
+
+    def save(self, *args, _publication=False, **kwargs):
+        if not _publication or self.pk:
+            raise ValidationError("Use Mock set publication services; published sets are immutable.")
+        self.full_clean()
+        return super().save(*args, **kwargs)
+
+    def delete(self, *args, **kwargs):
+        raise ValidationError("Published Mock sets must be retained.")
+
+    def __str__(self):
+        return f"Shared set: {self.pattern}"
+
+
+class MockSetQuestion(models.Model):
+    mock_set = models.ForeignKey(MockSet, on_delete=models.PROTECT, related_name="questions")
+    section = models.ForeignKey(ExamPatternSection, on_delete=models.PROTECT)
+    question = models.ForeignKey("questions.Question", on_delete=models.PROTECT)
+    question_revision = models.ForeignKey("questions.QuestionRevision", on_delete=models.PROTECT)
+    display_order = models.PositiveIntegerField()
+    positive_marks = models.DecimalField(max_digits=8, decimal_places=2)
+    negative_marks = models.DecimalField(max_digits=8, decimal_places=2)
+    objects = PublishedSetQuerySet.as_manager()
+
+    class Meta:
+        ordering = ("display_order", "pk")
+        constraints = [
+            models.UniqueConstraint(fields=["mock_set", "question"], name="mock_set_unique_master"),
+            models.UniqueConstraint(fields=["mock_set", "display_order"], name="mock_set_unique_order"),
+            models.CheckConstraint(condition=Q(display_order__gt=0, positive_marks__gt=0, negative_marks__gte=0), name="mock_set_valid_marks_order"),
+        ]
+
+    def clean(self):
+        super().clean()
+        if self.mock_set_id and self.section_id and self.section.pattern_id != self.mock_set.pattern_id:
+            raise ValidationError("Section must belong to the frozen pattern.")
+        if self.question_revision_id and (self.question_revision.question_id != self.question_id or not self.question_revision.published_at):
+            raise ValidationError("Select an approved revision of this master question.")
+
+    def save(self, *args, _publication=False, **kwargs):
+        if not _publication or self.pk:
+            raise ValidationError("Use Mock set publication services; published questions are immutable.")
+        self.full_clean()
+        return super().save(*args, **kwargs)
+
+    def delete(self, *args, **kwargs):
+        raise ValidationError("Published Mock set questions must be retained.")
+
+
 class MockAttempt(models.Model):
     class Status(models.TextChoices):
         CREATED = "created", "Created"
@@ -267,6 +348,7 @@ class MockAttempt(models.Model):
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, related_name="mock_attempts")
     pattern = models.ForeignKey(ExamPattern, on_delete=models.PROTECT, related_name="attempts")
+    mock_set = models.ForeignKey(MockSet, on_delete=models.PROTECT, null=True, blank=True, related_name="attempts")
     status = models.CharField(max_length=15, choices=Status, default=Status.CREATED)
     created_at = models.DateTimeField(auto_now_add=True)
     started_at = models.DateTimeField(null=True, blank=True)
@@ -306,6 +388,11 @@ class MockAttempt(models.Model):
 
     def __str__(self):
         return f"Attempt {self.pk}: {self.configuration.get('name', '')}"
+
+    def clean(self):
+        super().clean()
+        if self.mock_set_id and self.mock_set.pattern_id != self.pattern_id:
+            raise ValidationError("Published Mock set must belong to this attempt's pattern.")
 
     def save(self, *args, _assembly=False, _execution=False, **kwargs):
         if _execution:

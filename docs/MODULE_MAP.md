@@ -64,7 +64,7 @@ Use `docs/architecture.md` for architecture context and `docs/DEVELOPMENT_RULES.
 | `imports/models.py` | ImportBatch, ImportedQuestion; contextual import uniqueness and row audit |
 | `previous_year/models.py` | PreviousYearPaper, PaperQuestion; revision/order and paper invariants |
 | `general_question/models.py` | GeneralQuestionBatch proxy over general ImportBatch rows |
-| `mock_tests/models.py` | ExamPattern, ExamPatternSection, SectionSelectionRule, ManualRuleQuestion, MockAttempt, AttemptQuestion |
+| `mock_tests/models.py` | ExamPattern (is_free_demo), ExamPatternSection, SectionSelectionRule, ManualRuleQuestion, MockSet, MockSetQuestion, MockAttempt, AttemptQuestion |
 | `practice/models.py` | PracticeSession, PracticeQuestion, PracticeQuerySet; kind/scope and immutable snapshots |
 | `revision/models.py` | SavedQuestion; RevisionSession proxy and revision-only manager |
 
@@ -93,12 +93,12 @@ Use `docs/architecture.md` for architecture context and `docs/DEVELOPMENT_RULES.
 | `imports/services.py` | confirm_import(data, user); owner/permission checks, locks, revalidation, atomic audit/writes |
 | `previous_year/services.py` | publish_paper, unpublish_paper, published_papers |
 | `general_question/services.py` | general_batches, batch_questions, fingerprint, transition_batch, require_batch_permission |
-| `mock_tests/services.py` | validate_configuration, activate_pattern, deactivate_pattern, available_patterns, select_questions, start_attempt |
+| `mock_tests/services.py` | validate_configuration, activate_pattern, deactivate_pattern, publish_free_demo, retire_free_demo, available_patterns, select_questions, start_attempt |
 | `mock_tests/rules.py` | eligible_for_rule, validate_rule_layout, selection_tasks, rule_snapshot |
 | `mock_tests/languages.py` | Mock-only eligibility: English/Bengali sections require both published translations |
 | `mock_tests/execution.py` | refresh_attempt, save_response, submit_attempt, confirmation_counts |
 | `practice/discovery.py` | PracticeTaxonomy.selected_ids/snapshot/options; difficulty_pools, configuration_matches |
-| `practice/services.py` | start_session, assemble_session, submit_answer, abandon_session, complete_session, progress, performance |
+| `practice/services.py` | start_session (incremental Free default batches), assemble_session, submit_answer, abandon_session, complete_session, progress, performance |
 | `revision/services.py` | can_save, set_saved(user, question_id, saved=...), attach_saved_state |
 | `revision/selectors.py` | visible_questions, bank_rows, bank_counts, topic_scope, filter_bank, with_question_content, hydrate_content |
 | `revision/sessions.py` | request_spec, start_revision(user, parameters), record_review |
@@ -175,12 +175,14 @@ Explore uses kind/node ID with from_question, exam and prefixed difficulty param
 | Import confirmation | `imports/services.py`, `imports/staging.py`, `imports/context.py` | `imports/tests.py`, `imports/test_unified.py` |
 | Paper publication/reader | `previous_year/services.py`, `previous_year/models.py`, `previous_year/views.py` | `previous_year/test_modes.py`, `previous_year/tests.py` |
 | Mock quotas/selection | `mock_tests/rules.py`, `mock_tests/services.py`, `mock_tests/models.py` | `mock_tests/test_selection_rules.py`, `mock_tests/test_attempts.py` |
+| Shared Free Mock Demo | `mock_tests/models.py`, `mock_tests/services.py`, `mock_tests/admin.py`, `billing/usage.py` | `mock_tests/test_free_demo.py`; `docs/shared-free-mock.md`; additive migrations mock_tests 0007–0008 |
 | Free Mock/Practice limits | `billing/usage.py`, `billing/models.py`, Mock/Practice start services | `billing/test_usage.py`; Mock/Practice concurrency and Previous-Year regressions |
 | Premium lifecycle/Admin grants | `billing/lifecycle.py`, `billing/models.py`, `billing/admin.py`, `billing/forms.py` | `billing/test_lifecycle.py`; billing regression and migration tests |
 | Simulated checkout/financial ledger | `billing/payments.py`, `billing/providers.py`, `billing/views.py`, `billing/models.py` | `billing/test_payments.py`; config fail-closed, ownership, CSRF, idempotency and PostgreSQL concurrency tests |
 | Financial Admin/audit/exports | `billing/admin.py`, `billing/finance_forms.py`, `billing/accounting.py`, `billing/finance.py`, `billing/exports.py` | `billing/test_finance.py`; migrations 0008 operations models, 0009 PostgreSQL history guards; `docs/billing-operations.md` |
 | Mock save/scoring | `mock_tests/execution.py`, `mock_tests/views.py`, `static/js/mock-test.js` | `mock_tests/test_execution.py` |
 | Practice selection/feedback | `practice/discovery.py`, `practice/services.py`, `practice/views.py` | `practice/test_taxonomy.py`, `practice/test_difficulty.py`, `practice/tests.py` |
+| Incremental Free Practice allocation | `practice/services.py`, `billing/usage.py`, `config/settings.py`: PRACTICE_FREE_SESSION_SIZE | `practice/test_incremental.py`; `docs/practice-sessions.md`; existing Free exam/usage models, no migration |
 | Bank/bookmarks | `revision/views.py`, `revision/services.py`, `revision/selectors.py` | `revision/tests.py`, `revision/test_bank.py` |
 | Revision sessions | `revision/sessions.py`, `revision/session_views.py`, `practice/services.py` | `revision/test_sessions.py`; Practice regressions |
 | Topic discovery | `revision/exploration.py`, `revision/exploration_views.py` | `revision/test_exploration.py`; current visibility policy |

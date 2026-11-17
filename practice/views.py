@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db.models import Case, IntegerField, Prefetch, Value, When
 from uuid import UUID
@@ -114,7 +115,8 @@ def difficulty(request, authority_slug, exam_slug, subject_slug, module_id=None)
         else:
             return redirect("practice:session", session_id=session.pk)
     return render(request, "practice/difficulty.html", {"exam": exam, "subject": subject,
-        "module": module, "form": form, "available_count": sum(map(len, pools.values()))},
+        "module": module, "form": form, "available_count": sum(map(len, pools.values())),
+        "free_session_size": settings.PRACTICE_FREE_SESSION_SIZE},
         status=400 if request.method == "POST" and form.errors else 200)
 
 
