@@ -24,7 +24,8 @@ class ModulePathFilter(admin.SimpleListFilter):
             if queryset.model is Chapter:
                 query |= Q(submodule__module_id=self.value())
             if queryset.model is Topic:
-                query |= Q(chapter__module_id=self.value()) | Q(chapter__submodule__module_id=self.value())
+                query |= Q(chapter__module_id=self.value()) | Q(
+                    chapter__submodule__module_id=self.value())
             return queryset.filter(query)
         return queryset
 
@@ -34,7 +35,8 @@ class SubmodulePathFilter(admin.SimpleListFilter):
     parameter_name = "submodule_path"
 
     def lookups(self, request, model_admin):
-        nodes = Submodule.objects.select_related("subject", "module__subject", "module__part__subject")
+        nodes = Submodule.objects.select_related(
+            "subject", "module__subject", "module__part__subject")
         for param, field in (("subject__id__exact", "subject_id"), ("module_path", "module_id")):
             value = request.GET.get(param)
             if value and value.isdecimal():
@@ -53,11 +55,13 @@ class ChapterPathFilter(admin.SimpleListFilter):
     parameter_name = "chapter_path"
 
     def lookups(self, request, model_admin):
-        nodes = Chapter.objects.select_related("subject", "module__part__subject", "module__subject", "part__subject", "submodule__module__part__subject", "submodule__module__subject", "submodule__subject")
+        nodes = Chapter.objects.select_related("subject", "module__part__subject", "module__subject", "part__subject",
+                                               "submodule__module__part__subject", "submodule__module__subject", "submodule__subject")
         for param, field in (("subject__id__exact", "subject_id"), ("module_path", "module_id")):
             value = request.GET.get(param)
             if value and value.isdecimal():
-                nodes = nodes.filter(Q(module_id=value) | Q(submodule__module_id=value)) if field == "module_id" else nodes.filter(**{field: value})
+                nodes = nodes.filter(Q(module_id=value) | Q(
+                    submodule__module_id=value)) if field == "module_id" else nodes.filter(**{field: value})
         submodule = request.GET.get("submodule_path")
         if submodule and submodule.isdecimal():
             nodes = nodes.filter(submodule_id=submodule)
@@ -138,10 +142,12 @@ class TaxonomyInlineBudgetAdmin:
         visible = []
         for inline in instances:
             formset = inline.get_formset(request, obj)
-            count = inline.get_queryset(request).filter(**{formset.fk.name: obj.pk}).count()
+            count = inline.get_queryset(request).filter(
+                **{formset.fk.name: obj.pk}).count()
             # Per-row model fields, hidden identity/delete controls, the empty
             # add-row template and the four formset management inputs.
-            needed = (count + inline.get_extra(request, obj) + 1) * (len(formset.form.base_fields) + 3) + 4
+            needed = (count + inline.get_extra(request, obj) + 1) * \
+                (len(formset.form.base_fields) + 3) + 4
             if needed <= remaining:
                 visible.append(inline)
                 remaining -= needed
@@ -154,7 +160,8 @@ class TaxonomyInlineBudgetAdmin:
         return visible
 
     def render_change_form(self, request, context, *args, **kwargs):
-        context["taxonomy_overflow_links"] = getattr(request, "taxonomy_overflow_links", [])
+        context["taxonomy_overflow_links"] = getattr(
+            request, "taxonomy_overflow_links", [])
         return super().render_change_form(request, context, *args, **kwargs)
 
 
@@ -200,7 +207,8 @@ class SubjectAdmin(TaxonomyCodeAdmin, admin.ModelAdmin):
     search_fields = ("name", "code")
     ordering = ("name",)
     prepopulated_fields = {"slug": ("name",)}
-    inlines = (PartInline, ModuleInline, ChapterInline, TopicInline)
+    inlines = (PartInline, ModuleInline, SubmoduleInline,
+               ChapterInline, TopicInline)
 
 
 @admin.register(Part)
@@ -234,7 +242,8 @@ class SubmoduleAdmin(TaxonomyCodeAdmin, admin.ModelAdmin):
     list_display = ("name", "code", "subject", "module", "display_order")
     search_fields = ("name", "code", "subject__name", "module__name")
     list_filter = ("subject", ModulePathFilter)
-    list_select_related = ("subject", "module__subject", "module__part__subject")
+    list_select_related = ("subject", "module__subject",
+                           "module__part__subject")
     autocomplete_fields = ("subject", "module")
     prepopulated_fields = {"slug": ("name",)}
     inlines = (ChapterInline,)
@@ -260,7 +269,8 @@ class TopicAdmin(TaxonomyCodeAdmin, admin.ModelAdmin):
                     "chapter", "module", "part", "slug")
     search_fields = ("name", "code", "subject__name", "subject__code",
                      "chapter__name", "chapter__submodule__name", "module__name", "part__name")
-    list_filter = ("subject", "part", ModulePathFilter, SubmodulePathFilter, ChapterPathFilter)
+    list_filter = ("subject", "part", ModulePathFilter,
+                   SubmodulePathFilter, ChapterPathFilter)
     list_select_related = ("subject", "part__subject", "module__subject", "module__part__subject", "chapter__subject",
                            "chapter__part__subject", "chapter__module__subject", "chapter__module__part__subject", "chapter__submodule__subject", "chapter__submodule__module__subject", "chapter__submodule__module__part__subject")
     autocomplete_fields = ("chapter", "module", "part")
