@@ -1,0 +1,5 @@
+{% extends "admin/change_list.html" %}
+{% block object-tools-items %}
+{% for key,label in finance_operations %}<li><a href="{% url 'admin:billing_finance_operation' key %}">{{ label }}</a></li>{% endfor %}
+{% if can_export %}<li><a href="{% url 'admin:billing_finance_export' %}">Export accounting CSV</a></li>{% endif %}
+{{ block.super }}{% endblock %}

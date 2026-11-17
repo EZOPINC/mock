@@ -397,6 +397,8 @@ class PracticeViewTests(PracticeFixture):
 
 class ConcurrentPracticeTests(TransactionTestCase):
     def setUp(self):
+        from billing.test_usage import free_configuration
+        free_configuration()
         PracticeFixture.setUpTestData.__func__(type(self))
         PracticeFixture.question(self)
 

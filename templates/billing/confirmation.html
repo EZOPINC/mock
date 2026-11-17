@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}Subscription confirmation | Mock Exam Platform{% endblock %}
+{% block content %}
+<h1>Premium subscription confirmed</h1><p>{{ order.plan_snapshot.name }}</p>
+<p>Term status: {{ term_state }}</p>
+<p>Your Premium term runs from {{ order.subscription.starts_at }} until {{ order.subscription.ends_at }}. Renewals extend your previously allocated validity.</p>
+<p>Premium covers all supported exams and available Mock and Practice sets.</p>
+<a href="{% url 'mock_tests:index' %}">Open Mock Tests</a> <a href="{% url 'practice:index' %}">Open Practice</a>
+{% endblock %}

@@ -33,6 +33,7 @@ Use `docs/architecture.md` for architecture context and `docs/DEVELOPMENT_RULES.
 | `mock_tests` / `mock_tests` | `/mock-tests/` | Patterns/rules -> timed snapshots and scoring |
 | `practice` / `practice` | `/practice/` | Module difficulty/language setup -> shared untimed engine |
 | `revision` / `revision` | `/revision/` | Personal bank, Practice proxy sessions, topic discovery |
+| `billing` / `billing` | `/billing/`, Admin | Pricing, test checkout/status, financial ledger, Premium lifecycle, Free allocations |
 
 
 ## Documentation lookup
@@ -53,6 +54,9 @@ Use `docs/architecture.md` for architecture context and `docs/DEVELOPMENT_RULES.
 | File | Important classes / relationships |
 |---|---|
 | `accounts/models.py` | User(AbstractUser); AUTH_USER_MODEL |
+| `billing/models.py` | SubscriptionPlan, PlanEntitlement, UserSubscription, SubscriptionEvent, FreeExamSelection, FreeMockSelection, FreeQuestionUsage; Free fallback is service logic |
+| `billing/models.py` financial ledger | PaymentOrder, PaymentTransaction, PaymentEvent, Refund; protected references and quote snapshots |
+| `billing/models.py` financial operations | FinancialAuditEvent, BillingConfiguration, BillingDocument, DocumentSequence, RefundApproval, Settlement, ReconciliationRecord |
 | `exams/models.py` | ExamAuthority, Exam, ExamStage, Subject, Part, Module, Chapter, Topic; HierarchyNode validates ancestry |
 | `questions/models.py` | Question, QuestionRevision, QuestionTranslation, QuestionTopic, QuestionExam, QuestionSource, QuestionSourceReference |
 | Questions ERD | `docs/erd/questions-erd.html` (offline interactive), `docs/erd/questions-erd.md` (Mermaid/column reference), `questions-schema.json` and `.mmd` sources in that directory; regenerate with `python tools/generate_questions_erd.py` using `tools/questions_erd_template.html` |
@@ -99,12 +103,20 @@ Use `docs/architecture.md` for architecture context and `docs/DEVELOPMENT_RULES.
 | `revision/sessions.py` | request_spec, start_revision(user, parameters), record_review |
 | `revision/exploration.py` | taxonomy_path, question_paths, related_questions, scope_has_open_mock, filter_related |
 | `accounts/dashboard.py` | dashboard_context; ordinary Practice stats exclude revision kind |
+| `billing/services.py` | subscription_for, plan_for, evaluate_access, mock_access, practice_access, revision_access, require_access; generic feature policy |
+| `billing/usage.py` | reserve_mock, practice_pool, record_practice; account-locked Free lifetime allocations inside Mock/Practice start transactions |
+| `billing/lifecycle.py` | activate_subscription, renew_subscription, expire_subscription, revoke_subscription, revoke_for_full_refund; permission-gated, audited, idempotent term writes |
+| `billing/payments.py`, `billing/providers.py` | create_order, process_payment_event, simulate_payment, replay_payment_event; PaymentProvider interface and guarded simulated provider |
+| `billing/accounting.py`, `billing/finance.py`, `billing/audit.py` | Reviewed seller/tax/retention configuration, invoice/credit-note issuance, refund approvals, settlements, reconciliation corrections, append-only audit |
+| `billing/exports.py`, `billing/roles.py` | Accounting CSV exports with audit digests; configure_roles via configure_billing_roles command; no user enrollment |
+| `billing/providers.py`, `billing/admin.py`, `billing/tests.py` | Future verification contract, permission-controlled staff configuration, targeted model/policy tests |
 
 ## Views, forms, admin and templates
 
 | App | Files / symbols / UI |
 |---|---|
 | `core` | `core/views.py`: home/health; `core/urls.py`; `templates/core/home.html` |
+| `billing` | `billing/views.py`, `billing/urls.py`: pricing, checkout, status, confirmation and authorized POST-only simulation; `templates/billing/`; read-only ledger Admin with guarded test controls |
 | `accounts` | `accounts/views.py`: RegisterView/ProfileView/LearningSpaceView; `accounts/forms.py`: RegistrationForm; `accounts/urls.py`, `accounts/admin.py`; `templates/accounts/` |
 | `exams` | `exams/views.py`: authorities/exam_list/exam_detail; `exams/urls.py`, `exams/admin.py`; taxonomy inlines use a request-field budget and filtered overflow links in `templates/admin/exams/taxonomy_change_form.html`; `templates/exams/` |
 | `questions` | `questions/admin.py`: QuestionAdmin/QuestionRevisionAdmin; `questions/forms.py`: RevisionForm/TranslationForm/QuestionAdminForm/NewQuestionAdminForm; `templates/questions/` |
@@ -158,6 +170,10 @@ Explore uses kind/node ID with from_question, exam and prefixed difficulty param
 | Import confirmation | `imports/services.py`, `imports/staging.py`, `imports/context.py` | `imports/tests.py`, `imports/test_unified.py` |
 | Paper publication/reader | `previous_year/services.py`, `previous_year/models.py`, `previous_year/views.py` | `previous_year/test_modes.py`, `previous_year/tests.py` |
 | Mock quotas/selection | `mock_tests/rules.py`, `mock_tests/services.py`, `mock_tests/models.py` | `mock_tests/test_selection_rules.py`, `mock_tests/test_attempts.py` |
+| Free Mock/Practice limits | `billing/usage.py`, `billing/models.py`, Mock/Practice start services | `billing/test_usage.py`; Mock/Practice concurrency and Previous-Year regressions |
+| Premium lifecycle/Admin grants | `billing/lifecycle.py`, `billing/models.py`, `billing/admin.py`, `billing/forms.py` | `billing/test_lifecycle.py`; billing regression and migration tests |
+| Simulated checkout/financial ledger | `billing/payments.py`, `billing/providers.py`, `billing/views.py`, `billing/models.py` | `billing/test_payments.py`; config fail-closed, ownership, CSRF, idempotency and PostgreSQL concurrency tests |
+| Financial Admin/audit/exports | `billing/admin.py`, `billing/finance_forms.py`, `billing/accounting.py`, `billing/finance.py`, `billing/exports.py` | `billing/test_finance.py`; migrations 0008 operations models, 0009 PostgreSQL history guards; `docs/billing-operations.md` |
 | Mock save/scoring | `mock_tests/execution.py`, `mock_tests/views.py`, `static/js/mock-test.js` | `mock_tests/test_execution.py` |
 | Practice selection/feedback | `practice/discovery.py`, `practice/services.py`, `practice/views.py` | `practice/test_taxonomy.py`, `practice/test_difficulty.py`, `practice/tests.py` |
 | Bank/bookmarks | `revision/views.py`, `revision/services.py`, `revision/selectors.py` | `revision/tests.py`, `revision/test_bank.py` |

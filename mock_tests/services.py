@@ -209,6 +209,8 @@ def start_attempt(user, pattern, *, language="both"):
     pattern = ExamPattern.objects.select_for_update().get(pk=pattern.pk)
     if not pattern.is_active:
         raise ValidationError("This test is no longer available.")
+    from billing.usage import reserve_mock
+    reserve_mock(user, pattern)
     sections = list(pattern.sections.select_for_update(of=("self",)).select_related("subject", "topic").order_by("display_order", "pk"))
     validate_configuration(pattern, sections, check_availability=False)
     # Lock candidate masters before rechecking publication pointers and eligibility.

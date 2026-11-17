@@ -48,10 +48,20 @@ def start_session(user, *, exam, subject, topic=None, part=None, module=None, su
         ids &= difficulty_pools(ids).get(difficulty, set())
     if language in {"en", "bn"}:
         ids &= eligible_question_ids(exam.pk, language_mode=language, question_ids=ids)
+    if not ids:
+        raise ValidationError("Insufficient eligible questions. Change the difficulty, language or filters and try again; no session was created.")
+    from billing.usage import practice_pool, record_practice
+    sampler = SystemRandom()
+    eligible_count = len(ids)
+    ids, is_free = practice_pool(user, exam.pk, ids, sampler=sampler)
     required = len(ids) if count == "available" else int(count)
+    if not ids or (required > len(ids) and eligible_count >= required):
+        raise ValidationError("Your Free Practice allowance cannot provide new questions for this selection. Revisit previously delivered questions, choose a smaller set, or upgrade to Premium for unlimited Practice.")
     if not required or required > len(ids):
         raise ValidationError("Insufficient eligible questions. Change the difficulty, language or filters and try again; no session was created.")
-    selected = SystemRandom().sample(sorted(ids), required)
+    selected = sampler.sample(sorted(ids), required)
+    if is_free:
+        record_practice(user, selected)
     questions = {item.pk: item for item in Question.objects.filter(pk__in=selected).select_related("published_revision", "subject", "topic")}
     configuration = {"exam_name": exam.name, "authority_name": exam.authority.name,
             "subject_name": subject.name, "topic_name": topic.name if topic else "All topics",

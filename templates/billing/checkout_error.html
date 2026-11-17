@@ -1,0 +1,3 @@
+{% extends "base.html" %}
+{% block title %}Checkout unavailable | Mock Exam Platform{% endblock %}
+{% block content %}<h1>Checkout could not continue</h1><p role="alert">{{ error }}</p><a href="{% url 'billing:pricing' %}">Back to plans</a>{% endblock %}

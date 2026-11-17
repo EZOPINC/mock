@@ -1,0 +1,5 @@
+{% extends "admin/base_site.html" %}
+{% block content %}
+<p>Financial evidence is retained. Corrections append a new reconciliation record; refunds require approval and provider confirmation. Documents freeze the reviewed seller/tax configuration. No real money or tax filing is processed.</p>
+<form method="post">{% csrf_token %}{{ form.as_p }}<button type="submit">Record operation</button></form>
+{% endblock %}

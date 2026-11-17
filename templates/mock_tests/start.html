@@ -6,6 +6,7 @@
 <div class="mock-hub mock-start">
   <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="{% url 'mock_tests:index' %}">Mock Tests</a>{% include "components/icon.html" with name="chevron" %}<a href="{% url 'mock_tests:patterns' pattern.exam.authority.slug pattern.exam.slug %}">{{ pattern.exam.name }}</a>{% include "components/icon.html" with name="chevron" %}<span aria-current="page">{{ pattern.name }}</span></nav>
   <header class="mock-hub-heading"><div><p class="eyebrow">YOUR NEXT CHALLENGE</p><h1>{{ pattern.name }}</h1><p>{{ pattern.exam }}{% if pattern.stage %} &middot; {{ pattern.stage.name }}{% endif %}</p></div><span class="mock-hub-heading-icon" aria-hidden="true">{% include "components/icon.html" with name="clock" %}</span></header>
+  <p>On Free, starting your first test selects your one exam and one Mock Test set. You can retake that set without limits. Premium gives access to all exams and sets. Previous-Year Papers remain free and unlimited.</p>
   <dl class="mock-start-stats" aria-label="Test overview">
     <div><dt>{% include "components/icon.html" with name="book" %} Questions</dt><dd>{{ pattern.total_questions }}</dd></div>
     <div><dt>{% include "components/icon.html" with name="clock" %} Duration</dt><dd>{{ pattern.duration_minutes }} <span>minutes</span></dd></div>
