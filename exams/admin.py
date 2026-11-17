@@ -183,7 +183,7 @@ class ExamAuthorityAdmin(admin.ModelAdmin):
 
 @admin.register(Exam)
 class ExamAdmin(admin.ModelAdmin):
-    list_display = ("name", "authority", "code", "slug", "is_active")
+    list_display = ("name", "authority", "code", "slug", "default_mock_language", "is_active")
     search_fields = ("name", "code", "authority__name", "authority__code")
     list_filter = ("authority", "is_active")
     list_select_related = ("authority",)

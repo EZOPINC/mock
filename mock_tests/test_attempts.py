@@ -48,9 +48,9 @@ class AttemptLanguageTests(AttemptFixture):
         self.ready()
         self.client.force_login(self.user)
         response = self.client.get(self.start_url())
-        self.assertContains(response, 'type="hidden" name="language" value="en"')
-        self.assertNotContains(response, 'type="radio" name="language"')
-        self.assertContains(response, "Language follows this exam pattern")
+        self.assertContains(response, '<select id="mock-language" name="language">')
+        self.assertContains(response, '<option value="en" selected>English</option>')
+        self.assertNotContains(response, '<option value="bn"')
 
     def bilingual_pattern(self):
         question = self.question()
@@ -61,6 +61,34 @@ class AttemptLanguageTests(AttemptFixture):
         self.section.save()
         activate_pattern(self.pattern)
         return question
+
+    def test_wbpsc_default_and_student_override(self):
+        authority = self.exam.authority
+        authority.code = "wbpsc"
+        authority.save(update_fields=["code"])
+        self.exam.code = "wbcs"
+        self.exam.save(update_fields=["code"])
+        self.bilingual_pattern()
+        self.client.force_login(self.user)
+        self.assertContains(self.client.get(self.start_url()), '<option value="en" selected>English</option>')
+        self.exam.code = "regional-exam"
+        self.exam.save(update_fields=["code"])
+        self.assertContains(self.client.get(self.start_url()), '<option value="bn" selected>Bengali</option>')
+        response = self.client.post(self.start_url())
+        attempt = MockAttempt.objects.get(user=self.user)
+        self.assertRedirects(response, self.detail_url(attempt), fetch_redirect_response=False)
+        self.assertEqual(attempt.configuration["language"], "bn")
+        self.client.force_login(self.other_user)
+        response = self.client.post(self.start_url(), {"language": "en"})
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(MockAttempt.objects.get(user=self.other_user).configuration["language"], "en")
+
+    def test_activation_rejects_unsupported_exam_default(self):
+        self.exam.default_mock_language = "bn"
+        self.exam.save(update_fields=["default_mock_language"])
+        self.question()
+        with self.assertRaisesMessage(ValidationError, "default mock language (Bengali)"):
+            activate_pattern(self.pattern)
 
     def test_selected_language_is_rendered_on_server_and_preserved_on_resume(self):
         self.bilingual_pattern()
@@ -175,6 +203,8 @@ class AttemptServiceTests(AttemptFixture):
         question = self.question()
         add_translation(question, language="bn", question_text="Bengali translation", option_a="One", option_b="Two", option_c="Three", option_d="Four", explanation="Hidden Bengali explanation")
         question = publish_question(mark_reviewed(question))
+        self.section.language_mode = "mixed"
+        self.section.save()
         activate_pattern(self.pattern)
         attempt = start_attempt(self.user, self.pattern)
         revision_id = question.published_revision_id

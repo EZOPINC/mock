@@ -41,6 +41,7 @@ CSV/XLSX taxonomy samples include these optional columns; older files remain val
 | question_number | Local grouping/paper number; string identity within the selected import context |
 | question_text, option_a, option_b, option_c, option_d, explanation | Primary content/optional explanation in the revision snapshot |
 | correct_answer, difficulty_level | Shared versioned answer/difficulty; difficulty is used by existing selection/filter flows |
+| question_kind | Optional master classification used by mock selection. Use Logical, Static or Unclassified (case-insensitive). Blank or missing defaults to Unclassified. Paired language rows must agree on any supplied values. |
 | language | Configured language; normalization/inference rules live in imports/language.py |
 | subject, topic | Existing Subject resolution and optional primary Topic name/mapping |
 | part, module, submodule, chapter | Named hierarchy scoped to resolved Subject/ancestors; sub_module aliases submodule |

@@ -21,7 +21,7 @@ Publication is atomic and idempotent per pattern. Reactivating or re-designating
 
 ## Free and Premium access
 
-Free users still select one persistent exam through their first successful Mock/Practice start. They can start only its active, published Free Demo and retake it without a limit. Every Free user receives the same master IDs, approved revisions, order and marks; display-language preferences do not change the question set. Attempts and results remain separate per user/retake.
+Free users still select one persistent exam through their first successful Mock/Practice start. They can start only its active, published Free Demo and retake it without a limit. Every Free user receives the same master IDs, approved revisions, order and marks; display-language preferences do not change the question set. Attempts and results remain separate per user/retake. The start form preselects the exam's default when every section supports it and offers the supported display languages. The resolved choice is saved on the attempt.
 
 Billing's earlier FreeMockSelection rows are retained for audit/history but no longer choose or restrict the demo. New Free starts do not create these per-user selections. An old selection for another pattern cannot block the currently designated demo within the already selected Free exam. Practice's lifetime allowance and all subscriptions remain unchanged.
 

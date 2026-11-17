@@ -23,7 +23,7 @@ from questions.models import Question, QuestionExam, QuestionRevision, QuestionS
 from questions.services import mark_reviewed, publish_question
 from . import staging
 from .models import ImportBatch, ImportedQuestion
-from .parsing import COLUMNS, parse_upload
+from .parsing import COLUMNS, parse_upload, preview_page_size
 from .services import confirm_import
 from .validation import validate
 
@@ -212,6 +212,14 @@ class ValidationTests(ImportFixture):
 
 
 class ConfirmationTests(ImportFixture):
+    def test_question_kind_import_validates_and_persists(self):
+        data = self.data()
+        data.update(parse_upload(xlsx_file([values(question_kind="Yes")])))
+        self.assertIn("question_kind must be", " ".join(validate(data)["rows"][0]["errors"]))
+        data["rows"][0]["values"]["question_kind"] = "  Logical  "
+        batch = confirm_import(data, self.user)
+        self.assertEqual(batch.imported_questions.get().question.question_kind, "logical")
+
     def test_review_flag_alias_is_audit_metadata_not_approval(self):
         data = self.data([values(review_status="reviewed")])
         data["header_aliases"] = {"review_flag": "review_status"}
@@ -326,9 +334,8 @@ class ImportViewTests(ImportFixture):
         self.client.force_login(self.user)
         data = self.data([values(question_number=str(n), question_text="<script>unsafe</script>") for n in range(30)])
         response = self.client.get(reverse("imports:preview", args=[data["token"]]), {"page": 2})
-        # The current taxonomy columns allow 23 editable rows within the field
-        # budget, leaving seven of these 30 rows on page two.
-        self.assertEqual(len(response.context["page"]), 7)
+        self.assertEqual(response.context["page"].number, 2)
+        self.assertEqual(len(response.context["page"]), 30 - preview_page_size(data))
         self.assertNotContains(response, "<script>unsafe</script>")
         self.assertContains(response, "&lt;script&gt;")
 

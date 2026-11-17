@@ -29,6 +29,12 @@ class RevisionQuerySet(RevisionWorkflowQuerySet):
         raise ProtectedError("Question revisions must be retained.", self)
 
 
+class QuestionKind(models.TextChoices):
+    LOGICAL = "logical", "Logical"
+    STATIC = "static", "Static"
+    UNCLASSIFIED = "unclassified", "Unclassified"
+
+
 class Question(models.Model):
     class PublicationStatus(models.TextChoices):
         DRAFT = "draft", "Draft"
@@ -51,6 +57,7 @@ class Question(models.Model):
         max_length=14, choices=ReviewStatus, default=ReviewStatus.PENDING)
     correct_answer = models.CharField(max_length=1, choices=((key, key) for key in "ABCD"), blank=True, default="")
     difficulty_level = models.CharField(max_length=100, blank=True, default="")
+    question_kind = models.CharField(max_length=12, choices=QuestionKind, default=QuestionKind.UNCLASSIFIED)
     current_revision = models.ForeignKey(
         "QuestionRevision", on_delete=models.PROTECT, related_name="working_for", blank=True, null=True, editable=False)
     published_revision = models.ForeignKey(
@@ -73,6 +80,7 @@ class Question(models.Model):
                                    "draft", "published"]), name="questions_publication_valid"),
             models.CheckConstraint(condition=Q(review_status__in=[
                                    "pending_review", "reviewed"]), name="questions_review_valid"),
+            models.CheckConstraint(condition=Q(question_kind__in=QuestionKind.values), name="questions_kind_valid"),
             models.CheckConstraint(condition=Q(correct_answer__in=["", "A", "B", "C", "D"]), name="questions_master_answer_valid"),
             models.CheckConstraint(condition=Q(publication_status="draft", published_revision__isnull=True) | Q(
                 publication_status="published", published_revision__isnull=False), name="questions_public_pointer_valid"),

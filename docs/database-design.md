@@ -10,7 +10,7 @@ Actual models and migrations are authoritative; no live schema/data audit is cla
 |---|---|---|
 | accounts.User | AbstractUser; configured AUTH_USER_MODEL | Django user/auth constraints |
 | exams.ExamAuthority | name, code, slug, active flag | Unique code/slug |
-| exams.Exam | authority, name, code, slug, active flag | Authority-scoped code/slug |
+| exams.Exam | authority, name, code, slug, active flag, default mock language | Authority-scoped code/slug |
 | exams.ExamStage | exam, name, code, order | Stage must belong to its selected Exam |
 | exams.Subject | name, code, slug | Shared independently of Exam |
 | exams.Part | Subject anchor, stable code, name/slug/order | Scoped names/slugs; protected established ancestry |
@@ -28,7 +28,7 @@ See [flexible taxonomy](flexible-taxonomy.md) for the exact optional-parent cons
 
 | Model | Persisted role | Important integrity |
 |---|---|---|
-| questions.Question | Master identity; Subject, legacy primary Topic, working/live pointers, editorial status, mirrored answer/difficulty | Both revision pointers belong to this master; default draft/pending review |
+| questions.Question | Master identity; Subject, legacy primary Topic, working/live pointers, editorial status, question kind, mirrored answer/difficulty | Both revision pointers belong to this master; default draft/pending review |
 | questions.QuestionRevision | Numbered primary-language content, answer, difficulty, publication timestamp | Unique master/revision number; append-only content, including drafts |
 | questions.QuestionTranslation | Language content within one revision | Unique revision/language; primary translation matches compatibility fields |
 | questions.QuestionTopic | Master/Topic association and primary flag | Unique pair; one primary; tags share Subject; pointer/tag compatibility |
@@ -81,7 +81,7 @@ Public selectors fail closed on invalid paper rows or inactive catalogue members
 |---|---|---|
 | mock_tests.ExamPattern | Exam/optional Stage, version, duration/totals/default marks, activation status | Version/activation constraints; guarded active or previously used configuration |
 | mock_tests.ExamPatternSection | Ordered quota, optional Subject/Topic/language and mark overrides | Valid scope/language/positive quota/order; frozen once used |
-| mock_tests.SectionSelectionRule | Exactly one Subject/Part/Module/Chapter/Topic scope, quota, difficulty and random/manual mode | Rule order unique per section; quotas match section |
+| mock_tests.SectionSelectionRule | Exactly one Subject/Part/Module/Chapter/Topic scope, quota, difficulty, optional Logical/Static filter and random/manual mode | Rule order unique per section; quotas match section |
 | mock_tests.ManualRuleQuestion | Ordered explicit master choices | Unique rule/master and rule/order; validated eligible membership |
 | mock_tests.MockAttempt | Owner, pattern, frozen configuration/deadline, status, save version/token/position, aggregate results | One open owner/pattern; coherent deadlines/finalized fields; protected history |
 | mock_tests.AttemptQuestion | Attempt/section/master/fixed revision/order, effective marks, answer/review flag/time/awarded marks | Unique attempt/master and attempt/order; approved revision; guarded writes |

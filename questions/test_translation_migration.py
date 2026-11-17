@@ -12,7 +12,8 @@ class TranslationMigrationTests(TransactionTestCase):
         executor.migrate([old])
         try:
             paper_node = executor.loader.graph.leaf_nodes("previous_year")[0]
-            old_apps = executor.loader.project_state([old, paper_node]).apps
+            exam_node = executor.loader.graph.leaf_nodes("exams")[0]
+            old_apps = executor.loader.project_state([old, paper_node, exam_node]).apps
             Subject = old_apps.get_model("exams", "Subject")
             Question = old_apps.get_model("questions", "Question")
             Revision = old_apps.get_model("questions", "QuestionRevision")

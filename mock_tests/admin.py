@@ -6,6 +6,7 @@ from questions.models import Question
 
 from .models import ExamPattern, ExamPatternSection, SectionSelectionRule, ManualRuleQuestion, MockSet, MockSetQuestion
 from .services import activate_pattern, deactivate_pattern, eligible_question_ids, validate_configuration, publish_free_demo, retire_free_demo
+from .languages import validate_default_reading_language
 from .rules import eligible_for_rule, selection_tasks, validate_rule_layout
 
 
@@ -34,7 +35,7 @@ class RuleInline(admin.StackedInline):
     show_change_link = True
     autocomplete_fields = ("subject", "part", "module", "chapter", "topic")
     readonly_fields = ("eligible_count",)
-    fields = (("display_order", "question_count", "selection_mode", "difficulty"),
+    fields = (("display_order", "question_count", "selection_mode", "difficulty", "question_kind"),
               "subject", "part", "module", "chapter", "topic", "eligible_count")
 
     @admin.display(description="Eligible questions")
@@ -108,15 +109,15 @@ class ManualQuestionInline(admin.TabularInline):
 
 @admin.register(SectionSelectionRule)
 class SelectionRuleAdmin(admin.ModelAdmin):
-    list_display = ("section", "display_order", "question_count", "selection_mode", "difficulty")
-    list_filter = ("selection_mode", "difficulty", "section__pattern__exam")
+    list_display = ("section", "display_order", "question_count", "selection_mode", "difficulty", "question_kind")
+    list_filter = ("selection_mode", "difficulty", "question_kind", "section__pattern__exam")
     search_fields = ("section__name", "section__pattern__name")
     list_select_related = ("section__pattern",)
     autocomplete_fields = ("section", "subject", "part", "module", "chapter", "topic")
     readonly_fields = ("eligible_count", "rule_status", "pattern_status")
     inlines = (ManualQuestionInline,)
     fieldsets = (
-        ("Rule", {"fields": ("section", "display_order", "selection_mode", "question_count", "difficulty")}),
+        ("Rule", {"fields": ("section", "display_order", "selection_mode", "question_count", "difficulty", "question_kind")}),
         ("Taxonomy filter", {"fields": ("subject", "part", "module", "chapter", "topic"),
             "description": "Choose exactly one filter. Descendants and secondary topic tags are included. Detailed rules replace section-level Subject/Topic filters."}),
         ("Validation", {"fields": ("eligible_count", "rule_status", "pattern_status")}),
@@ -230,7 +231,8 @@ class ExamPatternAdmin(admin.ModelAdmin):
         if not obj.pk:
             return "Save the pattern and sections, then explicitly activate."
         try:
-            validate_configuration(obj)
+            sections = validate_configuration(obj)
+            validate_default_reading_language(obj.exam, sections)
         except ValidationError as error:
             return "; ".join(error.messages)
         return "Valid configuration and sufficient distinct eligible questions."
@@ -277,7 +279,8 @@ class ExamPatternSectionAdmin(admin.ModelAdmin):
         if not obj.pk:
             return "Save to add detailed rules. Without rules, existing section filters apply."
         try:
-            validate_configuration(obj.pattern)
+            sections = validate_configuration(obj.pattern)
+            validate_default_reading_language(obj.pattern.exam, sections)
         except ValidationError as error:
             return "; ".join(error.messages)
         return "Valid configuration and sufficient distinct eligible questions."

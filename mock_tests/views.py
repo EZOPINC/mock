@@ -15,6 +15,7 @@ from exams.models import Exam, ExamAuthority
 from questions.models import QuestionTranslation
 from questions.services import published_questions
 from .models import AttemptQuestion, ExamPattern, MockAttempt
+from .languages import default_reading_language, reading_language_options
 from .services import available_patterns, start_attempt
 from revision.services import attach_saved_state
 from .execution import confirmation_counts, refresh_attempt, save_response, submit_attempt
@@ -71,14 +72,20 @@ def test_start(request, pattern_id):
     error = None
     if request.method == "POST":
         try:
-            attempt = start_attempt(request.user, pattern, language=request.POST.get("language", "both"))
+            attempt = start_attempt(request.user, pattern, language=request.POST.get("language"))
         except ValidationError as exception:
             error = "; ".join(exception.messages)
         else:
             return redirect("mock_tests:attempt_detail", attempt_id=attempt.pk)
     elif not any(item.pk == pattern.pk for item in available_patterns(pk=pattern.pk)):
         raise Http404
-    return render(request, "mock_tests/start.html", {"pattern": pattern, "error": error}, status=400 if error else 200)
+    options = reading_language_options(pattern.sections.all())
+    selected_language = request.POST.get("language")
+    if all(code != selected_language for code, _ in options):
+        selected_language = default_reading_language(pattern.exam, options)
+    return render(request, "mock_tests/start.html", {
+        "pattern": pattern, "error": error, "language_options": options, "selected_language": selected_language,
+    }, status=400 if error else 200)
 
 
 @login_required

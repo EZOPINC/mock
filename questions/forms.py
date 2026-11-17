@@ -49,12 +49,13 @@ class QuestionAdminForm(forms.ModelForm):
 
     class Meta:
         model = Question
-        fields = ("source_question_id", "subject", "topic")
+        fields = ("source_question_id", "subject", "topic", "question_kind")
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         subject_id = self.data.get(self.add_prefix("subject")) if self.is_bound else self.initial.get("subject", self.instance.subject_id)
         subject_id = getattr(subject_id, "pk", subject_id)
+        self.fields["question_kind"].required = False
         self.fields["topic"].label = "Primary topic"
         existing_widget = self.fields["topic"].widget
         if hasattr(existing_widget, "widget"):
@@ -72,6 +73,9 @@ class QuestionAdminForm(forms.ModelForm):
             self.fields[field].queryset = catalogue
         if self.instance.pk and not self.is_bound:
             self.initial["additional_topics"] = list(self.instance.topic_associations.filter(is_primary=False).values_list("topic_id", flat=True))
+
+    def clean_question_kind(self):
+        return self.cleaned_data["question_kind"] or self.instance.question_kind
 
     def clean(self):
         cleaned = super().clean()

@@ -9,6 +9,7 @@ from django.db import transaction
 
 from .models import AttemptQuestion, ExamPattern, MockAttempt, MockSet, MockSetQuestion
 from .execution import refresh_attempt
+from .languages import default_reading_language, reading_language_options, validate_default_reading_language
 from .rules import eligible_for_rule, rule_snapshot, section_rules, selection_tasks, validate_rule_layout
 
 
@@ -121,7 +122,8 @@ def activate_pattern(pattern):
     exam_id = ExamPattern.objects.values_list("exam_id", flat=True).get(pk=pattern.pk)
     Exam.objects.select_for_update(no_key=True).get(pk=exam_id)
     pattern = ExamPattern.objects.select_for_update().get(pk=pattern.pk)
-    validate_configuration(pattern)
+    sections = validate_configuration(pattern)
+    validate_default_reading_language(pattern.exam, sections)
     if ExamPattern.objects.filter(exam_id=pattern.exam_id, stage_id=pattern.stage_id, status="active").exclude(pk=pattern.pk).exists():
         raise ValidationError("Deactivate the existing active pattern for this exam/stage first.")
     if pattern.is_free_demo:
@@ -210,7 +212,8 @@ def publish_free_demo(pattern):
     Exam.objects.select_for_update(no_key=True).get(pk=exam_id)
     pattern = ExamPattern.objects.select_for_update().get(pk=pattern.pk)
     _check_demo_designation(pattern)
-    validate_configuration(pattern, check_availability=False)
+    sections = validate_configuration(pattern, check_availability=False)
+    validate_default_reading_language(pattern.exam, sections)
     _freeze_set(pattern)
     pattern.is_free_demo = True
     pattern.save(_transition=True)
@@ -295,12 +298,12 @@ def _frozen_rows(pattern, *, lock=True):
 
 
 @transaction.atomic
-def start_attempt(user, pattern, *, language="both"):
+def start_attempt(user, pattern, *, language=None):
     from django.contrib.auth import get_user_model
     from django.utils import timezone
     if not user.is_authenticated or not user.is_active:
         raise ValidationError("An active authenticated account is required.")
-    if language not in {"en", "bn", "both"}:
+    if language not in {None, "", "en", "bn", "both"}:
         raise ValidationError("Choose English, Bengali or Both.")
     # Serialize repeated starts, including requests from separate tabs/devices.
     get_user_model().objects.select_for_update().get(pk=user.pk)
@@ -315,6 +318,10 @@ def start_attempt(user, pattern, *, language="both"):
     is_free = reserve_mock(user, pattern)
     sections = list(pattern.sections.select_for_update(of=("self",)).select_related("subject", "topic").order_by("display_order", "pk"))
     validate_configuration(pattern, sections, check_availability=False)
+    options = reading_language_options(sections)
+    language = language or default_reading_language(pattern.exam, options)
+    if language != "both" and all(code != language for code, _ in options):
+        raise ValidationError("This language is unavailable across all sections of this mock.")
     mock_set = None
     if is_free:
         mock_set, rows = _frozen_rows(pattern)

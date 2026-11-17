@@ -111,6 +111,24 @@ class AdvancedSelectionTests(AttemptFixture):
             data.pop("subject")
         return SectionSelectionRule.objects.create(**(data | values))
 
+    def test_question_kind_quotas_filter_same_subject_and_snapshot(self):
+        self.configure(2)
+        logical, static, unclassified = [self.question_at() for _ in range(3)]
+        for question, kind in ((logical, "logical"), (static, "static")):
+            question.question_kind = kind
+            question.save(update_fields=["question_kind"])
+        logical_rule = self.rule(question_kind="logical")
+        static_rule = self.rule(question_kind="static", display_order=2, selection_mode="manual")
+        with self.assertRaises(ValidationError):
+            ManualRuleQuestion.objects.create(rule=static_rule, question=unclassified, display_order=1)
+        ManualRuleQuestion.objects.create(rule=static_rule, question=static, display_order=1)
+        self.assertEqual(eligible_for_rule(logical_rule), {logical.pk})
+        activate_pattern(self.pattern)
+        attempt = start_attempt(self.user, self.pattern)
+        self.assertEqual(list(attempt.questions.values_list("question_id", flat=True)), [logical.pk, static.pk])
+        rules = attempt.configuration["sections"][0]["selection_rules"]
+        self.assertEqual([rule["question_kind"] for rule in rules], ["logical", "static"])
+
     def test_exact_topic_and_difficulty_quotas(self):
         self.configure(3)
         other = Topic.objects.create(subject=self.subject, name="Other topic", slug="other")

@@ -9,7 +9,7 @@ from django.db.models.functions import Coalesce, Lower, Trim
 
 from exams.models import Exam
 from previous_year.models import PreviousYearPaper
-from questions.models import QuestionRevision, QuestionTranslation
+from questions.models import QuestionKind, QuestionRevision, QuestionTranslation
 from .models import ImportBatch, ImportedQuestion
 from .parsing import COLUMNS, MAX_CELL, REQUIRED
 from .context import context_hash, exam_ids, mode
@@ -165,6 +165,10 @@ def validate(data, *, locked=False):
             row_errors.append("source_page requires source_document.")
         if len(values["source_document"].strip()) > 500:
             row_errors.append("source_document must not exceed 500 characters.")
+        question_kind = values.get("question_kind", "")
+        question_kind = question_kind.strip().lower() if isinstance(question_kind, str) else ""
+        if question_kind and question_kind not in QuestionKind.values:
+            row_errors.append("question_kind must be Logical, Static, Unclassified, or blank.")
         if len(values["difficulty_level"].strip()) > 100:
             row_errors.append("difficulty_level must not exceed 100 characters.")
         if len(json.dumps(values, ensure_ascii=False).encode()) > 128 * 1024:
@@ -189,7 +193,7 @@ def validate(data, *, locked=False):
         seen.add(key)
         if values["review_status"].strip() or values["verification_notes"].strip():
             warnings.append("Legacy review/verification values are audit metadata only. The question will be pending review.")
-        result.append({"index": index, "source_row": row["source_row"], "values": values,
+        result.append({"index": index, "source_row": row["source_row"], "values": values, "question_kind": question_kind,
                        "errors": row_errors, "warnings": warnings, **taxonomy, "revision": revision, "translations": translations, "translation_languages": [item["language"] for item in translations], "exams": resolved_exams})
     groups = groups_for(result, data.get("pairings", {}))
     if paper is not None and paper.expected_question_count is not None:

@@ -7,6 +7,8 @@ from django.core.validators import MinValueValidator
 from django.db import models, transaction
 from django.db.models import F, Q
 
+from questions.models import QuestionKind
+
 
 class ConfigurationQuerySet(models.QuerySet):
     def update(self, **kwargs):
@@ -175,6 +177,9 @@ class SectionSelectionRule(models.Model):
     topic = models.ForeignKey("exams.Topic", on_delete=models.PROTECT, null=True, blank=True)
     question_count = models.PositiveIntegerField(validators=[MinValueValidator(1)])
     difficulty = models.CharField(max_length=12, blank=True, default="", choices=[("", "Any difficulty"), ("easy", "Easy"), ("medium", "Medium"), ("hard", "Hard"), ("unspecified", "Unspecified")])
+    question_kind = models.CharField(max_length=12, blank=True, default="", choices=[
+        ("", "Any"), (QuestionKind.LOGICAL, QuestionKind.LOGICAL.label), (QuestionKind.STATIC, QuestionKind.STATIC.label),
+    ])
     selection_mode = models.CharField(max_length=6, default="random", choices=[("random", "Random"), ("manual", "Manual")])
     display_order = models.PositiveIntegerField(default=1, validators=[MinValueValidator(1)])
     objects = ConfigurationQuerySet.as_manager()
@@ -186,6 +191,7 @@ class SectionSelectionRule(models.Model):
             models.CheckConstraint(condition=rule_taxonomy_check(), name="mock_rule_one_taxonomy"),
             models.CheckConstraint(condition=Q(question_count__gt=0, display_order__gt=0), name="mock_rule_counts_valid"),
             models.CheckConstraint(condition=Q(difficulty__in=["", "easy", "medium", "hard", "unspecified"]), name="mock_rule_difficulty_valid"),
+            models.CheckConstraint(condition=Q(question_kind__in=["", QuestionKind.LOGICAL, QuestionKind.STATIC]), name="mock_rule_kind_valid"),
             models.CheckConstraint(condition=Q(selection_mode__in=["random", "manual"]), name="mock_rule_mode_valid"),
         ]
 

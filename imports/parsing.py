@@ -19,7 +19,7 @@ REQUIRED = ("question_number", "question_text",
             "option_a", "option_b", "option_c", "option_d")
 TAXONOMY_COLUMNS = ("subject_code", "part_code", "module_code", "submodule_code", "chapter_code", "topic_code", "additional_topic_codes", "part", "module", "submodule", "chapter")
 OPTIONAL = ("correct_answer", "explanation", "subject", "topic", "language", "exam_categories", "previous_year_tags", "source_document",
-            "source_page", "difficulty_level", "review_status", "verification_notes", "comments", "created_date", "updated_date", "updated_by", "source_question_number")
+            "source_page", "difficulty_level", "question_kind", "review_status", "verification_notes", "comments", "created_date", "updated_date", "updated_by", "source_question_number")
 COLUMNS = REQUIRED + OPTIONAL + TAXONOMY_COLUMNS
 MAX_CELL = 32000
 MAX_COLUMNS = 64

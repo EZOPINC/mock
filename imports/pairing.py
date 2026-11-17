@@ -2,6 +2,8 @@
 from collections import defaultdict
 from hashlib import sha256
 import json
+from questions.models import QuestionKind
+
 from .taxonomy import topic_identity
 
 
@@ -21,6 +23,8 @@ def groups_for(rows, approvals):
         group = {"number": number, "rows": members, "signature": signature,
                  "key": sha256(number.encode()).hexdigest()[:16], "requires_pairing": len(members) > 1,
                  "approved": approvals.get(number) == signature}
+        kinds = {row["question_kind"] for row in members if row["question_kind"]}
+        group["question_kind"] = next(iter(kinds)) if len(kinds) == 1 else QuestionKind.UNCLASSIFIED
         if len(members) > 1:
             languages = [item["language"] for row in members for item in row.get("translations", [row["revision"]])]
             shared = {(row["revision"]["correct_answer"], row["values"]["difficulty_level"].strip(),
@@ -33,6 +37,8 @@ def groups_for(rows, approvals):
                 message = "Duplicate question number in the same language (or unresolved language). Correct the rows; they cannot be paired."
             elif len(shared) != 1:
                 message = "Ambiguous translation match: answer, difficulty, subject, topic and exams must agree. Resolve this manually; no questions will be merged."
+            elif len(kinds) > 1:
+                message = "Paired language rows must agree on question_kind when both supply a value."
             elif not group["approved"]:
                 message = "Confirm the proposed translation pairing for this question number after inspecting every language version."
             else:

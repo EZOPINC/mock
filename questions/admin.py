@@ -7,7 +7,7 @@ from django.urls import path, reverse
 from . import services
 from .tagging import set_question_topics
 from .forms import CONTENT_FIELDS, NewQuestionAdminForm, QuestionAdminForm, RevisionForm, TranslationForm
-from .models import Question, QuestionExam, QuestionRevision, QuestionSource, QuestionSourceReference, QuestionTranslation
+from .models import Question, QuestionExam, QuestionKind, QuestionRevision, QuestionSource, QuestionSourceReference, QuestionTranslation
 
 
 def label_parent_paths(model):
@@ -104,13 +104,13 @@ class QuestionAdmin(admin.ModelAdmin):
     change_form_template = "admin/questions/question/change_form.html"
     change_list_template = "admin/questions/question/change_list.html"
     list_display = ("id", "subject", "topic", "language",
-                    "publication_status", "review_status", "revision_number")
+                    "question_kind", "publication_status", "review_status", "revision_number")
     list_filter = (
         *((field, LabelLoadedRelatedFilter) for field in (
             "subject", "topic__chapter__module__part", "topic__chapter__module", "topic__chapter__submodule",
             "topic__chapter", "topic")),
         ("topic_associations__topic", LabelLoadedRelatedOnlyFilter),
-        "current_revision__translations__language", "review_status", "publication_status",
+        "current_revision__translations__language", "question_kind", "review_status", "publication_status",
         ("exam_associations__exam", LabelLoadedRelatedFilter),
     )
     search_fields = ("current_revision__translations__question_text", "published_revision__translations__question_text", "source_question_id",
@@ -121,7 +121,7 @@ class QuestionAdmin(admin.ModelAdmin):
         "topic__" + path for path in label_parent_paths(Question._meta.get_field("topic").remote_field.model)))
     inlines = (RevisionInline, QuestionExamInline,
                QuestionSourceReferenceInline, QuestionTranslationInline)
-    actions = ("review_questions", "publish_questions")
+    actions = ("review_questions", "publish_questions", "classify_logical", "classify_static")
 
     class Media:
         js = ("js/admin-question-topics.js",)
@@ -164,11 +164,29 @@ class QuestionAdmin(admin.ModelAdmin):
                 revision={field: form.cleaned_data[field]
                           for field in CONTENT_FIELDS},
                 difficulty_level=form.cleaned_data.get("difficulty_level", ""),
+                question_kind=obj.question_kind,
             )
             obj.__dict__.update(question.__dict__)
 
     def has_delete_permission(self, request, obj=None):
         return False
+
+    @admin.action(description="Classify as Logical", permissions=["change"])
+    def classify_logical(self, request, queryset):
+        self._classify(request, queryset, QuestionKind.LOGICAL)
+
+    @admin.action(description="Classify as Static", permissions=["change"])
+    def classify_static(self, request, queryset):
+        self._classify(request, queryset, QuestionKind.STATIC)
+
+    def _classify(self, request, queryset, kind):
+        count = 0
+        for question in queryset.select_related(None).prefetch_related(None).iterator():
+            if not self.has_change_permission(request, question):
+                raise PermissionDenied
+            services.set_question_kind(question, kind)
+            count += 1
+        self.message_user(request, f"Classified {count} questions as {kind.label}.", messages.SUCCESS)
 
     @admin.action(description="Mark working revisions as reviewed", permissions=["change"])
     def review_questions(self, request, queryset):

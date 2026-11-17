@@ -53,7 +53,8 @@ def confirm_import(data, user):
                 primary = group["rows"][0]
                 translations = [translation for row in group["rows"] for translation in row["translations"]]
                 question = create_question(subject=primary["subject"], topic=primary["topic"], revision=primary["revision"],
-                    translations=translations, difficulty_level=primary["values"]["difficulty_level"].strip())
+                    translations=translations, difficulty_level=primary["values"]["difficulty_level"].strip(),
+                    question_kind=group["question_kind"])
                 topics = ([primary["topic"]] if primary["topic"] else []) + primary["secondary_topics"]
                 set_question_topics(question, [topic.pk for topic in topics], primary_topic_id=question.topic_id)
                 for exam in primary["exams"]:

@@ -8,11 +8,18 @@ from django.db import transaction
 from django.db.models import F, Max
 from django.utils import timezone
 
-from .models import Question, QuestionRevision, QuestionTranslation, TRANSLATED_FIELDS
+from .models import Question, QuestionKind, QuestionRevision, QuestionTranslation, TRANSLATED_FIELDS
 
 
 def _locked(question):
     return Question.objects.select_for_update().get(pk=question.pk if isinstance(question, Question) else question)
+
+
+@transaction.atomic
+def set_question_kind(question, kind):
+    question = _locked(question)
+    question.question_kind = kind
+    question.save(update_fields=("question_kind", "updated_at"))
 
 
 def _check_expected(question, revision_id):
@@ -21,8 +28,10 @@ def _check_expected(question, revision_id):
 
 
 @transaction.atomic
-def create_question(*, subject, revision, topic=None, source_question_id=None, translations=None, difficulty_level=""):
-    question = Question.objects.create(subject=subject, topic=topic, source_question_id=source_question_id)
+def create_question(*, subject, revision, topic=None, source_question_id=None, translations=None,
+                    difficulty_level="", question_kind=QuestionKind.UNCLASSIFIED):
+    question = Question.objects.create(
+        subject=subject, topic=topic, source_question_id=source_question_id, question_kind=question_kind)
     create_revision(question, translations=translations, difficulty_level=difficulty_level, **revision)
     question.refresh_from_db()
     return question

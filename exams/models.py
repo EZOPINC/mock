@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Q
 from django.core.exceptions import ValidationError
 from django.db.models.functions import Lower, Trim
 
@@ -128,9 +129,21 @@ class Exam(models.Model):
     slug = models.SlugField(max_length=200)
     is_active = models.BooleanField(default=True)
 
+    default_mock_language = models.CharField(
+        max_length=2, blank=True, default="", choices=[("", "Automatic"), ("en", "English"), ("bn", "Bengali")],
+        help_text="Automatic uses English for WBCS, Bengali for other WBPSC exams, or the pattern language for other authorities.",
+    )
+
+    @property
+    def preferred_mock_language(self):
+        if self.default_mock_language or self.authority.code.lower() != "wbpsc":
+            return self.default_mock_language
+        return "en" if self.code.lower() == "wbcs" else "bn"
+
     class Meta:
         ordering = ("name", "pk")
         constraints = [
+            models.CheckConstraint(condition=Q(default_mock_language__in=["", "en", "bn"]), name="exams_mock_language_valid"),
             models.UniqueConstraint(fields=("authority", "code"), name="exams_exam_authority_code_uniq"),
             models.UniqueConstraint(fields=("authority", "slug"), name="exams_exam_authority_slug_uniq"),
         ]
