@@ -1,14 +1,40 @@
 {% load revision_tags %}
-<article class="paper-question practice-question-card"{% if row.selected_answer %} data-selected-answer="{{ row.selected_answer }}" data-feedback-correct="{{ row.is_correct|yesno:'true,false' }}"{% endif %} id="practice-question" tabindex="-1" aria-labelledby="practice-question-heading">
-  <div class="question-card-header"><h2 id="practice-question-heading">Question {{ row.display_order }} of {{ progress.total }}</h2><span class="badge badge-outline">{% if row.selected_answer %}Answer locked{% else %}Choose your answer{% endif %}</span>{% bookmark_control row "practice-question" %}</div>
-  {% if not row.selected_answer and session.status == 'in_progress' %}
-  <form method="post" action="{{ answer_url }}" class="practice-answer embedded-answer-form"{% if is_revision %} data-revision-answer{% endif %}>{% csrf_token %}
-    {% include "questions/reading_question.html" with revision=row.question_revision show_solutions=False hide_answers=True selectable=True mock_selection=False %}
-    <div class="question-content"><p class="practice-selection-status" role="status">Select an option to reveal the answer and explanation. Your choice will be locked.</p><noscript><button type="submit">Check answer</button></noscript></div>
-  </form>
+<article class="paper-question practice-question-card"{% if row.selected_answer %} data-selected-answer="{{ row.selected_answer }}" data-feedback-correct="{{ row.is_correct|yesno:'true,false' }}"{% endif %}
+         id="practice-question"
+         tabindex="-1"
+         aria-labelledby="practice-question-heading">
+  <div class="question-card-header">
+    <h2 id="practice-question-heading">Question {{ row.display_order }} of {{ progress.total }}</h2>
+    <span class="badge badge-outline">{% if row.selected_answer %}Answer locked{% else %}Choose your answer{% endif %}
+    </span>
+    {% bookmark_control row "practice-question" %}
+  </div>
+  {% if not row.selected_answer and session.status == "in_progress" %}
+    <form method="post"
+          action="{{ answer_url }}"
+          class="practice-answer embedded-answer-form"{% if is_revision %} data-revision-answer{% endif %}>
+      {% csrf_token %}
+      {% include "questions/reading_question.html" with revision=row.question_revision show_solutions=False hide_answers=True selectable=True mock_selection=False %}
+      <div class="question-content">
+        <p class="practice-selection-status" role="status">
+          Select an option to reveal the answer and explanation. Your choice will be locked.
+        </p>
+        <noscript>
+          <button type="submit">Check answer</button>
+        </noscript>
+      </div>
+    </form>
   {% else %}
-    {% if row.selected_answer %}<section class="practice-reading-feedback {% if row.is_correct %}is-correct{% else %}is-incorrect{% endif %}" role="status" aria-label="Answer feedback"><h3>{% if row.is_correct %}✓ Correct{% else %}× Incorrect{% endif %}</h3><p>Your answer: <strong>{{ row.selected_answer }}</strong> · <strong>Correct answer: {{ row.question_revision.correct_answer }}</strong></p><p>Your answer is saved and locked.</p></section>{% endif %}
     {% include "questions/reading_question.html" with revision=row.question_revision show_solutions=row.selected_answer hide_answers=False selectable=False %}
-    {% if row.selected_answer %}<div class="exam-paper-solutions"><details class="solution" open><summary>Explanation &amp; solution</summary>{% include "questions/reading_explanations.html" with revision=row.question_revision %}</details></div>{% else %}<p class="practice-closed-note">This session is closed. No answer was submitted for this question.</p>{% endif %}
+    {% if row.selected_answer %}
+      <div class="exam-paper-solutions">
+        <details class="solution" open>
+          <summary>Explanation &amp; solution</summary>
+          {% include "questions/reading_explanations.html" with revision=row.question_revision %}
+        </details>
+      </div>
+    {% else %}
+      <p class="practice-closed-note">This session is closed. No answer was submitted for this question.</p>
+    {% endif %}
   {% endif %}
 </article>
