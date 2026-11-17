@@ -1,0 +1,79 @@
+/* UI-1 semantic tokens. Kept in the existing standalone Tailwind build. */
+:root {
+  --ui-canvas: #f7f6f2; --ui-surface: #fffefa; --ui-soft: #eeeee8;
+  --ui-ink: #253631; --ui-muted: #586760; --ui-line: #d6ddd5;
+  --ui-accent: #086b63; --ui-hover: #07584f; --ui-tint: #e4f1ec;
+  --ui-on-accent: #ffffff; --ui-focus: #087c73;
+  --ui-font: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans Bengali", "Nirmala UI", "Vrinda", sans-serif;
+  --ui-space-1: .25rem; --ui-space-2: .5rem; --ui-space-3: .75rem; --ui-space-4: 1rem; --ui-space-6: 1.5rem; --ui-space-8: 2rem; --ui-space-12: 3rem;
+  --ui-radius-control: .65rem; --ui-radius-card: 1rem;
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --ui-canvas: #1b2220; --ui-surface: #232d29; --ui-soft: #2c3732;
+  --ui-ink: #e8ede7; --ui-muted: #b3bfb6; --ui-line: #46554c;
+  --ui-accent: #87d4c6; --ui-hover: #a6e2d7; --ui-tint: #293f38;
+  --ui-on-accent: #132c26; --ui-focus: #9ae4d6;
+}
+:root[data-theme="sepia"] {
+  color-scheme: light;
+  --ui-canvas: #f1e8d5; --ui-surface: #faf2e1; --ui-soft: #e9dec5;
+  --ui-ink: #423c2e; --ui-muted: #6d604a; --ui-line: #cec0a2;
+  --ui-accent: #25665b; --ui-hover: #174e45; --ui-tint: #e0e6d5;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) { color-scheme: dark; --ui-canvas: #1b2220; --ui-surface: #232d29; --ui-soft: #2c3732; --ui-ink: #e8ede7; --ui-muted: #b3bfb6; --ui-line: #46554c; --ui-accent: #87d4c6; --ui-hover: #a6e2d7; --ui-tint: #293f38; --ui-on-accent: #132c26; --ui-focus: #9ae4d6; }
+}
+/* Higher specificity intentionally supersedes the historical shell palettes.
+   Examination content retains its existing feature stylesheet and layout. */
+html body.calm-shell {
+  --navy: var(--ui-ink); --ink: var(--ui-ink); --muted: var(--ui-muted);
+  --teal: var(--ui-accent); --teal-dark: var(--ui-accent); --teal-light: var(--ui-tint);
+  --line: var(--ui-line); --surface: var(--ui-surface); --canvas: var(--ui-canvas);
+  font-family: var(--ui-font); background: var(--ui-canvas); color: var(--ui-ink);
+}
+html .calm-shell :is(.ui-header, .profile-dropdown, .ui-card, .ui-empty, .ui-form-field input, .ui-form-field select, .ui-form-field textarea, .auth-form-card) {
+  background: var(--ui-surface); color: var(--ui-ink); border-color: var(--ui-line); box-shadow: none;
+}
+html .calm-shell :is(.ui-header, .calm-footer) { border-color: var(--ui-line); }
+html .calm-shell :is(.brand, .ui-card h3, .ui-form-field label, .breadcrumbs [aria-current]) { color: var(--ui-ink); }
+html .calm-shell :is(.brand-subtitle, .muted, .lead, .ui-card p, .ui-empty p) { color: var(--ui-muted); }
+html .calm-shell :is(.brand-mark, .ui-header .button-primary, .ui-main .button-primary) { background: var(--ui-accent); color: var(--ui-on-accent); border-color: var(--ui-accent); }
+html .calm-shell :is(.ui-header .button-primary, .ui-main .button-primary):hover { background: var(--ui-hover); }
+html .calm-shell .ui-main .button-secondary { background: var(--ui-surface); border-color: var(--ui-line); color: var(--ui-accent); }
+html .calm-shell :is(.ui-card .text-link, .breadcrumbs a, .eyebrow) { color: var(--ui-accent); }
+html .calm-shell :is(.nav-links a:not(.button), .nav-links summary, .profile-dropdown .nav-button) { color: var(--ui-muted); }
+html .calm-shell :is(.nav-links a[aria-current], .nav-links summary.active, .nav-links a:hover, .nav-links summary:hover, .profile-dropdown .nav-button:hover) { background: var(--ui-tint); color: var(--ui-accent); }
+html .calm-shell :is(.header-avatar, .module-icon, .ui-category-icon, .ui-path-icon, .badge-live) { background: var(--ui-tint); color: var(--ui-accent); }
+html .calm-shell :is(.badge, .badge-outline) { background: var(--ui-soft); color: var(--ui-muted); border-color: var(--ui-line); }
+html .calm-shell :is(.ui-form-field input, .ui-form-field select, .ui-form-field textarea) { border-radius: var(--ui-radius-control); accent-color: var(--ui-accent); }
+html .calm-shell :focus-visible { outline: 3px solid var(--ui-focus); outline-offset: 4px; }
+html .calm-shell .skip-link { background: var(--ui-surface); color: var(--ui-accent); }
+html .calm-shell .calm-footer { background: var(--ui-soft); }
+html .calm-shell .calm-footer :is(h2, p, a, .footer-bottom) { color: var(--ui-muted); border-color: var(--ui-line); }
+html .calm-shell .calm-footer :is(.footer-brand, h2) { color: var(--ui-ink); }
+html .calm-shell .calm-footer .ui-footer-icon { background: var(--ui-tint); color: var(--ui-accent); }
+html .calm-shell .ui-home :is(.ui-authority-card, .module-card, .home-academic-quote, .ui-home-cta) { background: var(--ui-surface); color: var(--ui-ink); border: 1px solid var(--ui-line); border-radius: var(--ui-radius-card); box-shadow: none; }
+html .calm-shell .ui-home :is(h1, h2, h3, blockquote p) { color: var(--ui-ink); }
+html .calm-shell .ui-home :is(.exam-links a, .text-link) { color: var(--ui-accent); border-color: var(--ui-line); }
+html .calm-shell .ui-home .exam-links a:hover { background: var(--ui-tint); }
+html .calm-shell .ui-home :is(.home-quote-icon, .ui-category-icon) { background: var(--ui-tint); color: var(--ui-accent); }
+html .calm-shell .ui-home :is(figcaption, .ui-home-cta p:last-child) { color: var(--ui-muted); }
+.foundation-hero { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); align-items: center; gap: var(--ui-space-12); padding: var(--ui-space-12) 0; }
+.foundation-hero h1 { font-size: clamp(2.2rem, 4vw, 3.8rem); line-height: 1.16; }
+.foundation-next { padding: var(--ui-space-8); border-radius: var(--ui-radius-card); }
+.foundation-next h2 { font-size: 1.4rem; margin-top: var(--ui-space-6); }
+.foundation-next .text-link { display: flex; }
+.appearance-control { padding: .25rem .5rem; }
+.appearance-control label { display: block; font-size: .7rem; color: var(--ui-muted); }
+.appearance-control select { font: inherit; font-size: .8rem; min-height: 44px; max-width: 100%; border: 1px solid var(--ui-line); border-radius: var(--ui-radius-control); padding: .4rem; color: var(--ui-ink); background: var(--ui-surface); }
+html .calm-shell :lang(bn) { font-family: "Noto Sans Bengali", "Nirmala UI", "Vrinda", var(--ui-font); line-height: 1.9; letter-spacing: normal; }
+html .calm-shell .ui-messages .message, .ui-alert { background: var(--ui-tint); color: var(--ui-ink); border: 1px solid var(--ui-line); border-radius: var(--ui-radius-control); padding: var(--ui-space-4); }
+.ui-loading { display: inline-flex; align-items: center; gap: var(--ui-space-3); color: var(--ui-muted); }
+.ui-loading::before { content: ""; width: 1rem; height: 1rem; border: 2px solid var(--ui-line); border-top-color: var(--ui-accent); border-radius: 50%; animation: ui-spin 1s linear infinite; }
+dialog.ui-confirm { max-width: min(30rem, calc(100% - 2rem)); padding: var(--ui-space-8); border: 1px solid var(--ui-line); border-radius: var(--ui-radius-card); background: var(--ui-surface); color: var(--ui-ink); }
+dialog.ui-confirm::backdrop { background: #101c1880; }
+@keyframes ui-spin { to { transform: rotate(360deg); } }
+@media (max-width: 80rem) { html .calm-shell .ui-header-inner { gap: .5rem; } html .calm-shell .nav-links { gap: .1rem; } html .calm-shell .nav-links a:not(.button), html .calm-shell .nav-links summary { padding-inline: .5rem; font-size: .78rem; } }
+@media (max-width: 48rem) { .foundation-hero { grid-template-columns: minmax(0, 1fr); gap: var(--ui-space-6); padding-top: var(--ui-space-6); } }
+@media (prefers-reduced-motion: reduce) { .ui-loading::before { animation: none; } }

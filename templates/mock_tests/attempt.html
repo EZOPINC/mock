@@ -1,5 +1,6 @@
 {% extends "base.html" %}{% load static revision_tags %}
 {% block title %}{{ attempt.configuration.name }} attempt | Mock Exam Platform{% endblock %}
+{% block navigation_script %}{% endblock %}
 {% block body_class %} ui-exam-page exam-session-page{% endblock %}{% block site_header %}{% endblock %}{% block site_footer %}{% endblock %}
 {% block extra_head %}<script src="{% static 'js/bookmarks.js' %}" defer></script><link rel="stylesheet" href="{% static 'css/mock-test.css' %}"><script src="{% static 'js/mock-test.js' %}" defer></script>{% endblock %}
 {% block content %}
@@ -12,7 +13,7 @@
 <section class="mock-toolbar" aria-label="Test status">
   <div class="mock-time-block"><span class="mock-status-label">{% include "components/icon.html" with name="clock" %} Time remaining</span><strong id="mock-timer" role="timer" aria-label="Time remaining">Loading...</strong></div>
   <div class="mock-progress-block"><p id="mock-question-counter">Question {{ attempt.last_position }} of {{ rows|length }}</p><label for="mock-progress"><span id="mock-answered-count">0</span> of {{ rows|length }} answered</label><progress id="mock-progress" max="{{ rows|length }}" value="0">0 answered</progress></div>
-  <div class="mock-save-block"><p id="mock-save-status" role="status" aria-live="polite">Saved answers restored.</p><p id="mock-clock-status" role="status"></p><div class="mock-status-actions"><button type="button" id="mock-retry" hidden>Retry saving</button><a href="">Reload saved state</a><button type="button" data-palette-toggle aria-controls="mock-palette-panel" aria-expanded="true">Questions</button></div></div>
+  <div class="mock-save-block"><p id="mock-save-status" role="status" aria-live="polite">Saved answers restored.</p><p class="mock-autosave-note" id="mock-autosave-note">Answers save automatically. Check the save status before leaving.</p><p id="mock-clock-status" role="status"></p><div class="mock-status-actions"><button type="button" id="mock-retry" hidden>Retry saving</button><a href="">Reload saved state</a><button type="button" data-palette-toggle aria-controls="mock-palette-panel" aria-expanded="true">Questions</button></div></div>
 </section>
 <div class="mock-workspace">
 <aside class="mock-sidebar" aria-label="Test navigation">
@@ -32,5 +33,5 @@
 <nav class="mock-question-nav" aria-label="Question {{ row.display_order }} navigation">{% if not forloop.first %}<button type="button" data-goto="{{ row.display_order|add:'-1' }}">{% include "components/icon.html" with name="arrow" icon_class="ui-back-icon" %} Previous</button>{% endif %}{% if not forloop.last %}<button type="button" data-goto="{{ row.display_order|add:'1' }}">Next {% include "components/icon.html" with name="arrow" %}</button>{% endif %}</nav>
 </article>{% endfor %}</div>
 </div>
-<nav class="mock-action-bar" aria-label="Test actions"><div class="mock-step-actions"><button type="button" data-current-prev>{% include "components/icon.html" with name="arrow" icon_class="ui-back-icon" %} Previous</button><button type="button" data-current-review aria-pressed="false">Mark for review</button><button type="button" data-current-next>Next {% include "components/icon.html" with name="arrow" %}</button></div><a class="button button-primary" id="mock-finish" href="{% url 'mock_tests:submit' attempt.pk %}">Review and submit {% include "components/icon.html" with name="check" %}</a></nav>
+<nav class="mock-action-bar" aria-label="Test actions"><div class="mock-step-actions"><button type="button" data-current-prev>{% include "components/icon.html" with name="arrow" icon_class="ui-back-icon" %} Previous</button><button type="button" data-current-review aria-pressed="false">Mark for review</button><button type="button" data-current-next aria-describedby="mock-autosave-note">Save &amp; Next {% include "components/icon.html" with name="arrow" %}</button></div><a class="button button-primary" id="mock-finish" href="{% url 'mock_tests:submit' attempt.pk %}">Review and submit {% include "components/icon.html" with name="check" %}</a></nav>
 </div>{% endblock %}

@@ -29,7 +29,7 @@ class StudentDashboardTests(TestCase):
 
     def pattern(self, name="Student mock"):
         pattern = ExamPattern.objects.create(exam=self.exam, name=name, duration_minutes=60, total_questions=1, total_marks=1)
-        ExamPatternSection.objects.create(pattern=pattern, name="Section", display_order=1, question_count=1)
+        ExamPatternSection.objects.create(pattern=pattern, name="Section", display_order=1, question_count=1, language_mode="en")
         return activate_pattern(pattern)
 
     def test_guest_redirect_and_empty_dashboard(self):
@@ -102,6 +102,28 @@ class StudentDashboardTests(TestCase):
         self.assertEqual(data["practice_accuracy"], 0)
         self.assertEqual(data["recent_practice_sessions"][0].question_count, 1)
         self.assertEqual(data["recent_practice_sessions"][0].answered_count, 1)
+
+    def test_resume_is_independent_of_recent_completed_activity_and_queries_are_bounded(self):
+        from revision.services import set_saved
+        question = self.question()
+        set_saved(self.user, question.pk, saved=True)
+        set_saved(self.other_user, question.pk, saved=True)
+        oldest = self.practice()
+        for _ in range(6):
+            completed = self.practice()
+            submit_answer(self.user, completed.pk, completed.questions.get().pk, "A")
+        with self.assertNumQueries(8):
+            data = dashboard_context(self.user)
+        self.assertEqual([row.pk for row in data["resume_practice_sessions"]], [oldest.pk])
+        self.assertNotIn(oldest.pk, [row.pk for row in data["recent_practice_sessions"]])
+        self.assertEqual(data["saved_stats"], {"total": 1, "reviewed": 0, "mastered": 0})
+        self.client.force_login(self.user)
+        with CaptureQueriesContext(connection) as captured:
+            response = self.client.get(reverse("accounts:learning_space"))
+        self.assertLessEqual(len(captured), 10)  # Session/auth + eight bounded dashboard reads.
+        self.assertContains(response, reverse("practice:session", args=[oldest.pk]))
+        self.assertContains(response, "Open Revision Bank")
+        self.assertNotContains(response, "Correct answer:")
 
     def test_invalid_authentication_form_has_accessible_errors(self):
         response = self.client.post(reverse("accounts:login"), {"username": "unknown", "password": "wrong"})

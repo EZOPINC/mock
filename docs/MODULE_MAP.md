@@ -17,6 +17,7 @@ Use `docs/architecture.md` for architecture context and `docs/DEVELOPMENT_RULES.
 | `templates/components/icon.html`, `templates/questions/translations.html` | Shared SVGs and revision-bound bilingual rendering |
 | `templates/questions/reading_question.html`, `reading_option.html`, `reading_explanations.html`, `questions/templatetags/reading.py` | Paired bilingual stems/options for timed attempts, finalized mock reviews, Practice and previous-year reader; one native radio per answer choice |
 | `assets/tailwind.css`, `tools/build_css.py`, `tools/tailwind-lock.json` | CSS source, standalone build and pinned checksums |
+| `assets/design-system.css`, `assets/learning.css`, `assets/student.css`, `static/js/theme.js` | Semantic light/dark/sepia tokens, learning/account/public presentation and local appearance preference; `docs/DESIGN_SYSTEM.md`, `docs/UI_REGRESSION_CHECKLIST.md` |
 | `static/css/site.css`, `static/css/bookmarks.css` | Fallback styles and submit-button-specific bookmark overrides |
 
 ## App ownership and route mounts
@@ -102,6 +103,7 @@ Use `docs/architecture.md` for architecture context and `docs/DEVELOPMENT_RULES.
 | `revision/selectors.py` | visible_questions, bank_rows, bank_counts, topic_scope, filter_bank, with_question_content, hydrate_content |
 | `revision/sessions.py` | request_spec, start_revision(user, parameters), record_review |
 | `revision/exploration.py` | taxonomy_path, question_paths, related_questions, scope_has_open_mock, filter_related |
+<<<<<<< HEAD
 | `accounts/dashboard.py` | dashboard_context; ordinary Practice stats exclude revision kind |
 | `billing/services.py` | subscription_for, plan_for, evaluate_access, mock_access, practice_access, revision_access, require_access; generic feature policy |
 | `billing/usage.py` | reserve_mock, practice_pool, record_practice; account-locked Free lifetime allocations inside Mock/Practice start transactions |
@@ -110,6 +112,9 @@ Use `docs/architecture.md` for architecture context and `docs/DEVELOPMENT_RULES.
 | `billing/accounting.py`, `billing/finance.py`, `billing/audit.py` | Reviewed seller/tax/retention configuration, invoice/credit-note issuance, refund approvals, settlements, reconciliation corrections, append-only audit |
 | `billing/exports.py`, `billing/roles.py` | Accounting CSV exports with audit digests; configure_roles via configure_billing_roles command; no user enrollment |
 | `billing/providers.py`, `billing/admin.py`, `billing/tests.py` | Future verification contract, permission-controlled staff configuration, targeted model/policy tests |
+=======
+| `accounts/dashboard.py` | dashboard_context; ordinary Practice stats exclude revision kind; bounded resume/recent records and Revision bank counts, eight read queries |
+>>>>>>> a8835ecec8eee5751ea49cdb3c48ba1f5772da32
 
 ## Views, forms, admin and templates
 
@@ -140,7 +145,7 @@ Explore routes/helpers remain; per-question explore_control calls were removed f
 | Account/header nav | `templates/components/header.html`, `templates/accounts/account_navigation.html`, `static/js/navigation.js`; bank is under My account |
 | Bilingual options/solutions | `templates/questions/translations.html`, `templates/questions/selectable_option.html`; no active-mock keys |
 | Practice/Revision question panel | `templates/practice/question_panel.html`; keep shared answer/bookmark forms unnested |
-| Practice reading and feedback | `templates/practice/reading_panel.html`; question_panel keeps Revision on its legacy markup; `tools/verify_exam_ui.py` checks the student journeys |
+| Practice/Revision reading and feedback | `templates/practice/reading_panel.html`, included by question_panel for both engines; Revision retains data-revision-answer; `tools/verify_exam_ui.py`, `tools/verify_learning_ui.py` check student journeys |
 | Mock execution | `templates/mock_tests/attempt.html`, `static/js/mock-test.js`, `static/css/mock-test.css`; save/version/timer contracts |
 | Practice setup | `templates/practice/subjects.html`, `templates/practice/configure.html`, `templates/practice/difficulty.html`; subject then module then difficulty/language |
 | Practice feedback | `templates/practice/session.html`, `static/js/practice-ui.js`, `static/css/practice.css` |
@@ -150,7 +155,7 @@ Explore routes/helpers remain; per-question explore_control calls were removed f
 | General Questions translation inspection | `templates/general_question/collection.html`, `solution.html`; shared reading helper's opt-in `reserve_editions` keeps empty English/Bengali slots in public collections and staff working-revision review |
 | Import preview/edit | `templates/imports/preview.html`, `static/js/import-preview.js`, `static/js/import-upload.js`, `static/css/imports.css` |
 | Shared icon/style | `templates/components/icon.html`, `assets/tailwind.css`; do not hand-edit compiled Tailwind |
-| Bookmark labels/status | `templates/revision/bookmark.html`, `static/js/bookmarks.js`; success announcements currently commented out |
+| Bookmark labels/status | `templates/revision/bookmark.html`, `static/js/bookmarks.js`; success announcements use the existing visually hidden live region |
 
 Mock save JSON uses action/version/UUID token/position and answer-row/review fields.
 Bookmark routes use master IDs; session answer routes use PracticeQuestion row IDs.

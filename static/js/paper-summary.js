@@ -5,10 +5,10 @@ document.querySelectorAll('[data-paper-breakdown]').forEach(root => {
   if (counts.some(count => !Number.isFinite(count) || count < 0)) return;
   const total = counts.reduce((sum, count) => sum + count, 0);
   if (!total) return;
-  const palette = ['#087f79', '#657db5', '#c78642', '#a56791', '#628943', '#b95b57'];
+  const palette = ['var(--ui-accent)', 'var(--ui-chart-2)', 'var(--ui-chart-3)', 'var(--ui-chart-4)', 'var(--ui-chart-5)', 'var(--ui-chart-6)'];
   let position = 0;
   const segments = rows.map((row, index) => {
-    const color = palette[index] || `hsl(${(index * 137.508) % 360} 45% 44%)`;
+    const color = palette[index % palette.length];
     const start = position;
     position += counts[index] / total * 100;
     const swatch = row.querySelector('.paper-subject-swatch');

@@ -14,7 +14,9 @@ from .services import plan_for
 def _policy(user, feature):
     if not user.is_authenticated or not user.is_active or not user.pk:
         raise ValidationError("An active authenticated account is required.")
-    get_user_model().objects.select_for_update().get(pk=user.pk)
+    owner = get_user_model().objects.select_for_update().get(pk=user.pk)
+    if not owner.is_active:
+        raise ValidationError("An active authenticated account is required.")
     plan = plan_for(user)
     entitlement = plan.entitlements.filter(feature=feature, is_enabled=True).first() if plan else None
     if entitlement is None:
@@ -53,10 +55,10 @@ def practice_pool(user, exam_id, candidate_ids, *, sampler):
     if premium:
         return set(candidate_ids), False
     _select_exam(user, exam_id)
-    used_ids = set(FreeQuestionUsage.objects.filter(user=user).values_list("question_id", flat=True))
-    revisits = set(candidate_ids) & used_ids
-    new = set(candidate_ids) - used_ids
-    remaining = len(new) if entitlement.usage_limit is None else max(0, entitlement.usage_limit - len(used_ids))
+    usage = FreeQuestionUsage.objects.filter(user=user)
+    revisits = set(usage.filter(question_id__in=candidate_ids).values_list("question_id", flat=True))
+    new = set(candidate_ids) - revisits
+    remaining = len(new) if entitlement.usage_limit is None else max(0, entitlement.usage_limit - usage.count())
     if len(new) > remaining:
         new = set(sampler.sample(sorted(new), remaining))
     return revisits | new, True

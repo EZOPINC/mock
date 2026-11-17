@@ -22,19 +22,6 @@ document.querySelectorAll('input[type="password"]').forEach((input) => {
   wrapper.append(toggle);
 });
 
-const profileMenu = document.querySelector('.profile-menu');
-if (profileMenu) {
-  profileMenu.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape') {
-      profileMenu.open = false;
-      profileMenu.querySelector('summary').focus();
-    }
-  });
-  document.addEventListener('click', (event) => {
-    if (!profileMenu.contains(event.target)) profileMenu.open = false;
-  });
-}
-
 const questions = [...document.querySelectorAll('[data-question-index]')];
 const links = [...document.querySelectorAll('[data-question-link]')];
 questions.forEach((question, index) => {
