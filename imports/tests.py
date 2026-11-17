@@ -1,4 +1,5 @@
 import csv
+from datetime import date
 from concurrent.futures import ThreadPoolExecutor
 from io import BytesIO, StringIO
 from pathlib import Path
@@ -212,6 +213,28 @@ class ValidationTests(ImportFixture):
 
 
 class ConfirmationTests(ImportFixture):
+    def test_freshness_dates_from_excel_and_expiry_override(self):
+        self.subject.question_freshness_years = 3
+        self.subject.save(update_fields=["question_freshness_years"])
+        data = self.data()
+        data.update(parse_upload(xlsx_file([
+            values(current_as_of=date(2024, 2, 29)),
+            values(question_number="2", expires_on=date(2027, 1, 1)),
+        ])))
+        batch = confirm_import(data, self.user)
+        first, second = [row.question for row in batch.imported_questions.order_by("source_row_number")]
+        self.assertEqual((first.current_as_of, first.expires_on), (date(2024, 2, 29), date(2027, 2, 28)))
+        self.assertIsNone(second.current_as_of)
+        self.assertEqual(second.expires_on, date(2027, 1, 1))
+
+    def test_freshness_dates_for_other_subjects_are_ignored(self):
+        data = self.data([values(expires_on="not a date")])
+        result = validate(data)
+        self.assertEqual(result["error_count"], 0)
+        self.assertIn("no question expiry policy", " ".join(result["rows"][0]["warnings"]))
+        question = confirm_import(data, self.user).imported_questions.get().question
+        self.assertIsNone(question.expires_on)
+
     def test_question_kind_import_validates_and_persists(self):
         data = self.data()
         data.update(parse_upload(xlsx_file([values(question_kind="Yes")])))

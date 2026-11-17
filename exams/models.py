@@ -174,9 +174,20 @@ class Subject(models.Model):
     slug = models.SlugField(max_length=200, unique=True)
     display_order = models.PositiveIntegerField(default=0)
 
+    question_freshness_years = models.PositiveSmallIntegerField(
+        choices=[(2, "2 years"), (3, "3 years")], null=True, blank=True,
+        help_text="Leave blank to ignore question expiry when building new mocks and practice sets.",
+    )
+
     class Meta:
         ordering = ("name", "pk")
-        constraints = code_constraints("subject")
+        constraints = [
+            *code_constraints("subject"),
+            models.CheckConstraint(
+                condition=Q(question_freshness_years__isnull=True) | Q(question_freshness_years__in=[2, 3]),
+                name="exams_subject_freshness_years_valid",
+            ),
+        ]
 
     def __str__(self):
         return self.name

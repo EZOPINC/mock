@@ -261,9 +261,20 @@ def _selected_rows(pattern, sections, selection, questions):
     return rows
 
 
+def frozen_set_has_stale_questions(pattern):
+    from questions.eligibility import current_for_selection
+    from questions.models import Question
+
+    frozen_ids = MockSetQuestion.objects.filter(mock_set__pattern=pattern).order_by().values("question_id")
+    frozen = Question.objects.filter(pk__in=frozen_ids)
+    return frozen.exclude(current_for_selection()).exists()
+
+
 def _freeze_set(pattern):
     existing = MockSet.objects.filter(pattern=pattern).first()
     if existing:
+        if frozen_set_has_stale_questions(pattern):
+            raise ValidationError("This frozen set has expired or undated questions. Retire it and publish a new pattern.")
         return existing
     sections = list(pattern.sections.select_for_update(of=("self",)).select_related("subject", "topic").order_by("display_order", "pk"))
     validate_configuration(pattern, sections, check_availability=False)

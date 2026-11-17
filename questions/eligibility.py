@@ -1,13 +1,21 @@
 """Shared published-revision eligibility for mock tests and practice."""
+from django.db.models import Q
+from django.utils import timezone
+
 from .services import published_questions
 
 
 CONTENT_FIELDS = ("question_text", "option_a", "option_b", "option_c", "option_d")
 
 
+def current_for_selection():
+    return Q(subject__question_freshness_years__isnull=True) | Q(expires_on__gt=timezone.localdate())
+
+
 def eligible_question_ids(exam_id, *, subject_id=None, topic_id=None, language_mode="mixed", question_ids=None):
     questions = published_questions().filter(exam_associations__exam_id=exam_id,
         exam_associations__exam__is_active=True, exam_associations__exam__authority__is_active=True).distinct()
+    questions = questions.filter(current_for_selection())
     if subject_id:
         questions = questions.filter(subject_id=subject_id)
     if question_ids is not None:

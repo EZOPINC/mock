@@ -8,6 +8,7 @@ from django.db import transaction
 from django.db.models import F, Max
 from django.utils import timezone
 
+from .freshness import resolve_freshness_dates
 from .models import Question, QuestionKind, QuestionRevision, QuestionTranslation, TRANSLATED_FIELDS
 
 
@@ -22,6 +23,18 @@ def set_question_kind(question, kind):
     question.save(update_fields=("question_kind", "updated_at"))
 
 
+@transaction.atomic
+def set_missing_expiry(question):
+    question = _locked(question)
+    if question.expires_on is not None or question.subject.question_freshness_years is None:
+        return False
+    question.current_as_of, question.expires_on = resolve_freshness_dates(
+        question.subject, current_as_of=question.current_as_of, default_date=timezone.localdate(question.created_at),
+    )
+    question.save(update_fields=("current_as_of", "expires_on", "updated_at"))
+    return True
+
+
 def _check_expected(question, revision_id):
     if revision_id is not None and question.current_revision_id != revision_id:
         raise ValidationError("The working revision changed. Reload and review it before continuing.")
@@ -29,9 +42,12 @@ def _check_expected(question, revision_id):
 
 @transaction.atomic
 def create_question(*, subject, revision, topic=None, source_question_id=None, translations=None,
-                    difficulty_level="", question_kind=QuestionKind.UNCLASSIFIED):
+                    difficulty_level="", question_kind=QuestionKind.UNCLASSIFIED, current_as_of=None, expires_on=None):
+    current_as_of, expires_on = resolve_freshness_dates(subject, current_as_of=current_as_of, expires_on=expires_on)
     question = Question.objects.create(
-        subject=subject, topic=topic, source_question_id=source_question_id, question_kind=question_kind)
+        subject=subject, topic=topic, source_question_id=source_question_id, question_kind=question_kind,
+        current_as_of=current_as_of, expires_on=expires_on,
+    )
     create_revision(question, translations=translations, difficulty_level=difficulty_level, **revision)
     question.refresh_from_db()
     return question

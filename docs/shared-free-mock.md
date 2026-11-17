@@ -27,6 +27,8 @@ Billing's earlier FreeMockSelection rows are retained for audit/history but no l
 
 No designated demo means new Free Mock starts fail closed with a Premium prompt; Admin must publish the desired demo after rollout. A newly published question revision or a newly available candidate never changes the frozen revision/selection. Starts still recheck active exam/current publication and exam membership: withdrawn content makes the demo unavailable rather than silently replacing questions. Frozen editions remain the source for language validation and scoring.
 
+For subjects with a question expiry policy, every question in the frozen set must have a future expiry date for new starts. When a demo becomes unavailable, retire it and publish a replacement pattern with a current pool. Existing attempts keep their original question and revision snapshots.
+
 Premium users continue through the original random/manual rule selector on every new attempt, including patterns carrying a demo designation. Existing open attempts resume before new-start entitlement checks; historical questions/results remain untouched even if a demo is replaced, retired or deactivated.
 
 ## Rollout and verification

@@ -58,6 +58,8 @@ class Question(models.Model):
     correct_answer = models.CharField(max_length=1, choices=((key, key) for key in "ABCD"), blank=True, default="")
     difficulty_level = models.CharField(max_length=100, blank=True, default="")
     question_kind = models.CharField(max_length=12, choices=QuestionKind, default=QuestionKind.UNCLASSIFIED)
+    current_as_of = models.DateField(null=True, blank=True, help_text="Event date or date the question was verified.")
+    expires_on = models.DateField(null=True, blank=True, help_text="First day this question is excluded from new mocks and practice sets when its subject has an expiry policy.")
     current_revision = models.ForeignKey(
         "QuestionRevision", on_delete=models.PROTECT, related_name="working_for", blank=True, null=True, editable=False)
     published_revision = models.ForeignKey(
@@ -81,6 +83,10 @@ class Question(models.Model):
             models.CheckConstraint(condition=Q(review_status__in=[
                                    "pending_review", "reviewed"]), name="questions_review_valid"),
             models.CheckConstraint(condition=Q(question_kind__in=QuestionKind.values), name="questions_kind_valid"),
+            models.CheckConstraint(
+                condition=Q(current_as_of__isnull=True) | Q(expires_on__isnull=True) | Q(expires_on__gt=models.F("current_as_of")),
+                name="questions_expiry_after_current_as_of",
+            ),
             models.CheckConstraint(condition=Q(correct_answer__in=["", "A", "B", "C", "D"]), name="questions_master_answer_valid"),
             models.CheckConstraint(condition=Q(publication_status="draft", published_revision__isnull=True) | Q(
                 publication_status="published", published_revision__isnull=False), name="questions_public_pointer_valid"),
@@ -91,6 +97,8 @@ class Question(models.Model):
 
     def clean(self):
         super().clean()
+        if self.current_as_of and self.expires_on and self.expires_on <= self.current_as_of:
+            raise ValidationError({"expires_on": "Expiry must be after the current-as-of date."})
         if self.topic_id and self.subject_id and self.topic.subject_id != self.subject_id:
             raise ValidationError(
                 {"topic": "Topic must belong to the selected subject."})

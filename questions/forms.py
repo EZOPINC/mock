@@ -49,7 +49,7 @@ class QuestionAdminForm(forms.ModelForm):
 
     class Meta:
         model = Question
-        fields = ("source_question_id", "subject", "topic", "question_kind")
+        fields = ("source_question_id", "subject", "topic", "question_kind", "current_as_of", "expires_on")
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

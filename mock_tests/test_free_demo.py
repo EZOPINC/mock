@@ -10,6 +10,7 @@ from django.db import IntegrityError, close_old_connections, connection, transac
 from django.db.migrations.executor import MigrationExecutor
 from django.test import RequestFactory, TransactionTestCase
 from django.urls import reverse
+from django.utils import timezone
 
 from billing.models import FreeExamSelection, FreeMockSelection, UserSubscription
 from billing.test_usage import free_configuration
@@ -44,6 +45,23 @@ class SharedFreeDemoTests(practice_tests.PracticeFixture):
     def demo(self, name="Demo"):
         pattern = pattern_for(self.exam, name)
         return publish_free_demo(pattern)
+
+    def test_expired_demo_blocks_new_starts_and_preserves_existing_attempt(self):
+        pattern = self.demo()
+        attempt = start_attempt(self.user, pattern)
+        self.subject.question_freshness_years = 2
+        self.subject.save(update_fields=["question_freshness_years"])
+        today = timezone.localdate()
+        for question in self.pool:
+            question.expires_on = today
+            question.save(update_fields=["expires_on"])
+        self.assertNotIn(pattern, available_patterns(pk=pattern.pk))
+        with self.assertRaisesMessage(ValidationError, "Retire it and publish a new pattern"):
+            publish_free_demo(pattern)
+        with self.assertRaisesMessage(ValidationError, "currently unavailable"):
+            start_attempt(self.other_user, pattern)
+        self.assertEqual(start_attempt(self.user, pattern).pk, attempt.pk)
+        self.assertEqual(attempt.questions.count(), 2)
 
     def test_default_is_not_demo_and_free_cannot_start_an_undesignated_pattern(self):
         pattern = activate_pattern(pattern_for(self.exam, "Premium"))

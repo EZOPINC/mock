@@ -203,7 +203,7 @@ class ExamStageAdmin(admin.ModelAdmin):
 
 @admin.register(Subject)
 class SubjectAdmin(TaxonomyCodeAdmin, admin.ModelAdmin):
-    list_display = ("name", "code", "slug", "display_order")
+    list_display = ("name", "code", "slug", "display_order", "question_freshness_years")
     search_fields = ("name", "code")
     ordering = ("name",)
     prepopulated_fields = {"slug": ("name",)}

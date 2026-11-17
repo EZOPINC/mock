@@ -12,7 +12,7 @@ Actual models and migrations are authoritative; no live schema/data audit is cla
 | exams.ExamAuthority | name, code, slug, active flag | Unique code/slug |
 | exams.Exam | authority, name, code, slug, active flag, default mock language | Authority-scoped code/slug |
 | exams.ExamStage | exam, name, code, order | Stage must belong to its selected Exam |
-| exams.Subject | name, code, slug | Shared independently of Exam |
+| exams.Subject | name, code, slug, optional question freshness window | Shared independently of Exam |
 | exams.Part | Subject anchor, stable code, name/slug/order | Scoped names/slugs; protected established ancestry |
 | exams.Module | Subject anchor; optional immediate Part | Direct Subject or Part parent |
 | exams.Chapter | Subject anchor; optional immediate Part/Module | At most one non-Subject immediate parent |
@@ -28,7 +28,7 @@ See [flexible taxonomy](flexible-taxonomy.md) for the exact optional-parent cons
 
 | Model | Persisted role | Important integrity |
 |---|---|---|
-| questions.Question | Master identity; Subject, legacy primary Topic, working/live pointers, editorial status, question kind, mirrored answer/difficulty | Both revision pointers belong to this master; default draft/pending review |
+| questions.Question | Master identity; Subject, legacy primary Topic, working/live pointers, editorial status, question kind, current-as-of and expiry dates, mirrored answer/difficulty | Both revision pointers belong to this master; default draft/pending review |
 | questions.QuestionRevision | Numbered primary-language content, answer, difficulty, publication timestamp | Unique master/revision number; append-only content, including drafts |
 | questions.QuestionTranslation | Language content within one revision | Unique revision/language; primary translation matches compatibility fields |
 | questions.QuestionTopic | Master/Topic association and primary flag | Unique pair; one primary; tags share Subject; pointer/tag compatibility |

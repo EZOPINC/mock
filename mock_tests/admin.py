@@ -5,7 +5,10 @@ from django import forms
 from questions.models import Question
 
 from .models import ExamPattern, ExamPatternSection, SectionSelectionRule, ManualRuleQuestion, MockSet, MockSetQuestion
-from .services import activate_pattern, deactivate_pattern, eligible_question_ids, validate_configuration, publish_free_demo, retire_free_demo
+from .services import (
+    activate_pattern, deactivate_pattern, eligible_question_ids, frozen_set_has_stale_questions,
+    publish_free_demo, retire_free_demo, validate_configuration,
+)
 from .languages import validate_default_reading_language
 from .rules import eligible_for_rule, selection_tasks, validate_rule_layout
 
@@ -230,6 +233,8 @@ class ExamPatternAdmin(admin.ModelAdmin):
     def configuration_status(self, obj):
         if not obj.pk:
             return "Save the pattern and sections, then explicitly activate."
+        if obj.is_free_demo and frozen_set_has_stale_questions(obj):
+            return "Frozen set contains expired or undated questions. Retire it and publish a new pattern."
         try:
             sections = validate_configuration(obj)
             validate_default_reading_language(obj.exam, sections)

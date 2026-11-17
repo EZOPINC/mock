@@ -1,4 +1,5 @@
 from collections import Counter
+from datetime import date
 from hashlib import sha256
 import json
 import re
@@ -19,6 +20,30 @@ from .pairing import groups_for
 
 CONTENT = ("language", "question_text", "option_a", "option_b", "option_c", "option_d", "correct_answer", "explanation")
 
+
+
+def freshness_input(values, subject, errors, warnings):
+    dates = {}
+    if subject is None:
+        return dates
+    for field in ("current_as_of", "expires_on"):
+        raw = values.get(field, "")
+        if not isinstance(raw, str) or not raw.strip():
+            continue
+        if subject.question_freshness_years is None:
+            warnings.append(f"{field} is ignored because this subject has no question expiry policy.")
+            continue
+        # Excel date cells arrive as midnight datetimes.
+        raw = raw.strip().removesuffix("T00:00:00")
+        try:
+            value = date.fromisoformat(raw)
+            if value.isoformat() != raw:
+                raise ValueError
+        except ValueError:
+            errors.append(f"{field} must be a valid date in YYYY-MM-DD format.")
+        else:
+            dates[field] = value
+    return dates
 
 
 def map_key(value):
@@ -194,6 +219,7 @@ def validate(data, *, locked=False):
         if values["review_status"].strip() or values["verification_notes"].strip():
             warnings.append("Legacy review/verification values are audit metadata only. The question will be pending review.")
         result.append({"index": index, "source_row": row["source_row"], "values": values, "question_kind": question_kind,
+                       "freshness": freshness_input(values, subject, row_errors, warnings),
                        "errors": row_errors, "warnings": warnings, **taxonomy, "revision": revision, "translations": translations, "translation_languages": [item["language"] for item in translations], "exams": resolved_exams})
     groups = groups_for(result, data.get("pairings", {}))
     if paper is not None and paper.expected_question_count is not None:

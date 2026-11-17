@@ -10,6 +10,7 @@ from django.db import IntegrityError, close_old_connections, connection, transac
 from django.http import Http404
 from django.test import Client, TestCase, TransactionTestCase
 from django.urls import reverse
+from django.utils import timezone
 
 from exams.models import Exam, ExamAuthority, Subject, Topic
 from questions.eligibility import eligible_question_ids
@@ -54,6 +55,27 @@ class PracticeFixture(TestCase):
 
 
 class PracticeServiceTests(PracticeFixture):
+    def test_freshness_excludes_expired_and_undated_questions_only_for_enabled_subjects(self):
+        undated = self.question()
+        self.subject.question_freshness_years = 2
+        self.subject.save(update_fields=["question_freshness_years"])
+        current = self.question()
+        expired = self.question()
+        ordinary = self.question(subject=self.other_subject)
+        today = timezone.localdate()
+        for question in (expired, ordinary):
+            question.current_as_of = None
+            question.expires_on = today
+            question.save(update_fields=["current_as_of", "expires_on"])
+        self.assertEqual(eligible_question_ids(self.exam.pk), {current.pk, ordinary.pk})
+        self.assertNotIn(undated.pk, eligible_question_ids(self.exam.pk))
+        session = self.session()
+        self.assertEqual(session.questions.get().question_id, current.pk)
+        with patch("questions.eligibility.timezone.localdate", return_value=current.expires_on):
+            self.assertEqual(self.session(token=session.start_token).pk, session.pk)
+            with self.assertRaisesMessage(ValidationError, "Insufficient eligible questions"):
+                self.session()
+
     def test_completion_failure_rolls_back_answer_and_feedback(self):
         self.question()
         session = self.session()
