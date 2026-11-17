@@ -15,6 +15,13 @@ server-side checkout route and remain unavailable when checkout is disabled.
 Registration uses explicit labels, empty fields and new-password autocomplete;
 password validation remains Django-owned.
 
+Mock/Practice discovery and setup plus Previous-Year catalogue surfaces reuse the
+shell palette through scoped `.mock-hub` / `.ui-discovery` tokens. The shared
+`components/module_access_note.html` renders access guidance and the pricing link;
+Practice supplies `free_session_size`. Assessment readers retain learning tokens.
+The module browser check in `tools/verify_membership_ui.py` captures populated
+discovery/setup pages under `docs/screenshots/modules/` at desktop/mobile widths.
+
 Run `python manage.py test core.test_membership_ui --noinput` for presentation
 contracts. On Windows with Edge, run `python manage.py test tools.verify_membership_ui
 --noinput` for desktop/mobile layout, navigation and theme checks against disposable

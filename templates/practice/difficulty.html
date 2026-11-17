@@ -3,10 +3,10 @@
 {% block title %}Choose practice difficulty and language | Mock Exam Platform{% endblock %}
 {% block extra_head %}<link rel="stylesheet" href="{% static 'css/practice.css' %}">{% endblock %}
 {% block content %}
-<p>On Free, your first Mock or Practice start selects your one exam. New Practice questions are allocated in batches of up to {{ free_session_size }}, within your remaining lifetime allowance. Revisiting allocated questions uses no extra allowance. Upgrade to Premium for unlimited Practice across all exams. Previous-Year Papers remain free and unlimited.</p>
 <div class="mock-hub practice-hub practice-setup">
   <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="{% url 'practice:subjects' exam.authority.slug exam.slug %}">{{ exam.name }}</a>{% include "components/icon.html" with name="chevron" %}<span>{{ subject.name }}</span>{% include "components/icon.html" with name="chevron" %}<span aria-current="page">Difficulty and language</span></nav>
   <header class="mock-hub-heading"><div><p class="eyebrow">SET YOUR PACE</p><h1>Choose your difficulty and language</h1><p>{{ subject.name }} &middot; {% if module %}{{ module.name }}{% else %}Whole subject{% endif %}</p></div><span class="mock-hub-heading-icon" aria-hidden="true">{% include "components/icon.html" with name="pencil" %}</span></header>
+  {% include "components/module_access_note.html" with module_kind="practice" %}
   <form method="post" class="practice-difficulty-card ui-card">
     {% csrf_token %}{{ form.token }}{{ form.token.errors }}
     {% if form.non_field_errors %}<div class="form-errors" role="alert">{{ form.non_field_errors }}</div>{% endif %}

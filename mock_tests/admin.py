@@ -187,6 +187,7 @@ class SectionInline(admin.TabularInline):
     formset = SectionFormSet
     extra = 0
     show_change_link = True
+    autocomplete_fields = ("subject", "topic")
     readonly_fields = ("eligible_count",)
 
     @admin.display(description="Eligible questions")
@@ -205,6 +206,7 @@ class SectionInline(admin.TabularInline):
 
 @admin.register(ExamPattern)
 class ExamPatternAdmin(admin.ModelAdmin):
+    autocomplete_fields = ("exam", "stage")
     list_display = ("name", "exam", "stage", "version", "duration_minutes", "total_questions", "total_marks", "status", "is_free_demo")
     list_filter = ("exam", "stage", "status", "is_free_demo")
     search_fields = ("name", "exam__name", "exam__code")
@@ -261,6 +263,7 @@ class ExamPatternAdmin(admin.ModelAdmin):
 
 @admin.register(ExamPatternSection)
 class ExamPatternSectionAdmin(admin.ModelAdmin):
+    autocomplete_fields = ("pattern", "subject", "topic")
     form = SectionForm
     list_display = ("name", "pattern", "display_order", "question_count", "subject", "topic", "language_mode")
     list_filter = ("pattern", "subject", "language_mode")

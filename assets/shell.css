@@ -20,6 +20,53 @@
   :root:not([data-theme]) { --app-canvas:#111923; --app-surface:#1a2534; --app-ink:#ecf1fa; --app-muted:#b4c1d4; --app-line:#3b4b61; --app-brand:#a6b8ff; --app-hover:#c4cfff; --app-tint:#273653; --app-on-brand:#14223b; }
 }
 html body.app-shell.calm-shell { background:var(--app-canvas); }
+/* Scope the shell palette to discovery/setup, never to assessment readers. */
+html .app-shell :is(.mock-hub,.ui-discovery) {
+  --ui-canvas:var(--app-canvas); --ui-surface:var(--app-surface);
+  --ui-ink:var(--app-ink); --ui-muted:var(--app-muted);
+  --ui-line:var(--app-line); --ui-accent:var(--app-brand);
+  --ui-on-accent:var(--app-on-brand); --ui-tint:var(--app-tint);
+  --ui-soft:var(--app-tint);
+}
+html .app-shell .mock-hub { max-width:74rem; margin-inline:auto; }
+html .app-shell .mock-hub .mock-hub-heading {
+  padding:2.25rem; margin-bottom:2rem; border:1px solid var(--app-line);
+  border-radius:1.25rem; background:var(--app-surface); gap:1.5rem;
+}
+html .app-shell .mock-hub .mock-hub-heading h1 { font-size:clamp(2rem,4vw,3rem); line-height:1.15; }
+html .app-shell .mock-hub .mock-hub-heading p { max-width:42rem; color:var(--app-muted); line-height:1.8; }
+html .app-shell .mock-hub :is(.mock-hub-heading-icon,.ui-card-icon) { border-radius:.8rem; }
+html .app-shell .mock-hub :is(.mock-hub-card,.mock-hub-category,.mock-hub-empty,.practice-module-card,.practice-difficulty-card,.mock-start-guidance,.mock-pattern-language) {
+  background:var(--app-surface); color:var(--app-ink); border:1px solid var(--app-line);
+  border-radius:1rem; box-shadow:none;
+}
+html .app-shell .mock-hub :is(.mock-hub-category,.practice-module-card) { padding:1.5rem; text-decoration:none; }
+html .app-shell .mock-hub :is(a.mock-hub-category,.practice-module-card):hover { border-color:var(--app-brand); background:var(--app-tint); }
+html .app-shell .mock-hub :is(.mock-hub-card,.practice-module-card) h3 { font-size:1.2rem; }
+html .app-shell .mock-hub :is(.mock-hub-category span,.mock-hub-card p,.practice-module-card p,.mock-hub-empty small,.mock-hub-section-note) { color:var(--app-muted); }
+html .app-shell .mock-hub :is(.mock-pattern-stats,.mock-start-stats) > div { background:var(--app-surface); border-color:var(--app-line); border-radius:.8rem; }
+html .app-shell .mock-hub :is(.mock-pattern-stats,.mock-start-stats) dd { color:var(--app-ink); }
+html .app-shell .mock-hub :is(.mock-pattern-sections li,.mock-hub-metadata) { border-color:var(--app-line); color:var(--app-muted); }
+html .app-shell .mock-hub :is(.practice-module-cta,.mock-hub-category > .ui-icon) { color:var(--app-brand); }
+html .app-shell .mock-hub .practice-difficulty-card { padding:2rem; }
+html .app-shell .mock-hub .practice-difficulty-options label { background:var(--app-surface); color:var(--app-ink); border-color:var(--app-line); min-height:48px; }
+html .app-shell .mock-hub .practice-difficulty-options label:has(input:checked) { background:var(--app-tint); border-color:var(--app-brand); color:var(--app-brand); }
+html .app-shell .mock-hub input[type="radio"] { accent-color:var(--app-brand); }
+html .app-shell.calm-shell .ui-main .mock-hub button.button-primary[type="submit"] { background:var(--app-brand); color:var(--app-on-brand); border-color:var(--app-brand); }
+html .app-shell .mock-hub .button-secondary { background:var(--app-surface); color:var(--app-ink); border-color:var(--app-line); }
+html .app-shell :is(.mock-hub,.ui-discovery) :focus-visible { outline:3px solid var(--app-brand); outline-offset:4px; }
+.module-access-note { display:flex; gap:1rem; align-items:flex-start; border:1px solid var(--app-line); background:var(--app-tint); border-radius:.8rem; padding:1.25rem 1.5rem; margin:1.5rem 0 2rem; color:var(--app-ink); }
+.module-access-note > .ui-icon { flex-shrink:0; color:var(--app-brand); margin-top:.2rem; }
+.module-access-note p { margin:.4rem 0 .65rem; font-size:.85rem; line-height:1.8; color:var(--app-muted); }
+.module-access-note a { color:var(--app-brand); font-size:.85rem; font-weight:650; }
+html .app-shell .ui-discovery :is(.ui-paper-card,.ui-selection-panel,.empty-state,.ui-paper-next-card) { background:var(--app-surface); color:var(--app-ink); border-color:var(--app-line); border-radius:1rem; box-shadow:none; }
+html .app-shell .ui-discovery .ui-filter-chip[aria-current] { color:var(--app-brand); background:var(--app-tint); border-color:var(--app-brand); }
+@media(max-width:48rem) {
+  html .app-shell .mock-hub .mock-hub-heading { padding:1.5rem; }
+  html .app-shell .mock-hub .practice-difficulty-card { padding:1.25rem; }
+  html .app-shell .mock-hub .practice-setup-choices { grid-template-columns:minmax(0,1fr); }
+  .module-access-note { padding:1rem; }
+}
 html .app-shell .ui-main { max-width:80rem; padding-top:2rem; padding-bottom:4rem; }
 html .app-shell .site-header.ui-header { background:var(--app-surface); border:0; border-bottom:1px solid var(--app-line); box-shadow:0 3px 16px #18243b05; backdrop-filter:none; }
 .shell-announcement { background:var(--app-night); color:#e2e9f6; font-size:.75rem; }
