@@ -1,5 +1,6 @@
 {
-  "scope": "Questions module, taxonomy context and all direct inbound FK consumers",
+  "scope": "Questions module, taxonomy, direct inbound FK consumers and mock configurations",
+  "verified_on": "2026-11-17",
   "tables": [
     {
       "table": "questions_question",
@@ -130,6 +131,30 @@
           "choices": []
         },
         {
+          "column": "question_kind",
+          "type": "character varying(12)",
+          "nullable": false,
+          "pk": false,
+          "unique": false,
+          "target": null,
+          "on_delete": null,
+          "blank": false,
+          "choices": [
+            [
+              "logical",
+              "Logical"
+            ],
+            [
+              "static",
+              "Static"
+            ],
+            [
+              "unclassified",
+              "Unclassified"
+            ]
+          ]
+        },
+        {
           "column": "current_revision_id",
           "type": "bigint",
           "nullable": true,
@@ -175,6 +200,10 @@
         }
       ],
       "constraints": [
+        {
+          "name": "questions_kind_valid",
+          "definition": "CHECK (((question_kind)::text = ANY ((ARRAY['logical'::character varying, 'static'::character varying, 'unclassified'::character varying])::text[])))"
+        },
         {
           "name": "questions_master_answer_valid",
           "definition": "CHECK (((correct_answer)::text = ANY ((ARRAY[''::character varying, 'A'::character varying, 'B'::character varying, 'C'::character varying, 'D'::character varying])::text[])))"
@@ -222,6 +251,10 @@
         {
           "name": "questions_question_published_revision_i_91b2fdd5_fk_questions",
           "definition": "FOREIGN KEY (published_revision_id) REFERENCES questions_questionrevision(id) DEFERRABLE INITIALLY DEFERRED"
+        },
+        {
+          "name": "questions_question_question_kind_not_null",
+          "definition": "NOT NULL question_kind"
         },
         {
           "name": "questions_question_review_status_not_null",
@@ -2543,6 +2576,30 @@
           "on_delete": null,
           "blank": false,
           "choices": []
+        },
+        {
+          "column": "default_mock_language",
+          "type": "character varying(2)",
+          "nullable": false,
+          "pk": false,
+          "unique": false,
+          "target": null,
+          "on_delete": null,
+          "blank": true,
+          "choices": [
+            [
+              "",
+              "Automatic"
+            ],
+            [
+              "en",
+              "English"
+            ],
+            [
+              "bn",
+              "Bengali"
+            ]
+          ]
         }
       ],
       "constraints": [
@@ -2567,6 +2624,10 @@
           "definition": "NOT NULL code"
         },
         {
+          "name": "exams_exam_default_mock_language_not_null",
+          "definition": "NOT NULL default_mock_language"
+        },
+        {
           "name": "exams_exam_id_not_null",
           "definition": "NOT NULL id"
         },
@@ -2585,6 +2646,10 @@
         {
           "name": "exams_exam_slug_not_null",
           "definition": "NOT NULL slug"
+        },
+        {
+          "name": "exams_mock_language_valid",
+          "definition": "CHECK (((default_mock_language)::text = ANY ((ARRAY[''::character varying, 'en'::character varying, 'bn'::character varying])::text[])))"
         }
       ],
       "indexes": [
@@ -2726,6 +2791,110 @@
         {
           "name": "exams_stage_exam_code_uniq",
           "definition": "CREATE UNIQUE INDEX exams_stage_exam_code_uniq ON public.exams_examstage USING btree (exam_id, code)"
+        }
+      ],
+      "triggers": []
+    },
+    {
+      "table": "billing_freequestionusage",
+      "model": "billing.FreeQuestionUsage",
+      "group": "consumer",
+      "columns": [
+        {
+          "column": "id",
+          "type": "bigint",
+          "nullable": false,
+          "pk": true,
+          "unique": true,
+          "target": null,
+          "on_delete": null,
+          "blank": true,
+          "choices": []
+        },
+        {
+          "column": "user_id",
+          "type": "bigint",
+          "nullable": false,
+          "pk": false,
+          "unique": false,
+          "target": "accounts_user",
+          "on_delete": "PROTECT",
+          "blank": false,
+          "choices": []
+        },
+        {
+          "column": "question_id",
+          "type": "bigint",
+          "nullable": false,
+          "pk": false,
+          "unique": false,
+          "target": "questions_question",
+          "on_delete": "PROTECT",
+          "blank": false,
+          "choices": []
+        },
+        {
+          "column": "delivered_at",
+          "type": "timestamp with time zone",
+          "nullable": false,
+          "pk": false,
+          "unique": false,
+          "target": null,
+          "on_delete": null,
+          "blank": true,
+          "choices": []
+        }
+      ],
+      "constraints": [
+        {
+          "name": "billing_freequestion_question_id_0d01a688_fk_questions",
+          "definition": "FOREIGN KEY (question_id) REFERENCES questions_question(id) DEFERRABLE INITIALLY DEFERRED"
+        },
+        {
+          "name": "billing_freequestionusage_delivered_at_not_null",
+          "definition": "NOT NULL delivered_at"
+        },
+        {
+          "name": "billing_freequestionusage_id_not_null",
+          "definition": "NOT NULL id"
+        },
+        {
+          "name": "billing_freequestionusage_pkey",
+          "definition": "PRIMARY KEY (id)"
+        },
+        {
+          "name": "billing_freequestionusage_question_id_not_null",
+          "definition": "NOT NULL question_id"
+        },
+        {
+          "name": "billing_freequestionusage_user_id_b6e85dca_fk_accounts_user_id",
+          "definition": "FOREIGN KEY (user_id) REFERENCES accounts_user(id) DEFERRABLE INITIALLY DEFERRED"
+        },
+        {
+          "name": "billing_freequestionusage_user_id_not_null",
+          "definition": "NOT NULL user_id"
+        },
+        {
+          "name": "billing_unique_free_question",
+          "definition": "UNIQUE (user_id, question_id)"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "billing_freequestionusage_pkey",
+          "definition": "CREATE UNIQUE INDEX billing_freequestionusage_pkey ON public.billing_freequestionusage USING btree (id)"
+        },
+        {
+          "name": "billing_freequestionusage_question_id_0d01a688",
+          "definition": "CREATE INDEX billing_freequestionusage_question_id_0d01a688 ON public.billing_freequestionusage USING btree (question_id)"
+        },
+        {
+          "name": "billing_freequestionusage_user_id_b6e85dca",
+          "definition": "CREATE INDEX billing_freequestionusage_user_id_b6e85dca ON public.billing_freequestionusage USING btree (user_id)"
+        },
+        {
+          "name": "billing_unique_free_question",
+          "definition": "CREATE UNIQUE INDEX billing_unique_free_question ON public.billing_freequestionusage USING btree (user_id, question_id)"
         }
       ],
       "triggers": []
@@ -3256,6 +3425,211 @@
         }
       ],
       "triggers": []
+    },
+    {
+      "table": "mock_tests_mocksetquestion",
+      "model": "mock_tests.MockSetQuestion",
+      "group": "consumer",
+      "columns": [
+        {
+          "column": "id",
+          "type": "bigint",
+          "nullable": false,
+          "pk": true,
+          "unique": true,
+          "target": null,
+          "on_delete": null,
+          "blank": true,
+          "choices": []
+        },
+        {
+          "column": "mock_set_id",
+          "type": "bigint",
+          "nullable": false,
+          "pk": false,
+          "unique": false,
+          "target": "mock_tests_mockset",
+          "on_delete": "PROTECT",
+          "blank": false,
+          "choices": []
+        },
+        {
+          "column": "section_id",
+          "type": "bigint",
+          "nullable": false,
+          "pk": false,
+          "unique": false,
+          "target": "mock_tests_exampatternsection",
+          "on_delete": "PROTECT",
+          "blank": false,
+          "choices": []
+        },
+        {
+          "column": "question_id",
+          "type": "bigint",
+          "nullable": false,
+          "pk": false,
+          "unique": false,
+          "target": "questions_question",
+          "on_delete": "PROTECT",
+          "blank": false,
+          "choices": []
+        },
+        {
+          "column": "question_revision_id",
+          "type": "bigint",
+          "nullable": false,
+          "pk": false,
+          "unique": false,
+          "target": "questions_questionrevision",
+          "on_delete": "PROTECT",
+          "blank": false,
+          "choices": []
+        },
+        {
+          "column": "display_order",
+          "type": "integer",
+          "nullable": false,
+          "pk": false,
+          "unique": false,
+          "target": null,
+          "on_delete": null,
+          "blank": false,
+          "choices": []
+        },
+        {
+          "column": "positive_marks",
+          "type": "numeric(8,2)",
+          "nullable": false,
+          "pk": false,
+          "unique": false,
+          "target": null,
+          "on_delete": null,
+          "blank": false,
+          "choices": []
+        },
+        {
+          "column": "negative_marks",
+          "type": "numeric(8,2)",
+          "nullable": false,
+          "pk": false,
+          "unique": false,
+          "target": null,
+          "on_delete": null,
+          "blank": false,
+          "choices": []
+        }
+      ],
+      "constraints": [
+        {
+          "name": "mock_set_unique_master",
+          "definition": "UNIQUE (mock_set_id, question_id)"
+        },
+        {
+          "name": "mock_set_unique_order",
+          "definition": "UNIQUE (mock_set_id, display_order)"
+        },
+        {
+          "name": "mock_set_valid_marks_order",
+          "definition": "CHECK (((display_order > 0) AND (negative_marks >= (0)::numeric) AND (positive_marks > (0)::numeric)))"
+        },
+        {
+          "name": "mock_tests_mocksetqu_mock_set_id_a76e6e7e_fk_mock_test",
+          "definition": "FOREIGN KEY (mock_set_id) REFERENCES mock_tests_mockset(id) DEFERRABLE INITIALLY DEFERRED"
+        },
+        {
+          "name": "mock_tests_mocksetqu_question_id_40376ec3_fk_questions",
+          "definition": "FOREIGN KEY (question_id) REFERENCES questions_question(id) DEFERRABLE INITIALLY DEFERRED"
+        },
+        {
+          "name": "mock_tests_mocksetqu_question_revision_id_5f3b4ee3_fk_questions",
+          "definition": "FOREIGN KEY (question_revision_id) REFERENCES questions_questionrevision(id) DEFERRABLE INITIALLY DEFERRED"
+        },
+        {
+          "name": "mock_tests_mocksetqu_section_id_334eee62_fk_mock_test",
+          "definition": "FOREIGN KEY (section_id) REFERENCES mock_tests_exampatternsection(id) DEFERRABLE INITIALLY DEFERRED"
+        },
+        {
+          "name": "mock_tests_mocksetquestion_display_order_check",
+          "definition": "CHECK ((display_order >= 0))"
+        },
+        {
+          "name": "mock_tests_mocksetquestion_display_order_not_null",
+          "definition": "NOT NULL display_order"
+        },
+        {
+          "name": "mock_tests_mocksetquestion_id_not_null",
+          "definition": "NOT NULL id"
+        },
+        {
+          "name": "mock_tests_mocksetquestion_mock_set_id_not_null",
+          "definition": "NOT NULL mock_set_id"
+        },
+        {
+          "name": "mock_tests_mocksetquestion_negative_marks_not_null",
+          "definition": "NOT NULL negative_marks"
+        },
+        {
+          "name": "mock_tests_mocksetquestion_pkey",
+          "definition": "PRIMARY KEY (id)"
+        },
+        {
+          "name": "mock_tests_mocksetquestion_positive_marks_not_null",
+          "definition": "NOT NULL positive_marks"
+        },
+        {
+          "name": "mock_tests_mocksetquestion_question_id_not_null",
+          "definition": "NOT NULL question_id"
+        },
+        {
+          "name": "mock_tests_mocksetquestion_question_revision_id_not_null",
+          "definition": "NOT NULL question_revision_id"
+        },
+        {
+          "name": "mock_tests_mocksetquestion_section_id_not_null",
+          "definition": "NOT NULL section_id"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "mock_set_unique_master",
+          "definition": "CREATE UNIQUE INDEX mock_set_unique_master ON public.mock_tests_mocksetquestion USING btree (mock_set_id, question_id)"
+        },
+        {
+          "name": "mock_set_unique_order",
+          "definition": "CREATE UNIQUE INDEX mock_set_unique_order ON public.mock_tests_mocksetquestion USING btree (mock_set_id, display_order)"
+        },
+        {
+          "name": "mock_tests_mocksetquestion_mock_set_id_a76e6e7e",
+          "definition": "CREATE INDEX mock_tests_mocksetquestion_mock_set_id_a76e6e7e ON public.mock_tests_mocksetquestion USING btree (mock_set_id)"
+        },
+        {
+          "name": "mock_tests_mocksetquestion_pkey",
+          "definition": "CREATE UNIQUE INDEX mock_tests_mocksetquestion_pkey ON public.mock_tests_mocksetquestion USING btree (id)"
+        },
+        {
+          "name": "mock_tests_mocksetquestion_question_id_40376ec3",
+          "definition": "CREATE INDEX mock_tests_mocksetquestion_question_id_40376ec3 ON public.mock_tests_mocksetquestion USING btree (question_id)"
+        },
+        {
+          "name": "mock_tests_mocksetquestion_question_revision_id_5f3b4ee3",
+          "definition": "CREATE INDEX mock_tests_mocksetquestion_question_revision_id_5f3b4ee3 ON public.mock_tests_mocksetquestion USING btree (question_revision_id)"
+        },
+        {
+          "name": "mock_tests_mocksetquestion_section_id_334eee62",
+          "definition": "CREATE INDEX mock_tests_mocksetquestion_section_id_334eee62 ON public.mock_tests_mocksetquestion USING btree (section_id)"
+        }
+      ],
+      "triggers": [
+        {
+          "name": "mock_set_question_immutable",
+          "definition": "CREATE TRIGGER mock_set_question_immutable BEFORE DELETE OR UPDATE ON public.mock_tests_mocksetquestion FOR EACH ROW EXECUTE FUNCTION mock_guard_published_set()"
+        },
+        {
+          "name": "mock_set_question_insert",
+          "definition": "CREATE TRIGGER mock_set_question_insert BEFORE INSERT ON public.mock_tests_mocksetquestion FOR EACH ROW EXECUTE FUNCTION mock_guard_set_question_insert()"
+        }
+      ]
     },
     {
       "table": "practice_practicequestion",
@@ -3802,6 +4176,1276 @@
         }
       ],
       "triggers": []
+    },
+    {
+      "table": "mock_tests_exampattern",
+      "model": "mock_tests.ExamPattern",
+      "group": "mock",
+      "columns": [
+        {
+          "column": "id",
+          "type": "bigint",
+          "nullable": false,
+          "pk": true,
+          "unique": true,
+          "target": null,
+          "on_delete": null,
+          "blank": true,
+          "choices": []
+        },
+        {
+          "column": "exam_id",
+          "type": "bigint",
+          "nullable": false,
+          "pk": false,
+          "unique": false,
+          "target": "exams_exam",
+          "on_delete": "PROTECT",
+          "blank": false,
+          "choices": []
+        },
+        {
+          "column": "stage_id",
+          "type": "bigint",
+          "nullable": true,
+          "pk": false,
+          "unique": false,
+          "target": "exams_examstage",
+          "on_delete": "PROTECT",
+          "blank": true,
+          "choices": []
+        },
+        {
+          "column": "name",
+          "type": "character varying(200)",
+          "nullable": false,
+          "pk": false,
+          "unique": false,
+          "target": null,
+          "on_delete": null,
+          "blank": false,
+          "choices": []
+        },
+        {
+          "column": "version",
+          "type": "integer",
+          "nullable": false,
+          "pk": false,
+          "unique": false,
+          "target": null,
+          "on_delete": null,
+          "blank": false,
+          "choices": []
+        },
+        {
+          "column": "duration_minutes",
+          "type": "integer",
+          "nullable": false,
+          "pk": false,
+          "unique": false,
+          "target": null,
+          "on_delete": null,
+          "blank": false,
+          "choices": []
+        },
+        {
+          "column": "total_questions",
+          "type": "integer",
+          "nullable": false,
+          "pk": false,
+          "unique": false,
+          "target": null,
+          "on_delete": null,
+          "blank": false,
+          "choices": []
+        },
+        {
+          "column": "total_marks",
+          "type": "numeric(10,2)",
+          "nullable": false,
+          "pk": false,
+          "unique": false,
+          "target": null,
+          "on_delete": null,
+          "blank": false,
+          "choices": []
+        },
+        {
+          "column": "default_positive_marks",
+          "type": "numeric(8,2)",
+          "nullable": false,
+          "pk": false,
+          "unique": false,
+          "target": null,
+          "on_delete": null,
+          "blank": false,
+          "choices": []
+        },
+        {
+          "column": "default_negative_marks",
+          "type": "numeric(8,2)",
+          "nullable": false,
+          "pk": false,
+          "unique": false,
+          "target": null,
+          "on_delete": null,
+          "blank": false,
+          "choices": []
+        },
+        {
+          "column": "status",
+          "type": "character varying(10)",
+          "nullable": false,
+          "pk": false,
+          "unique": false,
+          "target": null,
+          "on_delete": null,
+          "blank": false,
+          "choices": [
+            [
+              "draft",
+              "Draft"
+            ],
+            [
+              "active",
+              "Active"
+            ],
+            [
+              "inactive",
+              "Inactive"
+            ]
+          ]
+        },
+        {
+          "column": "is_free_demo",
+          "type": "boolean",
+          "nullable": false,
+          "pk": false,
+          "unique": false,
+          "target": null,
+          "on_delete": null,
+          "blank": false,
+          "choices": []
+        },
+        {
+          "column": "created_at",
+          "type": "timestamp with time zone",
+          "nullable": false,
+          "pk": false,
+          "unique": false,
+          "target": null,
+          "on_delete": null,
+          "blank": true,
+          "choices": []
+        }
+      ],
+      "constraints": [
+        {
+          "name": "mock_pattern_status_valid",
+          "definition": "CHECK (((status)::text = ANY ((ARRAY['draft'::character varying, 'active'::character varying, 'inactive'::character varying])::text[])))"
+        },
+        {
+          "name": "mock_pattern_values_valid",
+          "definition": "CHECK (((default_negative_marks >= (0)::numeric) AND (default_positive_marks > (0)::numeric) AND (duration_minutes > 0) AND (total_marks > (0)::numeric) AND (total_questions > 0) AND (version > 0)))"
+        },
+        {
+          "name": "mock_tests_exampattern_created_at_not_null",
+          "definition": "NOT NULL created_at"
+        },
+        {
+          "name": "mock_tests_exampattern_default_negative_marks_not_null",
+          "definition": "NOT NULL default_negative_marks"
+        },
+        {
+          "name": "mock_tests_exampattern_default_positive_marks_not_null",
+          "definition": "NOT NULL default_positive_marks"
+        },
+        {
+          "name": "mock_tests_exampattern_duration_minutes_check",
+          "definition": "CHECK ((duration_minutes >= 0))"
+        },
+        {
+          "name": "mock_tests_exampattern_duration_minutes_not_null",
+          "definition": "NOT NULL duration_minutes"
+        },
+        {
+          "name": "mock_tests_exampattern_exam_id_9d901976_fk_exams_exam_id",
+          "definition": "FOREIGN KEY (exam_id) REFERENCES exams_exam(id) DEFERRABLE INITIALLY DEFERRED"
+        },
+        {
+          "name": "mock_tests_exampattern_exam_id_not_null",
+          "definition": "NOT NULL exam_id"
+        },
+        {
+          "name": "mock_tests_exampattern_id_not_null",
+          "definition": "NOT NULL id"
+        },
+        {
+          "name": "mock_tests_exampattern_is_free_demo_not_null",
+          "definition": "NOT NULL is_free_demo"
+        },
+        {
+          "name": "mock_tests_exampattern_name_not_null",
+          "definition": "NOT NULL name"
+        },
+        {
+          "name": "mock_tests_exampattern_pkey",
+          "definition": "PRIMARY KEY (id)"
+        },
+        {
+          "name": "mock_tests_exampattern_stage_id_d20e7397_fk_exams_examstage_id",
+          "definition": "FOREIGN KEY (stage_id) REFERENCES exams_examstage(id) DEFERRABLE INITIALLY DEFERRED"
+        },
+        {
+          "name": "mock_tests_exampattern_status_not_null",
+          "definition": "NOT NULL status"
+        },
+        {
+          "name": "mock_tests_exampattern_total_marks_not_null",
+          "definition": "NOT NULL total_marks"
+        },
+        {
+          "name": "mock_tests_exampattern_total_questions_check",
+          "definition": "CHECK ((total_questions >= 0))"
+        },
+        {
+          "name": "mock_tests_exampattern_total_questions_not_null",
+          "definition": "NOT NULL total_questions"
+        },
+        {
+          "name": "mock_tests_exampattern_version_check",
+          "definition": "CHECK ((version >= 0))"
+        },
+        {
+          "name": "mock_tests_exampattern_version_not_null",
+          "definition": "NOT NULL version"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "mock_active_exam_unique",
+          "definition": "CREATE UNIQUE INDEX mock_active_exam_unique ON public.mock_tests_exampattern USING btree (exam_id) WHERE ((stage_id IS NULL) AND ((status)::text = 'active'::text))"
+        },
+        {
+          "name": "mock_active_stage_unique",
+          "definition": "CREATE UNIQUE INDEX mock_active_stage_unique ON public.mock_tests_exampattern USING btree (exam_id, stage_id) WHERE ((stage_id IS NOT NULL) AND ((status)::text = 'active'::text))"
+        },
+        {
+          "name": "mock_one_active_free_demo",
+          "definition": "CREATE UNIQUE INDEX mock_one_active_free_demo ON public.mock_tests_exampattern USING btree (exam_id) WHERE (is_free_demo AND ((status)::text = 'active'::text))"
+        },
+        {
+          "name": "mock_tests_exampattern_exam_id_9d901976",
+          "definition": "CREATE INDEX mock_tests_exampattern_exam_id_9d901976 ON public.mock_tests_exampattern USING btree (exam_id)"
+        },
+        {
+          "name": "mock_tests_exampattern_pkey",
+          "definition": "CREATE UNIQUE INDEX mock_tests_exampattern_pkey ON public.mock_tests_exampattern USING btree (id)"
+        },
+        {
+          "name": "mock_tests_exampattern_stage_id_d20e7397",
+          "definition": "CREATE INDEX mock_tests_exampattern_stage_id_d20e7397 ON public.mock_tests_exampattern USING btree (stage_id)"
+        }
+      ],
+      "triggers": [
+        {
+          "name": "mock_frozen_pattern",
+          "definition": "CREATE TRIGGER mock_frozen_pattern BEFORE UPDATE ON public.mock_tests_exampattern FOR EACH ROW EXECUTE FUNCTION mock_guard_frozen_pattern()"
+        }
+      ]
+    },
+    {
+      "table": "mock_tests_exampatternsection",
+      "model": "mock_tests.ExamPatternSection",
+      "group": "mock",
+      "columns": [
+        {
+          "column": "id",
+          "type": "bigint",
+          "nullable": false,
+          "pk": true,
+          "unique": true,
+          "target": null,
+          "on_delete": null,
+          "blank": true,
+          "choices": []
+        },
+        {
+          "column": "pattern_id",
+          "type": "bigint",
+          "nullable": false,
+          "pk": false,
+          "unique": false,
+          "target": "mock_tests_exampattern",
+          "on_delete": "PROTECT",
+          "blank": false,
+          "choices": []
+        },
+        {
+          "column": "name",
+          "type": "character varying(200)",
+          "nullable": false,
+          "pk": false,
+          "unique": false,
+          "target": null,
+          "on_delete": null,
+          "blank": false,
+          "choices": []
+        },
+        {
+          "column": "display_order",
+          "type": "integer",
+          "nullable": false,
+          "pk": false,
+          "unique": false,
+          "target": null,
+          "on_delete": null,
+          "blank": false,
+          "choices": []
+        },
+        {
+          "column": "question_count",
+          "type": "integer",
+          "nullable": false,
+          "pk": false,
+          "unique": false,
+          "target": null,
+          "on_delete": null,
+          "blank": false,
+          "choices": []
+        },
+        {
+          "column": "subject_id",
+          "type": "bigint",
+          "nullable": true,
+          "pk": false,
+          "unique": false,
+          "target": "exams_subject",
+          "on_delete": "PROTECT",
+          "blank": true,
+          "choices": []
+        },
+        {
+          "column": "topic_id",
+          "type": "bigint",
+          "nullable": true,
+          "pk": false,
+          "unique": false,
+          "target": "exams_topic",
+          "on_delete": "PROTECT",
+          "blank": true,
+          "choices": []
+        },
+        {
+          "column": "language_mode",
+          "type": "character varying(5)",
+          "nullable": false,
+          "pk": false,
+          "unique": false,
+          "target": null,
+          "on_delete": null,
+          "blank": false,
+          "choices": [
+            [
+              "en",
+              "English"
+            ],
+            [
+              "bn",
+              "Bengali"
+            ],
+            [
+              "mixed",
+              "English/Bengali"
+            ]
+          ]
+        },
+        {
+          "column": "positive_marks",
+          "type": "numeric(8,2)",
+          "nullable": true,
+          "pk": false,
+          "unique": false,
+          "target": null,
+          "on_delete": null,
+          "blank": true,
+          "choices": []
+        },
+        {
+          "column": "negative_marks",
+          "type": "numeric(8,2)",
+          "nullable": true,
+          "pk": false,
+          "unique": false,
+          "target": null,
+          "on_delete": null,
+          "blank": true,
+          "choices": []
+        }
+      ],
+      "constraints": [
+        {
+          "name": "mock_section_counts_valid",
+          "definition": "CHECK (((display_order > 0) AND (question_count > 0)))"
+        },
+        {
+          "name": "mock_section_language_valid",
+          "definition": "CHECK (((language_mode)::text = ANY ((ARRAY['en'::character varying, 'bn'::character varying, 'mixed'::character varying])::text[])))"
+        },
+        {
+          "name": "mock_section_order_unique",
+          "definition": "UNIQUE (pattern_id, display_order)"
+        },
+        {
+          "name": "mock_section_penalty_valid",
+          "definition": "CHECK (((negative_marks IS NULL) OR (negative_marks >= (0)::numeric)))"
+        },
+        {
+          "name": "mock_section_positive_valid",
+          "definition": "CHECK (((positive_marks IS NULL) OR (positive_marks > (0)::numeric)))"
+        },
+        {
+          "name": "mock_tests_exampatte_pattern_id_96a0ebec_fk_mock_test",
+          "definition": "FOREIGN KEY (pattern_id) REFERENCES mock_tests_exampattern(id) DEFERRABLE INITIALLY DEFERRED"
+        },
+        {
+          "name": "mock_tests_exampatte_subject_id_d179f9db_fk_exams_sub",
+          "definition": "FOREIGN KEY (subject_id) REFERENCES exams_subject(id) DEFERRABLE INITIALLY DEFERRED"
+        },
+        {
+          "name": "mock_tests_exampatte_topic_id_91672ba5_fk_exams_top",
+          "definition": "FOREIGN KEY (topic_id) REFERENCES exams_topic(id) DEFERRABLE INITIALLY DEFERRED"
+        },
+        {
+          "name": "mock_tests_exampatternsection_display_order_check",
+          "definition": "CHECK ((display_order >= 0))"
+        },
+        {
+          "name": "mock_tests_exampatternsection_display_order_not_null",
+          "definition": "NOT NULL display_order"
+        },
+        {
+          "name": "mock_tests_exampatternsection_id_not_null",
+          "definition": "NOT NULL id"
+        },
+        {
+          "name": "mock_tests_exampatternsection_language_mode_not_null",
+          "definition": "NOT NULL language_mode"
+        },
+        {
+          "name": "mock_tests_exampatternsection_name_not_null",
+          "definition": "NOT NULL name"
+        },
+        {
+          "name": "mock_tests_exampatternsection_pattern_id_not_null",
+          "definition": "NOT NULL pattern_id"
+        },
+        {
+          "name": "mock_tests_exampatternsection_pkey",
+          "definition": "PRIMARY KEY (id)"
+        },
+        {
+          "name": "mock_tests_exampatternsection_question_count_check",
+          "definition": "CHECK ((question_count >= 0))"
+        },
+        {
+          "name": "mock_tests_exampatternsection_question_count_not_null",
+          "definition": "NOT NULL question_count"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "mock_section_order_unique",
+          "definition": "CREATE UNIQUE INDEX mock_section_order_unique ON public.mock_tests_exampatternsection USING btree (pattern_id, display_order)"
+        },
+        {
+          "name": "mock_tests_exampatternsection_pattern_id_96a0ebec",
+          "definition": "CREATE INDEX mock_tests_exampatternsection_pattern_id_96a0ebec ON public.mock_tests_exampatternsection USING btree (pattern_id)"
+        },
+        {
+          "name": "mock_tests_exampatternsection_pkey",
+          "definition": "CREATE UNIQUE INDEX mock_tests_exampatternsection_pkey ON public.mock_tests_exampatternsection USING btree (id)"
+        },
+        {
+          "name": "mock_tests_exampatternsection_subject_id_d179f9db",
+          "definition": "CREATE INDEX mock_tests_exampatternsection_subject_id_d179f9db ON public.mock_tests_exampatternsection USING btree (subject_id)"
+        },
+        {
+          "name": "mock_tests_exampatternsection_topic_id_91672ba5",
+          "definition": "CREATE INDEX mock_tests_exampatternsection_topic_id_91672ba5 ON public.mock_tests_exampatternsection USING btree (topic_id)"
+        }
+      ],
+      "triggers": []
+    },
+    {
+      "table": "mock_tests_sectionselectionrule",
+      "model": "mock_tests.SectionSelectionRule",
+      "group": "mock",
+      "columns": [
+        {
+          "column": "id",
+          "type": "bigint",
+          "nullable": false,
+          "pk": true,
+          "unique": true,
+          "target": null,
+          "on_delete": null,
+          "blank": true,
+          "choices": []
+        },
+        {
+          "column": "section_id",
+          "type": "bigint",
+          "nullable": false,
+          "pk": false,
+          "unique": false,
+          "target": "mock_tests_exampatternsection",
+          "on_delete": "CASCADE",
+          "blank": false,
+          "choices": []
+        },
+        {
+          "column": "subject_id",
+          "type": "bigint",
+          "nullable": true,
+          "pk": false,
+          "unique": false,
+          "target": "exams_subject",
+          "on_delete": "PROTECT",
+          "blank": true,
+          "choices": []
+        },
+        {
+          "column": "part_id",
+          "type": "bigint",
+          "nullable": true,
+          "pk": false,
+          "unique": false,
+          "target": "exams_part",
+          "on_delete": "PROTECT",
+          "blank": true,
+          "choices": []
+        },
+        {
+          "column": "module_id",
+          "type": "bigint",
+          "nullable": true,
+          "pk": false,
+          "unique": false,
+          "target": "exams_module",
+          "on_delete": "PROTECT",
+          "blank": true,
+          "choices": []
+        },
+        {
+          "column": "chapter_id",
+          "type": "bigint",
+          "nullable": true,
+          "pk": false,
+          "unique": false,
+          "target": "exams_chapter",
+          "on_delete": "PROTECT",
+          "blank": true,
+          "choices": []
+        },
+        {
+          "column": "topic_id",
+          "type": "bigint",
+          "nullable": true,
+          "pk": false,
+          "unique": false,
+          "target": "exams_topic",
+          "on_delete": "PROTECT",
+          "blank": true,
+          "choices": []
+        },
+        {
+          "column": "question_count",
+          "type": "integer",
+          "nullable": false,
+          "pk": false,
+          "unique": false,
+          "target": null,
+          "on_delete": null,
+          "blank": false,
+          "choices": []
+        },
+        {
+          "column": "difficulty",
+          "type": "character varying(12)",
+          "nullable": false,
+          "pk": false,
+          "unique": false,
+          "target": null,
+          "on_delete": null,
+          "blank": true,
+          "choices": [
+            [
+              "",
+              "Any difficulty"
+            ],
+            [
+              "easy",
+              "Easy"
+            ],
+            [
+              "medium",
+              "Medium"
+            ],
+            [
+              "hard",
+              "Hard"
+            ],
+            [
+              "unspecified",
+              "Unspecified"
+            ]
+          ]
+        },
+        {
+          "column": "question_kind",
+          "type": "character varying(12)",
+          "nullable": false,
+          "pk": false,
+          "unique": false,
+          "target": null,
+          "on_delete": null,
+          "blank": true,
+          "choices": [
+            [
+              "",
+              "Any"
+            ],
+            [
+              "logical",
+              "Logical"
+            ],
+            [
+              "static",
+              "Static"
+            ]
+          ]
+        },
+        {
+          "column": "selection_mode",
+          "type": "character varying(6)",
+          "nullable": false,
+          "pk": false,
+          "unique": false,
+          "target": null,
+          "on_delete": null,
+          "blank": false,
+          "choices": [
+            [
+              "random",
+              "Random"
+            ],
+            [
+              "manual",
+              "Manual"
+            ]
+          ]
+        },
+        {
+          "column": "display_order",
+          "type": "integer",
+          "nullable": false,
+          "pk": false,
+          "unique": false,
+          "target": null,
+          "on_delete": null,
+          "blank": false,
+          "choices": []
+        }
+      ],
+      "constraints": [
+        {
+          "name": "mock_rule_counts_valid",
+          "definition": "CHECK (((display_order > 0) AND (question_count > 0)))"
+        },
+        {
+          "name": "mock_rule_difficulty_valid",
+          "definition": "CHECK (((difficulty)::text = ANY ((ARRAY[''::character varying, 'easy'::character varying, 'medium'::character varying, 'hard'::character varying, 'unspecified'::character varying])::text[])))"
+        },
+        {
+          "name": "mock_rule_kind_valid",
+          "definition": "CHECK (((question_kind)::text = ANY ((ARRAY[''::character varying, 'logical'::character varying, 'static'::character varying])::text[])))"
+        },
+        {
+          "name": "mock_rule_mode_valid",
+          "definition": "CHECK (((selection_mode)::text = ANY ((ARRAY['random'::character varying, 'manual'::character varying])::text[])))"
+        },
+        {
+          "name": "mock_rule_one_taxonomy",
+          "definition": "CHECK ((((chapter_id IS NULL) AND (module_id IS NULL) AND (part_id IS NULL) AND (subject_id IS NOT NULL) AND (topic_id IS NULL)) OR ((chapter_id IS NULL) AND (module_id IS NULL) AND (part_id IS NOT NULL) AND (subject_id IS NULL) AND (topic_id IS NULL)) OR ((chapter_id IS NULL) AND (module_id IS NOT NULL) AND (part_id IS NULL) AND (subject_id IS NULL) AND (topic_id IS NULL)) OR ((chapter_id IS NOT NULL) AND (module_id IS NULL) AND (part_id IS NULL) AND (subject_id IS NULL) AND (topic_id IS NULL)) OR ((chapter_id IS NULL) AND (module_id IS NULL) AND (part_id IS NULL) AND (subject_id IS NULL) AND (topic_id IS NOT NULL))))"
+        },
+        {
+          "name": "mock_rule_section_order_unique",
+          "definition": "UNIQUE (section_id, display_order)"
+        },
+        {
+          "name": "mock_tests_sectionse_chapter_id_1638737f_fk_exams_cha",
+          "definition": "FOREIGN KEY (chapter_id) REFERENCES exams_chapter(id) DEFERRABLE INITIALLY DEFERRED"
+        },
+        {
+          "name": "mock_tests_sectionse_module_id_c0737ad1_fk_exams_mod",
+          "definition": "FOREIGN KEY (module_id) REFERENCES exams_module(id) DEFERRABLE INITIALLY DEFERRED"
+        },
+        {
+          "name": "mock_tests_sectionse_part_id_98cacf93_fk_exams_par",
+          "definition": "FOREIGN KEY (part_id) REFERENCES exams_part(id) DEFERRABLE INITIALLY DEFERRED"
+        },
+        {
+          "name": "mock_tests_sectionse_section_id_8f8eaec8_fk_mock_test",
+          "definition": "FOREIGN KEY (section_id) REFERENCES mock_tests_exampatternsection(id) DEFERRABLE INITIALLY DEFERRED"
+        },
+        {
+          "name": "mock_tests_sectionse_subject_id_cc0e7557_fk_exams_sub",
+          "definition": "FOREIGN KEY (subject_id) REFERENCES exams_subject(id) DEFERRABLE INITIALLY DEFERRED"
+        },
+        {
+          "name": "mock_tests_sectionse_topic_id_7d7c2536_fk_exams_top",
+          "definition": "FOREIGN KEY (topic_id) REFERENCES exams_topic(id) DEFERRABLE INITIALLY DEFERRED"
+        },
+        {
+          "name": "mock_tests_sectionselectionrule_difficulty_not_null",
+          "definition": "NOT NULL difficulty"
+        },
+        {
+          "name": "mock_tests_sectionselectionrule_display_order_check",
+          "definition": "CHECK ((display_order >= 0))"
+        },
+        {
+          "name": "mock_tests_sectionselectionrule_display_order_not_null",
+          "definition": "NOT NULL display_order"
+        },
+        {
+          "name": "mock_tests_sectionselectionrule_id_not_null",
+          "definition": "NOT NULL id"
+        },
+        {
+          "name": "mock_tests_sectionselectionrule_pkey",
+          "definition": "PRIMARY KEY (id)"
+        },
+        {
+          "name": "mock_tests_sectionselectionrule_question_count_check",
+          "definition": "CHECK ((question_count >= 0))"
+        },
+        {
+          "name": "mock_tests_sectionselectionrule_question_count_not_null",
+          "definition": "NOT NULL question_count"
+        },
+        {
+          "name": "mock_tests_sectionselectionrule_question_kind_not_null",
+          "definition": "NOT NULL question_kind"
+        },
+        {
+          "name": "mock_tests_sectionselectionrule_section_id_not_null",
+          "definition": "NOT NULL section_id"
+        },
+        {
+          "name": "mock_tests_sectionselectionrule_selection_mode_not_null",
+          "definition": "NOT NULL selection_mode"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "mock_rule_section_order_unique",
+          "definition": "CREATE UNIQUE INDEX mock_rule_section_order_unique ON public.mock_tests_sectionselectionrule USING btree (section_id, display_order)"
+        },
+        {
+          "name": "mock_tests_sectionselectionrule_chapter_id_1638737f",
+          "definition": "CREATE INDEX mock_tests_sectionselectionrule_chapter_id_1638737f ON public.mock_tests_sectionselectionrule USING btree (chapter_id)"
+        },
+        {
+          "name": "mock_tests_sectionselectionrule_module_id_c0737ad1",
+          "definition": "CREATE INDEX mock_tests_sectionselectionrule_module_id_c0737ad1 ON public.mock_tests_sectionselectionrule USING btree (module_id)"
+        },
+        {
+          "name": "mock_tests_sectionselectionrule_part_id_98cacf93",
+          "definition": "CREATE INDEX mock_tests_sectionselectionrule_part_id_98cacf93 ON public.mock_tests_sectionselectionrule USING btree (part_id)"
+        },
+        {
+          "name": "mock_tests_sectionselectionrule_pkey",
+          "definition": "CREATE UNIQUE INDEX mock_tests_sectionselectionrule_pkey ON public.mock_tests_sectionselectionrule USING btree (id)"
+        },
+        {
+          "name": "mock_tests_sectionselectionrule_section_id_8f8eaec8",
+          "definition": "CREATE INDEX mock_tests_sectionselectionrule_section_id_8f8eaec8 ON public.mock_tests_sectionselectionrule USING btree (section_id)"
+        },
+        {
+          "name": "mock_tests_sectionselectionrule_subject_id_cc0e7557",
+          "definition": "CREATE INDEX mock_tests_sectionselectionrule_subject_id_cc0e7557 ON public.mock_tests_sectionselectionrule USING btree (subject_id)"
+        },
+        {
+          "name": "mock_tests_sectionselectionrule_topic_id_7d7c2536",
+          "definition": "CREATE INDEX mock_tests_sectionselectionrule_topic_id_7d7c2536 ON public.mock_tests_sectionselectionrule USING btree (topic_id)"
+        }
+      ],
+      "triggers": []
+    },
+    {
+      "table": "mock_tests_mockset",
+      "model": "mock_tests.MockSet",
+      "group": "mock",
+      "columns": [
+        {
+          "column": "id",
+          "type": "bigint",
+          "nullable": false,
+          "pk": true,
+          "unique": true,
+          "target": null,
+          "on_delete": null,
+          "blank": true,
+          "choices": []
+        },
+        {
+          "column": "pattern_id",
+          "type": "bigint",
+          "nullable": false,
+          "pk": false,
+          "unique": true,
+          "target": "mock_tests_exampattern",
+          "on_delete": "PROTECT",
+          "blank": false,
+          "choices": []
+        },
+        {
+          "column": "configuration",
+          "type": "jsonb",
+          "nullable": false,
+          "pk": false,
+          "unique": false,
+          "target": null,
+          "on_delete": null,
+          "blank": false,
+          "choices": []
+        },
+        {
+          "column": "published_at",
+          "type": "timestamp with time zone",
+          "nullable": false,
+          "pk": false,
+          "unique": false,
+          "target": null,
+          "on_delete": null,
+          "blank": true,
+          "choices": []
+        }
+      ],
+      "constraints": [
+        {
+          "name": "mock_set_complete",
+          "definition": "TRIGGER DEFERRABLE INITIALLY DEFERRED"
+        },
+        {
+          "name": "mock_tests_mockset_configuration_not_null",
+          "definition": "NOT NULL configuration"
+        },
+        {
+          "name": "mock_tests_mockset_id_not_null",
+          "definition": "NOT NULL id"
+        },
+        {
+          "name": "mock_tests_mockset_pattern_id_6d6b8a0e_fk_mock_test",
+          "definition": "FOREIGN KEY (pattern_id) REFERENCES mock_tests_exampattern(id) DEFERRABLE INITIALLY DEFERRED"
+        },
+        {
+          "name": "mock_tests_mockset_pattern_id_key",
+          "definition": "UNIQUE (pattern_id)"
+        },
+        {
+          "name": "mock_tests_mockset_pattern_id_not_null",
+          "definition": "NOT NULL pattern_id"
+        },
+        {
+          "name": "mock_tests_mockset_pkey",
+          "definition": "PRIMARY KEY (id)"
+        },
+        {
+          "name": "mock_tests_mockset_published_at_not_null",
+          "definition": "NOT NULL published_at"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "mock_tests_mockset_pattern_id_key",
+          "definition": "CREATE UNIQUE INDEX mock_tests_mockset_pattern_id_key ON public.mock_tests_mockset USING btree (pattern_id)"
+        },
+        {
+          "name": "mock_tests_mockset_pkey",
+          "definition": "CREATE UNIQUE INDEX mock_tests_mockset_pkey ON public.mock_tests_mockset USING btree (id)"
+        }
+      ],
+      "triggers": [
+        {
+          "name": "mock_set_complete",
+          "definition": "CREATE CONSTRAINT TRIGGER mock_set_complete AFTER INSERT ON public.mock_tests_mockset DEFERRABLE INITIALLY DEFERRED FOR EACH ROW EXECUTE FUNCTION mock_validate_set_complete()"
+        },
+        {
+          "name": "mock_set_immutable",
+          "definition": "CREATE TRIGGER mock_set_immutable BEFORE DELETE OR UPDATE ON public.mock_tests_mockset FOR EACH ROW EXECUTE FUNCTION mock_guard_published_set()"
+        }
+      ]
+    },
+    {
+      "table": "mock_tests_mockattempt",
+      "model": "mock_tests.MockAttempt",
+      "group": "mock",
+      "columns": [
+        {
+          "column": "id",
+          "type": "bigint",
+          "nullable": false,
+          "pk": true,
+          "unique": true,
+          "target": null,
+          "on_delete": null,
+          "blank": true,
+          "choices": []
+        },
+        {
+          "column": "user_id",
+          "type": "bigint",
+          "nullable": false,
+          "pk": false,
+          "unique": false,
+          "target": "accounts_user",
+          "on_delete": "PROTECT",
+          "blank": false,
+          "choices": []
+        },
+        {
+          "column": "pattern_id",
+          "type": "bigint",
+          "nullable": false,
+          "pk": false,
+          "unique": false,
+          "target": "mock_tests_exampattern",
+          "on_delete": "PROTECT",
+          "blank": false,
+          "choices": []
+        },
+        {
+          "column": "mock_set_id",
+          "type": "bigint",
+          "nullable": true,
+          "pk": false,
+          "unique": false,
+          "target": "mock_tests_mockset",
+          "on_delete": "PROTECT",
+          "blank": true,
+          "choices": []
+        },
+        {
+          "column": "status",
+          "type": "character varying(15)",
+          "nullable": false,
+          "pk": false,
+          "unique": false,
+          "target": null,
+          "on_delete": null,
+          "blank": false,
+          "choices": [
+            [
+              "created",
+              "Created"
+            ],
+            [
+              "in_progress",
+              "In Progress"
+            ],
+            [
+              "submitted",
+              "Submitted"
+            ],
+            [
+              "expired",
+              "Expired"
+            ]
+          ]
+        },
+        {
+          "column": "created_at",
+          "type": "timestamp with time zone",
+          "nullable": false,
+          "pk": false,
+          "unique": false,
+          "target": null,
+          "on_delete": null,
+          "blank": true,
+          "choices": []
+        },
+        {
+          "column": "started_at",
+          "type": "timestamp with time zone",
+          "nullable": true,
+          "pk": false,
+          "unique": false,
+          "target": null,
+          "on_delete": null,
+          "blank": true,
+          "choices": []
+        },
+        {
+          "column": "configuration",
+          "type": "jsonb",
+          "nullable": false,
+          "pk": false,
+          "unique": false,
+          "target": null,
+          "on_delete": null,
+          "blank": false,
+          "choices": []
+        },
+        {
+          "column": "expires_at",
+          "type": "timestamp with time zone",
+          "nullable": true,
+          "pk": false,
+          "unique": false,
+          "target": null,
+          "on_delete": null,
+          "blank": true,
+          "choices": []
+        },
+        {
+          "column": "finalized_at",
+          "type": "timestamp with time zone",
+          "nullable": true,
+          "pk": false,
+          "unique": false,
+          "target": null,
+          "on_delete": null,
+          "blank": true,
+          "choices": []
+        },
+        {
+          "column": "last_position",
+          "type": "integer",
+          "nullable": false,
+          "pk": false,
+          "unique": false,
+          "target": null,
+          "on_delete": null,
+          "blank": false,
+          "choices": []
+        },
+        {
+          "column": "save_version",
+          "type": "bigint",
+          "nullable": false,
+          "pk": false,
+          "unique": false,
+          "target": null,
+          "on_delete": null,
+          "blank": false,
+          "choices": []
+        },
+        {
+          "column": "last_save_token",
+          "type": "uuid",
+          "nullable": true,
+          "pk": false,
+          "unique": false,
+          "target": null,
+          "on_delete": null,
+          "blank": true,
+          "choices": []
+        },
+        {
+          "column": "total_score",
+          "type": "numeric(20,2)",
+          "nullable": true,
+          "pk": false,
+          "unique": false,
+          "target": null,
+          "on_delete": null,
+          "blank": true,
+          "choices": []
+        },
+        {
+          "column": "maximum_score",
+          "type": "numeric(20,2)",
+          "nullable": true,
+          "pk": false,
+          "unique": false,
+          "target": null,
+          "on_delete": null,
+          "blank": true,
+          "choices": []
+        },
+        {
+          "column": "correct_count",
+          "type": "integer",
+          "nullable": true,
+          "pk": false,
+          "unique": false,
+          "target": null,
+          "on_delete": null,
+          "blank": true,
+          "choices": []
+        },
+        {
+          "column": "incorrect_count",
+          "type": "integer",
+          "nullable": true,
+          "pk": false,
+          "unique": false,
+          "target": null,
+          "on_delete": null,
+          "blank": true,
+          "choices": []
+        },
+        {
+          "column": "unanswered_count",
+          "type": "integer",
+          "nullable": true,
+          "pk": false,
+          "unique": false,
+          "target": null,
+          "on_delete": null,
+          "blank": true,
+          "choices": []
+        },
+        {
+          "column": "section_results",
+          "type": "jsonb",
+          "nullable": false,
+          "pk": false,
+          "unique": false,
+          "target": null,
+          "on_delete": null,
+          "blank": true,
+          "choices": []
+        }
+      ],
+      "constraints": [
+        {
+          "name": "mock_attempt_deadline_valid",
+          "definition": "CHECK ((((expires_at IS NULL) AND (started_at IS NULL)) OR ((expires_at > started_at) AND (expires_at IS NOT NULL) AND (started_at IS NOT NULL))))"
+        },
+        {
+          "name": "mock_attempt_final_values",
+          "definition": "CHECK ((((correct_count IS NULL) AND (finalized_at IS NULL) AND (incorrect_count IS NULL) AND (maximum_score IS NULL) AND ((status)::text = ANY ((ARRAY['created'::character varying, 'in_progress'::character varying])::text[])) AND (total_score IS NULL) AND (unanswered_count IS NULL)) OR ((correct_count IS NOT NULL) AND (finalized_at IS NOT NULL) AND (incorrect_count IS NOT NULL) AND (maximum_score > (0)::numeric) AND (maximum_score IS NOT NULL) AND ((status)::text = ANY ((ARRAY['submitted'::character varying, 'expired'::character varying])::text[])) AND (total_score IS NOT NULL) AND (unanswered_count IS NOT NULL))))"
+        },
+        {
+          "name": "mock_attempt_position_valid",
+          "definition": "CHECK ((last_position > 0))"
+        },
+        {
+          "name": "mock_attempt_start_valid",
+          "definition": "CHECK ((((started_at IS NULL) AND ((status)::text = 'created'::text)) OR ((started_at IS NOT NULL) AND ((status)::text = ANY ((ARRAY['in_progress'::character varying, 'submitted'::character varying, 'expired'::character varying])::text[])))))"
+        },
+        {
+          "name": "mock_attempt_status_valid",
+          "definition": "CHECK (((status)::text = ANY ((ARRAY['created'::character varying, 'in_progress'::character varying, 'submitted'::character varying, 'expired'::character varying])::text[])))"
+        },
+        {
+          "name": "mock_tests_mockattem_mock_set_id_75074b2f_fk_mock_test",
+          "definition": "FOREIGN KEY (mock_set_id) REFERENCES mock_tests_mockset(id) DEFERRABLE INITIALLY DEFERRED"
+        },
+        {
+          "name": "mock_tests_mockattem_pattern_id_68e024c1_fk_mock_test",
+          "definition": "FOREIGN KEY (pattern_id) REFERENCES mock_tests_exampattern(id) DEFERRABLE INITIALLY DEFERRED"
+        },
+        {
+          "name": "mock_tests_mockattempt_configuration_not_null",
+          "definition": "NOT NULL configuration"
+        },
+        {
+          "name": "mock_tests_mockattempt_correct_count_check",
+          "definition": "CHECK ((correct_count >= 0))"
+        },
+        {
+          "name": "mock_tests_mockattempt_created_at_not_null",
+          "definition": "NOT NULL created_at"
+        },
+        {
+          "name": "mock_tests_mockattempt_id_not_null",
+          "definition": "NOT NULL id"
+        },
+        {
+          "name": "mock_tests_mockattempt_incorrect_count_check",
+          "definition": "CHECK ((incorrect_count >= 0))"
+        },
+        {
+          "name": "mock_tests_mockattempt_last_position_check",
+          "definition": "CHECK ((last_position >= 0))"
+        },
+        {
+          "name": "mock_tests_mockattempt_last_position_not_null",
+          "definition": "NOT NULL last_position"
+        },
+        {
+          "name": "mock_tests_mockattempt_pattern_id_not_null",
+          "definition": "NOT NULL pattern_id"
+        },
+        {
+          "name": "mock_tests_mockattempt_pkey",
+          "definition": "PRIMARY KEY (id)"
+        },
+        {
+          "name": "mock_tests_mockattempt_save_version_check",
+          "definition": "CHECK ((save_version >= 0))"
+        },
+        {
+          "name": "mock_tests_mockattempt_save_version_not_null",
+          "definition": "NOT NULL save_version"
+        },
+        {
+          "name": "mock_tests_mockattempt_section_results_not_null",
+          "definition": "NOT NULL section_results"
+        },
+        {
+          "name": "mock_tests_mockattempt_status_not_null",
+          "definition": "NOT NULL status"
+        },
+        {
+          "name": "mock_tests_mockattempt_unanswered_count_check",
+          "definition": "CHECK ((unanswered_count >= 0))"
+        },
+        {
+          "name": "mock_tests_mockattempt_user_id_e680b996_fk_accounts_user_id",
+          "definition": "FOREIGN KEY (user_id) REFERENCES accounts_user(id) DEFERRABLE INITIALLY DEFERRED"
+        },
+        {
+          "name": "mock_tests_mockattempt_user_id_not_null",
+          "definition": "NOT NULL user_id"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "mock_attempt_expiry_idx",
+          "definition": "CREATE INDEX mock_attempt_expiry_idx ON public.mock_tests_mockattempt USING btree (status, expires_at)"
+        },
+        {
+          "name": "mock_attempt_one_open_unique",
+          "definition": "CREATE UNIQUE INDEX mock_attempt_one_open_unique ON public.mock_tests_mockattempt USING btree (user_id, pattern_id) WHERE ((status)::text = ANY ((ARRAY['created'::character varying, 'in_progress'::character varying])::text[]))"
+        },
+        {
+          "name": "mock_attempt_user_created_idx",
+          "definition": "CREATE INDEX mock_attempt_user_created_idx ON public.mock_tests_mockattempt USING btree (user_id, created_at DESC)"
+        },
+        {
+          "name": "mock_tests_mockattempt_mock_set_id_75074b2f",
+          "definition": "CREATE INDEX mock_tests_mockattempt_mock_set_id_75074b2f ON public.mock_tests_mockattempt USING btree (mock_set_id)"
+        },
+        {
+          "name": "mock_tests_mockattempt_pattern_id_68e024c1",
+          "definition": "CREATE INDEX mock_tests_mockattempt_pattern_id_68e024c1 ON public.mock_tests_mockattempt USING btree (pattern_id)"
+        },
+        {
+          "name": "mock_tests_mockattempt_pkey",
+          "definition": "CREATE UNIQUE INDEX mock_tests_mockattempt_pkey ON public.mock_tests_mockattempt USING btree (id)"
+        },
+        {
+          "name": "mock_tests_mockattempt_user_id_e680b996",
+          "definition": "CREATE INDEX mock_tests_mockattempt_user_id_e680b996 ON public.mock_tests_mockattempt USING btree (user_id)"
+        }
+      ],
+      "triggers": []
     }
   ],
   "relationships": [
@@ -4058,6 +5702,24 @@
       "on_delete": "PROTECT"
     },
     {
+      "child": "billing_freequestionusage",
+      "parent": "accounts_user",
+      "column": "user_id",
+      "target_column": "id",
+      "nullable": false,
+      "unique": false,
+      "on_delete": "PROTECT"
+    },
+    {
+      "child": "billing_freequestionusage",
+      "parent": "questions_question",
+      "column": "question_id",
+      "target_column": "id",
+      "nullable": false,
+      "unique": false,
+      "on_delete": "PROTECT"
+    },
+    {
       "child": "imports_importedquestion",
       "parent": "imports_importbatch",
       "column": "batch_id",
@@ -4124,6 +5786,42 @@
       "child": "mock_tests_manualrulequestion",
       "parent": "questions_question",
       "column": "question_id",
+      "target_column": "id",
+      "nullable": false,
+      "unique": false,
+      "on_delete": "PROTECT"
+    },
+    {
+      "child": "mock_tests_mocksetquestion",
+      "parent": "mock_tests_mockset",
+      "column": "mock_set_id",
+      "target_column": "id",
+      "nullable": false,
+      "unique": false,
+      "on_delete": "PROTECT"
+    },
+    {
+      "child": "mock_tests_mocksetquestion",
+      "parent": "mock_tests_exampatternsection",
+      "column": "section_id",
+      "target_column": "id",
+      "nullable": false,
+      "unique": false,
+      "on_delete": "PROTECT"
+    },
+    {
+      "child": "mock_tests_mocksetquestion",
+      "parent": "questions_question",
+      "column": "question_id",
+      "target_column": "id",
+      "nullable": false,
+      "unique": false,
+      "on_delete": "PROTECT"
+    },
+    {
+      "child": "mock_tests_mocksetquestion",
+      "parent": "questions_questionrevision",
+      "column": "question_revision_id",
       "target_column": "id",
       "nullable": false,
       "unique": false,
@@ -4200,6 +5898,141 @@
       "nullable": false,
       "unique": false,
       "on_delete": "CASCADE"
+    },
+    {
+      "child": "mock_tests_exampattern",
+      "parent": "exams_exam",
+      "column": "exam_id",
+      "target_column": "id",
+      "nullable": false,
+      "unique": false,
+      "on_delete": "PROTECT"
+    },
+    {
+      "child": "mock_tests_exampattern",
+      "parent": "exams_examstage",
+      "column": "stage_id",
+      "target_column": "id",
+      "nullable": true,
+      "unique": false,
+      "on_delete": "PROTECT"
+    },
+    {
+      "child": "mock_tests_exampatternsection",
+      "parent": "mock_tests_exampattern",
+      "column": "pattern_id",
+      "target_column": "id",
+      "nullable": false,
+      "unique": false,
+      "on_delete": "PROTECT"
+    },
+    {
+      "child": "mock_tests_exampatternsection",
+      "parent": "exams_subject",
+      "column": "subject_id",
+      "target_column": "id",
+      "nullable": true,
+      "unique": false,
+      "on_delete": "PROTECT"
+    },
+    {
+      "child": "mock_tests_exampatternsection",
+      "parent": "exams_topic",
+      "column": "topic_id",
+      "target_column": "id",
+      "nullable": true,
+      "unique": false,
+      "on_delete": "PROTECT"
+    },
+    {
+      "child": "mock_tests_sectionselectionrule",
+      "parent": "mock_tests_exampatternsection",
+      "column": "section_id",
+      "target_column": "id",
+      "nullable": false,
+      "unique": false,
+      "on_delete": "CASCADE"
+    },
+    {
+      "child": "mock_tests_sectionselectionrule",
+      "parent": "exams_subject",
+      "column": "subject_id",
+      "target_column": "id",
+      "nullable": true,
+      "unique": false,
+      "on_delete": "PROTECT"
+    },
+    {
+      "child": "mock_tests_sectionselectionrule",
+      "parent": "exams_part",
+      "column": "part_id",
+      "target_column": "id",
+      "nullable": true,
+      "unique": false,
+      "on_delete": "PROTECT"
+    },
+    {
+      "child": "mock_tests_sectionselectionrule",
+      "parent": "exams_module",
+      "column": "module_id",
+      "target_column": "id",
+      "nullable": true,
+      "unique": false,
+      "on_delete": "PROTECT"
+    },
+    {
+      "child": "mock_tests_sectionselectionrule",
+      "parent": "exams_chapter",
+      "column": "chapter_id",
+      "target_column": "id",
+      "nullable": true,
+      "unique": false,
+      "on_delete": "PROTECT"
+    },
+    {
+      "child": "mock_tests_sectionselectionrule",
+      "parent": "exams_topic",
+      "column": "topic_id",
+      "target_column": "id",
+      "nullable": true,
+      "unique": false,
+      "on_delete": "PROTECT"
+    },
+    {
+      "child": "mock_tests_mockset",
+      "parent": "mock_tests_exampattern",
+      "column": "pattern_id",
+      "target_column": "id",
+      "nullable": false,
+      "unique": true,
+      "on_delete": "PROTECT"
+    },
+    {
+      "child": "mock_tests_mockattempt",
+      "parent": "accounts_user",
+      "column": "user_id",
+      "target_column": "id",
+      "nullable": false,
+      "unique": false,
+      "on_delete": "PROTECT"
+    },
+    {
+      "child": "mock_tests_mockattempt",
+      "parent": "mock_tests_exampattern",
+      "column": "pattern_id",
+      "target_column": "id",
+      "nullable": false,
+      "unique": false,
+      "on_delete": "PROTECT"
+    },
+    {
+      "child": "mock_tests_mockattempt",
+      "parent": "mock_tests_mockset",
+      "column": "mock_set_id",
+      "target_column": "id",
+      "nullable": true,
+      "unique": false,
+      "on_delete": "PROTECT"
     }
   ],
   "many_to_many": [

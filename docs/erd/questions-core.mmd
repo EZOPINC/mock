@@ -8,6 +8,7 @@ erDiagram
         character_varying_14_ review_status "NOT_NULL"
         character_varying_1_ correct_answer "NOT_NULL"
         character_varying_100_ difficulty_level "NOT_NULL"
+        character_varying_12_ question_kind "NOT_NULL"
         bigint current_revision_id FK "NULL"
         bigint published_revision_id FK "NULL"
         timestamp_with_time_zone created_at "NOT_NULL"
@@ -91,6 +92,7 @@ erDiagram
         character_varying_50_ code "NOT_NULL"
         character_varying_200_ slug "NOT_NULL"
         boolean is_active "NOT_NULL"
+        character_varying_2_ default_mock_language "NOT_NULL"
     }
     exams_subject ||..o{ questions_question : "subject_id"
     exams_topic o|..o{ questions_question : "topic_id"
