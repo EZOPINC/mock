@@ -2,6 +2,8 @@
 
 All records remain in the billing app and existing PostgreSQL database. This provides invoice-ready records and external accounting exports; it is not a general ledger, tax filing integration or real payment gateway.
 
+See [B6 readiness validation](billing-readiness.md) for executed tests, security/performance evidence and unresolved launch requirements.
+
 ## Permissions and operational entry points
 
 After applying migrations, run `python manage.py configure_billing_roles` to create/update the managed groups below. This command assigns no users and grants no simulator access. Enroll appropriate active staff explicitly using Django's existing user/group administration. Rerunning the command resets these managed groups to their documented permission sets.

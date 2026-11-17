@@ -61,6 +61,8 @@ def process_payment_event(*, actor, event_reference):
         verified_amount = Decimal(verified.amount)
     except (DecimalException, TypeError, ValueError):
         raise ValidationError("Provider confirmation contains an invalid amount.")
+    if not verified_amount.is_finite():
+        raise ValidationError("Provider confirmation contains an invalid amount.")
     if (verified.provider != order.provider or verified.event_reference != event.reference
             or verified.order_reference != order.provider_reference
             or verified.transaction_reference != event.transaction_reference
