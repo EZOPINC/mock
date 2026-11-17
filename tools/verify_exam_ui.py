@@ -102,7 +102,7 @@ class ExamReadingBrowserTests(StaticLiveServerTestCase):
         for action in ('review', 'publish'):
             transition_batch(batch.pk, self.user, action, fingerprint(list(batch_questions(batch))))
         b = self.browser
-        output = Path(settings.BASE_DIR) / 'docs/screenshots/general-questions'
+        output = getattr(self, 'general_output', Path(settings.BASE_DIR) / 'docs/screenshots/general-questions')
         output.mkdir(parents=True, exist_ok=True)
         b.navigate(self.live_server_url + reverse('general_questions:collection', args=[batch.pk]))
         b.wait("!!document.querySelector('.general-reader')")
@@ -121,7 +121,7 @@ class ExamReadingBrowserTests(StaticLiveServerTestCase):
 
     def test_shell_profile_desktop_mobile(self):
         b = self.browser
-        output = Path(settings.BASE_DIR) / 'docs/screenshots/account-shell'
+        output = getattr(self, 'account_output', Path(settings.BASE_DIR) / 'docs/screenshots/account-shell')
         output.mkdir(parents=True, exist_ok=True)
         b.viewport(1440)
         b.navigate(self.live_server_url + reverse('accounts:profile'))

@@ -15,7 +15,7 @@
       <div class="mock-results-count"><span class="ui-card-icon">{% include "components/icon.html" with name="book" %}</span><p>Unanswered: {{ attempt.unanswered_count }}</p><small>Questions left without an answer.</small></div>
     </div>
   </section>
-  <div class="mock-results-meta"><p>Finalized: <time datetime="{{ attempt.finalized_at|date:'c' }}">{{ attempt.finalized_at|date:"M j, Y H:i" }}</time></p><a class="text-link" href="#results-question-review">Review your answers {% include "components/icon.html" with name="arrow" %}</a></div>
+  <div class="mock-results-meta"><p>Finalized: <time datetime="{{ attempt.finalized_at|date:'c' }}">{{ attempt.finalized_at|date:"M j, Y H:i" }}</time></p><p>Answer accuracy: {% if attempted_count %}{% widthratio attempt.correct_count attempted_count 100 %}% of attempted questions{% else %}No answers submitted{% endif %}</p><a class="text-link" href="#results-question-review">Review your answers {% include "components/icon.html" with name="arrow" %}</a></div>
 
   <section class="mock-hub-section" aria-labelledby="results-sections-heading">
     <div class="mock-hub-section-heading"><div><p class="eyebrow">SEE THE BREAKDOWN</p><h2 id="results-sections-heading">Section performance</h2></div></div>

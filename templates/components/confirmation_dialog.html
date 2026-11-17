@@ -1,0 +1,7 @@
+{# Open with showModal() from a feature-owned trigger; native Escape and focus handling. #}
+<dialog class="ui-confirm" id="{{ dialog_id }}" aria-labelledby="{{ dialog_id }}-title">
+  <h2 id="{{ dialog_id }}-title">{{ dialog_title }}</h2>
+  <p>{{ dialog_description }}</p>
+  <form method="post" action="{{ dialog_action }}">{% csrf_token %}<button class="button button-primary" type="submit">{{ dialog_confirm_label|default:"Confirm" }}</button></form>
+  <form method="dialog"><button class="button button-secondary" type="submit">Cancel</button></form>
+</dialog>

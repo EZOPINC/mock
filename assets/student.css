@@ -1,0 +1,82 @@
+/* UI-3: finish public, account and feedback surfaces using the shared tokens. */
+:root { --ui-control-line: #78857b; }
+:root[data-theme="dark"] { --ui-control-line: #83988a; }
+:root[data-theme="sepia"] { --ui-control-line: #897957; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme]) { --ui-control-line: #83988a; } }
+html body.calm-shell {
+  --tw-color-brand-900: var(--ui-ink); --tw-color-brand-950: var(--ui-ink);
+  --tw-color-accent-50: var(--ui-tint); --tw-color-accent-600: var(--ui-accent); --tw-color-accent-700: var(--ui-accent);
+  --tw-color-canvas: var(--ui-canvas); --tw-color-surface: var(--ui-surface); --tw-color-ink: var(--ui-ink);
+  --tw-color-muted: var(--ui-muted); --tw-color-line: var(--ui-line);
+}
+html .calm-shell :is(.profile-details, .profile-study, .profile-preferences, .dashboard-stat-card, .dashboard-activity-card, .dashboard-empty, .discovery-card, .stage-panel, .ui-selection-panel, .ui-discovery-filter, .ui-filter-panel, .auth-intro, .account-panel, .paper-question, .question-card-header, .question-navigator, .solution) {
+  background: var(--ui-surface); color: var(--ui-ink); border-color: var(--ui-line); box-shadow: none;
+}
+html .calm-shell :is(h1,h2,h3, .profile-details dd, .dashboard-stat-number, .question-text, .profile-details dt) { color: var(--ui-ink); }
+html .calm-shell :is(.profile-description, .profile-member-since, .profile-welcome p, .profile-study p, .profile-details dt, .dashboard-stat-number span, .dashboard-stat-card small, .profile-preferences p) { color: var(--ui-muted); }
+html .calm-shell :is(.profile-avatar, .ui-card-icon, .auth-intro-icon) { background: var(--ui-tint); color: var(--ui-accent); }
+html .calm-shell.learning-ui :is(.ui-paper-intro, .ui-paper-intro-search .ui-search-control) { background: var(--ui-surface); color: var(--ui-ink); border-color: var(--ui-line); box-shadow: none; }
+html .calm-shell.learning-ui :is(.ui-paper-access, .ui-paper-intro-icon) { background: var(--ui-tint); color: var(--ui-accent); border-color: var(--ui-line); }
+html .calm-shell.learning-ui .ui-paper-browse-steps { color: var(--ui-muted); }
+html .calm-shell .general-edition-guide { color: var(--ui-muted); }
+html .calm-shell.learning-ui .ui-paper-browse-steps li span { background: var(--ui-accent); color: var(--ui-on-accent); }
+html .calm-shell :is(.profile-study-links a, .profile-study-links a:hover, .auth-intro a) { color: var(--ui-accent); }
+html .calm-shell :is(.profile-details dl > div, .profile-member-since, .profile-study-links a) { border-color: var(--ui-line); }
+html .calm-shell .ui-main button[type="submit"]:not(.revision-bookmark-button):not(.button-secondary) { background: var(--ui-accent); color: var(--ui-on-accent); }
+html .calm-shell .ui-main :is(input:not([type="radio"]):not([type="checkbox"]):not([type="hidden"]), select, textarea) {
+  border: 1px solid var(--ui-control-line); background: var(--ui-surface); color: var(--ui-ink); border-radius: var(--ui-radius-control); min-height: 44px; max-width: 100%; font: inherit;
+}
+html .calm-shell :is(.appearance-control select, .ui-header .menu-toggle) { border-color: var(--ui-control-line); color: var(--ui-ink); background: var(--ui-surface); min-height: 44px; }
+html .calm-shell .ui-header-inner { min-height: 5rem; }
+html .calm-shell .badge { font-size: .75rem; }
+html .calm-shell :is(.password-toggle, .password-toggle:hover) { background: var(--ui-soft); border-color: var(--ui-control-line); color: var(--ui-accent); min-height: 44px; }
+html .calm-shell .ui-form-field .password-wrap input { padding-inline-end: 5rem; }
+html .calm-shell .ui-main .button-secondary { border-color: var(--ui-control-line); }
+html .calm-shell .ui-form-field :is(input,select,textarea)[aria-invalid="true"] { border-color: var(--ui-incorrect, var(--ui-accent)); }
+html .calm-shell :is(.form-errors, .errorlist, .ui-form-field .form-errors, .ui-auth .form-errors) { color: var(--ui-ink); background: var(--ui-soft); border-color: var(--ui-control-line); }
+html .calm-shell :is(.ui-messages .message, .ui-messages .message.success, .ui-messages .message.error, .ui-messages .message.warning) { background: var(--ui-tint); color: var(--ui-ink); border-color: var(--ui-control-line); }
+html .calm-shell .ui-messages .message-icon { color: var(--ui-accent); }
+html .calm-shell progress { accent-color: var(--ui-accent); }
+html .calm-shell progress::-webkit-progress-bar { background: var(--ui-soft); }
+html .calm-shell progress::-webkit-progress-value { background: var(--ui-accent); }
+html .calm-shell progress::-moz-progress-bar { background: var(--ui-accent); }
+.dashboard-continue { margin-block: var(--ui-space-8); }
+.dashboard-continue-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: var(--ui-space-4); }
+.dashboard-resume { padding: var(--ui-space-6); min-width: 0; }
+.dashboard-resume h3 { margin: 1rem 0 .5rem; overflow-wrap: anywhere; }
+.dashboard-resume p { font-size: .9rem; }
+.dashboard-resume .text-link { display: flex; }
+.dashboard-continue-grid .dashboard-empty { grid-column: 1 / -1; }
+html .calm-shell .ui-dashboard .dashboard-overview { grid-template-columns: repeat(4,minmax(0,1fr)); }
+.profile-preferences { padding: var(--ui-space-8); margin-top: var(--ui-space-8); }
+.profile-preferences .appearance-control { padding: 0; max-width: 40rem; }
+.profile-preferences label { font-size: 1rem; font-weight: 600; margin-bottom: .5rem; }
+.profile-preferences select { width: min(100%, 22rem); }
+.profile-preferences [data-theme-status] { min-height: 3.5rem; margin-block: .5rem; }
+.profile-preferences h3 { font-size: 1.1rem; }
+.ui-error-page { max-width: 42rem; margin: 2rem auto; padding: var(--ui-space-8); }
+html .calm-shell :is(.profile-study-links a, .revision-taxonomy-path a, .question-pagination a, .account-switch a) { min-height: 44px; display: inline-flex; align-items: center; }
+html .calm-shell .profile-study-links a { display: flex; }
+html .calm-shell :where(h1,h2,h3) { scroll-margin-top: 8rem; }
+@media (max-width: 64rem) { html .calm-shell .ui-dashboard .dashboard-overview { grid-template-columns: repeat(2,minmax(0,1fr)); } }
+@media (max-width: 70rem) {
+  .js .ui-header #primary-navigation { display: none; }
+  .js .ui-header #primary-navigation[data-navigation-ready] { display: block; }
+}
+@media (max-width: 40rem) {
+  .dashboard-continue-grid { grid-template-columns: minmax(0,1fr); }
+  html .calm-shell .ui-dashboard .dashboard-overview { grid-template-columns: minmax(0,1fr); }
+  html .calm-shell :is(.dashboard-section-heading, .dashboard-heading) { flex-wrap: wrap; }
+  html .calm-shell .profile-layout { grid-template-columns: minmax(0,1fr); }
+  .profile-preferences { padding: var(--ui-space-6); }
+}
+/* Short zoomed viewports retain the timer and actions, with status in normal flow. */
+@media (max-height: 35rem) {
+  html .calm-shell .ui-header { position: static; }
+  html .calm-shell.learning-ui .mock-toolbar { position: static; }
+  html .calm-shell.learning-ui .mock-time-block { position: fixed; top: .5rem; right: .5rem; z-index: 35; border: 1px solid var(--ui-line); border-radius: var(--ui-radius-control); background: var(--ui-surface); padding: .4rem .6rem; }
+  html .calm-shell.learning-ui .mock-time-block .mock-status-label { font-size: .65rem; }
+  html .calm-shell.learning-ui #mock-timer { font-size: 1.25rem; }
+  html .calm-shell.learning-ui .mock-question { scroll-margin-top: 5rem; }
+}
+@media (forced-colors: active) { html .calm-shell :focus-visible { outline-color: Highlight; } }

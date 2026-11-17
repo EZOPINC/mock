@@ -6,7 +6,7 @@
 <header class="dashboard-heading"><div><p class="eyebrow">YOUR PERSONAL REVISION</p><h1>{% if question %}{{ question.subject.name }}{% else %}Question currently unavailable{% endif %}</h1><p>Saved {{ saved.saved_at|date:"M j, Y" }} &middot; {{ saved.review_count }} review{{ saved.review_count|pluralize }}{% if saved.reviewed_at %} &middot; Last reviewed {{ saved.reviewed_at|date:"M j, Y" }}{% endif %}</p></div><span class="badge {% if saved.is_mastered %}badge-live{% else %}badge-outline{% endif %}">{% if saved.is_mastered %}Mastered{% else %}Needs revision{% endif %}</span></header>
 {% if question %}
 <p><strong>Difficulty:</strong> {{ question.published_revision.difficulty_level|default:"Unspecified" }}</p>
-<article class="paper-question">{% include "questions/translations.html" with revision=question.published_revision show_solutions=True hide_answers=False verified_only=True selectable=False %}</article>
+<article class="paper-question exam-paper-reader">{% include "questions/reading_question.html" with revision=question.published_revision show_solutions=True hide_answers=False selectable=False %}{% include "previous_year/reading_solutions.html" with revision=question.published_revision hide_answers=False verified_only=True %}</article>
 
 {% else %}<div class="ui-empty"><p>This question is not available for revision right now. Content may be unpublished, unavailable for your language, or part of an open mock attempt. Your bookmark and note are retained.</p></div>{% endif %}
 <section class="ui-card revision-card" aria-labelledby="progress-heading"><h2 id="progress-heading">Revision progress</h2><div class="button-row">
