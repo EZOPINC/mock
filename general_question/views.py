@@ -41,8 +41,11 @@ def filtered(request):
     return form, questions, parameters.urlencode()
 
 
+@staff_member_required
+@never_cache
 @require_safe
 def index(request):
+    require_batch_permission(request.user)
     form, questions, query = filtered(request)
     batches = general_batches().annotate(public_count=Count(
         "imported_questions__question", filter=Q(imported_questions__question__in=questions), distinct=True,
@@ -50,8 +53,11 @@ def index(request):
     return render(request, "general_question/index.html", {"form": form, "page": Paginator(batches, 20).get_page(request.GET.get("page")), "query": query})
 
 
+@staff_member_required
+@never_cache
 @require_safe
 def collection(request, batch_id):
+    require_batch_permission(request.user)
     # Draft-only collections return 404, even if the ID is guessed.
     batch = get_object_or_404(general_batches().filter(imported_questions__question__in=public_questions()).distinct(), pk=batch_id)
     form, questions, query = filtered(request)

@@ -1,0 +1,54 @@
+{% extends "imports/base.html" %}
+{% block title %}Question review dashboard{% endblock %}
+{% block workspace_main_class %}workspace-main-wide{% endblock %}
+{% block import_content %}
+  <div class="review-dashboard">
+    <h1>Question review dashboard</h1>
+    {% url 'general_questions:review_queue' as queue %}
+    <div class="workspace-counts">
+      <a href="{{ queue }}"><strong>{{ counts.total }}</strong> All imported questions</a>
+      <a href="{{ queue }}?review=pending_review"><strong>{{ counts.pending }}</strong> Pending review</a>
+      <a href="{{ queue }}?publication=draft"><strong>{{ counts.drafts }}</strong> Draft</a>
+      <a href="{{ queue }}?publication=published"><strong>{{ counts.published }}</strong> Published</a>
+      <a href="{{ queue }}?source=previous_year"><strong>{{ counts.previous_year }}</strong> Previous-Year Questions</a>
+      <a href="{{ queue }}?source=general"><strong>{{ counts.general }}</strong> General Questions</a>
+    </div>
+    <div class="workspace-dashboard">
+      <section class="workspace-panel">
+        <h2>By subject</h2>
+        <ul class="workspace-count-list">
+          {% for subject in subjects %}<li><a href="{{ queue }}?subject={{ subject.subject_id }}">{{ subject.subject__name }} <strong>{{ subject.total }}</strong></a></li>
+{% empty %}<li>No imported questions.</li>{% endfor %}
+  </ul>
+  </section>
+  <section class="workspace-panel">
+    <h2>By exam</h2>
+    <ul class="workspace-count-list">
+      {% for exam in exams %}<li><a href="{{ queue }}?exam={{ exam.exams }}">{{ exam.exams__authority__name }} / {{ exam.exams__name }} <strong>{{ exam.total }}</strong></a></li>
+{% empty %}<li>No exam associations.</li>{% endfor %}
+  </ul>
+  </section>
+  <section class="workspace-panel">
+    <h2>Previous-Year Questions by year</h2>
+    <ul class="workspace-count-list">
+      {% for year in years %}<li><a href="{{ queue }}?year={{ year.paper__year }}">{{ year.paper__year }} <strong>{{ year.total }}</strong></a></li>
+{% empty %}<li>No imported questions linked to previous-year papers.</li>{% endfor %}
+  </ul>
+  </section>
+      <section class="workspace-panel">
+        <h2>By module</h2>
+        <ul class="workspace-count-list">
+          {% for module, total in modules %}<li><a href="{{ queue }}?module={{ module.pk }}">{{ module }}<strong>{{ total }}</strong></a></li>
+          {% empty %}<li>No imported questions linked to modules.</li>{% endfor %}
+        </ul>
+      </section>
+      <section class="workspace-panel">
+        <h2>By chapter</h2>
+        <ul class="workspace-count-list">
+          {% for chapter, total in chapters %}<li><a href="{{ queue }}?chapter={{ chapter.pk }}">{{ chapter }}<strong>{{ total }}</strong></a></li>
+          {% empty %}<li>No imported questions linked to chapters.</li>{% endfor %}
+        </ul>
+      </section>
+  </div>
+  </div>
+{% endblock %}

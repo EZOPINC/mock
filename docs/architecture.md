@@ -177,8 +177,8 @@ Import does not silently publish questions; review/publication remain explicit.
 - Public browsing is Exam -> Year -> Paper -> direct-answer or paper-practice mode.
 - paper_answer gives reader feedback without creating persistent PracticeSession records.
 - GeneralQuestionBatch is an ImportBatch proxy filtered to general-mode collections.
-- General public views expose published questions; staff actions check signed fingerprints.
-- transition_batch atomically reviews/publishes the inspected working revisions.
+- General Questions routes require active staff with import-batch view and Question change permissions. Published previews use the approved revision. The review queue uses the working revision for both General and Previous-Year imports.
+- Whole-batch review and publication use the signed batch fingerprint. The question editor and selection workflow use signed per-question state and locked, atomic writes.
 
 ## Mock Test workflow
 

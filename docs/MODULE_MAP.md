@@ -31,7 +31,7 @@ Use `docs/architecture.md` for architecture context and `docs/DEVELOPMENT_RULES.
 | `questions` | Admin/downstream views | Master content, approval, translations, tags, eligibility |
 | `imports` / `imports` | `/admin/question-import/` | Staff ingestion -> Question workflows / optional paper rows |
 | `previous_year` / `previous_year` | `/previous-year/` | Publication/reader -> approved QuestionRevision |
-| `general_question` / `general_questions` | `/general-questions/` | ImportBatch proxy collections -> review/publication |
+| `general_question` / `general_questions` | `/general-questions/` | Standalone staff import, review dashboard and publication workspace |
 | `mock_tests` / `mock_tests` | `/mock-tests/` | Patterns/rules -> timed snapshots and scoring |
 | `practice` / `practice` | `/practice/` | Module difficulty/language setup -> shared untimed engine |
 | `revision` / `revision` | `/revision/` | Personal bank, Practice proxy sessions, topic discovery |
@@ -153,7 +153,8 @@ Explore routes/helpers remain; per-question explore_control calls were removed f
 | Revision AJAX feedback | `templates/revision/session_body.html`, `static/js/revision-session.js`; native POST fallback |
 | Paper modes/feedback | `templates/previous_year/paper_detail.html`, `static/js/paper-practice.js`, `static/css/paper-modes.css` |
 | Paper reading/navigation | `templates/previous_year/reading_solutions.html`, `static/js/paper-reader.js`; opt-in browser check: `tools/verify_exam_ui.py` |
-| General Questions translation inspection | `templates/general_question/collection.html`, `solution.html`; shared reading helper's opt-in `reserve_editions` keeps empty English/Bengali slots in public collections and staff working-revision review |
+| Question workspace rollout and rollback | docs/question-workspace.md |
+| General Questions translation inspection | `templates/general_question/collection.html`, `solution.html`; shared reading helper's opt-in `reserve_editions` keeps empty English/Bengali slots in staff published previews and working-revision review |
 | Import preview/edit | `templates/imports/preview.html`, `static/js/import-preview.js`, `static/js/import-upload.js`, `static/css/imports.css` |
 | Shared icon/style | `templates/components/icon.html`, `assets/tailwind.css`; do not hand-edit compiled Tailwind |
 | Bookmark labels/status | `templates/revision/bookmark.html`, `static/js/bookmarks.js`; success announcements use the existing visually hidden live region |

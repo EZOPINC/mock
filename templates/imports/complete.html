@@ -22,6 +22,9 @@
     </table>
   </div>
 </details>
-{% if not batch.paper_id %}<div class="button-row"><a class="button button-primary" href="{% url 'general_questions:manage_batch' batch.pk %}">Review &amp; publish this entire General batch</a><a class="button button-secondary" href="{% url 'general_questions:index' %}">Browse published General Questions</a></div>{% endif %}
+<div class="button-row">
+  <a class="button button-primary" href="{% url 'general_questions:review_queue' %}?batch={{ batch.pk }}">Review imported questions</a>
+  {% if not batch.paper_id %}<a class="button button-secondary" href="{% url 'general_questions:manage_batch' batch.pk %}">Review or publish the whole batch</a>{% endif %}
+</div>
 {% endwith %}
 {% endblock %}

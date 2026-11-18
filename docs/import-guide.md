@@ -8,7 +8,7 @@ in [import-contract.md](import-contract.md); source remains authoritative.
 - Sign in as active staff with the import/Question Bank permissions required by the selected mode.
 - Add missing Subjects and Exams through their existing administrative interfaces.
 - Select Previous Year or General explicitly; General does not create a paper.
-- Previous Year selects one Exam plus an existing unpublished paper or configured new draft paper.
+- Previous Year uses the selected exam, year, and paper details to match an existing draft or configure a new one.
 - General selects one or more Exams; choose selected-exam or row exam_categories mapping.
 - Choose the XLSX worksheet when necessary; use UTF-8 CSV otherwise.
 - Replace formulas/errors/macros/external links with plain data; no PDF/OCR/AI processing runs here.
@@ -90,7 +90,7 @@ stale edits; contextual uniqueness and workflow locks protect concurrent confirm
 
 GeneralQuestionBatch is a proxy over completed General ImportBatch records; no separate
 Question Bank is created. The General UI/Admin delegates inspected-batch review/publication
-to existing Question services. Published collection views are distinct from draft import audit.
+to existing Question services. Open **Manage / General Questions** to choose an import mode or review existing questions. In the preview grid, double-click a cell or press Enter to edit it in a larger panel. Expand the pinned row status to inspect errors, warnings, and mappings. Save and revalidate before confirming. After confirmation, use **Review imported questions** to open that batch in the staff queue. See [workflow and rollback notes](question-workspace.md).
 
 Start targeted verification with imports.tests, imports.test_unified, imports.test_wide_format
 or imports.test_taxonomy_import, depending on the change. Add General/paper tests for affected

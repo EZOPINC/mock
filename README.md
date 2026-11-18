@@ -69,7 +69,7 @@ Timezone defaults to UTC; timestamps are timezone-aware. collectstatic uses STAT
 | Question Bank | Master questions with immutable revision-bound English/Bengali content; explicit review/publication |
 | Imports | Staff CSV/XLSX upload, preview correction/pairing, atomic confirmation and audit at /admin/question-import/ |
 | Previous-Year Papers | Public published papers; direct answers or temporary paper-practice feedback |
-| General collections | Public published import collections; permissioned whole-batch review/publication |
+| General collections | Staff-only import and review workspace with published previews and selected or whole-batch publication |
 | Mock Tests | Authenticated fixed attempts, server deadlines, autosave, review flags and frozen scoring |
 | Practice Sets | Authenticated exam/subject -> module -> difficulty -> persistent untimed feedback |
 | Revision Bank | Authenticated notes/mastery, filters, saved-question sessions and historical results |

@@ -1,0 +1,24 @@
+{% extends "imports/base.html" %}
+{% block title %}Question review queue{% endblock %}
+{% block workspace_main_class %} workspace-main-wide{% endblock %}
+{% block import_content %}
+<h1>Question review queue</h1>
+{% include "general_question/review_filters.html" %}
+{% include "general_question/selection_actions.html" %}
+<p>{{ page.paginator.count }} matching questions. Open a question to inspect it and add it to your selection.</p>
+<div class="workspace-table-wrap">
+  <table class="workspace-table">
+    <thead><tr><th scope="col">ID</th><th scope="col">Subject</th><th scope="col">Working question</th><th scope="col">Review</th><th scope="col">Publication</th></tr></thead>
+    <tbody>
+      {% for question in page %}
+        <tr>
+          <td>{{ question.pk }}</td><td>{{ question.subject }}</td>
+          <td><a href="{% url 'general_questions:review_question' question.pk %}{% if query %}?{{ query }}{% endif %}">{{ question.current_revision.question_text|default:"Missing revision"|truncatechars:140 }}</a></td>
+          <td>{{ question.get_review_status_display }}</td><td>{{ question.get_publication_status_display }}</td>
+        </tr>
+      {% empty %}<tr><td colspan="5">No questions match these filters.</td></tr>{% endfor %}
+    </tbody>
+  </table>
+</div>
+{% include "general_question/pagination.html" %}
+{% endblock %}

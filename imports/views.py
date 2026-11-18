@@ -11,7 +11,6 @@ from django.views.decorators.cache import never_cache
 from django.views.decorators.http import require_http_methods, require_POST
 
 from exams.models import Exam, ExamStage, Subject, Topic
-from previous_year.models import PreviousYearPaper
 from . import staging
 from .forms import UploadForm, ImportSubjectForm, ImportTopicForm
 from .models import ImportBatch
@@ -39,7 +38,8 @@ def importer(view):
 @importer
 @require_http_methods(["GET", "POST"])
 def upload(request):
-    form = UploadForm(request.POST or None, request.FILES or None)
+    initial = {"import_type": request.GET.get("type", "")}
+    form = UploadForm(request.POST if request.method == "POST" else None, request.FILES or None, initial=initial)
     if request.method == "POST" and form.is_valid():
         try:
             parsed = parse_upload(form.cleaned_data["file"], form.cleaned_data["worksheet"].strip())
@@ -54,10 +54,10 @@ def upload(request):
     catalogue = {
         "exams": list(Exam.objects.values("id", "authority_id")),
         "stages": list(ExamStage.objects.values("id", "exam_id")),
-        "papers": list(PreviousYearPaper.objects.filter(is_published=False).values("id", "exam_id")),
-        "topics": list(Topic.objects.values("id", "subject_id")),
     }
-    return render(request, "imports/upload.html", {"form": form, "catalogue": catalogue})
+    hidden_fields = {"paper", "subject", "topic", "acknowledge_existing"}
+    fields = [field for field in form if field.name not in hidden_fields]
+    return render(request, "imports/upload.html", {"form": form, "fields": fields, "catalogue": catalogue})
 
 
 def edit_page(request, data):
