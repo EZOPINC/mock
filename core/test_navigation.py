@@ -33,7 +33,7 @@ class NavigationTests(TestCase):
         self.assertNotContains(response, "Hidden Exam")
         self.assertNotContains(response, "Hidden Authority")
         self.assertContains(response, '<h1 id="home-heading">')
-        self.assertContains(response, 'aria-labelledby="discovery-heading"')
+        self.assertContains(response, 'aria-labelledby="home-heading"')
 
     def test_public_pages_and_guest_navigation(self):
         for route in ("home", "exams:authorities", "previous_year:index", "accounts:login", "accounts:register"):
@@ -41,8 +41,9 @@ class NavigationTests(TestCase):
                 response = self.client.get(reverse(route))
                 self.assertEqual(response.status_code, 200)
                 visible_text = " ".join(strip_tags(response.content.decode()).split())
-                for label in ("Question Library", "Exam Authorities", "Previous Year Papers", "Mock Tests", "Practice Sets", "Login", "Register"):
+                for label in ("All Exams", "Previous-Years", "Previous Year Papers", "Mock Tests", "Practice Sets", "Login", "Register"):
                     self.assertIn(label, visible_text)
+                self.assertNotContains(response, 'class="library-menu"')
                 self.assertNotContains(response, '>Logout<')
                 self.assertNotContains(response, '>Profile<')
                 self.assertNotContains(response, 'href="#"')
@@ -76,13 +77,44 @@ class NavigationTests(TestCase):
         response = self.client.get(reverse("home"))
         markup = FormParser()
         markup.feed(response.content.decode())
-        self.assertEqual(len(markup.module_cards), 4)
+        self.assertEqual(len(markup.module_cards), 3)
+        self.assertNotContains(response, 'Explore General Questions')
         html = response.content.decode()
         self.assertLess(html.index('href="/static/css/site.css"'), html.index('href="/static/css/tailwind.css"'))
         self.assertContains(response, 'href="#main-content"')
         self.assertContains(response, 'aria-controls="primary-navigation"')
         self.assertContains(response, 'aria-label="Main navigation"')
         self.assertContains(response, 'src="/static/js/navigation.js" defer')
+
+    def test_manage_menu_is_staff_only_and_all_exams_follows_practice(self):
+        for username, staff in (("student-menu", False), ("admin-menu", True)):
+            user = get_user_model().objects.create_user(username=username, is_staff=staff)
+            self.client.force_login(user)
+            html = self.client.get(reverse("home")).content.decode()
+            header = html.split('<nav id="primary-navigation"', 1)[1].split('</nav>', 1)[0]
+            self.assertLess(header.index('>Practice Sets</a>'), header.index('>All Exams</a>'))
+            self.assertIn('>Previous-Years</a>', header)
+            self.assertNotIn('Question Library', header)
+            if staff:
+                self.assertIn('>Manage ', header)
+                self.assertIn(reverse("admin:index"), header)
+            else:
+                self.assertNotIn('class="library-menu"', header)
+
+    def test_footer_uses_contact_and_legal_placeholders(self):
+        html = self.client.get(reverse("home")).content.decode()
+        footer = html.split('<footer', 1)[1].split('</footer>', 1)[0]
+        for label in ("All Exams", "Contact us", "Social media links", "Legal &amp; privacy", "Terms &amp; Conditions", "Data Privacy Policy", "Cancellation &amp; Refund Policy"):
+            self.assertIn(label, footer)
+        self.assertEqual(footer.count('Coming soon'), 5)
+        for removed in ('Go further', 'Your space', 'Plans &amp; pricing', 'Question Library', 'Exam Authorities'):
+            self.assertNotIn(removed, footer)
+        self.assertNotIn('href="#"', footer)
+        catalogue = self.client.get(reverse("exams:authorities"))
+        self.assertContains(catalogue, '<h1 class="tw:sr-only">All Exams</h1>')
+        self.assertNotContains(catalogue, 'FIND YOUR FOCUS')
+        self.assertContains(catalogue, 'Filter exam categories')
+        self.assertNotContains(catalogue, 'Exam Authorities')
 
     def test_previous_year_browsing_does_not_offer_test_controls(self):
         response = self.client.get(reverse("previous_year:index"))
@@ -98,8 +130,8 @@ class NavigationTests(TestCase):
         for theme in ("system", "light", "dark", "sepia"):
             self.assertContains(response, f'<option value="{theme}">')
         self.assertContains(response, 'lang="bn"')
-        self.assertContains(response, "নিজের গতিতে শিখুন")
+        self.assertContains(response, "বাংলা")
         self.assertNotContains(response, "Continue learning")
         user = get_user_model().objects.create_user(username="resume-learner")
         self.client.force_login(user)
-        self.assertContains(self.client.get(reverse("home")), "Continue learning")
+        self.assertContains(self.client.get(reverse("home")), reverse("accounts:learning_space"))

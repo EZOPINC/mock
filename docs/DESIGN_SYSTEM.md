@@ -4,6 +4,65 @@ The shared shell and homepage belong to `core`; shared includes live in
 `templates/components/`. Learning interfaces are owned by Mock Tests, Practice,
 Previous-Year and Revision; their domain workflows remain unchanged.
 
+## Homepage content decision
+
+User preference recorded on 2026-11-18: keep the Bengali inspirational quote
+(`figure.home-academic-quote`, including its book icon and attribution) off the
+homepage. Future enhancements must not restore or replace it with another quote
+unless explicitly requested. This concerns homepage editorial content only;
+English/Bengali learning content and typography remain supported.
+
+Additional homepage preference recorded on 2026-11-18: omit the blue top
+announcement strip (`.shell-announcement`, “Your preparation. One place.” and
+“Explore Premium”) on every page while retaining the header's “Get Premium”
+button. This global removal supersedes the initial homepage-only change. Also omit the two
+near-footer CTA sections: “Ready for more?” / “Compare plans & buy Premium”
+(`.membership-banner`) and “Ready when you are” / “Start practicing”
+(`.ui-home-cta`). Do not restore these homepage sections in future enhancements
+unless explicitly requested. Do not restore the announcement strip on other pages.
+
+Further homepage preference recorded on 2026-11-18: remove the entire
+“Prepare with Purpose” hero (`.foundation-hero`), including its promotional copy,
+actions and “Your Study Companion” panel. Start the homepage with exam discovery
+instead, using its heading as the page's single H1. Do not reintroduce this hero
+in future enhancements unless explicitly requested. Account navigation remains
+available through the shared header.
+
+Header navigation uses “Previous-Years” and places “All Exams” directly after
+“Practice Sets”. The former “Question Library” dropdown is titled “Manage” and
+is visible only to staff/admin accounts (`user.is_staff`), consistent with Django
+admin access. Its entries are General Questions and Admin; All Exams is a public
+top-level link. These are navigation presentation rules, not changes to endpoint
+permissions or catalogue routes.
+
+Available Modules cards show only Previous-Year Papers, Mock Tests and Practice
+Sets on every page using `components/module_cards.html`. Omit the General
+Questions card; staff reach that module through the header's Manage menu.
+Do not reintroduce it into student-facing module cards without a new request.
+
+The public catalogue label is “All Exams” in header/footer navigation, page
+titles, breadcrumbs and homepage discovery links. These strings live in Django
+templates, not database records. Keep the `ExamAuthority` model, route names and
+existing `/exam-authorities/` URLs: they represent the grouping structure and
+remain valid independently of the public label.
+
+Exam detail preference (2026-11-18): show the exam name and its optional
+database-backed `Exam.description`; omit the authority label (including the
+breadcrumb level), generic introductory copy and exam-stages panel. Admins edit
+the plain-text description under Admin → Exams → the exam → Description; it can
+contain the full form, a short overview, format or languages (up to 1,000
+characters). Blank descriptions render no paragraph. Do not restore the removed
+sections without a new request. Authority/stage records and module routes remain
+intact. The description is editorial display content, not a change to mock
+language rules or scoring; existing taxonomy export/import remains unchanged.
+
+Footer columns are Prepare, Contact us, and Legal & privacy. The latter two replace
+the duplicated membership/account menus. Until official details and approved
+policy URLs are provided, contact/social links, Terms & Conditions, Data Privacy
+Policy and Cancellation & Refund Policy are explicitly marked “Coming soon” as
+plain text. Do not invent addresses, social profiles, legal terms or compliance
+claims, and do not turn these entries into placeholder links.
+
 ## Tokens and build
 
 `assets/shell.css` adds the membership shell: navy navigation/footer, cobalt actions,

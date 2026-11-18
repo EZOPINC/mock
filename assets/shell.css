@@ -231,10 +231,22 @@ html .app-shell .order-list > a { display:flex; justify-content:space-between; a
 .simulation-panel form { display:grid; gap:.75rem; }
 html .app-shell .site-footer.calm-footer { background:var(--app-night); margin-top:1rem; border:0; }
 html .app-shell .site-footer .footer-grid { grid-template-columns:1.4fr 1fr 1fr 1fr; gap:3rem; max-width:80rem; padding:3.5rem 1.5rem; }
+.footer-pending-list { list-style:none; padding:0; margin:0; display:grid; gap:1rem; }
+html .app-shell .module-grid-student { grid-template-columns:repeat(3,minmax(0,1fr)); }
+html .app-shell .module-grid-student .module-card { grid-column:auto; }
+@media(max-width:70rem) { html .app-shell .module-grid-student { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media(max-width:40rem) { html .app-shell .module-grid-student { grid-template-columns:minmax(0,1fr); } }
+html .app-shell .ui-discovery .ui-paper-intro-compact { padding:1.25rem; }
+html .app-shell .ui-paper-intro-compact .breadcrumbs { margin-bottom:1rem; }
+html .app-shell .ui-paper-intro-compact .ui-paper-browse-steps { margin:.75rem 0; }
+html .app-shell .ui-paper-intro-compact .ui-paper-intro-search { border:0; padding-top:.5rem; }
+html .app-shell .ui-paper-intro-compact .ui-discovery-filter { border:0; padding:0; }
+html .app-shell .site-footer .footer-pending-list li { color:#d7e1f0; font-size:.85rem; line-height:1.6; }
+html .app-shell .site-footer .footer-pending-list small { display:block; color:#b8c7dc; font-size:.75rem; }
 html .app-shell .site-footer .footer-brand { color:#fff; font-size:1.25rem; }
 html .app-shell .site-footer .ui-footer-icon { background:#ffffff14; color:#c7d4ff; }
 html .app-shell .site-footer :is(p,a,.footer-bottom) { color:#bac7dd; font-size:.8rem; line-height:1.9; }
-html .app-shell .site-footer nav h2 { color:#fff; font-size:.72rem; letter-spacing:.08em; margin-bottom:1rem; }
+html .app-shell .site-footer :is(nav,.footer-info) h2 { color:#fff; font-size:.72rem; letter-spacing:.08em; margin-bottom:1rem; }
 html .app-shell .site-footer nav a { display:block; padding:.35rem 0; min-height:32px; }
 html .app-shell .site-footer a:hover { color:#fff; }
 .footer-language { display:inline-block; border:1px solid #ffffff20; border-radius:.4rem; padding:.3rem .65rem; font-size:.7rem; color:#c8d5e9; }

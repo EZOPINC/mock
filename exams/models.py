@@ -125,6 +125,10 @@ class ExamAuthority(models.Model):
 class Exam(models.Model):
     authority = models.ForeignKey(ExamAuthority, on_delete=models.PROTECT, related_name="exams")
     name = models.CharField(max_length=200)
+    description = models.TextField(
+        blank=True, default="", max_length=1000,
+        help_text="Optional public introduction: exam full form, a short overview, format or languages. Maximum 1,000 characters.",
+    )
     code = models.CharField(max_length=50)
     slug = models.SlugField(max_length=200)
     is_active = models.BooleanField(default=True)

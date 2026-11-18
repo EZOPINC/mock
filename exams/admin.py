@@ -75,6 +75,7 @@ class ChapterPathFilter(admin.SimpleListFilter):
 
 class ExamInline(admin.TabularInline):
     model = Exam
+    exclude = ("description",)
     extra = 0
     show_change_link = True
 
@@ -183,6 +184,7 @@ class ExamAuthorityAdmin(admin.ModelAdmin):
 
 @admin.register(Exam)
 class ExamAdmin(admin.ModelAdmin):
+    fields = ("authority", "name", "description", "code", "slug", "is_active", "default_mock_language")
     list_display = ("name", "authority", "code", "slug", "default_mock_language", "is_active")
     search_fields = ("name", "code", "authority__name", "authority__code")
     list_filter = ("authority", "is_active")

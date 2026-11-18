@@ -20,7 +20,12 @@ class MembershipPresentationTests(TestCase):
                      "practice:index", "previous_year:index"):
             with self.subTest(page=name):
                 response = self.client.get(reverse(name), follow=True)
-                self.assertContains(response, "Explore Premium")
+                self.assertContains(response, "Get Premium")
+                self.assertNotContains(response, 'class="shell-announcement"')
+                self.assertNotContains(response, "Your preparation. One place.")
+                if name == "home":
+                    for removed in ('class="shell-announcement"', 'id="home-premium-heading"', 'id="next-step-heading"', 'class="foundation-hero"', 'PREPARE WITH PURPOSE', 'Explore Premium'):
+                        self.assertNotContains(response, removed)
                 self.assertContains(response, "Plans &amp; pricing")
                 self.assertContains(response, 'href="' + reverse("billing:pricing") + '"')
 

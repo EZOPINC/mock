@@ -59,7 +59,7 @@ Use `docs/architecture.md` for architecture context and `docs/DEVELOPMENT_RULES.
 | `billing/models.py` | SubscriptionPlan, PlanEntitlement, UserSubscription, SubscriptionEvent, FreeExamSelection, FreeMockSelection, FreeQuestionUsage; Free fallback is service logic |
 | `billing/models.py` financial ledger | PaymentOrder, PaymentTransaction, PaymentEvent, Refund; protected references and quote snapshots |
 | `billing/models.py` financial operations | FinancialAuditEvent, BillingConfiguration, BillingDocument, DocumentSequence, RefundApproval, Settlement, ReconciliationRecord |
-| `exams/models.py` | ExamAuthority, Exam, ExamStage, Subject, Part, Module, Chapter, Topic; HierarchyNode validates ancestry |
+| `exams/models.py` | ExamAuthority, Exam (optional admin-editable public description), ExamStage, Subject, Part, Module, Chapter, Topic; HierarchyNode validates ancestry |
 | `questions/models.py` | Question, QuestionRevision, QuestionTranslation, QuestionTopic, QuestionExam, QuestionSource, QuestionSourceReference |
 | Questions ERD | `docs/erd/questions-erd.html` (offline interactive), `docs/erd/questions-erd.md` (Mermaid/column reference), `questions-schema.json` and `.mmd` sources in that directory; regenerate with `python tools/generate_questions_erd.py` using `tools/questions_erd_template.html` |
 | `imports/models.py` | ImportBatch, ImportedQuestion; contextual import uniqueness and row audit |
