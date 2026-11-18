@@ -1,6 +1,5 @@
 """Bounded, data-only ingestion. No formulas, macros, or external links evaluated."""
 import csv
-from .language import normalize_language
 from datetime import date, datetime
 from hashlib import sha256
 from io import BytesIO, StringIO
@@ -8,25 +7,35 @@ from pathlib import PurePath
 from zipfile import BadZipFile, ZipFile
 from xml.etree.ElementTree import ParseError
 from defusedxml.common import DefusedXmlException
-
 from django.conf import settings
 from django.core.exceptions import ValidationError
 from openpyxl import load_workbook
 from openpyxl.utils.exceptions import InvalidFileException
+from .language import normalize_language
 from .translation_input import LANGUAGE_COLUMNS, EXTRA_METADATA, REQUIRED_TEXT
 
 REQUIRED = ("question_number", "question_text",
             "option_a", "option_b", "option_c", "option_d")
-TAXONOMY_COLUMNS = ("subject_code", "part_code", "module_code", "submodule_code", "chapter_code", "topic_code", "additional_topic_codes", "part", "module", "submodule", "chapter")
-OPTIONAL = ("correct_answer", "explanation", "subject", "topic", "language", "exam_categories", "previous_year_tags", "source_document",
-            "source_page", "difficulty_level", "question_kind", "current_as_of", "expires_on", "review_status", "verification_notes", "comments", "created_date", "updated_date", "updated_by", "source_question_number")
+TAXONOMY_COLUMNS = (
+    "subject_code", "part_code", "module_code", "submodule_code", "chapter_code", "topic_code", "additional_topic_codes", "subject", "part", "module", "submodule", "chapter")
+OPTIONAL = (
+    "correct_answer", "explanation", "subject", "topic", "language", "exam_categories", "previous_year_tags", "source_document", "source_page", "difficulty_level", "question_kind", "current_as_of", "expires_on", "review_status", "verification_notes", "comments", "created_date", "updated_date", "updated_by", "source_question_number")
 COLUMNS = REQUIRED + OPTIONAL + TAXONOMY_COLUMNS
 MAX_CELL = 32000
 MAX_COLUMNS = 64
 SUPPORTED_COLUMNS = COLUMNS + LANGUAGE_COLUMNS + EXTRA_METADATA
-HEADER_ALIASES = {"review_flag": "review_status", "review_notes": "verification_notes", "created": "created_date", "updated": "updated_date",
-                  "updated_by_user": "updated_by", "source_doc": "source_document", "source_pg": "source_page", "prev_year_tags": "previous_year_tags", "source_row_id": "source_row",
-                  "sub_module": "submodule", "sub_module_code": "submodule_code"}
+HEADER_ALIASES = {
+    "review_flag": "review_status",
+    "review_notes": "verification_notes",
+    "created": "created_date",
+    "updated": "updated_date",
+    "updated_by_user": "updated_by",
+    "source_doc": "source_document",
+    "source_pg": "source_page",
+    "prev_year_tags": "previous_year_tags",
+    "source_row_id": "source_row",
+    "sub_module": "submodule",
+    "sub_module_code": "submodule_code"}
 
 
 def text(value):
@@ -114,8 +123,10 @@ def parse_upload(upload, worksheet=""):
     if len(set(named)) != len(named):
         raise ValidationError(
             "Duplicate column headers are not allowed after alias normalization. Keep only one spelling for each field (for example submodule_code/sub_module_code or review_flag/review_status).")
-    wide_header = any(all(f"{field}_{code}" in headers for field in REQUIRED_TEXT) for code, label in settings.QUESTION_LANGUAGES)
-    missing = ({"question_number"} if wide_header else set(REQUIRED)) - set(headers)
+    wide_header = any(all(f"{field}_{code}" in headers for field in REQUIRED_TEXT)
+                      for code, label in settings.QUESTION_LANGUAGES)
+    missing = ({"question_number"} if wide_header else set(
+        REQUIRED)) - set(headers)
     if "source_question_number" in headers:
         missing.discard("question_number")
     unknown = set(named) - set(SUPPORTED_COLUMNS)
@@ -132,8 +143,10 @@ def parse_upload(upload, worksheet=""):
         row = dict.fromkeys(COLUMNS, "")
         for code, label in settings.QUESTION_LANGUAGES:
             if any(f"{field}_{code}" in headers for field in REQUIRED_TEXT + ("explanation",)):
-                row.update(dict.fromkeys([f"{field}_{code}" for field in REQUIRED_TEXT + ("explanation",)], ""))
-        row.update(dict.fromkeys([field for field in EXTRA_METADATA if field in headers], ""))
+                row.update(dict.fromkeys(
+                    [f"{field}_{code}" for field in REQUIRED_TEXT + ("explanation",)], ""))
+        row.update(dict.fromkeys(
+            [field for field in EXTRA_METADATA if field in headers], ""))
         for index, value in enumerate(cells[:len(headers)]):
             if not headers[index] and value.strip():
                 raise ValidationError(
@@ -144,7 +157,8 @@ def parse_upload(upload, worksheet=""):
         if "question_number" not in headers:
             row["question_number"] = row["source_question_number"]
         row["language"] = normalize_language(row["language"])
-        rows.append({"source_row": number, "values": row, "original_values": original_values})
+        rows.append({"source_row": number, "values": row,
+                    "original_values": original_values})
     if not rows:
         raise ValidationError("No data rows were found.")
     return {"filename": filename[:255], "file_sha256": sha256(data).hexdigest(), "worksheet": selected, "rows": rows,
