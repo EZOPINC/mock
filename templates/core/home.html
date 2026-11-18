@@ -2,10 +2,14 @@
 {% block title %}Mock Exam Platform | Papers, Practice &amp; Mock Tests{% endblock %}
 {% block content %}
   <div class="ui-home home-modern">
+    <section class="foundation-hero" aria-labelledby="home-heading">
+      <div><p class="eyebrow hero-eyebrow"><span></span> PREPARE WITH PURPOSE</p><h1 id="home-heading">A better routine.<br><span>A stronger next attempt.</span></h1><p class="lead">Previous papers to learn from. Practice to build on. Mock Tests to bring it all together. Find your exam and make your next step count.</p><div class="button-row"><a class="button button-primary" href="#exam-categories">Find your exam {% include "components/icon.html" with name="arrow" %}</a><a class="button button-secondary" href="{% url 'billing:pricing' %}">Explore Premium</a></div><p class="muted hero-footnote">Start Free. Upgrade when you are ready. Learn in English and Bengali.</p></div>
+      <aside class="foundation-next ui-card" aria-labelledby="continue-heading"><div class="hero-card-top"><span class="ui-path-icon" aria-hidden="true">{% include "components/icon.html" with name="book" %}</span><span>YOUR STUDY COMPANION</span></div>{% if user.is_authenticated %}<h2 id="continue-heading">Keep your momentum.</h2><p>Your sessions, saved questions and next steps. Together in your Learning Space.</p>{% else %}<h2 id="continue-heading">A place for your progress.</h2><p>Start small. Build a routine that fits you. We'll keep your progress ready for your next visit.</p>{% endif %}<div class="hero-path"><div><span>01</span><p>Discover your exam</p></div><div><span>02</span><p>Practice with purpose</p></div><div><span>03</span><p>Put your preparation to the test</p></div></div>{% if user.is_authenticated %}<a class="text-link" href="{% url 'accounts:learning_space' %}">Continue learning {% include "components/icon.html" with name="arrow" %}</a>{% else %}<a class="text-link" href="{% url 'accounts:register' %}">Create your account {% include "components/icon.html" with name="arrow" %}</a>{% endif %}<a class="text-link" href="{% url 'previous_year:index' %}">Browse previous papers {% include "components/icon.html" with name="chevron" %}</a></aside>
+    </section>
     <section class="section-block"
-             aria-labelledby="home-heading"
+             aria-labelledby="discovery-heading"
              id="exam-categories">
-      <div class="section-heading"><div><p class="eyebrow">FIND YOUR FOCUS</p><h1 id="home-heading">Your ambition. Your exam.</h1><p class="muted">Choose an exam category and take the next step toward your goal.</p></div><a class="text-link" href="{% url 'exams:authorities' %}">All Exams {% include "components/icon.html" with name="arrow" %}</a></div>
+      <div class="section-heading"><div><p class="eyebrow">FIND YOUR FOCUS</p><h2 id="discovery-heading">Your ambition. Your exam.</h2><p class="muted">Choose an exam category and take the next step toward your goal.</p></div><a class="text-link" href="{% url 'exams:authorities' %}">All Exams {% include "components/icon.html" with name="arrow" %}</a></div>
       {% include "components/authority_cards.html" %}
     </section>
     <section class="section-block" aria-labelledby="modules-heading">

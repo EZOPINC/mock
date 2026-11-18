@@ -21,12 +21,11 @@ near-footer CTA sections: “Ready for more?” / “Compare plans & buy Premium
 (`.ui-home-cta`). Do not restore these homepage sections in future enhancements
 unless explicitly requested. Do not restore the announcement strip on other pages.
 
-Further homepage preference recorded on 2026-11-18: remove the entire
-“Prepare with Purpose” hero (`.foundation-hero`), including its promotional copy,
-actions and “Your Study Companion” panel. Start the homepage with exam discovery
-instead, using its heading as the page's single H1. Do not reintroduce this hero
-in future enhancements unless explicitly requested. Account navigation remains
-available through the shared header.
+Updated homepage preference on 2026-11-18: retain the “Prepare with Purpose” hero
+(`.foundation-hero`), its promotional copy/actions and “Your Study Companion”
+panel. The user explicitly restored this section after trying its removal.
+Keep the hero's single H1 and the following exam-discovery H2. Future enhancements
+should preserve this restored layout unless another change is requested.
 
 Header navigation uses “Previous-Years” and places “All Exams” directly after
 “Practice Sets”. The former “Question Library” dropdown is titled “Manage” and
