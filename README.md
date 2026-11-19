@@ -11,7 +11,8 @@ Revision Bank. Django Templates, Tailwind CSS and vanilla JavaScript provide the
 | Find the owning app, service or test | [Module map](docs/MODULE_MAP.md) |
 | Understand app boundaries and workflows | [Architecture](docs/architecture.md) |
 | Change code safely / select targeted checks | [Development rules](docs/DEVELOPMENT_RULES.md), [Codex instructions](AGENTS.md) |
-| Inspect persistence and constraints | [Database design](docs/database-design.md) |
+| Work with imports or staff review | [Import guide](docs/import-guide.md), [CSV contract](docs/import-contract.md), [Question workspace](docs/question-workspace.md) |
+| Inspect persistence and constraints | [Database design](docs/database-design.md), [Questions ERD](docs/erd/questions-erd.html) |
 | Understand prior choices and supersession | [Decision record](docs/decisions.md) |
 | Configure environment values | [Environment configuration](docs/environment-configuration.md) |
 
@@ -92,7 +93,7 @@ are currently commented out; error feedback remains active.
 
 ## Checks and stylesheet builds
 
-Start with the owning app's targeted tests from DEVELOPMENT_RULES.md. Examples:
+Start with the owning app's targeted tests in the [development rules](docs/DEVELOPMENT_RULES.md). Examples:
 
 ```powershell
 python manage.py test practice --noinput

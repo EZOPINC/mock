@@ -32,7 +32,7 @@ The tracked filename is `docs/architecture.md`; retain its casing in links.
 | `questions` | Master identities, immutable content, translations, topic/exam/source tags | All assessment/content apps |
 | `imports` | Bounded ingestion, staged correction/pairing, confirmation and audit | Staff UI; General collections |
 | `previous_year` | Papers, ordered approved-revision associations, public reader | Imports, admin, students |
-| `general_question` | General-import collections and whole-batch review/publication | Staff/public collections |
+| `general_question` | Staff question dashboard, editor and individual or batch publication | Staff-only workspace |
 | `mock_tests` | Pattern/rule configuration, immutable shared demo publications, timed attempts, autosave and scoring | Authenticated exams |
 | `practice` | Untimed snapshots, answer locking, feedback and progress | Practice and Revision sessions |
 | `revision` | Bookmarks/notes/mastery, bank, revision selection, topic exploration | Registered students |
@@ -147,25 +147,11 @@ Account dashboard excludes revision-kind sessions from ordinary Practice statist
 
 ## CSV/XLSX import workflow
 
-1. Staff access `/admin/question-import/`; permission requirements depend on mode.
-2. parse_upload accepts UTF-8 CSV/XLSX within byte/row/column/cell bounds.
-3. Formula/error cells, macros and external-link workbooks are rejected.
-4. staging stores owner-bound expiring JSON with token locks and version digests.
-5. validate resolves selection, exams, language/translations, taxonomy and row errors.
-6. Source-local translation groups need explicit approval of their current signature.
-7. Corrections invalidate stale approvals; duplicate text warns rather than merging masters.
-8. Missing named Parts/Modules/Chapters/Topics can be proposed under an existing Subject.
-9. Preview resolution stages proposals; confirmation persists them atomically.
-10. Row resolution never auto-creates Subjects; explicit privileged admin actions differ.
-11. confirm_import rechecks owner/permissions, locks exams/taxonomy and revalidates.
-12. It creates pending-review drafts, topic/exam/source links and optional draft paper rows.
-13. ImportBatch/ImportedQuestion retain original/corrected/resolved audit metadata.
-14. Staging tokens and file/context uniqueness prevent duplicate confirmation/import.
+- The staff importer stages owner-bound data and validates the selected exam, language editions, taxonomy and private source references. Preview resolution leaves domain tables untouched. Explicit taxonomy creation has its own permissioned action.
+- Confirmation rechecks ownership, permissions and inspected state under locks. File/context uniqueness prevents repeated batch imports. Existing bank matches require an explicit decision. General imports may skip a match, and Previous-Year imports may reuse an eligible approved revision.
+- New questions start pending review. Confirmation atomically records imported rows and their original/corrected values. Reuse adds a paper occurrence and preserves the approved revision and existing question identity.
 
-Default bounds: 5 MB upload, 2,000 rows, 64 columns, 32,000 characters per cell.
-Staging defaults to two hours; its configured root is private server-side storage.
-General mode creates no paper. Previous-Year mode targets one unpublished paper/exam.
-Import does not silently publish questions; review/publication remain explicit.
+See the [CSV contract](import-contract.md) for limits and validation and the [staff guide](import-guide.md) for the upload workflow.
 
 ## Previous-Year and General collections
 
@@ -187,7 +173,7 @@ M1 adds `ExamPattern.is_free_demo` and immutable `MockSet`/`MockSetQuestion` pub
 
 1. Admin configures ExamPattern, sections, totals, duration and marking defaults.
 2. Optional SectionSelectionRule selects exactly one taxonomy scope and a quota.
-3. Rules support normalized difficulty and random/manual choices with descendant tags.
+3. Rules support published difficulty, question kind and random/manual choices with descendant tags.
 4. ManualRuleQuestion records explicit ordered master choices.
 5. Availability checks quotas/overlap; allocation prevents duplicates across sections.
 6. Activation is explicit; active/previously attempted configurations have guarded edits.

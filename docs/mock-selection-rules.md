@@ -4,7 +4,7 @@
 
 `ExamPatternSection` may have ordered `SectionSelectionRule` records. Each rule
 has exactly one Subject, Part, Module, Chapter or Topic filter, a positive question
-quota, optional difficulty and random/manual selection mode. Rule quotas must sum
+quota, optional difficulty and question kind, plus random/manual selection mode. Rule quotas must sum
 to the section's question count. Without rules, existing section filters continue
 to apply unchanged.
 
@@ -24,6 +24,16 @@ Difficulty uses the **published revision**, compared case-insensitively after
 trimming whitespace. Blank configuration means any difficulty. `unspecified`
 matches blank or literal `unspecified`; unknown historical values match only
 the unrestricted setting. No question or revision values are rewritten.
+
+Question kind can be unrestricted, Logical or Static. Unrestricted rules include
+Unclassified questions. A subject with a freshness policy excludes questions with
+past, current-day or missing expiries from new selections. Published Free Demo
+sets containing such questions become unavailable for new starts.
+
+The start screen preselects the exam's default reading language when the pattern
+supports it. The automatic WBPSC default is English for WBCS and Bengali for other
+WBPSC exams. Students can choose another offered language before starting. The
+chosen language is saved on the attempt.
 
 ## Administration
 

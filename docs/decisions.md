@@ -13,7 +13,7 @@ and [MODULE_MAP](MODULE_MAP.md), rather than reconstructing behavior from milest
 | English/Bengali are independent Questions | D23: one master with revision-bound translations; no legacy identity merging |
 | Mandatory Part -> Module -> Chapter chain | Optional immediate parents and stable codes; see flexible-taxonomy.md |
 | One Topic per Question | Multiple same-Subject tags with one matching legacy primary pointer |
-| Imports deferred / all file hashes globally unique | CSV/XLSX imports implemented; file uniqueness is contextual; source-ID merging remains undefined |
+| Imports deferred / all file hashes globally unique | CSV/XLSX imports implemented; file uniqueness is contextual and Previous-Year reuse requires explicit approval |
 | Explicit-existing-taxonomy only | Missing named child nodes can be proposed/persisted under existing Subjects; ambiguity still blocks import |
 | PracticeResponse target / subject-topic setup | PracticeQuestion is the response model; current setup is module then difficulty |
 | Profile is the learning dashboard | Profile is account details; Learning Space is the activity dashboard |
@@ -33,7 +33,7 @@ entry now, not a claim that every original sentence remains current.
 | D04 | Public Previous-Year browsing | Retained for valid published papers and approved revisions |
 | D05 | Authenticated Mock/Practice ownership with CSRF/safe redirects | Retained; Revision also requires authentication |
 | D06 | Mock section configuration chooses en/bn/mixed; no student mock-language selector | Retained; mixed selection does not promise fixed language proportions |
-| D07 | Independent English/Bengali masters; no translation grouping | Superseded by D23; primary language compatibility fields remain immutable within a master lineage |
+| D07 | Independent English/Bengali masters; no translation grouping | Superseded by D23; the primary language code is immutable within a master lineage and edition text lives in translations |
 | D08 | Versioned exam patterns control totals, duration, sections and marking | Implemented with activation/availability checks; later detailed selection rules extend distribution |
 | D09 | Published revision and used-pattern history must remain stable | Retained and strengthened: revision content is append-only even while draft |
 | D10 | Persist fixed attempt question/revision/order/marks; score and enforce deadlines on server | Implemented by AttemptQuestion and execution services |

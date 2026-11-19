@@ -1,17 +1,18 @@
 # General Questions and Solutions workspace
 
-Workspace baseline before implementation is `096a294e3f32991233d9caad55c79f2a1e78e3a4`. These checkpoints describe source changes. The workspace adds no database migrations.
+Open **Manage / General Questions** with active staff permissions to view import batches and change questions. The standalone workspace shares the [staff importer](import-guide.md).
 
-## Staff workflow
+## Review and publish
 
-1. Open **Manage / General Questions**. Choose **Import previous-year questions** or **Import general questions**. General imports use the existing default subject, selected exams, and row exam mapping.
-2. Inspect the import grid. Scroll to the language and source columns. Open a row status for its errors, warnings and resolved mappings. Double-click a cell or press Enter for a larger editor. Use **Save page & Revalidate** before confirming. Filtered preview pages are read-only. Clear the filters to edit.
-3. Open **Review questions** to go straight to the queue, or open **Review dashboard** for counts by subject, exam, module, chapter and previous-year paper year. Apply a difficulty filter to narrow these counts. Each module or chapter counts a question once, including matches through additional topic tags. General Questions counts imported questions with no previous-year paper link. Click a count to open its filtered queue. After confirming an import, select **Review imported questions** to open that batch. The queue also filters by import batch, taxonomy, language, kind, working difficulty, review status, publication status and text. Selecting a subject narrows the module, chapter and topic choices. Selecting a module or chapter narrows the choices below it. **Any** shows unrated questions and **All difficulties** clears the difficulty filter.
-4. In the question editor, read the working revision in its available languages. Edit the subject, primary and additional topics, exam associations, question kind and freshness dates. A topic carries its module and chapter through its taxonomy path. Choosing a different subject clears incompatible topic choices. Papers with fixed subject or exam requirements constrain these edits.
-5. Save an individual question and add the inspected version to the selection. The selection is stored in the staff browser session and persists across queues and pages. From the queue use **Mark selected reviewed** and then **Publish selected**. Actions are atomic and stale selections are rejected. Use **Selected only** to inspect the selection. Saving another edit removes that question from the selection until it is inspected again.
-6. The General batch page still supports whole-batch review and publication. Actions there include every question in that batch. Previous-year paper publication remains a separate operation. If an edited question is published while its draft paper still points to an unpublished import revision, the draft row advances to the newly approved revision. Published paper rows and existing approved pins keep their revisions.
+- **Review dashboard** counts imported questions by subject, exam, module, chapter and paper year. General Questions have no Previous-Year paper link. Counts link to the filtered review queue.
+- **Review questions** filters by import batch, source, taxonomy, language, kind, working difficulty, status and text. Subject narrows module, chapter and topic. Module narrows chapters and topics. Chapter narrows topics. **Any** difficulty means unrated. **All difficulties** clears the rating filter.
+- The editor shows the working language editions. The sidebar edits subject, primary and additional topic tags, exams, kind, difficulty and freshness dates. It also displays private sources. Module and chapter follow the selected topic path. Papers with fixed subject or exam requirements constrain edits.
+- Save, inspect, then add a question to the session selection. **Mark selected reviewed** and **Publish selected** operate atomically on that selection, even across pages. Stale changes require reinspection. Editing a selected question removes it from the selection.
+- A General batch can still be reviewed or published as a whole. Paper publication is separate. If an edited draft paper row still pins an unpublished import revision, selected publication advances it to the newly approved revision. Approved historical pins remain intact.
 
-## Milestones and rollback boundaries
+## Rollback reference
+
+The workspace started at source baseline `096a294e3f32991233d9caad55c79f2a1e78e3a4`. The checkpoints below describe the original rollout and its source dependencies.
 
 | Step | Changes and boundary | Rollback |
 |---|---|---|
@@ -25,10 +26,10 @@ For a full rollback, restore the tracked files from the baseline and remove only
 
 Verify uploads on the normal Django server. The tool sandbox used for the earlier preview could not write to the private staging directory. The staging root and file-creation logic are outside this change.
 
-## Verification record
+## Original rollout verification
 
 - M1 and M2 passed the import parsing, preview, confirmation and dashboard integration checks.
 - M3 and M4 passed the saved-revision, stale-form, selected review and publication, and edited draft-paper integration checks.
-- The final workspace and import suites passed all 72 tests against PostgreSQL. Django checks found no missing migrations.
+- The initial workspace and import suites passed 72 tests against PostgreSQL. Django checks found no missing migrations.
 - Five Previous-Year viewer and feedback assertions also failed on the unchanged baseline in an isolated checkout. The workspace update leaves those templates and behavior outside its scope.
-- An upload into the actual staging directory on the normal server remains a manual rollout check.
+- The original test run used disposable staging. Verify the configured staging directory through the normal Django server when deploying changes.
