@@ -3,10 +3,10 @@ from unittest.mock import patch
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Permission
 from django.core.exceptions import PermissionDenied, ValidationError
-from django.test import Client
+from django.test import Client, TestCase
 from django.urls import reverse
 
-from exams.models import Chapter, Module, Part, Submodule, Topic
+from exams.models import Chapter, Module, Part, Subject, Submodule, Topic
 from general_question.services import batch_questions, fingerprint, transition_batch
 from imports.services import confirm_import
 from .models import GeneralQuestionBatch
@@ -15,6 +15,23 @@ from imports.tests import ImportFixture, values
 from questions.models import Question
 from questions.services import add_translation, create_revision, mark_reviewed, publish_question
 from questions.tagging import set_question_topics
+from .review_forms import ReviewFilters
+
+
+class ReviewFilterQueryTests(TestCase):
+    def test_nested_dropdown_labels_use_one_query_per_field(self):
+        subject = Subject.objects.create(name="English", code="EN", slug="english")
+        part = Part.objects.create(subject=subject, name="Part", slug="part")
+        for index, parent in enumerate(({"part": part}, {"subject": subject})):
+            module = Module.objects.create(**parent, name=f"Module {index}", slug=f"module-{index}")
+            submodule = Submodule.objects.create(module=module, name=f"Submodule {index}", slug=f"submodule-{index}")
+            Chapter.objects.create(submodule=submodule, name=f"Chapter {index}", slug=f"chapter-{index}")
+        form = ReviewFilters()
+        with self.assertNumQueries(2):
+            submodules = str(form["submodule"])
+            chapters = str(form["chapter"])
+        self.assertIn("English: Part: Module 0: Submodule 0", submodules)
+        self.assertIn("English: Module 1: Submodule 1: Chapter 1", chapters)
 
 
 class GeneralModuleTests(ImportFixture):

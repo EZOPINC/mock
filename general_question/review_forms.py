@@ -55,11 +55,13 @@ class ReviewFilters(SubjectReviewFilters, GeneralQuestionFilters):
         widget=ReviewTaxonomySelect)
     module = forms.ModelChoiceField(queryset=Module.objects.select_related("subject", "part__subject"), required=False,
         widget=ReviewTaxonomySelect)
-    submodule = forms.ModelChoiceField(queryset=Submodule.objects.select_related("module__part", "module__subject"), required=False,
+    # Labels traverse every ancestor, including each node's Subject fallback.
+    submodule = forms.ModelChoiceField(queryset=Submodule.objects.select_related(
+        "subject", "module__part__subject", "module__subject"), required=False,
         widget=ReviewTaxonomySelect)
     chapter = forms.ModelChoiceField(queryset=Chapter.objects.select_related(
         "subject", "part__subject", "module__subject", "module__part__subject",
-        "submodule__module__subject", "submodule__module__part__subject"), required=False, widget=ReviewTaxonomySelect)
+        "submodule__subject", "submodule__module__subject", "submodule__module__part__subject"), required=False, widget=ReviewTaxonomySelect)
     topic = forms.ModelChoiceField(queryset=topics_with_ancestry(), required=False, widget=ReviewTaxonomySelect)
     review = forms.ChoiceField(choices=[("", "Any review status"), *Question.ReviewStatus.choices], required=False)
     publication = forms.ChoiceField(choices=[("", "Any publication status"), *Question.PublicationStatus.choices], required=False)
