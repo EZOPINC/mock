@@ -7,6 +7,9 @@
   <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="{% url 'practice:subjects' exam.authority.slug exam.slug %}">{{ exam.name }}</a>{% include "components/icon.html" with name="chevron" %}<span>{{ subject.name }}</span>{% include "components/icon.html" with name="chevron" %}<span aria-current="page">Difficulty and language</span></nav>
   <header class="mock-hub-heading"><div><p class="eyebrow">SET YOUR PACE</p><h1>Choose your difficulty and language</h1><p>{{ subject.name }} &middot; {% if module %}{{ module.name }}{% else %}Whole subject{% endif %}</p></div><span class="mock-hub-heading-icon" aria-hidden="true">{% include "components/icon.html" with name="pencil" %}</span></header>
   {% include "components/module_access_note.html" with module_kind="practice" %}
+  <div class="button-row practice-back-actions">
+    {% if module %}<a class="button button-primary" href="{% url 'practice:configure' exam.authority.slug exam.slug subject.slug %}">{% include "components/icon.html" with name="arrow" icon_class="ui-back-icon" %} Back to modules</a>{% else %}<a class="button button-primary" href="{% url 'practice:subjects' exam.authority.slug exam.slug %}">{% include "components/icon.html" with name="arrow" icon_class="ui-back-icon" %} Back to subjects</a>{% endif %}
+  </div>
   <form method="post" class="practice-difficulty-card ui-card">
     {% csrf_token %}{{ form.token }}{{ form.token.errors }}
     {% if form.non_field_errors %}<div class="form-errors" role="alert">{{ form.non_field_errors }}</div>{% endif %}
@@ -20,11 +23,10 @@
         <p>English or Bengali includes only questions available in that language. Both shows all available versions. Your selection is saved when you start and preserved when you resume.</p>
       </fieldset>
       </div>
-      <button type="submit" class="button button-primary">Start practice {% include "components/icon.html" with name="arrow" %}</button>
+      <div class="button-row practice-start-actions">
+        <button type="submit" class="button button-primary">Start practice {% include "components/icon.html" with name="arrow" %}</button>
+      </div>
     {% else %}<h2>No eligible questions are available</h2><p>Choose another subject or check back later.</p>{% endif %}
   </form>
-  <div class="button-row practice-back-actions">
-    {% if module %}<a class="button button-primary" href="{% url 'practice:configure' exam.authority.slug exam.slug subject.slug %}">{% include "components/icon.html" with name="arrow" icon_class="ui-back-icon" %} Back to modules</a>{% else %}<a class="button button-primary" href="{% url 'practice:subjects' exam.authority.slug exam.slug %}">{% include "components/icon.html" with name="arrow" icon_class="ui-back-icon" %} Back to subjects</a>{% endif %}
-  </div>
 </div>
 {% endblock %}

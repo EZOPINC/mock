@@ -50,7 +50,7 @@ class TranslationMigrationTests(TransactionTestCase):
         latest = ("questions", "0003_backfill_translations")
         executor.migrate([old])
         try:
-            paper_node = executor.loader.graph.leaf_nodes("previous_year")[0]
+            paper_node = ("previous_year", "0002_previousyearpaper_duration_minutes_and_more")
             exam_node = executor.loader.graph.leaf_nodes("exams")[0]
             old_apps = executor.loader.project_state([old, paper_node, exam_node]).apps
             Subject = old_apps.get_model("exams", "Subject")

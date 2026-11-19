@@ -95,6 +95,6 @@ def save_reference(question, reference, coded_sources, legacy_sources):
         source = legacy_sources[document]
     else:
         return None
-    QuestionSourceReference.objects.get_or_create(question=question, source=source,
+    record, _ = QuestionSourceReference.objects.get_or_create(question=question, source=source,
         source_page=reference["page"], source_question_number=reference["number"])
-    return source.pk
+    return record

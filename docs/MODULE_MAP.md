@@ -13,6 +13,7 @@ Find the owning app and read the relevant row only. Start with the listed entry 
 | Import confirmation and duplicate decisions | `imports/views.py`, `imports/services.py`, `imports/context.py`, `imports/duplicates.py`, `imports/sources.py`, `imports/staging.py` | [Staff import guide](import-guide.md) |
 | General Questions workspace | `general_question/review_views.py`, `review_forms.py`, `review_services.py` in the same app. Whole batches use `general_question/services.py`. | [Workspace and rollback notes](question-workspace.md) |
 | Previous-Year papers | `previous_year/models.py`, `previous_year/services.py`, `previous_year/views.py` | [Admin](previous-year-administration.md), [Paper reader](previous-year-viewer.md) |
+| Exam appearances | `previous_year/appearance_input.py`, `previous_year/appearances.py`, `general_question/appearance_views.py` | [Import format](import-contract.md), [Staff verification](question-workspace.md) |
 | Mock configuration and selection | `mock_tests/models.py`, `mock_tests/admin.py`, `mock_tests/rules.py`, `mock_tests/languages.py`, `mock_tests/services.py` | [Selection rules](mock-selection-rules.md), [Free Demo](shared-free-mock.md) |
 | Mock attempts and scoring | `mock_tests/execution.py`, `mock_tests/views.py`, `static/js/mock-test.js` | [Execution](mock-test-execution.md) |
 | Practice | `practice/discovery.py`, `practice/services.py`, `practice/views.py` | [Setup](practice-taxonomy.md), [Sessions](practice-sessions.md) |

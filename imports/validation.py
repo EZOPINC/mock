@@ -9,6 +9,7 @@ from django.db.models import Q, Value
 from django.db.models.functions import Coalesce, Lower, Trim
 
 from exams.models import Exam
+from previous_year.appearance_input import parse_appearance_tags
 from previous_year.models import PreviousYearPaper
 from questions.difficulty import Difficulty, normalize_difficulty
 from questions.models import QuestionKind, QuestionRevision, QuestionTranslation
@@ -176,8 +177,11 @@ def validate(data, *, locked=False):
         row_errors.extend(exam_errors)
         if strategy == "selected" and values["exam_categories"].strip():
             warnings.append("Form-selected exams are authoritative; source exam_categories is retained as metadata.")
-        if values["previous_year_tags"].strip():
-            warnings.append("Source previous_year_tags is retained as metadata; it does not override this import's paper selection.")
+        appearances, unparsed = parse_appearance_tags(values.get("previous_year_tags", ""))
+        if appearances:
+            warnings.append("Previous-year tags will become unverified exam appearance suggestions.")
+        if unparsed:
+            warnings.append("Some previous_year_tags could not be read as Exam YYYY and will remain in the import audit.")
         question_kind = values.get("question_kind", "")
         question_kind = question_kind.strip().lower() if isinstance(question_kind, str) else ""
         if question_kind and question_kind not in QuestionKind.values:
@@ -207,7 +211,7 @@ def validate(data, *, locked=False):
         if values["review_status"].strip() or values["verification_notes"].strip():
             warnings.append("Legacy review/verification values are audit metadata only. The question will be pending review.")
         result.append({"index": index, "source_row": row["source_row"], "values": values, "question_kind": question_kind, "difficulty": difficulty,
-                       "freshness": freshness_input(values, subject, row_errors, warnings),
+                       "appearances": appearances, "freshness": freshness_input(values, subject, row_errors, warnings),
                        "errors": row_errors, "warnings": warnings, **taxonomy, "revision": revision, "translations": translations, "translation_languages": [item["language"] for item in translations], "exams": resolved_exams})
     source_plans = resolve_sources(result)
     groups = groups_for(result, data.get("pairings", {}))

@@ -2,13 +2,16 @@ import csv
 from datetime import date
 from concurrent.futures import ThreadPoolExecutor
 from io import BytesIO, StringIO
+from importlib import import_module
 from pathlib import Path
 from tempfile import TemporaryDirectory
 from threading import Barrier
+from types import SimpleNamespace
 import time
 from unittest.mock import patch
 import uuid
 
+from django.apps import apps
 from django.contrib.auth import get_user_model
 from django.core.exceptions import PermissionDenied, ValidationError
 from django.core.files.uploadedfile import SimpleUploadedFile
@@ -214,6 +217,43 @@ class ValidationTests(ImportFixture):
 
 
 class ConfirmationTests(ImportFixture):
+    def test_legacy_appearance_backfill_is_pending_and_idempotent(self):
+        imported = confirm_import(self.data(), self.user).imported_questions.get()
+        imported.source_metadata["original"]["previous_year_tags"] = "WBCS 2014"
+        imported.source_metadata["corrected"]["previous_year_tags"] = "WBCS 2021; unreadable"
+        imported.save(update_fields=["source_metadata"])
+        migration = import_module("previous_year.migrations.0004_backfill_question_appearances")
+        for _ in range(2):
+            migration.backfill(apps, SimpleNamespace(connection=connection))
+        appearance = imported.question.exam_appearances.get()
+        self.assertEqual((appearance.exam_name, appearance.year), ("WBCS", 2021))
+        self.assertIsNone(appearance.verified_at)
+
+    def test_multiple_appearance_tags_create_pending_suggestions_staff_can_verify(self):
+        tags = "WBCS 2021; WBCS 2014; WBPSC / Clerkship 2024; WBCS 2021; malformed"
+        data = self.data([values(previous_year_tags=tags, source_document="Book.pdf", source_page="8")])
+        imported = confirm_import(data, self.user).imported_questions.get()
+        appearances = imported.question.exam_appearances
+        self.assertEqual(appearances.count(), 3)
+        self.assertFalse(appearances.filter(verified_at__isnull=False).exists())
+        self.assertEqual(imported.source_metadata["original"]["previous_year_tags"], tags)
+        appearance = appearances.get(year=2024)
+        self.assertEqual(appearance.authority_name, "WBPSC")
+        self.assertEqual(appearance.source_reference.source_page, "8")
+        url = reverse("general_questions:edit_appearance", args=[imported.question_id, appearance.pk])
+        self.assertEqual(self.client.get(url).status_code, 302)
+        self.client.force_login(self.user)
+        payload = {
+            "exam_name": appearance.exam_name, "authority_name": appearance.authority_name,
+            "year": appearance.year, "source_reference": appearance.source_reference_id,
+            "verified": "on", "version": appearance.updated_at.isoformat(),
+        }
+        self.assertEqual(self.client.post(url, payload).status_code, 302)
+        appearance.refresh_from_db()
+        self.assertEqual(appearance.verified_by, self.user)
+        self.assertIsNotNone(appearance.verified_at)
+        self.assertEqual(self.client.post(url, payload).status_code, 400)
+
     def test_staff_can_filter_duplicate_error_and_reuse_approved_question_across_exams(self):
         original = confirm_import(self.data(), self.user).imported_questions.get().question
         approved = publish_question(mark_reviewed(original)).published_revision

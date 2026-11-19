@@ -47,7 +47,7 @@ CSV/XLSX taxonomy samples include these optional columns; older files remain val
 | subject_code, part_code, module_code, submodule_code, chapter_code, topic_code | Stable taxonomy codes; conflicts/invalid ancestry block confirmation; sub_module_code aliases submodule_code |
 | additional_topic_codes | Secondary topics, separated by semicolon/comma/pipe; deduplicated within the same Subject |
 | exam_categories | Existing-exam resolution only when row mapping is selected; otherwise preserved metadata |
-| previous_year_tags | Audit metadata; never overrides the form-selected paper |
+| previous_year_tags | Optional semicolon-separated exam appearances, e.g. `WBCS 2021; WBCS 2014; WBPSC / Clerkship 2024`. Valid entries create pending suggestions. The original text stays in the audit, and the form still determines which paper receives the row. |
 | source_code | Optional private source identifier. Codes are normalized to uppercase. A new code needs a document on at least one row. Existing codes can be reused with locators alone. |
 | source_document, source_publisher | Document and optional publisher shared by rows with the same code. Conflicting values block confirmation. Without a code, the document follows the legacy reference path and the publisher remains import metadata. |
 | source_page, source_question_number | Optional page and original question number stored on the question's source reference. The original question number can also supply a missing question_number header. |

@@ -64,6 +64,7 @@ See [import contract](import-contract.md) for pairing, limits and source-metadat
 |---|---|---|
 | previous_year.PreviousYearPaper | Exam, optional Stage/Subject, year/name/part/session; publication and optional duration/marks/instructions/declared count | Normalized paper identity; Stage/Subject/count consistency |
 | previous_year.PaperQuestion | Paper, master, fixed approved revision, printed number, order | Unique paper/master, paper/order and paper/question_number |
+| previous_year.QuestionAppearance | Master question, exam name and year, optional catalogue exam, stage, session, printed number and private source reference | Unique normalized identity per question; verification stores reviewer and timestamp together |
 
 Paper identity compares trimmed case-insensitive textual components and coalesces
 nullable components. Part/session blanks normalize rather than creating duplicate identities.

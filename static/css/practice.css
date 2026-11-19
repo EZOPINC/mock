@@ -32,7 +32,8 @@
 .practice-setup .practice-difficulty-card{max-width:64rem;padding:clamp(1rem,4vw,2rem);margin:0 auto 1.5rem}
 .practice-setup-choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2rem;margin-top:1.5rem}
 @media(max-width:40rem){.practice-setup-choices{grid-template-columns:minmax(0,1fr);gap:0}}
-.practice-setup .practice-back-actions{justify-content:center}
+.practice-setup .practice-back-actions{justify-content:flex-end;max-width:64rem;margin:0 auto .75rem}
+.practice-setup .practice-start-actions{justify-content:center}
 .practice-difficulty-card fieldset{border:0;padding:0;margin:0 0 1.5rem;min-width:0}
 .practice-difficulty-card legend{font-size:1.2rem;font-weight:700}
 .practice-difficulty-card fieldset>p{color:#5c6d7c}
@@ -41,3 +42,5 @@
 .practice-difficulty-options label:has(input:checked){border-color:#087f79;background:#e8f5f1}
 .practice-difficulty-options input[type=radio]{width:1.2rem;height:1.2rem;margin:0;flex-shrink:0;accent-color:#087f79}
 .practice-setup a:focus-visible,.practice-setup input:focus-visible,.practice-setup button:focus-visible{outline:3px solid #167da3;outline-offset:4px}
+
+.practice-appearances{margin:0;padding:.65rem clamp(1rem,3vw,1.5rem);border-bottom:1px solid var(--ui-line,#e2e8f0);overflow-wrap:anywhere}

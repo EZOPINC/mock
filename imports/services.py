@@ -4,7 +4,8 @@ from django.db import IntegrityError, transaction
 from django.db.models import Max
 
 from exams.models import Exam
-from previous_year.models import PaperQuestion
+from previous_year.appearance_input import appearance_identity
+from previous_year.models import PaperQuestion, QuestionAppearance
 from questions.models import QuestionExam
 from questions.services import create_question
 from .models import ImportBatch, ImportedQuestion
@@ -79,11 +80,15 @@ def confirm_import(data, user):
                     association.save(_import_draft=not reused)
                 for row in group["rows"]:
                     values = row["values"]
-                    source_id = save_reference(question, row["source_reference"], coded_sources, legacy_sources)
+                    reference = save_reference(question, row["source_reference"], coded_sources, legacy_sources)
+                    for appearance in row["appearances"]:
+                        identity = appearance_identity(None, **appearance)
+                        QuestionAppearance.objects.get_or_create(question=question, identity=identity,
+                            defaults={**appearance, "source_reference": reference})
                     ImportedQuestion.objects.create(batch=batch, source_row_number=row["source_row"], question=question,
                         action="reused" if reused else "created",
                         source_metadata={"original": data["rows"][row["index"]].get("original_values", values), "corrected": values,
-                            "resolved": {"source_id": source_id, "subject_id": question.subject_id, "topic_id": question.topic_id,
+                            "resolved": {"source_id": reference.source_id if reference else None, "subject_id": question.subject_id, "topic_id": question.topic_id,
                                          "topic_ids": topic_ids, "taxonomy_path": row["taxonomy_path"], "reused_revision_id": reused.pk if reused else None,
                                          "secondary_paths": row["secondary_paths"], "language": row["revision"]["language"], "languages": row["translation_languages"], "correct_answer": question.correct_answer,
                                          "exam_ids": [exam.pk for exam in row["exams"]], "paper_id": paper.pk if paper else None,

@@ -188,7 +188,8 @@ def review_question(request, question_id):
 
     return render(request, "general_question/review_question.html", {
         "question": question, "edit": edit, "revision_snapshot": saved_token, "selected": selected,
-        "filters": form, "selected_only": request.GET.get("selected") == "1",
+        "filters": form, "selected_only": request.GET.get("selected") == "1", "query": query,
+        "exam_appearances": question.exam_appearances.select_related("exam", "source_reference__source"),
         "is_selected": question_key in selected, "queue_url": queue_url("review_queue", query),
         "previous_url": queue_url("review_question", query, previous_id) if previous_id else None,
         "next_url": queue_url("review_question", query, next_id) if next_id else None,

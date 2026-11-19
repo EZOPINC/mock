@@ -4,6 +4,8 @@ Open **Manage / General Questions** with active staff permissions to view import
 
 ## Review and publish
 
+Use **Exam appearances** on the question detail page to add or verify an exam and year. Staff can record an exam by name, optionally link a catalogue exam, and add a stage, session, printed question number, or private source reference. Appearance verification is separate from question publication. Parseable tags from earlier imports are backfilled as pending suggestions.
+
 - **Review dashboard** counts imported questions by subject, exam, module, chapter and paper year. General Questions have no Previous-Year paper link. Counts link to the filtered review queue.
 - **Review questions** filters by import batch, source, taxonomy, language, kind, working difficulty, status and text. Subject narrows module, chapter and topic. Module narrows chapters and topics. Chapter narrows topics. **Any** difficulty means unrated. **All difficulties** clears the rating filter.
 - The editor shows the working language editions. The sidebar edits subject, primary and additional topic tags, exams, kind, difficulty and freshness dates. It also displays private sources. Module and chapter follow the selected topic path. Papers with fixed subject or exam requirements constrain edits.

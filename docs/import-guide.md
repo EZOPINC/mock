@@ -18,6 +18,8 @@ Open **Manage / General Questions** and choose **Import previous-year questions*
 
 ## Private sources
 
+Use `previous_year_tags` for appearances reported by the source. Separate entries with semicolons and end each entry with a four-digit year. The optional `Authority / Exam YYYY` format records the authority separately. The preview flags entries it cannot parse and preserves their text for staff. Open the question in the review workspace to verify each appearance before it is shown in Practice.
+
 Supply optional `source_code` and `source_document` to register a source. Include the document on at least one row for a new code. Reuse the code with `source_page` and `source_question_number` for additional questions. `source_publisher` is optional. Staff can see the result in the question editor's **Sources** panel.
 
 Samples are available in [CSV](samples/questions-taxonomy.csv) and [XLSX](samples/questions-taxonomy.xlsx). Use the codes in your own catalogue.

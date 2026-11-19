@@ -59,6 +59,19 @@
             <p>No source references recorded.</p>
           {% endfor %}
         </section>
+        <section aria-labelledby="question-appearances">
+          <h2 id="question-appearances">Exam appearances</h2>
+          <ul>
+            {% for appearance in exam_appearances %}
+              <li>
+                <a href="{% url 'general_questions:edit_appearance' question.pk appearance.pk %}{% if query %}?{{ query }}{% endif %}">{{ appearance }}</a>
+                {% if appearance.verified_at %}<span class="badge badge-outline">Verified</span>{% else %}<span class="badge badge-outline">Pending</span>{% endif %}
+                {% if appearance.source_reference %}<span>{{ appearance.source_reference.source.source_name }}</span>{% endif %}
+              </li>
+            {% empty %}<li>No exam appearances recorded.</li>{% endfor %}
+          </ul>
+          <a href="{% url 'general_questions:add_appearance' question.pk %}{% if query %}?{{ query }}{% endif %}">Add exam appearance</a>
+        </section>
       </aside>
     </div>
   </form>

@@ -97,6 +97,8 @@ its own request-spec comparison for retry safety, then reuses the same persisted
 
 ## Routes, rendering and feedback
 
+Practice displays current exam appearances from eligible published papers and staff-verified source records. Matching entries are shown once. A link to the original paper question becomes available after the learner answers. Source references are staff-only, and appearances are hidden while that learner has the question in an open mock attempt.
+
 practice/urls.py wires session, answer, summary and abandonment. Reads are authenticated
 and owner-scoped; answer/abandon writes use POST/CSRF. Revision has separate owner-scoped
 routes in revision/session_views.py and rejects ordinary Practice IDs there.

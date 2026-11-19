@@ -9,6 +9,14 @@
     </span>
     {% bookmark_control row "practice-question" %}
   </div>
+  {% if appearances %}
+    <p class="practice-appearances">
+      <strong>Previously asked in:</strong>
+      {% for appearance in appearances %}
+        {% if appearance.url %}<a href="{{ appearance.url }}">{{ appearance.label }}</a>{% else %}{{ appearance.label }}{% endif %}{% if not forloop.last %} &middot; {% endif %}
+      {% endfor %}
+    </p>
+  {% endif %}
   {% if not row.selected_answer and session.status == "in_progress" %}
     <form method="post"
           action="{{ answer_url }}"
