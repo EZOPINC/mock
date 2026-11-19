@@ -1,4 +1,5 @@
-<form method="get" action="{% url 'general_questions:review_queue' %}" class="workspace-panel workspace-filters">
+{% load static %}
+<form method="get" action="{% url 'general_questions:review_queue' %}" class="workspace-panel workspace-filters" data-review-taxonomy>
   <div class="workspace-filter-fields">
     {% for field in filters %}<div>{{ field.label_tag }}{{ field }}{{ field.errors }}</div>{% endfor %}
   </div>
@@ -10,3 +11,4 @@
     </div>
   </div>
 </form>
+<script src="{% static 'js/review-filters.js' %}" defer></script>

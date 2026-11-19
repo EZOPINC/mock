@@ -1,6 +1,6 @@
 from django import forms
 
-from exams.models import Chapter, Exam, Module, Subject
+from exams.models import Chapter, Exam, Module, Subject, Topic
 from exams.selectors import topics_with_ancestry
 from questions.difficulty import Difficulty, difficulty_choice
 from questions.forms import TopicSubjectSelect, TopicSubjectSelectMultiple
@@ -17,21 +17,59 @@ class DashboardFilters(forms.Form):
     difficulty = forms.ChoiceField(label="Difficulty level", choices=DIFFICULTY_FILTER_CHOICES, required=False)
 
 
+def review_taxonomy_ancestors(node):
+    ancestors = {"subject": node.subject_id}
+    if isinstance(node, Chapter):
+        ancestors["module"] = node.submodule.module_id if node.submodule_id else node.module_id
+    elif isinstance(node, Topic):
+        ancestors["chapter"] = node.chapter_id
+        ancestors["module"] = (
+            review_taxonomy_ancestors(node.chapter)["module"] if node.chapter_id else node.module_id
+        )
+    return ancestors
+
+
+class ReviewTaxonomySelect(forms.Select):
+    def create_option(self, *args, **kwargs):
+        option = super().create_option(*args, **kwargs)
+        node = getattr(option["value"], "instance", None)
+        if node is not None:
+            for field, parent_id in review_taxonomy_ancestors(node).items():
+                option["attrs"][f"data-{field}-id"] = str(parent_id) if parent_id is not None else ""
+        return option
+
+
 class ReviewFilters(GeneralQuestionFilters):
+    field_order = ("exam", "subject", "module", "chapter", "topic")
     exam = forms.ModelChoiceField(queryset=Exam.objects.select_related("authority"), required=False)
     batch = forms.IntegerField(required=False, min_value=1, label="Import batch ID")
     source = forms.ChoiceField(choices=[("", "All sources"), ("previous_year", "Previous-Year Papers"),
         ("general", "General Questions")], required=False)
     year = forms.IntegerField(required=False, min_value=1, max_value=2147483647, label="Paper year")
     text = forms.CharField(required=False, max_length=200, label="Question text")
-    module = forms.ModelChoiceField(queryset=Module.objects.select_related("subject", "part__subject"), required=False)
+    module = forms.ModelChoiceField(queryset=Module.objects.select_related("subject", "part__subject"), required=False,
+        widget=ReviewTaxonomySelect)
     chapter = forms.ModelChoiceField(queryset=Chapter.objects.select_related(
         "subject", "part__subject", "module__subject", "module__part__subject",
-        "submodule__module__subject", "submodule__module__part__subject"), required=False)
+        "submodule__module__subject", "submodule__module__part__subject"), required=False, widget=ReviewTaxonomySelect)
+    topic = forms.ModelChoiceField(queryset=topics_with_ancestry(), required=False, widget=ReviewTaxonomySelect)
     review = forms.ChoiceField(choices=[("", "Any review status"), *Question.ReviewStatus.choices], required=False)
     publication = forms.ChoiceField(choices=[("", "Any publication status"), *Question.PublicationStatus.choices], required=False)
     kind = forms.ChoiceField(choices=[("", "Any kind"), *QuestionKind.choices], required=False)
     difficulty = forms.ChoiceField(label="Difficulty level", choices=DIFFICULTY_FILTER_CHOICES, required=False)
+
+    def clean(self):
+        cleaned = super().clean()
+        for field in ("module", "chapter", "topic"):
+            node = cleaned.get(field)
+            if node is None:
+                continue
+            for parent, parent_id in review_taxonomy_ancestors(node).items():
+                selected = cleaned.get(parent)
+                if selected is not None and selected.pk != parent_id:
+                    self.add_error(field, f"Choose a {field} that belongs to the selected {parent}.")
+                    break
+        return cleaned
 
 
 class ReviewEditForm(forms.Form):

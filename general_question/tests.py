@@ -39,6 +39,14 @@ class GeneralModuleTests(ImportFixture):
             self.assertContains(dashboard, f'{queue}?{field}={node.pk}')
             response = self.client.get(queue, {field: node.pk})
             self.assertEqual(response.context["page"].paginator.count, total)
+        self.assertContains(response, f'data-chapter-id="{chapter.pk}"')
+        self.assertContains(response, f'data-module-id="{module.pk}"')
+        invalid = self.client.get(queue, {"chapter": chapter.pk, "topic": article.pk})
+        self.assertIn("topic", invalid.context["filters"].errors)
+        self.assertEqual(invalid.context["page"].paginator.count, 0)
+        valid = self.client.get(queue, {"subject": self.subject.pk, "module": module.pk,
+                                        "chapter": chapter.pk, "topic": nested.pk})
+        self.assertEqual(valid.context["page"].paginator.count, 1)
 
     def test_fixed_edition_slots_for_single_language_and_bilingual_questions(self):
         self.client.force_login(self.user)
