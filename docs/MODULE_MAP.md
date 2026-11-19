@@ -23,7 +23,7 @@ Find the owning app and read the relevant row only. Start with the listed entry 
 
 ## Shared boundaries
 
-- Working and published revisions, translation assembly and publication live in `questions/services.py`. Change topic associations through `questions/tagging.py`. Mock and Practice share `questions/eligibility.py` and subject freshness rules.
+- Working and published revisions, translation assembly and publication live in `questions/services.py`. Imports use `questions/creation.py` for transaction-local creation caching. Change topic associations through `questions/tagging.py`. Mock and Practice share `questions/eligibility.py` and subject freshness rules.
 - Shared reading components live in `templates/questions/` and `questions/templatetags/reading.py`. The staff workspace uses `templates/imports/base.html`, `static/css/question-workspace.css` and scoped JavaScript.
 - Shared styles start in `assets/tailwind.css`. Compile with `tools/build_css.py` when editing compiled inputs. See the [UI checklist](UI_REGRESSION_CHECKLIST.md).
 - Read [database design](database-design.md) or open the [Questions ERD](erd/questions-erd.html) for schema details. The ERD generator, `tools/generate_questions_erd.py`, inspects a migrated PostgreSQL database.

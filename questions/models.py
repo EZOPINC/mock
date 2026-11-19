@@ -4,6 +4,7 @@ from django.db.models import Q
 from django.conf import settings
 from django.core.validators import RegexValidator
 from django.db.models.deletion import ProtectedError
+from .creation import CreationValidationMixin, created_question, creation_atomic
 
 TRANSLATED_FIELDS = ("question_text", "option_a", "option_b", "option_c", "option_d", "explanation")
 
@@ -35,7 +36,7 @@ class QuestionKind(models.TextChoices):
     UNCLASSIFIED = "unclassified", "Unclassified"
 
 
-class Question(models.Model):
+class Question(CreationValidationMixin, models.Model):
     class PublicationStatus(models.TextChoices):
         DRAFT = "draft", "Draft"
         PUBLISHED = "published", "Published"
@@ -118,9 +119,10 @@ class Question(models.Model):
             raise ValidationError("Shared answer and difficulty must match the working revision snapshot.")
 
     def save(self, *args, _workflow=False, **kwargs):
-        with transaction.atomic():
+        # Imports reuse their outer transaction; validation/DB constraints remain.
+        with creation_atomic():
             previous = type(self).objects.select_for_update().filter(
-                pk=self.pk).first() if self.pk else None
+                pk=self.pk).first() if self.pk and not (_workflow and created_question(self.pk) is self) else None
             managed = ("current_revision_id", "published_revision_id",
                        "review_status", "publication_status", "correct_answer", "difficulty_level")
             if not _workflow:
@@ -173,7 +175,7 @@ class QuestionTopic(models.Model):
         return f"{self.question} / {self.topic}" + (" (primary)" if self.is_primary else "")
 
 
-class QuestionRevision(models.Model):
+class QuestionRevision(CreationValidationMixin, models.Model):
     class Language(models.TextChoices):
         ENGLISH = "en", "English"
         BENGALI = "bn", "Bengali"
@@ -252,8 +254,10 @@ class QuestionRevision(models.Model):
                     {"language": "Language cannot change across revisions."})
 
     def save(self, *args, _publishing=False, _assembly=False, **kwargs):
-        with transaction.atomic():
-            Question.objects.select_for_update().get(pk=self.question_id)
+        # A question inserted by this import is already exclusively owned.
+        with creation_atomic():
+            if created_question(self.question_id) is None:
+                Question.objects.select_for_update().get(pk=self.question_id)
             previous = type(self).objects.filter(
                 pk=self.pk).first() if self.pk else None
             if previous:
@@ -272,7 +276,7 @@ class QuestionRevision(models.Model):
         raise ProtectedError("Question revisions must be retained.", [self])
 
 
-class QuestionTranslation(models.Model):
+class QuestionTranslation(CreationValidationMixin, models.Model):
     """Immutable language content within a master Question revision snapshot."""
     question = models.ForeignKey(Question, on_delete=models.PROTECT, related_name="translations")
     revision = models.ForeignKey(QuestionRevision, on_delete=models.PROTECT, related_name="translations", db_index=False)
@@ -308,8 +312,11 @@ class QuestionTranslation(models.Model):
                 raise ValidationError({field: "This field cannot be blank."})
 
     def save(self, *args, _assembly=False, **kwargs):
-        with transaction.atomic():
-            question = Question.objects.select_for_update().get(pk=self.question_id)
+        # Reuse only newly inserted parents; existing-question guards still apply.
+        with creation_atomic():
+            question = created_question(self.question_id)
+            if question is None:
+                question = Question.objects.select_for_update().get(pk=self.question_id)
             if not _assembly or self.pk or self.revision.published_at or question.current_revision_id == self.revision_id:
                 raise ValidationError("Use the translation revision service; translation snapshots are immutable.")
             self.full_clean()

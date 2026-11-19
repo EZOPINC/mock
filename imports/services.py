@@ -8,6 +8,7 @@ from previous_year.appearance_input import appearance_identity
 from previous_year.models import PaperQuestion, QuestionAppearance
 from questions.models import QuestionExam
 from questions.services import create_question
+from questions.creation import creation_batch
 from .models import ImportBatch, ImportedQuestion
 from .permissions import require_import_permission
 from .validation import validate
@@ -23,7 +24,8 @@ def confirm_import(data, user):
     if data["owner"] != user.pk:
         raise PermissionDenied
     try:
-        with transaction.atomic():
+        # Any failure rolls back the whole import; nested creation needs no savepoints.
+        with transaction.atomic(), creation_batch() as creation:
             existing = ImportBatch.objects.filter(staging_token=data["token"], uploaded_by=user).first()
             if existing:
                 return existing
@@ -37,6 +39,9 @@ def confirm_import(data, user):
                 raise ValidationError(result["errors"] or ["Resolve all row errors and revalidate before confirming."])
             reused_questions = lock_reused_questions(result["groups"], result["paper"])
             result["taxonomy_catalogue"].persist()
+            for kind in ("subject", "topic"):
+                for node in result["taxonomy_catalogue"].records[kind]:
+                    creation.remember_reference(node)
             paper = result["paper"]
             if paper is not None and paper.pk is None:
                 paper.save()

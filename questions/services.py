@@ -9,11 +9,13 @@ from django.db.models import F, Max
 from django.utils import timezone
 
 from .freshness import resolve_freshness_dates
+from .creation import atomic_creation, created_question, remember_created
 from .models import Question, QuestionKind, QuestionRevision, QuestionTranslation, TRANSLATED_FIELDS
 
 
 def _locked(question):
-    return Question.objects.select_for_update().get(pk=question.pk if isinstance(question, Question) else question)
+    pk = question.pk if isinstance(question, Question) else question
+    return created_question(pk) or Question.objects.select_for_update().get(pk=pk)
 
 
 @transaction.atomic
@@ -40,7 +42,7 @@ def _check_expected(question, revision_id):
         raise ValidationError("The working revision changed. Reload and review it before continuing.")
 
 
-@transaction.atomic
+@atomic_creation
 def create_question(*, subject, revision, topic=None, source_question_id=None, translations=None,
                     difficulty_level="", question_kind=QuestionKind.UNCLASSIFIED, current_as_of=None, expires_on=None):
     current_as_of, expires_on = resolve_freshness_dates(subject, current_as_of=current_as_of, expires_on=expires_on)
@@ -48,12 +50,14 @@ def create_question(*, subject, revision, topic=None, source_question_id=None, t
         subject=subject, topic=topic, source_question_id=source_question_id, question_kind=question_kind,
         current_as_of=current_as_of, expires_on=expires_on,
     )
+    remember_created(question)
     create_revision(question, translations=translations, difficulty_level=difficulty_level, **revision)
-    question.refresh_from_db()
+    if created_question(question.pk) is None:
+        question.refresh_from_db()
     return question
 
 
-@transaction.atomic
+@atomic_creation
 def create_revision(question, *, translations=None, difficulty_level=None, **content):
     question = _locked(question)
     allowed = {"language", "question_text", "option_a", "option_b", "option_c", "option_d", "correct_answer", "explanation"}
@@ -89,6 +93,7 @@ def create_revision(question, *, translations=None, difficulty_level=None, **con
     revision = QuestionRevision(question=question, revision_number=number, language=primary_language,
         difficulty_level=difficulty_level, correct_answer=correct_answer)
     revision.save(_assembly=True)
+    remember_created(revision)
     for language, fields in editions.items():
         QuestionTranslation(question=question, revision=revision, language=language, **fields).save(_assembly=True)
     question.current_revision = revision

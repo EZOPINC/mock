@@ -10,6 +10,10 @@ Open **Manage / General Questions** and choose **Import previous-year questions*
 4. Resolve row errors, translation pairings and duplicate decisions. Use **Save page & Revalidate** before switching pages or confirming. To correct the file itself, choose **Replace uploaded file**. The upload form restores the current import settings and the new file starts a fresh preview with its own row edits and decisions.
 5. Confirm when the batch has no blocking errors. The server rechecks the complete batch and saves valid rows atomically. Use **Review imported questions** when the batch is complete. Paper publication is separate from publishing its questions.
 
+## Confirmation performance
+
+Confirmation uses `questions/creation.py` inside the existing all-or-nothing import transaction. It reuses the locked Subject/Topic catalogue and newly inserted Question/Revision objects, avoids redundant foreign-key existence queries, and omits nested creation savepoints. Field, model, uniqueness and database-constraint validation remain enabled. An error must escape the creation scope and roll back the whole import; individual rows are not recovered inside it. Existing-question edits retain their lock and immutability checks. This is an internal optimization, with no schema or import-format change.
+
 ## Duplicate decisions
 
 - **Previous Year** can reuse an approved match from the bank when the subject and supplied editions' text, options and correct answer match. The new paper occurrence pins that revision. Reviewers can also explicitly create a separate question.

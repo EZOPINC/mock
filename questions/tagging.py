@@ -8,6 +8,7 @@ from django.db import models, transaction
 
 from exams.models import Topic
 from .models import Question, QuestionTopic
+from .creation import atomic_creation, created_question, creation_reference
 
 
 def _tags():
@@ -15,10 +16,13 @@ def _tags():
     return models.QuerySet(model=QuestionTopic)
 
 
-@transaction.atomic
+@atomic_creation
 def set_question_topics(question, topic_ids, *, primary_topic_id=None):
     question_id = getattr(question, "pk", question)
-    current = Question.objects.select_for_update().get(pk=question_id)
+    # Newly imported parents and catalogue topics are already transaction-owned.
+    current = created_question(question_id)
+    if current is None:
+        current = Question.objects.select_for_update().get(pk=question_id)
     ids = list(topic_ids)
     if primary_topic_id is not None and (type(primary_topic_id) is not int or primary_topic_id <= 0):
         raise ValidationError("Primary topic ID must be a positive integer.")
@@ -28,7 +32,9 @@ def set_question_topics(question, topic_ids, *, primary_topic_id=None):
         raise ValidationError("Select exactly one primary topic from the assigned topics.")
     if not ids and primary_topic_id is not None:
         raise ValidationError("An unclassified question cannot have a primary topic.")
-    topics = list(Topic.objects.filter(pk__in=ids))
+    topics = [creation_reference(Topic, pk) for pk in ids] if created_question(question_id) is not None else []
+    if len(topics) != len(ids) or any(topic is None for topic in topics):
+        topics = list(Topic.objects.filter(pk__in=ids))
     if len(topics) != len(ids) or any(topic.subject_id != current.subject_id for topic in topics):
         raise ValidationError("Every topic must exist and belong to the question's subject.")
     # One database boundary also covers legacy Question.save(), imports and SQL writes.
