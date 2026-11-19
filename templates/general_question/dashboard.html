@@ -5,52 +5,47 @@
   <div class="review-dashboard">
     <h1>Question review dashboard</h1>
     {% url 'general_questions:review_queue' as queue %}
-    <form method="get" class="workspace-panel dashboard-filters">
-      <div>{{ filters.difficulty.label_tag }}{{ filters.difficulty }}{{ filters.difficulty.errors }}</div>
-      <button type="submit">Apply filter</button>
-    </form>
     <div class="workspace-counts">
-      <a href="{{ queue }}{% if difficulty %}?difficulty={{ difficulty }}{% endif %}"><strong>{{ counts.total }}</strong> All imported questions</a>
-      <a href="{{ queue }}?review=pending_review{% if difficulty %}&amp;difficulty={{ difficulty }}{% endif %}"><strong>{{ counts.pending }}</strong> Pending review</a>
-      <a href="{{ queue }}?publication=draft{% if difficulty %}&amp;difficulty={{ difficulty }}{% endif %}"><strong>{{ counts.drafts }}</strong> Draft</a>
-      <a href="{{ queue }}?publication=published{% if difficulty %}&amp;difficulty={{ difficulty }}{% endif %}"><strong>{{ counts.published }}</strong> Published</a>
-      <a href="{{ queue }}?source=previous_year{% if difficulty %}&amp;difficulty={{ difficulty }}{% endif %}"><strong>{{ counts.previous_year }}</strong> Previous-Year Questions</a>
-      <a href="{{ queue }}?source=general{% if difficulty %}&amp;difficulty={{ difficulty }}{% endif %}"><strong>{{ counts.general }}</strong> General Questions</a>
+      <a href="{{ queue }}"><strong>{{ counts.total }}</strong> All imported questions</a>
+      <a href="{{ queue }}?review=pending_review"><strong>{{ counts.pending }}</strong> Pending review</a>
+      <a href="{{ queue }}?publication=draft"><strong>{{ counts.drafts }}</strong> Draft</a>
+      <a href="{{ queue }}?publication=published"><strong>{{ counts.published }}</strong> Published</a>
+      <a href="{{ queue }}?source=previous_year"><strong>{{ counts.previous_year }}</strong> Previous-Year Questions</a>
+      <a href="{{ queue }}?source=general"><strong>{{ counts.general }}</strong> General Questions</a>
     </div>
     <div class="workspace-dashboard">
       <section class="workspace-panel">
         <h2>By subject</h2>
-        <ul class="workspace-count-list">
-          {% for subject in subjects %}<li><a href="{{ queue }}?subject={{ subject.subject_id }}{% if difficulty %}&amp;difficulty={{ difficulty }}{% endif %}">{{ subject.subject__name }} <strong>{{ subject.total }}</strong></a></li>
-{% empty %}<li>No imported questions.</li>{% endfor %}
-  </ul>
+        {% include "general_question/subject_count_list.html" %}
   </section>
   <section class="workspace-panel">
     <h2>By exam</h2>
     <ul class="workspace-count-list">
-      {% for exam in exams %}<li><a href="{{ queue }}?exam={{ exam.exams }}{% if difficulty %}&amp;difficulty={{ difficulty }}{% endif %}">{{ exam.exams__authority__name }} / {{ exam.exams__name }} <strong>{{ exam.total }}</strong></a></li>
+      {% for exam in exams %}<li><a href="{{ queue }}?exam={{ exam.exams }}">{{ exam.exams__authority__name }} / {{ exam.exams__name }} <strong>{{ exam.total }}</strong></a></li>
 {% empty %}<li>No exam associations.</li>{% endfor %}
   </ul>
   </section>
   <section class="workspace-panel">
     <h2>Previous-Year Questions by year</h2>
     <ul class="workspace-count-list">
-      {% for year in years %}<li><a href="{{ queue }}?year={{ year.paper__year }}{% if difficulty %}&amp;difficulty={{ difficulty }}{% endif %}">{{ year.paper__year }} <strong>{{ year.total }}</strong></a></li>
+      {% for year in years %}<li><a href="{{ queue }}?year={{ year.paper__year }}">{{ year.paper__year }} <strong>{{ year.total }}</strong></a></li>
 {% empty %}<li>No imported questions linked to previous-year papers.</li>{% endfor %}
   </ul>
   </section>
       <section class="workspace-panel">
-        <h2>By module</h2>
+        <h2>By difficulty level</h2>
         <ul class="workspace-count-list">
-          {% for module, total in modules %}<li><a href="{{ queue }}?module={{ module.pk }}{% if difficulty %}&amp;difficulty={{ difficulty }}{% endif %}">{{ module }}<strong>{{ total }}</strong></a></li>
-          {% empty %}<li>No imported questions linked to modules.</li>{% endfor %}
+          {% for value, label, total in difficulty_counts %}
+            <li><a href="{{ queue }}?difficulty={{ value }}">{{ label }} <strong>{{ total }}</strong></a></li>
+          {% endfor %}
         </ul>
       </section>
       <section class="workspace-panel">
-        <h2>By chapter</h2>
+        <h2>By question kind</h2>
         <ul class="workspace-count-list">
-          {% for chapter, total in chapters %}<li><a href="{{ queue }}?chapter={{ chapter.pk }}{% if difficulty %}&amp;difficulty={{ difficulty }}{% endif %}">{{ chapter }}<strong>{{ total }}</strong></a></li>
-          {% empty %}<li>No imported questions linked to chapters.</li>{% endfor %}
+          {% for value, label, total in kind_counts %}
+            <li><a href="{{ queue }}?kind={{ value }}">{{ label }} <strong>{{ total }}</strong></a></li>
+          {% endfor %}
         </ul>
       </section>
   </div>

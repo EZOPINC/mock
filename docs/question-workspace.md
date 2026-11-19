@@ -4,10 +4,13 @@ Open **Manage / General Questions** with active staff permissions to view import
 
 ## Review and publish
 
+Open **Subject review** from the workspace menu to choose a subject by its imported question count.
+On a subject page, filter counts by difficulty, question kind, previous-year paper link, paper year or tagged exam. Count links carry those filters into the review queue. The exam filter uses the question’s **Exams** field.
+
 Use **Exam appearances** on the question detail page to add or verify an exam and year. Staff can record an exam by name, optionally link a catalogue exam, and add a stage, session, printed question number, or private source reference. Appearance verification is separate from question publication. Parseable tags from earlier imports are backfilled as pending suggestions.
 
-- **Review dashboard** counts imported questions by subject, exam, module, chapter and paper year. General Questions have no Previous-Year paper link. Counts link to the filtered review queue.
-- **Review questions** filters by import batch, source, taxonomy, language, kind, working difficulty, status and text. Subject narrows module, chapter and topic. Module narrows chapters and topics. Chapter narrows topics. **Any** difficulty means unrated. **All difficulties** clears the rating filter.
+- **Review dashboard** counts imported questions by subject, exam, paper year, working difficulty and question kind. Select a subject to open **Review subjects** and see the total, questions with no topic tags, and separate counts for parts, modules, submodules, chapters and topics. Each taxonomy count opens the corresponding review queue. Primary and additional topics both count, with each question counted once per taxonomy entry. General Questions have no Previous-Year paper link.
+- **Review questions** filters by exact question ID, import batch, source, taxonomy, language, kind, working difficulty, status and text. Subject narrows module, chapter and topic. Module narrows chapters and topics. Chapter narrows topics. **Any** difficulty means unrated. **All difficulties** clears the rating filter.
 - The editor shows the working language editions. The sidebar edits subject, primary and additional topic tags, exams, kind, difficulty and freshness dates. It also displays private sources. Module and chapter follow the selected topic path. Papers with fixed subject or exam requirements constrain edits.
 - Save, inspect, then add a question to the session selection. **Mark selected reviewed** and **Publish selected** operate atomically on that selection, even across pages. Stale changes require reinspection. Editing a selected question removes it from the selection.
 - A General batch can still be reviewed or published as a whole. Paper publication is separate. If an edited draft paper row still pins an unpublished import revision, selected publication advances it to the newly approved revision. Approved historical pins remain intact.

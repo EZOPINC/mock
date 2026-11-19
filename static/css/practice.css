@@ -33,6 +33,7 @@
 .practice-setup-choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2rem;margin-top:1.5rem}
 @media(max-width:40rem){.practice-setup-choices{grid-template-columns:minmax(0,1fr);gap:0}}
 .practice-setup .practice-back-actions{justify-content:flex-end;max-width:64rem;margin:0 auto .75rem}
+.practice-setup .practice-back-actions-wide{max-width:none}
 .practice-setup .practice-start-actions{justify-content:center}
 .practice-difficulty-card fieldset{border:0;padding:0;margin:0 0 1.5rem;min-width:0}
 .practice-difficulty-card legend{font-size:1.2rem;font-weight:700}

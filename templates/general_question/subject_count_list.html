@@ -1,0 +1,7 @@
+<ul class="workspace-count-list">
+  {% for subject in subjects %}
+    <li><a href="{% url 'general_questions:review_subject' subject.subject_id %}">{{ subject.subject__name }} <strong>{{ subject.total }}</strong></a></li>
+  {% empty %}
+    <li>No imported questions.</li>
+  {% endfor %}
+</ul>

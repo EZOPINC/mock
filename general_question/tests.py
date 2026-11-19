@@ -6,7 +6,7 @@ from django.core.exceptions import PermissionDenied, ValidationError
 from django.test import Client
 from django.urls import reverse
 
-from exams.models import Chapter, Module, Submodule, Topic
+from exams.models import Chapter, Module, Part, Submodule, Topic
 from general_question.services import batch_questions, fingerprint, transition_batch
 from imports.services import confirm_import
 from .models import GeneralQuestionBatch
@@ -18,7 +18,38 @@ from questions.tagging import set_question_topics
 
 
 class GeneralModuleTests(ImportFixture):
-    def test_dashboard_counts_module_and_chapter_matches_once_per_question(self):
+    def test_subject_review_counts_all_taxonomy_and_links_to_subject_only_questions(self):
+        part = Part.objects.create(subject=self.subject, name="Language", slug="language")
+        module = Module.objects.create(part=part, name="Grammar module", slug="grammar-module")
+        submodule = Submodule.objects.create(module=module, name="Usage", slug="usage")
+        chapter = Chapter.objects.create(submodule=submodule, name="Verbs", slug="verbs")
+        nested = Topic.objects.create(chapter=chapter, name="Nested topic", slug="nested-topic")
+        secondary = Topic.objects.create(chapter=chapter, name="Secondary topic", slug="secondary-topic")
+        empty = Module.objects.create(subject=self.subject, name="Empty module", slug="empty-module")
+        tagged, subject_only = batch_questions(self.batch)
+        set_question_topics(tagged, [nested.pk, secondary.pk], primary_topic_id=nested.pk)
+        set_question_topics(subject_only, [])
+        url = reverse("general_questions:review_subject", args=[self.subject.pk])
+        self.assertEqual(self.client.get(url).status_code, 302)
+        self.client.force_login(self.user)
+        picker = reverse("general_questions:review_subjects")
+        dashboard = self.client.get(reverse("general_questions:dashboard"))
+        self.assertContains(dashboard, f'href="{picker}">Subject review</a>')
+        self.assertContains(dashboard, url)
+        self.assertContains(self.client.get(picker), f'href="{url}">{self.subject.name} <strong>2</strong></a>')
+        response = self.client.get(url)
+        self.assertEqual(response.context["counts"], {"total": 2, "subject_only": 1})
+        rows = {name: (count, link) for section in response.context["sections"]
+                for name, count, link in section["rows"]}
+        for node in (part, module, submodule, chapter, nested, secondary):
+            count, link = rows[node.name]
+            self.assertEqual(count, 1)
+            self.assertEqual([q.pk for q in self.client.get(link).context["page"]], [tagged.pk])
+        self.assertEqual(rows[empty.name][0], 0)
+        queue = self.client.get(response.context["subject_only_url"])
+        self.assertEqual([q.pk for q in queue.context["page"]], [subject_only.pk])
+
+    def test_review_queue_counts_module_and_chapter_matches_once_per_question(self):
         module = Module.objects.create(subject=self.subject, name="Grammar module", slug="grammar-module")
         submodule = Submodule.objects.create(module=module, name="Usage", slug="usage")
         chapter = Chapter.objects.create(submodule=submodule, name="Verbs", slug="verbs")
@@ -31,12 +62,8 @@ class GeneralModuleTests(ImportFixture):
         set_question_topics(first, [direct.pk, nested.pk, secondary.pk], primary_topic_id=direct.pk)
         set_question_topics(second, [article.pk], primary_topic_id=article.pk)
         self.client.force_login(self.user)
-        dashboard = self.client.get(reverse("general_questions:dashboard"))
-        self.assertEqual(dict(dashboard.context["modules"]), {module: 2})
-        self.assertEqual(dict(dashboard.context["chapters"]), {chapter: 1, direct_chapter: 1})
         queue = reverse("general_questions:review_queue")
         for field, node, total in (("module", module, 2), ("chapter", chapter, 1)):
-            self.assertContains(dashboard, f'{queue}?{field}={node.pk}')
             response = self.client.get(queue, {field: node.pk})
             self.assertEqual(response.context["page"].paginator.count, total)
         self.assertContains(response, f'data-chapter-id="{chapter.pk}"')
@@ -47,6 +74,12 @@ class GeneralModuleTests(ImportFixture):
         valid = self.client.get(queue, {"subject": self.subject.pk, "module": module.pk,
                                         "chapter": chapter.pk, "topic": nested.pk})
         self.assertEqual(valid.context["page"].paginator.count, 1)
+        filters = {"subject": self.subject.pk, "chapter": chapter.pk}
+        exact = self.client.get(queue, filters | {"question_id": first.pk})
+        self.assertContains(exact, "Question ID")
+        self.assertEqual([question.pk for question in exact.context["page"]], [first.pk])
+        mismatch = self.client.get(queue, filters | {"question_id": second.pk})
+        self.assertEqual(mismatch.context["page"].paginator.count, 0)
 
     def test_fixed_edition_slots_for_single_language_and_bilingual_questions(self):
         self.client.force_login(self.user)
@@ -217,9 +250,19 @@ class GeneralModuleTests(ImportFixture):
         first.refresh_from_db()
         self.assertEqual(first.current_revision.question_text, "Revised working content")
         self.assertEqual(first.current_revision.difficulty_level, "hard")
-        dashboard = self.client.get(reverse("general_questions:dashboard"), {"difficulty": "hard"})
-        self.assertEqual(dashboard.context["counts"]["total"], 1)
+        dashboard_url = reverse("general_questions:dashboard")
+        full_dashboard = self.client.get(dashboard_url)
+        self.assertEqual({value: count for value, _, count in full_dashboard.context["difficulty_counts"]},
+                         {"any": 1, "easy": 0, "medium": 0, "hard": 1})
+        self.assertEqual({value: count for value, _, count in full_dashboard.context["kind_counts"]},
+                         {"logical": 1, "static": 0, "unclassified": 1})
+        dashboard = self.client.get(dashboard_url, {"difficulty": "hard"})
+        self.assertEqual(dashboard.context["counts"]["total"], 2)
+        self.assertNotContains(dashboard, 'name="difficulty"')
         self.assertContains(dashboard, f'{queue}?difficulty=hard')
+        self.assertContains(dashboard, f'{queue}?kind=logical">Logical <strong>1</strong>')
+        self.assertNotContains(dashboard, "By module")
+        self.assertNotContains(dashboard, "By chapter")
         for difficulty, total in (("hard", 1), ("any", 1), ("easy", 0)):
             self.assertEqual(self.client.get(queue, {"difficulty": difficulty}).context["page"].paginator.count, total)
         self.assertEqual(first.published_revision_id, live)
@@ -240,7 +283,7 @@ class GeneralModuleTests(ImportFixture):
     def test_edited_previous_year_import_can_publish_its_draft_paper(self):
         from previous_year.services import publish_paper
 
-        batch = confirm_import(self.data([values(question_number="3")]), self.user)
+        batch = confirm_import(self.data([values(question_number="3", question_kind="static")]), self.user)
         row = batch.paper.paper_questions.get()
         question = row.question
         original_id = row.question_revision_id
@@ -251,6 +294,16 @@ class GeneralModuleTests(ImportFixture):
         self.assertEqual(dashboard.context["counts"]["general"], 2)
         self.assertEqual(dashboard.context["counts"]["previous_year"], 1)
         self.assertEqual(list(dashboard.context["years"]), [{"paper__year": batch.paper.year, "total": 1}])
+        subject_url = reverse("general_questions:review_subject", args=[question.subject_id])
+        subject_filters = {"source": "previous_year", "year": batch.paper.year,
+                           "exam": batch.paper.exam_id, "kind": "static"}
+        subject_review = self.client.get(subject_url, subject_filters)
+        self.assertEqual(subject_review.context["counts"]["total"], 1)
+        linked_queue = self.client.get(subject_review.context["all_url"])
+        self.assertEqual([item.pk for item in linked_queue.context["page"]], [question.pk])
+        for field, value in (("year", batch.paper.year - 1), ("kind", "logical"), ("source", "general")):
+            excluded = self.client.get(subject_url, subject_filters | {field: value})
+            self.assertEqual(excluded.context["counts"]["total"], 0)
         for filters, count in (({"source": "general"}, 2), ({"source": "previous_year"}, 1), ({"year": batch.paper.year}, 1)):
             self.assertEqual(self.client.get(queue, filters).context["page"].paginator.count, count)
         response = self.client.get(editor)

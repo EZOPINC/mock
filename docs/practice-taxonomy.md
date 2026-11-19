@@ -6,10 +6,9 @@ configuration-page description; legacy service helpers remain for compatibility.
 ## Current student flow
 
 1. Choose an authority/category, Exam and eligible Subject.
-2. Selecting a Subject opens the available Module cards.
-3. Select a Module, then choose a published difficulty level and English, Bengali or Both.
-4. Start all eligible questions at that level in the selected Module in randomized order.
-   Subjects without eligible Modules can continue with the whole Subject instead.
+2. Select a specific module or **All modules**. **All modules** includes eligible questions with no module.
+3. Choose a published difficulty level and English, Bengali or Both.
+4. Start a practice set drawn in random order from the selected scope and difficulty.
 5. English or Bengali selects only questions with a complete matching translation in
    their published revision. Both includes all eligible questions and shows their available
    translations. Difficulty counts are shown before language filtering.
@@ -19,8 +18,7 @@ configuration-page description; legacy service helpers remain for compatibility.
 
 No Part/Chapter/Topic dropdown or question-size selector appears in the new setup.
 The old configure POST only resumes matching historical tokens; new starts go through
-the difficulty page. The whole-subject difficulty route also remains available for
-compatibility. Empty pools show an explicit message and create no session.
+the difficulty page. Empty pools show an explicit message and create no session.
 
 ## Files and selectors
 
@@ -29,7 +27,7 @@ compatibility. Empty pools show an explicit message and create no session.
 | practice/views.py | Module cards, combined difficulty/language setup and start orchestration |
 | practice/forms.py | PracticeDifficultyForm; legacy PracticeStartForm remains implemented |
 | practice/discovery.py | PracticeTaxonomy pools/ancestry; difficulty_pools; configuration_matches |
-| templates/practice/configure.html | Available Module cards / whole-Subject fallback |
+| templates/practice/configure.html | All modules and individual module cards |
 | templates/practice/difficulty.html | Difficulty/language choices and explicit Start practice POST |
 
 PracticeTaxonomy reuses exam eligibility and distinct master IDs from primary/secondary

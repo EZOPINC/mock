@@ -1,5 +1,5 @@
 document.querySelectorAll('[data-review-taxonomy]').forEach(form => {
-  const { subject, module, chapter, topic } = form.elements;
+  const { subject, part, module, submodule, chapter, topic } = form.elements;
   const filter = (select, parents) => {
     const selected = select.value;
     for (const option of select.options) {
@@ -13,7 +13,9 @@ document.querySelectorAll('[data-review-taxonomy]').forEach(form => {
     }
   };
   const update = () => {
+    filter(part, { subject });
     filter(module, { subject });
+    filter(submodule, { subject });
     filter(chapter, { subject, module });
     filter(topic, { subject, module, chapter });
   };

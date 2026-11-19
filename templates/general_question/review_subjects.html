@@ -1,0 +1,9 @@
+{% extends "imports/base.html" %}
+{% block title %}Review subjects{% endblock %}
+{% block workspace_main_class %}workspace-main-wide{% endblock %}
+{% block import_content %}
+<h1>Review subjects</h1>
+<section class="workspace-panel" aria-label="Subjects with imported questions">
+  {% include "general_question/subject_count_list.html" %}
+</section>
+{% endblock %}

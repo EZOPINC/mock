@@ -1,6 +1,6 @@
 from django import forms
 
-from exams.models import Chapter, Exam, Module, Subject, Topic
+from exams.models import Chapter, Exam, Module, Part, Subject, Submodule, Topic
 from exams.selectors import topics_with_ancestry
 from questions.difficulty import Difficulty, difficulty_choice
 from questions.forms import TopicSubjectSelect, TopicSubjectSelectMultiple
@@ -13,8 +13,15 @@ DIFFICULTY_FILTER_CHOICES = [("", "All difficulties"), ("any", "Any")] + [
 ]
 
 
-class DashboardFilters(forms.Form):
+class SubjectReviewFilters(forms.Form):
     difficulty = forms.ChoiceField(label="Difficulty level", choices=DIFFICULTY_FILTER_CHOICES, required=False)
+    kind = forms.ChoiceField(label="Question kind", choices=[("", "Any kind"), *QuestionKind.choices], required=False)
+    source = forms.ChoiceField(label="Previous-year status", choices=[
+        ("", "All questions"), ("previous_year", "Linked to a previous-year paper"),
+        ("general", "No previous-year paper link"),
+    ], required=False)
+    year = forms.IntegerField(required=False, min_value=1, max_value=2147483647, label="Paper year")
+    exam = forms.ModelChoiceField(label="Tagged exam", queryset=Exam.objects.select_related("authority"), required=False)
 
 
 def review_taxonomy_ancestors(node):
@@ -39,15 +46,16 @@ class ReviewTaxonomySelect(forms.Select):
         return option
 
 
-class ReviewFilters(GeneralQuestionFilters):
-    field_order = ("exam", "subject", "module", "chapter", "topic")
-    exam = forms.ModelChoiceField(queryset=Exam.objects.select_related("authority"), required=False)
+class ReviewFilters(SubjectReviewFilters, GeneralQuestionFilters):
+    field_order = ("question_id", "exam", "subject", "part", "module", "submodule", "chapter", "topic")
+    question_id = forms.IntegerField(required=False, min_value=1, label="Question ID")
     batch = forms.IntegerField(required=False, min_value=1, label="Import batch ID")
-    source = forms.ChoiceField(choices=[("", "All sources"), ("previous_year", "Previous-Year Papers"),
-        ("general", "General Questions")], required=False)
-    year = forms.IntegerField(required=False, min_value=1, max_value=2147483647, label="Paper year")
     text = forms.CharField(required=False, max_length=200, label="Question text")
+    part = forms.ModelChoiceField(queryset=Part.objects.select_related("subject"), required=False,
+        widget=ReviewTaxonomySelect)
     module = forms.ModelChoiceField(queryset=Module.objects.select_related("subject", "part__subject"), required=False,
+        widget=ReviewTaxonomySelect)
+    submodule = forms.ModelChoiceField(queryset=Submodule.objects.select_related("module__part", "module__subject"), required=False,
         widget=ReviewTaxonomySelect)
     chapter = forms.ModelChoiceField(queryset=Chapter.objects.select_related(
         "subject", "part__subject", "module__subject", "module__part__subject",
@@ -55,12 +63,11 @@ class ReviewFilters(GeneralQuestionFilters):
     topic = forms.ModelChoiceField(queryset=topics_with_ancestry(), required=False, widget=ReviewTaxonomySelect)
     review = forms.ChoiceField(choices=[("", "Any review status"), *Question.ReviewStatus.choices], required=False)
     publication = forms.ChoiceField(choices=[("", "Any publication status"), *Question.PublicationStatus.choices], required=False)
-    kind = forms.ChoiceField(choices=[("", "Any kind"), *QuestionKind.choices], required=False)
-    difficulty = forms.ChoiceField(label="Difficulty level", choices=DIFFICULTY_FILTER_CHOICES, required=False)
+    subject_only = forms.BooleanField(label="Subject only (no topic tags)", required=False)
 
     def clean(self):
         cleaned = super().clean()
-        for field in ("module", "chapter", "topic"):
+        for field in ("part", "module", "submodule", "chapter", "topic"):
             node = cleaned.get(field)
             if node is None:
                 continue

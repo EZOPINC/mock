@@ -1,0 +1,38 @@
+{% extends "imports/base.html" %}
+{% block title %}Review subjects | {{ subject.name }}{% endblock %}
+{% block workspace_main_class %}workspace-main-wide{% endblock %}
+{% block import_content %}
+<div class="review-dashboard">
+  <div class="button-row"><a class="button button-secondary" href="{{ dashboard_url }}">Back to review dashboard</a></div>
+  <h1>Review subjects</h1>
+  <h2>{{ subject.name }}</h2>
+  <form method="get" class="workspace-panel dashboard-filters">
+    {% for field in filters %}
+      <div>{{ field.label_tag }}{{ field }}{{ field.errors }}</div>
+    {% endfor %}
+    <div class="button-row">
+      <a class="button button-secondary" href="{% url 'general_questions:review_subject' subject.pk %}">Clear filters</a>
+      <button type="submit">Apply filters</button>
+    </div>
+  </form>
+  <div class="workspace-counts">
+    <a href="{{ all_url }}"><strong>{{ counts.total }}</strong> Total imported questions</a>
+    <a href="{{ subject_only_url }}"><strong>{{ counts.subject_only }}</strong> Tagged only to this subject</a>
+  </div>
+  <p>Counts include primary and additional topic tags. A question can count toward several taxonomy entries.</p>
+  <div class="workspace-dashboard">
+    {% for section in sections %}
+      <section class="workspace-panel">
+        <h2>{{ section.title }}</h2>
+        <ul class="workspace-count-list">
+          {% for name, count, url in section.rows %}
+            <li><a href="{{ url }}">{{ name }} <strong>{{ count }}</strong></a></li>
+          {% empty %}
+            <li>No {{ section.title|lower }} configured.</li>
+          {% endfor %}
+        </ul>
+      </section>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
