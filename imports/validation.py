@@ -5,7 +5,7 @@ import json
 import re
 
 from django.core.exceptions import ValidationError
-from django.db.models import Q, Value
+from django.db.models import F, Q, Value
 from django.db.models.functions import Coalesce, Lower, Trim
 
 from exams.models import Exam
@@ -145,7 +145,7 @@ def validate(data, *, locked=False):
     existing_texts = set()
     if candidate_texts:
         raw_keys = {item[0]["question_text"].strip().lower() for item in normalized_inputs}
-        for value in QuestionRevision.objects.annotate(_content_key=Lower(Trim("question_text"))).filter(_content_key__in=raw_keys).values_list("question_text", flat=True).iterator(chunk_size=500):
+        for value in QuestionTranslation.objects.filter(language=F("revision__language")).annotate(_content_key=Lower(Trim("question_text"))).filter(_content_key__in=raw_keys).values_list("question_text", flat=True).iterator(chunk_size=500):
             key = normalized(value)
             if key in candidate_texts:
                 existing_texts.add(key)
@@ -203,15 +203,15 @@ def validate(data, *, locked=False):
         if not revision["correct_answer"]:
             row_errors.append("Correct answer is missing. The Question Bank requires A/B/C/D; correct this row before confirming. Handwritten marks are unverified metadata only.")
         try:
-            QuestionRevision(**revision).full_clean(exclude=["question", "revision_number"])
+            QuestionRevision(language=revision["language"], correct_answer=revision["correct_answer"]).full_clean(
+                exclude=["question", "revision_number"])
         except ValidationError as error:
             row_errors.extend(error.messages)
         for translated in translations:
-            if translated["language"] != revision["language"]:
-                try:
-                    QuestionTranslation(**translated).full_clean(exclude=["question", "revision"])
-                except ValidationError as error:
-                    row_errors.extend(error.messages)
+            try:
+                QuestionTranslation(**translated).full_clean(exclude=["question", "revision"])
+            except ValidationError as error:
+                row_errors.extend(error.messages)
         key = normalized(revision["question_text"])
         if key in existing_texts or key in seen:
             warnings.append("Possible duplicate question text. This row will create a separate question; no merge is performed.")

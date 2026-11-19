@@ -188,14 +188,8 @@ class QuestionRevision(models.Model):
         Question, on_delete=models.PROTECT, related_name="revisions", db_index=False)
     revision_number = models.PositiveIntegerField()
     language = models.CharField(max_length=35, choices=settings.QUESTION_LANGUAGES, validators=[RegexValidator(r"^[a-z]{2,3}(?:-[a-z0-9]{2,8})*$")])
-    question_text = models.TextField()
-    option_a = models.TextField()
-    option_b = models.TextField()
-    option_c = models.TextField()
-    option_d = models.TextField()
     correct_answer = models.CharField(max_length=1, choices=Answer)
     difficulty_level = models.CharField(max_length=100, blank=True, default="")
-    explanation = models.TextField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     published_at = models.DateTimeField(null=True, blank=True, editable=False)
 
@@ -211,18 +205,45 @@ class QuestionRevision(models.Model):
             models.CheckConstraint(condition=Q(language__regex=r"^[a-z]{2,3}(?:-[a-z0-9]{2,8})*$"), name="questions_language_code_valid"),
             models.CheckConstraint(condition=Q(correct_answer__in=[
                                    "A", "B", "C", "D"]), name="questions_answer_valid"),
-            models.CheckConstraint(condition=~Q(question_text="") & ~Q(option_a="") & ~Q(
-                option_b="") & ~Q(option_c="") & ~Q(option_d=""), name="questions_content_required"),
         ]
 
     def __str__(self):
         return f"Question {self.question_id}, revision {self.revision_number} ({self.language})"
 
+    @property
+    def primary_translation(self):
+        return next((edition for edition in self.translations.all() if edition.language == self.language), None)
+
+    def _primary_text_field(self, field):
+        edition = self.primary_translation
+        return getattr(edition, field) if edition else ""
+
+    @property
+    def question_text(self):
+        return self._primary_text_field("question_text")
+
+    @property
+    def option_a(self):
+        return self._primary_text_field("option_a")
+
+    @property
+    def option_b(self):
+        return self._primary_text_field("option_b")
+
+    @property
+    def option_c(self):
+        return self._primary_text_field("option_c")
+
+    @property
+    def option_d(self):
+        return self._primary_text_field("option_d")
+
+    @property
+    def explanation(self):
+        return self._primary_text_field("explanation")
+
     def clean(self):
         super().clean()
-        for field in ("question_text", "option_a", "option_b", "option_c", "option_d"):
-            if not getattr(self, field, "").strip():
-                raise ValidationError({field: "This field cannot be blank."})
         if self.question_id:
             first = type(self).objects.filter(
                 question_id=self.question_id).order_by("revision_number").first()
@@ -230,7 +251,7 @@ class QuestionRevision(models.Model):
                 raise ValidationError(
                     {"language": "Language cannot change across revisions."})
 
-    def save(self, *args, _publishing=False, **kwargs):
+    def save(self, *args, _publishing=False, _assembly=False, **kwargs):
         with transaction.atomic():
             Question.objects.select_for_update().get(pk=self.question_id)
             previous = type(self).objects.filter(
@@ -242,17 +263,10 @@ class QuestionRevision(models.Model):
                 if changed and not (_publishing and changed == {"published_at"} and previous.published_at is None and self.published_at is not None):
                     raise ValidationError(
                         "Revisions are append-only. Create a new revision to edit content.")
-            elif self.published_at is not None:
-                raise ValidationError(
-                    "New revisions cannot be published directly.")
+            elif self.published_at is not None or not _assembly:
+                raise ValidationError("Create new revisions through the question service.")
             self.full_clean()
-            result = super().save(*args, **kwargs)
-            if previous is None:
-                QuestionTranslation(
-                    question_id=self.question_id, revision=self, language=self.language,
-                    **{field: getattr(self, field) for field in TRANSLATED_FIELDS},
-                ).save(_assembly=True)
-            return result
+            return super().save(*args, **kwargs)
 
     def delete(self, *args, **kwargs):
         raise ProtectedError("Question revisions must be retained.", [self])
@@ -292,9 +306,6 @@ class QuestionTranslation(models.Model):
         for field in TRANSLATED_FIELDS[:-1]:
             if not getattr(self, field, "").strip():
                 raise ValidationError({field: "This field cannot be blank."})
-        if self.revision_id and self.language == self.revision.language:
-            if any(getattr(self, field) != getattr(self.revision, field) for field in TRANSLATED_FIELDS):
-                raise ValidationError("Primary translation must match the backward-compatible revision snapshot.")
 
     def save(self, *args, _assembly=False, **kwargs):
         with transaction.atomic():

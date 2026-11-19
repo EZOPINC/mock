@@ -186,7 +186,7 @@ class PaperQuestionAdmin(admin.ModelAdmin):
     list_display = ("question_number", "paper", "question", "question_revision", "display_order")
     list_filter = ("paper",)
     list_select_related = ("paper__exam__authority", "question", "question_revision")
-    search_fields = ("question_number", "paper__paper_name", "question_revision__question_text")
+    search_fields = ("question_number", "paper__paper_name", "question_revision__translations__question_text")
     fields = ("paper", "question_revision", "question", "question_number", "display_order")
     readonly_fields = ("question",)
     list_per_page = 25

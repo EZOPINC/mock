@@ -1,6 +1,6 @@
 # Questions module ERD
 
-Source and local PostgreSQL schema verified on 2026-11-17. Schema metadata only; no application records were read.
+Source and local PostgreSQL schema verified on 2026-11-18. Schema metadata only; no application records were read.
 
 [Open the offline interactive diagram](questions-erd.html) · [Machine-readable schema](questions-schema.json)
 
@@ -19,7 +19,7 @@ Django `on_delete` policy and SQL FK action are different: the policies below de
 ## Relationships to review
 
 - Question is the shared master identity. Its current_revision_id and published_revision_id are nullable FK pointers, not unique/one-to-one columns. Each pointed-to revision must belong to that master (workflow validation).
-- QuestionRevision contains primary-language compatibility text plus the shared correct answer/difficulty. Its content is append-only through model/services. QuestionTranslation stores immutable per-revision language content; correct_answer is a Python property inherited from Revision, not a translation column.
+- QuestionRevision stores the primary language code and shared answer, difficulty and version metadata. QuestionTranslation stores immutable per-revision text, options and explanations. Its correct_answer property reads the revision answer key.
 - Question.topic_id mirrors the primary QuestionTopic tag. The pair (question_id, topic_id) is unique; a partial unique index allows at most one primary per question. Deferred database triggers require a primary tag matching the pointer whenever tags exist. Unclassified questions may have neither.
 - Question.topics, Question.exams and Question.sources are M2M fields backed by the three explicit join tables shown. There are no additional implicit M2M tables for these fields.
 - QuestionSourceReference has page/source-number metadata and no unique Question/Source pair constraint. Multiple references for one pair are possible. QuestionSource document/name fields are not unique.
@@ -44,6 +44,8 @@ erDiagram
         character_varying_1_ correct_answer "NOT_NULL"
         character_varying_100_ difficulty_level "NOT_NULL"
         character_varying_12_ question_kind "NOT_NULL"
+        date current_as_of "NULL"
+        date expires_on "NULL"
         bigint current_revision_id FK "NULL"
         bigint published_revision_id FK "NULL"
         timestamp_with_time_zone created_at "NOT_NULL"
@@ -60,14 +62,8 @@ erDiagram
         bigint question_id FK "NOT_NULL"
         integer revision_number "NOT_NULL"
         character_varying_35_ language "NOT_NULL"
-        text question_text "NOT_NULL"
-        text option_a "NOT_NULL"
-        text option_b "NOT_NULL"
-        text option_c "NOT_NULL"
-        text option_d "NOT_NULL"
         character_varying_1_ correct_answer "NOT_NULL"
         character_varying_100_ difficulty_level "NOT_NULL"
-        text explanation "NOT_NULL"
         timestamp_with_time_zone created_at "NOT_NULL"
         timestamp_with_time_zone published_at "NULL"
     }
@@ -107,6 +103,7 @@ erDiagram
         character_varying_50_ code UK "NOT_NULL"
         character_varying_200_ slug UK "NOT_NULL"
         integer display_order "NOT_NULL"
+        smallint question_freshness_years "NULL"
     }
     exams_topic {
         bigint id PK "NOT_NULL"
@@ -124,6 +121,7 @@ erDiagram
         bigint id PK "NOT_NULL"
         bigint authority_id FK "NOT_NULL"
         character_varying_200_ name "NOT_NULL"
+        text description "NOT_NULL"
         character_varying_50_ code "NOT_NULL"
         character_varying_200_ slug "NOT_NULL"
         boolean is_active "NOT_NULL"
@@ -155,6 +153,7 @@ erDiagram
         character_varying_50_ code UK "NOT_NULL"
         character_varying_200_ slug UK "NOT_NULL"
         integer display_order "NOT_NULL"
+        smallint question_freshness_years "NULL"
     }
     exams_part {
         bigint id PK "NOT_NULL"
@@ -216,6 +215,7 @@ erDiagram
         bigint id PK "NOT_NULL"
         bigint authority_id FK "NOT_NULL"
         character_varying_200_ name "NOT_NULL"
+        text description "NOT_NULL"
         character_varying_50_ code "NOT_NULL"
         character_varying_200_ slug "NOT_NULL"
         boolean is_active "NOT_NULL"
@@ -259,6 +259,8 @@ erDiagram
         character_varying_1_ correct_answer "NOT_NULL"
         character_varying_100_ difficulty_level "NOT_NULL"
         character_varying_12_ question_kind "NOT_NULL"
+        date current_as_of "NULL"
+        date expires_on "NULL"
         bigint current_revision_id FK "NULL"
         bigint published_revision_id FK "NULL"
         timestamp_with_time_zone created_at "NOT_NULL"
@@ -269,14 +271,8 @@ erDiagram
         bigint question_id FK "NOT_NULL"
         integer revision_number "NOT_NULL"
         character_varying_35_ language "NOT_NULL"
-        text question_text "NOT_NULL"
-        text option_a "NOT_NULL"
-        text option_b "NOT_NULL"
-        text option_c "NOT_NULL"
-        text option_d "NOT_NULL"
         character_varying_1_ correct_answer "NOT_NULL"
         character_varying_100_ difficulty_level "NOT_NULL"
-        text explanation "NOT_NULL"
         timestamp_with_time_zone created_at "NOT_NULL"
         timestamp_with_time_zone published_at "NULL"
     }
@@ -426,6 +422,8 @@ erDiagram
         character_varying_1_ correct_answer "NOT_NULL"
         character_varying_100_ difficulty_level "NOT_NULL"
         character_varying_12_ question_kind "NOT_NULL"
+        date current_as_of "NULL"
+        date expires_on "NULL"
         bigint current_revision_id FK "NULL"
         bigint published_revision_id FK "NULL"
         timestamp_with_time_zone created_at "NOT_NULL"
@@ -436,14 +434,8 @@ erDiagram
         bigint question_id FK "NOT_NULL"
         integer revision_number "NOT_NULL"
         character_varying_35_ language "NOT_NULL"
-        text question_text "NOT_NULL"
-        text option_a "NOT_NULL"
-        text option_b "NOT_NULL"
-        text option_c "NOT_NULL"
-        text option_d "NOT_NULL"
         character_varying_1_ correct_answer "NOT_NULL"
         character_varying_100_ difficulty_level "NOT_NULL"
-        text explanation "NOT_NULL"
         timestamp_with_time_zone created_at "NOT_NULL"
         timestamp_with_time_zone published_at "NULL"
     }
@@ -451,6 +443,7 @@ erDiagram
         bigint id PK "NOT_NULL"
         bigint authority_id FK "NOT_NULL"
         character_varying_200_ name "NOT_NULL"
+        text description "NOT_NULL"
         character_varying_50_ code "NOT_NULL"
         character_varying_200_ slug "NOT_NULL"
         boolean is_active "NOT_NULL"
@@ -628,6 +621,8 @@ Model: `questions.Question` · Group: core
 | correct_answer | character varying(1) |  | False |  |
 | difficulty_level | character varying(100) |  | False |  |
 | question_kind | character varying(12) |  | False |  |
+| current_as_of | date |  | True |  |
+| expires_on | date |  | True |  |
 | current_revision_id | bigint | FK | True | questions_questionrevision / PROTECT |
 | published_revision_id | bigint | FK | True | questions_questionrevision / PROTECT |
 | created_at | timestamp with time zone |  | False |  |
@@ -636,6 +631,7 @@ Model: `questions.Question` · Group: core
 <details><summary>Database constraints</summary>
 
 ```sql
+questions_expiry_after_current_as_of: CHECK (((current_as_of IS NULL) OR (expires_on IS NULL) OR (expires_on > current_as_of)))
 questions_kind_valid: CHECK (((question_kind)::text = ANY ((ARRAY['logical'::character varying, 'static'::character varying, 'unclassified'::character varying])::text[])))
 questions_master_answer_valid: CHECK (((correct_answer)::text = ANY ((ARRAY[''::character varying, 'A'::character varying, 'B'::character varying, 'C'::character varying, 'D'::character varying])::text[])))
 questions_primary_tag_consistency: TRIGGER DEFERRABLE INITIALLY DEFERRED
@@ -740,14 +736,8 @@ Model: `questions.QuestionRevision` · Group: core
 | question_id | bigint | FK | False | questions_question / PROTECT |
 | revision_number | integer |  | False |  |
 | language | character varying(35) |  | False |  |
-| question_text | text |  | False |  |
-| option_a | text |  | False |  |
-| option_b | text |  | False |  |
-| option_c | text |  | False |  |
-| option_d | text |  | False |  |
 | correct_answer | character varying(1) |  | False |  |
 | difficulty_level | character varying(100) |  | False |  |
-| explanation | text |  | False |  |
 | created_at | timestamp with time zone |  | False |  |
 | published_at | timestamp with time zone |  | True |  |
 
@@ -755,22 +745,15 @@ Model: `questions.QuestionRevision` · Group: core
 
 ```sql
 questions_answer_valid: CHECK (((correct_answer)::text = ANY ((ARRAY['A'::character varying, 'B'::character varying, 'C'::character varying, 'D'::character varying])::text[])))
-questions_content_required: CHECK (((NOT (question_text = ''::text)) AND (NOT (option_a = ''::text)) AND (NOT (option_b = ''::text)) AND (NOT (option_c = ''::text)) AND (NOT (option_d = ''::text))))
 questions_language_code_valid: CHECK (((language)::text ~ '^[a-z]{2,3}(?:-[a-z0-9]{2,8})*$'::text))
 questions_questionre_question_id_63f701ab_fk_questions: FOREIGN KEY (question_id) REFERENCES questions_question(id) DEFERRABLE INITIALLY DEFERRED
 questions_questionrevision_correct_answer_not_null: NOT NULL correct_answer
 questions_questionrevision_created_at_not_null: NOT NULL created_at
 questions_questionrevision_difficulty_level_not_null: NOT NULL difficulty_level
-questions_questionrevision_explanation_not_null: NOT NULL explanation
 questions_questionrevision_id_not_null: NOT NULL id
 questions_questionrevision_language_not_null: NOT NULL language
-questions_questionrevision_option_a_not_null: NOT NULL option_a
-questions_questionrevision_option_b_not_null: NOT NULL option_b
-questions_questionrevision_option_c_not_null: NOT NULL option_c
-questions_questionrevision_option_d_not_null: NOT NULL option_d
 questions_questionrevision_pkey: PRIMARY KEY (id)
 questions_questionrevision_question_id_not_null: NOT NULL question_id
-questions_questionrevision_question_text_not_null: NOT NULL question_text
 questions_questionrevision_revision_number_check: CHECK ((revision_number >= 0))
 questions_questionrevision_revision_number_not_null: NOT NULL revision_number
 questions_revision_number_uniq: UNIQUE (question_id, revision_number)
@@ -949,6 +932,7 @@ Model: `exams.Subject` · Group: taxonomy
 | code | character varying(50) | unique | False |  |
 | slug | character varying(200) | unique | False |  |
 | display_order | integer |  | False |  |
+| question_freshness_years | smallint |  | True |  |
 
 <details><summary>Database constraints</summary>
 
@@ -958,9 +942,11 @@ exams_subject_code_key: UNIQUE (code)
 exams_subject_code_not_null: NOT NULL code
 exams_subject_display_order_check: CHECK ((display_order >= 0))
 exams_subject_display_order_not_null: NOT NULL display_order
+exams_subject_freshness_years_valid: CHECK (((question_freshness_years IS NULL) OR (question_freshness_years = ANY (ARRAY[2, 3]))))
 exams_subject_id_not_null: NOT NULL id
 exams_subject_name_not_null: NOT NULL name
 exams_subject_pkey: PRIMARY KEY (id)
+exams_subject_question_freshness_years_check: CHECK ((question_freshness_years >= 0))
 exams_subject_slug_key: UNIQUE (slug)
 exams_subject_slug_not_null: NOT NULL slug
 ```
@@ -1348,6 +1334,7 @@ Model: `exams.Exam` · Group: taxonomy
 | id | bigint | PK | False |  |
 | authority_id | bigint | FK | False | exams_examauthority / PROTECT |
 | name | character varying(200) |  | False |  |
+| description | text |  | False |  |
 | code | character varying(50) |  | False |  |
 | slug | character varying(200) |  | False |  |
 | is_active | boolean |  | False |  |
@@ -1362,6 +1349,7 @@ exams_exam_authority_id_not_null: NOT NULL authority_id
 exams_exam_authority_slug_uniq: UNIQUE (authority_id, slug)
 exams_exam_code_not_null: NOT NULL code
 exams_exam_default_mock_language_not_null: NOT NULL default_mock_language
+exams_exam_description_not_null: NOT NULL description
 exams_exam_id_not_null: NOT NULL id
 exams_exam_is_active_not_null: NOT NULL is_active
 exams_exam_name_not_null: NOT NULL name

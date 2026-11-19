@@ -28,10 +28,16 @@ class TopicSubjectSelectMultiple(TopicSubjectOptions, forms.SelectMultiple):
     pass
 
 
-class RevisionForm(forms.ModelForm):
-    class Meta:
-        model = QuestionRevision
-        fields = CONTENT_FIELDS + ("difficulty_level",)
+class RevisionForm(forms.Form):
+    language = QuestionRevision._meta.get_field("language").formfield()
+    question_text = forms.CharField(widget=forms.Textarea)
+    option_a = forms.CharField(widget=forms.Textarea)
+    option_b = forms.CharField(widget=forms.Textarea)
+    option_c = forms.CharField(widget=forms.Textarea)
+    option_d = forms.CharField(widget=forms.Textarea)
+    correct_answer = QuestionRevision._meta.get_field("correct_answer").formfield()
+    explanation = forms.CharField(widget=forms.Textarea, required=False)
+    difficulty_level = forms.CharField(max_length=100, required=False)
 
 
 class TranslationForm(forms.ModelForm):

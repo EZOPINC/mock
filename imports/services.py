@@ -52,7 +52,7 @@ def confirm_import(data, user):
             for offset, group in enumerate(result["groups"]):
                 primary = group["rows"][0]
                 translations = [translation for row in group["rows"] for translation in row["translations"]]
-                question = create_question(subject=primary["subject"], topic=primary["topic"], revision=primary["revision"],
+                question = create_question(subject=primary["subject"], topic=primary["topic"], revision={field: primary["revision"][field] for field in ("language", "correct_answer")},
                     translations=translations, difficulty_level=primary["values"]["difficulty_level"].strip(),
                     question_kind=group["question_kind"], **group.get("freshness", {}))
                 topics = ([primary["topic"]] if primary["topic"] else []) + primary["secondary_topics"]

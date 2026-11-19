@@ -61,6 +61,7 @@ Use `docs/architecture.md` for architecture context and `docs/DEVELOPMENT_RULES.
 | `billing/models.py` financial operations | FinancialAuditEvent, BillingConfiguration, BillingDocument, DocumentSequence, RefundApproval, Settlement, ReconciliationRecord |
 | `exams/models.py` | ExamAuthority, Exam (optional admin-editable public description), ExamStage, Subject, Part, Module, Chapter, Topic; HierarchyNode validates ancestry |
 | `questions/models.py` | Question, QuestionRevision, QuestionTranslation, QuestionTopic, QuestionExam, QuestionSource, QuestionSourceReference |
+| Translation storage rollout | docs/question-translation-rollout.md |
 | Questions ERD | `docs/erd/questions-erd.html` (offline interactive), `docs/erd/questions-erd.md` (Mermaid/column reference), `questions-schema.json` and `.mmd` sources in that directory; regenerate with `python tools/generate_questions_erd.py` using `tools/questions_erd_template.html` |
 | `imports/models.py` | ImportBatch, ImportedQuestion; contextual import uniqueness and row audit |
 | `previous_year/models.py` | PreviousYearPaper, PaperQuestion; revision/order and paper invariants |

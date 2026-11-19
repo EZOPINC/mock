@@ -61,9 +61,10 @@ Question admin is in `questions/admin.py`; student rendering is downstream.
 - QuestionSource and QuestionSourceReference retain provenance and page references.
 - QuestionRevision stores numbered content, answer, difficulty and publication time.
 - QuestionTranslation stores language content, unique within each revision/language pair.
-- Primary-language revision fields remain for compatibility with older consumers.
+- Primary-language text is retrieved from the revision's matching translation row.
 - Configured languages are English (`en`) and Bengali (`bn`).
 - current_revision is working content; published_revision is the approved live pointer.
+- QuestionTranslation stores edition text, options and explanations. QuestionRevision stores the answer key, difficulty, primary language and version metadata. See [translation rollout and rollback](question-translation-rollout.md).
 - Master answer/difficulty mirror the working revision; scoring uses frozen content.
 - A new revision resets review status; an older published revision can remain live.
 - Revision content is append-only, including drafts; publication permits one guarded timestamp write.

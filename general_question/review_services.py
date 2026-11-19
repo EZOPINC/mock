@@ -74,9 +74,8 @@ def save_review_question(user, question_id, expected, cleaned):
     changed = any(getattr(edition, field) != version[field]
         for edition, version in zip(editions, versions) for field in TRANSLATED_FIELDS)
     if changed or revision.correct_answer != cleaned["correct_answer"] or revision.difficulty_level != cleaned["difficulty_level"]:
-        primary_text = next(version for version in versions if version["language"] == revision.language)
         create_revision(question, translations=versions, difficulty_level=cleaned["difficulty_level"],
-            correct_answer=cleaned["correct_answer"], **primary_text)
+            language=revision.language, correct_answer=cleaned["correct_answer"])
 
 
 @transaction.atomic

@@ -37,6 +37,22 @@ class QuestionFixture(TestCase):
 
 
 class QuestionModelTests(QuestionFixture):
+    def test_translation_only_revision_keeps_the_published_snapshot(self):
+        question = self.publish(self.make_question())
+        original = question.published_revision
+        editions = [
+            {key: value for key, value in content(language=language, question_text=stem).items() if key != "correct_answer"}
+            for language, stem in (("en", "New primary text"), ("bn", "New translated text"))
+        ]
+        revision = services.create_revision(question, language="en", correct_answer="B", translations=editions)
+        question.refresh_from_db()
+        self.assertEqual(question.published_revision_id, original.pk)
+        self.assertEqual(question.current_revision_id, revision.pk)
+        self.assertEqual(revision.primary_translation.question_text, "New primary text")
+        self.assertNotIn("question_text", {field.name for field in QuestionRevision._meta.concrete_fields})
+        self.assertEqual(revision.translations.count(), 2)
+        self.assertEqual(original.primary_translation.question_text, content()["question_text"])
+
     def test_initial_revision_and_defaults(self):
         question = self.make_question()
         self.assertEqual(connection.vendor, "postgresql")
@@ -103,17 +119,17 @@ class QuestionModelTests(QuestionFixture):
     def test_revision_number_uniqueness(self):
         question = self.make_question()
         with self.assertRaises(ValidationError):
-            QuestionRevision.objects.create(question=question, revision_number=1, **content())
+            QuestionRevision(question=question, revision_number=1, language="en", correct_answer="A").save(_assembly=True)
         # Bypass only model validation to verify the PostgreSQL constraint.
         with patch.object(QuestionRevision, "full_clean"), self.assertRaises(IntegrityError), transaction.atomic():
-            QuestionRevision.objects.create(question=question, revision_number=1, **content())
+            QuestionRevision(question=question, revision_number=1, language="en", correct_answer="A").save(_assembly=True)
 
-    def test_database_checks_for_revision_content_and_enums(self):
+    def test_database_checks_for_revision_metadata(self):
         question = self.make_question()
-        for overrides in ({"revision_number": 0}, {"language": "INVALID"}, {"correct_answer": "E"}, {"option_d": ""}, {"question_text": ""}):
-            data = {"revision_number": 2, **content(), **overrides}
+        for overrides in ({"revision_number": 0}, {"language": "INVALID"}, {"correct_answer": "E"}):
+            data = {"revision_number": 2, "language": "en", "correct_answer": "A", **overrides}
             with self.subTest(data=overrides), patch.object(QuestionRevision, "full_clean"), self.assertRaises(IntegrityError), transaction.atomic():
-                QuestionRevision.objects.create(question=question, **data)
+                QuestionRevision(question=question, **data).save(_assembly=True)
 
     def test_question_database_status_checks(self):
         for overrides in ({"publication_status": "invalid"}, {"review_status": "invalid"}, {"publication_status": "published"}):
@@ -139,12 +155,12 @@ class QuestionModelTests(QuestionFixture):
 
     def test_draft_content_changes_also_create_new_revisions(self):
         question = self.make_question()
-        revision = question.current_revision
-        revision.question_text = "Changed"
+        edition = question.current_revision.primary_translation
+        edition.question_text = "Changed"
         with self.assertRaises(ValidationError):
-            revision.save()
-        revision.refresh_from_db()
-        self.assertEqual(revision.question_text, content()["question_text"])
+            edition.save()
+        edition.refresh_from_db()
+        self.assertEqual(edition.question_text, content()["question_text"])
 
     def test_revisions_and_referenced_questions_cannot_be_deleted(self):
         question = self.publish(self.make_question())
@@ -194,7 +210,7 @@ class QuestionWorkflowTests(QuestionFixture):
         old = question.published_revision
         services.create_revision(question, **content())
         self.publish(question)
-        for field, value in (("question_text", "Changed"), ("published_at", None), ("language", "bn"), ("revision_number", 99)):
+        for field, value in (("correct_answer", "B"), ("published_at", None), ("language", "bn"), ("revision_number", 99)):
             revision = QuestionRevision.objects.get(pk=old.pk)
             setattr(revision, field, value)
             with self.subTest(field=field), self.assertRaises(ValidationError):
@@ -204,9 +220,9 @@ class QuestionWorkflowTests(QuestionFixture):
         question = self.make_question()
         for operation in (
             lambda: Question.objects.filter(pk=question.pk).update(publication_status="published"),
-            lambda: QuestionRevision.objects.filter(question=question).update(question_text="changed"),
+            lambda: QuestionRevision.objects.filter(question=question).update(correct_answer="B"),
             lambda: Question.objects.bulk_create([Question(subject=self.subject)]),
-            lambda: QuestionRevision.objects.bulk_create([QuestionRevision(question=question, revision_number=2, **content())]),
+            lambda: QuestionRevision.objects.bulk_create([QuestionRevision(question=question, revision_number=2, language="en", correct_answer="A")]),
             lambda: Question.objects.bulk_update([question], ["review_status"]),
         ):
             with self.assertRaises(ValidationError):

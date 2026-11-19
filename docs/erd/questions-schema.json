@@ -1,6 +1,6 @@
 {
   "scope": "Questions module, taxonomy, direct inbound FK consumers and mock configurations",
-  "verified_on": "2026-11-17",
+  "verified_on": "2026-11-18",
   "tables": [
     {
       "table": "questions_question",
@@ -155,6 +155,28 @@
           ]
         },
         {
+          "column": "current_as_of",
+          "type": "date",
+          "nullable": true,
+          "pk": false,
+          "unique": false,
+          "target": null,
+          "on_delete": null,
+          "blank": true,
+          "choices": []
+        },
+        {
+          "column": "expires_on",
+          "type": "date",
+          "nullable": true,
+          "pk": false,
+          "unique": false,
+          "target": null,
+          "on_delete": null,
+          "blank": true,
+          "choices": []
+        },
+        {
           "column": "current_revision_id",
           "type": "bigint",
           "nullable": true,
@@ -200,6 +222,10 @@
         }
       ],
       "constraints": [
+        {
+          "name": "questions_expiry_after_current_as_of",
+          "definition": "CHECK (((current_as_of IS NULL) OR (expires_on IS NULL) OR (expires_on > current_as_of)))"
+        },
         {
           "name": "questions_kind_valid",
           "definition": "CHECK (((question_kind)::text = ANY ((ARRAY['logical'::character varying, 'static'::character varying, 'unclassified'::character varying])::text[])))"
@@ -498,61 +524,6 @@
           ]
         },
         {
-          "column": "question_text",
-          "type": "text",
-          "nullable": false,
-          "pk": false,
-          "unique": false,
-          "target": null,
-          "on_delete": null,
-          "blank": false,
-          "choices": []
-        },
-        {
-          "column": "option_a",
-          "type": "text",
-          "nullable": false,
-          "pk": false,
-          "unique": false,
-          "target": null,
-          "on_delete": null,
-          "blank": false,
-          "choices": []
-        },
-        {
-          "column": "option_b",
-          "type": "text",
-          "nullable": false,
-          "pk": false,
-          "unique": false,
-          "target": null,
-          "on_delete": null,
-          "blank": false,
-          "choices": []
-        },
-        {
-          "column": "option_c",
-          "type": "text",
-          "nullable": false,
-          "pk": false,
-          "unique": false,
-          "target": null,
-          "on_delete": null,
-          "blank": false,
-          "choices": []
-        },
-        {
-          "column": "option_d",
-          "type": "text",
-          "nullable": false,
-          "pk": false,
-          "unique": false,
-          "target": null,
-          "on_delete": null,
-          "blank": false,
-          "choices": []
-        },
-        {
           "column": "correct_answer",
           "type": "character varying(1)",
           "nullable": false,
@@ -592,17 +563,6 @@
           "choices": []
         },
         {
-          "column": "explanation",
-          "type": "text",
-          "nullable": false,
-          "pk": false,
-          "unique": false,
-          "target": null,
-          "on_delete": null,
-          "blank": true,
-          "choices": []
-        },
-        {
           "column": "created_at",
           "type": "timestamp with time zone",
           "nullable": false,
@@ -631,10 +591,6 @@
           "definition": "CHECK (((correct_answer)::text = ANY ((ARRAY['A'::character varying, 'B'::character varying, 'C'::character varying, 'D'::character varying])::text[])))"
         },
         {
-          "name": "questions_content_required",
-          "definition": "CHECK (((NOT (question_text = ''::text)) AND (NOT (option_a = ''::text)) AND (NOT (option_b = ''::text)) AND (NOT (option_c = ''::text)) AND (NOT (option_d = ''::text))))"
-        },
-        {
           "name": "questions_language_code_valid",
           "definition": "CHECK (((language)::text ~ '^[a-z]{2,3}(?:-[a-z0-9]{2,8})*$'::text))"
         },
@@ -655,10 +611,6 @@
           "definition": "NOT NULL difficulty_level"
         },
         {
-          "name": "questions_questionrevision_explanation_not_null",
-          "definition": "NOT NULL explanation"
-        },
-        {
           "name": "questions_questionrevision_id_not_null",
           "definition": "NOT NULL id"
         },
@@ -667,32 +619,12 @@
           "definition": "NOT NULL language"
         },
         {
-          "name": "questions_questionrevision_option_a_not_null",
-          "definition": "NOT NULL option_a"
-        },
-        {
-          "name": "questions_questionrevision_option_b_not_null",
-          "definition": "NOT NULL option_b"
-        },
-        {
-          "name": "questions_questionrevision_option_c_not_null",
-          "definition": "NOT NULL option_c"
-        },
-        {
-          "name": "questions_questionrevision_option_d_not_null",
-          "definition": "NOT NULL option_d"
-        },
-        {
           "name": "questions_questionrevision_pkey",
           "definition": "PRIMARY KEY (id)"
         },
         {
           "name": "questions_questionrevision_question_id_not_null",
           "definition": "NOT NULL question_id"
-        },
-        {
-          "name": "questions_questionrevision_question_text_not_null",
-          "definition": "NOT NULL question_text"
         },
         {
           "name": "questions_questionrevision_revision_number_check",
@@ -1257,6 +1189,26 @@
           "on_delete": null,
           "blank": false,
           "choices": []
+        },
+        {
+          "column": "question_freshness_years",
+          "type": "smallint",
+          "nullable": true,
+          "pk": false,
+          "unique": false,
+          "target": null,
+          "on_delete": null,
+          "blank": true,
+          "choices": [
+            [
+              2,
+              "2 years"
+            ],
+            [
+              3,
+              "3 years"
+            ]
+          ]
         }
       ],
       "constraints": [
@@ -1281,6 +1233,10 @@
           "definition": "NOT NULL display_order"
         },
         {
+          "name": "exams_subject_freshness_years_valid",
+          "definition": "CHECK (((question_freshness_years IS NULL) OR (question_freshness_years = ANY (ARRAY[2, 3]))))"
+        },
+        {
           "name": "exams_subject_id_not_null",
           "definition": "NOT NULL id"
         },
@@ -1291,6 +1247,10 @@
         {
           "name": "exams_subject_pkey",
           "definition": "PRIMARY KEY (id)"
+        },
+        {
+          "name": "exams_subject_question_freshness_years_check",
+          "definition": "CHECK ((question_freshness_years >= 0))"
         },
         {
           "name": "exams_subject_slug_key",
@@ -2545,6 +2505,17 @@
           "choices": []
         },
         {
+          "column": "description",
+          "type": "text",
+          "nullable": false,
+          "pk": false,
+          "unique": false,
+          "target": null,
+          "on_delete": null,
+          "blank": true,
+          "choices": []
+        },
+        {
           "column": "code",
           "type": "character varying(50)",
           "nullable": false,
@@ -2626,6 +2597,10 @@
         {
           "name": "exams_exam_default_mock_language_not_null",
           "definition": "NOT NULL default_mock_language"
+        },
+        {
+          "name": "exams_exam_description_not_null",
+          "definition": "NOT NULL description"
         },
         {
           "name": "exams_exam_id_not_null",

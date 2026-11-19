@@ -13,7 +13,7 @@
       {% for question in page %}
         <tr>
           <td>{{ question.pk }}</td><td>{{ question.subject }}</td>
-          <td><a href="{% url 'general_questions:review_question' question.pk %}{% if query %}?{{ query }}{% endif %}">{{ question.current_revision.question_text|default:"Missing revision"|truncatechars:140 }}</a></td>
+          <td><a href="{% url 'general_questions:review_question' question.pk %}{% if query %}?{{ query }}{% endif %}">{{ question.current_revision.primary_translation.question_text|default:"Missing revision"|truncatechars:140 }}</a></td>
           <td>{{ question.get_review_status_display }}</td><td>{{ question.get_publication_status_display }}</td>
         </tr>
       {% empty %}<tr><td colspan="5">No questions match these filters.</td></tr>{% endfor %}

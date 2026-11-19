@@ -114,7 +114,8 @@ def review_queue(request):
         return redirect(queue_url("review_queue", query))
 
     form, questions = review_filters(request, selected)
-    page = Paginator(questions.select_related("subject", "current_revision").order_by("pk"), 35).get_page(request.GET.get("page"))
+    page = Paginator(questions.select_related("subject", "current_revision").prefetch_related(
+        "current_revision__translations").order_by("pk"), 35).get_page(request.GET.get("page"))
     return render(request, "general_question/review_queue.html", {
         "filters": form, "page": page, "query": query, "selected": selected,
         "selected_only": request.GET.get("selected") == "1", "selection_url": queue_url("review_queue", query),

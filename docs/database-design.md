@@ -29,8 +29,8 @@ See [flexible taxonomy](flexible-taxonomy.md) for the exact optional-parent cons
 | Model | Persisted role | Important integrity |
 |---|---|---|
 | questions.Question | Master identity; Subject, legacy primary Topic, working/live pointers, editorial status, question kind, current-as-of and expiry dates, mirrored answer/difficulty | Both revision pointers belong to this master; default draft/pending review |
-| questions.QuestionRevision | Numbered primary-language content, answer, difficulty, publication timestamp | Unique master/revision number; append-only content, including drafts |
-| questions.QuestionTranslation | Language content within one revision | Unique revision/language; primary translation matches compatibility fields |
+| questions.QuestionRevision | Revision number, primary language, answer, difficulty, publication timestamp | Unique master/revision number; append-only metadata, including drafts |
+| questions.QuestionTranslation | Question text, options and explanation for one language within a revision | Unique revision/language; publishing requires the primary edition |
 | questions.QuestionTopic | Master/Topic association and primary flag | Unique pair; one primary; tags share Subject; pointer/tag compatibility |
 | questions.QuestionExam | Master/Exam association | Unique pair; indexed exam/question access |
 | questions.QuestionSource | Source name/document | Provenance identity |

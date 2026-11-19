@@ -10,7 +10,7 @@ from django.utils import timezone
 from . import services
 from .tagging import set_question_topics
 from .forms import CONTENT_FIELDS, NewQuestionAdminForm, QuestionAdminForm, RevisionForm, TranslationForm
-from .models import Question, QuestionExam, QuestionKind, QuestionRevision, QuestionSource, QuestionSourceReference, QuestionTranslation
+from .models import Question, QuestionExam, QuestionKind, QuestionRevision, QuestionSource, QuestionSourceReference, QuestionTranslation, TRANSLATED_FIELDS
 
 
 def label_parent_paths(model):
@@ -65,11 +65,19 @@ class QuestionSourceReferenceInline(admin.TabularInline):
 class RevisionInline(admin.TabularInline):
     model = QuestionRevision
     fk_name = "question"
-    fields = ("revision_number", "language", "question_text", "published_at")
+    fields = ("revision_number", "language", "primary_text", "published_at")
     readonly_fields = fields
     extra = 0
     can_delete = False
     show_change_link = True
+
+    def get_queryset(self, request):
+        return super().get_queryset(request).prefetch_related("translations")
+
+    @admin.display(description="Question text")
+    def primary_text(self, revision):
+        edition = revision.primary_translation
+        return edition.question_text if edition else ""
 
     def has_add_permission(self, request, obj=None):
         return False
@@ -277,10 +285,13 @@ class QuestionAdmin(admin.ModelAdmin):
             raise Http404
         if not self.has_change_permission(request, obj):
             raise PermissionDenied
-        initial = {field: getattr(obj.current_revision, field)
-                   for field in CONTENT_FIELDS} if obj.current_revision_id else {}
+        initial = {}
         if obj.current_revision_id:
-            initial["difficulty_level"] = obj.current_revision.difficulty_level
+            revision = obj.current_revision
+            initial.update(language=revision.language, correct_answer=revision.correct_answer,
+                           difficulty_level=revision.difficulty_level)
+            if edition := revision.primary_translation:
+                initial.update({field: getattr(edition, field) for field in TRANSLATED_FIELDS})
         form = RevisionForm(request.POST if request.method ==
                             "POST" else None, initial=initial)
         if request.method == "POST" and form.is_valid():
@@ -303,9 +314,9 @@ class QuestionAdmin(admin.ModelAdmin):
 class QuestionRevisionAdmin(admin.ModelAdmin):
     list_display = ("question", "revision_number", "language", "published_at")
     list_filter = ("language",)
-    search_fields = ("question_text",)
-    readonly_fields = tuple(
-        field.name for field in QuestionRevision._meta.fields)
+    search_fields = ("translations__question_text",)
+    fields = ("question", "revision_number", "language", "correct_answer", "difficulty_level", "created_at", "published_at")
+    readonly_fields = fields
     inlines = (TranslationInline,)
 
     def has_add_permission(self, request):

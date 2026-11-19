@@ -28,12 +28,10 @@ def eligible_question_ids(exam_id, *, subject_id=None, topic_id=None, language_m
         revision = question.published_revision
         if revision.correct_answer not in "ABCD" or len(revision.correct_answer) != 1:
             continue
-        if not all(getattr(revision, field).strip() for field in CONTENT_FIELDS):
-            continue
         translations = list(revision.translations.all())
         valid = [item for item in translations if item.question_id == question.pk and all(getattr(item, field).strip() for field in CONTENT_FIELDS)]
         primary = next((item for item in valid if item.language == revision.language), None)
-        if not primary or any(getattr(primary, field) != getattr(revision, field) for field in CONTENT_FIELDS):
+        if not primary:
             continue
         if any(item.language in languages for item in valid):
             result.add(question.pk)
