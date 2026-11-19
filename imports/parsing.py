@@ -54,6 +54,7 @@ def text(value):
 
 
 def parse_upload(upload, worksheet=""):
+    # Read one extra byte to detect oversized uploads without reading the whole file.
     data = upload.read(settings.IMPORT_MAX_UPLOAD_BYTES + 1)
     if not data or len(data) > settings.IMPORT_MAX_UPLOAD_BYTES:
         raise ValidationError("Upload a nonempty file no larger than 5 MB.")
@@ -62,6 +63,7 @@ def parse_upload(upload, worksheet=""):
     selected = "CSV"
     try:
         if extension == "csv":
+            # Accept UTF-8 CSV files with or without a byte order mark.
             decoded = data.decode("utf-8-sig")
             reader = csv.reader(StringIO(decoded, newline=""), strict=True)
             table = []
@@ -74,6 +76,7 @@ def parse_upload(upload, worksheet=""):
                     raise ValidationError(
                         "At most 2000 data rows are supported.")
         elif extension == "xlsx":
+            # Check the workbook archive before opening it with openpyxl.
             with ZipFile(BytesIO(data)) as archive:
                 entries = archive.infolist()
                 if len(entries) > 1000 or sum(item.file_size for item in entries) > 30 * 1024 * 1024:
@@ -93,6 +96,7 @@ def parse_upload(upload, worksheet=""):
                     raise ValidationError(
                         "Unknown worksheet. Available: " + ", ".join(book.sheetnames))
                 sheet = book[selected]
+                # Scan the actual cells because stored worksheet dimensions can be wrong.
                 sheet.reset_dimensions()
                 table = []
                 for cells in sheet.iter_rows():
@@ -117,12 +121,14 @@ def parse_upload(upload, worksheet=""):
     if len(table) < 2:
         raise ValidationError(
             "The file needs headers and at least one data row.")
+    # Keep the normalized source names for the audit and map aliases to importer fields.
     source_headers = [cell.strip().lower() for cell in table[0]]
     headers = [HEADER_ALIASES.get(header, header) for header in source_headers]
     named = [header for header in headers if header]
     if len(set(named)) != len(named):
         raise ValidationError(
             "Duplicate column headers are not allowed after alias normalization. Keep only one spelling for each field (for example submodule_code/sub_module_code or review_flag/review_status).")
+    # A complete language-specific header block can replace the generic text headers.
     wide_header = any(all(f"{field}_{code}" in headers for field in REQUIRED_TEXT)
                       for code, label in settings.QUESTION_LANGUAGES)
     missing = ({"question_number"} if wide_header else set(
@@ -134,12 +140,14 @@ def parse_upload(upload, worksheet=""):
         raise ValidationError(
             f"Missing headers: {', '.join(sorted(missing)) or 'none'}. Unknown headers: {', '.join(sorted(unknown)) or 'none'}.")
     rows = []
+    # Number rows from 2 because the first spreadsheet row contains the headers.
     for number, cells in enumerate(table[1:], 2):
         if not any(cell.strip() for cell in cells):
             continue
         if any(value.strip() for value in cells[len(headers):]):
             raise ValidationError(
                 f"Row {number}: values extend beyond the named columns.")
+        # Add blank fields for the preview, then fill them from the uploaded cells.
         row = dict.fromkeys(COLUMNS, "")
         for code, label in settings.QUESTION_LANGUAGES:
             if any(f"{field}_{code}" in headers for field in REQUIRED_TEXT + ("explanation",)):
@@ -153,6 +161,7 @@ def parse_upload(upload, worksheet=""):
                     f"Row {number}: unnamed columns must be empty.")
             if headers[index]:
                 row[headers[index]] = value
+        # Keep the values before applying the question-number fallback and language normalization.
         original_values = dict(row)
         if "question_number" not in headers:
             row["question_number"] = row["source_question_number"]

@@ -7,7 +7,7 @@ Open **Manage / General Questions** and choose **Import previous-year questions*
 1. Choose the import mode and exam context. Previous Year uses the exam, year and paper details to find or prepare a draft paper. General accepts selected exams and optional row-based exam mapping. Choose a worksheet for multi-sheet XLSX files.
 2. Supply question text, four options and a verified A-D answer. Use a subject code/name or a valid taxonomy path. Add a topic code and optional secondary codes when available. Use complete `_en` / `_bn` blocks for bilingual rows, or explicitly approve paired long rows.
 3. In preview, expand a row's status to inspect its resolved values and issues. **Show** filters by severity. **Message** filters by an individual issue. Clear filters to edit. Double-click a cell or press Enter to edit longer text.
-4. Resolve row errors, translation pairings and duplicate decisions. Use **Save page & Revalidate** before switching pages or confirming. Adding a subject or topic through its separate form writes that taxonomy record immediately.
+4. Resolve row errors, translation pairings and duplicate decisions. Use **Save page & Revalidate** before switching pages or confirming. To correct the file itself, choose **Replace uploaded file**. The upload form restores the current import settings and the new file starts a fresh preview with its own row edits and decisions.
 5. Confirm when the batch has no blocking errors. The server rechecks the complete batch and saves valid rows atomically. Use **Review imported questions** when the batch is complete. Paper publication is separate from publishing its questions.
 
 ## Duplicate decisions

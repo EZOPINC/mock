@@ -20,7 +20,32 @@ from .parsing import MAX_CELL, columns_for, preview_page_size, parse_upload
 from .permissions import require_import_permission
 from .services import confirm_import
 from .validation import map_key, normalized, validate
-from .context import mode
+from .context import exam_ids, mode
+
+
+HIDDEN_UPLOAD_FIELDS = {"paper", "subject", "topic", "acknowledge_existing"}
+
+
+def replacement_initial(data):
+    selection = data["selection"]
+    paper = selection.get("paper", {})
+    return {
+        "import_type": mode(data),
+        "worksheet": data["worksheet"] if data["filename"].lower().endswith(".xlsx") else "",
+        "authority": selection.get("authority_id"),
+        "exam": selection.get("exam_id"),
+        "exams": exam_ids(data) if mode(data) == "general" else [],
+        "exam_mapping": selection.get("exam_mapping", "selected"),
+        "year": paper.get("year"),
+        "stage": paper.get("stage_id"),
+        "paper": selection.get("paper_id"),
+        "paper_name": paper.get("paper_name"),
+        "part": paper.get("part"),
+        "session": paper.get("session"),
+        "subject": selection.get("subject_id"),
+        "topic": selection.get("topic_id"),
+        "language": selection.get("language", ""),
+    }
 
 
 def importer(view):
@@ -41,7 +66,23 @@ def importer(view):
 @require_http_methods(["GET", "POST"])
 def upload(request):
     initial = {"import_type": request.GET.get("type", "")}
-    form = UploadForm(request.POST if request.method == "POST" else None, request.FILES or None, initial=initial)
+    posted = request.POST.copy() if request.method == "POST" else None
+    replacement = request.GET.get("replace")
+    if replacement:
+        original = staging.load(replacement, request.user)
+        require_import_permission(request.user, mode(original))
+        initial = replacement_initial(original)
+        if posted is not None:
+            for field in ("subject", "topic"):
+                if initial[field] is not None:
+                    posted.setdefault(field, str(initial[field]))
+            same_paper = all(
+                posted.get(field, "").strip() == str(initial[field] or "").strip()
+                for field in ("import_type", "exam", "year", "stage", "paper_name", "part", "session")
+            )
+            if same_paper and initial["paper"] is not None:
+                posted.setdefault("paper", str(initial["paper"]))
+    form = UploadForm(posted, request.FILES or None, initial=initial)
     if request.method == "POST" and form.is_valid():
         try:
             parsed = parse_upload(form.cleaned_data["file"], form.cleaned_data["worksheet"].strip())
@@ -57,9 +98,11 @@ def upload(request):
         "exams": list(Exam.objects.values("id", "authority_id")),
         "stages": list(ExamStage.objects.values("id", "exam_id")),
     }
-    hidden_fields = {"paper", "subject", "topic", "acknowledge_existing"}
-    fields = [field for field in form if field.name not in hidden_fields]
-    return render(request, "imports/upload.html", {"form": form, "fields": fields, "catalogue": catalogue})
+    fields = [field for field in form if field.name not in HIDDEN_UPLOAD_FIELDS]
+    hidden_errors = [(field.label, field.errors) for field in form if field.name in HIDDEN_UPLOAD_FIELDS and field.errors]
+    return render(request, "imports/upload.html", {
+        "form": form, "fields": fields, "catalogue": catalogue, "hidden_errors": hidden_errors,
+    })
 
 
 def edit_page(request, data):

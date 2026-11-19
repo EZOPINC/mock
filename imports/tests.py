@@ -434,6 +434,41 @@ class ConfirmationTests(ImportFixture):
 
 
 class ImportViewTests(ImportFixture):
+    def test_replace_file_prefills_upload_context_and_starts_a_fresh_preview(self):
+        self.client.force_login(self.user)
+        upload = reverse("imports:upload")
+        configurations = (
+            {"import_type": "previous_year", "authority": self.authority.pk, "exam": self.exam.pk,
+             "year": self.paper.year, "paper": self.paper.pk, "language": "en", "worksheet": "Questions"},
+            {"import_type": "general", "exams": [self.exam.pk], "exam_mapping": "rows", "language": "bn"},
+        )
+        for configuration in configurations:
+            with self.subTest(mode=configuration["import_type"]):
+                original_file = xlsx_file() if configuration.get("worksheet") else csv_file()
+                preview = self.client.post(upload, configuration | {"file": original_file}, follow=True)
+                original = preview.context["data"]
+                replacement_url = f'{upload}?replace={original["token"]}'
+                self.assertContains(preview, f'href="{replacement_url}"')
+                replace = self.client.get(replacement_url)
+                form = replace.context["form"]
+                self.assertIsNone(form["file"].value())
+                for name, value in configuration.items():
+                    self.assertEqual(form[name].value(), value)
+                visible = {field.name: field.value() for field in replace.context["fields"]
+                           if field.name != "file" and field.value() is not None}
+                rows = [values(question_text="Replacement file question")]
+                replacement_file = xlsx_file(rows) if configuration.get("worksheet") else csv_file(rows)
+                updated = self.client.post(replacement_url, visible | {"file": replacement_file}, follow=True)
+                new = updated.context["data"]
+                self.assertNotEqual(new["token"], original["token"])
+                self.assertEqual(new["selection"], original["selection"])
+                self.assertEqual(new["rows"][0]["original_values"]["question_text"], "Replacement file question")
+                self.assertEqual(staging.load(original["token"], self.user), original)
+        other = get_user_model().objects.create_superuser(username="other-reviewer")
+        self.client.force_login(other)
+        self.assertEqual(self.client.get(replacement_url).status_code, 404)
+        self.assertFalse(Question.objects.exists())
+
     def test_staff_permissions_and_stage_owner(self):
         url = reverse("imports:upload")
         self.assertEqual(self.client.get(url).status_code, 302)
@@ -451,7 +486,9 @@ class ImportViewTests(ImportFixture):
         self.assertEqual(response.status_code, 302)
         preview_url = response.url
         response = self.client.get(preview_url)
-        self.assertContains(response, "Check every row")
+        self.assertContains(response, "Valid rows")
+        self.assertNotContains(response, "Check every row")
+        self.assertNotContains(response, "Add missing subject or topic")
         self.assertEqual(Question.objects.count(), 0)
         data = response.context["data"]
         response = self.client.post(preview_url, {"version": staging.digest(data), "page": "1", "row_0_question_text": "Edited text"})

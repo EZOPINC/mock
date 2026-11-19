@@ -11,8 +11,8 @@ Read the [staff guide](import-guide.md) for the import workflow. The parser, nor
 
 An active staff importer needs imports/Question Bank permissions and the paper-create
 permissions for Previous Year mode. Staging is uploader-owned; confirmation rechecks
-ownership/permissions server-side. Inline Add subject/topic is a separate privileged
-POST action, not implicit permission for row-driven Subject creation.
+ownership/permissions server-side. Create missing subjects in Taxonomy Admin,
+then revalidate the preview to resolve the new records.
 
 ## File and content bounds
 

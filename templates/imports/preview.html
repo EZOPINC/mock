@@ -4,7 +4,6 @@
 {% block import_content %}
     {% include "components/import_steps.html" with step=2 %}
     <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="{% url 'admin:index' %}">Administration</a>{% include "components/icon.html" with name="chevron" %}<a href="{% url 'imports:upload' %}">Question Bank Import</a>{% include "components/icon.html" with name="chevron" %}<span aria-current="page">Preview</span></nav>
-    {% include "components/page_heading.html" with eyebrow="STEP 2 OF 3 · NOTHING IMPORTED YET" heading="Check every row. Keep control." description="Correct the values below and revalidate. Each save applies to the current page; confirmation revalidates the entire file on the server." %}
     <div class="stage-summary"><strong>{{ data.filename }}</strong> · Worksheet: {{ data.worksheet }}<br>Type: {% if result.import_type == "general" %}General Question Bank{% else %}Previous Year Questions{% endif %}<br>Default exams: {% for exam in result.exams %}{{ exam }}{% if not forloop.last %}; {% endif %}{% empty %}Resolve exam selection{% endfor %} · Paper: {% if result.import_type == "general" %}Not applicable (no paper will be created){% else %}{{ result.paper|default:"Invalid mapping" }}{% endif %}<br><span class="muted">Preview expires two hours after upload. Original row values are retained in the audit on confirmation.</span></div>
     <div class="import-totals"><span><strong>{{ result.total }}</strong> Total rows</span><span><strong>{{ result.valid }}</strong> Valid rows</span>{% if result.skipped %}<span><strong>{{ result.skipped }}</strong> Skipped rows</span>{% endif %}<span class="import-total-errors"><strong>{{ result.error_count }}</strong> Errors</span><span class="import-total-warnings"><strong>{{ result.warning_count }}</strong> Warnings</span></div>
     {% if result.existing_count %}<p class="message">This paper already has {{ result.existing_count }} questions, including {{ result.existing_imports }} imported rows. <a href="{% url 'admin:previous_year_previousyearpaper_change' result.paper.pk %}">Inspect existing paper questions</a>. Nothing will be overwritten.</p>{% endif %}
@@ -23,7 +22,6 @@
       </select>
       <button type="submit">Filter</button><a href="{% url 'imports:preview' data.token %}">Clear filters / edit</a></form>
     {% if not editable %}<p class="message" role="note">Filtered results are read-only. Clear filters to edit page values.</p>{% endif %}
-    {% include "imports/taxonomy_forms.html" %}
     <form method="post" id="preview-edit-form">
         {% csrf_token %}
         {% if editable %}{% for group in pairing_groups %}
@@ -98,7 +96,7 @@
          name="row_{{ row.index }}_{{ cell.name }}"
          rows="1"
          maxlength="32000" aria-describedby="row-feedback-{{ row.index }}">{{ cell.value }}</textarea>{% else %}<div class="grid-cell-value" tabindex="0" data-grid-label="Row {{ row.source_row }} {{ cell.name }}">{{ cell.value }}</div>{% endif %}</td>{% endfor %}</tr>{% empty %}<tr><td colspan="{{ columns|length|add:1 }}">No rows match this filter.</td></tr>{% endfor %}</tbody></table></div>
-{% if editable %}<div class="button-row import-save-actions"><button type="submit">Save page &amp; Revalidate</button><a class="button button-secondary" href="{% url 'imports:upload' %}">Replace uploaded file</a></div>{% endif %}</form>
+<div class="button-row import-save-actions">{% if editable %}<button type="submit">Save page &amp; Revalidate</button>{% endif %}<a class="button button-secondary" href="{% url 'imports:upload' %}?replace={{ data.token }}">Replace uploaded file</a></div></form>
 <nav class="import-pagination" aria-label="Preview pages">{% if page.has_previous %}<a href="?page={{ page.previous_page_number }}&amp;q={{ query|urlencode }}&amp;status={{ status|urlencode }}&amp;issue={{ issue|urlencode }}">← Previous page</a>{% endif %}<span>Page {{ page.number }} of {{ page.paginator.num_pages }}</span>{% if page.has_next %}<a href="?page={{ page.next_page_number }}&amp;q={{ query|urlencode }}&amp;status={{ status|urlencode }}&amp;issue={{ issue|urlencode }}">Next page →</a>{% endif %}</nav>
 <p class="muted">Save any edits before changing pages or confirming. Confirmation imports every unskipped row across all pages. A reuse decision links the approved revision to the new paper occurrence.</p>
 <div class="button-row import-confirm-actions"><form action="{% url 'imports:confirm' data.token %}" method="post">{% csrf_token %}<input type="hidden" name="version" value="{{ version }}"><button type="submit" {% if result.error_count %}disabled{% endif %}>Confirm Import ({{ result.master_count }} questions)</button></form><form action="{% url 'imports:cancel' data.token %}" method="post">{% csrf_token %}<button type="submit" class="button button-secondary">Cancel preview</button></form></div>
