@@ -66,7 +66,10 @@ Topic inline creation uses an existing Subject and valid name/slug; normal hiera
 - Completed-file protection uses file_sha256 plus canonical context_sha256, not a global file hash.
 - Context includes mode, selected Exams/mapping strategy and normalized paper identity when applicable.
 - Corrections, uploader and alias/default changes do not evade the same-context duplicate guard.
-- Staging UUID remains unique. Similar text warns but never merges/replaces existing masters/tags.
+- Staging UUID remains unique. Possible text matches in the bank block confirmation until staff record a decision. Repeated text within the file still warns.
+- In Previous-Year preview, inspect the approved editions and choose **Reuse question** when the subject, supplied language text, options and correct answer match. The new paper pins that approved revision. Existing tags, text, explanations and historical appearances remain intact. Staff can explicitly create a separate question instead.
+- In General preview, open the matched Question ID in Admin, then choose **Create a separate question** or **Skip this question** and save the preview page. Skipping excludes all language rows for that question. Restore it before confirmation if you change your mind. The completed batch lists skipped source rows.
+- Use **Message** to filter preview rows by an individual error or warning. Clear the filters to edit rows or save duplicate decisions.
 - No automatic source-ID merge scope is defined. Imports preserve source metadata instead.
 - New rows are draft/pending_review; review_status/verification_notes/needs_review/handwriting do
   not grant editorial approval. Draft imports never replace old published revisions or attempts.

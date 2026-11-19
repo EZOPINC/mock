@@ -143,8 +143,9 @@ bounded original, corrected and resolved row data; this storage is already imple
 Duplicate protection is file_sha256 plus canonical context_sha256, with a separately
 unique staging UUID. Context includes mode, selected exams/mapping strategy and normalized
 paper identity when applicable. Changing an alias/correction/uploader does not define a
-new question identity. Similar content warns; it never silently merges existing masters.
-source_question_id is not globally unique and no automatic source-identity merge key exists.
+new question identity. Existing bank text matches require an explicit duplicate decision.
+General imports can skip the matched incoming question. Its rows stay visible in preview and their numbers are recorded in the completed batch. They are excluded from validation and persistence once skipped.
+Previous-Year reuse adds an occurrence referencing an eligible approved revision without replacing the question's content or taxonomy. Confirmation checks the chosen revision and records reused rows in the import audit. Repeated text within one file is advisory. No automatic source-identity merge key exists.
 
 ## Verification references
 

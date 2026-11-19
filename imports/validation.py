@@ -5,7 +5,7 @@ import json
 import re
 
 from django.core.exceptions import ValidationError
-from django.db.models import F, Q, Value
+from django.db.models import Q, Value
 from django.db.models.functions import Coalesce, Lower, Trim
 
 from exams.models import Exam
@@ -19,6 +19,7 @@ from .translation_input import normalize_translations
 from .taxonomy import TaxonomyCatalogue, normalized
 from .pairing import groups_for
 from .sources import resolve_sources
+from .duplicates import resolve_duplicates, split_skipped_rows
 
 CONTENT = ("language", "question_text", "option_a", "option_b", "option_c", "option_d", "correct_answer", "explanation")
 
@@ -141,21 +142,15 @@ def validate(data, *, locked=False):
     existing_imports = ImportedQuestion.objects.filter(batch__paper=paper).count() if paper and paper.pk else 0
     if existing_imports and not data["selection"].get("acknowledge_existing"):
         errors.append("This paper already contains imported questions. Inspect its existing rows, resolve conflicts, and explicitly acknowledge appending before proceeding.")
-    # Possible content duplication is advisory and never merges records.
-    normalized_inputs = [normalize_translations(row["values"], data["selection"]) for row in data["rows"]]
-    candidate_texts = {normalized(item[0]["question_text"]) for item in normalized_inputs}
-    existing_texts = set()
-    if candidate_texts:
-        raw_keys = {item[0]["question_text"].strip().lower() for item in normalized_inputs}
-        for value in QuestionTranslation.objects.filter(language=F("revision__language")).annotate(_content_key=Lower(Trim("question_text"))).filter(_content_key__in=raw_keys).values_list("question_text", flat=True).iterator(chunk_size=500):
-            key = normalized(value)
-            if key in candidate_texts:
-                existing_texts.add(key)
-    seen = set()
+    allow_skip = mode(data) == "general"
+    active_rows, skipped_groups = split_skipped_rows(data, allow_skip=allow_skip)
+    if skipped_groups and not active_rows:
+        errors.append("Keep at least one question to confirm this import.")
+    seen = {}
     result = []
-    for index, row in enumerate(data["rows"]):
+    for index, row in active_rows:
         values = row["values"]
-        revision, translations, translation_errors, translation_warnings = normalized_inputs[index]
+        revision, translations, translation_errors, translation_warnings = normalize_translations(values, data["selection"])
         row_errors, warnings = list(translation_errors), list(translation_warnings)
         if not values["question_number"].strip():
             row_errors.append("question_number: a value is required.")
@@ -207,9 +202,8 @@ def validate(data, *, locked=False):
             except ValidationError as error:
                 row_errors.extend(error.messages)
         key = normalized(revision["question_text"])
-        if key in existing_texts or key in seen:
-            warnings.append("Possible duplicate question text. This row will create a separate question; no merge is performed.")
-        seen.add(key)
+        if key and seen.setdefault(key, number) != number:
+            warnings.append("Possible repeated question text within this file. Review the question numbers.")
         if values["review_status"].strip() or values["verification_notes"].strip():
             warnings.append("Legacy review/verification values are audit metadata only. The question will be pending review.")
         result.append({"index": index, "source_row": row["source_row"], "values": values, "question_kind": question_kind, "difficulty": difficulty,
@@ -217,12 +211,15 @@ def validate(data, *, locked=False):
                        "errors": row_errors, "warnings": warnings, **taxonomy, "revision": revision, "translations": translations, "translation_languages": [item["language"] for item in translations], "exams": resolved_exams})
     source_plans = resolve_sources(result)
     groups = groups_for(result, data.get("pairings", {}))
+    resolve_duplicates(groups, data.get("duplicate_decisions", {}), paper, allow_skip=allow_skip)
+    skipped_rows = [row for group in skipped_groups for row in group["rows"]]
+    preview_rows = sorted([*result, *skipped_rows], key=lambda row: row["index"])
     if paper is not None and paper.expected_question_count is not None:
         try:
             paper.validate_question_count(actual_count=len(existing_numbers) + len(groups))
         except ValidationError as error:
             errors.extend(error.messages)
-    return {"taxonomy_catalogue": catalogue, "source_plans": source_plans, "rows": result, "groups": groups, "master_count": len(groups), "errors": errors, "exam": exams[0] if len(exams) == 1 else None, "exams": exams, "import_type": mode(data), "paper": paper, "existing_count": len(existing_numbers), "existing_imports": existing_imports,
-            "total": len(result), "valid": sum(not row["errors"] for row in result),
+    return {"taxonomy_catalogue": catalogue, "source_plans": source_plans, "rows": preview_rows, "groups": groups, "skipped_groups": skipped_groups, "master_count": len(groups), "errors": errors, "exam": exams[0] if len(exams) == 1 else None, "exams": exams, "import_type": mode(data), "paper": paper, "existing_count": len(existing_numbers), "existing_imports": existing_imports,
+            "total": len(preview_rows), "skipped": len(skipped_rows), "valid": sum(not row["errors"] for row in result),
             "error_count": sum(len(row["errors"]) for row in result) + len(errors),
             "warning_count": sum(len(row["warnings"]) for row in result)}

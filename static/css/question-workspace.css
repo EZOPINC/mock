@@ -4,7 +4,9 @@
 .workspace-main { padding: 1rem clamp(1rem, 2vw, 2rem) 3rem; }
 .workspace-main h1 { margin: .5rem 0; font-size: 1.8rem; }
 .workspace-main .import-upload select,
-.workspace-main .import-upload select option {
+.workspace-main .import-upload select option,
+.workspace-main .import-filters select,
+.workspace-main .import-filters select option {
   color-scheme: light;
   color: #0f172a;
   background-color: #fff;

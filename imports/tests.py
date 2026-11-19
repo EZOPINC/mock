@@ -178,13 +178,14 @@ class ValidationTests(ImportFixture):
         self.assertEqual(validate(data)["error_count"], 0)
         self.assertGreater(validate(data)["warning_count"], 0)
 
-    def test_duplicate_numbers_and_duplicate_text_warning(self):
+    def test_duplicate_numbers_and_repeated_text_within_file(self):
         data = self.data([values(), values()])
         result = validate(data)
         self.assertGreater(result["error_count"], 0)
-        self.assertGreater(result["warning_count"], 0)
         data["rows"][1]["values"]["question_number"] = "2"
-        self.assertEqual(validate(data)["error_count"], 0)
+        result = validate(data)
+        self.assertEqual(result["error_count"], 0)
+        self.assertIn("Possible repeated question text", " ".join(result["rows"][1]["warnings"]))
 
     def test_existing_paper_number_conflict_and_file_hash(self):
         data = self.data()
@@ -196,7 +197,7 @@ class ValidationTests(ImportFixture):
 
     def test_existing_import_requires_explicit_append_acknowledgment(self):
         confirm_import(self.data(), self.user)
-        second = self.data([values(question_number="2")])
+        second = self.data([values(question_number="2", question_text="Another question for this paper")])
         self.assertIn("explicitly acknowledge", " ".join(validate(second)["errors"]))
         second["selection"]["acknowledge_existing"] = True
         self.assertEqual(validate(second)["error_count"], 0)
@@ -213,6 +214,41 @@ class ValidationTests(ImportFixture):
 
 
 class ConfirmationTests(ImportFixture):
+    def test_staff_can_filter_duplicate_error_and_reuse_approved_question_across_exams(self):
+        original = confirm_import(self.data(), self.user).imported_questions.get().question
+        approved = publish_question(mark_reviewed(original)).published_revision
+        other = Exam.objects.create(authority=self.authority, name="Another exam", code="OTHER", slug="another-exam")
+        data = self.data([values(), values(question_number="2", question_text="Unique second question",
+            verification_notes="Inspect later")], new_paper=True)
+        data["selection"]["exam_id"] = other.pk
+        staging.save(data)
+        with self.assertRaises(ValidationError):
+            confirm_import(data, self.user)
+        self.client.force_login(self.user)
+        url = reverse("imports:preview", args=[data["token"]])
+        preview = self.client.get(url)
+        self.assertContains(preview, "Possible duplicate question in the bank")
+        self.assertContains(preview, f'value="reuse:{approved.pk}"')
+        options = {label: rows for label, rows in preview.context["issue_groups"]}
+        for label, verbs, position in (("Errors", "Possible duplicate", 0), ("Warnings", "Legacy review", 1)):
+            option = next(key for key, text, count in options[label] if text.startswith(verbs))
+            filtered = self.client.get(url, {"issue": option})
+            self.assertEqual([row["index"] for row in filtered.context["page"]], [position])
+            self.assertFalse(filtered.context["editable"])
+        group = preview.context["duplicate_groups"][0]
+        saved = self.client.post(url, {"version": preview.context["version"], "page": 1,
+            f"duplicate_{group['key']}": f"reuse:{approved.pk}"})
+        self.assertEqual(saved.context["result"]["error_count"], 0)
+        batch = confirm_import(staging.load(data["token"], self.user), self.user)
+        reused = batch.imported_questions.get(action="reused")
+        self.assertEqual(reused.question_id, original.pk)
+        self.assertEqual(batch.paper.paper_questions.get(question=original).question_revision_id, approved.pk)
+        self.assertEqual(self.paper.paper_questions.get().question_revision_id, approved.pk)
+        self.assertEqual(set(original.exams.values_list("pk", flat=True)), {self.exam.pk, other.pk})
+        self.assertEqual(original.revisions.count(), 1)
+        self.assertEqual(Question.objects.count(), 2)
+
+
     def test_difficulty_is_normalized_and_blank_is_unrated(self):
         data = self.data([
             values(difficulty_level=" HARD "),
@@ -243,7 +279,7 @@ class ConfirmationTests(ImportFixture):
         self.assertCountEqual(source.references.values_list("source_page", "source_question_number"),
                               [("12", "31"), ("13", "32")])
         self.assertEqual(batch.imported_questions.first().source_metadata["resolved"]["source_id"], source.pk)
-        later = self.data([values(question_number="3", source_code="clerk-s2", source_page="14")])
+        later = self.data([values(question_number="3", question_text="Another question from Clerkship", source_code="clerk-s2", source_page="14")])
         later["selection"]["acknowledge_existing"] = True
         confirm_import(later, self.user)
         self.assertEqual(QuestionSource.objects.count(), 1)

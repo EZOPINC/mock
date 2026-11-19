@@ -1,4 +1,6 @@
+from collections import Counter
 from functools import wraps
+from hashlib import sha256
 
 from django.contrib import messages
 from django.contrib.admin.views.decorators import staff_member_required
@@ -91,14 +93,49 @@ def edit_page(request, data):
                 if not posted.isdigit():
                     raise ValidationError("Invalid taxonomy mapping.")
                 data[f"{kind}_map"][normalized(value)] = int(posted)
-    proposals = validate(data)["groups"]
-    for group in proposals:
-        if group["requires_pairing"] and any(start <= row["index"] < start + len(page.object_list) for row in group["rows"]):
+    result = validate(data)
+    for group in [*result["groups"], *result["skipped_groups"]]:
+        if not any(start <= row["index"] < start + len(page.object_list) for row in group["rows"]):
+            continue
+        if group.get("requires_pairing"):
             if request.POST.get(f"pair_{group['key']}") == "on":
                 data.setdefault("pairings", {})[group["number"]] = group["signature"]
             else:
                 data.setdefault("pairings", {}).pop(group["number"], None)
+        key = f"duplicate_{group['key']}"
+        if key in request.POST:
+            choice = request.POST[key]
+            decisions = data.setdefault("duplicate_decisions", {})
+            if choice:
+                allowed = {f"reuse:{revision.pk}" for revision in group.get("reuse_candidates", ())}
+                if "signature" in group:
+                    allowed.add("separate")
+                if group.get("can_skip"):
+                    allowed.add("skip")
+                if not group.get("has_duplicates") or choice not in allowed:
+                    raise ValidationError("The duplicate choice is no longer available. Revalidate the preview.")
+                if choice == "skip":
+                    decisions[group["number"]] = {"choice": "skip", "input_signature": group["input_signature"],
+                                                 "matched_question_ids": group["matched_question_ids"]}
+                else:
+                    decisions[group["number"]] = {"signature": group["signature"], "choice": choice}
+            else:
+                decisions.pop(group["number"], None)
     return data
+
+
+def issue_key(severity, message):
+    return f"{severity}-{sha256(message.encode()).hexdigest()}"
+
+
+def preview_issues(rows):
+    groups = []
+    for severity, label in (("errors", "Errors"), ("warnings", "Warnings")):
+        counts = Counter(message for row in rows for message in set(row[severity]))
+        if counts:
+            groups.append((label, [(issue_key(severity, message), message, count)
+                                   for message, count in sorted(counts.items())]))
+    return groups
 
 
 @importer
@@ -147,16 +184,27 @@ def preview(request, token):
     rows = result["rows"]
     query = request.GET.get("q", "").strip().casefold()
     status = request.GET.get("status", "")
-    filtered = [row for row in rows if (not query or query in " ".join(row["values"].values()).casefold()) and (status != "errors" or row["errors"]) and (status != "warnings" or row["warnings"])]
+    issue_groups = preview_issues(rows)
+    issues = {key: (key.split("-", 1)[0], text) for _, options in issue_groups for key, text, _ in options}
+    issue = request.GET.get("issue", "")
+    selected_issue = issues.get(issue)
+    filtered = [row for row in rows
+                if (not query or query in " ".join(row["values"].values()).casefold())
+                and (status not in {"errors", "warnings"} or row[status])
+                and (not selected_issue or selected_issue[1] in row[selected_issue[0]])]
     page = Paginator(filtered, preview_page_size(data)).get_page(request.GET.get("page", request.POST.get("page", "1")))
     # Filtered pages are read-only to keep server page indexes unambiguous.
-    editable = not query and not status
+    editable = not query and not status and not selected_issue
     visible_indices = {row["index"] for row in page}
     pairing_groups = [group for group in result["groups"] if group["requires_pairing"] and any(row["index"] in visible_indices for row in group["rows"])]
+    duplicate_groups = [group for group in [*result["groups"], *result["skipped_groups"]] if group.get("has_duplicates")
+                        and any(row["index"] in visible_indices for row in group["rows"])]
     for row in page:
         row["cells"] = [{"name": column, "value": row["values"].get(column, "")} for column in columns_for(data)]
     subject_mappings, topic_mappings = {}, {}
     for row in page:
+        if row.get("skipped"):
+            continue
         values = row["values"]
         key = normalized(values["subject"])
         subject_mappings[key] = {"value": values["subject"], "key": map_key(values["subject"]), "selected": data["subject_map"].get(key)}
@@ -168,7 +216,8 @@ def preview(request, token):
         "subject_mappings": subject_mappings.values(), "topic_mappings": topic_mappings.values(),
         "subjects": Subject.objects.all(), "topics": Topic.objects.select_related("subject"),
         "editable": editable, "query": query, "status": status,
-        "pairing_groups": pairing_groups,
+        "pairing_groups": pairing_groups, "duplicate_groups": duplicate_groups,
+        "issue_groups": issue_groups, "issue": issue,
         "subject_form": subject_form, "topic_form": topic_form,
     })
 
