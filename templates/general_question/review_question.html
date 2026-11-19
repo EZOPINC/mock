@@ -45,6 +45,20 @@
           <button type="submit" name="question_action" value="save">Save question</button>
           {% if next_url %}<button type="submit" name="question_action" value="save_next" class="button button-secondary">Save and next</button>{% endif %}
         </div>
+        <section aria-labelledby="question-sources">
+          <h2 id="question-sources">Sources</h2>
+          {% for reference in question.source_references.all %}
+            <dl>
+              {% if reference.source.source_code %}<dt>Source code</dt><dd>{{ reference.source.source_code }}</dd>{% endif %}
+              <dt>Document</dt><dd>{{ reference.source.source_document }}</dd>
+              {% if reference.source.publisher %}<dt>Publisher</dt><dd>{{ reference.source.publisher }}</dd>{% endif %}
+              {% if reference.source_page %}<dt>Page</dt><dd>{{ reference.source_page }}</dd>{% endif %}
+              {% if reference.source_question_number %}<dt>Original question number</dt><dd>{{ reference.source_question_number }}</dd>{% endif %}
+            </dl>
+          {% empty %}
+            <p>No source references recorded.</p>
+          {% endfor %}
+        </section>
       </aside>
     </div>
   </form>

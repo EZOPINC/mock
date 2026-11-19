@@ -4,7 +4,7 @@ from django.core import signing
 from django.core.exceptions import ValidationError
 from django.core.paginator import Paginator
 from django.db.models import Count, F, Q
-from django.db.models.functions import Coalesce
+from django.db.models.functions import Coalesce, Lower, Trim
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.views.decorators.cache import never_cache
@@ -12,9 +12,10 @@ from django.views.decorators.http import require_http_methods, require_safe
 
 from exams.models import Chapter, Module
 from previous_year.models import PaperQuestion
+from questions.difficulty import RATED_DIFFICULTIES
 from questions.models import QuestionTopic
 
-from .review_forms import ReviewEditForm, ReviewFilters
+from .review_forms import DashboardFilters, ReviewEditForm, ReviewFilters
 from .review_services import imported_questions, question_state, save_review_question, transition_selection
 from .services import require_batch_permission
 
@@ -30,12 +31,23 @@ def taxonomy_counts(associations, ancestor, nodes):
     return [(node, totals[node.pk]) for node in nodes.filter(pk__in=totals)]
 
 
+def filter_working_difficulty(questions, difficulty):
+    if not difficulty:
+        return questions
+    questions = questions.alias(review_difficulty=Lower(Trim("current_revision__difficulty_level")))
+    if difficulty == "any":
+        return questions.filter(current_revision__isnull=False).exclude(review_difficulty__in=RATED_DIFFICULTIES)
+    return questions.filter(review_difficulty=difficulty)
+
+
 @staff_member_required
 @never_cache
 @require_safe
 def dashboard(request):
     require_batch_permission(request.user)
-    questions = imported_questions()
+    filters = DashboardFilters(request.GET)
+    difficulty = filters.cleaned_data["difficulty"] if filters.is_valid() else ""
+    questions = filter_working_difficulty(imported_questions(), difficulty)
     counts = questions.aggregate(total=Count("pk"), pending=Count("pk", filter=Q(review_status="pending_review")),
         drafts=Count("pk", filter=Q(publication_status="draft")), published=Count("pk", filter=Q(publication_status="published")))
     counts["general"] = questions.filter(paper_questions__isnull=True).count()
@@ -54,7 +66,7 @@ def dashboard(request):
         "submodule__module__subject", "submodule__module__part__subject"))
     return render(request, "general_question/dashboard.html", {
         "counts": counts, "subjects": subjects, "exams": exams, "years": years,
-        "modules": modules, "chapters": chapters,
+        "modules": modules, "chapters": chapters, "filters": filters, "difficulty": difficulty,
     })
 
 
@@ -82,7 +94,7 @@ def review_filters(request, selected):
         questions = questions.filter(Q(topic_associations__topic__module=module)
             | Q(topic_associations__topic__chapter__module=module)
             | Q(topic_associations__topic__chapter__submodule__module=module))
-    return form, questions.distinct()
+    return form, filter_working_difficulty(questions, data["difficulty"]).distinct()
 
 
 def queue_url(name, query, *args):
@@ -131,7 +143,7 @@ def review_question(request, question_id):
     form, questions = review_filters(request, selected)
     query = request.GET.urlencode()
     question = get_object_or_404(imported_questions().select_related("subject", "current_revision").prefetch_related(
-        "current_revision__translations", "exams__authority"), pk=question_id)
+        "current_revision__translations", "exams__authority", "source_references__source"), pk=question_id)
     question_key = str(question.pk)
     previous_id = questions.filter(pk__lt=question_id).order_by("-pk").values_list("pk", flat=True).first()
     next_id = questions.filter(pk__gt=question_id).order_by("pk").values_list("pk", flat=True).first()

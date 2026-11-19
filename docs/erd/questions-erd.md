@@ -15,6 +15,7 @@ Django `on_delete` policy and SQL FK action are different: the policies below de
 - `questions.0006_question_kind` adds `Question.question_kind` with Logical, Static and Unclassified values.
 - `mock_tests.0009_question_kind` adds the Any, Logical or Static filter to `SectionSelectionRule`. Any is stored as an empty string.
 - `exams.0011_default_mock_language` adds `Exam.default_mock_language`. It sets English for WBCS and Bengali for the other WBPSC exams.
+- `questions.0010_source_codes` adds an optional unique code and publisher to `QuestionSource`.
 
 ## Relationships to review
 
@@ -22,7 +23,7 @@ Django `on_delete` policy and SQL FK action are different: the policies below de
 - QuestionRevision stores the primary language code and shared answer, difficulty and version metadata. QuestionTranslation stores immutable per-revision text, options and explanations. Its correct_answer property reads the revision answer key.
 - Question.topic_id mirrors the primary QuestionTopic tag. The pair (question_id, topic_id) is unique; a partial unique index allows at most one primary per question. Deferred database triggers require a primary tag matching the pointer whenever tags exist. Unclassified questions may have neither.
 - Question.topics, Question.exams and Question.sources are M2M fields backed by the three explicit join tables shown. There are no additional implicit M2M tables for these fields.
-- QuestionSourceReference has page/source-number metadata and no unique Question/Source pair constraint. Multiple references for one pair are possible. QuestionSource document/name fields are not unique.
+- QuestionSourceReference stores page and original question number per question. Multiple references per Question/Source pair are possible. QuestionSource has an optional unique code and requires a document for coded sources.
 - PaperQuestion, AttemptQuestion and PracticeQuestion pin a revision alongside the master Question. ImportedQuestion, ManualRuleQuestion and SavedQuestion reference the master. SavedQuestion.question uses CASCADE; all other direct inbound Question/Revision FKs use PROTECT.
 - A subject is shared across exams; there is no direct Subject/Exam join. QuestionExam establishes membership. Taxonomy nodes store a subject anchor plus at most one immediate parent; intermediate levels may be skipped. Submodule requires Module. Legacy Topics may lack a Chapter.
 - JSON/JSONB columns contain snapshots or audit metadata; their internal values are not physical FK relationships and are not drawn as such.
@@ -86,6 +87,8 @@ erDiagram
     }
     questions_questionsource {
         bigint id PK "NOT_NULL"
+        character_varying_64_ source_code UK "NULL"
+        character_varying_200_ publisher "NOT_NULL"
         character_varying_200_ source_name "NOT_NULL"
         character_varying_500_ source_document "NOT_NULL"
         timestamp_with_time_zone created_at "NOT_NULL"
@@ -862,6 +865,8 @@ Model: `questions.QuestionSource` · Group: core
 | Column | SQL type | Key | Nullable | Reference / ORM deletion |
 |---|---|---|---|---|
 | id | bigint | PK | False |  |
+| source_code | character varying(64) | unique | True |  |
+| publisher | character varying(200) |  | False |  |
 | source_name | character varying(200) |  | False |  |
 | source_document | character varying(500) |  | False |  |
 | created_at | timestamp with time zone |  | False |  |
@@ -869,11 +874,15 @@ Model: `questions.QuestionSource` · Group: core
 <details><summary>Database constraints</summary>
 
 ```sql
+questions_coded_source_has_document: CHECK (((source_code IS NULL) OR (NOT ((source_document)::text = ''::text))))
 questions_questionsource_created_at_not_null: NOT NULL created_at
 questions_questionsource_id_not_null: NOT NULL id
 questions_questionsource_pkey: PRIMARY KEY (id)
+questions_questionsource_publisher_not_null: NOT NULL publisher
+questions_questionsource_source_code_key: UNIQUE (source_code)
 questions_questionsource_source_document_not_null: NOT NULL source_document
 questions_questionsource_source_name_not_null: NOT NULL source_name
+questions_source_code_format: CHECK (((source_code IS NULL) OR ((source_code)::text ~ '^[A-Z0-9][A-Z0-9._-]{0,63}$'::text)))
 ```
 
 </details>
@@ -882,6 +891,8 @@ questions_questionsource_source_name_not_null: NOT NULL source_name
 
 ```sql
 questions_questionsource_pkey: CREATE UNIQUE INDEX questions_questionsource_pkey ON public.questions_questionsource USING btree (id)
+questions_questionsource_source_code_77c2104e_like: CREATE INDEX questions_questionsource_source_code_77c2104e_like ON public.questions_questionsource USING btree (source_code varchar_pattern_ops)
+questions_questionsource_source_code_key: CREATE UNIQUE INDEX questions_questionsource_source_code_key ON public.questions_questionsource USING btree (source_code)
 ```
 
 </details>

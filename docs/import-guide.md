@@ -88,6 +88,8 @@ stale edits; contextual uniqueness and workflow locks protect concurrent confirm
 
 ## General collections and checks
 
+Source codes are optional. To introduce a code, supply `source_document` on at least one matching row. Other rows can reuse the code and provide their own `source_page` and `source_question_number`. Supply `source_publisher` when known. Preview resolves the shared source, and confirmation saves it and the question locators in the same transaction. Staff can see the result in the review sidebar's **Sources** panel.
+
 GeneralQuestionBatch is a proxy over completed General ImportBatch records; no separate
 Question Bank is created. The General UI/Admin delegates inspected-batch review/publication
 to existing Question services. Open **Manage / General Questions** to choose an import mode or review existing questions. In the preview grid, double-click a cell or press Enter to edit it in a larger panel. Expand the pinned row status to inspect errors, warnings, and mappings. Save and revalidate before confirming. After confirmation, use **Review imported questions** to open that batch in the staff queue. See [workflow and rollback notes](question-workspace.md).

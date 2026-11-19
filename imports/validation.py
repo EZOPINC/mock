@@ -10,6 +10,7 @@ from django.db.models.functions import Coalesce, Lower, Trim
 
 from exams.models import Exam
 from previous_year.models import PreviousYearPaper
+from questions.difficulty import Difficulty, normalize_difficulty
 from questions.models import QuestionKind, QuestionRevision, QuestionTranslation
 from .models import ImportBatch, ImportedQuestion
 from .parsing import COLUMNS, MAX_CELL, REQUIRED
@@ -17,6 +18,7 @@ from .context import context_hash, exam_ids, mode
 from .translation_input import normalize_translations
 from .taxonomy import TaxonomyCatalogue, normalized
 from .pairing import groups_for
+from .sources import resolve_sources
 
 CONTENT = ("language", "question_text", "option_a", "option_b", "option_c", "option_d", "correct_answer", "explanation")
 
@@ -181,21 +183,13 @@ def validate(data, *, locked=False):
             warnings.append("Form-selected exams are authoritative; source exam_categories is retained as metadata.")
         if values["previous_year_tags"].strip():
             warnings.append("Source previous_year_tags is retained as metadata; it does not override this import's paper selection.")
-        page = values["source_page"].strip()
-        if len(page) > 50 or any(ord(char) < 32 for char in page):
-            row_errors.append("source_page must be a printable page reference of at most 50 characters.")
-        if page.lstrip("-").isdigit() and int(page) < 1:
-            row_errors.append("Numeric source pages must be positive.")
-        if page and not values["source_document"].strip():
-            row_errors.append("source_page requires source_document.")
-        if len(values["source_document"].strip()) > 500:
-            row_errors.append("source_document must not exceed 500 characters.")
         question_kind = values.get("question_kind", "")
         question_kind = question_kind.strip().lower() if isinstance(question_kind, str) else ""
         if question_kind and question_kind not in QuestionKind.values:
             row_errors.append("question_kind must be Logical, Static, Unclassified, or blank.")
-        if len(values["difficulty_level"].strip()) > 100:
-            row_errors.append("difficulty_level must not exceed 100 characters.")
+        difficulty = normalize_difficulty(values.get("difficulty_level", ""))
+        if difficulty not in Difficulty.values:
+            row_errors.append("difficulty_level must be Easy, Medium, Hard, Any, or blank.")
         if len(json.dumps(values, ensure_ascii=False).encode()) > 128 * 1024:
             row_errors.append("Row metadata exceeds 128 KB.")
         if len(json.dumps(row.get("original_values", values), ensure_ascii=False).encode()) > 128 * 1024:
@@ -218,16 +212,17 @@ def validate(data, *, locked=False):
         seen.add(key)
         if values["review_status"].strip() or values["verification_notes"].strip():
             warnings.append("Legacy review/verification values are audit metadata only. The question will be pending review.")
-        result.append({"index": index, "source_row": row["source_row"], "values": values, "question_kind": question_kind,
+        result.append({"index": index, "source_row": row["source_row"], "values": values, "question_kind": question_kind, "difficulty": difficulty,
                        "freshness": freshness_input(values, subject, row_errors, warnings),
                        "errors": row_errors, "warnings": warnings, **taxonomy, "revision": revision, "translations": translations, "translation_languages": [item["language"] for item in translations], "exams": resolved_exams})
+    source_plans = resolve_sources(result)
     groups = groups_for(result, data.get("pairings", {}))
     if paper is not None and paper.expected_question_count is not None:
         try:
             paper.validate_question_count(actual_count=len(existing_numbers) + len(groups))
         except ValidationError as error:
             errors.extend(error.messages)
-    return {"taxonomy_catalogue": catalogue, "rows": result, "groups": groups, "master_count": len(groups), "errors": errors, "exam": exams[0] if len(exams) == 1 else None, "exams": exams, "import_type": mode(data), "paper": paper, "existing_count": len(existing_numbers), "existing_imports": existing_imports,
+    return {"taxonomy_catalogue": catalogue, "source_plans": source_plans, "rows": result, "groups": groups, "master_count": len(groups), "errors": errors, "exam": exams[0] if len(exams) == 1 else None, "exams": exams, "import_type": mode(data), "paper": paper, "existing_count": len(existing_numbers), "existing_imports": existing_imports,
             "total": len(result), "valid": sum(not row["errors"] for row in result),
             "error_count": sum(len(row["errors"]) for row in result) + len(errors),
             "warning_count": sum(len(row["warnings"]) for row in result)}

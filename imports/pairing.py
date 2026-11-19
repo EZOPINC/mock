@@ -52,7 +52,7 @@ def groups_for(rows, approvals):
                         row["warnings"].append("This question is expired and will be excluded from new mocks and practice sets.")
         if len(members) > 1:
             languages = [item["language"] for row in members for item in row.get("translations", [row["revision"]])]
-            shared = {(row["revision"]["correct_answer"], row["values"]["difficulty_level"].strip(),
+            shared = {(row["revision"]["correct_answer"], row["difficulty"],
                        row["subject"].code if row["subject"] else None,
                        json.dumps(topic_identity(row["topic"])),
                        row.get("taxonomy_path", ""),

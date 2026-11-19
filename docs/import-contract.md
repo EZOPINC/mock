@@ -40,7 +40,7 @@ CSV/XLSX taxonomy samples include these optional columns; older files remain val
 |---|---|
 | question_number | Local grouping/paper number; string identity within the selected import context |
 | question_text, option_a, option_b, option_c, option_d, explanation | Primary content/optional explanation in the revision snapshot |
-| correct_answer, difficulty_level | Shared versioned answer/difficulty; difficulty is used by existing selection/filter flows |
+| correct_answer, difficulty_level | Shared versioned answer and difficulty. Use Easy, Medium or Hard (case-insensitive). Blank, missing or Any stores unrated difficulty. |
 | question_kind | Optional master classification used by mock selection. Use Logical, Static or Unclassified (case-insensitive). Blank or missing defaults to Unclassified. Paired language rows must agree on any supplied values. |
 | current_as_of, expires_on | Optional YYYY-MM-DD dates for subjects with an expiry policy. Without an explicit expiry, use the current-as-of date or first successful import date plus the configured calendar years. Expiry is the first ineligible date for new mocks and practice. Paired language rows must agree on supplied dates. Other subjects ignore these columns with a warning. |
 | language | Configured language; normalization/inference rules live in imports/language.py |
@@ -50,8 +50,9 @@ CSV/XLSX taxonomy samples include these optional columns; older files remain val
 | additional_topic_codes | Secondary topics, separated by semicolon/comma/pipe; deduplicated within the same Subject |
 | exam_categories | Existing-exam resolution only when row mapping is selected; otherwise preserved metadata |
 | previous_year_tags | Audit metadata; never overrides the form-selected paper |
-| source_document, source_page | Optional source references; page labels are bounded/validated |
-| source_question_number | Original numbering metadata when question_number is also present |
+| source_code | Optional private source identifier. Codes are normalized to uppercase. A new code needs a document on at least one row. Existing codes can be reused with locators alone. |
+| source_document, source_publisher | Document and optional publisher shared by rows with the same code. Conflicting values block confirmation. Without a code, the document follows the legacy reference path and the publisher remains import metadata. |
+| source_page, source_question_number | Optional page and original question number stored on the question's source reference. The original question number can also supply a missing question_number header. |
 | review_status, verification_notes, comments | Source audit metadata, not editorial approval |
 | created_date, updated_date, updated_by | Source metadata, never replacements for system timestamps/User identity |
 | handwritten_mark_unverified, needs_review, source_row | Extraction/audit metadata; not an answer or publication signal |

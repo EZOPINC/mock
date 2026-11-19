@@ -964,6 +964,28 @@
           "choices": []
         },
         {
+          "column": "source_code",
+          "type": "character varying(64)",
+          "nullable": true,
+          "pk": false,
+          "unique": true,
+          "target": null,
+          "on_delete": null,
+          "blank": true,
+          "choices": []
+        },
+        {
+          "column": "publisher",
+          "type": "character varying(200)",
+          "nullable": false,
+          "pk": false,
+          "unique": false,
+          "target": null,
+          "on_delete": null,
+          "blank": true,
+          "choices": []
+        },
+        {
           "column": "source_name",
           "type": "character varying(200)",
           "nullable": false,
@@ -999,6 +1021,10 @@
       ],
       "constraints": [
         {
+          "name": "questions_coded_source_has_document",
+          "definition": "CHECK (((source_code IS NULL) OR (NOT ((source_document)::text = ''::text))))"
+        },
+        {
           "name": "questions_questionsource_created_at_not_null",
           "definition": "NOT NULL created_at"
         },
@@ -1011,18 +1037,38 @@
           "definition": "PRIMARY KEY (id)"
         },
         {
+          "name": "questions_questionsource_publisher_not_null",
+          "definition": "NOT NULL publisher"
+        },
+        {
+          "name": "questions_questionsource_source_code_key",
+          "definition": "UNIQUE (source_code)"
+        },
+        {
           "name": "questions_questionsource_source_document_not_null",
           "definition": "NOT NULL source_document"
         },
         {
           "name": "questions_questionsource_source_name_not_null",
           "definition": "NOT NULL source_name"
+        },
+        {
+          "name": "questions_source_code_format",
+          "definition": "CHECK (((source_code IS NULL) OR ((source_code)::text ~ '^[A-Z0-9][A-Z0-9._-]{0,63}$'::text)))"
         }
       ],
       "indexes": [
         {
           "name": "questions_questionsource_pkey",
           "definition": "CREATE UNIQUE INDEX questions_questionsource_pkey ON public.questions_questionsource USING btree (id)"
+        },
+        {
+          "name": "questions_questionsource_source_code_77c2104e_like",
+          "definition": "CREATE INDEX questions_questionsource_source_code_77c2104e_like ON public.questions_questionsource USING btree (source_code varchar_pattern_ops)"
+        },
+        {
+          "name": "questions_questionsource_source_code_key",
+          "definition": "CREATE UNIQUE INDEX questions_questionsource_source_code_key ON public.questions_questionsource USING btree (source_code)"
         }
       ],
       "triggers": []

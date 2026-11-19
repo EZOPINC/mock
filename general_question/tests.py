@@ -202,11 +202,18 @@ class GeneralModuleTests(ImportFixture):
         data = response.context["edit"].initial | {
             "question_action": "save", "revision_snapshot": response.context["revision_snapshot"],
             "question_text_en": "Revised working content", "question_kind": "logical", "topic": self.topic.pk,
+            "difficulty_level": "hard",
         }
         data = {key: value for key, value in data.items() if value is not None}
         self.assertEqual(self.client.post(editor, data).status_code, 302)
         first.refresh_from_db()
         self.assertEqual(first.current_revision.question_text, "Revised working content")
+        self.assertEqual(first.current_revision.difficulty_level, "hard")
+        dashboard = self.client.get(reverse("general_questions:dashboard"), {"difficulty": "hard"})
+        self.assertEqual(dashboard.context["counts"]["total"], 1)
+        self.assertContains(dashboard, f'{queue}?difficulty=hard')
+        for difficulty, total in (("hard", 1), ("any", 1), ("easy", 0)):
+            self.assertEqual(self.client.get(queue, {"difficulty": difficulty}).context["page"].paginator.count, total)
         self.assertEqual(first.published_revision_id, live)
         self.assertEqual(first.topic_id, self.topic.pk)
         self.assertContains(self.client.post(editor, data), "changed or expired")

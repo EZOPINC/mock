@@ -335,16 +335,36 @@ class QuestionExam(models.Model):
         return f"{self.question} / {self.exam}"
 
 
+SOURCE_CODE_PATTERN = r"^[A-Z0-9][A-Z0-9._-]{0,63}$"
+
+
 class QuestionSource(models.Model):
+    source_code = models.CharField(max_length=64, unique=True, null=True, blank=True)
+    publisher = models.CharField(max_length=200, blank=True, default="")
     source_name = models.CharField(max_length=200)
     source_document = models.CharField(max_length=500)
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         ordering = ("source_name", "pk")
+        constraints = [
+            models.CheckConstraint(
+                condition=Q(source_code__isnull=True) | Q(source_code__regex=SOURCE_CODE_PATTERN),
+                name="questions_source_code_format",
+            ),
+            models.CheckConstraint(
+                condition=Q(source_code__isnull=True) | ~Q(source_document=""),
+                name="questions_coded_source_has_document",
+            ),
+        ]
+
+    def clean(self):
+        super().clean()
+        self.source_code = (self.source_code or "").strip().upper() or None
 
     def __str__(self):
-        return f"{self.source_name}: {self.source_document}"
+        label = f"{self.source_name}: {self.source_document}"
+        return f"{self.source_code} - {label}" if self.source_code else label
 
 
 class QuestionSourceReference(models.Model):

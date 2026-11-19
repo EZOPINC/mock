@@ -331,8 +331,8 @@ class QuestionRevisionAdmin(admin.ModelAdmin):
 
 @admin.register(QuestionSource)
 class QuestionSourceAdmin(admin.ModelAdmin):
-    list_display = ("source_name", "source_document", "created_at")
-    search_fields = ("source_name", "source_document")
+    list_display = ("source_code", "source_name", "source_document", "publisher", "created_at")
+    search_fields = ("source_code", "source_name", "source_document", "publisher")
     readonly_fields = ("created_at",)
 
 
@@ -347,7 +347,7 @@ class QuestionExamAdmin(admin.ModelAdmin):
 class QuestionSourceReferenceAdmin(admin.ModelAdmin):
     list_display = ("question", "source", "source_page",
                     "source_question_number")
-    search_fields = ("source__source_name",
+    search_fields = ("source__source_code", "source__source_name",
                      "source__source_document", "source_question_number")
     autocomplete_fields = ("question", "source")
 

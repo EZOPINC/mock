@@ -20,7 +20,7 @@ from openpyxl import Workbook
 from exams.models import Exam, ExamAuthority, Subject, Topic
 from previous_year.models import PaperQuestion, PreviousYearPaper
 from previous_year.services import publish_paper, published_papers
-from questions.models import Question, QuestionExam, QuestionRevision, QuestionSourceReference
+from questions.models import Question, QuestionExam, QuestionRevision, QuestionSource, QuestionSourceReference
 from questions.services import mark_reviewed, publish_question
 from . import staging
 from .models import ImportBatch, ImportedQuestion
@@ -213,6 +213,60 @@ class ValidationTests(ImportFixture):
 
 
 class ConfirmationTests(ImportFixture):
+    def test_difficulty_is_normalized_and_blank_is_unrated(self):
+        data = self.data([
+            values(difficulty_level=" HARD "),
+            values(question_number="2"),
+            values(question_number="3", difficulty_level="Any"),
+        ])
+        batch = confirm_import(data, self.user)
+        revisions = batch.imported_questions.order_by("source_row_number").values_list(
+            "question__current_revision__difficulty_level", flat=True)
+        self.assertEqual(list(revisions), ["hard", "", ""])
+        invalid = self.data([values(question_number="4", difficulty_level="advanced")])
+        self.assertIn("difficulty_level must be Easy, Medium, Hard, Any, or blank.",
+                      validate(invalid)["rows"][0]["errors"])
+
+    def test_source_code_creates_one_private_source_and_keeps_each_locator(self):
+        data = self.data([
+            values(source_code="CLERK-S2", source_page="12", source_question_number="31"),
+            values(question_number="2", source_code="clerk-s2", source_document="Clerkship S2.pdf",
+                   source_publisher="WBPSC", source_page="13", source_question_number="32"),
+        ])
+        result = validate(data)
+        self.assertEqual(result["error_count"], 0)
+        self.assertEqual(result["rows"][0]["source_reference"]["document"], "Clerkship S2.pdf")
+        self.assertFalse(QuestionSource.objects.exists())
+        batch = confirm_import(data, self.user)
+        source = QuestionSource.objects.get(source_code="CLERK-S2")
+        self.assertEqual(source.publisher, "WBPSC")
+        self.assertCountEqual(source.references.values_list("source_page", "source_question_number"),
+                              [("12", "31"), ("13", "32")])
+        self.assertEqual(batch.imported_questions.first().source_metadata["resolved"]["source_id"], source.pk)
+        later = self.data([values(question_number="3", source_code="clerk-s2", source_page="14")])
+        later["selection"]["acknowledge_existing"] = True
+        confirm_import(later, self.user)
+        self.assertEqual(QuestionSource.objects.count(), 1)
+        question_id = batch.imported_questions.first().question_id
+        url = reverse("general_questions:review_question", args=[question_id])
+        self.assertEqual(self.client.get(url).status_code, 302)
+        self.client.force_login(self.user)
+        self.assertContains(self.client.get(url), "Clerkship S2.pdf")
+
+    def test_source_code_rejects_missing_document_and_conflicting_references(self):
+        missing = self.data([values(source_code="NEW")])
+        self.assertIn("Supply source_document", " ".join(validate(missing)["rows"][0]["errors"]))
+        conflict = self.data([
+            values(source_code="NEW", source_document="First.pdf"),
+            values(question_number="2", source_code="new", source_document="Second.pdf"),
+        ])
+        errors = [row["errors"] for row in validate(conflict)["rows"]]
+        for row_errors in errors:
+            self.assertIn("has conflicting documents or publishers", " ".join(row_errors))
+        with self.assertRaises(ValidationError):
+            confirm_import(conflict, self.user)
+        self.assertFalse(QuestionSource.objects.exists())
+
     def test_freshness_dates_from_excel_and_expiry_override(self):
         self.subject.question_freshness_years = 3
         self.subject.save(update_fields=["question_freshness_years"])

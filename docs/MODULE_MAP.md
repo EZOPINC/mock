@@ -91,6 +91,7 @@ Use `docs/architecture.md` for architecture context and `docs/DEVELOPMENT_RULES.
 | `imports/translation_input.py`, `imports/language.py` | normalize_translations, normalize_language, infer_language |
 | `imports/taxonomy.py`, `imports/pairing.py` | TaxonomyCatalogue.resolve/propose/persist; groups_for approval signatures |
 | `imports/validation.py`, `imports/context.py` | validate, selection, row_exams; mode, exam_ids, context_hash |
+| `imports/sources.py` | Resolve optional source codes across a file and persist private question references at confirmation |
 | `imports/staging.py`, `imports/permissions.py` | create/load/save/locked/digest/cleanup; require_import_permission |
 | `imports/services.py` | confirm_import(data, user); owner/permission checks, locks, revalidation, atomic audit/writes |
 | `previous_year/services.py` | publish_paper, unpublish_paper, published_papers |

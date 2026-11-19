@@ -51,6 +51,8 @@ erDiagram
     }
     questions_questionsource {
         bigint id PK "NOT_NULL"
+        character_varying_64_ source_code UK "NULL"
+        character_varying_200_ publisher "NOT_NULL"
         character_varying_200_ source_name "NOT_NULL"
         character_varying_500_ source_document "NOT_NULL"
         timestamp_with_time_zone created_at "NOT_NULL"

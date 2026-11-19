@@ -33,7 +33,7 @@ See [flexible taxonomy](flexible-taxonomy.md) for the exact optional-parent cons
 | questions.QuestionTranslation | Question text, options and explanation for one language within a revision | Unique revision/language; publishing requires the primary edition |
 | questions.QuestionTopic | Master/Topic association and primary flag | Unique pair; one primary; tags share Subject; pointer/tag compatibility |
 | questions.QuestionExam | Master/Exam association | Unique pair; indexed exam/question access |
-| questions.QuestionSource | Source name/document | Provenance identity |
+| questions.QuestionSource | Source name, document, optional code and publisher | Provenance identity; coded sources require a document and have globally unique uppercase codes |
 | questions.QuestionSourceReference | Master/source/page/question-number metadata | Protected provenance references |
 
 The master, not a translation or revision, is the deduplication identity.
