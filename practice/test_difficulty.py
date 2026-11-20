@@ -71,12 +71,19 @@ class DifficultyFlowTests(PracticeFixture):
 
     def test_subject_links_to_modules_then_difficulty_and_language(self):
         first = self.leveled_question("Easy", topic=self.module_topic)
-        self.leveled_question("Easy")
+        outside_module = self.leveled_question("Easy")
         self.leveled_question("Hard", topic=self.module_topic)
         url = self.url
         subjects = reverse("practice:subjects", args=[self.authority.slug, self.exam.slug])
         self.assertContains(self.client.get(subjects), self.configure_url())
-        self.assertContains(self.client.get(self.configure_url()), url)
+        whole_subject_url = reverse("practice:difficulty", args=[self.authority.slug, self.exam.slug, self.subject.slug])
+        modules = self.client.get(self.configure_url())
+        self.assertContains(modules, url)
+        self.assertContains(modules, f'href="{whole_subject_url}"')
+        self.assertContains(modules, "All modules")
+        whole_subject = self.client.get(whole_subject_url)
+        self.assertContains(whole_subject, "Easy - 2 questions")
+        self.assertContains(whole_subject, "Back to modules")
         response = self.client.get(url)
         self.assertContains(response, "Easy - 1 question")
         self.assertContains(response, 'name="language"')
@@ -87,6 +94,10 @@ class DifficultyFlowTests(PracticeFixture):
         self.assertEqual(set(session.questions.values_list("question_id", flat=True)), {first.pk})
         self.assertEqual(session.configuration["language"], "en")
         self.assertContains(self.client.get(self.session_url(session)), "Difficulty question")
+        token = uuid4()
+        self.client.post(whole_subject_url, {"token": token, "difficulty": "level:easy", "language": "en"})
+        whole_session = PracticeSession.objects.get(start_token=token)
+        self.assertEqual(set(whole_session.questions.values_list("question_id", flat=True)), {first.pk, outside_module.pk})
 
     def setUp(self):
         self.client.force_login(self.user)
@@ -140,10 +151,10 @@ class DifficultyFlowTests(PracticeFixture):
         session = self.session(module=self.module, difficulty="easy")
         self.assertEqual(session.questions.get().question_revision_id, question.published_revision_id)
 
-    def test_no_modules_fallback_and_unspecified_difficulty(self):
+    def test_all_modules_without_module_assignments_and_unspecified_difficulty(self):
         question = self.question()
         response = self.client.get(self.configure_url())
-        self.assertContains(response, "Continue with this subject")
+        self.assertContains(response, "All modules")
         url = reverse("practice:difficulty", args=[self.authority.slug, self.exam.slug, self.subject.slug])
         self.assertContains(self.client.get(url), "Unspecified difficulty")
         self.client.post(url, {"token": uuid4(), "difficulty": "level:"})

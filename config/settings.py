@@ -60,6 +60,7 @@ INSTALLED_APPS = [
     "mock_tests.apps.MockTestsConfig",
     "practice.apps.PracticeConfig",
     "revision.apps.RevisionConfig",
+    "billing.apps.BillingConfig",
 ]
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -135,3 +136,15 @@ IMPORT_STAGING_ROOT = Path(os.environ.get("IMPORT_STAGING_ROOT", str(BASE_DIR / 
 IMPORT_MAX_UPLOAD_BYTES = 5 * 1024 * 1024
 IMPORT_MAX_ROWS = 2000
 IMPORT_STAGE_SECONDS = 2 * 60 * 60
+
+try:
+    PRACTICE_FREE_SESSION_SIZE = int(os.environ.get("PRACTICE_FREE_SESSION_SIZE", "10"))
+except ValueError as exc:
+    raise ImproperlyConfigured("PRACTICE_FREE_SESSION_SIZE must be a positive integer.") from exc
+if PRACTICE_FREE_SESSION_SIZE <= 0:
+    raise ImproperlyConfigured("PRACTICE_FREE_SESSION_SIZE must be a positive integer.")
+
+# No real provider exists in B4. Simulation requires explicit local opt-in.
+BILLING_SIMULATION_ENABLED = boolean("BILLING_SIMULATION_ENABLED")
+if BILLING_SIMULATION_ENABLED and (IS_PRODUCTION or not DEBUG):
+    raise ImproperlyConfigured("Billing simulation requires DEBUG=True outside production.")

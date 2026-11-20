@@ -1,9 +1,12 @@
+from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import models, transaction
+from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db.models import F, Q, Value
 from django.db.models.functions import Coalesce, Lower, Trim
 
 from questions.models import Question, QuestionExam, QuestionRevision
+from .appearance_input import appearance_identity
 
 
 class PaperWorkflowQuerySet(models.QuerySet):
@@ -199,3 +202,50 @@ class PaperQuestion(models.Model):
             if paper.is_published:
                 raise ValidationError("Unpublish the paper before removing questions.")
             return super().delete(*args, **kwargs)
+
+class QuestionAppearance(models.Model):
+    """Staff-verified provenance that can exist without a catalogue paper."""
+
+    question = models.ForeignKey(Question, on_delete=models.PROTECT, related_name="exam_appearances")
+    exam = models.ForeignKey("exams.Exam", null=True, blank=True, on_delete=models.PROTECT)
+    exam_name = models.CharField(max_length=200, blank=True)
+    authority_name = models.CharField(max_length=200, blank=True)
+    year = models.PositiveSmallIntegerField(validators=[MinValueValidator(1000), MaxValueValidator(9999)])
+    stage = models.CharField(max_length=100, blank=True)
+    session = models.CharField(max_length=100, blank=True)
+    question_number = models.CharField(max_length=100, blank=True)
+    source_reference = models.ForeignKey("questions.QuestionSourceReference", null=True, blank=True, on_delete=models.PROTECT)
+    verified_by = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True, on_delete=models.PROTECT)
+    verified_at = models.DateTimeField(null=True, blank=True)
+    identity = models.CharField(max_length=64, editable=False)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ("-year", "exam_name", "pk")
+        constraints = [
+            models.UniqueConstraint(fields=("question", "identity"), name="previous_appearance_identity_unique"),
+            models.CheckConstraint(condition=Q(year__range=(1000, 9999)), name="previous_appearance_year_range"),
+            models.CheckConstraint(condition=Q(exam__isnull=False) | ~Q(exam_name=""), name="previous_appearance_has_exam"),
+            models.CheckConstraint(
+                condition=Q(verified_at__isnull=True, verified_by__isnull=True) | Q(verified_at__isnull=False, verified_by__isnull=False),
+                name="previous_appearance_verification_pair",
+            ),
+        ]
+
+    def __str__(self):
+        return f"{self.exam.name if self.exam_id else self.exam_name} {self.year}"
+
+    def clean(self):
+        super().clean()
+        for field in ("exam_name", "authority_name", "stage", "session", "question_number"):
+            setattr(self, field, getattr(self, field).strip())
+        if not self.exam_id and not self.exam_name:
+            raise ValidationError({"exam_name": "Enter an exam name or select a catalogue exam."})
+        if self.source_reference_id and self.source_reference.question_id != self.question_id:
+            raise ValidationError({"source_reference": "Choose a source attached to this question."})
+        self.identity = appearance_identity(self.exam_id, self.exam_name, self.authority_name,
+            self.year, self.stage, self.session, self.question_number)
+
+    def save(self, *args, **kwargs):
+        self.full_clean()
+        return super().save(*args, **kwargs)

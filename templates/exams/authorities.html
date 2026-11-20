@@ -1,5 +1,5 @@
-{% extends "base.html" %}{% load static %}{% block title %}Exam Authorities | Mock Exam Platform{% endblock %}{% block extra_head %}<script src="{% static 'js/discovery-filter.js' %}" defer></script>{% endblock %}{% block content %}<div class="ui-discovery">
-<nav class="breadcrumbs" aria-label="Breadcrumb"><a href="{% url 'home' %}">Home</a>{% include "components/icon.html" with name="chevron" %}<span aria-current="page">Exam Authorities</span></nav>
-{% include "components/page_heading.html" with eyebrow="FIND YOUR FOCUS" heading="Your exam. Your starting point." description="Choose an exam authority to discover its exams and available learning resources." %}
-{% include "components/discovery_filter.html" with target="authority-results" filter_label="Filter exam categories" filter_placeholder="Search by authority or exam name" %}
+{% extends "base.html" %}{% load static %}{% block title %}All Exams | Mock Exam Platform{% endblock %}{% block extra_head %}<script src="{% static 'js/discovery-filter.js' %}" defer></script>{% endblock %}{% block content %}<div class="ui-discovery">
+<nav class="breadcrumbs" aria-label="Breadcrumb"><a href="{% url 'home' %}">Home</a>{% include "components/icon.html" with name="chevron" %}<span aria-current="page">All Exams</span></nav>
+<h1 class="tw:sr-only">All Exams</h1>
+{% include "components/discovery_filter.html" with target="authority-results" filter_label="Filter exam categories" filter_placeholder="Search by exam category or exam name" %}
 {% include "components/authority_cards.html" with filter_list_id="authority-results" %}</div>{% endblock %}

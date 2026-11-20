@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Q
 from django.core.exceptions import ValidationError
 from django.db.models.functions import Lower, Trim
 
@@ -124,13 +125,29 @@ class ExamAuthority(models.Model):
 class Exam(models.Model):
     authority = models.ForeignKey(ExamAuthority, on_delete=models.PROTECT, related_name="exams")
     name = models.CharField(max_length=200)
+    description = models.TextField(
+        blank=True, default="", max_length=1000,
+        help_text="Optional public introduction: exam full form, a short overview, format or languages. Maximum 1,000 characters.",
+    )
     code = models.CharField(max_length=50)
     slug = models.SlugField(max_length=200)
     is_active = models.BooleanField(default=True)
 
+    default_mock_language = models.CharField(
+        max_length=2, blank=True, default="", choices=[("", "Automatic"), ("en", "English"), ("bn", "Bengali")],
+        help_text="Automatic uses English for WBCS, Bengali for other WBPSC exams, or the pattern language for other authorities.",
+    )
+
+    @property
+    def preferred_mock_language(self):
+        if self.default_mock_language or self.authority.code.lower() != "wbpsc":
+            return self.default_mock_language
+        return "en" if self.code.lower() == "wbcs" else "bn"
+
     class Meta:
         ordering = ("name", "pk")
         constraints = [
+            models.CheckConstraint(condition=Q(default_mock_language__in=["", "en", "bn"]), name="exams_mock_language_valid"),
             models.UniqueConstraint(fields=("authority", "code"), name="exams_exam_authority_code_uniq"),
             models.UniqueConstraint(fields=("authority", "slug"), name="exams_exam_authority_slug_uniq"),
         ]
@@ -161,9 +178,20 @@ class Subject(models.Model):
     slug = models.SlugField(max_length=200, unique=True)
     display_order = models.PositiveIntegerField(default=0)
 
+    question_freshness_years = models.PositiveSmallIntegerField(
+        choices=[(2, "2 years"), (3, "3 years")], null=True, blank=True,
+        help_text="Leave blank to ignore question expiry when building new mocks and practice sets.",
+    )
+
     class Meta:
         ordering = ("name", "pk")
-        constraints = code_constraints("subject")
+        constraints = [
+            *code_constraints("subject"),
+            models.CheckConstraint(
+                condition=Q(question_freshness_years__isnull=True) | Q(question_freshness_years__in=[2, 3]),
+                name="exams_subject_freshness_years_valid",
+            ),
+        ]
 
     def __str__(self):
         return self.name

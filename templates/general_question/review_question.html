@@ -1,0 +1,82 @@
+{% extends "imports/base.html" %}
+{% load static %}
+{% block title %}Review question {{ question.pk }}{% endblock %}
+{% block workspace_main_class %} workspace-main-wide{% endblock %}
+{% block import_content %}
+<div class="button-row review-navigation">
+  <a class="button button-secondary" href="{{ queue_url }}">Back to filtered queue</a>
+  {% if previous_url %}<a class="button button-secondary" href="{{ previous_url }}">Previous</a>{% endif %}
+  {% if next_url %}<a class="button button-secondary" href="{{ next_url }}">Next</a>{% endif %}
+</div>
+<h1>Review question {{ question.pk }}</h1>
+<details class="review-editor">
+  <summary>Refine the review queue</summary>
+  {% include "general_question/review_filters.html" %}
+</details>
+<p>{{ question.get_review_status_display }} &middot; {{ question.get_publication_status_display }}{% if question.current_revision %} &middot; Working revision {{ question.current_revision.revision_number }}{% endif %}</p>
+{% if edit %}
+  <form method="post" class="review-selection-control">
+    {% csrf_token %}<input type="hidden" name="revision_snapshot" value="{{ revision_snapshot }}">
+    {% if is_selected %}<button type="submit" name="question_action" value="remove" class="button button-secondary">Remove from selection</button>
+    {% else %}<button type="submit" name="question_action" value="select" class="button button-secondary">Add inspected question to selection</button>{% endif %}
+    <a href="{{ queue_url }}">{{ selected|length }} selected</a>
+  </form>
+  <form method="post" class="review-question-form">
+    {% csrf_token %}<input type="hidden" name="revision_snapshot" value="{{ revision_snapshot }}">
+    <div class="workspace-review-layout">
+      <div>
+        {% include "general_question/solution.html" with revision=question.current_revision %}
+        <details class="workspace-panel review-editor"{% if edit.errors %} open{% endif %}>
+          <summary>Edit question and solution</summary>
+          {% for language, fields in edit.editions %}
+            <fieldset><legend>{{ language }}</legend>
+              {% for field in fields %}<div>{{ field.label_tag }}{{ field }}{{ field.errors }}</div>{% endfor %}
+            </fieldset>
+          {% endfor %}
+          {% for field in edit.shared_content %}<div>{{ field.label_tag }}{{ field }}{{ field.errors }}</div>{% endfor %}
+        </details>
+      </div>
+      <aside class="workspace-panel review-tags" aria-label="Question metadata">
+        <h2>Tags and metadata</h2>
+        <p>Module and chapter follow the taxonomy path of each topic.</p>
+        {{ edit.non_field_errors }}
+        {% for field in edit.metadata %}<div>{{ field.label_tag }}{{ field }}{{ field.errors }}</div>{% endfor %}
+        <div class="button-row">
+          <button type="submit" name="question_action" value="save">Save question</button>
+          {% if next_url %}<button type="submit" name="question_action" value="save_next" class="button button-secondary">Save and next</button>{% endif %}
+        </div>
+        <section aria-labelledby="question-sources">
+          <h2 id="question-sources">Sources</h2>
+          {% for reference in question.source_references.all %}
+            <dl>
+              {% if reference.source.source_code %}<dt>Source code</dt><dd>{{ reference.source.source_code }}</dd>{% endif %}
+              <dt>Document</dt><dd>{{ reference.source.source_document }}</dd>
+              {% if reference.source.publisher %}<dt>Publisher</dt><dd>{{ reference.source.publisher }}</dd>{% endif %}
+              {% if reference.source_page %}<dt>Page</dt><dd>{{ reference.source_page }}</dd>{% endif %}
+              {% if reference.source_question_number %}<dt>Original question number</dt><dd>{{ reference.source_question_number }}</dd>{% endif %}
+            </dl>
+          {% empty %}
+            <p>No source references recorded.</p>
+          {% endfor %}
+        </section>
+        <section aria-labelledby="question-appearances">
+          <h2 id="question-appearances">Exam appearances</h2>
+          <ul>
+            {% for appearance in exam_appearances %}
+              <li>
+                <a href="{% url 'general_questions:edit_appearance' question.pk appearance.pk %}{% if query %}?{{ query }}{% endif %}">{{ appearance }}</a>
+                {% if appearance.verified_at %}<span class="badge badge-outline">Verified</span>{% else %}<span class="badge badge-outline">Pending</span>{% endif %}
+                {% if appearance.source_reference %}<span>{{ appearance.source_reference.source.source_name }}</span>{% endif %}
+              </li>
+            {% empty %}<li>No exam appearances recorded.</li>{% endfor %}
+          </ul>
+          <a href="{% url 'general_questions:add_appearance' question.pk %}{% if query %}?{{ query }}{% endif %}">Add exam appearance</a>
+        </section>
+      </aside>
+    </div>
+  </form>
+  <script src="{% static 'js/admin-question-topics.js' %}" defer></script>
+{% else %}
+  <p>This question has no working revision.</p>
+{% endif %}
+{% endblock %}

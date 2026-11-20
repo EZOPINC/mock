@@ -1,4 +1,5 @@
 from collections import Counter
+from datetime import date
 from hashlib import sha256
 import json
 import re
@@ -8,17 +9,45 @@ from django.db.models import Q, Value
 from django.db.models.functions import Coalesce, Lower, Trim
 
 from exams.models import Exam
+from previous_year.appearance_input import parse_appearance_tags
 from previous_year.models import PreviousYearPaper
-from questions.models import QuestionRevision, QuestionTranslation
+from questions.difficulty import Difficulty, normalize_difficulty
+from questions.models import QuestionKind, QuestionRevision, QuestionTranslation
 from .models import ImportBatch, ImportedQuestion
 from .parsing import COLUMNS, MAX_CELL, REQUIRED
 from .context import context_hash, exam_ids, mode
 from .translation_input import normalize_translations
 from .taxonomy import TaxonomyCatalogue, normalized
 from .pairing import groups_for
+from .sources import resolve_sources
+from .duplicates import resolve_duplicates, split_skipped_rows
 
 CONTENT = ("language", "question_text", "option_a", "option_b", "option_c", "option_d", "correct_answer", "explanation")
 
+
+
+def freshness_input(values, subject, errors, warnings):
+    dates = {}
+    if subject is None:
+        return dates
+    for field in ("current_as_of", "expires_on"):
+        raw = values.get(field, "")
+        if not isinstance(raw, str) or not raw.strip():
+            continue
+        if subject.question_freshness_years is None:
+            warnings.append(f"{field} is ignored because this subject has no question expiry policy.")
+            continue
+        # Excel date cells arrive as midnight datetimes.
+        raw = raw.strip().removesuffix("T00:00:00")
+        try:
+            value = date.fromisoformat(raw)
+            if value.isoformat() != raw:
+                raise ValueError
+        except ValueError:
+            errors.append(f"{field} must be a valid date in YYYY-MM-DD format.")
+        else:
+            dates[field] = value
+    return dates
 
 
 def map_key(value):
@@ -114,21 +143,15 @@ def validate(data, *, locked=False):
     existing_imports = ImportedQuestion.objects.filter(batch__paper=paper).count() if paper and paper.pk else 0
     if existing_imports and not data["selection"].get("acknowledge_existing"):
         errors.append("This paper already contains imported questions. Inspect its existing rows, resolve conflicts, and explicitly acknowledge appending before proceeding.")
-    # Possible content duplication is advisory and never merges records.
-    normalized_inputs = [normalize_translations(row["values"], data["selection"]) for row in data["rows"]]
-    candidate_texts = {normalized(item[0]["question_text"]) for item in normalized_inputs}
-    existing_texts = set()
-    if candidate_texts:
-        raw_keys = {item[0]["question_text"].strip().lower() for item in normalized_inputs}
-        for value in QuestionRevision.objects.annotate(_content_key=Lower(Trim("question_text"))).filter(_content_key__in=raw_keys).values_list("question_text", flat=True).iterator(chunk_size=500):
-            key = normalized(value)
-            if key in candidate_texts:
-                existing_texts.add(key)
-    seen = set()
+    allow_skip = mode(data) == "general"
+    active_rows, skipped_groups = split_skipped_rows(data, allow_skip=allow_skip)
+    if skipped_groups and not active_rows:
+        errors.append("Keep at least one question to confirm this import.")
+    seen = {}
     result = []
-    for index, row in enumerate(data["rows"]):
+    for index, row in active_rows:
         values = row["values"]
-        revision, translations, translation_errors, translation_warnings = normalized_inputs[index]
+        revision, translations, translation_errors, translation_warnings = normalize_translations(values, data["selection"])
         row_errors, warnings = list(translation_errors), list(translation_warnings)
         if not values["question_number"].strip():
             row_errors.append("question_number: a value is required.")
@@ -154,19 +177,18 @@ def validate(data, *, locked=False):
         row_errors.extend(exam_errors)
         if strategy == "selected" and values["exam_categories"].strip():
             warnings.append("Form-selected exams are authoritative; source exam_categories is retained as metadata.")
-        if values["previous_year_tags"].strip():
-            warnings.append("Source previous_year_tags is retained as metadata; it does not override this import's paper selection.")
-        page = values["source_page"].strip()
-        if len(page) > 50 or any(ord(char) < 32 for char in page):
-            row_errors.append("source_page must be a printable page reference of at most 50 characters.")
-        if page.lstrip("-").isdigit() and int(page) < 1:
-            row_errors.append("Numeric source pages must be positive.")
-        if page and not values["source_document"].strip():
-            row_errors.append("source_page requires source_document.")
-        if len(values["source_document"].strip()) > 500:
-            row_errors.append("source_document must not exceed 500 characters.")
-        if len(values["difficulty_level"].strip()) > 100:
-            row_errors.append("difficulty_level must not exceed 100 characters.")
+        appearances, unparsed = parse_appearance_tags(values.get("previous_year_tags", ""))
+        if appearances:
+            warnings.append("Previous-year tags will become unverified exam appearance suggestions.")
+        if unparsed:
+            warnings.append("Some previous_year_tags could not be read as Exam YYYY and will remain in the import audit.")
+        question_kind = values.get("question_kind", "")
+        question_kind = question_kind.strip().lower() if isinstance(question_kind, str) else ""
+        if question_kind and question_kind not in QuestionKind.values:
+            row_errors.append("question_kind must be Logical, Static, Unclassified, or blank.")
+        difficulty = normalize_difficulty(values.get("difficulty_level", ""))
+        if difficulty not in Difficulty.values:
+            row_errors.append("difficulty_level must be Easy, Medium, Hard, Any, or blank.")
         if len(json.dumps(values, ensure_ascii=False).encode()) > 128 * 1024:
             row_errors.append("Row metadata exceeds 128 KB.")
         if len(json.dumps(row.get("original_values", values), ensure_ascii=False).encode()) > 128 * 1024:
@@ -174,30 +196,34 @@ def validate(data, *, locked=False):
         if not revision["correct_answer"]:
             row_errors.append("Correct answer is missing. The Question Bank requires A/B/C/D; correct this row before confirming. Handwritten marks are unverified metadata only.")
         try:
-            QuestionRevision(**revision).full_clean(exclude=["question", "revision_number"])
+            QuestionRevision(language=revision["language"], correct_answer=revision["correct_answer"]).full_clean(
+                exclude=["question", "revision_number"])
         except ValidationError as error:
             row_errors.extend(error.messages)
         for translated in translations:
-            if translated["language"] != revision["language"]:
-                try:
-                    QuestionTranslation(**translated).full_clean(exclude=["question", "revision"])
-                except ValidationError as error:
-                    row_errors.extend(error.messages)
+            try:
+                QuestionTranslation(**translated).full_clean(exclude=["question", "revision"])
+            except ValidationError as error:
+                row_errors.extend(error.messages)
         key = normalized(revision["question_text"])
-        if key in existing_texts or key in seen:
-            warnings.append("Possible duplicate question text. This row will create a separate question; no merge is performed.")
-        seen.add(key)
+        if key and seen.setdefault(key, number) != number:
+            warnings.append("Possible repeated question text within this file. Review the question numbers.")
         if values["review_status"].strip() or values["verification_notes"].strip():
             warnings.append("Legacy review/verification values are audit metadata only. The question will be pending review.")
-        result.append({"index": index, "source_row": row["source_row"], "values": values,
+        result.append({"index": index, "source_row": row["source_row"], "values": values, "question_kind": question_kind, "difficulty": difficulty,
+                       "appearances": appearances, "freshness": freshness_input(values, subject, row_errors, warnings),
                        "errors": row_errors, "warnings": warnings, **taxonomy, "revision": revision, "translations": translations, "translation_languages": [item["language"] for item in translations], "exams": resolved_exams})
+    source_plans = resolve_sources(result)
     groups = groups_for(result, data.get("pairings", {}))
+    resolve_duplicates(groups, data.get("duplicate_decisions", {}), paper, allow_skip=allow_skip)
+    skipped_rows = [row for group in skipped_groups for row in group["rows"]]
+    preview_rows = sorted([*result, *skipped_rows], key=lambda row: row["index"])
     if paper is not None and paper.expected_question_count is not None:
         try:
             paper.validate_question_count(actual_count=len(existing_numbers) + len(groups))
         except ValidationError as error:
             errors.extend(error.messages)
-    return {"taxonomy_catalogue": catalogue, "rows": result, "groups": groups, "master_count": len(groups), "errors": errors, "exam": exams[0] if len(exams) == 1 else None, "exams": exams, "import_type": mode(data), "paper": paper, "existing_count": len(existing_numbers), "existing_imports": existing_imports,
-            "total": len(result), "valid": sum(not row["errors"] for row in result),
+    return {"taxonomy_catalogue": catalogue, "source_plans": source_plans, "rows": preview_rows, "groups": groups, "skipped_groups": skipped_groups, "master_count": len(groups), "errors": errors, "exam": exams[0] if len(exams) == 1 else None, "exams": exams, "import_type": mode(data), "paper": paper, "existing_count": len(existing_numbers), "existing_imports": existing_imports,
+            "total": len(preview_rows), "skipped": len(skipped_rows), "valid": sum(not row["errors"] for row in result),
             "error_count": sum(len(row["errors"]) for row in result) + len(errors),
             "warning_count": sum(len(row["warnings"]) for row in result)}

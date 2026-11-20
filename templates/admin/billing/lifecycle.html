@@ -1,0 +1,5 @@
+{% extends "admin/base_site.html" %}
+{% block content %}
+<p>Use the account and plan for activation or renewal. Use a subscription term for expiration, revocation or approved full refund. Renewals extend from the latest allocated expiry; expired accounts start a new term. Full refunds revoke only the selected term. No payment is processed.</p>
+<form method="post">{% csrf_token %}{{ form.as_p }}<input type="submit" value="Record lifecycle event"></form>
+{% endblock %}

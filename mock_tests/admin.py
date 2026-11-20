@@ -4,8 +4,12 @@ from django.forms.models import BaseInlineFormSet
 from django import forms
 from questions.models import Question
 
-from .models import ExamPattern, ExamPatternSection, SectionSelectionRule, ManualRuleQuestion
-from .services import activate_pattern, deactivate_pattern, eligible_question_ids, validate_configuration
+from .models import ExamPattern, ExamPatternSection, SectionSelectionRule, ManualRuleQuestion, MockSet, MockSetQuestion
+from .services import (
+    activate_pattern, deactivate_pattern, eligible_question_ids, frozen_set_has_stale_questions,
+    publish_free_demo, retire_free_demo, validate_configuration,
+)
+from .languages import validate_default_reading_language
 from .rules import eligible_for_rule, selection_tasks, validate_rule_layout
 
 
@@ -15,7 +19,7 @@ def rules_locked(obj):
     if isinstance(obj, SectionSelectionRule) and not obj.section_id:
         return False
     pattern = obj.pattern if isinstance(obj, ExamPatternSection) else obj.section.pattern
-    return pattern.is_active or pattern.attempts.exists()
+    return pattern.configuration_locked
 
 
 class RuleFormSet(BaseInlineFormSet):
@@ -34,7 +38,7 @@ class RuleInline(admin.StackedInline):
     show_change_link = True
     autocomplete_fields = ("subject", "part", "module", "chapter", "topic")
     readonly_fields = ("eligible_count",)
-    fields = (("display_order", "question_count", "selection_mode", "difficulty"),
+    fields = (("display_order", "question_count", "selection_mode", "difficulty", "question_kind"),
               "subject", "part", "module", "chapter", "topic", "eligible_count")
 
     @admin.display(description="Eligible questions")
@@ -108,15 +112,15 @@ class ManualQuestionInline(admin.TabularInline):
 
 @admin.register(SectionSelectionRule)
 class SelectionRuleAdmin(admin.ModelAdmin):
-    list_display = ("section", "display_order", "question_count", "selection_mode", "difficulty")
-    list_filter = ("selection_mode", "difficulty", "section__pattern__exam")
+    list_display = ("section", "display_order", "question_count", "selection_mode", "difficulty", "question_kind")
+    list_filter = ("selection_mode", "difficulty", "question_kind", "section__pattern__exam")
     search_fields = ("section__name", "section__pattern__name")
     list_select_related = ("section__pattern",)
     autocomplete_fields = ("section", "subject", "part", "module", "chapter", "topic")
     readonly_fields = ("eligible_count", "rule_status", "pattern_status")
     inlines = (ManualQuestionInline,)
     fieldsets = (
-        ("Rule", {"fields": ("section", "display_order", "selection_mode", "question_count", "difficulty")}),
+        ("Rule", {"fields": ("section", "display_order", "selection_mode", "question_count", "difficulty", "question_kind")}),
         ("Taxonomy filter", {"fields": ("subject", "part", "module", "chapter", "topic"),
             "description": "Choose exactly one filter. Descendants and secondary topic tags are included. Detailed rules replace section-level Subject/Topic filters."}),
         ("Validation", {"fields": ("eligible_count", "rule_status", "pattern_status")}),
@@ -164,7 +168,7 @@ class SelectionRuleAdmin(admin.ModelAdmin):
 class SectionFormSet(BaseInlineFormSet):
     def clean(self):
         super().clean()
-        if any(self.errors) or self.instance.is_active:
+        if any(self.errors) or self.instance.is_active or self.instance.has_frozen_set:
             return
         sections = [form.instance for form in self.forms if form.cleaned_data and not form.cleaned_data.get("DELETE")]
         try:
@@ -187,6 +191,7 @@ class SectionInline(admin.TabularInline):
     formset = SectionFormSet
     extra = 0
     show_change_link = True
+    autocomplete_fields = ("subject", "topic")
     readonly_fields = ("eligible_count",)
 
     @admin.display(description="Eligible questions")
@@ -194,41 +199,45 @@ class SectionInline(admin.TabularInline):
         return len(eligible_question_ids(obj)) if obj.pk else "Save to check"
 
     def has_add_permission(self, request, obj=None):
-        return not (obj and (obj.is_active or obj.attempts.exists())) and super().has_add_permission(request, obj)
+        return not (obj and obj.configuration_locked) and super().has_add_permission(request, obj)
 
     def has_change_permission(self, request, obj=None):
-        return not (obj and (obj.is_active or obj.attempts.exists())) and super().has_change_permission(request, obj)
+        return not (obj and obj.configuration_locked) and super().has_change_permission(request, obj)
 
     def has_delete_permission(self, request, obj=None):
-        return not (obj and (obj.is_active or obj.attempts.exists())) and super().has_delete_permission(request, obj)
+        return not (obj and obj.configuration_locked) and super().has_delete_permission(request, obj)
 
 
 @admin.register(ExamPattern)
 class ExamPatternAdmin(admin.ModelAdmin):
-    list_display = ("name", "exam", "stage", "version", "duration_minutes", "total_questions", "total_marks", "status")
-    list_filter = ("exam", "stage", "status")
+    autocomplete_fields = ("exam", "stage")
+    list_display = ("name", "exam", "stage", "version", "duration_minutes", "total_questions", "total_marks", "status", "is_free_demo")
+    list_filter = ("exam", "stage", "status", "is_free_demo")
     search_fields = ("name", "exam__name", "exam__code")
     list_select_related = ("exam", "stage")
     readonly_fields = ("status", "created_at", "configuration_status")
     inlines = (SectionInline,)
-    actions = ("activate_selected", "deactivate_selected")
+    actions = ("activate_selected", "deactivate_selected", "publish_demo_selected", "retire_demo_selected")
 
     def has_change_permission(self, request, obj=None):
-        return not (obj and (obj.is_active or obj.attempts.exists())) and super().has_change_permission(request, obj)
+        return not (obj and obj.configuration_locked) and super().has_change_permission(request, obj)
 
     def get_readonly_fields(self, request, obj=None):
         fields = super().get_readonly_fields(request, obj)
-        return tuple(field.name for field in self.model._meta.fields) + ("configuration_status",) if obj and (obj.is_active or obj.attempts.exists()) else fields
+        return tuple(field.name for field in self.model._meta.fields) + ("configuration_status",) if obj and obj.configuration_locked else fields
 
     def has_delete_permission(self, request, obj=None):
-        return not (obj and (obj.is_active or obj.attempts.exists())) and super().has_delete_permission(request, obj)
+        return not (obj and obj.configuration_locked) and super().has_delete_permission(request, obj)
 
     @admin.display(description="Configuration status")
     def configuration_status(self, obj):
         if not obj.pk:
             return "Save the pattern and sections, then explicitly activate."
+        if obj.is_free_demo and frozen_set_has_stale_questions(obj):
+            return "Frozen set contains expired or undated questions. Retire it and publish a new pattern."
         try:
-            validate_configuration(obj)
+            sections = validate_configuration(obj)
+            validate_default_reading_language(obj.exam, sections)
         except ValidationError as error:
             return "; ".join(error.messages)
         return "Valid configuration and sufficient distinct eligible questions."
@@ -240,6 +249,14 @@ class ExamPatternAdmin(admin.ModelAdmin):
     @admin.action(description="Deactivate patterns", permissions=["change"])
     def deactivate_selected(self, request, queryset):
         self.transition(request, queryset, deactivate_pattern)
+
+    @admin.action(description="Publish as shared Free Demo (one per exam)", permissions=["change"])
+    def publish_demo_selected(self, request, queryset):
+        self.transition(request, queryset, publish_free_demo)
+
+    @admin.action(description="Retire shared Free Demo designation", permissions=["change"])
+    def retire_demo_selected(self, request, queryset):
+        self.transition(request, queryset, retire_free_demo)
 
     def transition(self, request, queryset, operation):
         for pattern in queryset:
@@ -253,6 +270,7 @@ class ExamPatternAdmin(admin.ModelAdmin):
 
 @admin.register(ExamPatternSection)
 class ExamPatternSectionAdmin(admin.ModelAdmin):
+    autocomplete_fields = ("pattern", "subject", "topic")
     form = SectionForm
     list_display = ("name", "pattern", "display_order", "question_count", "subject", "topic", "language_mode")
     list_filter = ("pattern", "subject", "language_mode")
@@ -266,20 +284,45 @@ class ExamPatternSectionAdmin(admin.ModelAdmin):
         if not obj.pk:
             return "Save to add detailed rules. Without rules, existing section filters apply."
         try:
-            validate_configuration(obj.pattern)
+            sections = validate_configuration(obj.pattern)
+            validate_default_reading_language(obj.pattern.exam, sections)
         except ValidationError as error:
             return "; ".join(error.messages)
         return "Valid configuration and sufficient distinct eligible questions."
 
     def has_change_permission(self, request, obj=None):
-        return not (obj and (obj.pattern.is_active or obj.pattern.attempts.exists())) and super().has_change_permission(request, obj)
+        return not (obj and obj.pattern.configuration_locked) and super().has_change_permission(request, obj)
 
     @admin.display(description="Eligible questions")
     def eligible_count(self, obj):
         return len(eligible_question_ids(obj)) if obj.pk else "Save to check"
 
     def get_readonly_fields(self, request, obj=None):
-        return tuple(field.name for field in self.model._meta.fields) + self.readonly_fields if obj and (obj.pattern.is_active or obj.pattern.attempts.exists()) else self.readonly_fields
+        return tuple(field.name for field in self.model._meta.fields) + self.readonly_fields if obj and obj.pattern.configuration_locked else self.readonly_fields
 
     def has_delete_permission(self, request, obj=None):
-        return not (obj and (obj.pattern.is_active or obj.pattern.attempts.exists())) and super().has_delete_permission(request, obj)
+        return not (obj and obj.pattern.configuration_locked) and super().has_delete_permission(request, obj)
+
+
+class PublishedMockAdmin(admin.ModelAdmin):
+    def has_add_permission(self, request):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+
+@admin.register(MockSet)
+class MockSetAdmin(PublishedMockAdmin):
+    list_display = ("id", "pattern", "published_at")
+    list_select_related = ("pattern__exam",)
+
+
+@admin.register(MockSetQuestion)
+class MockSetQuestionAdmin(PublishedMockAdmin):
+    list_display = ("mock_set", "display_order", "section", "question_id", "question_revision_id", "positive_marks", "negative_marks")
+    list_filter = ("mock_set",)
+    list_select_related = ("mock_set__pattern__exam", "section")

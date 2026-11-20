@@ -8,6 +8,9 @@ erDiagram
         character_varying_14_ review_status "NOT_NULL"
         character_varying_1_ correct_answer "NOT_NULL"
         character_varying_100_ difficulty_level "NOT_NULL"
+        character_varying_12_ question_kind "NOT_NULL"
+        date current_as_of "NULL"
+        date expires_on "NULL"
         bigint current_revision_id FK "NULL"
         bigint published_revision_id FK "NULL"
         timestamp_with_time_zone created_at "NOT_NULL"
@@ -18,16 +21,16 @@ erDiagram
         bigint question_id FK "NOT_NULL"
         integer revision_number "NOT_NULL"
         character_varying_35_ language "NOT_NULL"
-        text question_text "NOT_NULL"
-        text option_a "NOT_NULL"
-        text option_b "NOT_NULL"
-        text option_c "NOT_NULL"
-        text option_d "NOT_NULL"
         character_varying_1_ correct_answer "NOT_NULL"
         character_varying_100_ difficulty_level "NOT_NULL"
-        text explanation "NOT_NULL"
         timestamp_with_time_zone created_at "NOT_NULL"
         timestamp_with_time_zone published_at "NULL"
+    }
+    billing_freequestionusage {
+        bigint id PK "NOT_NULL"
+        bigint user_id FK "NOT_NULL"
+        bigint question_id FK "NOT_NULL"
+        timestamp_with_time_zone delivered_at "NOT_NULL"
     }
     imports_importedquestion {
         bigint id PK "NOT_NULL"
@@ -56,6 +59,16 @@ erDiagram
         bigint rule_id FK "NOT_NULL"
         bigint question_id FK "NOT_NULL"
         integer display_order "NOT_NULL"
+    }
+    mock_tests_mocksetquestion {
+        bigint id PK "NOT_NULL"
+        bigint mock_set_id FK "NOT_NULL"
+        bigint section_id FK "NOT_NULL"
+        bigint question_id FK "NOT_NULL"
+        bigint question_revision_id FK "NOT_NULL"
+        integer display_order "NOT_NULL"
+        numeric_8_2_ positive_marks "NOT_NULL"
+        numeric_8_2_ negative_marks "NOT_NULL"
     }
     practice_practicequestion {
         bigint id PK "NOT_NULL"
@@ -104,6 +117,9 @@ erDiagram
     mock_tests_mockattempt {
         bigint id PK "BOUNDARY_ONLY"
     }
+    mock_tests_mockset {
+        bigint id PK "BOUNDARY_ONLY"
+    }
     mock_tests_sectionselectionrule {
         bigint id PK "BOUNDARY_ONLY"
     }
@@ -118,6 +134,8 @@ erDiagram
     questions_questionrevision o|..o{ questions_question : "current_revision_id"
     questions_questionrevision o|..o{ questions_question : "published_revision_id"
     questions_question ||..o{ questions_questionrevision : "question_id"
+    accounts_user ||..o{ billing_freequestionusage : "user_id"
+    questions_question ||..o{ billing_freequestionusage : "question_id"
     imports_importbatch ||..o{ imports_importedquestion : "batch_id"
     questions_question ||..o{ imports_importedquestion : "question_id"
     mock_tests_mockattempt ||..o{ mock_tests_attemptquestion : "attempt_id"
@@ -126,6 +144,10 @@ erDiagram
     questions_questionrevision ||..o{ mock_tests_attemptquestion : "question_revision_id"
     mock_tests_sectionselectionrule ||..o{ mock_tests_manualrulequestion : "rule_id"
     questions_question ||..o{ mock_tests_manualrulequestion : "question_id"
+    mock_tests_mockset ||..o{ mock_tests_mocksetquestion : "mock_set_id"
+    mock_tests_exampatternsection ||..o{ mock_tests_mocksetquestion : "section_id"
+    questions_question ||..o{ mock_tests_mocksetquestion : "question_id"
+    questions_questionrevision ||..o{ mock_tests_mocksetquestion : "question_revision_id"
     practice_practicesession ||..o{ practice_practicequestion : "session_id"
     questions_question ||..o{ practice_practicequestion : "question_id"
     questions_questionrevision ||..o{ practice_practicequestion : "question_revision_id"

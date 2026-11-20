@@ -10,7 +10,9 @@ class PlatformAdminSite(AdminSite):
         ))}
         for app in app_list:
             if app["app_label"] == "exams":
-                app["models"].sort(key=lambda model: order.get(model["object_name"], len(order)))
+                app["models"].sort(key=lambda model: order.get(
+                    model["object_name"], len(order)))
+        app_list.sort(key=lambda app: app["app_label"] == "billing")
         return app_list
 
 

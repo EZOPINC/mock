@@ -4,17 +4,24 @@
 {% block import_content %}
     {% include "components/import_steps.html" with step=2 %}
     <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="{% url 'admin:index' %}">Administration</a>{% include "components/icon.html" with name="chevron" %}<a href="{% url 'imports:upload' %}">Question Bank Import</a>{% include "components/icon.html" with name="chevron" %}<span aria-current="page">Preview</span></nav>
-    {% include "components/page_heading.html" with eyebrow="STEP 2 OF 3 · NOTHING IMPORTED YET" heading="Check every row. Keep control." description="Correct the values below and revalidate. Each save applies to the current page; confirmation revalidates the entire file on the server." %}
     <div class="stage-summary"><strong>{{ data.filename }}</strong> · Worksheet: {{ data.worksheet }}<br>Type: {% if result.import_type == "general" %}General Question Bank{% else %}Previous Year Questions{% endif %}<br>Default exams: {% for exam in result.exams %}{{ exam }}{% if not forloop.last %}; {% endif %}{% empty %}Resolve exam selection{% endfor %} · Paper: {% if result.import_type == "general" %}Not applicable (no paper will be created){% else %}{{ result.paper|default:"Invalid mapping" }}{% endif %}<br><span class="muted">Preview expires two hours after upload. Original row values are retained in the audit on confirmation.</span></div>
-    <div class="import-totals"><span><strong>{{ result.total }}</strong> Total rows</span><span><strong>{{ result.valid }}</strong> Valid rows</span><span class="import-total-errors"><strong>{{ result.error_count }}</strong> Errors</span><span class="import-total-warnings"><strong>{{ result.warning_count }}</strong> Warnings</span></div>
+    <div class="import-totals"><span><strong>{{ result.total }}</strong> Total rows</span><span><strong>{{ result.valid }}</strong> Valid rows</span>{% if result.skipped %}<span><strong>{{ result.skipped }}</strong> Skipped rows</span>{% endif %}<span class="import-total-errors"><strong>{{ result.error_count }}</strong> Errors</span><span class="import-total-warnings"><strong>{{ result.warning_count }}</strong> Warnings</span></div>
     {% if result.existing_count %}<p class="message">This paper already has {{ result.existing_count }} questions, including {{ result.existing_imports }} imported rows. <a href="{% url 'admin:previous_year_previousyearpaper_change' result.paper.pk %}">Inspect existing paper questions</a>. Nothing will be overwritten.</p>{% endif %}
     {% for error in result.errors %}<p class="message error" role="alert">{{ error }}</p>{% endfor %}
     <form class="import-filters" method="get"><label for="preview-query">Search all rows</label><input id="preview-query"
          name="q"
          value="{{ query }}"
-         placeholder="Question text, subject, source…"><label for="preview-status">Show</label><select id="preview-status" name="status"><option value="">All rows</option><option value="errors" {% if status == 'errors' %}selected{% endif %}>Rows with errors</option><option value="warnings" {% if status == 'warnings' %}selected{% endif %}>Rows with warnings</option></select><button type="submit">Filter</button><a href="{% url 'imports:preview' data.token %}">Clear filters / edit</a></form>
+         placeholder="Question text, subject, source…"><label for="preview-status">Show</label><select id="preview-status" name="status"><option value="">All rows</option><option value="errors" {% if status == 'errors' %}selected{% endif %}>Rows with errors</option><option value="warnings" {% if status == 'warnings' %}selected{% endif %}>Rows with warnings</option></select>
+      <label for="preview-issue">Message</label><select id="preview-issue" name="issue">
+        <option value="">All messages</option>
+        {% for label, options in issue_groups %}
+          <optgroup label="{{ label }}">
+            {% for key, text, count in options %}<option value="{{ key }}"{% if key == issue %} selected{% endif %}>{{ text }} ({{ count }})</option>{% endfor %}
+          </optgroup>
+        {% endfor %}
+      </select>
+      <button type="submit">Filter</button><a href="{% url 'imports:preview' data.token %}">Clear filters / edit</a></form>
     {% if not editable %}<p class="message" role="note">Filtered results are read-only. Clear filters to edit page values.</p>{% endif %}
-    {% include "imports/taxonomy_forms.html" %}
     <form method="post" id="preview-edit-form">
         {% csrf_token %}
         {% if editable %}{% for group in pairing_groups %}
@@ -23,6 +30,49 @@
           <label><input type="checkbox" name="pair_{{ group.key }}" {% if group.approved %}checked{% endif %}> I verified that these are translations of the same question. Save &amp; revalidate.</label>
         </section>
         {% endfor %}{% endif %}
+        {% for group in duplicate_groups %}
+            <section class="import-mappings">
+              <h2>Possible duplicate for question {{ group.number }}</h2>
+              <p>Matched Question IDs:
+                {% for id in group.matched_question_ids %}
+                  <a href="{% url 'admin:questions_question_change' id %}" target="_blank" rel="noopener">Question {{ id }}</a>{% if not forloop.last %}, {% endif %}
+                {% endfor %}
+              </p>
+              {% if group.can_skip %}
+                {% if group.duplicate_choice == "skip" %}<p>This question is skipped. Restore it to edit and validate the row again.</p>{% endif %}
+              {% else %}
+                <p>Reuse keeps the approved wording, answer, explanation and existing tags. The uploaded values remain in the import audit.</p>
+              {% endif %}
+              {% for revision in group.reuse_candidates %}
+                <details>
+                  <summary>Inspect question {{ revision.question_id }}, approved revision {{ revision.revision_number }}</summary>
+                  <p>Correct answer <strong>{{ revision.correct_answer }}</strong></p>
+                  {% for edition in revision.translations.all %}
+                    <p><strong>{{ edition.get_language_display }}</strong> {{ edition.question_text|linebreaksbr }}</p>
+                    <ol type="A"><li>{{ edition.option_a }}</li><li>{{ edition.option_b }}</li><li>{{ edition.option_c }}</li><li>{{ edition.option_d }}</li></ol>
+                    {% if edition.explanation %}<p>{{ edition.explanation|linebreaksbr }}</p>{% endif %}
+                  {% endfor %}
+                </details>
+              {% empty %}
+                {% if not group.can_skip %}<p>No approved match is eligible for reuse in this import. Check the uploaded wording, options and answer before confirming a separate question.</p>{% endif %}
+              {% endfor %}
+              {% if editable %}
+              <label for="duplicate-{{ group.key }}">Duplicate decision</label>
+              <select id="duplicate-{{ group.key }}" name="duplicate_{{ group.key }}">
+                <option value="">{% if group.duplicate_choice == "skip" %}Restore this question{% else %}Choose a decision{% endif %}</option>
+                {% for revision in group.reuse_candidates %}
+                  {% with revision.pk|stringformat:"s" as revision_id %}
+                    {% with "reuse:"|add:revision_id as choice %}
+                      <option value="{{ choice }}"{% if group.duplicate_choice == choice %} selected{% endif %}>Reuse question {{ revision.question_id }}</option>
+                    {% endwith %}
+                  {% endwith %}
+                {% endfor %}
+                {% if group.duplicate_choice != "skip" %}<option value="separate"{% if group.duplicate_choice == "separate" %} selected{% endif %}>I checked the match. Create a separate question.</option>{% endif %}
+                {% if group.can_skip %}<option value="skip"{% if group.duplicate_choice == "skip" %} selected{% endif %}>Skip this question</option>{% endif %}
+              </select>
+              {% endif %}
+            </section>
+        {% endfor %}
         <input type="hidden"
                name="version"
                value="{{ version }}"><input type="hidden"
@@ -37,18 +87,25 @@
          {% if mapping.selected == subject.pk %}selected{% endif %}>{{ subject.name }} ({{ subject.code }})</option>{% endfor %}</select>{% endfor %}
         {% for mapping in topic_mappings %}<label for="topic-map-{{ mapping.key }}">Topic “{{ mapping.value }}” → existing record</label><select id="topic-map-{{ mapping.key }}" name="topicmap_{{ mapping.key }}"><option value="">Match name within subject</option>{% for topic in topics %}<option value="{{ topic.pk }}"
          {% if mapping.selected == topic.pk %}selected{% endif %}>{{ topic.subject.name }} / {{ topic.name }}</option>{% endfor %}</select>{% endfor %}<p class="muted">Subjects match without case sensitivity. Previous Year topics use exact names, then a unique first-four-character match within the subject. Unmatched topics under existing subjects are created only on confirmation with Add topic permission. Multiple prefix matches create the exact uploaded topic instead. Check preview warnings; duplicate exact-name matches need a manual mapping. Create missing subjects in <a href="{% url 'admin:exams_subject_changelist' %}">Taxonomy Admin</a>, then revalidate.</p></details>{% endif %}
-<p class="import-table-note" id="import-table-help">Scroll the table horizontally to see every language and source column. Focus the table region to scroll with the keyboard. Save this page before navigating.</p>
+<p class="import-table-note" id="import-table-help">Scroll the table horizontally to see every language and source column. Double-click a cell or press Enter to open its editor. Save this page before navigating.</p>
 <div class="preview-table-wrap"
      role="region"
      aria-label="Import preview table; scroll horizontally for all columns"
      aria-describedby="import-table-help"
-     tabindex="0"><table class="preview-table"><caption>{{ columns|length }} preview columns · Page {{ page.number }} of {{ page.paginator.num_pages }}</caption><thead><tr><th scope="col">Source row / validation / resolved mapping</th>{% for column in columns %}<th scope="col">{{ column }}</th>{% endfor %}</tr></thead><tbody>{% for row in page %}<tr class="{% if row.errors %}import-row-error{% endif %}"><th scope="row">Row {{ row.source_row }}<p class="resolved-mapping">Subject: {{ row.subject|default:"Unresolved" }}<br>Primary topic: {{ row.topic|default:"None" }}<br>Taxonomy: {{ row.taxonomy_path }}<br>Secondary topics: {% for path in row.secondary_paths %}{{ path }}{% if not forloop.last %}; {% endif %}{% empty %}None{% endfor %}<br>Languages: {{ row.translation_languages|join:", "|default:"Missing" }}<br>Answer: {{ row.revision.correct_answer|default:"Missing" }}<br>Exams: {% for exam in row.exams %}{{ exam }}{% if not forloop.last %}; {% endif %}{% empty %}Unresolved{% endfor %}<br>Paper: {% if result.import_type == "general" %}Not applicable{% else %}{{ result.paper|default:"Unresolved" }}{% endif %}</p><div id="row-feedback-{{ row.index }}" class="import-row-feedback">{% for error in row.errors %}<p class="form-errors"><strong>Correction needed:</strong> {{ error }}</p>{% endfor %}{% for warning in row.warnings %}<p class="import-warning"><strong>Warning:</strong> {{ warning }}</p>{% endfor %}{% if not row.errors %}<span class="badge badge-live">Valid</span>{% else %}<span class="badge import-needs-correction">Needs correction</span>{% endif %}</div></th>{% for cell in row.cells %}<td>{% if editable %}<label class="visually-hidden" for="row-{{ row.index }}-{{ cell.name }}">Row {{ row.source_row }} {{ cell.name }}</label><textarea id="row-{{ row.index }}-{{ cell.name }}"
+     tabindex="0"><table class="preview-table"><caption>{{ columns|length }} preview columns · Page {{ page.number }} of {{ page.paginator.num_pages }}</caption><thead><tr><th scope="col">Row / status</th>{% for column in columns %}<th scope="col">{{ column }}</th>{% endfor %}</tr></thead><tbody>{% for row in page %}<tr class="{% if row.errors %}import-row-error{% endif %}"><th scope="row"><details class="grid-row-feedback"><summary>{{ row.source_row }} {% if row.skipped %}<span>Skipped</span>{% elif row.errors %}<span class="grid-error">Error</span>{% elif row.warnings %}<span class="grid-warning">Warning</span>{% else %}<span>Valid</span>{% endif %}</summary><p class="resolved-mapping">Subject: {{ row.subject|default:"Unresolved" }}<br>Primary topic: {{ row.topic|default:"None" }}<br>Taxonomy: {{ row.taxonomy_path }}<br>Secondary topics: {% for path in row.secondary_paths %}{{ path }}{% if not forloop.last %}; {% endif %}{% empty %}None{% endfor %}<br>Languages: {{ row.translation_languages|join:", "|default:"Missing" }}<br>Answer: {{ row.revision.correct_answer|default:"Missing" }}<br>Exams: {% for exam in row.exams %}{{ exam }}{% if not forloop.last %}; {% endif %}{% empty %}Unresolved{% endfor %}{% if row.source_reference.document %}<br>Source: {% if row.source_reference.code %}{{ row.source_reference.code }} - {% endif %}{{ row.source_reference.document }}{% if row.source_reference.publisher %} ({{ row.source_reference.publisher }}){% endif %}{% if row.source_reference.new %} (created on confirmation){% endif %}{% endif %}<br>Paper: {% if result.import_type == "general" %}Not applicable{% else %}{{ result.paper|default:"Unresolved" }}{% endif %}</p><div id="row-feedback-{{ row.index }}" class="import-row-feedback">{% for error in row.errors %}<p class="form-errors"><strong>Correction needed:</strong> {{ error }}</p>{% endfor %}{% for warning in row.warnings %}<p class="import-warning"><strong>Warning:</strong> {{ warning }}</p>{% endfor %}{% if row.skipped %}<span class="badge badge-outline">Skipped</span>{% elif not row.errors %}<span class="badge badge-live">Valid</span>{% else %}<span class="badge import-needs-correction">Needs correction</span>{% endif %}</div></details></th>{% for cell in row.cells %}<td>{% if editable and not row.skipped %}<label class="visually-hidden" for="row-{{ row.index }}-{{ cell.name }}">Row {{ row.source_row }} {{ cell.name }}</label><textarea id="row-{{ row.index }}-{{ cell.name }}"
          name="row_{{ row.index }}_{{ cell.name }}"
-         rows="3"
-         maxlength="32000" aria-describedby="row-feedback-{{ row.index }}">{{ cell.value }}</textarea>{% else %}{{ cell.value|linebreaksbr }}{% endif %}</td>{% endfor %}</tr>{% empty %}<tr><td colspan="{{ columns|length|add:1 }}">No rows match this filter.</td></tr>{% endfor %}</tbody></table></div>
-{% if editable %}<div class="button-row import-save-actions"><button type="submit">Save page &amp; Revalidate</button><a class="button button-secondary" href="{% url 'imports:upload' %}">Replace uploaded file</a></div>{% endif %}</form>
-<nav class="import-pagination" aria-label="Preview pages">{% if page.has_previous %}<a href="?page={{ page.previous_page_number }}&amp;q={{ query|urlencode }}&amp;status={{ status|urlencode }}">← Previous page</a>{% endif %}<span>Page {{ page.number }} of {{ page.paginator.num_pages }}</span>{% if page.has_next %}<a href="?page={{ page.next_page_number }}&amp;q={{ query|urlencode }}&amp;status={{ status|urlencode }}">Next page →</a>{% endif %}</nav>
-<p class="muted">Save any edits before changing pages or confirming. Confirmation imports all {{ result.total }} rows, not just this page. Warnings never merge questions.</p>
-<div class="button-row import-confirm-actions"><form action="{% url 'imports:confirm' data.token %}" method="post">{% csrf_token %}<input type="hidden" name="version" value="{{ version }}"><button type="submit" {% if result.error_count %}disabled{% endif %}>Confirm Import ({{ result.master_count }} master questions)</button></form><form action="{% url 'imports:cancel' data.token %}" method="post">{% csrf_token %}<button type="submit" class="button button-secondary">Cancel preview</button></form></div>
+         rows="1"
+         maxlength="32000" aria-describedby="row-feedback-{{ row.index }}">{{ cell.value }}</textarea>{% else %}<div class="grid-cell-value" tabindex="0" data-grid-label="Row {{ row.source_row }} {{ cell.name }}">{{ cell.value }}</div>{% endif %}</td>{% endfor %}</tr>{% empty %}<tr><td colspan="{{ columns|length|add:1 }}">No rows match this filter.</td></tr>{% endfor %}</tbody></table></div>
+<div class="button-row import-save-actions">{% if editable %}<button type="submit">Save page &amp; Revalidate</button>{% endif %}<a class="button button-secondary" href="{% url 'imports:upload' %}?replace={{ data.token }}">Replace uploaded file</a></div></form>
+<nav class="import-pagination" aria-label="Preview pages">{% if page.has_previous %}<a href="?page={{ page.previous_page_number }}&amp;q={{ query|urlencode }}&amp;status={{ status|urlencode }}&amp;issue={{ issue|urlencode }}">← Previous page</a>{% endif %}<span>Page {{ page.number }} of {{ page.paginator.num_pages }}</span>{% if page.has_next %}<a href="?page={{ page.next_page_number }}&amp;q={{ query|urlencode }}&amp;status={{ status|urlencode }}&amp;issue={{ issue|urlencode }}">Next page →</a>{% endif %}</nav>
+<p class="muted">Save any edits before changing pages or confirming. Confirmation imports every unskipped row across all pages. A reuse decision links the approved revision to the new paper occurrence.</p>
+<div class="button-row import-confirm-actions"><form action="{% url 'imports:confirm' data.token %}" method="post">{% csrf_token %}<input type="hidden" name="version" value="{{ version }}"><button type="submit" {% if result.error_count %}disabled{% endif %}>Confirm Import ({{ result.master_count }} questions)</button></form><form action="{% url 'imports:cancel' data.token %}" method="post">{% csrf_token %}<button type="submit" class="button button-secondary">Cancel preview</button></form></div>
+<dialog id="import-cell-dialog" aria-labelledby="import-cell-label">
+  <form method="dialog">
+    <h2 id="import-cell-label">Cell value</h2>
+    <textarea id="import-cell-content" aria-labelledby="import-cell-label" rows="10" maxlength="32000"></textarea>
+    <div class="button-row"><button value="apply">Apply to cell</button><button value="close" class="button button-secondary">Close</button></div>
+  </form>
+</dialog>
 <script src="{% static 'js/import-preview.js' %}" defer></script>
 {% endblock %}

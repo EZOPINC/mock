@@ -8,6 +8,9 @@ erDiagram
         character_varying_14_ review_status "NOT_NULL"
         character_varying_1_ correct_answer "NOT_NULL"
         character_varying_100_ difficulty_level "NOT_NULL"
+        character_varying_12_ question_kind "NOT_NULL"
+        date current_as_of "NULL"
+        date expires_on "NULL"
         bigint current_revision_id FK "NULL"
         bigint published_revision_id FK "NULL"
         timestamp_with_time_zone created_at "NOT_NULL"
@@ -24,14 +27,8 @@ erDiagram
         bigint question_id FK "NOT_NULL"
         integer revision_number "NOT_NULL"
         character_varying_35_ language "NOT_NULL"
-        text question_text "NOT_NULL"
-        text option_a "NOT_NULL"
-        text option_b "NOT_NULL"
-        text option_c "NOT_NULL"
-        text option_d "NOT_NULL"
         character_varying_1_ correct_answer "NOT_NULL"
         character_varying_100_ difficulty_level "NOT_NULL"
-        text explanation "NOT_NULL"
         timestamp_with_time_zone created_at "NOT_NULL"
         timestamp_with_time_zone published_at "NULL"
     }
@@ -54,6 +51,8 @@ erDiagram
     }
     questions_questionsource {
         bigint id PK "NOT_NULL"
+        character_varying_64_ source_code UK "NULL"
+        character_varying_200_ publisher "NOT_NULL"
         character_varying_200_ source_name "NOT_NULL"
         character_varying_500_ source_document "NOT_NULL"
         timestamp_with_time_zone created_at "NOT_NULL"
@@ -71,6 +70,7 @@ erDiagram
         character_varying_50_ code UK "NOT_NULL"
         character_varying_200_ slug UK "NOT_NULL"
         integer display_order "NOT_NULL"
+        smallint question_freshness_years "NULL"
     }
     exams_topic {
         bigint id PK "NOT_NULL"
@@ -88,9 +88,11 @@ erDiagram
         bigint id PK "NOT_NULL"
         bigint authority_id FK "NOT_NULL"
         character_varying_200_ name "NOT_NULL"
+        text description "NOT_NULL"
         character_varying_50_ code "NOT_NULL"
         character_varying_200_ slug "NOT_NULL"
         boolean is_active "NOT_NULL"
+        character_varying_2_ default_mock_language "NOT_NULL"
     }
     exams_subject ||..o{ questions_question : "subject_id"
     exams_topic o|..o{ questions_question : "topic_id"

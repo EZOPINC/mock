@@ -37,9 +37,41 @@ Session states are in_progress/completed/abandoned; pause means leaving an open 
 | complete_session | Finish a revision-kind session early, retaining unanswered rows |
 | progress / performance | Read persisted totals/accuracy and frozen classification groupings |
 
-The existing service accepts counts 10/20/30/50/available; the current student difficulty
-page starts all available questions at the selected level. Do not confuse service support
-with visible configuration controls.
+The existing service accepts counts 10/20/30/50/available. On the current difficulty page,
+`available` is the default: Premium retains all eligible questions, while P1 Free starts
+use `PRACTICE_FREE_SESSION_SIZE` (positive integer, default 10). Explicit numeric service
+counts remain supported and strict. Existing start-token/configuration matching is unchanged;
+older sessions keep their original rows and counts when resumed.
+
+## Incremental Free allocation (P1)
+
+Registration creates no exam choice or question allocation. The first successful Free Mock
+or Practice start retains the existing selected-exam workflow. Each new Free Practice start
+uses the existing taxonomy/language eligibility, sampler and snapshot assembly, prioritizing
+unallocated master Question IDs. The lifetime allowance remains `PlanEntitlement.usage_limit`,
+initially 50; it is not hardcoded into the session size.
+
+For a sufficiently large pool, five default sessions allocate ten different masters each.
+A smaller remaining quota produces a partial final default batch. If a small language/topic
+scope runs out of unseen content first, eligible allocated questions can fill its batch without
+consuming more allowance. A scope containing only allocated questions is revisitable. When a
+request needs new questions and no lifetime slots remain, the existing Premium upgrade error
+is returned even if that scope also contains older allocations; existing sessions remain
+available through their normal history/resume routes.
+
+`billing.usage.practice_pool(..., session_size=...)` reuses FreeExamSelection/FreeQuestionUsage
+and the configured entitlement. `record_practice` records only previously unseen master IDs
+before snapshot assembly, under the existing owner lock and outer start transaction. A failed
+start rolls back both its allocations and session, and uniqueness prevents duplicate counting.
+Same-token retries reuse the existing session; different devices serialize before reading the
+ledger. Revisions, translations, refreshes and repeated answers do not add another unit for
+an already allocated master.
+
+Premium bypasses Free allocation and keeps its current default/count semantics. Premium starts
+do not consume/reset the Free ledger; expiry restores the original exam and remaining allowance.
+Past Free/Premium sessions, answers, bookmarks and frozen revisions remain unchanged. No model,
+data migration, registration hook or preallocation job is introduced. Coverage is in
+`practice/test_incremental.py` plus existing billing/Practice/Revision regressions.
 
 Same-answer retries return stored feedback. Conflicting retries fail. The first successful
 answer wins under the parent lock. Invalid submissions roll back without changing results.
@@ -64,6 +96,8 @@ and returns an existing matching owned session before current-pool validation. R
 its own request-spec comparison for retry safety, then reuses the same persisted engine.
 
 ## Routes, rendering and feedback
+
+Practice displays current exam appearances from eligible published papers and staff-verified source records. Matching entries are shown once. A link to the original paper question becomes available after the learner answers. Source references are staff-only, and appearances are hidden while that learner has the question in an open mock attempt.
 
 practice/urls.py wires session, answer, summary and abandonment. Reads are authenticated
 and owner-scoped; answer/abandon writes use POST/CSRF. Revision has separate owner-scoped

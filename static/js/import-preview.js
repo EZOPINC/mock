@@ -28,3 +28,34 @@ if (editForm) {
     }
   });
 }
+
+const grid = document.querySelector('.preview-table');
+const cellDialog = document.querySelector('#import-cell-dialog');
+if (grid && cellDialog && typeof cellDialog.showModal === 'function') {
+  const editor = cellDialog.querySelector('textarea');
+  const apply = cellDialog.querySelector('button[value=apply]');
+  let selected;
+  const openCell = event => {
+    const cell = event.target.closest('td textarea, .grid-cell-value');
+    if (!cell || (event.type === 'keydown' && (event.key !== 'Enter' || event.shiftKey))) return;
+    event.preventDefault();
+    selected = cell;
+    const editable = cell instanceof HTMLTextAreaElement;
+    editor.value = editable ? cell.value : cell.textContent;
+    editor.readOnly = !editable;
+    apply.hidden = !editable;
+    cellDialog.querySelector('h2').textContent = editable ? cell.labels[0].textContent : cell.dataset.gridLabel;
+    cellDialog.returnValue = '';
+    cellDialog.showModal();
+    editor.focus();
+  };
+  grid.addEventListener('dblclick', openCell);
+  grid.addEventListener('keydown', openCell);
+  cellDialog.addEventListener('close', () => {
+    if (cellDialog.returnValue === 'apply' && !editor.readOnly && selected.value !== editor.value) {
+      selected.value = editor.value;
+      selected.dispatchEvent(new Event('input', { bubbles: true }));
+    }
+    selected?.focus();
+  });
+}

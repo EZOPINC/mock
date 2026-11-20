@@ -1,0 +1,11 @@
+{% if selected %}
+<form class="workspace-panel selection-actions" method="post" action="{{ selection_url }}">
+  {% csrf_token %}
+  <p><strong>{{ selected|length }} selected</strong> across the review queue.</p>
+  <div class="button-row">
+    <button type="submit" name="selection_action" value="review">Mark selected reviewed</button>
+    <button type="submit" name="selection_action" value="publish" class="button button-secondary">Publish selected</button>
+    <button type="submit" name="selection_action" value="clear" class="button button-secondary">Clear selection</button>
+  </div>
+</form>
+{% endif %}

@@ -34,7 +34,7 @@ def eligible_for_rule(rule, *, question_ids=None, cache=None):
     field = next(field for field in FILTERS if getattr(rule, field + "_id") is not None)
     node_id = getattr(rule, field + "_id")
     section = rule.section
-    key = (section.pattern.exam_id, section.language_mode, field, node_id, rule.difficulty)
+    key = (section.pattern.exam_id, section.language_mode, field, node_id, rule.difficulty, rule.question_kind)
     if question_ids is None and cache is not None and key in cache:
         return cache[key]
     questions = Question.objects.filter(exam_associations__exam_id=section.pattern.exam_id, published_revision__isnull=False)
@@ -53,6 +53,8 @@ def eligible_for_rule(rule, *, question_ids=None, cache=None):
             topics = Topic.objects.filter(Q(part_id=node_id) | Q(module__part_id=node_id)
                 | Q(chapter__part_id=node_id) | Q(chapter__module__part_id=node_id) | Q(chapter__submodule__module__part_id=node_id))
         questions = questions.filter(topic_associations__topic_id__in=topics.values("pk"))
+    if rule.question_kind:
+        questions = questions.filter(question_kind=rule.question_kind)
     if rule.difficulty:
         questions = questions.annotate(_difficulty=Lower(Trim("published_revision__difficulty_level")))
         questions = questions.filter(_difficulty__in=["", "unspecified"] if rule.difficulty == "unspecified" else [rule.difficulty])
@@ -89,7 +91,9 @@ def selection_tasks(sections, *, pools=None, legacy_eligibility):
             elif rows:
                 raise ValidationError(f"{rule}: remove manual questions before using random selection.")
             if len(pool) < rule.question_count:
-                raise ValidationError(f"{rule}: requires {rule.question_count} eligible questions; only {len(pool)} available.")
+                node = next(getattr(rule, field) for field in FILTERS if getattr(rule, field + "_id") is not None)
+                kind = rule.get_question_kind_display()
+                raise ValidationError(f"{rule} ({node}, {kind}): requires {rule.question_count} eligible questions; only {len(pool)} available.")
             tasks.append({"section": section, "rule": rule, "quota": rule, "pool": pool, "manual": manual})
     for task in tasks:
         if task["manual"] is None:
@@ -102,5 +106,5 @@ def rule_snapshot(rule, selected_ids):
     node = getattr(rule, field)
     return {"id": rule.pk, "display_order": rule.display_order, "filter_type": field,
         "filter_id": node.pk, "filter_code": node.code, "filter_name": node.name,
-        "question_count": rule.question_count, "difficulty": rule.difficulty,
+        "question_count": rule.question_count, "difficulty": rule.difficulty, "question_kind": rule.question_kind,
         "selection_mode": rule.selection_mode, "selected_question_ids": list(selected_ids)}

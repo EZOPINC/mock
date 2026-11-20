@@ -4,6 +4,7 @@ from django.db.models import Q
 from django.conf import settings
 from django.core.validators import RegexValidator
 from django.db.models.deletion import ProtectedError
+from .creation import CreationValidationMixin, created_question, creation_atomic
 
 TRANSLATED_FIELDS = ("question_text", "option_a", "option_b", "option_c", "option_d", "explanation")
 
@@ -29,7 +30,13 @@ class RevisionQuerySet(RevisionWorkflowQuerySet):
         raise ProtectedError("Question revisions must be retained.", self)
 
 
-class Question(models.Model):
+class QuestionKind(models.TextChoices):
+    LOGICAL = "logical", "Logical"
+    STATIC = "static", "Static"
+    UNCLASSIFIED = "unclassified", "Unclassified"
+
+
+class Question(CreationValidationMixin, models.Model):
     class PublicationStatus(models.TextChoices):
         DRAFT = "draft", "Draft"
         PUBLISHED = "published", "Published"
@@ -51,6 +58,9 @@ class Question(models.Model):
         max_length=14, choices=ReviewStatus, default=ReviewStatus.PENDING)
     correct_answer = models.CharField(max_length=1, choices=((key, key) for key in "ABCD"), blank=True, default="")
     difficulty_level = models.CharField(max_length=100, blank=True, default="")
+    question_kind = models.CharField(max_length=12, choices=QuestionKind, default=QuestionKind.UNCLASSIFIED)
+    current_as_of = models.DateField(null=True, blank=True, help_text="Event date or date the question was verified.")
+    expires_on = models.DateField(null=True, blank=True, help_text="First day this question is excluded from new mocks and practice sets when its subject has an expiry policy.")
     current_revision = models.ForeignKey(
         "QuestionRevision", on_delete=models.PROTECT, related_name="working_for", blank=True, null=True, editable=False)
     published_revision = models.ForeignKey(
@@ -73,6 +83,11 @@ class Question(models.Model):
                                    "draft", "published"]), name="questions_publication_valid"),
             models.CheckConstraint(condition=Q(review_status__in=[
                                    "pending_review", "reviewed"]), name="questions_review_valid"),
+            models.CheckConstraint(condition=Q(question_kind__in=QuestionKind.values), name="questions_kind_valid"),
+            models.CheckConstraint(
+                condition=Q(current_as_of__isnull=True) | Q(expires_on__isnull=True) | Q(expires_on__gt=models.F("current_as_of")),
+                name="questions_expiry_after_current_as_of",
+            ),
             models.CheckConstraint(condition=Q(correct_answer__in=["", "A", "B", "C", "D"]), name="questions_master_answer_valid"),
             models.CheckConstraint(condition=Q(publication_status="draft", published_revision__isnull=True) | Q(
                 publication_status="published", published_revision__isnull=False), name="questions_public_pointer_valid"),
@@ -83,6 +98,8 @@ class Question(models.Model):
 
     def clean(self):
         super().clean()
+        if self.current_as_of and self.expires_on and self.expires_on <= self.current_as_of:
+            raise ValidationError({"expires_on": "Expiry must be after the current-as-of date."})
         if self.topic_id and self.subject_id and self.topic.subject_id != self.subject_id:
             raise ValidationError(
                 {"topic": "Topic must belong to the selected subject."})
@@ -102,9 +119,10 @@ class Question(models.Model):
             raise ValidationError("Shared answer and difficulty must match the working revision snapshot.")
 
     def save(self, *args, _workflow=False, **kwargs):
-        with transaction.atomic():
+        # Imports reuse their outer transaction; validation/DB constraints remain.
+        with creation_atomic():
             previous = type(self).objects.select_for_update().filter(
-                pk=self.pk).first() if self.pk else None
+                pk=self.pk).first() if self.pk and not (_workflow and created_question(self.pk) is self) else None
             managed = ("current_revision_id", "published_revision_id",
                        "review_status", "publication_status", "correct_answer", "difficulty_level")
             if not _workflow:
@@ -157,7 +175,7 @@ class QuestionTopic(models.Model):
         return f"{self.question} / {self.topic}" + (" (primary)" if self.is_primary else "")
 
 
-class QuestionRevision(models.Model):
+class QuestionRevision(CreationValidationMixin, models.Model):
     class Language(models.TextChoices):
         ENGLISH = "en", "English"
         BENGALI = "bn", "Bengali"
@@ -172,14 +190,8 @@ class QuestionRevision(models.Model):
         Question, on_delete=models.PROTECT, related_name="revisions", db_index=False)
     revision_number = models.PositiveIntegerField()
     language = models.CharField(max_length=35, choices=settings.QUESTION_LANGUAGES, validators=[RegexValidator(r"^[a-z]{2,3}(?:-[a-z0-9]{2,8})*$")])
-    question_text = models.TextField()
-    option_a = models.TextField()
-    option_b = models.TextField()
-    option_c = models.TextField()
-    option_d = models.TextField()
     correct_answer = models.CharField(max_length=1, choices=Answer)
     difficulty_level = models.CharField(max_length=100, blank=True, default="")
-    explanation = models.TextField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     published_at = models.DateTimeField(null=True, blank=True, editable=False)
 
@@ -195,18 +207,45 @@ class QuestionRevision(models.Model):
             models.CheckConstraint(condition=Q(language__regex=r"^[a-z]{2,3}(?:-[a-z0-9]{2,8})*$"), name="questions_language_code_valid"),
             models.CheckConstraint(condition=Q(correct_answer__in=[
                                    "A", "B", "C", "D"]), name="questions_answer_valid"),
-            models.CheckConstraint(condition=~Q(question_text="") & ~Q(option_a="") & ~Q(
-                option_b="") & ~Q(option_c="") & ~Q(option_d=""), name="questions_content_required"),
         ]
 
     def __str__(self):
         return f"Question {self.question_id}, revision {self.revision_number} ({self.language})"
 
+    @property
+    def primary_translation(self):
+        return next((edition for edition in self.translations.all() if edition.language == self.language), None)
+
+    def _primary_text_field(self, field):
+        edition = self.primary_translation
+        return getattr(edition, field) if edition else ""
+
+    @property
+    def question_text(self):
+        return self._primary_text_field("question_text")
+
+    @property
+    def option_a(self):
+        return self._primary_text_field("option_a")
+
+    @property
+    def option_b(self):
+        return self._primary_text_field("option_b")
+
+    @property
+    def option_c(self):
+        return self._primary_text_field("option_c")
+
+    @property
+    def option_d(self):
+        return self._primary_text_field("option_d")
+
+    @property
+    def explanation(self):
+        return self._primary_text_field("explanation")
+
     def clean(self):
         super().clean()
-        for field in ("question_text", "option_a", "option_b", "option_c", "option_d"):
-            if not getattr(self, field, "").strip():
-                raise ValidationError({field: "This field cannot be blank."})
         if self.question_id:
             first = type(self).objects.filter(
                 question_id=self.question_id).order_by("revision_number").first()
@@ -214,9 +253,11 @@ class QuestionRevision(models.Model):
                 raise ValidationError(
                     {"language": "Language cannot change across revisions."})
 
-    def save(self, *args, _publishing=False, **kwargs):
-        with transaction.atomic():
-            Question.objects.select_for_update().get(pk=self.question_id)
+    def save(self, *args, _publishing=False, _assembly=False, **kwargs):
+        # A question inserted by this import is already exclusively owned.
+        with creation_atomic():
+            if created_question(self.question_id) is None:
+                Question.objects.select_for_update().get(pk=self.question_id)
             previous = type(self).objects.filter(
                 pk=self.pk).first() if self.pk else None
             if previous:
@@ -226,23 +267,16 @@ class QuestionRevision(models.Model):
                 if changed and not (_publishing and changed == {"published_at"} and previous.published_at is None and self.published_at is not None):
                     raise ValidationError(
                         "Revisions are append-only. Create a new revision to edit content.")
-            elif self.published_at is not None:
-                raise ValidationError(
-                    "New revisions cannot be published directly.")
+            elif self.published_at is not None or not _assembly:
+                raise ValidationError("Create new revisions through the question service.")
             self.full_clean()
-            result = super().save(*args, **kwargs)
-            if previous is None:
-                QuestionTranslation(
-                    question_id=self.question_id, revision=self, language=self.language,
-                    **{field: getattr(self, field) for field in TRANSLATED_FIELDS},
-                ).save(_assembly=True)
-            return result
+            return super().save(*args, **kwargs)
 
     def delete(self, *args, **kwargs):
         raise ProtectedError("Question revisions must be retained.", [self])
 
 
-class QuestionTranslation(models.Model):
+class QuestionTranslation(CreationValidationMixin, models.Model):
     """Immutable language content within a master Question revision snapshot."""
     question = models.ForeignKey(Question, on_delete=models.PROTECT, related_name="translations")
     revision = models.ForeignKey(QuestionRevision, on_delete=models.PROTECT, related_name="translations", db_index=False)
@@ -276,13 +310,13 @@ class QuestionTranslation(models.Model):
         for field in TRANSLATED_FIELDS[:-1]:
             if not getattr(self, field, "").strip():
                 raise ValidationError({field: "This field cannot be blank."})
-        if self.revision_id and self.language == self.revision.language:
-            if any(getattr(self, field) != getattr(self.revision, field) for field in TRANSLATED_FIELDS):
-                raise ValidationError("Primary translation must match the backward-compatible revision snapshot.")
 
     def save(self, *args, _assembly=False, **kwargs):
-        with transaction.atomic():
-            question = Question.objects.select_for_update().get(pk=self.question_id)
+        # Reuse only newly inserted parents; existing-question guards still apply.
+        with creation_atomic():
+            question = created_question(self.question_id)
+            if question is None:
+                question = Question.objects.select_for_update().get(pk=self.question_id)
             if not _assembly or self.pk or self.revision.published_at or question.current_revision_id == self.revision_id:
                 raise ValidationError("Use the translation revision service; translation snapshots are immutable.")
             self.full_clean()
@@ -308,16 +342,36 @@ class QuestionExam(models.Model):
         return f"{self.question} / {self.exam}"
 
 
+SOURCE_CODE_PATTERN = r"^[A-Z0-9][A-Z0-9._-]{0,63}$"
+
+
 class QuestionSource(models.Model):
+    source_code = models.CharField(max_length=64, unique=True, null=True, blank=True)
+    publisher = models.CharField(max_length=200, blank=True, default="")
     source_name = models.CharField(max_length=200)
     source_document = models.CharField(max_length=500)
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         ordering = ("source_name", "pk")
+        constraints = [
+            models.CheckConstraint(
+                condition=Q(source_code__isnull=True) | Q(source_code__regex=SOURCE_CODE_PATTERN),
+                name="questions_source_code_format",
+            ),
+            models.CheckConstraint(
+                condition=Q(source_code__isnull=True) | ~Q(source_document=""),
+                name="questions_coded_source_has_document",
+            ),
+        ]
+
+    def clean(self):
+        super().clean()
+        self.source_code = (self.source_code or "").strip().upper() or None
 
     def __str__(self):
-        return f"{self.source_name}: {self.source_document}"
+        label = f"{self.source_name}: {self.source_document}"
+        return f"{self.source_code} - {label}" if self.source_code else label
 
 
 class QuestionSourceReference(models.Model):

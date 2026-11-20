@@ -26,4 +26,4 @@ def exam_detail(request, authority_slug, exam_slug):
     exam = get_object_or_404(
         active_exams(), authority__slug=authority_slug, slug=exam_slug,
     )
-    return render(request, "exams/exam_detail.html", {"exam": exam, "stages": exam.stages.all()})
+    return render(request, "exams/exam_detail.html", {"exam": exam})

@@ -8,11 +8,33 @@ from django.db import transaction
 from django.db.models import F, Max
 from django.utils import timezone
 
-from .models import Question, QuestionRevision, QuestionTranslation, TRANSLATED_FIELDS
+from .freshness import resolve_freshness_dates
+from .creation import atomic_creation, created_question, remember_created
+from .models import Question, QuestionKind, QuestionRevision, QuestionTranslation, TRANSLATED_FIELDS
 
 
 def _locked(question):
-    return Question.objects.select_for_update().get(pk=question.pk if isinstance(question, Question) else question)
+    pk = question.pk if isinstance(question, Question) else question
+    return created_question(pk) or Question.objects.select_for_update().get(pk=pk)
+
+
+@transaction.atomic
+def set_question_kind(question, kind):
+    question = _locked(question)
+    question.question_kind = kind
+    question.save(update_fields=("question_kind", "updated_at"))
+
+
+@transaction.atomic
+def set_missing_expiry(question):
+    question = _locked(question)
+    if question.expires_on is not None or question.subject.question_freshness_years is None:
+        return False
+    question.current_as_of, question.expires_on = resolve_freshness_dates(
+        question.subject, current_as_of=question.current_as_of, default_date=timezone.localdate(question.created_at),
+    )
+    question.save(update_fields=("current_as_of", "expires_on", "updated_at"))
+    return True
 
 
 def _check_expected(question, revision_id):
@@ -20,38 +42,60 @@ def _check_expected(question, revision_id):
         raise ValidationError("The working revision changed. Reload and review it before continuing.")
 
 
-@transaction.atomic
-def create_question(*, subject, revision, topic=None, source_question_id=None, translations=None, difficulty_level=""):
-    question = Question.objects.create(subject=subject, topic=topic, source_question_id=source_question_id)
+@atomic_creation
+def create_question(*, subject, revision, topic=None, source_question_id=None, translations=None,
+                    difficulty_level="", question_kind=QuestionKind.UNCLASSIFIED, current_as_of=None, expires_on=None):
+    current_as_of, expires_on = resolve_freshness_dates(subject, current_as_of=current_as_of, expires_on=expires_on)
+    question = Question.objects.create(
+        subject=subject, topic=topic, source_question_id=source_question_id, question_kind=question_kind,
+        current_as_of=current_as_of, expires_on=expires_on,
+    )
+    remember_created(question)
     create_revision(question, translations=translations, difficulty_level=difficulty_level, **revision)
-    question.refresh_from_db()
+    if created_question(question.pk) is None:
+        question.refresh_from_db()
     return question
 
 
-@transaction.atomic
+@atomic_creation
 def create_revision(question, *, translations=None, difficulty_level=None, **content):
     question = _locked(question)
     allowed = {"language", "question_text", "option_a", "option_b", "option_c", "option_d", "correct_answer", "explanation"}
     if set(content) - allowed:
         raise ValidationError("Only revision content fields may be supplied.")
+    primary_language = content.pop("language", None)
+    correct_answer = content.pop("correct_answer", "")
+    if not primary_language:
+        raise ValidationError("A primary language is required.")
+    if translations is None and question.current_revision_id:
+        translations = [dict(language=item.language, **{field: getattr(item, field) for field in TRANSLATED_FIELDS})
+            for item in question.current_revision.translations.all() if item.language != primary_language]
+
+    editions = {}
+    for translated in translations or ():
+        language = translated.get("language")
+        if not language or set(translated) - {"language", *TRANSLATED_FIELDS}:
+            raise ValidationError("Supply a language and valid translation text fields.")
+        if language in editions:
+            raise ValidationError("Only one translation per language is allowed in a revision.")
+        editions[language] = {field: translated.get(field, "") for field in TRANSLATED_FIELDS}
+    if content:
+        legacy_primary = {field: content.get(field, "") for field in TRANSLATED_FIELDS}
+        if primary_language in editions and editions[primary_language] != legacy_primary:
+            raise ValidationError("Primary translation does not match the revision content.")
+        editions[primary_language] = legacy_primary
+    if primary_language not in editions:
+        raise ValidationError("A valid primary translation is required.")
+
     number = (question.revisions.aggregate(number=Max("revision_number"))["number"] or 0) + 1
     if difficulty_level is None:
         difficulty_level = question.difficulty_level
-    revision = QuestionRevision.objects.create(question=question, revision_number=number, difficulty_level=difficulty_level, **content)
-    if translations is None and question.current_revision_id:
-        translations = [dict(language=item.language, **{field: getattr(item, field) for field in TRANSLATED_FIELDS}) for item in question.current_revision.translations.all() if item.language != revision.language]
-    languages = set()
-    for translated in translations or []:
-        translated = dict(translated)
-        language = translated.pop("language")
-        if language in languages:
-            raise ValidationError("Only one translation per language is allowed in a revision.")
-        languages.add(language)
-        if language == revision.language:
-            if any(translated.get(field, "") != getattr(revision, field) for field in TRANSLATED_FIELDS):
-                raise ValidationError("Primary translation does not match the revision content.")
-            continue
-        QuestionTranslation(question=question, revision=revision, language=language, **translated).save(_assembly=True)
+    revision = QuestionRevision(question=question, revision_number=number, language=primary_language,
+        difficulty_level=difficulty_level, correct_answer=correct_answer)
+    revision.save(_assembly=True)
+    remember_created(revision)
+    for language, fields in editions.items():
+        QuestionTranslation(question=question, revision=revision, language=language, **fields).save(_assembly=True)
     question.current_revision = revision
     question.correct_answer = revision.correct_answer
     question.difficulty_level = revision.difficulty_level
@@ -70,8 +114,8 @@ def add_translation(question, *, language, **content):
     if set(content) - set(TRANSLATED_FIELDS):
         raise ValidationError("Answer, difficulty and classifications are shared master attributes.")
     translations[language] = {"language": language, "explanation": "", **content}
-    primary = translations[current.language]
-    return create_revision(question, correct_answer=current.correct_answer, translations=list(translations.values()), **primary)
+    return create_revision(question, language=current.language, correct_answer=current.correct_answer,
+        translations=list(translations.values()))
 
 
 def validate_translations(revision):

@@ -1,42 +1,7 @@
-# Codex Instructions - Mock Exam Platform
+# Mock Exam Platform
 
-## Locate the task
-
-- Work on one clearly defined task at a time and identify the owning Django app.
-- Consult `docs/MODULE_MAP.md` before exploring implementation files.
-- Read `docs/architecture.md` only when architecture context is needed.
-- Follow `docs/DEVELOPMENT_RULES.md`; distinguish observations from recommendations.
-- Documents are navigation aids. Never treat documentation as more authoritative than source.
-- Do not assume prior phases/roadmaps describe the current implementation accurately.
-
-## Inspect efficiently
-
-- Read only relevant mapped files and their direct dependencies.
-- Start with paths, symbols and focused excerpts rather than complete files or broad dumps.
-- Use rg for bounded searches; avoid repeatedly scanning files already inspected.
-- Scan the whole repository only when requested or needed to resolve a dependency.
-- Exclude .git, .venv, node_modules, caches, logs, staged uploads and generated/collected assets.
-- Do not inspect or print credentials, local environment values or personal records.
-
-## Implement safely
-
-- Prefer the smallest safe patch; reuse existing services, models and UI components.
-- Avoid unrelated refactoring, speculative features, dependencies and architectural changes.
-- Explain necessary cross-app dependencies before expanding agreed scope.
-- Preserve master Question IDs, immutable revisions/translations and historical attempts/sessions.
-- Use domain workflows/tagging services; do not bypass guards, querysets or SQL constraints.
-- Preserve authentication, ownership, CSRF, eligibility and active-mock confidentiality.
-- Keep Mock Test scoring/timer/autosave changes within explicitly authorized scope.
-- Add migrations only when necessary; preserve backward compatibility.
-- Never apply migrations, install dependencies or deploy for a documentation-only task.
-- Update documentation only when architecture, interfaces or file locations change.
-
-## Verify and report
-
-- Run targeted tests first; expand only for failures or justified cross-module risks.
-- Use existing PostgreSQL/concurrency/migration tests for affected integrity behavior.
-- Avoid unnecessary tests/builds for documentation-only or reversible low-impact styling tasks.
-- Verify diff scope; do not revert unrelated user changes.
-- Return concise changed-file, behavior, test-result and remaining-issue summaries.
-- Do not print full code/docs, credentials or verbose logs in the final response.
-- Follow a task-specific final-output format when supplied by the user.
+- Start with the owning app in [Module Map](docs/MODULE_MAP.md). Read only the matching workflow reference, relevant source, and direct dependencies. Use the [Development Rules](docs/DEVELOPMENT_RULES.md) for implementation and verification. Read architecture only for cross-app context. Source and current instructions take precedence over documentation and historical milestones.
+- Work on one defined task. Use bounded `rg` searches and focused excerpts. Exclude Git metadata, virtual environments, dependencies, caches, logs, staged uploads and generated assets. Never inspect or print credentials, local environment values or personal records.
+- Prefer the smallest safe change and existing domain workflows, services and components. Explain a necessary cross-app dependency before expanding scope. Preserve Question IDs, immutable revisions/translations, historical snapshots, auth, ownership, CSRF, eligibility and active-mock confidentiality. Keep Mock scoring, timer and autosave changes within explicit scope.
+- Add migrations only when necessary and preserve backward compatibility. For docs-only tasks, skip migrations, installs, deployments and application builds. Update the owning documentation when interfaces, architecture or file locations change.
+- Check the diff and preserve unrelated changes. Run targeted tests for behavior and integrity changes, using existing PostgreSQL/concurrency/migration coverage as appropriate. Report changed areas, verification and open issues concisely. Follow any task-specific output format.

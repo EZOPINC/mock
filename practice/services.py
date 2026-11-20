@@ -2,6 +2,7 @@ from decimal import Decimal
 from secrets import SystemRandom
 from uuid import UUID
 
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
 from django.db import transaction
@@ -48,10 +49,21 @@ def start_session(user, *, exam, subject, topic=None, part=None, module=None, su
         ids &= difficulty_pools(ids).get(difficulty, set())
     if language in {"en", "bn"}:
         ids &= eligible_question_ids(exam.pk, language_mode=language, question_ids=ids)
+    if not ids:
+        raise ValidationError("Insufficient eligible questions. Change the difficulty, language or filters and try again; no session was created.")
+    from billing.usage import PRACTICE_UPGRADE_MESSAGE, practice_pool, record_practice
+    sampler = SystemRandom()
+    eligible_count = len(ids)
+    session_size = settings.PRACTICE_FREE_SESSION_SIZE if count == "available" else int(count)
+    ids, is_free = practice_pool(user, exam.pk, ids, sampler=sampler, session_size=session_size)
     required = len(ids) if count == "available" else int(count)
+    if not ids or (required > len(ids) and eligible_count >= required):
+        raise ValidationError(PRACTICE_UPGRADE_MESSAGE)
     if not required or required > len(ids):
         raise ValidationError("Insufficient eligible questions. Change the difficulty, language or filters and try again; no session was created.")
-    selected = SystemRandom().sample(sorted(ids), required)
+    selected = sampler.sample(sorted(ids), required)
+    if is_free:
+        record_practice(user, selected)
     questions = {item.pk: item for item in Question.objects.filter(pk__in=selected).select_related("published_revision", "subject", "topic")}
     configuration = {"exam_name": exam.name, "authority_name": exam.authority.name,
             "subject_name": subject.name, "topic_name": topic.name if topic else "All topics",

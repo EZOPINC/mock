@@ -6,22 +6,17 @@
 {% endblock %}
 {% block content %}
     <div class="ui-discovery">
-        <section class="ui-paper-intro" aria-label="Explore previous-year papers">
+        <section class="ui-paper-intro ui-paper-intro-compact" aria-label="Explore previous-year papers">
             {% include "previous_year/breadcrumbs.html" %}
-            <div class="ui-paper-intro-heading">
-                <div>
-                    <span class="ui-paper-access">{% include "components/icon.html" with name="book" %} Free access · No login required</span>
-                    {% include "components/page_heading.html" with eyebrow="PAST PAPERS. FRESH UNDERSTANDING." heading="Previous Year Questions & Solutions" description="Learn from the papers that came before. Choose your exam to explore original questions, verified answers and clear explanations." %}
-                </div>
-                <span class="ui-paper-intro-icon" aria-hidden="true">{% include "components/icon.html" with name="book" %}</span>
-            </div>
+            <h1 class="tw:sr-only">Previous Year Papers</h1>
+            <span class="ui-paper-access">{% include "components/icon.html" with name="book" %} Free access · No login required</span>
             <ol class="ui-paper-browse-steps" aria-label="How to browse papers">
                 <li><span>1</span> Choose your exam</li>
                 <li><span>2</span> Select year &amp; paper</li>
                 <li><span>3</span> Learn &amp; practice</li>
             </ol>
             <div class="ui-paper-intro-search">
-                {% include "components/discovery_filter.html" with target="paper-exam-results" filter_label="Find your exam" filter_placeholder="Search by exam or authority name…" %}
+                {% include "components/discovery_filter.html" with target="paper-exam-results" filter_label="Find your exam" filter_placeholder="Search by exam or category name…" %}
             </div>
         </section>
         <div class="discovery-grid ui-discovery-grid" id="paper-exam-results">

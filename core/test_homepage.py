@@ -20,7 +20,7 @@ class ModernHomepageTests(TestCase):
                 Exam.objects.create(authority=authority, name=name, code=str(index), slug=f"exam-{index}")
         cls.unlisted = Exam.objects.create(authority=cls.psc, name="Other exam", code="other", slug="other")
 
-    def test_homepage_order_dynamic_urls_and_hero_actions(self):
+    def test_homepage_order_dynamic_urls_and_discovery(self):
         response = self.client.get(reverse("home"))
         self.assertContains(response, '<h1 id="home-heading">', count=1)
         authorities = response.context["authorities"]
@@ -44,7 +44,7 @@ class ModernHomepageTests(TestCase):
         response = self.client.get(reverse("home"))
         self.assertEqual(len(response.context["authorities"]), 3)
         self.assertNotContains(response, ">WBCS ")
-        self.assertContains(response, "No exams are available for this authority yet.")
+        self.assertContains(response, "No exams are available for this category yet.")
 
     def test_homepage_presentation_does_not_change_other_discovery(self):
         self.client.get(reverse("home"))
@@ -54,7 +54,7 @@ class ModernHomepageTests(TestCase):
 
     def test_empty_homepage_and_authenticated_navigation(self):
         ExamAuthority.objects.update(is_active=False)
-        self.assertContains(self.client.get(reverse("home")), "No exam authorities are available yet.")
+        self.assertContains(self.client.get(reverse("home")), "No exams are available yet.")
         user = get_user_model().objects.create_user(username="homepage-student")
         self.client.force_login(user)
         response = self.client.get(reverse("home"))

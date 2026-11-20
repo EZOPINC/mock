@@ -1,0 +1,2 @@
+{% extends "base.html" %}{% block title %}Checkout unavailable | Mock Exam Platform{% endblock %}
+{% block content %}<div class="checkout-page"><section class="checkout-card"><span class="checkout-icon">{% include "components/icon.html" with name="info" %}</span><p class="eyebrow">LET'S TRY THAT AGAIN</p><h1>Checkout could not continue</h1><p role="alert">{{ error }}</p><a class="button button-primary" href="{% url 'billing:pricing' %}">Back to plans</a></section></div>{% endblock %}

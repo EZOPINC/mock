@@ -6,12 +6,6 @@ register = template.Library()
 
 
 @register.simple_tag
-def pattern_reading_language(pattern):
-    modes = {section.language_mode for section in pattern.sections.all()}
-    return next(iter(modes)) if len(modes) == 1 and modes <= {"en", "bn"} else "both"
-
-
-@register.simple_tag
 def reading_translations(revision, language="both", reserve_editions=False):
     translations = list(revision.translations.all())
     if language in {"en", "bn"}:

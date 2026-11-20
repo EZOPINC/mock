@@ -321,9 +321,13 @@ class ExecutionViewTests(ExecutionFixture):
 
 class ConcurrentExecutionTests(TransactionTestCase):
     def setUp(self):
+        from billing.test_usage import free_configuration
+        free_configuration()
         test_patterns.PatternTests.setUpTestData.__func__(type(self))
         test_patterns.PatternTests.setUp(self)
         self.user = get_user_model().objects.create_user(username="concurrent-execution")
+        from .testing import premium_user
+        premium_user(self.user)
         test_patterns.PatternTests.question(self)
         activate_pattern(self.pattern)
         self.attempt = start_attempt(self.user, self.pattern)

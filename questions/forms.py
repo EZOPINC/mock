@@ -28,10 +28,16 @@ class TopicSubjectSelectMultiple(TopicSubjectOptions, forms.SelectMultiple):
     pass
 
 
-class RevisionForm(forms.ModelForm):
-    class Meta:
-        model = QuestionRevision
-        fields = CONTENT_FIELDS + ("difficulty_level",)
+class RevisionForm(forms.Form):
+    language = QuestionRevision._meta.get_field("language").formfield()
+    question_text = forms.CharField(widget=forms.Textarea)
+    option_a = forms.CharField(widget=forms.Textarea)
+    option_b = forms.CharField(widget=forms.Textarea)
+    option_c = forms.CharField(widget=forms.Textarea)
+    option_d = forms.CharField(widget=forms.Textarea)
+    correct_answer = QuestionRevision._meta.get_field("correct_answer").formfield()
+    explanation = forms.CharField(widget=forms.Textarea, required=False)
+    difficulty_level = forms.CharField(max_length=100, required=False)
 
 
 class TranslationForm(forms.ModelForm):
@@ -49,12 +55,13 @@ class QuestionAdminForm(forms.ModelForm):
 
     class Meta:
         model = Question
-        fields = ("source_question_id", "subject", "topic")
+        fields = ("source_question_id", "subject", "topic", "question_kind", "current_as_of", "expires_on")
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         subject_id = self.data.get(self.add_prefix("subject")) if self.is_bound else self.initial.get("subject", self.instance.subject_id)
         subject_id = getattr(subject_id, "pk", subject_id)
+        self.fields["question_kind"].required = False
         self.fields["topic"].label = "Primary topic"
         existing_widget = self.fields["topic"].widget
         if hasattr(existing_widget, "widget"):
@@ -72,6 +79,9 @@ class QuestionAdminForm(forms.ModelForm):
             self.fields[field].queryset = catalogue
         if self.instance.pk and not self.is_bound:
             self.initial["additional_topics"] = list(self.instance.topic_associations.filter(is_primary=False).values_list("topic_id", flat=True))
+
+    def clean_question_kind(self):
+        return self.cleaned_data["question_kind"] or self.instance.question_kind
 
     def clean(self):
         cleaned = super().clean()

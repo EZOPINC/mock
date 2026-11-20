@@ -1,4 +1,6 @@
-# General Questions translation inspection
+# Historical General Questions screenshots
+
+These captures document the original translation inspection layout. See the [current staff workspace](../../question-workspace.md) for navigation and review.
 
 General collection and staff batch review reuse the Previous-Year reading style.
 English stays in the left column and Bengali in the right at desktop widths.

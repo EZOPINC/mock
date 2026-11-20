@@ -7,7 +7,7 @@ from django.db.models.deletion import ProtectedError
 from django.test import TestCase
 from django.urls import reverse
 
-from .admin import ChapterInline, ExamStageInline, ModuleInline, PartInline, TopicInline
+from .admin import ChapterInline, ExamStageInline, ModuleInline, PartInline, SubmoduleInline, TopicInline
 from .models import Exam, ExamAuthority, ExamStage, Subject, Topic
 
 
@@ -124,11 +124,16 @@ class TaxonomyPublicTests(TaxonomyFixture):
         self.assertNotContains(response, hidden.name)
         self.assertNotContains(response, outsider.name)
 
-    def test_detail_is_public_and_displays_authority_stages_and_module_links(self):
+    def test_detail_is_public_and_displays_exam_without_authority_or_stages(self):
         response = self.client.get(self.detail_url())
         self.assertEqual(response.status_code, 200)
-        for text in (self.exam.name, self.authority.name, self.stage.name, "Available Modules"):
+        for text in (self.exam.name, "Explore Papers", "Explore Mock Tests", "Explore Practice Sets"):
             self.assertContains(response, text)
+        self.assertNotContains(response, "CHOOSE YOUR NEXT STEP")
+        self.assertNotContains(response, "Available Modules")
+        for text in (self.authority.name, self.stage.name, "Exam stages", "A focused space"):
+            self.assertNotContains(response, text)
+        self.assertNotContains(response, 'Explore General Questions')
         self.assertContains(response, reverse("previous_year:paper_list", args=[self.authority.slug, self.exam.slug]))
         for route in ("mock_tests:index", "practice:index"):
             self.assertContains(response, f'href="{reverse(route)}"')
@@ -140,6 +145,17 @@ class TaxonomyPublicTests(TaxonomyFixture):
         other = Exam.objects.create(authority=self.other_authority, name="Other", code="OTHER", slug="other")
         ExamStage.objects.create(exam=other, name="Other Exclusive Stage", code="OTHER")
         self.assertNotContains(self.client.get(self.detail_url()), "Other Exclusive Stage")
+
+    def test_exam_description_is_optional_exam_specific_and_escaped(self):
+        self.assertEqual(self.exam.description, "")
+        self.assertNotContains(self.client.get(self.detail_url()), '<p class="lead">')
+        self.exam.description = 'Clerkship overview <script>alert("test")</script>'
+        self.exam.save(update_fields=["description"])
+        response = self.client.get(self.detail_url())
+        self.assertContains(response, 'Clerkship overview &lt;script&gt;')
+        self.assertNotContains(response, '<script>alert(')
+        other = Exam.objects.create(authority=self.authority, name="Another exam", code="ANOTHER", slug="another")
+        self.assertNotContains(self.client.get(self.detail_url(exam=other)), 'Clerkship overview')
 
     def test_invalid_or_wrong_parent_urls_return_404(self):
         for args in (("missing",), ("missing", "clerk"), ("commission", "missing"), ("other", "clerk")):
@@ -166,11 +182,11 @@ class TaxonomyPublicTests(TaxonomyFixture):
 
     def test_empty_states(self):
         self.stage.delete()
-        self.assertContains(self.client.get(self.detail_url()), "No stages have been listed")
+        self.assertNotContains(self.client.get(self.detail_url()), "Exam stages")
         self.exam.delete()
         self.assertContains(self.client.get(reverse("exams:exam_list", args=[self.authority.slug])), "No exams are available")
         ExamAuthority.objects.all().delete()
-        self.assertContains(self.client.get(reverse("exams:authorities")), "No exam authorities are available")
+        self.assertContains(self.client.get(reverse("exams:authorities")), "No exams are available")
 
     def test_guest_can_follow_home_to_exam(self):
         self.assertContains(self.client.get(reverse("home")), reverse("exams:authorities"))
@@ -179,11 +195,30 @@ class TaxonomyPublicTests(TaxonomyFixture):
 
 
 class TaxonomyAdminTests(TaxonomyFixture):
+    def test_admin_can_save_public_exam_description(self):
+        user = get_user_model().objects.create_superuser(username="editor", email="editor@example.test")
+        self.client.force_login(user)
+        url = reverse("admin:exams_exam_change", args=[self.exam.pk])
+        response = self.client.get(url)
+        self.assertIn('description', response.context['adminform'].form.fields)
+        data = {
+            'authority': self.authority.pk, 'name': self.exam.name, 'code': self.exam.code,
+            'slug': self.exam.slug, 'is_active': 'on', 'default_mock_language': '',
+            'description': 'Clerkship: an introduction maintained by the exam editor.',
+            'stages-TOTAL_FORMS': '0', 'stages-INITIAL_FORMS': '0',
+            'stages-MIN_NUM_FORMS': '0', 'stages-MAX_NUM_FORMS': '1000',
+        }
+        response = self.client.post(url, data)
+        self.assertEqual(response.status_code, 302)
+        self.exam.refresh_from_db()
+        self.assertEqual(self.exam.description, data['description'])
+        self.assertTrue(self.exam.stages.filter(pk=self.stage.pk).exists())
+
     def test_all_models_registered_and_inlines_configured(self):
         for model in (ExamAuthority, Exam, ExamStage, Subject, Topic):
             self.assertTrue(admin.site.is_registered(model))
         self.assertIn(ExamStageInline, admin.site._registry[Exam].inlines)
-        self.assertEqual(admin.site._registry[Subject].inlines, (PartInline, ModuleInline, ChapterInline, TopicInline))
+        self.assertEqual(admin.site._registry[Subject].inlines, (PartInline, ModuleInline, SubmoduleInline, ChapterInline, TopicInline))
 
     def test_guests_and_students_cannot_access_admin(self):
         url = reverse("admin:exams_exam_changelist")

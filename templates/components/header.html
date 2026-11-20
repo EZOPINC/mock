@@ -1,29 +1,24 @@
 {% with area=request.resolver_match.app_name current=request.resolver_match.url_name %}
-  <header class="site-header ui-header">
-    <div class="header-inner ui-header-inner">
-      <a class="brand"
-         href="{% url 'home' %}"
-         aria-label="Mock Exam Platform home"><span class="brand-mark" aria-hidden="true">{% include "components/icon.html" with name="book" %}</span><span>Mock Exam<span class="brand-subtitle">PREPARE WITH PURPOSE</span></span></a>
-      <button class="menu-toggle"
-              type="button"
-              aria-controls="primary-navigation"
-              aria-expanded="true"
-              aria-label="Toggle navigation"
-              hidden>{% include "components/icon.html" with name="menu" %}<span>Menu</span></button>
-      <nav id="primary-navigation" aria-label="Main navigation">
-        <ul class="nav-links">
-          <li><a href="{% url 'home' %}"{% if current == 'home' %} aria-current="page"{% endif %}>Home</a></li>
-          <li><a href="{% url 'previous_year:index' %}"{% if area == 'previous_year' %} aria-current="{% if current == 'index' %}page{% else %}true{% endif %}"{% endif %}>Previous-Year Questions</a></li>
-          <li><a href="{% url 'mock_tests:index' %}"{% if area == 'mock_tests' %} aria-current="page"{% endif %}>Mock Tests</a></li>
-          <li><a href="{% url 'practice:index' %}"{% if area == 'practice' %} aria-current="page"{% endif %}>Practice Sets</a></li>
-          <li><details class="library-menu"><summary{% if area == 'exams' or area == 'general_questions' %} class="active"{% endif %}>Question Library <span class="ui-account-chevron">{% include "components/icon.html" with name="chevron" %}</span></summary><div class="profile-dropdown"><a href="{% url 'exams:authorities' %}"{% if area == 'exams' %} aria-current="page"{% endif %}>Exam Authorities</a><a href="{% url 'general_questions:index' %}"{% if area == 'general_questions' %} aria-current="page"{% endif %}>General Questions</a>{% if user.is_staff %}<a href="{% url 'admin:index' %}">Admin</a>{% endif %}</div></details></li>
-          {% if user.is_authenticated %}
-            <li class="account-nav"><details class="profile-menu"><summary{% if area == 'accounts' or area == 'revision' %} class="active"{% endif %}><span class="header-avatar" aria-hidden="true">{{ user.username|first|upper }}</span> My account <span class="ui-account-chevron">{% include "components/icon.html" with name="chevron" %}</span></summary><div class="profile-dropdown"><a href="{% url 'accounts:profile' %}">Profile</a><a href="{% url 'accounts:learning_space' %}">Learning Space</a><a href="{% url 'revision:dashboard' %}"{% if area == 'revision' %} aria-current="page"{% endif %}>My Revision Bank</a><form action="{% url 'accounts:logout' %}" method="post">{% csrf_token %}<button class="nav-button" type="submit">Logout</button></form></div></details></li>
-{% else %}<li class="account-nav"><a href="{% url 'accounts:login' %}"{% if current == 'login' %} aria-current="page"{% endif %}>Login</a></li><li><a class="button button-primary button-small"
-                                                                                                                                                      href="{% url 'accounts:register' %}">Register</a></li>{% endif %}
-          <li class="appearance-control"><label for="reading-theme">Appearance</label><select id="reading-theme" data-theme-select disabled><option value="system">System</option><option value="light">Light</option><option value="dark">Dark</option><option value="sepia">Sepia</option></select></li>
-  </ul>
-  </nav>
+<header class="site-header ui-header">
+  <div class="header-inner ui-header-inner">
+    <div class="shell-topbar">
+      <a class="brand" href="{% url 'home' %}" aria-label="Mock Exam Platform home"><span class="brand-mark" aria-hidden="true">{% include "components/icon.html" with name="book" %}</span><span>Mock Exam<span class="brand-subtitle">A CLEARER PATH TO YOUR NEXT EXAM</span></span></a>
+      <div class="shell-top-actions"><span class="shell-language">English <span aria-hidden="true">/</span> <span lang="bn">বাংলা</span></span><a class="button button-primary shell-upgrade" href="{% url 'billing:pricing' %}">Get Premium {% include "components/icon.html" with name="arrow" %}</a></div>
+      <button class="menu-toggle" type="button" aria-controls="primary-navigation" aria-expanded="true" aria-label="Toggle navigation" hidden>{% include "components/icon.html" with name="menu" %}<span>Menu</span></button>
+    </div>
+    <nav id="primary-navigation" aria-label="Main navigation"><ul class="nav-links">
+      <li><a href="{% url 'home' %}"{% if current == 'home' %} aria-current="page"{% endif %}>Home</a></li>
+      <li><a href="{% url 'previous_year:index' %}"{% if area == 'previous_year' %} aria-current="page"{% endif %}>Previous-Years</a></li>
+      <li><a href="{% url 'mock_tests:index' %}"{% if area == 'mock_tests' %} aria-current="page"{% endif %}>Mock Tests</a></li>
+      <li><a href="{% url 'practice:index' %}"{% if area == 'practice' %} aria-current="page"{% endif %}>Practice Sets</a></li>
+      <li><a href="{% url 'exams:authorities' %}"{% if area == 'exams' %} aria-current="page"{% endif %}>All Exams</a></li>
+      {% if user.is_staff %}<li><details class="library-menu"><summary{% if area == 'general_questions' %} class="active"{% endif %}>Manage <span class="ui-account-chevron">{% include "components/icon.html" with name="chevron" %}</span></summary><div class="profile-dropdown"><a href="{% url 'general_questions:manage' %}"{% if area == 'general_questions' %} aria-current="page"{% endif %}>General Questions</a><a href="{% url 'admin:index' %}">Admin</a></div></details></li>{% endif %}
+      <li><a class="shell-plans-link" href="{% url 'billing:pricing' %}"{% if area == 'billing' %} aria-current="page"{% endif %}>Plans &amp; pricing</a></li>
+      {% if user.is_authenticated %}
+      <li class="account-nav"><details class="profile-menu"><summary{% if area == 'accounts' or area == 'revision' %} class="active"{% endif %}><span class="header-avatar" aria-hidden="true">{{ user.username|first|upper }}</span> My account <span class="ui-account-chevron">{% include "components/icon.html" with name="chevron" %}</span></summary><div class="profile-dropdown"><a href="{% url 'accounts:learning_space' %}">Learning Space</a><a href="{% url 'accounts:profile' %}">Profile</a><a href="{% url 'revision:dashboard' %}">My Revision Bank</a><a href="{% url 'billing:pricing' %}">Plans &amp; billing</a><form action="{% url 'accounts:logout' %}" method="post">{% csrf_token %}<button class="nav-button" type="submit">Logout</button></form></div></details></li>
+      {% else %}<li class="account-nav"><a href="{% url 'accounts:login' %}"{% if current == 'login' %} aria-current="page"{% endif %}>Login</a></li><li><a class="shell-register" href="{% url 'accounts:register' %}"{% if current == 'register' %} aria-current="page"{% endif %}>Register</a></li>{% endif %}
+      <li class="appearance-control"><label for="reading-theme">Appearance</label><select id="reading-theme" data-theme-select disabled><option value="system">System</option><option value="light">Light</option><option value="dark">Dark</option><option value="sepia">Sepia</option></select></li>
+    </ul></nav>
   </div>
-  </header>
+</header>
 {% endwith %}

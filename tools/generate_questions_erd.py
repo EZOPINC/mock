@@ -1,4 +1,5 @@
 """Generate schema-only Questions ERD artifacts. Run from the project Python env."""
+from datetime import date
 import json
 import os
 from pathlib import Path
@@ -23,7 +24,9 @@ def main():
                             for field in model._meta.local_fields)}, key=lambda model: model._meta.label)
     taxonomy = [apps.get_model('exams', name) for name in (
         'Subject', 'Part', 'Module', 'Submodule', 'Chapter', 'Topic', 'ExamAuthority', 'Exam', 'ExamStage')]
-    models = core + taxonomy + consumers
+    mock_models = list(apps.get_app_config('mock_tests').get_models())
+    mock_context = [model for model in mock_models if model not in consumers]
+    models = core + taxonomy + consumers + mock_context
     tables, edges, mismatches = [], [], []
     with connection.cursor() as cursor:
         for model in models:
@@ -68,7 +71,7 @@ def main():
                 cursor.execute('SELECT tgname, pg_get_triggerdef(oid) FROM pg_trigger WHERE tgrelid=%s::regclass AND NOT tgisinternal ORDER BY tgname', [table])
                 triggers = [{'name': name, 'definition': definition} for name, definition in cursor.fetchall()]
             tables.append({'table': table, 'model': model._meta.label,
-                           'group': 'core' if model in core else 'taxonomy' if model in taxonomy else 'consumer',
+                           'group': 'core' if model in core else 'taxonomy' if model in taxonomy else 'consumer' if model in consumers else 'mock',
                            'columns': columns, 'constraints': checks, 'indexes': indexes, 'triggers': triggers})
     if mismatches:
         raise RuntimeError('\n'.join(mismatches))
@@ -76,7 +79,9 @@ def main():
             'target': field.remote_field.model._meta.db_table,
             'through': field.remote_field.through._meta.db_table}
            for model in core for field in model._meta.local_many_to_many]
-    schema = {'scope': 'Questions module, taxonomy context and all direct inbound FK consumers',
+    verified_on = date.today().isoformat()
+    schema = {'scope': 'Questions module, taxonomy, direct inbound FK consumers and mock configurations',
+              'verified_on': verified_on,
               'tables': tables, 'relationships': edges, 'many_to_many': m2m,
               'verification': 'All listed model columns and foreign keys match the local database schema.'}
     destination = ROOT / 'docs' / 'erd'
@@ -88,19 +93,28 @@ def main():
         'questions-taxonomy': [table['table'] for table in tables if table['group'] == 'taxonomy'],
         'questions-consumers': [table['table'] for table in tables if table['group'] == 'consumer'] + [
             'questions_question', 'questions_questionrevision'],
+        'questions-mocks': [model._meta.db_table for model in mock_models] + [
+            'questions_question', 'questions_questionrevision', 'exams_exam'],
     }
     reference = ['# Questions module ERD', '',
-                 'Source and local PostgreSQL schema verified on 2026-11-16. Schema metadata only; no application records were read.', '',
+                 f'Source and local PostgreSQL schema verified on {verified_on}. Schema metadata only; no application records were read.', '',
                  '[Open the offline interactive diagram](questions-erd.html) · [Machine-readable schema](questions-schema.json)', '',
-                 'All columns are shown for the 7 Questions-owned tables, 9 taxonomy/catalogue tables, and every direct inbound consumer (6 tables). Other target tables are boundary-only; their names/keys are shown, not their full schemas. This is not a whole-platform ERD.', '',
+                 f'All columns are shown for {len(core)} Questions-owned tables, {len(taxonomy)} taxonomy/catalogue tables, '
+                 f'{len(consumers)} direct inbound consumer tables, and {len(mock_context)} further mock tables. '
+                 'Other referenced tables appear as boundary keys where needed.', '',
                  'PK = primary key; FK = foreign key; nullable = SQL NULL permitted. Cardinality is derived from physical FKs and uniqueness, not workflow assumptions. Arrows in HTML point from child FK to parent. Mermaid uses crow’s-foot cardinality.', '',
                  'Django `on_delete` policy and SQL FK action are different: the policies below describe ORM deletion; actual PostgreSQL constraints/indexes/triggers are listed separately. `blank` and choices are application validation metadata, not database nullability.', '',
-                 '## Relationships to review', '',
+                 '## Schema changes since the previous ERD', '',
+                 '- `questions.0006_question_kind` adds `Question.question_kind` with Logical, Static and Unclassified values.',
+                 '- `mock_tests.0009_question_kind` adds the Any, Logical or Static filter to `SectionSelectionRule`. Any is stored as an empty string.',
+                 '- `exams.0011_default_mock_language` adds `Exam.default_mock_language`. It sets English for WBCS and Bengali for the other WBPSC exams.',
+                 '- `questions.0010_source_codes` adds an optional unique code and publisher to `QuestionSource`.',
+                 '', '## Relationships to review', '',
                  '- Question is the shared master identity. Its current_revision_id and published_revision_id are nullable FK pointers, not unique/one-to-one columns. Each pointed-to revision must belong to that master (workflow validation).',
-                 '- QuestionRevision contains primary-language compatibility text plus the shared correct answer/difficulty. Its content is append-only through model/services. QuestionTranslation stores immutable per-revision language content; correct_answer is a Python property inherited from Revision, not a translation column.',
+                 '- QuestionRevision stores the primary language code and shared answer, difficulty and version metadata. QuestionTranslation stores immutable per-revision text, options and explanations. Its correct_answer property reads the revision answer key.',
                  '- Question.topic_id mirrors the primary QuestionTopic tag. The pair (question_id, topic_id) is unique; a partial unique index allows at most one primary per question. Deferred database triggers require a primary tag matching the pointer whenever tags exist. Unclassified questions may have neither.',
                  '- Question.topics, Question.exams and Question.sources are M2M fields backed by the three explicit join tables shown. There are no additional implicit M2M tables for these fields.',
-                 '- QuestionSourceReference has page/source-number metadata and no unique Question/Source pair constraint. Multiple references for one pair are possible. QuestionSource document/name fields are not unique.',
+                 '- QuestionSourceReference stores page and original question number per question. Multiple references per Question/Source pair are possible. QuestionSource has an optional unique code and requires a document for coded sources.',
                  '- PaperQuestion, AttemptQuestion and PracticeQuestion pin a revision alongside the master Question. ImportedQuestion, ManualRuleQuestion and SavedQuestion reference the master. SavedQuestion.question uses CASCADE; all other direct inbound Question/Revision FKs use PROTECT.',
                  '- A subject is shared across exams; there is no direct Subject/Exam join. QuestionExam establishes membership. Taxonomy nodes store a subject anchor plus at most one immediate parent; intermediate levels may be skipped. Submodule requires Module. Legacy Topics may lack a Chapter.',
                  '- JSON/JSONB columns contain snapshots or audit metadata; their internal values are not physical FK relationships and are not drawn as such.',
@@ -109,7 +123,7 @@ def main():
     for name, included in panels.items():
         visible = set(included)
         relevant = [edge for edge in edges if edge['child'] in visible and (
-            edge['parent'] in visible or name == 'questions-consumers')]
+            edge['parent'] in visible or name in {'questions-consumers', 'questions-mocks'})]
         boundaries = sorted({edge['parent'] for edge in relevant} - visible)
         lines = ['erDiagram']
         for table in tables:
@@ -148,9 +162,10 @@ def main():
                       'Uses the configured local database to verify schema metadata. No migrations, application data writes or record exports. Regenerate after schema changes.', ''])
     (destination / 'questions-erd.md').write_text('\n'.join(reference), encoding='utf-8')
     template = (ROOT / 'tools' / 'questions_erd_template.html').read_text(encoding='utf-8')
-    (destination / 'questions-erd.html').write_text(template.replace('__SCHEMA__', json.dumps(schema, ensure_ascii=False).replace('<', '\\u003c')),
+    (destination / 'questions-erd.html').write_text(template.replace('__VERIFIED_ON__', verified_on)
+                                                   .replace('__SCHEMA__', json.dumps(schema, ensure_ascii=False).replace('<', '\\u003c')),
                                                    encoding='utf-8')
-    print(f'Generated Questions ERD: {len(core)} owned tables, {len(taxonomy)} taxonomy tables, {len(consumers)} direct inbound consumer tables; {sum(len(table["columns"]) for table in tables)} columns and {len(edges)} FKs verified.')
+    print(f'Generated Questions ERD: {len(core)} owned tables, {len(taxonomy)} taxonomy tables, {len(consumers)} direct inbound consumers, {len(mock_context)} additional mock tables; {sum(len(table["columns"]) for table in tables)} columns and {len(edges)} FKs verified.')
 
 
 if __name__ == '__main__':

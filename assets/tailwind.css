@@ -7,6 +7,7 @@
 @import "./design-system.css";
 @import "./learning.css";
 @import "./student.css";
+@import "./shell.css";
 
 @theme {
   --color-exam-canvas: #f8fafc;
@@ -105,9 +106,9 @@
 .ui-card { transition: transform .18s, border-color .18s, box-shadow .18s; }
 .ui-card .button, .ui-card .text-link { gap: .5rem; }
 .ui-home .module-card { @apply tw:p-5; grid-column: auto; }
-.ui-home .module-card { position: relative; }
-.ui-home .module-card > a::after { content: ""; position: absolute; inset: 0; border-radius: inherit; }
-.ui-home .module-card:has(> a:focus-visible) { outline: 3px solid #167da3; outline-offset: 4px; }
+.module-grid-student .module-card { position: relative; }
+.module-grid-student .module-card > a::after { content: ""; position: absolute; inset: 0; border-radius: inherit; }
+.module-grid-student .module-card:has(> a:focus-visible) { outline: 3px solid var(--ui-focus); outline-offset: 4px; }
 .ui-home-cta { @apply tw:mt-8 tw:flex tw:items-center tw:justify-between tw:gap-8 tw:rounded-3xl tw:border tw:border-line tw:p-8; background: var(--tw-color-accent-50); }
 .ui-home-cta h2 { @apply tw:mb-3 tw:text-2xl tw:font-bold; }
 .ui-home-cta p:last-child { @apply tw:mb-0 tw:text-sm tw:text-muted; max-width: 38rem; }

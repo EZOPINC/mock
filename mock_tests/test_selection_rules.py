@@ -4,9 +4,11 @@ from uuid import uuid4
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
 from django.db import IntegrityError, transaction
+from django.db import connection
+from django.test.utils import CaptureQueriesContext
 from django.urls import reverse
 
-from exams.models import Chapter, Module, Submodule, Part, Topic
+from exams.models import Chapter, Exam, ExamStage, Module, Submodule, Part, Topic
 from questions.models import QuestionExam
 from questions.services import add_translation, create_question, create_revision, mark_reviewed, publish_question
 from questions.tagging import set_question_topics
@@ -18,6 +20,36 @@ from .test_attempts import AttemptFixture
 
 
 class AdvancedSelectionTests(AttemptFixture):
+    def test_admin_add_queries_do_not_grow_with_catalogue(self):
+        user = get_user_model().objects.create_superuser(username="query-admin")
+        self.client.force_login(user)
+        urls = [reverse("admin:mock_tests_exampattern_add"),
+                reverse("admin:mock_tests_exampatternsection_add")]
+
+        def query_counts():
+            counts = []
+            for url in urls:
+                with CaptureQueriesContext(connection) as queries:
+                    response = self.client.get(url)
+                self.assertEqual(response.status_code, 200)
+                counts.append(len(queries))
+            return counts
+
+        query_counts()  # Warm permission/content-type caches.
+        before = query_counts()
+        for index in range(8):
+            exam = Exam.objects.create(authority=self.exam.authority,
+                name=f"Query exam {index}", code=f"query-{index}", slug=f"query-{index}")
+            ExamStage.objects.create(exam=exam, name="Stage", code="stage")
+            chapter = Chapter.objects.create(subject=self.subject,
+                name=f"Query chapter {index}", slug=f"query-{index}")
+            Topic.objects.create(subject=self.subject, chapter=chapter,
+                name=f"Query topic {index}", slug=f"query-{index}")
+        after = query_counts()
+        for url, baseline, expanded in zip(urls, before, after):
+            with self.subTest(url=url):
+                self.assertLessEqual(expanded, baseline + 2)
+
     def test_module_rule_includes_submodule_chapters(self):
         part = Part.objects.create(subject=self.subject, name='Part', slug='part')
         module = Module.objects.create(part=part, name='Module', slug='module')
@@ -78,6 +110,24 @@ class AdvancedSelectionTests(AttemptFixture):
         if any(key in values for key in ("part", "module", "chapter", "topic")):
             data.pop("subject")
         return SectionSelectionRule.objects.create(**(data | values))
+
+    def test_question_kind_quotas_filter_same_subject_and_snapshot(self):
+        self.configure(2)
+        logical, static, unclassified = [self.question_at() for _ in range(3)]
+        for question, kind in ((logical, "logical"), (static, "static")):
+            question.question_kind = kind
+            question.save(update_fields=["question_kind"])
+        logical_rule = self.rule(question_kind="logical")
+        static_rule = self.rule(question_kind="static", display_order=2, selection_mode="manual")
+        with self.assertRaises(ValidationError):
+            ManualRuleQuestion.objects.create(rule=static_rule, question=unclassified, display_order=1)
+        ManualRuleQuestion.objects.create(rule=static_rule, question=static, display_order=1)
+        self.assertEqual(eligible_for_rule(logical_rule), {logical.pk})
+        activate_pattern(self.pattern)
+        attempt = start_attempt(self.user, self.pattern)
+        self.assertEqual(list(attempt.questions.values_list("question_id", flat=True)), [logical.pk, static.pk])
+        rules = attempt.configuration["sections"][0]["selection_rules"]
+        self.assertEqual([rule["question_kind"] for rule in rules], ["logical", "static"])
 
     def test_exact_topic_and_difficulty_quotas(self):
         self.configure(3)

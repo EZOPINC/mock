@@ -1,4 +1,28 @@
-{% extends "base.html" %}{% load static %}
-{% block body_class %} ui-admin-page{% endblock %}
-{% block extra_head %}<link rel="stylesheet" href="{% static 'css/imports.css' %}">{% endblock %}
-{% block content %}<div class="ui-admin">{% block import_content %}{% endblock %}</div>{% endblock %}
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Question Bank Workspace{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'css/site.css' %}">
+  <link rel="stylesheet" href="{% static 'css/tailwind.css' %}">
+  <link rel="stylesheet" href="{% static 'css/imports.css' %}">
+  <link rel="stylesheet" href="{% static 'css/question-workspace.css' %}">
+</head>
+<body class="question-workspace learning-ui ui-admin-page">
+  <nav class="workspace-nav" aria-label="Question workspace">
+    <a href="{% url 'general_questions:manage' %}"><strong>General Questions and Solutions</strong></a>
+    <a href="{% url 'imports:upload' %}">Import</a>
+    <a href="{% url 'general_questions:dashboard' %}">Review dashboard</a>
+    <a href="{% url 'general_questions:review_subjects' %}">Subject review</a>
+    <a href="{% url 'general_questions:review_queue' %}">Review questions</a>
+    <a href="{% url 'home' %}">Home</a>
+    <a href="{% url 'admin:index' %}">Back to Admin</a>
+  </nav>
+  <main class="ui-admin workspace-main {% block workspace_main_class %}{% endblock %}" id="main-content">
+    {% include "components/messages.html" %}
+    {% block import_content %}{% endblock %}
+  </main>
+</body>
+</html>

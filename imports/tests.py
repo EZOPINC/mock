@@ -1,13 +1,17 @@
 import csv
+from datetime import date
 from concurrent.futures import ThreadPoolExecutor
 from io import BytesIO, StringIO
+from importlib import import_module
 from pathlib import Path
 from tempfile import TemporaryDirectory
 from threading import Barrier
+from types import SimpleNamespace
 import time
 from unittest.mock import patch
 import uuid
 
+from django.apps import apps
 from django.contrib.auth import get_user_model
 from django.core.exceptions import PermissionDenied, ValidationError
 from django.core.files.uploadedfile import SimpleUploadedFile
@@ -19,11 +23,11 @@ from openpyxl import Workbook
 from exams.models import Exam, ExamAuthority, Subject, Topic
 from previous_year.models import PaperQuestion, PreviousYearPaper
 from previous_year.services import publish_paper, published_papers
-from questions.models import Question, QuestionExam, QuestionRevision, QuestionSourceReference
+from questions.models import Question, QuestionExam, QuestionRevision, QuestionSource, QuestionSourceReference
 from questions.services import mark_reviewed, publish_question
 from . import staging
 from .models import ImportBatch, ImportedQuestion
-from .parsing import COLUMNS, parse_upload
+from .parsing import COLUMNS, parse_upload, preview_page_size
 from .services import confirm_import
 from .validation import validate
 
@@ -177,13 +181,14 @@ class ValidationTests(ImportFixture):
         self.assertEqual(validate(data)["error_count"], 0)
         self.assertGreater(validate(data)["warning_count"], 0)
 
-    def test_duplicate_numbers_and_duplicate_text_warning(self):
+    def test_duplicate_numbers_and_repeated_text_within_file(self):
         data = self.data([values(), values()])
         result = validate(data)
         self.assertGreater(result["error_count"], 0)
-        self.assertGreater(result["warning_count"], 0)
         data["rows"][1]["values"]["question_number"] = "2"
-        self.assertEqual(validate(data)["error_count"], 0)
+        result = validate(data)
+        self.assertEqual(result["error_count"], 0)
+        self.assertIn("Possible repeated question text", " ".join(result["rows"][1]["warnings"]))
 
     def test_existing_paper_number_conflict_and_file_hash(self):
         data = self.data()
@@ -195,7 +200,7 @@ class ValidationTests(ImportFixture):
 
     def test_existing_import_requires_explicit_append_acknowledgment(self):
         confirm_import(self.data(), self.user)
-        second = self.data([values(question_number="2")])
+        second = self.data([values(question_number="2", question_text="Another question for this paper")])
         self.assertIn("explicitly acknowledge", " ".join(validate(second)["errors"]))
         second["selection"]["acknowledge_existing"] = True
         self.assertEqual(validate(second)["error_count"], 0)
@@ -212,6 +217,162 @@ class ValidationTests(ImportFixture):
 
 
 class ConfirmationTests(ImportFixture):
+    def test_legacy_appearance_backfill_is_pending_and_idempotent(self):
+        imported = confirm_import(self.data(), self.user).imported_questions.get()
+        imported.source_metadata["original"]["previous_year_tags"] = "WBCS 2014"
+        imported.source_metadata["corrected"]["previous_year_tags"] = "WBCS 2021; unreadable"
+        imported.save(update_fields=["source_metadata"])
+        migration = import_module("previous_year.migrations.0004_backfill_question_appearances")
+        for _ in range(2):
+            migration.backfill(apps, SimpleNamespace(connection=connection))
+        appearance = imported.question.exam_appearances.get()
+        self.assertEqual((appearance.exam_name, appearance.year), ("WBCS", 2021))
+        self.assertIsNone(appearance.verified_at)
+
+    def test_multiple_appearance_tags_create_pending_suggestions_staff_can_verify(self):
+        tags = "WBCS 2021; WBCS 2014; WBPSC / Clerkship 2024; WBCS 2021; malformed"
+        data = self.data([values(previous_year_tags=tags, source_document="Book.pdf", source_page="8")])
+        imported = confirm_import(data, self.user).imported_questions.get()
+        appearances = imported.question.exam_appearances
+        self.assertEqual(appearances.count(), 3)
+        self.assertFalse(appearances.filter(verified_at__isnull=False).exists())
+        self.assertEqual(imported.source_metadata["original"]["previous_year_tags"], tags)
+        appearance = appearances.get(year=2024)
+        self.assertEqual(appearance.authority_name, "WBPSC")
+        self.assertEqual(appearance.source_reference.source_page, "8")
+        url = reverse("general_questions:edit_appearance", args=[imported.question_id, appearance.pk])
+        self.assertEqual(self.client.get(url).status_code, 302)
+        self.client.force_login(self.user)
+        payload = {
+            "exam_name": appearance.exam_name, "authority_name": appearance.authority_name,
+            "year": appearance.year, "source_reference": appearance.source_reference_id,
+            "verified": "on", "version": appearance.updated_at.isoformat(),
+        }
+        self.assertEqual(self.client.post(url, payload).status_code, 302)
+        appearance.refresh_from_db()
+        self.assertEqual(appearance.verified_by, self.user)
+        self.assertIsNotNone(appearance.verified_at)
+        self.assertEqual(self.client.post(url, payload).status_code, 400)
+
+    def test_staff_can_filter_duplicate_error_and_reuse_approved_question_across_exams(self):
+        original = confirm_import(self.data(), self.user).imported_questions.get().question
+        approved = publish_question(mark_reviewed(original)).published_revision
+        other = Exam.objects.create(authority=self.authority, name="Another exam", code="OTHER", slug="another-exam")
+        data = self.data([values(), values(question_number="2", question_text="Unique second question",
+            verification_notes="Inspect later")], new_paper=True)
+        data["selection"]["exam_id"] = other.pk
+        staging.save(data)
+        with self.assertRaises(ValidationError):
+            confirm_import(data, self.user)
+        self.client.force_login(self.user)
+        url = reverse("imports:preview", args=[data["token"]])
+        preview = self.client.get(url)
+        self.assertContains(preview, "Possible duplicate question in the bank")
+        self.assertContains(preview, f'value="reuse:{approved.pk}"')
+        options = {label: rows for label, rows in preview.context["issue_groups"]}
+        for label, verbs, position in (("Errors", "Possible duplicate", 0), ("Warnings", "Legacy review", 1)):
+            option = next(key for key, text, count in options[label] if text.startswith(verbs))
+            filtered = self.client.get(url, {"issue": option})
+            self.assertEqual([row["index"] for row in filtered.context["page"]], [position])
+            self.assertFalse(filtered.context["editable"])
+        group = preview.context["duplicate_groups"][0]
+        saved = self.client.post(url, {"version": preview.context["version"], "page": 1,
+            f"duplicate_{group['key']}": f"reuse:{approved.pk}"})
+        self.assertEqual(saved.context["result"]["error_count"], 0)
+        batch = confirm_import(staging.load(data["token"], self.user), self.user)
+        reused = batch.imported_questions.get(action="reused")
+        self.assertEqual(reused.question_id, original.pk)
+        self.assertEqual(batch.paper.paper_questions.get(question=original).question_revision_id, approved.pk)
+        self.assertEqual(self.paper.paper_questions.get().question_revision_id, approved.pk)
+        self.assertEqual(set(original.exams.values_list("pk", flat=True)), {self.exam.pk, other.pk})
+        self.assertEqual(original.revisions.count(), 1)
+        self.assertEqual(Question.objects.count(), 2)
+
+
+    def test_difficulty_is_normalized_and_blank_is_unrated(self):
+        data = self.data([
+            values(difficulty_level=" HARD "),
+            values(question_number="2"),
+            values(question_number="3", difficulty_level="Any"),
+        ])
+        batch = confirm_import(data, self.user)
+        revisions = batch.imported_questions.order_by("source_row_number").values_list(
+            "question__current_revision__difficulty_level", flat=True)
+        self.assertEqual(list(revisions), ["hard", "", ""])
+        invalid = self.data([values(question_number="4", difficulty_level="advanced")])
+        self.assertIn("difficulty_level must be Easy, Medium, Hard, Any, or blank.",
+                      validate(invalid)["rows"][0]["errors"])
+
+    def test_source_code_creates_one_private_source_and_keeps_each_locator(self):
+        data = self.data([
+            values(source_code="CLERK-S2", source_page="12", source_question_number="31"),
+            values(question_number="2", source_code="clerk-s2", source_document="Clerkship S2.pdf",
+                   source_publisher="WBPSC", source_page="13", source_question_number="32"),
+        ])
+        result = validate(data)
+        self.assertEqual(result["error_count"], 0)
+        self.assertEqual(result["rows"][0]["source_reference"]["document"], "Clerkship S2.pdf")
+        self.assertFalse(QuestionSource.objects.exists())
+        batch = confirm_import(data, self.user)
+        source = QuestionSource.objects.get(source_code="CLERK-S2")
+        self.assertEqual(source.publisher, "WBPSC")
+        self.assertCountEqual(source.references.values_list("source_page", "source_question_number"),
+                              [("12", "31"), ("13", "32")])
+        self.assertEqual(batch.imported_questions.first().source_metadata["resolved"]["source_id"], source.pk)
+        later = self.data([values(question_number="3", question_text="Another question from Clerkship", source_code="clerk-s2", source_page="14")])
+        later["selection"]["acknowledge_existing"] = True
+        confirm_import(later, self.user)
+        self.assertEqual(QuestionSource.objects.count(), 1)
+        question_id = batch.imported_questions.first().question_id
+        url = reverse("general_questions:review_question", args=[question_id])
+        self.assertEqual(self.client.get(url).status_code, 302)
+        self.client.force_login(self.user)
+        self.assertContains(self.client.get(url), "Clerkship S2.pdf")
+
+    def test_source_code_rejects_missing_document_and_conflicting_references(self):
+        missing = self.data([values(source_code="NEW")])
+        self.assertIn("Supply source_document", " ".join(validate(missing)["rows"][0]["errors"]))
+        conflict = self.data([
+            values(source_code="NEW", source_document="First.pdf"),
+            values(question_number="2", source_code="new", source_document="Second.pdf"),
+        ])
+        errors = [row["errors"] for row in validate(conflict)["rows"]]
+        for row_errors in errors:
+            self.assertIn("has conflicting documents or publishers", " ".join(row_errors))
+        with self.assertRaises(ValidationError):
+            confirm_import(conflict, self.user)
+        self.assertFalse(QuestionSource.objects.exists())
+
+    def test_freshness_dates_from_excel_and_expiry_override(self):
+        self.subject.question_freshness_years = 3
+        self.subject.save(update_fields=["question_freshness_years"])
+        data = self.data()
+        data.update(parse_upload(xlsx_file([
+            values(current_as_of=date(2024, 2, 29)),
+            values(question_number="2", expires_on=date(2027, 1, 1)),
+        ])))
+        batch = confirm_import(data, self.user)
+        first, second = [row.question for row in batch.imported_questions.order_by("source_row_number")]
+        self.assertEqual((first.current_as_of, first.expires_on), (date(2024, 2, 29), date(2027, 2, 28)))
+        self.assertIsNone(second.current_as_of)
+        self.assertEqual(second.expires_on, date(2027, 1, 1))
+
+    def test_freshness_dates_for_other_subjects_are_ignored(self):
+        data = self.data([values(expires_on="not a date")])
+        result = validate(data)
+        self.assertEqual(result["error_count"], 0)
+        self.assertIn("no question expiry policy", " ".join(result["rows"][0]["warnings"]))
+        question = confirm_import(data, self.user).imported_questions.get().question
+        self.assertIsNone(question.expires_on)
+
+    def test_question_kind_import_validates_and_persists(self):
+        data = self.data()
+        data.update(parse_upload(xlsx_file([values(question_kind="Yes")])))
+        self.assertIn("question_kind must be", " ".join(validate(data)["rows"][0]["errors"]))
+        data["rows"][0]["values"]["question_kind"] = "  Logical  "
+        batch = confirm_import(data, self.user)
+        self.assertEqual(batch.imported_questions.get().question.question_kind, "logical")
+
     def test_review_flag_alias_is_audit_metadata_not_approval(self):
         data = self.data([values(review_status="reviewed")])
         data["header_aliases"] = {"review_flag": "review_status"}
@@ -273,6 +434,41 @@ class ConfirmationTests(ImportFixture):
 
 
 class ImportViewTests(ImportFixture):
+    def test_replace_file_prefills_upload_context_and_starts_a_fresh_preview(self):
+        self.client.force_login(self.user)
+        upload = reverse("imports:upload")
+        configurations = (
+            {"import_type": "previous_year", "authority": self.authority.pk, "exam": self.exam.pk,
+             "year": self.paper.year, "paper": self.paper.pk, "language": "en", "worksheet": "Questions"},
+            {"import_type": "general", "exams": [self.exam.pk], "exam_mapping": "rows", "language": "bn"},
+        )
+        for configuration in configurations:
+            with self.subTest(mode=configuration["import_type"]):
+                original_file = xlsx_file() if configuration.get("worksheet") else csv_file()
+                preview = self.client.post(upload, configuration | {"file": original_file}, follow=True)
+                original = preview.context["data"]
+                replacement_url = f'{upload}?replace={original["token"]}'
+                self.assertContains(preview, f'href="{replacement_url}"')
+                replace = self.client.get(replacement_url)
+                form = replace.context["form"]
+                self.assertIsNone(form["file"].value())
+                for name, value in configuration.items():
+                    self.assertEqual(form[name].value(), value)
+                visible = {field.name: field.value() for field in replace.context["fields"]
+                           if field.name != "file" and field.value() is not None}
+                rows = [values(question_text="Replacement file question")]
+                replacement_file = xlsx_file(rows) if configuration.get("worksheet") else csv_file(rows)
+                updated = self.client.post(replacement_url, visible | {"file": replacement_file}, follow=True)
+                new = updated.context["data"]
+                self.assertNotEqual(new["token"], original["token"])
+                self.assertEqual(new["selection"], original["selection"])
+                self.assertEqual(new["rows"][0]["original_values"]["question_text"], "Replacement file question")
+                self.assertEqual(staging.load(original["token"], self.user), original)
+        other = get_user_model().objects.create_superuser(username="other-reviewer")
+        self.client.force_login(other)
+        self.assertEqual(self.client.get(replacement_url).status_code, 404)
+        self.assertFalse(Question.objects.exists())
+
     def test_staff_permissions_and_stage_owner(self):
         url = reverse("imports:upload")
         self.assertEqual(self.client.get(url).status_code, 302)
@@ -290,7 +486,9 @@ class ImportViewTests(ImportFixture):
         self.assertEqual(response.status_code, 302)
         preview_url = response.url
         response = self.client.get(preview_url)
-        self.assertContains(response, "Check every row")
+        self.assertContains(response, "Valid rows")
+        self.assertNotContains(response, "Check every row")
+        self.assertNotContains(response, "Add missing subject or topic")
         self.assertEqual(Question.objects.count(), 0)
         data = response.context["data"]
         response = self.client.post(preview_url, {"version": staging.digest(data), "page": "1", "row_0_question_text": "Edited text"})
@@ -326,9 +524,8 @@ class ImportViewTests(ImportFixture):
         self.client.force_login(self.user)
         data = self.data([values(question_number=str(n), question_text="<script>unsafe</script>") for n in range(30)])
         response = self.client.get(reverse("imports:preview", args=[data["token"]]), {"page": 2})
-        # The current taxonomy columns allow 23 editable rows within the field
-        # budget, leaving seven of these 30 rows on page two.
-        self.assertEqual(len(response.context["page"]), 7)
+        self.assertEqual(response.context["page"].number, 2)
+        self.assertEqual(len(response.context["page"]), 30 - preview_page_size(data))
         self.assertNotContains(response, "<script>unsafe</script>")
         self.assertContains(response, "&lt;script&gt;")
 

@@ -1,22 +1,29 @@
 # Questions module ERD
 
-Source and local PostgreSQL schema verified on 2026-11-16. Schema metadata only; no application records were read.
+Source and local PostgreSQL schema verified on 2026-11-18. Schema metadata only; no application records were read.
 
 [Open the offline interactive diagram](questions-erd.html) · [Machine-readable schema](questions-schema.json)
 
-All columns are shown for the 7 Questions-owned tables, 9 taxonomy/catalogue tables, and every direct inbound consumer (6 tables). Other target tables are boundary-only; their names/keys are shown, not their full schemas. This is not a whole-platform ERD.
+All columns are shown for 7 Questions-owned tables, 9 taxonomy/catalogue tables, 8 direct inbound consumer tables, and 5 further mock tables. Other referenced tables appear as boundary keys where needed.
 
 PK = primary key; FK = foreign key; nullable = SQL NULL permitted. Cardinality is derived from physical FKs and uniqueness, not workflow assumptions. Arrows in HTML point from child FK to parent. Mermaid uses crow’s-foot cardinality.
 
 Django `on_delete` policy and SQL FK action are different: the policies below describe ORM deletion; actual PostgreSQL constraints/indexes/triggers are listed separately. `blank` and choices are application validation metadata, not database nullability.
 
+## Schema changes since the previous ERD
+
+- `questions.0006_question_kind` adds `Question.question_kind` with Logical, Static and Unclassified values.
+- `mock_tests.0009_question_kind` adds the Any, Logical or Static filter to `SectionSelectionRule`. Any is stored as an empty string.
+- `exams.0011_default_mock_language` adds `Exam.default_mock_language`. It sets English for WBCS and Bengali for the other WBPSC exams.
+- `questions.0010_source_codes` adds an optional unique code and publisher to `QuestionSource`.
+
 ## Relationships to review
 
 - Question is the shared master identity. Its current_revision_id and published_revision_id are nullable FK pointers, not unique/one-to-one columns. Each pointed-to revision must belong to that master (workflow validation).
-- QuestionRevision contains primary-language compatibility text plus the shared correct answer/difficulty. Its content is append-only through model/services. QuestionTranslation stores immutable per-revision language content; correct_answer is a Python property inherited from Revision, not a translation column.
+- QuestionRevision stores the primary language code and shared answer, difficulty and version metadata. QuestionTranslation stores immutable per-revision text, options and explanations. Its correct_answer property reads the revision answer key.
 - Question.topic_id mirrors the primary QuestionTopic tag. The pair (question_id, topic_id) is unique; a partial unique index allows at most one primary per question. Deferred database triggers require a primary tag matching the pointer whenever tags exist. Unclassified questions may have neither.
 - Question.topics, Question.exams and Question.sources are M2M fields backed by the three explicit join tables shown. There are no additional implicit M2M tables for these fields.
-- QuestionSourceReference has page/source-number metadata and no unique Question/Source pair constraint. Multiple references for one pair are possible. QuestionSource document/name fields are not unique.
+- QuestionSourceReference stores page and original question number per question. Multiple references per Question/Source pair are possible. QuestionSource has an optional unique code and requires a document for coded sources.
 - PaperQuestion, AttemptQuestion and PracticeQuestion pin a revision alongside the master Question. ImportedQuestion, ManualRuleQuestion and SavedQuestion reference the master. SavedQuestion.question uses CASCADE; all other direct inbound Question/Revision FKs use PROTECT.
 - A subject is shared across exams; there is no direct Subject/Exam join. QuestionExam establishes membership. Taxonomy nodes store a subject anchor plus at most one immediate parent; intermediate levels may be skipped. Submodule requires Module. Legacy Topics may lack a Chapter.
 - JSON/JSONB columns contain snapshots or audit metadata; their internal values are not physical FK relationships and are not drawn as such.
@@ -37,6 +44,9 @@ erDiagram
         character_varying_14_ review_status "NOT_NULL"
         character_varying_1_ correct_answer "NOT_NULL"
         character_varying_100_ difficulty_level "NOT_NULL"
+        character_varying_12_ question_kind "NOT_NULL"
+        date current_as_of "NULL"
+        date expires_on "NULL"
         bigint current_revision_id FK "NULL"
         bigint published_revision_id FK "NULL"
         timestamp_with_time_zone created_at "NOT_NULL"
@@ -53,14 +63,8 @@ erDiagram
         bigint question_id FK "NOT_NULL"
         integer revision_number "NOT_NULL"
         character_varying_35_ language "NOT_NULL"
-        text question_text "NOT_NULL"
-        text option_a "NOT_NULL"
-        text option_b "NOT_NULL"
-        text option_c "NOT_NULL"
-        text option_d "NOT_NULL"
         character_varying_1_ correct_answer "NOT_NULL"
         character_varying_100_ difficulty_level "NOT_NULL"
-        text explanation "NOT_NULL"
         timestamp_with_time_zone created_at "NOT_NULL"
         timestamp_with_time_zone published_at "NULL"
     }
@@ -83,6 +87,8 @@ erDiagram
     }
     questions_questionsource {
         bigint id PK "NOT_NULL"
+        character_varying_64_ source_code UK "NULL"
+        character_varying_200_ publisher "NOT_NULL"
         character_varying_200_ source_name "NOT_NULL"
         character_varying_500_ source_document "NOT_NULL"
         timestamp_with_time_zone created_at "NOT_NULL"
@@ -100,6 +106,7 @@ erDiagram
         character_varying_50_ code UK "NOT_NULL"
         character_varying_200_ slug UK "NOT_NULL"
         integer display_order "NOT_NULL"
+        smallint question_freshness_years "NULL"
     }
     exams_topic {
         bigint id PK "NOT_NULL"
@@ -117,9 +124,11 @@ erDiagram
         bigint id PK "NOT_NULL"
         bigint authority_id FK "NOT_NULL"
         character_varying_200_ name "NOT_NULL"
+        text description "NOT_NULL"
         character_varying_50_ code "NOT_NULL"
         character_varying_200_ slug "NOT_NULL"
         boolean is_active "NOT_NULL"
+        character_varying_2_ default_mock_language "NOT_NULL"
     }
     exams_subject ||..o{ questions_question : "subject_id"
     exams_topic o|..o{ questions_question : "topic_id"
@@ -147,6 +156,7 @@ erDiagram
         character_varying_50_ code UK "NOT_NULL"
         character_varying_200_ slug UK "NOT_NULL"
         integer display_order "NOT_NULL"
+        smallint question_freshness_years "NULL"
     }
     exams_part {
         bigint id PK "NOT_NULL"
@@ -208,9 +218,11 @@ erDiagram
         bigint id PK "NOT_NULL"
         bigint authority_id FK "NOT_NULL"
         character_varying_200_ name "NOT_NULL"
+        text description "NOT_NULL"
         character_varying_50_ code "NOT_NULL"
         character_varying_200_ slug "NOT_NULL"
         boolean is_active "NOT_NULL"
+        character_varying_2_ default_mock_language "NOT_NULL"
     }
     exams_examstage {
         bigint id PK "NOT_NULL"
@@ -249,6 +261,9 @@ erDiagram
         character_varying_14_ review_status "NOT_NULL"
         character_varying_1_ correct_answer "NOT_NULL"
         character_varying_100_ difficulty_level "NOT_NULL"
+        character_varying_12_ question_kind "NOT_NULL"
+        date current_as_of "NULL"
+        date expires_on "NULL"
         bigint current_revision_id FK "NULL"
         bigint published_revision_id FK "NULL"
         timestamp_with_time_zone created_at "NOT_NULL"
@@ -259,16 +274,16 @@ erDiagram
         bigint question_id FK "NOT_NULL"
         integer revision_number "NOT_NULL"
         character_varying_35_ language "NOT_NULL"
-        text question_text "NOT_NULL"
-        text option_a "NOT_NULL"
-        text option_b "NOT_NULL"
-        text option_c "NOT_NULL"
-        text option_d "NOT_NULL"
         character_varying_1_ correct_answer "NOT_NULL"
         character_varying_100_ difficulty_level "NOT_NULL"
-        text explanation "NOT_NULL"
         timestamp_with_time_zone created_at "NOT_NULL"
         timestamp_with_time_zone published_at "NULL"
+    }
+    billing_freequestionusage {
+        bigint id PK "NOT_NULL"
+        bigint user_id FK "NOT_NULL"
+        bigint question_id FK "NOT_NULL"
+        timestamp_with_time_zone delivered_at "NOT_NULL"
     }
     imports_importedquestion {
         bigint id PK "NOT_NULL"
@@ -297,6 +312,16 @@ erDiagram
         bigint rule_id FK "NOT_NULL"
         bigint question_id FK "NOT_NULL"
         integer display_order "NOT_NULL"
+    }
+    mock_tests_mocksetquestion {
+        bigint id PK "NOT_NULL"
+        bigint mock_set_id FK "NOT_NULL"
+        bigint section_id FK "NOT_NULL"
+        bigint question_id FK "NOT_NULL"
+        bigint question_revision_id FK "NOT_NULL"
+        integer display_order "NOT_NULL"
+        numeric_8_2_ positive_marks "NOT_NULL"
+        numeric_8_2_ negative_marks "NOT_NULL"
     }
     practice_practicequestion {
         bigint id PK "NOT_NULL"
@@ -345,6 +370,9 @@ erDiagram
     mock_tests_mockattempt {
         bigint id PK "BOUNDARY_ONLY"
     }
+    mock_tests_mockset {
+        bigint id PK "BOUNDARY_ONLY"
+    }
     mock_tests_sectionselectionrule {
         bigint id PK "BOUNDARY_ONLY"
     }
@@ -359,6 +387,8 @@ erDiagram
     questions_questionrevision o|..o{ questions_question : "current_revision_id"
     questions_questionrevision o|..o{ questions_question : "published_revision_id"
     questions_question ||..o{ questions_questionrevision : "question_id"
+    accounts_user ||..o{ billing_freequestionusage : "user_id"
+    questions_question ||..o{ billing_freequestionusage : "question_id"
     imports_importbatch ||..o{ imports_importedquestion : "batch_id"
     questions_question ||..o{ imports_importedquestion : "question_id"
     mock_tests_mockattempt ||..o{ mock_tests_attemptquestion : "attempt_id"
@@ -367,6 +397,10 @@ erDiagram
     questions_questionrevision ||..o{ mock_tests_attemptquestion : "question_revision_id"
     mock_tests_sectionselectionrule ||..o{ mock_tests_manualrulequestion : "rule_id"
     questions_question ||..o{ mock_tests_manualrulequestion : "question_id"
+    mock_tests_mockset ||..o{ mock_tests_mocksetquestion : "mock_set_id"
+    mock_tests_exampatternsection ||..o{ mock_tests_mocksetquestion : "section_id"
+    questions_question ||..o{ mock_tests_mocksetquestion : "question_id"
+    questions_questionrevision ||..o{ mock_tests_mocksetquestion : "question_revision_id"
     practice_practicesession ||..o{ practice_practicequestion : "session_id"
     questions_question ||..o{ practice_practicequestion : "question_id"
     questions_questionrevision ||..o{ practice_practicequestion : "question_revision_id"
@@ -375,6 +409,202 @@ erDiagram
     questions_question ||..o{ previous_year_paperquestion : "question_id"
     accounts_user ||..o{ revision_savedquestion : "user_id"
     questions_question ||..o{ revision_savedquestion : "question_id"
+```
+
+### Mocks
+
+```mermaid
+erDiagram
+    questions_question {
+        bigint id PK "NOT_NULL"
+        character_varying_200_ source_question_id "NULL"
+        bigint subject_id FK "NOT_NULL"
+        bigint topic_id FK "NULL"
+        character_varying_12_ publication_status "NOT_NULL"
+        character_varying_14_ review_status "NOT_NULL"
+        character_varying_1_ correct_answer "NOT_NULL"
+        character_varying_100_ difficulty_level "NOT_NULL"
+        character_varying_12_ question_kind "NOT_NULL"
+        date current_as_of "NULL"
+        date expires_on "NULL"
+        bigint current_revision_id FK "NULL"
+        bigint published_revision_id FK "NULL"
+        timestamp_with_time_zone created_at "NOT_NULL"
+        timestamp_with_time_zone updated_at "NOT_NULL"
+    }
+    questions_questionrevision {
+        bigint id PK "NOT_NULL"
+        bigint question_id FK "NOT_NULL"
+        integer revision_number "NOT_NULL"
+        character_varying_35_ language "NOT_NULL"
+        character_varying_1_ correct_answer "NOT_NULL"
+        character_varying_100_ difficulty_level "NOT_NULL"
+        timestamp_with_time_zone created_at "NOT_NULL"
+        timestamp_with_time_zone published_at "NULL"
+    }
+    exams_exam {
+        bigint id PK "NOT_NULL"
+        bigint authority_id FK "NOT_NULL"
+        character_varying_200_ name "NOT_NULL"
+        text description "NOT_NULL"
+        character_varying_50_ code "NOT_NULL"
+        character_varying_200_ slug "NOT_NULL"
+        boolean is_active "NOT_NULL"
+        character_varying_2_ default_mock_language "NOT_NULL"
+    }
+    mock_tests_attemptquestion {
+        bigint id PK "NOT_NULL"
+        bigint attempt_id FK "NOT_NULL"
+        bigint section_id FK "NOT_NULL"
+        bigint question_id FK "NOT_NULL"
+        bigint question_revision_id FK "NOT_NULL"
+        integer display_order "NOT_NULL"
+        numeric_8_2_ positive_marks "NOT_NULL"
+        numeric_8_2_ negative_marks "NOT_NULL"
+        character_varying_1_ selected_answer "NOT_NULL"
+        boolean marked_for_review "NOT_NULL"
+        timestamp_with_time_zone answered_at "NULL"
+        numeric_10_2_ awarded_marks "NULL"
+    }
+    mock_tests_manualrulequestion {
+        bigint id PK "NOT_NULL"
+        bigint rule_id FK "NOT_NULL"
+        bigint question_id FK "NOT_NULL"
+        integer display_order "NOT_NULL"
+    }
+    mock_tests_mocksetquestion {
+        bigint id PK "NOT_NULL"
+        bigint mock_set_id FK "NOT_NULL"
+        bigint section_id FK "NOT_NULL"
+        bigint question_id FK "NOT_NULL"
+        bigint question_revision_id FK "NOT_NULL"
+        integer display_order "NOT_NULL"
+        numeric_8_2_ positive_marks "NOT_NULL"
+        numeric_8_2_ negative_marks "NOT_NULL"
+    }
+    mock_tests_exampattern {
+        bigint id PK "NOT_NULL"
+        bigint exam_id FK "NOT_NULL"
+        bigint stage_id FK "NULL"
+        character_varying_200_ name "NOT_NULL"
+        integer version "NOT_NULL"
+        integer duration_minutes "NOT_NULL"
+        integer total_questions "NOT_NULL"
+        numeric_10_2_ total_marks "NOT_NULL"
+        numeric_8_2_ default_positive_marks "NOT_NULL"
+        numeric_8_2_ default_negative_marks "NOT_NULL"
+        character_varying_10_ status "NOT_NULL"
+        boolean is_free_demo "NOT_NULL"
+        timestamp_with_time_zone created_at "NOT_NULL"
+    }
+    mock_tests_exampatternsection {
+        bigint id PK "NOT_NULL"
+        bigint pattern_id FK "NOT_NULL"
+        character_varying_200_ name "NOT_NULL"
+        integer display_order "NOT_NULL"
+        integer question_count "NOT_NULL"
+        bigint subject_id FK "NULL"
+        bigint topic_id FK "NULL"
+        character_varying_5_ language_mode "NOT_NULL"
+        numeric_8_2_ positive_marks "NULL"
+        numeric_8_2_ negative_marks "NULL"
+    }
+    mock_tests_sectionselectionrule {
+        bigint id PK "NOT_NULL"
+        bigint section_id FK "NOT_NULL"
+        bigint subject_id FK "NULL"
+        bigint part_id FK "NULL"
+        bigint module_id FK "NULL"
+        bigint chapter_id FK "NULL"
+        bigint topic_id FK "NULL"
+        integer question_count "NOT_NULL"
+        character_varying_12_ difficulty "NOT_NULL"
+        character_varying_12_ question_kind "NOT_NULL"
+        character_varying_6_ selection_mode "NOT_NULL"
+        integer display_order "NOT_NULL"
+    }
+    mock_tests_mockset {
+        bigint id PK "NOT_NULL"
+        bigint pattern_id FK,UK "NOT_NULL"
+        jsonb configuration "NOT_NULL"
+        timestamp_with_time_zone published_at "NOT_NULL"
+    }
+    mock_tests_mockattempt {
+        bigint id PK "NOT_NULL"
+        bigint user_id FK "NOT_NULL"
+        bigint pattern_id FK "NOT_NULL"
+        bigint mock_set_id FK "NULL"
+        character_varying_15_ status "NOT_NULL"
+        timestamp_with_time_zone created_at "NOT_NULL"
+        timestamp_with_time_zone started_at "NULL"
+        jsonb configuration "NOT_NULL"
+        timestamp_with_time_zone expires_at "NULL"
+        timestamp_with_time_zone finalized_at "NULL"
+        integer last_position "NOT_NULL"
+        bigint save_version "NOT_NULL"
+        uuid last_save_token "NULL"
+        numeric_20_2_ total_score "NULL"
+        numeric_20_2_ maximum_score "NULL"
+        integer correct_count "NULL"
+        integer incorrect_count "NULL"
+        integer unanswered_count "NULL"
+        jsonb section_results "NOT_NULL"
+    }
+    accounts_user {
+        bigint id PK "BOUNDARY_ONLY"
+    }
+    exams_chapter {
+        bigint id PK "BOUNDARY_ONLY"
+    }
+    exams_examauthority {
+        bigint id PK "BOUNDARY_ONLY"
+    }
+    exams_examstage {
+        bigint id PK "BOUNDARY_ONLY"
+    }
+    exams_module {
+        bigint id PK "BOUNDARY_ONLY"
+    }
+    exams_part {
+        bigint id PK "BOUNDARY_ONLY"
+    }
+    exams_subject {
+        bigint id PK "BOUNDARY_ONLY"
+    }
+    exams_topic {
+        bigint id PK "BOUNDARY_ONLY"
+    }
+    exams_subject ||..o{ questions_question : "subject_id"
+    exams_topic o|..o{ questions_question : "topic_id"
+    questions_questionrevision o|..o{ questions_question : "current_revision_id"
+    questions_questionrevision o|..o{ questions_question : "published_revision_id"
+    questions_question ||..o{ questions_questionrevision : "question_id"
+    exams_examauthority ||..o{ exams_exam : "authority_id"
+    mock_tests_mockattempt ||..o{ mock_tests_attemptquestion : "attempt_id"
+    mock_tests_exampatternsection ||..o{ mock_tests_attemptquestion : "section_id"
+    questions_question ||..o{ mock_tests_attemptquestion : "question_id"
+    questions_questionrevision ||..o{ mock_tests_attemptquestion : "question_revision_id"
+    mock_tests_sectionselectionrule ||..o{ mock_tests_manualrulequestion : "rule_id"
+    questions_question ||..o{ mock_tests_manualrulequestion : "question_id"
+    mock_tests_mockset ||..o{ mock_tests_mocksetquestion : "mock_set_id"
+    mock_tests_exampatternsection ||..o{ mock_tests_mocksetquestion : "section_id"
+    questions_question ||..o{ mock_tests_mocksetquestion : "question_id"
+    questions_questionrevision ||..o{ mock_tests_mocksetquestion : "question_revision_id"
+    exams_exam ||..o{ mock_tests_exampattern : "exam_id"
+    exams_examstage o|..o{ mock_tests_exampattern : "stage_id"
+    mock_tests_exampattern ||..o{ mock_tests_exampatternsection : "pattern_id"
+    exams_subject o|..o{ mock_tests_exampatternsection : "subject_id"
+    exams_topic o|..o{ mock_tests_exampatternsection : "topic_id"
+    mock_tests_exampatternsection ||..o{ mock_tests_sectionselectionrule : "section_id"
+    exams_subject o|..o{ mock_tests_sectionselectionrule : "subject_id"
+    exams_part o|..o{ mock_tests_sectionselectionrule : "part_id"
+    exams_module o|..o{ mock_tests_sectionselectionrule : "module_id"
+    exams_chapter o|..o{ mock_tests_sectionselectionrule : "chapter_id"
+    exams_topic o|..o{ mock_tests_sectionselectionrule : "topic_id"
+    mock_tests_exampattern ||..o| mock_tests_mockset : "pattern_id"
+    accounts_user ||..o{ mock_tests_mockattempt : "user_id"
+    mock_tests_exampattern ||..o{ mock_tests_mockattempt : "pattern_id"
+    mock_tests_mockset o|..o{ mock_tests_mockattempt : "mock_set_id"
 ```
 
 ## Complete column and integrity reference
@@ -393,6 +623,9 @@ Model: `questions.Question` · Group: core
 | review_status | character varying(14) |  | False |  |
 | correct_answer | character varying(1) |  | False |  |
 | difficulty_level | character varying(100) |  | False |  |
+| question_kind | character varying(12) |  | False |  |
+| current_as_of | date |  | True |  |
+| expires_on | date |  | True |  |
 | current_revision_id | bigint | FK | True | questions_questionrevision / PROTECT |
 | published_revision_id | bigint | FK | True | questions_questionrevision / PROTECT |
 | created_at | timestamp with time zone |  | False |  |
@@ -401,6 +634,8 @@ Model: `questions.Question` · Group: core
 <details><summary>Database constraints</summary>
 
 ```sql
+questions_expiry_after_current_as_of: CHECK (((current_as_of IS NULL) OR (expires_on IS NULL) OR (expires_on > current_as_of)))
+questions_kind_valid: CHECK (((question_kind)::text = ANY ((ARRAY['logical'::character varying, 'static'::character varying, 'unclassified'::character varying])::text[])))
 questions_master_answer_valid: CHECK (((correct_answer)::text = ANY ((ARRAY[''::character varying, 'A'::character varying, 'B'::character varying, 'C'::character varying, 'D'::character varying])::text[])))
 questions_primary_tag_consistency: TRIGGER DEFERRABLE INITIALLY DEFERRED
 questions_public_pointer_valid: CHECK (((((publication_status)::text = 'draft'::text) AND (published_revision_id IS NULL)) OR (((publication_status)::text = 'published'::text) AND (published_revision_id IS NOT NULL))))
@@ -413,6 +648,7 @@ questions_question_id_not_null: NOT NULL id
 questions_question_pkey: PRIMARY KEY (id)
 questions_question_publication_status_not_null: NOT NULL publication_status
 questions_question_published_revision_i_91b2fdd5_fk_questions: FOREIGN KEY (published_revision_id) REFERENCES questions_questionrevision(id) DEFERRABLE INITIALLY DEFERRED
+questions_question_question_kind_not_null: NOT NULL question_kind
 questions_question_review_status_not_null: NOT NULL review_status
 questions_question_subject_id_eb12a300_fk_exams_subject_id: FOREIGN KEY (subject_id) REFERENCES exams_subject(id) DEFERRABLE INITIALLY DEFERRED
 questions_question_subject_id_not_null: NOT NULL subject_id
@@ -503,14 +739,8 @@ Model: `questions.QuestionRevision` · Group: core
 | question_id | bigint | FK | False | questions_question / PROTECT |
 | revision_number | integer |  | False |  |
 | language | character varying(35) |  | False |  |
-| question_text | text |  | False |  |
-| option_a | text |  | False |  |
-| option_b | text |  | False |  |
-| option_c | text |  | False |  |
-| option_d | text |  | False |  |
 | correct_answer | character varying(1) |  | False |  |
 | difficulty_level | character varying(100) |  | False |  |
-| explanation | text |  | False |  |
 | created_at | timestamp with time zone |  | False |  |
 | published_at | timestamp with time zone |  | True |  |
 
@@ -518,22 +748,15 @@ Model: `questions.QuestionRevision` · Group: core
 
 ```sql
 questions_answer_valid: CHECK (((correct_answer)::text = ANY ((ARRAY['A'::character varying, 'B'::character varying, 'C'::character varying, 'D'::character varying])::text[])))
-questions_content_required: CHECK (((NOT (question_text = ''::text)) AND (NOT (option_a = ''::text)) AND (NOT (option_b = ''::text)) AND (NOT (option_c = ''::text)) AND (NOT (option_d = ''::text))))
 questions_language_code_valid: CHECK (((language)::text ~ '^[a-z]{2,3}(?:-[a-z0-9]{2,8})*$'::text))
 questions_questionre_question_id_63f701ab_fk_questions: FOREIGN KEY (question_id) REFERENCES questions_question(id) DEFERRABLE INITIALLY DEFERRED
 questions_questionrevision_correct_answer_not_null: NOT NULL correct_answer
 questions_questionrevision_created_at_not_null: NOT NULL created_at
 questions_questionrevision_difficulty_level_not_null: NOT NULL difficulty_level
-questions_questionrevision_explanation_not_null: NOT NULL explanation
 questions_questionrevision_id_not_null: NOT NULL id
 questions_questionrevision_language_not_null: NOT NULL language
-questions_questionrevision_option_a_not_null: NOT NULL option_a
-questions_questionrevision_option_b_not_null: NOT NULL option_b
-questions_questionrevision_option_c_not_null: NOT NULL option_c
-questions_questionrevision_option_d_not_null: NOT NULL option_d
 questions_questionrevision_pkey: PRIMARY KEY (id)
 questions_questionrevision_question_id_not_null: NOT NULL question_id
-questions_questionrevision_question_text_not_null: NOT NULL question_text
 questions_questionrevision_revision_number_check: CHECK ((revision_number >= 0))
 questions_questionrevision_revision_number_not_null: NOT NULL revision_number
 questions_revision_number_uniq: UNIQUE (question_id, revision_number)
@@ -642,6 +865,8 @@ Model: `questions.QuestionSource` · Group: core
 | Column | SQL type | Key | Nullable | Reference / ORM deletion |
 |---|---|---|---|---|
 | id | bigint | PK | False |  |
+| source_code | character varying(64) | unique | True |  |
+| publisher | character varying(200) |  | False |  |
 | source_name | character varying(200) |  | False |  |
 | source_document | character varying(500) |  | False |  |
 | created_at | timestamp with time zone |  | False |  |
@@ -649,11 +874,15 @@ Model: `questions.QuestionSource` · Group: core
 <details><summary>Database constraints</summary>
 
 ```sql
+questions_coded_source_has_document: CHECK (((source_code IS NULL) OR (NOT ((source_document)::text = ''::text))))
 questions_questionsource_created_at_not_null: NOT NULL created_at
 questions_questionsource_id_not_null: NOT NULL id
 questions_questionsource_pkey: PRIMARY KEY (id)
+questions_questionsource_publisher_not_null: NOT NULL publisher
+questions_questionsource_source_code_key: UNIQUE (source_code)
 questions_questionsource_source_document_not_null: NOT NULL source_document
 questions_questionsource_source_name_not_null: NOT NULL source_name
+questions_source_code_format: CHECK (((source_code IS NULL) OR ((source_code)::text ~ '^[A-Z0-9][A-Z0-9._-]{0,63}$'::text)))
 ```
 
 </details>
@@ -662,6 +891,8 @@ questions_questionsource_source_name_not_null: NOT NULL source_name
 
 ```sql
 questions_questionsource_pkey: CREATE UNIQUE INDEX questions_questionsource_pkey ON public.questions_questionsource USING btree (id)
+questions_questionsource_source_code_77c2104e_like: CREATE INDEX questions_questionsource_source_code_77c2104e_like ON public.questions_questionsource USING btree (source_code varchar_pattern_ops)
+questions_questionsource_source_code_key: CREATE UNIQUE INDEX questions_questionsource_source_code_key ON public.questions_questionsource USING btree (source_code)
 ```
 
 </details>
@@ -712,6 +943,7 @@ Model: `exams.Subject` · Group: taxonomy
 | code | character varying(50) | unique | False |  |
 | slug | character varying(200) | unique | False |  |
 | display_order | integer |  | False |  |
+| question_freshness_years | smallint |  | True |  |
 
 <details><summary>Database constraints</summary>
 
@@ -721,9 +953,11 @@ exams_subject_code_key: UNIQUE (code)
 exams_subject_code_not_null: NOT NULL code
 exams_subject_display_order_check: CHECK ((display_order >= 0))
 exams_subject_display_order_not_null: NOT NULL display_order
+exams_subject_freshness_years_valid: CHECK (((question_freshness_years IS NULL) OR (question_freshness_years = ANY (ARRAY[2, 3]))))
 exams_subject_id_not_null: NOT NULL id
 exams_subject_name_not_null: NOT NULL name
 exams_subject_pkey: PRIMARY KEY (id)
+exams_subject_question_freshness_years_check: CHECK ((question_freshness_years >= 0))
 exams_subject_slug_key: UNIQUE (slug)
 exams_subject_slug_not_null: NOT NULL slug
 ```
@@ -1111,9 +1345,11 @@ Model: `exams.Exam` · Group: taxonomy
 | id | bigint | PK | False |  |
 | authority_id | bigint | FK | False | exams_examauthority / PROTECT |
 | name | character varying(200) |  | False |  |
+| description | text |  | False |  |
 | code | character varying(50) |  | False |  |
 | slug | character varying(200) |  | False |  |
 | is_active | boolean |  | False |  |
+| default_mock_language | character varying(2) |  | False |  |
 
 <details><summary>Database constraints</summary>
 
@@ -1123,11 +1359,14 @@ exams_exam_authority_id_3097681e_fk_exams_examauthority_id: FOREIGN KEY (authori
 exams_exam_authority_id_not_null: NOT NULL authority_id
 exams_exam_authority_slug_uniq: UNIQUE (authority_id, slug)
 exams_exam_code_not_null: NOT NULL code
+exams_exam_default_mock_language_not_null: NOT NULL default_mock_language
+exams_exam_description_not_null: NOT NULL description
 exams_exam_id_not_null: NOT NULL id
 exams_exam_is_active_not_null: NOT NULL is_active
 exams_exam_name_not_null: NOT NULL name
 exams_exam_pkey: PRIMARY KEY (id)
 exams_exam_slug_not_null: NOT NULL slug
+exams_mock_language_valid: CHECK (((default_mock_language)::text = ANY ((ARRAY[''::character varying, 'en'::character varying, 'bn'::character varying])::text[])))
 ```
 
 </details>
@@ -1179,6 +1418,43 @@ exams_stage_exam_code_uniq: UNIQUE (exam_id, code)
 exams_examstage_exam_id_398c6516: CREATE INDEX exams_examstage_exam_id_398c6516 ON public.exams_examstage USING btree (exam_id)
 exams_examstage_pkey: CREATE UNIQUE INDEX exams_examstage_pkey ON public.exams_examstage USING btree (id)
 exams_stage_exam_code_uniq: CREATE UNIQUE INDEX exams_stage_exam_code_uniq ON public.exams_examstage USING btree (exam_id, code)
+```
+
+</details>
+
+### billing_freequestionusage
+
+Model: `billing.FreeQuestionUsage` · Group: consumer
+
+| Column | SQL type | Key | Nullable | Reference / ORM deletion |
+|---|---|---|---|---|
+| id | bigint | PK | False |  |
+| user_id | bigint | FK | False | accounts_user / PROTECT |
+| question_id | bigint | FK | False | questions_question / PROTECT |
+| delivered_at | timestamp with time zone |  | False |  |
+
+<details><summary>Database constraints</summary>
+
+```sql
+billing_freequestion_question_id_0d01a688_fk_questions: FOREIGN KEY (question_id) REFERENCES questions_question(id) DEFERRABLE INITIALLY DEFERRED
+billing_freequestionusage_delivered_at_not_null: NOT NULL delivered_at
+billing_freequestionusage_id_not_null: NOT NULL id
+billing_freequestionusage_pkey: PRIMARY KEY (id)
+billing_freequestionusage_question_id_not_null: NOT NULL question_id
+billing_freequestionusage_user_id_b6e85dca_fk_accounts_user_id: FOREIGN KEY (user_id) REFERENCES accounts_user(id) DEFERRABLE INITIALLY DEFERRED
+billing_freequestionusage_user_id_not_null: NOT NULL user_id
+billing_unique_free_question: UNIQUE (user_id, question_id)
+```
+
+</details>
+
+<details><summary>Database indexes</summary>
+
+```sql
+billing_freequestionusage_pkey: CREATE UNIQUE INDEX billing_freequestionusage_pkey ON public.billing_freequestionusage USING btree (id)
+billing_freequestionusage_question_id_0d01a688: CREATE INDEX billing_freequestionusage_question_id_0d01a688 ON public.billing_freequestionusage USING btree (question_id)
+billing_freequestionusage_user_id_b6e85dca: CREATE INDEX billing_freequestionusage_user_id_b6e85dca ON public.billing_freequestionusage USING btree (user_id)
+billing_unique_free_question: CREATE UNIQUE INDEX billing_unique_free_question ON public.billing_freequestionusage USING btree (user_id, question_id)
 ```
 
 </details>
@@ -1326,6 +1602,68 @@ mock_tests_manualrulequestion_rule_id_0b5d3d33: CREATE INDEX mock_tests_manualru
 
 </details>
 
+### mock_tests_mocksetquestion
+
+Model: `mock_tests.MockSetQuestion` · Group: consumer
+
+| Column | SQL type | Key | Nullable | Reference / ORM deletion |
+|---|---|---|---|---|
+| id | bigint | PK | False |  |
+| mock_set_id | bigint | FK | False | mock_tests_mockset / PROTECT |
+| section_id | bigint | FK | False | mock_tests_exampatternsection / PROTECT |
+| question_id | bigint | FK | False | questions_question / PROTECT |
+| question_revision_id | bigint | FK | False | questions_questionrevision / PROTECT |
+| display_order | integer |  | False |  |
+| positive_marks | numeric(8,2) |  | False |  |
+| negative_marks | numeric(8,2) |  | False |  |
+
+<details><summary>Database constraints</summary>
+
+```sql
+mock_set_unique_master: UNIQUE (mock_set_id, question_id)
+mock_set_unique_order: UNIQUE (mock_set_id, display_order)
+mock_set_valid_marks_order: CHECK (((display_order > 0) AND (negative_marks >= (0)::numeric) AND (positive_marks > (0)::numeric)))
+mock_tests_mocksetqu_mock_set_id_a76e6e7e_fk_mock_test: FOREIGN KEY (mock_set_id) REFERENCES mock_tests_mockset(id) DEFERRABLE INITIALLY DEFERRED
+mock_tests_mocksetqu_question_id_40376ec3_fk_questions: FOREIGN KEY (question_id) REFERENCES questions_question(id) DEFERRABLE INITIALLY DEFERRED
+mock_tests_mocksetqu_question_revision_id_5f3b4ee3_fk_questions: FOREIGN KEY (question_revision_id) REFERENCES questions_questionrevision(id) DEFERRABLE INITIALLY DEFERRED
+mock_tests_mocksetqu_section_id_334eee62_fk_mock_test: FOREIGN KEY (section_id) REFERENCES mock_tests_exampatternsection(id) DEFERRABLE INITIALLY DEFERRED
+mock_tests_mocksetquestion_display_order_check: CHECK ((display_order >= 0))
+mock_tests_mocksetquestion_display_order_not_null: NOT NULL display_order
+mock_tests_mocksetquestion_id_not_null: NOT NULL id
+mock_tests_mocksetquestion_mock_set_id_not_null: NOT NULL mock_set_id
+mock_tests_mocksetquestion_negative_marks_not_null: NOT NULL negative_marks
+mock_tests_mocksetquestion_pkey: PRIMARY KEY (id)
+mock_tests_mocksetquestion_positive_marks_not_null: NOT NULL positive_marks
+mock_tests_mocksetquestion_question_id_not_null: NOT NULL question_id
+mock_tests_mocksetquestion_question_revision_id_not_null: NOT NULL question_revision_id
+mock_tests_mocksetquestion_section_id_not_null: NOT NULL section_id
+```
+
+</details>
+
+<details><summary>Database indexes</summary>
+
+```sql
+mock_set_unique_master: CREATE UNIQUE INDEX mock_set_unique_master ON public.mock_tests_mocksetquestion USING btree (mock_set_id, question_id)
+mock_set_unique_order: CREATE UNIQUE INDEX mock_set_unique_order ON public.mock_tests_mocksetquestion USING btree (mock_set_id, display_order)
+mock_tests_mocksetquestion_mock_set_id_a76e6e7e: CREATE INDEX mock_tests_mocksetquestion_mock_set_id_a76e6e7e ON public.mock_tests_mocksetquestion USING btree (mock_set_id)
+mock_tests_mocksetquestion_pkey: CREATE UNIQUE INDEX mock_tests_mocksetquestion_pkey ON public.mock_tests_mocksetquestion USING btree (id)
+mock_tests_mocksetquestion_question_id_40376ec3: CREATE INDEX mock_tests_mocksetquestion_question_id_40376ec3 ON public.mock_tests_mocksetquestion USING btree (question_id)
+mock_tests_mocksetquestion_question_revision_id_5f3b4ee3: CREATE INDEX mock_tests_mocksetquestion_question_revision_id_5f3b4ee3 ON public.mock_tests_mocksetquestion USING btree (question_revision_id)
+mock_tests_mocksetquestion_section_id_334eee62: CREATE INDEX mock_tests_mocksetquestion_section_id_334eee62 ON public.mock_tests_mocksetquestion USING btree (section_id)
+```
+
+</details>
+
+<details><summary>Database triggers</summary>
+
+```sql
+mock_set_question_immutable: CREATE TRIGGER mock_set_question_immutable BEFORE DELETE OR UPDATE ON public.mock_tests_mocksetquestion FOR EACH ROW EXECUTE FUNCTION mock_guard_published_set()
+mock_set_question_insert: CREATE TRIGGER mock_set_question_insert BEFORE INSERT ON public.mock_tests_mocksetquestion FOR EACH ROW EXECUTE FUNCTION mock_guard_set_question_insert()
+```
+
+</details>
+
 ### practice_practicequestion
 
 Model: `practice.PracticeQuestion` · Group: consumer
@@ -1468,6 +1806,304 @@ revision_savedquestion_pkey: CREATE UNIQUE INDEX revision_savedquestion_pkey ON 
 revision_savedquestion_question_id_af056b72: CREATE INDEX revision_savedquestion_question_id_af056b72 ON public.revision_savedquestion USING btree (question_id)
 revision_savedquestion_user_id_1bc59fec: CREATE INDEX revision_savedquestion_user_id_1bc59fec ON public.revision_savedquestion USING btree (user_id)
 revision_user_question_unique: CREATE UNIQUE INDEX revision_user_question_unique ON public.revision_savedquestion USING btree (user_id, question_id)
+```
+
+</details>
+
+### mock_tests_exampattern
+
+Model: `mock_tests.ExamPattern` · Group: mock
+
+| Column | SQL type | Key | Nullable | Reference / ORM deletion |
+|---|---|---|---|---|
+| id | bigint | PK | False |  |
+| exam_id | bigint | FK | False | exams_exam / PROTECT |
+| stage_id | bigint | FK | True | exams_examstage / PROTECT |
+| name | character varying(200) |  | False |  |
+| version | integer |  | False |  |
+| duration_minutes | integer |  | False |  |
+| total_questions | integer |  | False |  |
+| total_marks | numeric(10,2) |  | False |  |
+| default_positive_marks | numeric(8,2) |  | False |  |
+| default_negative_marks | numeric(8,2) |  | False |  |
+| status | character varying(10) |  | False |  |
+| is_free_demo | boolean |  | False |  |
+| created_at | timestamp with time zone |  | False |  |
+
+<details><summary>Database constraints</summary>
+
+```sql
+mock_pattern_status_valid: CHECK (((status)::text = ANY ((ARRAY['draft'::character varying, 'active'::character varying, 'inactive'::character varying])::text[])))
+mock_pattern_values_valid: CHECK (((default_negative_marks >= (0)::numeric) AND (default_positive_marks > (0)::numeric) AND (duration_minutes > 0) AND (total_marks > (0)::numeric) AND (total_questions > 0) AND (version > 0)))
+mock_tests_exampattern_created_at_not_null: NOT NULL created_at
+mock_tests_exampattern_default_negative_marks_not_null: NOT NULL default_negative_marks
+mock_tests_exampattern_default_positive_marks_not_null: NOT NULL default_positive_marks
+mock_tests_exampattern_duration_minutes_check: CHECK ((duration_minutes >= 0))
+mock_tests_exampattern_duration_minutes_not_null: NOT NULL duration_minutes
+mock_tests_exampattern_exam_id_9d901976_fk_exams_exam_id: FOREIGN KEY (exam_id) REFERENCES exams_exam(id) DEFERRABLE INITIALLY DEFERRED
+mock_tests_exampattern_exam_id_not_null: NOT NULL exam_id
+mock_tests_exampattern_id_not_null: NOT NULL id
+mock_tests_exampattern_is_free_demo_not_null: NOT NULL is_free_demo
+mock_tests_exampattern_name_not_null: NOT NULL name
+mock_tests_exampattern_pkey: PRIMARY KEY (id)
+mock_tests_exampattern_stage_id_d20e7397_fk_exams_examstage_id: FOREIGN KEY (stage_id) REFERENCES exams_examstage(id) DEFERRABLE INITIALLY DEFERRED
+mock_tests_exampattern_status_not_null: NOT NULL status
+mock_tests_exampattern_total_marks_not_null: NOT NULL total_marks
+mock_tests_exampattern_total_questions_check: CHECK ((total_questions >= 0))
+mock_tests_exampattern_total_questions_not_null: NOT NULL total_questions
+mock_tests_exampattern_version_check: CHECK ((version >= 0))
+mock_tests_exampattern_version_not_null: NOT NULL version
+```
+
+</details>
+
+<details><summary>Database indexes</summary>
+
+```sql
+mock_active_exam_unique: CREATE UNIQUE INDEX mock_active_exam_unique ON public.mock_tests_exampattern USING btree (exam_id) WHERE ((stage_id IS NULL) AND ((status)::text = 'active'::text))
+mock_active_stage_unique: CREATE UNIQUE INDEX mock_active_stage_unique ON public.mock_tests_exampattern USING btree (exam_id, stage_id) WHERE ((stage_id IS NOT NULL) AND ((status)::text = 'active'::text))
+mock_one_active_free_demo: CREATE UNIQUE INDEX mock_one_active_free_demo ON public.mock_tests_exampattern USING btree (exam_id) WHERE (is_free_demo AND ((status)::text = 'active'::text))
+mock_tests_exampattern_exam_id_9d901976: CREATE INDEX mock_tests_exampattern_exam_id_9d901976 ON public.mock_tests_exampattern USING btree (exam_id)
+mock_tests_exampattern_pkey: CREATE UNIQUE INDEX mock_tests_exampattern_pkey ON public.mock_tests_exampattern USING btree (id)
+mock_tests_exampattern_stage_id_d20e7397: CREATE INDEX mock_tests_exampattern_stage_id_d20e7397 ON public.mock_tests_exampattern USING btree (stage_id)
+```
+
+</details>
+
+<details><summary>Database triggers</summary>
+
+```sql
+mock_frozen_pattern: CREATE TRIGGER mock_frozen_pattern BEFORE UPDATE ON public.mock_tests_exampattern FOR EACH ROW EXECUTE FUNCTION mock_guard_frozen_pattern()
+```
+
+</details>
+
+### mock_tests_exampatternsection
+
+Model: `mock_tests.ExamPatternSection` · Group: mock
+
+| Column | SQL type | Key | Nullable | Reference / ORM deletion |
+|---|---|---|---|---|
+| id | bigint | PK | False |  |
+| pattern_id | bigint | FK | False | mock_tests_exampattern / PROTECT |
+| name | character varying(200) |  | False |  |
+| display_order | integer |  | False |  |
+| question_count | integer |  | False |  |
+| subject_id | bigint | FK | True | exams_subject / PROTECT |
+| topic_id | bigint | FK | True | exams_topic / PROTECT |
+| language_mode | character varying(5) |  | False |  |
+| positive_marks | numeric(8,2) |  | True |  |
+| negative_marks | numeric(8,2) |  | True |  |
+
+<details><summary>Database constraints</summary>
+
+```sql
+mock_section_counts_valid: CHECK (((display_order > 0) AND (question_count > 0)))
+mock_section_language_valid: CHECK (((language_mode)::text = ANY ((ARRAY['en'::character varying, 'bn'::character varying, 'mixed'::character varying])::text[])))
+mock_section_order_unique: UNIQUE (pattern_id, display_order)
+mock_section_penalty_valid: CHECK (((negative_marks IS NULL) OR (negative_marks >= (0)::numeric)))
+mock_section_positive_valid: CHECK (((positive_marks IS NULL) OR (positive_marks > (0)::numeric)))
+mock_tests_exampatte_pattern_id_96a0ebec_fk_mock_test: FOREIGN KEY (pattern_id) REFERENCES mock_tests_exampattern(id) DEFERRABLE INITIALLY DEFERRED
+mock_tests_exampatte_subject_id_d179f9db_fk_exams_sub: FOREIGN KEY (subject_id) REFERENCES exams_subject(id) DEFERRABLE INITIALLY DEFERRED
+mock_tests_exampatte_topic_id_91672ba5_fk_exams_top: FOREIGN KEY (topic_id) REFERENCES exams_topic(id) DEFERRABLE INITIALLY DEFERRED
+mock_tests_exampatternsection_display_order_check: CHECK ((display_order >= 0))
+mock_tests_exampatternsection_display_order_not_null: NOT NULL display_order
+mock_tests_exampatternsection_id_not_null: NOT NULL id
+mock_tests_exampatternsection_language_mode_not_null: NOT NULL language_mode
+mock_tests_exampatternsection_name_not_null: NOT NULL name
+mock_tests_exampatternsection_pattern_id_not_null: NOT NULL pattern_id
+mock_tests_exampatternsection_pkey: PRIMARY KEY (id)
+mock_tests_exampatternsection_question_count_check: CHECK ((question_count >= 0))
+mock_tests_exampatternsection_question_count_not_null: NOT NULL question_count
+```
+
+</details>
+
+<details><summary>Database indexes</summary>
+
+```sql
+mock_section_order_unique: CREATE UNIQUE INDEX mock_section_order_unique ON public.mock_tests_exampatternsection USING btree (pattern_id, display_order)
+mock_tests_exampatternsection_pattern_id_96a0ebec: CREATE INDEX mock_tests_exampatternsection_pattern_id_96a0ebec ON public.mock_tests_exampatternsection USING btree (pattern_id)
+mock_tests_exampatternsection_pkey: CREATE UNIQUE INDEX mock_tests_exampatternsection_pkey ON public.mock_tests_exampatternsection USING btree (id)
+mock_tests_exampatternsection_subject_id_d179f9db: CREATE INDEX mock_tests_exampatternsection_subject_id_d179f9db ON public.mock_tests_exampatternsection USING btree (subject_id)
+mock_tests_exampatternsection_topic_id_91672ba5: CREATE INDEX mock_tests_exampatternsection_topic_id_91672ba5 ON public.mock_tests_exampatternsection USING btree (topic_id)
+```
+
+</details>
+
+### mock_tests_sectionselectionrule
+
+Model: `mock_tests.SectionSelectionRule` · Group: mock
+
+| Column | SQL type | Key | Nullable | Reference / ORM deletion |
+|---|---|---|---|---|
+| id | bigint | PK | False |  |
+| section_id | bigint | FK | False | mock_tests_exampatternsection / CASCADE |
+| subject_id | bigint | FK | True | exams_subject / PROTECT |
+| part_id | bigint | FK | True | exams_part / PROTECT |
+| module_id | bigint | FK | True | exams_module / PROTECT |
+| chapter_id | bigint | FK | True | exams_chapter / PROTECT |
+| topic_id | bigint | FK | True | exams_topic / PROTECT |
+| question_count | integer |  | False |  |
+| difficulty | character varying(12) |  | False |  |
+| question_kind | character varying(12) |  | False |  |
+| selection_mode | character varying(6) |  | False |  |
+| display_order | integer |  | False |  |
+
+<details><summary>Database constraints</summary>
+
+```sql
+mock_rule_counts_valid: CHECK (((display_order > 0) AND (question_count > 0)))
+mock_rule_difficulty_valid: CHECK (((difficulty)::text = ANY ((ARRAY[''::character varying, 'easy'::character varying, 'medium'::character varying, 'hard'::character varying, 'unspecified'::character varying])::text[])))
+mock_rule_kind_valid: CHECK (((question_kind)::text = ANY ((ARRAY[''::character varying, 'logical'::character varying, 'static'::character varying])::text[])))
+mock_rule_mode_valid: CHECK (((selection_mode)::text = ANY ((ARRAY['random'::character varying, 'manual'::character varying])::text[])))
+mock_rule_one_taxonomy: CHECK ((((chapter_id IS NULL) AND (module_id IS NULL) AND (part_id IS NULL) AND (subject_id IS NOT NULL) AND (topic_id IS NULL)) OR ((chapter_id IS NULL) AND (module_id IS NULL) AND (part_id IS NOT NULL) AND (subject_id IS NULL) AND (topic_id IS NULL)) OR ((chapter_id IS NULL) AND (module_id IS NOT NULL) AND (part_id IS NULL) AND (subject_id IS NULL) AND (topic_id IS NULL)) OR ((chapter_id IS NOT NULL) AND (module_id IS NULL) AND (part_id IS NULL) AND (subject_id IS NULL) AND (topic_id IS NULL)) OR ((chapter_id IS NULL) AND (module_id IS NULL) AND (part_id IS NULL) AND (subject_id IS NULL) AND (topic_id IS NOT NULL))))
+mock_rule_section_order_unique: UNIQUE (section_id, display_order)
+mock_tests_sectionse_chapter_id_1638737f_fk_exams_cha: FOREIGN KEY (chapter_id) REFERENCES exams_chapter(id) DEFERRABLE INITIALLY DEFERRED
+mock_tests_sectionse_module_id_c0737ad1_fk_exams_mod: FOREIGN KEY (module_id) REFERENCES exams_module(id) DEFERRABLE INITIALLY DEFERRED
+mock_tests_sectionse_part_id_98cacf93_fk_exams_par: FOREIGN KEY (part_id) REFERENCES exams_part(id) DEFERRABLE INITIALLY DEFERRED
+mock_tests_sectionse_section_id_8f8eaec8_fk_mock_test: FOREIGN KEY (section_id) REFERENCES mock_tests_exampatternsection(id) DEFERRABLE INITIALLY DEFERRED
+mock_tests_sectionse_subject_id_cc0e7557_fk_exams_sub: FOREIGN KEY (subject_id) REFERENCES exams_subject(id) DEFERRABLE INITIALLY DEFERRED
+mock_tests_sectionse_topic_id_7d7c2536_fk_exams_top: FOREIGN KEY (topic_id) REFERENCES exams_topic(id) DEFERRABLE INITIALLY DEFERRED
+mock_tests_sectionselectionrule_difficulty_not_null: NOT NULL difficulty
+mock_tests_sectionselectionrule_display_order_check: CHECK ((display_order >= 0))
+mock_tests_sectionselectionrule_display_order_not_null: NOT NULL display_order
+mock_tests_sectionselectionrule_id_not_null: NOT NULL id
+mock_tests_sectionselectionrule_pkey: PRIMARY KEY (id)
+mock_tests_sectionselectionrule_question_count_check: CHECK ((question_count >= 0))
+mock_tests_sectionselectionrule_question_count_not_null: NOT NULL question_count
+mock_tests_sectionselectionrule_question_kind_not_null: NOT NULL question_kind
+mock_tests_sectionselectionrule_section_id_not_null: NOT NULL section_id
+mock_tests_sectionselectionrule_selection_mode_not_null: NOT NULL selection_mode
+```
+
+</details>
+
+<details><summary>Database indexes</summary>
+
+```sql
+mock_rule_section_order_unique: CREATE UNIQUE INDEX mock_rule_section_order_unique ON public.mock_tests_sectionselectionrule USING btree (section_id, display_order)
+mock_tests_sectionselectionrule_chapter_id_1638737f: CREATE INDEX mock_tests_sectionselectionrule_chapter_id_1638737f ON public.mock_tests_sectionselectionrule USING btree (chapter_id)
+mock_tests_sectionselectionrule_module_id_c0737ad1: CREATE INDEX mock_tests_sectionselectionrule_module_id_c0737ad1 ON public.mock_tests_sectionselectionrule USING btree (module_id)
+mock_tests_sectionselectionrule_part_id_98cacf93: CREATE INDEX mock_tests_sectionselectionrule_part_id_98cacf93 ON public.mock_tests_sectionselectionrule USING btree (part_id)
+mock_tests_sectionselectionrule_pkey: CREATE UNIQUE INDEX mock_tests_sectionselectionrule_pkey ON public.mock_tests_sectionselectionrule USING btree (id)
+mock_tests_sectionselectionrule_section_id_8f8eaec8: CREATE INDEX mock_tests_sectionselectionrule_section_id_8f8eaec8 ON public.mock_tests_sectionselectionrule USING btree (section_id)
+mock_tests_sectionselectionrule_subject_id_cc0e7557: CREATE INDEX mock_tests_sectionselectionrule_subject_id_cc0e7557 ON public.mock_tests_sectionselectionrule USING btree (subject_id)
+mock_tests_sectionselectionrule_topic_id_7d7c2536: CREATE INDEX mock_tests_sectionselectionrule_topic_id_7d7c2536 ON public.mock_tests_sectionselectionrule USING btree (topic_id)
+```
+
+</details>
+
+### mock_tests_mockset
+
+Model: `mock_tests.MockSet` · Group: mock
+
+| Column | SQL type | Key | Nullable | Reference / ORM deletion |
+|---|---|---|---|---|
+| id | bigint | PK | False |  |
+| pattern_id | bigint | FK, unique | False | mock_tests_exampattern / PROTECT |
+| configuration | jsonb |  | False |  |
+| published_at | timestamp with time zone |  | False |  |
+
+<details><summary>Database constraints</summary>
+
+```sql
+mock_set_complete: TRIGGER DEFERRABLE INITIALLY DEFERRED
+mock_tests_mockset_configuration_not_null: NOT NULL configuration
+mock_tests_mockset_id_not_null: NOT NULL id
+mock_tests_mockset_pattern_id_6d6b8a0e_fk_mock_test: FOREIGN KEY (pattern_id) REFERENCES mock_tests_exampattern(id) DEFERRABLE INITIALLY DEFERRED
+mock_tests_mockset_pattern_id_key: UNIQUE (pattern_id)
+mock_tests_mockset_pattern_id_not_null: NOT NULL pattern_id
+mock_tests_mockset_pkey: PRIMARY KEY (id)
+mock_tests_mockset_published_at_not_null: NOT NULL published_at
+```
+
+</details>
+
+<details><summary>Database indexes</summary>
+
+```sql
+mock_tests_mockset_pattern_id_key: CREATE UNIQUE INDEX mock_tests_mockset_pattern_id_key ON public.mock_tests_mockset USING btree (pattern_id)
+mock_tests_mockset_pkey: CREATE UNIQUE INDEX mock_tests_mockset_pkey ON public.mock_tests_mockset USING btree (id)
+```
+
+</details>
+
+<details><summary>Database triggers</summary>
+
+```sql
+mock_set_complete: CREATE CONSTRAINT TRIGGER mock_set_complete AFTER INSERT ON public.mock_tests_mockset DEFERRABLE INITIALLY DEFERRED FOR EACH ROW EXECUTE FUNCTION mock_validate_set_complete()
+mock_set_immutable: CREATE TRIGGER mock_set_immutable BEFORE DELETE OR UPDATE ON public.mock_tests_mockset FOR EACH ROW EXECUTE FUNCTION mock_guard_published_set()
+```
+
+</details>
+
+### mock_tests_mockattempt
+
+Model: `mock_tests.MockAttempt` · Group: mock
+
+| Column | SQL type | Key | Nullable | Reference / ORM deletion |
+|---|---|---|---|---|
+| id | bigint | PK | False |  |
+| user_id | bigint | FK | False | accounts_user / PROTECT |
+| pattern_id | bigint | FK | False | mock_tests_exampattern / PROTECT |
+| mock_set_id | bigint | FK | True | mock_tests_mockset / PROTECT |
+| status | character varying(15) |  | False |  |
+| created_at | timestamp with time zone |  | False |  |
+| started_at | timestamp with time zone |  | True |  |
+| configuration | jsonb |  | False |  |
+| expires_at | timestamp with time zone |  | True |  |
+| finalized_at | timestamp with time zone |  | True |  |
+| last_position | integer |  | False |  |
+| save_version | bigint |  | False |  |
+| last_save_token | uuid |  | True |  |
+| total_score | numeric(20,2) |  | True |  |
+| maximum_score | numeric(20,2) |  | True |  |
+| correct_count | integer |  | True |  |
+| incorrect_count | integer |  | True |  |
+| unanswered_count | integer |  | True |  |
+| section_results | jsonb |  | False |  |
+
+<details><summary>Database constraints</summary>
+
+```sql
+mock_attempt_deadline_valid: CHECK ((((expires_at IS NULL) AND (started_at IS NULL)) OR ((expires_at > started_at) AND (expires_at IS NOT NULL) AND (started_at IS NOT NULL))))
+mock_attempt_final_values: CHECK ((((correct_count IS NULL) AND (finalized_at IS NULL) AND (incorrect_count IS NULL) AND (maximum_score IS NULL) AND ((status)::text = ANY ((ARRAY['created'::character varying, 'in_progress'::character varying])::text[])) AND (total_score IS NULL) AND (unanswered_count IS NULL)) OR ((correct_count IS NOT NULL) AND (finalized_at IS NOT NULL) AND (incorrect_count IS NOT NULL) AND (maximum_score > (0)::numeric) AND (maximum_score IS NOT NULL) AND ((status)::text = ANY ((ARRAY['submitted'::character varying, 'expired'::character varying])::text[])) AND (total_score IS NOT NULL) AND (unanswered_count IS NOT NULL))))
+mock_attempt_position_valid: CHECK ((last_position > 0))
+mock_attempt_start_valid: CHECK ((((started_at IS NULL) AND ((status)::text = 'created'::text)) OR ((started_at IS NOT NULL) AND ((status)::text = ANY ((ARRAY['in_progress'::character varying, 'submitted'::character varying, 'expired'::character varying])::text[])))))
+mock_attempt_status_valid: CHECK (((status)::text = ANY ((ARRAY['created'::character varying, 'in_progress'::character varying, 'submitted'::character varying, 'expired'::character varying])::text[])))
+mock_tests_mockattem_mock_set_id_75074b2f_fk_mock_test: FOREIGN KEY (mock_set_id) REFERENCES mock_tests_mockset(id) DEFERRABLE INITIALLY DEFERRED
+mock_tests_mockattem_pattern_id_68e024c1_fk_mock_test: FOREIGN KEY (pattern_id) REFERENCES mock_tests_exampattern(id) DEFERRABLE INITIALLY DEFERRED
+mock_tests_mockattempt_configuration_not_null: NOT NULL configuration
+mock_tests_mockattempt_correct_count_check: CHECK ((correct_count >= 0))
+mock_tests_mockattempt_created_at_not_null: NOT NULL created_at
+mock_tests_mockattempt_id_not_null: NOT NULL id
+mock_tests_mockattempt_incorrect_count_check: CHECK ((incorrect_count >= 0))
+mock_tests_mockattempt_last_position_check: CHECK ((last_position >= 0))
+mock_tests_mockattempt_last_position_not_null: NOT NULL last_position
+mock_tests_mockattempt_pattern_id_not_null: NOT NULL pattern_id
+mock_tests_mockattempt_pkey: PRIMARY KEY (id)
+mock_tests_mockattempt_save_version_check: CHECK ((save_version >= 0))
+mock_tests_mockattempt_save_version_not_null: NOT NULL save_version
+mock_tests_mockattempt_section_results_not_null: NOT NULL section_results
+mock_tests_mockattempt_status_not_null: NOT NULL status
+mock_tests_mockattempt_unanswered_count_check: CHECK ((unanswered_count >= 0))
+mock_tests_mockattempt_user_id_e680b996_fk_accounts_user_id: FOREIGN KEY (user_id) REFERENCES accounts_user(id) DEFERRABLE INITIALLY DEFERRED
+mock_tests_mockattempt_user_id_not_null: NOT NULL user_id
+```
+
+</details>
+
+<details><summary>Database indexes</summary>
+
+```sql
+mock_attempt_expiry_idx: CREATE INDEX mock_attempt_expiry_idx ON public.mock_tests_mockattempt USING btree (status, expires_at)
+mock_attempt_one_open_unique: CREATE UNIQUE INDEX mock_attempt_one_open_unique ON public.mock_tests_mockattempt USING btree (user_id, pattern_id) WHERE ((status)::text = ANY ((ARRAY['created'::character varying, 'in_progress'::character varying])::text[]))
+mock_attempt_user_created_idx: CREATE INDEX mock_attempt_user_created_idx ON public.mock_tests_mockattempt USING btree (user_id, created_at DESC)
+mock_tests_mockattempt_mock_set_id_75074b2f: CREATE INDEX mock_tests_mockattempt_mock_set_id_75074b2f ON public.mock_tests_mockattempt USING btree (mock_set_id)
+mock_tests_mockattempt_pattern_id_68e024c1: CREATE INDEX mock_tests_mockattempt_pattern_id_68e024c1 ON public.mock_tests_mockattempt USING btree (pattern_id)
+mock_tests_mockattempt_pkey: CREATE UNIQUE INDEX mock_tests_mockattempt_pkey ON public.mock_tests_mockattempt USING btree (id)
+mock_tests_mockattempt_user_id_e680b996: CREATE INDEX mock_tests_mockattempt_user_id_e680b996 ON public.mock_tests_mockattempt USING btree (user_id)
 ```
 
 </details>

@@ -9,7 +9,8 @@ from django.urls import reverse
 
 from exams.models import Exam, ExamAuthority, Subject, Topic
 from previous_year.models import PaperQuestion, PreviousYearPaper
-from questions.models import Question, QuestionExam
+from questions.models import Question, QuestionExam, QuestionSource
+from . import staging
 from .context import context_hash
 from .forms import UploadForm
 from .models import ImportBatch
@@ -24,6 +25,39 @@ class UnifiedImportTests(ImportFixture):
         data = self.data(rows)
         data["selection"] = {"import_type": "general", "exam_ids": [self.exam.pk], "exam_mapping": "selected", **selection}
         return data
+
+    def test_general_duplicate_admin_link_skip_and_restore(self):
+        existing = confirm_import(self.general(), self.user).imported_questions.get().question
+        data = self.general([
+            values(source_code="SKIP-SOURCE", source_document="Not imported.pdf"),
+            values(question_number="2", question_text="Different question to import"),
+        ])
+        staging.save(data)
+        self.client.force_login(self.user)
+        url = reverse("imports:preview", args=[data["token"]])
+        page = self.client.get(url)
+        admin_url = reverse("admin:questions_question_change", args=[existing.pk])
+        self.assertContains(page, f'href="{admin_url}"')
+        self.assertContains(page, "Skip this question")
+        field = f'duplicate_{page.context["duplicate_groups"][0]["key"]}'
+
+        def choose(response, choice):
+            return self.client.post(url, {"version": response.context["version"], "page": 1, field: choice})
+
+        page = choose(page, "skip")
+        self.assertEqual(page.context["result"]["skipped"], 1)
+        self.assertEqual(page.context["result"]["error_count"], 0)
+        self.assertContains(page, "Restore this question")
+        page = choose(page, "")
+        self.assertEqual(page.context["result"]["skipped"], 0)
+        self.assertGreater(page.context["result"]["error_count"], 0)
+        page = choose(page, "skip")
+        batch = confirm_import(staging.load(data["token"], self.user), self.user)
+        self.assertEqual(batch.row_count, 1)
+        self.assertEqual(batch.mapping_metadata["skipped_source_rows"], [2])
+        self.assertEqual(batch.imported_questions.get().source_row_number, 3)
+        self.assertEqual(Question.objects.count(), 2)
+        self.assertFalse(QuestionSource.objects.filter(source_code="SKIP-SOURCE").exists())
 
     def test_only_six_headers_required_csv_and_xlsx_optional_values_blank(self):
         self.assertEqual(len(REQUIRED), 6)
@@ -126,7 +160,7 @@ class UnifiedImportTests(ImportFixture):
         data["selection"]["paper"]["paper_name"] = ""
         batch = confirm_import(data, self.user)
         self.assertEqual(batch.paper.paper_name, "Previous Year Paper")
-        second = self.data([values(question_number="2")], new_paper=True)
+        second = self.data([values(question_number="2", question_text="Another question")], new_paper=True)
         second["selection"]["paper"].update(paper_name="Previous Year Paper")
         second["selection"]["acknowledge_existing"] = True
         self.assertEqual(confirm_import(second, self.user).paper_id, batch.paper_id)
@@ -139,9 +173,11 @@ class UnifiedImportTests(ImportFixture):
         self.assertGreater(validate(repeated)["error_count"], 0)
         other = Exam.objects.create(authority=self.authority, name="Other", code="OTHER", slug="other")
         different_context = self.general(exam_ids=[other.pk])
-        confirm_import(different_context, self.user)
         previous = self.data()
-        confirm_import(previous, self.user)
+        for separate in (different_context, previous):
+            group, = validate(separate)["groups"]
+            separate["duplicate_decisions"] = {group["number"]: {"signature": group["signature"], "choice": "separate"}}
+            confirm_import(separate, self.user)
         self.assertEqual(ImportBatch.objects.count(), 3)
 
     def test_general_question_numbers_are_batch_local_and_unique(self):
@@ -150,7 +186,7 @@ class UnifiedImportTests(ImportFixture):
         confirm_import(self.general(), self.user)
         # A distinct batch in a different exam context may use the same local number.
         other = Exam.objects.create(authority=self.authority, name="Other", code="OTHER", slug="other")
-        confirm_import(self.general(exam_ids=[other.pk]), self.user)
+        confirm_import(self.general([values(question_text="Another question")], exam_ids=[other.pk]), self.user)
         self.assertFalse(PaperQuestion.objects.exists())
 
     def test_type_and_mode_specific_required_fields(self):

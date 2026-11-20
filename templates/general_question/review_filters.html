@@ -1,0 +1,14 @@
+{% load static %}
+<form method="get" action="{% url 'general_questions:review_queue' %}" class="workspace-panel workspace-filters" data-review-taxonomy>
+  <div class="workspace-filter-fields">
+    {% for field in filters %}<div>{{ field.label_tag }}{{ field }}{{ field.errors }}</div>{% endfor %}
+  </div>
+  <div class="workspace-filter-footer">
+    <label class="workspace-checkbox"><input type="checkbox" name="selected" value="1"{% if selected_only %} checked{% endif %}> Selected only</label>
+    <div class="button-row">
+      <a class="button button-secondary" href="{% url 'general_questions:review_queue' %}">Clear filters</a>
+      <button type="submit">Apply filters</button>
+    </div>
+  </div>
+</form>
+<script src="{% static 'js/review-filters.js' %}" defer></script>

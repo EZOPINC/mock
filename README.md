@@ -11,7 +11,8 @@ Revision Bank. Django Templates, Tailwind CSS and vanilla JavaScript provide the
 | Find the owning app, service or test | [Module map](docs/MODULE_MAP.md) |
 | Understand app boundaries and workflows | [Architecture](docs/architecture.md) |
 | Change code safely / select targeted checks | [Development rules](docs/DEVELOPMENT_RULES.md), [Codex instructions](AGENTS.md) |
-| Inspect persistence and constraints | [Database design](docs/database-design.md) |
+| Work with imports or staff review | [Import guide](docs/import-guide.md), [CSV contract](docs/import-contract.md), [Question workspace](docs/question-workspace.md) |
+| Inspect persistence and constraints | [Database design](docs/database-design.md), [Questions ERD](docs/erd/questions-erd.html) |
 | Understand prior choices and supersession | [Decision record](docs/decisions.md) |
 | Configure environment values | [Environment configuration](docs/environment-configuration.md) |
 
@@ -69,7 +70,7 @@ Timezone defaults to UTC; timestamps are timezone-aware. collectstatic uses STAT
 | Question Bank | Master questions with immutable revision-bound English/Bengali content; explicit review/publication |
 | Imports | Staff CSV/XLSX upload, preview correction/pairing, atomic confirmation and audit at /admin/question-import/ |
 | Previous-Year Papers | Public published papers; direct answers or temporary paper-practice feedback |
-| General collections | Public published import collections; permissioned whole-batch review/publication |
+| General collections | Staff-only import and review workspace with published previews and selected or whole-batch publication |
 | Mock Tests | Authenticated fixed attempts, server deadlines, autosave, review flags and frozen scoring |
 | Practice Sets | Authenticated exam/subject -> module -> difficulty -> persistent untimed feedback |
 | Revision Bank | Authenticated notes/mastery, filters, saved-question sessions and historical results |
@@ -92,7 +93,7 @@ are currently commented out; error feedback remains active.
 
 ## Checks and stylesheet builds
 
-Start with the owning app's targeted tests from DEVELOPMENT_RULES.md. Examples:
+Start with the owning app's targeted tests in the [development rules](docs/DEVELOPMENT_RULES.md). Examples:
 
 ```powershell
 python manage.py test practice --noinput

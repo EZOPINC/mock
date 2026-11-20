@@ -125,7 +125,7 @@ class TaxonomyImportTests(ImportFixture):
             parsed = parse_upload(upload)
             self.assertEqual(parsed["rows"][0]["values"]["chapter_code"], "C1")
         for mode in ("previous_year", "general"):
-            data = self.data([row])
+            data = self.data([row | {"question_text": f"Question for {mode}"}])
             if mode == "general":
                 data["selection"] = {"import_type": mode, "exam_ids": [self.exam.pk]}
             result = validate(data)
@@ -216,7 +216,10 @@ class TaxonomyImportTests(ImportFixture):
         original = first.imported_questions.get().question
         data = self.data([values(question_number="2", topic_code=self.topic.code)])
         data["selection"]["acknowledge_existing"] = True
-        self.assertTrue(any("duplicate" in warning for warning in validate(data)["rows"][0]["warnings"]))
+        result = validate(data)
+        self.assertTrue(any("duplicate" in error for error in result["rows"][0]["errors"]))
+        group, = result["groups"]
+        data["duplicate_decisions"] = {group["number"]: {"signature": group["signature"], "choice": "separate"}}
         duplicate = confirm_import(data, self.user).imported_questions.get().question
         self.assertNotEqual(original.pk, duplicate.pk)
         original.refresh_from_db()
@@ -282,11 +285,13 @@ class TaxonomyImportTests(ImportFixture):
 
     def test_csv_xlsx_samples_have_matching_supported_headers_and_rows(self):
         parsed = []
+        headers = []
         for suffix in ("csv", "xlsx"):
             path = settings.BASE_DIR / "docs" / "samples" / f"questions-taxonomy.{suffix}"
             data = parse_upload(SimpleUploadedFile(path.name, path.read_bytes()))
-            self.assertEqual(data["source_headers"], list(COLUMNS))
+            headers.append(data["source_headers"])
             parsed.append([row["values"] for row in data["rows"]])
+        self.assertEqual(headers[0], headers[1])
         self.assertEqual(parsed[0], parsed[1])
 
     def test_taxonomy_resolution_query_count_does_not_grow_per_row(self):

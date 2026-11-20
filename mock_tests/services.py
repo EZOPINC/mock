@@ -1,13 +1,15 @@
 """Pattern validation, distinct question selection and atomic attempt creation."""
 from collections import Counter, deque
+from copy import deepcopy
 from decimal import Decimal
 from secrets import SystemRandom
 
 from django.core.exceptions import ValidationError
 from django.db import transaction
 
-from .models import AttemptQuestion, ExamPattern, MockAttempt
+from .models import AttemptQuestion, ExamPattern, MockAttempt, MockSet, MockSetQuestion
 from .execution import refresh_attempt
+from .languages import default_reading_language, reading_language_options, validate_default_reading_language
 from .rules import eligible_for_rule, rule_snapshot, section_rules, selection_tasks, validate_rule_layout
 
 
@@ -118,11 +120,15 @@ def validate_configuration(pattern, sections=None, *, check_availability=True):
 def activate_pattern(pattern):
     from exams.models import Exam
     exam_id = ExamPattern.objects.values_list("exam_id", flat=True).get(pk=pattern.pk)
-    Exam.objects.select_for_update().get(pk=exam_id)
+    Exam.objects.select_for_update(no_key=True).get(pk=exam_id)
     pattern = ExamPattern.objects.select_for_update().get(pk=pattern.pk)
-    validate_configuration(pattern)
+    sections = validate_configuration(pattern)
+    validate_default_reading_language(pattern.exam, sections)
     if ExamPattern.objects.filter(exam_id=pattern.exam_id, stage_id=pattern.stage_id, status="active").exclude(pk=pattern.pk).exists():
         raise ValidationError("Deactivate the existing active pattern for this exam/stage first.")
+    if pattern.is_free_demo:
+        _check_demo_designation(pattern)
+        _freeze_set(pattern)
     pattern.status = ExamPattern.Status.ACTIVE
     pattern.save(_transition=True)
     return pattern
@@ -132,7 +138,7 @@ def activate_pattern(pattern):
 def deactivate_pattern(pattern):
     from exams.models import Exam
     exam_id = ExamPattern.objects.values_list("exam_id", flat=True).get(pk=pattern.pk)
-    Exam.objects.select_for_update().get(pk=exam_id)
+    Exam.objects.select_for_update(no_key=True).get(pk=exam_id)
     pattern = ExamPattern.objects.select_for_update().get(pk=pattern.pk)
     pattern.status = ExamPattern.Status.INACTIVE
     pattern.save(_transition=True)
@@ -146,7 +152,9 @@ def available_patterns(**filters):
     result = []
     for pattern in candidates:
         try:
-            validate_configuration(pattern)
+            validate_configuration(pattern, check_availability=not pattern.is_free_demo)
+            if pattern.is_free_demo:
+                _frozen_rows(pattern, lock=False)
         except ValidationError:
             continue
         result.append(pattern)
@@ -191,14 +199,122 @@ def _configuration_snapshot(pattern, sections):
     }
 
 
+def _check_demo_designation(pattern):
+    if ExamPattern.objects.filter(exam_id=pattern.exam_id, is_free_demo=True, status="active").exclude(pk=pattern.pk).exists():
+        raise ValidationError("Retire the existing active Free Demo for this exam before publishing another.")
+
+
 @transaction.atomic
-def start_attempt(user, pattern, *, language="both"):
+def publish_free_demo(pattern):
+    """Designate and activate a fixed publication, including an existing pattern."""
+    from exams.models import Exam
+    exam_id = ExamPattern.objects.values_list("exam_id", flat=True).get(pk=pattern.pk)
+    Exam.objects.select_for_update(no_key=True).get(pk=exam_id)
+    pattern = ExamPattern.objects.select_for_update().get(pk=pattern.pk)
+    _check_demo_designation(pattern)
+    sections = validate_configuration(pattern, check_availability=False)
+    validate_default_reading_language(pattern.exam, sections)
+    _freeze_set(pattern)
+    pattern.is_free_demo = True
+    pattern.save(_transition=True)
+    return pattern if pattern.is_active else activate_pattern(pattern)
+
+
+@transaction.atomic
+def retire_free_demo(pattern):
+    """Remove the designation, retaining its publication and all attempts."""
+    from exams.models import Exam
+    exam_id = ExamPattern.objects.values_list("exam_id", flat=True).get(pk=pattern.pk)
+    Exam.objects.select_for_update(no_key=True).get(pk=exam_id)
+    pattern = ExamPattern.objects.select_for_update().get(pk=pattern.pk)
+    pattern.is_free_demo = False
+    pattern.save(_transition=True)
+    return pattern
+
+
+def _select_locked_questions(pattern, sections):
+    """Existing selector and eligibility locks, shared by publication and Premium."""
+    from questions.models import Question, QuestionExam, QuestionTopic
+    from exams.models import Topic
+    candidate_ids = set().union(*(eligible_question_ids(section) for section in sections))
+    list(Question.objects.select_for_update().filter(pk__in=candidate_ids).order_by("pk").values_list("pk", flat=True))
+    list(Topic.objects.select_for_update().filter(pk__in=QuestionTopic.objects.filter(
+        question_id__in=candidate_ids).values("topic_id")).order_by("pk").values_list("pk", flat=True))
+    list(QuestionExam.objects.select_for_update().filter(question_id__in=candidate_ids,
+        exam_id=pattern.exam_id).order_by("pk").values_list("pk", flat=True))
+    pools = [eligible_question_ids(section) & candidate_ids for section in sections]
+    selection = select_questions(sections, pools=pools)
+    selected_ids = set().union(*selection)
+    questions = {item.pk: item for item in Question.objects.filter(pk__in=selected_ids).select_related("published_revision")}
+    return selection, questions
+
+
+def _selected_rows(pattern, sections, selection, questions):
+    rows = []
+    for section, ids in zip(sections, selection):
+        for pk in ids:
+            question = questions[pk]
+            rows.append(dict(section=section, question=question, question_revision=question.published_revision,
+                display_order=len(rows) + 1,
+                positive_marks=section.positive_marks if section.positive_marks is not None else pattern.default_positive_marks,
+                negative_marks=section.negative_marks if section.negative_marks is not None else pattern.default_negative_marks))
+    return rows
+
+
+def frozen_set_has_stale_questions(pattern):
+    from questions.eligibility import current_for_selection
+    from questions.models import Question
+
+    frozen_ids = MockSetQuestion.objects.filter(mock_set__pattern=pattern).order_by().values("question_id")
+    frozen = Question.objects.filter(pk__in=frozen_ids)
+    return frozen.exclude(current_for_selection()).exists()
+
+
+def _freeze_set(pattern):
+    existing = MockSet.objects.filter(pattern=pattern).first()
+    if existing:
+        if frozen_set_has_stale_questions(pattern):
+            raise ValidationError("This frozen set has expired or undated questions. Retire it and publish a new pattern.")
+        return existing
+    sections = list(pattern.sections.select_for_update(of=("self",)).select_related("subject", "topic").order_by("display_order", "pk"))
+    validate_configuration(pattern, sections, check_availability=False)
+    selection, questions = _select_locked_questions(pattern, sections)
+    rows = _selected_rows(pattern, sections, selection, questions)
+    if len(rows) != pattern.total_questions:
+        raise ValidationError("The shared question set is incomplete. No demo was published.")
+    mock_set = MockSet(pattern=pattern, configuration=_configuration_snapshot(pattern, sections))
+    mock_set.save(_publication=True)
+    for values in rows:
+        MockSetQuestion(mock_set=mock_set, **values).save(_publication=True)
+    return mock_set
+
+
+def _frozen_rows(pattern, *, lock=True):
+    from questions.models import Question, QuestionExam
+    from questions.eligibility import eligible_question_ids as published_eligible_ids
+    mock_set = MockSet.objects.filter(pattern=pattern).first()
+    if mock_set is None:
+        raise ValidationError("Publish the shared Free Demo before starting it.")
+    rows = list(mock_set.questions.select_related("section", "question", "question_revision"))
+    ids = {row.question_id for row in rows}
+    if lock:
+        list(Question.objects.select_for_update().filter(pk__in=ids).order_by("pk").values_list("pk", flat=True))
+        list(QuestionExam.objects.select_for_update().filter(question_id__in=ids, exam_id=pattern.exam_id).order_by("pk").values_list("pk", flat=True))
+    if len(rows) != mock_set.configuration["total_questions"] or ids != published_eligible_ids(pattern.exam_id, question_ids=ids):
+        raise ValidationError("The published Free Demo is currently unavailable. Please contact the administrator.")
+    # Eligibility is rechecked against current publication/membership; actual
+    # content remains bound to the previously approved frozen revisions.
+    return mock_set, [dict(section=row.section, question=row.question, question_revision=row.question_revision,
+        display_order=row.display_order, positive_marks=row.positive_marks, negative_marks=row.negative_marks) for row in rows]
+
+
+@transaction.atomic
+def start_attempt(user, pattern, *, language=None):
     from django.contrib.auth import get_user_model
     from django.utils import timezone
-    from questions.models import Question
     if not user.is_authenticated or not user.is_active:
         raise ValidationError("An active authenticated account is required.")
-    if language not in {"en", "bn", "both"}:
+    if language not in {None, "", "en", "bn", "both"}:
         raise ValidationError("Choose English, Bengali or Both.")
     # Serialize repeated starts, including requests from separate tabs/devices.
     get_user_model().objects.select_for_update().get(pk=user.pk)
@@ -209,44 +325,35 @@ def start_attempt(user, pattern, *, language="both"):
     pattern = ExamPattern.objects.select_for_update().get(pk=pattern.pk)
     if not pattern.is_active:
         raise ValidationError("This test is no longer available.")
+    from billing.usage import reserve_mock
+    is_free = reserve_mock(user, pattern)
     sections = list(pattern.sections.select_for_update(of=("self",)).select_related("subject", "topic").order_by("display_order", "pk"))
     validate_configuration(pattern, sections, check_availability=False)
-    # Lock candidate masters before rechecking publication pointers and eligibility.
-    candidate_ids = set().union(*(eligible_question_ids(section) for section in sections))
-    list(Question.objects.select_for_update().filter(pk__in=candidate_ids).order_by("pk").values_list("pk", flat=True))
-    # Freeze eligibility relationships during the final recheck/assembly as well.
-    from exams.models import Topic
-    from questions.models import QuestionExam, QuestionTopic
-    list(Topic.objects.select_for_update().filter(pk__in=QuestionTopic.objects.filter(
-        question_id__in=candidate_ids).values("topic_id")).order_by("pk").values_list("pk", flat=True))
-    list(QuestionExam.objects.select_for_update().filter(question_id__in=candidate_ids,
-        exam_id=pattern.exam_id).order_by("pk").values_list("pk", flat=True))
-    # Restrict rechecked pools to locked masters, excluding newly published rows.
-    pools = [eligible_question_ids(section) & candidate_ids for section in sections]
-    selection = select_questions(sections, pools=pools)
-    selected_ids = set().union(*selection)
-    questions = {item.pk: item for item in Question.objects.filter(pk__in=selected_ids).select_related("published_revision")}
+    options = reading_language_options(sections)
+    language = language or default_reading_language(pattern.exam, options)
+    if language != "both" and all(code != language for code, _ in options):
+        raise ValidationError("This language is unavailable across all sections of this mock.")
+    mock_set = None
+    if is_free:
+        mock_set, rows = _frozen_rows(pattern)
+        configuration = deepcopy(mock_set.configuration)
+    else:
+        selection, questions = _select_locked_questions(pattern, sections)
+        rows = _selected_rows(pattern, sections, selection, questions)
+        configuration = _configuration_snapshot(pattern, sections)
     if language in {"en", "bn"}:
         from questions.models import QuestionTranslation
         translated = set(QuestionTranslation.objects.filter(
-            revision_id__in=[item.published_revision_id for item in questions.values()], language=language
+            revision_id__in=[row["question_revision"].pk for row in rows], language=language
         ).values_list("question_id", flat=True))
-        if not selected_ids <= translated:
+        if not {row["question"].pk for row in rows} <= translated:
             raise ValidationError("This test does not have every question in the selected language. Choose another language or contact the administrator.")
-    configuration = _configuration_snapshot(pattern, sections)
     configuration["language"] = language
-    attempt = MockAttempt(user=user, pattern=pattern, configuration=configuration)
+    attempt = MockAttempt(user=user, pattern=pattern, mock_set=mock_set, configuration=configuration)
     attempt.save(_assembly=True)
-    order = 0
-    for section, ids in zip(sections, selection):
-        for pk in ids:
-            order += 1
-            question = questions[pk]
-            AttemptQuestion(attempt=attempt, section=section, question=question,
-                question_revision=question.published_revision, display_order=order,
-                positive_marks=section.positive_marks if section.positive_marks is not None else pattern.default_positive_marks,
-                negative_marks=section.negative_marks if section.negative_marks is not None else pattern.default_negative_marks).save(_assembly=True)
-    if order != pattern.total_questions:
+    for values in rows:
+        AttemptQuestion(attempt=attempt, **values).save(_assembly=True)
+    if len(rows) != pattern.total_questions:
         raise ValidationError("The question set is incomplete. No attempt was created.")
     attempt.status = MockAttempt.Status.IN_PROGRESS
     attempt.started_at = timezone.now()

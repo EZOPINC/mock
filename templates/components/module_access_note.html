@@ -1,0 +1,10 @@
+<aside class="module-access-note" aria-label="Free and Premium access">
+  {% include "components/icon.html" with name="info" %}
+  <div><strong>Start Free. Explore more with Premium.</strong>
+    <p>On Free, your first Mock or Practice start selects your one exam.
+      {% if module_kind == "practice" %}New Practice questions are allocated in batches of up to {{ free_session_size }}, within your remaining lifetime allowance. Revisiting allocated questions uses no extra allowance.
+      {% else %}Retake that exam's shared Free Demo without limits.{% endif %}
+      Premium gives access to all supported exams and available Mock and Practice sets. Previous-Year Papers remain free and unlimited.</p>
+    <a href="{% url 'billing:pricing' %}">Compare Free and Premium {% include "components/icon.html" with name="arrow" %}</a>
+  </div>
+</aside>

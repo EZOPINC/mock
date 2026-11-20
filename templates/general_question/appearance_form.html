@@ -1,0 +1,14 @@
+{% extends "imports/base.html" %}
+{% block title %}Exam appearance for question {{ question.pk }}{% endblock %}
+{% block import_content %}
+  <h1>{% if appearance.pk %}Edit exam appearance{% else %}Add exam appearance{% endif %}</h1>
+  <p>Question {{ question.pk }}. Select a catalogue exam when available, or enter its name and issuing authority.</p>
+  <form method="post" class="workspace-panel">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <div class="button-row">
+      <button type="submit">Save appearance</button>
+      <a href="{{ back }}" class="button button-secondary">Back to question</a>
+    </div>
+  </form>
+{% endblock %}

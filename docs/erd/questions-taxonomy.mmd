@@ -5,6 +5,7 @@ erDiagram
         character_varying_50_ code UK "NOT_NULL"
         character_varying_200_ slug UK "NOT_NULL"
         integer display_order "NOT_NULL"
+        smallint question_freshness_years "NULL"
     }
     exams_part {
         bigint id PK "NOT_NULL"
@@ -66,9 +67,11 @@ erDiagram
         bigint id PK "NOT_NULL"
         bigint authority_id FK "NOT_NULL"
         character_varying_200_ name "NOT_NULL"
+        text description "NOT_NULL"
         character_varying_50_ code "NOT_NULL"
         character_varying_200_ slug "NOT_NULL"
         boolean is_active "NOT_NULL"
+        character_varying_2_ default_mock_language "NOT_NULL"
     }
     exams_examstage {
         bigint id PK "NOT_NULL"

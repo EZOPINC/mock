@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db.models import Case, IntegerField, Prefetch, Value, When
 from uuid import UUID
@@ -114,11 +115,13 @@ def difficulty(request, authority_slug, exam_slug, subject_slug, module_id=None)
         else:
             return redirect("practice:session", session_id=session.pk)
     return render(request, "practice/difficulty.html", {"exam": exam, "subject": subject,
-        "module": module, "form": form, "available_count": sum(map(len, pools.values()))},
+        "module": module, "form": form, "available_count": sum(map(len, pools.values())),
+        "free_session_size": settings.PRACTICE_FREE_SESSION_SIZE},
         status=400 if request.method == "POST" and form.errors else 200)
 
 
 def question_context(session, row, *, translations=None, language="both"):
+    from previous_year.appearances import practice_appearances
     if session.kind == "practice":
         language = session.configuration.get("language", language)
     translations = translations if translations is not None else QuestionTranslation.objects.annotate(_order=Case(When(language="en", then=Value(0)),
@@ -130,7 +133,9 @@ def question_context(session, row, *, translations=None, language="both"):
         Prefetch("question_revision__translations", queryset=translations)).get(pk=row.pk, session=session)
     rows = list(session.questions.all())
     attach_saved_state(session.user_id, [row])
+    appearances = practice_appearances(row.question_id, session.user_id, answered=bool(row.selected_answer)) if session.kind == "practice" else []
     return {"session": session, "row": row, "rows": rows, "progress": progress(rows), "options": "ABCD",
+            "appearances": appearances,
             "answer_url": reverse("practice:answer", args=[session.pk, row.pk])}
 
 

@@ -1,6 +1,6 @@
-{% extends "base.html" %}
+{% extends "imports/base.html" %}
 {% block body_class %} exam-paper-page{% endblock %}{% block title %}General Collection {{ batch.pk }} | Mock Exam Platform{% endblock %}
-{% block content %}<div class="ui-paper-reader exam-paper-reader general-reader">{% load static %}<script src="{% static 'js/paper-reader.js' %}" defer></script>
+{% block import_content %}<div class="ui-paper-reader exam-paper-reader general-reader">{% load static %}<script src="{% static 'js/paper-reader.js' %}" defer></script>
 <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="{% url 'home' %}">Home</a><span>/</span><a href="{% url 'general_questions:index' %}">General Questions</a><span>/</span><span aria-current="page">Collection #{{ batch.pk }}</span></nav>
 <h1>General Questions — Collection #{{ batch.pk }}</h1>
 {% include "general_question/filters.html" %}

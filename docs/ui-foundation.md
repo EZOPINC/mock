@@ -47,9 +47,9 @@ No build/install command was run as part of this documentation cleanup.
 | Revision Bank | Owner-scoped filters, notes/mastery, saved-state management and Start Revision/history |
 | Revision session | Shared Practice markup/engine; AJAX feedback and native form fallback |
 | Topic discovery | Existing protected routes/templates remain; per-question Explore Topic controls were removed |
-| Staff ingestion/review | Custom import and General collection screens reuse established form/workflow permissions |
+| Staff ingestion/review | The standalone [question workspace](question-workspace.md) has its own shell and scoped layout. It uses the existing import and editorial permissions. |
 
-Question content/options/explanations render through templates/questions/translations.html.
+Shared question readers use templates/questions/reading_question.html and the revision's language editions.
 Avoid language-specific duplicate master controls. Responsive layouts must retain readable
 English/Bengali text, option order, progress, focus indicators and navigation.
 

@@ -10,8 +10,11 @@ from django.db import IntegrityError, close_old_connections, connection, transac
 from django.http import Http404
 from django.test import Client, TestCase, TransactionTestCase
 from django.urls import reverse
+from django.utils import timezone
 
 from exams.models import Exam, ExamAuthority, Subject, Topic
+from previous_year.models import PaperQuestion, PreviousYearPaper, QuestionAppearance
+from previous_year.services import publish_paper
 from questions.eligibility import eligible_question_ids
 from questions.models import Question, QuestionExam
 from questions.services import add_translation, create_question, create_revision, mark_reviewed, publish_question
@@ -54,6 +57,27 @@ class PracticeFixture(TestCase):
 
 
 class PracticeServiceTests(PracticeFixture):
+    def test_freshness_excludes_expired_and_undated_questions_only_for_enabled_subjects(self):
+        undated = self.question()
+        self.subject.question_freshness_years = 2
+        self.subject.save(update_fields=["question_freshness_years"])
+        current = self.question()
+        expired = self.question()
+        ordinary = self.question(subject=self.other_subject)
+        today = timezone.localdate()
+        for question in (expired, ordinary):
+            question.current_as_of = None
+            question.expires_on = today
+            question.save(update_fields=["current_as_of", "expires_on"])
+        self.assertEqual(eligible_question_ids(self.exam.pk), {current.pk, ordinary.pk})
+        self.assertNotIn(undated.pk, eligible_question_ids(self.exam.pk))
+        session = self.session()
+        self.assertEqual(session.questions.get().question_id, current.pk)
+        with patch("questions.eligibility.timezone.localdate", return_value=current.expires_on):
+            self.assertEqual(self.session(token=session.start_token).pk, session.pk)
+            with self.assertRaisesMessage(ValidationError, "Insufficient eligible questions"):
+                self.session()
+
     def test_completion_failure_rolls_back_answer_and_feedback(self):
         self.question()
         session = self.session()
@@ -237,7 +261,7 @@ class PracticeServiceTests(PracticeFixture):
         question = self.question()
         paper = PreviousYearPaper.objects.create(exam=self.exam, year=2019, paper_name="Original")
         paper_row = PaperQuestion.objects.create(paper=paper, question_revision=question.published_revision, question_number="40", display_order=1)
-        pattern = ExamPattern.objects.create(exam=self.exam, name="Mock", total_questions=1, duration_minutes=30, total_marks=1)
+        pattern = ExamPattern.objects.create(exam=self.exam, name="Mock", total_questions=1, duration_minutes=30, total_marks=1, is_free_demo=True)
         ExamPatternSection.objects.create(pattern=pattern, name="Section", question_count=1, display_order=1, language_mode="en")
         activate_pattern(pattern)
         attempt = start_attempt(self.user, pattern)
@@ -250,6 +274,31 @@ class PracticeServiceTests(PracticeFixture):
 
 
 class PracticeViewTests(PracticeFixture):
+    def test_exam_appearances_display_verified_metadata_and_unlock_paper_link_after_answer(self):
+        question = self.question()
+        paper = PreviousYearPaper.objects.create(exam=self.exam, year=2021, paper_name="Preliminary")
+        paper_row = PaperQuestion.objects.create(
+            paper=paper, question_revision=question.published_revision, question_number="1", display_order=1,
+        )
+        publish_paper(paper)
+        verified = {"verified_by": self.user, "verified_at": timezone.now()}
+        QuestionAppearance.objects.create(question=question, exam=self.exam, year=2021, **verified)
+        QuestionAppearance.objects.create(question=question, exam_name="SSC", year=2016, **verified)
+        QuestionAppearance.objects.create(question=question, exam_name="Pending example", year=2014)
+        session = self.session()
+        self.client.force_login(self.user)
+        paper_url = reverse("previous_year:paper_detail", args=[self.authority.slug, self.exam.slug, 2021, paper.pk])
+        link = f"{paper_url}#question-{paper_row.pk}"
+
+        response = self.client.get(self.session_url(session))
+        self.assertContains(response, "Exam 2021", count=1)
+        self.assertContains(response, "SSC 2016")
+        self.assertNotContains(response, "Pending example")
+        self.assertNotContains(response, link)
+
+        submit_answer(self.user, session.pk, session.questions.get().pk, "A")
+        self.assertContains(self.client.get(self.session_url(session)), link)
+
     def test_embedded_bilingual_options_submit_and_lock(self):
         question = self.question()
         add_translation(question, language="bn", question_text="Bengali version", option_a="BN first", option_b="BN second", option_c="BN third", option_d="BN fourth", explanation="BN feedback")
@@ -397,6 +446,8 @@ class PracticeViewTests(PracticeFixture):
 
 class ConcurrentPracticeTests(TransactionTestCase):
     def setUp(self):
+        from billing.test_usage import free_configuration
+        free_configuration()
         PracticeFixture.setUpTestData.__func__(type(self))
         PracticeFixture.question(self)
 

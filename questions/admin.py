@@ -1,13 +1,16 @@
+from datetime import timedelta
+
 from django.contrib import admin, messages
 from django.core.exceptions import PermissionDenied, ValidationError
 from django.http import Http404
 from django.shortcuts import redirect, render
 from django.urls import path, reverse
+from django.utils import timezone
 
 from . import services
 from .tagging import set_question_topics
 from .forms import CONTENT_FIELDS, NewQuestionAdminForm, QuestionAdminForm, RevisionForm, TranslationForm
-from .models import Question, QuestionExam, QuestionRevision, QuestionSource, QuestionSourceReference, QuestionTranslation
+from .models import Question, QuestionExam, QuestionKind, QuestionRevision, QuestionSource, QuestionSourceReference, QuestionTranslation, TRANSLATED_FIELDS
 
 
 def label_parent_paths(model):
@@ -62,11 +65,19 @@ class QuestionSourceReferenceInline(admin.TabularInline):
 class RevisionInline(admin.TabularInline):
     model = QuestionRevision
     fk_name = "question"
-    fields = ("revision_number", "language", "question_text", "published_at")
+    fields = ("revision_number", "language", "primary_text", "published_at")
     readonly_fields = fields
     extra = 0
     can_delete = False
     show_change_link = True
+
+    def get_queryset(self, request):
+        return super().get_queryset(request).prefetch_related("translations")
+
+    @admin.display(description="Question text")
+    def primary_text(self, revision):
+        edition = revision.primary_translation
+        return edition.question_text if edition else ""
 
     def has_add_permission(self, request, obj=None):
         return False
@@ -98,19 +109,42 @@ class QuestionTranslationInline(TranslationInline):
     ordering = ("-revision__revision_number", "language")
 
 
+class QuestionExpiryFilter(admin.SimpleListFilter):
+    title = "Selection expiry"
+    parameter_name = "selection_expiry"
+
+    def lookups(self, request, model_admin):
+        return (
+            ("current", "Current"), ("soon", "Expiring within 30 days"),
+            ("expired", "Expired"), ("missing", "Missing expiry"),
+        )
+
+    def queryset(self, request, queryset):
+        today = timezone.localdate()
+        conditions = {
+            "current": {"expires_on__gt": today},
+            "soon": {"expires_on__gt": today, "expires_on__lte": today + timedelta(days=30)},
+            "expired": {"expires_on__lte": today},
+            "missing": {"expires_on__isnull": True},
+        }
+        if self.value() in conditions:
+            return queryset.filter(subject__question_freshness_years__isnull=False, **conditions[self.value()])
+        return queryset
+
+
 @admin.register(Question)
 class QuestionAdmin(admin.ModelAdmin):
     form = QuestionAdminForm
     change_form_template = "admin/questions/question/change_form.html"
     change_list_template = "admin/questions/question/change_list.html"
     list_display = ("id", "subject", "topic", "language",
-                    "publication_status", "review_status", "revision_number")
+                    "question_kind", "expires_on", "publication_status", "review_status", "revision_number")
     list_filter = (
         *((field, LabelLoadedRelatedFilter) for field in (
             "subject", "topic__chapter__module__part", "topic__chapter__module", "topic__chapter__submodule",
             "topic__chapter", "topic")),
         ("topic_associations__topic", LabelLoadedRelatedOnlyFilter),
-        "current_revision__translations__language", "review_status", "publication_status",
+        "current_revision__translations__language", "question_kind", QuestionExpiryFilter, "review_status", "publication_status",
         ("exam_associations__exam", LabelLoadedRelatedFilter),
     )
     search_fields = ("current_revision__translations__question_text", "published_revision__translations__question_text", "source_question_id",
@@ -121,7 +155,7 @@ class QuestionAdmin(admin.ModelAdmin):
         "topic__" + path for path in label_parent_paths(Question._meta.get_field("topic").remote_field.model)))
     inlines = (RevisionInline, QuestionExamInline,
                QuestionSourceReferenceInline, QuestionTranslationInline)
-    actions = ("review_questions", "publish_questions")
+    actions = ("review_questions", "publish_questions", "classify_logical", "classify_static", "fill_missing_expiry")
 
     class Media:
         js = ("js/admin-question-topics.js",)
@@ -164,11 +198,38 @@ class QuestionAdmin(admin.ModelAdmin):
                 revision={field: form.cleaned_data[field]
                           for field in CONTENT_FIELDS},
                 difficulty_level=form.cleaned_data.get("difficulty_level", ""),
+                question_kind=obj.question_kind, current_as_of=obj.current_as_of, expires_on=obj.expires_on,
             )
             obj.__dict__.update(question.__dict__)
 
     def has_delete_permission(self, request, obj=None):
         return False
+
+    @admin.action(description="Set missing expiry from current-as-of or question creation date", permissions=["change"])
+    def fill_missing_expiry(self, request, queryset):
+        questions = queryset.filter(expires_on__isnull=True, subject__question_freshness_years__isnull=False)
+        count = 0
+        for question in questions.select_related(None).prefetch_related(None).iterator():
+            if self.has_change_permission(request, question):
+                count += services.set_missing_expiry(question)
+        self.message_user(request, f"Set expiry for {count} questions.", messages.SUCCESS)
+
+    @admin.action(description="Classify as Logical", permissions=["change"])
+    def classify_logical(self, request, queryset):
+        self._classify(request, queryset, QuestionKind.LOGICAL)
+
+    @admin.action(description="Classify as Static", permissions=["change"])
+    def classify_static(self, request, queryset):
+        self._classify(request, queryset, QuestionKind.STATIC)
+
+    def _classify(self, request, queryset, kind):
+        count = 0
+        for question in queryset.select_related(None).prefetch_related(None).iterator():
+            if not self.has_change_permission(request, question):
+                raise PermissionDenied
+            services.set_question_kind(question, kind)
+            count += 1
+        self.message_user(request, f"Classified {count} questions as {kind.label}.", messages.SUCCESS)
 
     @admin.action(description="Mark working revisions as reviewed", permissions=["change"])
     def review_questions(self, request, queryset):
@@ -224,10 +285,13 @@ class QuestionAdmin(admin.ModelAdmin):
             raise Http404
         if not self.has_change_permission(request, obj):
             raise PermissionDenied
-        initial = {field: getattr(obj.current_revision, field)
-                   for field in CONTENT_FIELDS} if obj.current_revision_id else {}
+        initial = {}
         if obj.current_revision_id:
-            initial["difficulty_level"] = obj.current_revision.difficulty_level
+            revision = obj.current_revision
+            initial.update(language=revision.language, correct_answer=revision.correct_answer,
+                           difficulty_level=revision.difficulty_level)
+            if edition := revision.primary_translation:
+                initial.update({field: getattr(edition, field) for field in TRANSLATED_FIELDS})
         form = RevisionForm(request.POST if request.method ==
                             "POST" else None, initial=initial)
         if request.method == "POST" and form.is_valid():
@@ -250,9 +314,9 @@ class QuestionAdmin(admin.ModelAdmin):
 class QuestionRevisionAdmin(admin.ModelAdmin):
     list_display = ("question", "revision_number", "language", "published_at")
     list_filter = ("language",)
-    search_fields = ("question_text",)
-    readonly_fields = tuple(
-        field.name for field in QuestionRevision._meta.fields)
+    search_fields = ("translations__question_text",)
+    fields = ("question", "revision_number", "language", "correct_answer", "difficulty_level", "created_at", "published_at")
+    readonly_fields = fields
     inlines = (TranslationInline,)
 
     def has_add_permission(self, request):
@@ -267,8 +331,8 @@ class QuestionRevisionAdmin(admin.ModelAdmin):
 
 @admin.register(QuestionSource)
 class QuestionSourceAdmin(admin.ModelAdmin):
-    list_display = ("source_name", "source_document", "created_at")
-    search_fields = ("source_name", "source_document")
+    list_display = ("source_code", "source_name", "source_document", "publisher", "created_at")
+    search_fields = ("source_code", "source_name", "source_document", "publisher")
     readonly_fields = ("created_at",)
 
 
@@ -283,7 +347,7 @@ class QuestionExamAdmin(admin.ModelAdmin):
 class QuestionSourceReferenceAdmin(admin.ModelAdmin):
     list_display = ("question", "source", "source_page",
                     "source_question_number")
-    search_fields = ("source__source_name",
+    search_fields = ("source__source_code", "source__source_name",
                      "source__source_document", "source_question_number")
     autocomplete_fields = ("question", "source")
 

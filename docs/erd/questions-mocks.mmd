@@ -1,0 +1,191 @@
+erDiagram
+    questions_question {
+        bigint id PK "NOT_NULL"
+        character_varying_200_ source_question_id "NULL"
+        bigint subject_id FK "NOT_NULL"
+        bigint topic_id FK "NULL"
+        character_varying_12_ publication_status "NOT_NULL"
+        character_varying_14_ review_status "NOT_NULL"
+        character_varying_1_ correct_answer "NOT_NULL"
+        character_varying_100_ difficulty_level "NOT_NULL"
+        character_varying_12_ question_kind "NOT_NULL"
+        date current_as_of "NULL"
+        date expires_on "NULL"
+        bigint current_revision_id FK "NULL"
+        bigint published_revision_id FK "NULL"
+        timestamp_with_time_zone created_at "NOT_NULL"
+        timestamp_with_time_zone updated_at "NOT_NULL"
+    }
+    questions_questionrevision {
+        bigint id PK "NOT_NULL"
+        bigint question_id FK "NOT_NULL"
+        integer revision_number "NOT_NULL"
+        character_varying_35_ language "NOT_NULL"
+        character_varying_1_ correct_answer "NOT_NULL"
+        character_varying_100_ difficulty_level "NOT_NULL"
+        timestamp_with_time_zone created_at "NOT_NULL"
+        timestamp_with_time_zone published_at "NULL"
+    }
+    exams_exam {
+        bigint id PK "NOT_NULL"
+        bigint authority_id FK "NOT_NULL"
+        character_varying_200_ name "NOT_NULL"
+        text description "NOT_NULL"
+        character_varying_50_ code "NOT_NULL"
+        character_varying_200_ slug "NOT_NULL"
+        boolean is_active "NOT_NULL"
+        character_varying_2_ default_mock_language "NOT_NULL"
+    }
+    mock_tests_attemptquestion {
+        bigint id PK "NOT_NULL"
+        bigint attempt_id FK "NOT_NULL"
+        bigint section_id FK "NOT_NULL"
+        bigint question_id FK "NOT_NULL"
+        bigint question_revision_id FK "NOT_NULL"
+        integer display_order "NOT_NULL"
+        numeric_8_2_ positive_marks "NOT_NULL"
+        numeric_8_2_ negative_marks "NOT_NULL"
+        character_varying_1_ selected_answer "NOT_NULL"
+        boolean marked_for_review "NOT_NULL"
+        timestamp_with_time_zone answered_at "NULL"
+        numeric_10_2_ awarded_marks "NULL"
+    }
+    mock_tests_manualrulequestion {
+        bigint id PK "NOT_NULL"
+        bigint rule_id FK "NOT_NULL"
+        bigint question_id FK "NOT_NULL"
+        integer display_order "NOT_NULL"
+    }
+    mock_tests_mocksetquestion {
+        bigint id PK "NOT_NULL"
+        bigint mock_set_id FK "NOT_NULL"
+        bigint section_id FK "NOT_NULL"
+        bigint question_id FK "NOT_NULL"
+        bigint question_revision_id FK "NOT_NULL"
+        integer display_order "NOT_NULL"
+        numeric_8_2_ positive_marks "NOT_NULL"
+        numeric_8_2_ negative_marks "NOT_NULL"
+    }
+    mock_tests_exampattern {
+        bigint id PK "NOT_NULL"
+        bigint exam_id FK "NOT_NULL"
+        bigint stage_id FK "NULL"
+        character_varying_200_ name "NOT_NULL"
+        integer version "NOT_NULL"
+        integer duration_minutes "NOT_NULL"
+        integer total_questions "NOT_NULL"
+        numeric_10_2_ total_marks "NOT_NULL"
+        numeric_8_2_ default_positive_marks "NOT_NULL"
+        numeric_8_2_ default_negative_marks "NOT_NULL"
+        character_varying_10_ status "NOT_NULL"
+        boolean is_free_demo "NOT_NULL"
+        timestamp_with_time_zone created_at "NOT_NULL"
+    }
+    mock_tests_exampatternsection {
+        bigint id PK "NOT_NULL"
+        bigint pattern_id FK "NOT_NULL"
+        character_varying_200_ name "NOT_NULL"
+        integer display_order "NOT_NULL"
+        integer question_count "NOT_NULL"
+        bigint subject_id FK "NULL"
+        bigint topic_id FK "NULL"
+        character_varying_5_ language_mode "NOT_NULL"
+        numeric_8_2_ positive_marks "NULL"
+        numeric_8_2_ negative_marks "NULL"
+    }
+    mock_tests_sectionselectionrule {
+        bigint id PK "NOT_NULL"
+        bigint section_id FK "NOT_NULL"
+        bigint subject_id FK "NULL"
+        bigint part_id FK "NULL"
+        bigint module_id FK "NULL"
+        bigint chapter_id FK "NULL"
+        bigint topic_id FK "NULL"
+        integer question_count "NOT_NULL"
+        character_varying_12_ difficulty "NOT_NULL"
+        character_varying_12_ question_kind "NOT_NULL"
+        character_varying_6_ selection_mode "NOT_NULL"
+        integer display_order "NOT_NULL"
+    }
+    mock_tests_mockset {
+        bigint id PK "NOT_NULL"
+        bigint pattern_id FK,UK "NOT_NULL"
+        jsonb configuration "NOT_NULL"
+        timestamp_with_time_zone published_at "NOT_NULL"
+    }
+    mock_tests_mockattempt {
+        bigint id PK "NOT_NULL"
+        bigint user_id FK "NOT_NULL"
+        bigint pattern_id FK "NOT_NULL"
+        bigint mock_set_id FK "NULL"
+        character_varying_15_ status "NOT_NULL"
+        timestamp_with_time_zone created_at "NOT_NULL"
+        timestamp_with_time_zone started_at "NULL"
+        jsonb configuration "NOT_NULL"
+        timestamp_with_time_zone expires_at "NULL"
+        timestamp_with_time_zone finalized_at "NULL"
+        integer last_position "NOT_NULL"
+        bigint save_version "NOT_NULL"
+        uuid last_save_token "NULL"
+        numeric_20_2_ total_score "NULL"
+        numeric_20_2_ maximum_score "NULL"
+        integer correct_count "NULL"
+        integer incorrect_count "NULL"
+        integer unanswered_count "NULL"
+        jsonb section_results "NOT_NULL"
+    }
+    accounts_user {
+        bigint id PK "BOUNDARY_ONLY"
+    }
+    exams_chapter {
+        bigint id PK "BOUNDARY_ONLY"
+    }
+    exams_examauthority {
+        bigint id PK "BOUNDARY_ONLY"
+    }
+    exams_examstage {
+        bigint id PK "BOUNDARY_ONLY"
+    }
+    exams_module {
+        bigint id PK "BOUNDARY_ONLY"
+    }
+    exams_part {
+        bigint id PK "BOUNDARY_ONLY"
+    }
+    exams_subject {
+        bigint id PK "BOUNDARY_ONLY"
+    }
+    exams_topic {
+        bigint id PK "BOUNDARY_ONLY"
+    }
+    exams_subject ||..o{ questions_question : "subject_id"
+    exams_topic o|..o{ questions_question : "topic_id"
+    questions_questionrevision o|..o{ questions_question : "current_revision_id"
+    questions_questionrevision o|..o{ questions_question : "published_revision_id"
+    questions_question ||..o{ questions_questionrevision : "question_id"
+    exams_examauthority ||..o{ exams_exam : "authority_id"
+    mock_tests_mockattempt ||..o{ mock_tests_attemptquestion : "attempt_id"
+    mock_tests_exampatternsection ||..o{ mock_tests_attemptquestion : "section_id"
+    questions_question ||..o{ mock_tests_attemptquestion : "question_id"
+    questions_questionrevision ||..o{ mock_tests_attemptquestion : "question_revision_id"
+    mock_tests_sectionselectionrule ||..o{ mock_tests_manualrulequestion : "rule_id"
+    questions_question ||..o{ mock_tests_manualrulequestion : "question_id"
+    mock_tests_mockset ||..o{ mock_tests_mocksetquestion : "mock_set_id"
+    mock_tests_exampatternsection ||..o{ mock_tests_mocksetquestion : "section_id"
+    questions_question ||..o{ mock_tests_mocksetquestion : "question_id"
+    questions_questionrevision ||..o{ mock_tests_mocksetquestion : "question_revision_id"
+    exams_exam ||..o{ mock_tests_exampattern : "exam_id"
+    exams_examstage o|..o{ mock_tests_exampattern : "stage_id"
+    mock_tests_exampattern ||..o{ mock_tests_exampatternsection : "pattern_id"
+    exams_subject o|..o{ mock_tests_exampatternsection : "subject_id"
+    exams_topic o|..o{ mock_tests_exampatternsection : "topic_id"
+    mock_tests_exampatternsection ||..o{ mock_tests_sectionselectionrule : "section_id"
+    exams_subject o|..o{ mock_tests_sectionselectionrule : "subject_id"
+    exams_part o|..o{ mock_tests_sectionselectionrule : "part_id"
+    exams_module o|..o{ mock_tests_sectionselectionrule : "module_id"
+    exams_chapter o|..o{ mock_tests_sectionselectionrule : "chapter_id"
+    exams_topic o|..o{ mock_tests_sectionselectionrule : "topic_id"
+    mock_tests_exampattern ||..o| mock_tests_mockset : "pattern_id"
+    accounts_user ||..o{ mock_tests_mockattempt : "user_id"
+    mock_tests_exampattern ||..o{ mock_tests_mockattempt : "pattern_id"
+    mock_tests_mockset o|..o{ mock_tests_mockattempt : "mock_set_id"
